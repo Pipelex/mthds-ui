@@ -22,6 +22,7 @@
   },
   "files": ["dist"],
   "scripts": {
+    "prepare": "tsup",
     "build": "tsup",
     "lint": "eslint src/",
     "format": "prettier --write \"src/**/*.ts\"",
