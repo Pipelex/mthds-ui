@@ -1,6 +1,6 @@
 # @pipelex/mthds-ui
 
-Utilities for visualizing and interacting with MTHDS methods. Provides graph types, builders, layout algorithms, and configuration — all as pure TypeScript with no React dependency.
+Utilities for visualizing and interacting with executable AI methods based on the MTHDS language. Provides graph types, builders, layout algorithms, and configuration — all as pure TypeScript with no React dependency.
 
 ## Install
 
