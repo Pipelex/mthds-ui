@@ -4,15 +4,15 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
   name: "pipelex-dark",
   type: "dark",
   colors: {
-    "editor.background": "#0d0b14",
-    "editor.foreground": "#e2e0e8",
+    "editor.background": "#1e1e1e",
+    "editor.foreground": "#d4d4d4",
   },
   settings: [
     // Default text
     {
       scope: [],
       settings: {
-        foreground: "#e2e0e8",
+        foreground: "#d4d4d4",
       },
     },
 
@@ -106,7 +106,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
       },
     },
 
-    // ── Yellow #F1FA8C (strings) ────────────────────────────
+    // ── Salmon #ce9178 (strings) ────────────────────────────
     {
       scope: [
         "string.quoted.triple.basic.block.mthds",
@@ -120,11 +120,11 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
         "string.quoted.html.mthds",
       ],
       settings: {
-        foreground: "#F1FA8C",
+        foreground: "#ce9178",
       },
     },
 
-    // ── Muted Blue #6272A4 italic (comments) ────────────────
+    // ── Green #6a9955 italic (comments) ─────────────────────
     {
       scope: [
         "comment",
@@ -133,58 +133,69 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
         "comment.block.html.mthds",
       ],
       settings: {
-        foreground: "#6272A4",
+        foreground: "#6a9955",
         fontStyle: "italic",
       },
     },
 
-    // ── Muted #8B95B0 italic (preprocessor directives) ─────
+    // ── Green #6a9955 italic (preprocessor directives) ──────
     {
       scope: ["meta.preprocessor.mthds"],
       settings: {
-        foreground: "#8B95B0",
+        foreground: "#6a9955",
         fontStyle: "italic",
       },
     },
 
-    // ── Purple #BD93F9 (generic property names, constants) ──
+    // ── Light Blue #9cdcfe (generic property names) ─────────
     {
-      scope: [
-        "support.type.property-name.mthds",
-        "constant.language.boolean.mthds",
-        "constant.numeric",
-        "constant.other.time",
-      ],
+      scope: ["support.type.property-name.mthds"],
       settings: {
-        foreground: "#BD93F9",
+        foreground: "#9cdcfe",
       },
     },
 
-    // ── Cyan #8BE9FD (table/array property names) ───────────
+    // ── Blue #569cd6 (booleans) ───────────────────────────
+    {
+      scope: ["constant.language.boolean.mthds"],
+      settings: {
+        foreground: "#569cd6",
+      },
+    },
+
+    // ── Light Green #b5cea8 (numbers) ─────────────────────
+    {
+      scope: ["constant.numeric", "constant.other.time"],
+      settings: {
+        foreground: "#b5cea8",
+      },
+    },
+
+    // ── Light Blue #9cdcfe (table/array property names) ──────
     {
       scope: ["support.type.property-name.table.mthds", "support.type.property-name.array.mthds"],
       settings: {
-        foreground: "#8BE9FD",
+        foreground: "#9cdcfe",
       },
     },
 
-    // ── Green #50FA7B (Jinja functions, HTML attributes) ────
+    // ── Yellow #dcdcaa (Jinja functions, HTML attributes) ────
     {
       scope: ["support.function.jinja.mthds", "entity.other.attribute-name.html.mthds"],
       settings: {
-        foreground: "#50FA7B",
+        foreground: "#dcdcaa",
       },
     },
 
-    // ── Light foreground #e2e0e8 (Jinja variables) ──────────
+    // ── Light Blue #9cdcfe (Jinja variables) ────────────────
     {
       scope: ["variable.other.jinja.mthds"],
       settings: {
-        foreground: "#e2e0e8",
+        foreground: "#9cdcfe",
       },
     },
 
-    // ── Muted punctuation #b0adc0 ──────────────────────────
+    // ── Standard foreground #d4d4d4 (punctuation) ───────────
     {
       scope: [
         "punctuation.definition.table.mthds",
@@ -199,7 +210,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
         "punctuation.definition.string.end.mthds",
       ],
       settings: {
-        foreground: "#b0adc0",
+        foreground: "#d4d4d4",
       },
     },
 

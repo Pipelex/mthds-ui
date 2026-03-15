@@ -14,9 +14,9 @@ describe("highlightMthds", () => {
     expect(html).toMatch(/color:#FF6B6B/i);
   });
 
-  it("highlights comments in muted blue", async () => {
+  it("highlights comments in green", async () => {
     const html = await highlightMthds("# comment");
-    expect(html).toMatch(/color:#6272A4/i);
+    expect(html).toMatch(/color:#6a9955/i);
   });
 
   it("highlights concept sections in teal", async () => {
@@ -24,9 +24,9 @@ describe("highlightMthds", () => {
     expect(html).toMatch(/color:#4ECDC4/i);
   });
 
-  it("highlights strings in yellow", async () => {
+  it("highlights strings in salmon", async () => {
     const html = await highlightMthds('description = "text"');
-    expect(html).toMatch(/color:#F1FA8C/i);
+    expect(html).toMatch(/color:#ce9178/i);
   });
 
   it("handles empty string input", async () => {
