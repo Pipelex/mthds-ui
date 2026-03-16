@@ -8,7 +8,7 @@
     "url": "https://github.com/pipelex/mthds-ui.git"
   },
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "engines": {
     "node": ">=18"
   },
@@ -19,6 +19,15 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./graph": {
+      "import": "./dist/graph/index.js",
+      "types": "./dist/graph/index.d.ts"
+    },
+    "./graph/react": {
+      "import": "./dist/graph/react/index.js",
+      "types": "./dist/graph/react/index.d.ts"
+    },
+    "./graph/react/graph-core.css": "./dist/graph/react/graph-core.css",
     "./shiki": {
       "import": "./dist/shiki/index.js",
       "types": "./dist/shiki/index.d.ts"
@@ -29,8 +38,8 @@
     "prepare": "tsup",
     "build": "tsup",
     "lint": "eslint src/",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -39,7 +48,10 @@
   "peerDependencies": {
     "dagre": "^0.8.5",
     "@types/dagre": "^0.7.54",
-    "shiki": "^3.22.0"
+    "shiki": "^3.22.0",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "@xyflow/react": "^12"
   },
   "peerDependenciesMeta": {
     "@types/dagre": {
@@ -47,13 +59,25 @@
     },
     "shiki": {
       "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "@xyflow/react": {
+      "optional": true
     }
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/dagre": "^0.7.54",
+    "@types/react": "^19",
+    "@xyflow/react": "^12",
     "eslint": "^9.39.4",
     "prettier": "^3.8.1",
+    "react": "^19",
     "shiki": "^3.22.0",
     "tsup": "^8.5.0",
     "typescript": "^5.4.5",

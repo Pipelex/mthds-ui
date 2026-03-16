@@ -106,25 +106,32 @@ export type LabelDescriptor =
       badge: string;
     };
 
+/**
+ * Data payload for graph nodes. Extends Record<string, unknown> so it can be
+ * used as the generic parameter for ReactFlow's Node<T> in the React layer
+ * (see graph/react/rfTypes.ts), while remaining React-free for pure graph logic.
+ */
+export interface GraphNodeData extends Record<string, unknown> {
+  labelDescriptor?: LabelDescriptor;
+  label?: unknown;
+  nodeData?: GraphSpecNode | ViewSpecNode;
+  isPipe: boolean;
+  isStuff: boolean;
+  isController?: boolean;
+  labelText: string;
+  pipeCode?: string;
+  pipeType?: string;
+}
+
 // ReactFlow node used in our graph
 export interface GraphNode {
   id: string;
   type: string;
-  data: {
-    labelDescriptor?: LabelDescriptor;
-    label?: unknown;
-    nodeData?: GraphSpecNode | ViewSpecNode;
-    isPipe: boolean;
-    isStuff: boolean;
-    isController?: boolean;
-    labelText: string;
-    pipeCode?: string;
-    pipeType?: string;
-  };
+  data: GraphNodeData;
   position: { x: number; y: number };
   style?: Record<string, string | number>;
   parentId?: string;
-  extent?: string;
+  extent?: "parent";
   selected?: boolean;
 }
 
