@@ -1,28 +1,3 @@
-// ViewSpec types (from pipelex-agent --view output)
-export interface ViewSpecNode {
-  id: string;
-  label?: string;
-  kind?: string;
-  status?: string;
-  position?: { x: number; y: number };
-  ui?: { badges?: string[] };
-  inspector?: { pipe_type?: string; pipe_code?: string };
-}
-
-export interface ViewSpecEdge {
-  id: string;
-  source: string;
-  target: string;
-  kind?: string;
-  label?: string;
-  animated?: boolean;
-}
-
-export interface ViewSpec {
-  nodes: ViewSpecNode[];
-  edges: ViewSpecEdge[];
-}
-
 // GraphSpec types (from pipelex-agent --view output)
 export interface GraphSpecNodeIoItem {
   name?: string;
@@ -114,7 +89,7 @@ export type LabelDescriptor =
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
   label?: unknown;
-  nodeData?: GraphSpecNode | ViewSpecNode;
+  nodeData?: GraphSpecNode;
   isPipe: boolean;
   isStuff: boolean;
   isController?: boolean;

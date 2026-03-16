@@ -1,4 +1,7 @@
-.PHONY: all build lint format format-check typecheck test test-watch check clean
+.PHONY: all install build lint format format-check typecheck test test-watch check clean
+
+install:
+	npm install
 
 build:
 	npx tsup

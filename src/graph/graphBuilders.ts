@@ -1,11 +1,4 @@
-import type {
-  ViewSpec,
-  GraphSpec,
-  DataflowAnalysis,
-  GraphNode,
-  GraphEdge,
-  GraphData,
-} from "./types";
+import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
 import { ARROW_CLOSED_MARKER } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 
@@ -289,85 +282,10 @@ export function buildDataflowGraph(
 }
 
 /**
- * Build orchestration graph from ViewSpec (fallback when no GraphSpec available).
- * Returns label descriptors (not React elements).
- */
-export function buildOrchestrationGraph(viewspec: ViewSpec, edgeType: string): GraphData {
-  const nodes: GraphNode[] = viewspec.nodes.map((node) => {
-    const isFailed = node.status === "failed";
-    const isController = node.kind === "controller";
-    const badge = node.ui?.badges?.[0] || "";
-    const label = node.label || node.id;
-    const pipeWidth = Math.max(
-      MIN_PIPE_WIDTH,
-      (label.length || 10) * CHAR_WIDTH_PX + PIPE_LABEL_PADDING + 22,
-    );
-    const typeText = isController ? "Controller" : node.inspector?.pipe_type || "Operator";
-
-    return {
-      id: node.id,
-      type: "default",
-      data: {
-        labelDescriptor: {
-          kind: "orchestration" as const,
-          label,
-          status: node.status || "",
-          typeText,
-          badge,
-        },
-        nodeData: node,
-        isPipe: true,
-        isStuff: false,
-        labelText: label,
-        pipeCode: node.inspector?.pipe_code || label,
-      },
-      position: node.position || { x: 0, y: 0 },
-      style: {
-        background: isFailed ? "var(--color-pipe-failed-bg)" : "var(--color-pipe-bg)",
-        border: isFailed ? "2px solid var(--color-pipe-failed)" : "2px solid var(--color-pipe)",
-        borderRadius: "8px",
-        padding: "0",
-        width: pipeWidth + "px",
-        boxShadow: "var(--shadow-md)",
-        cursor: "pointer",
-      },
-    };
-  });
-
-  const edges: GraphEdge[] = viewspec.edges.map((edge) => ({
-    id: edge.id,
-    source: edge.source,
-    target: edge.target,
-    type: edgeType,
-    animated: edge.animated || false,
-    label: edge.label,
-    labelStyle: {
-      fontSize: 11,
-      fontWeight: 500,
-      fill: "var(--color-text-muted)",
-      fontFamily: "var(--font-mono)",
-    },
-    labelBgStyle: { fill: "var(--color-bg)", fillOpacity: 0.9 },
-    labelBgPadding: [6, 4] as [number, number],
-    labelBgBorderRadius: 4,
-    style: {
-      stroke: edge.kind === "data" ? "var(--color-edge)" : "var(--color-text-dim)",
-      strokeWidth: edge.kind === "data" ? 2 : 1,
-    },
-    markerEnd: {
-      type: ARROW_CLOSED_MARKER,
-      color: edge.kind === "data" ? "var(--color-edge)" : "var(--color-text-dim)",
-    },
-  }));
-
-  return { nodes, edges };
-}
-
-/**
- * Build graph: choose dataflow or orchestration mode.
+ * Build graph from GraphSpec using dataflow mode.
+ * Returns the built graph data and analysis.
  */
 export function buildGraph(
-  viewspec: ViewSpec,
   graphspec: GraphSpec | null,
   edgeType: string,
 ): { graphData: GraphData; analysis: DataflowAnalysis | null } {
@@ -381,5 +299,5 @@ export function buildGraph(
       return { graphData: buildDataflowGraph(graphspec, analysis, edgeType), analysis };
     }
   }
-  return { graphData: buildOrchestrationGraph(viewspec, edgeType), analysis: null };
+  return { graphData: { nodes: [], edges: [] }, analysis: null };
 }
