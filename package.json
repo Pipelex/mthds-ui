@@ -18,6 +18,10 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./shiki": {
+      "import": "./dist/shiki/index.js",
+      "types": "./dist/shiki/index.d.ts"
     }
   },
   "files": ["dist"],
@@ -34,10 +38,14 @@
   },
   "peerDependencies": {
     "dagre": "^0.8.5",
-    "@types/dagre": "^0.7.54"
+    "@types/dagre": "^0.7.54",
+    "shiki": "^3.22.0"
   },
   "peerDependenciesMeta": {
     "@types/dagre": {
+      "optional": true
+    },
+    "shiki": {
       "optional": true
     }
   },
@@ -46,6 +54,7 @@
     "@types/dagre": "^0.7.54",
     "eslint": "^9.39.4",
     "prettier": "^3.8.1",
+    "shiki": "^3.22.0",
     "tsup": "^8.5.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.35.1",
