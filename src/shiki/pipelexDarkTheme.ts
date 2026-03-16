@@ -1,4 +1,4 @@
-import type { ThemeRegistrationRaw } from "shiki";
+import type { ThemeRegistrationRaw } from "shiki/core";
 
 export const pipelexDarkTheme: ThemeRegistrationRaw = {
   name: "pipelex-dark",

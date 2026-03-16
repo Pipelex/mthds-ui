@@ -1,9 +1,14 @@
 import {
-  createHighlighter,
-  type Highlighter,
+  createHighlighterCore,
+  type HighlighterCore,
   type LanguageRegistration,
   type ThemeRegistrationRaw,
-} from "shiki";
+} from "shiki/core";
+import { createOnigurumaEngine } from "shiki/engine/oniguruma";
+import darkPlus from "shiki/themes/dark-plus.mjs";
+import dracula from "shiki/themes/dracula.mjs";
+import monokai from "shiki/themes/monokai.mjs";
+import oneDarkPro from "shiki/themes/one-dark-pro.mjs";
 import mthdsGrammar from "./mthds.tmLanguage.json";
 import { pipelexDarkTheme } from "./pipelexDarkTheme";
 import { type MthdsThemeName, MTHDS_THEMES } from "./themes";
@@ -13,26 +18,18 @@ const mthdsLang = {
   name: "mthds",
 } as unknown as LanguageRegistration;
 
-let highlighterPromise: Promise<Highlighter> | null = null;
+let highlighterPromise: Promise<HighlighterCore> | null = null;
 
-function getHighlighter(): Promise<Highlighter> {
+function getHighlighter(): Promise<HighlighterCore> {
   if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: [pipelexDarkTheme],
+    highlighterPromise = createHighlighterCore({
+      engine: createOnigurumaEngine(import("shiki/wasm")),
+      themes: [pipelexDarkTheme, darkPlus, monokai, dracula, oneDarkPro],
       langs: [mthdsLang],
-    })
-      .then(async (highlighter) => {
-        // No try/catch: all MTHDS_THEMES are bundled shiki themes and must load.
-        // Swallowing errors here would let getAvailableThemes() advertise broken themes.
-        for (const theme of MTHDS_THEMES.filter((t) => t !== "pipelex-dark")) {
-          await highlighter.loadTheme(theme);
-        }
-        return highlighter;
-      })
-      .catch((err) => {
-        highlighterPromise = null;
-        throw err;
-      });
+    }).catch((err) => {
+      highlighterPromise = null;
+      throw err;
+    });
   }
   return highlighterPromise;
 }
