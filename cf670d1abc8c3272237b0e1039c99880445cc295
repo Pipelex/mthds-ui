@@ -1,0 +1,23 @@
+tsup.config.ts
+  0996ee22e0c90df5 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "cf670d1abc8c3272237b0e1039c99880445cc295",
+  "prompts": {
+    "0996ee22e0c90df5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05fcee99-39b1-4e31-902b-1c16746add34",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 20,
+      "total_deletions": 33,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
