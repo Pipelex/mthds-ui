@@ -7,7 +7,15 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ["dagre", "shiki", "react", "react-dom", "@xyflow/react"],
+  external: [
+    "dagre",
+    "@shikijs/core",
+    "@shikijs/engine-oniguruma",
+    "@shikijs/themes",
+    "react",
+    "react-dom",
+    "@xyflow/react",
+  ],
   onSuccess: async () => {
     mkdirSync("dist/graph/react", { recursive: true });
     cpSync("src/graph/react/graph-core.css", "dist/graph/react/graph-core.css");

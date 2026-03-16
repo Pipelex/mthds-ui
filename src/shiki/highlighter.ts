@@ -3,12 +3,12 @@ import {
   type HighlighterCore,
   type LanguageRegistration,
   type ThemeRegistrationRaw,
-} from "shiki/core";
-import { createOnigurumaEngine } from "shiki/engine/oniguruma";
-import darkPlus from "shiki/themes/dark-plus.mjs";
-import dracula from "shiki/themes/dracula.mjs";
-import monokai from "shiki/themes/monokai.mjs";
-import oneDarkPro from "shiki/themes/one-dark-pro.mjs";
+} from "@shikijs/core";
+import { createOnigurumaEngine } from "@shikijs/engine-oniguruma";
+import darkPlus from "@shikijs/themes/dark-plus";
+import dracula from "@shikijs/themes/dracula";
+import monokai from "@shikijs/themes/monokai";
+import oneDarkPro from "@shikijs/themes/one-dark-pro";
 import mthdsGrammar from "./mthds.tmLanguage.json";
 import { pipelexDarkTheme } from "./pipelexDarkTheme";
 import { type MthdsThemeName, MTHDS_THEMES } from "./themes";
@@ -23,7 +23,7 @@ let highlighterPromise: Promise<HighlighterCore> | null = null;
 function getHighlighter(): Promise<HighlighterCore> {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
-      engine: createOnigurumaEngine(import("shiki/wasm")),
+      engine: createOnigurumaEngine(import("@shikijs/engine-oniguruma/wasm-inlined")),
       themes: [pipelexDarkTheme, darkPlus, monokai, dracula, oneDarkPro],
       langs: [mthdsLang],
     }).catch((err) => {
