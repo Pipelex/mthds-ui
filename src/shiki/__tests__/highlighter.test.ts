@@ -45,20 +45,18 @@ describe("highlightMthds", () => {
   it("highlights with monokai theme and produces valid HTML", async () => {
     const html = await highlightMthds("[concept.MyType]", "monokai");
     expect(html).toContain("<pre");
+    expect(html).toMatch(/class="[^"]*shiki[^"]*monokai[^"]*"/);
     expect(html).toContain("<code>");
   });
 });
 
 describe("getAvailableThemes", () => {
-  it("returns all themes after highlighter initialization", async () => {
-    // Ensure highlighter is initialized so all themes are loaded
-    await highlightMthds("");
+  it("returns all themes without requiring initialization", () => {
     const themes = getAvailableThemes();
     expect(themes).toEqual(["pipelex-dark", "dark-plus", "monokai", "dracula", "one-dark-pro"]);
   });
 
-  it("returns a new array on each call", async () => {
-    await highlightMthds("");
+  it("returns a new array on each call", () => {
     const a = getAvailableThemes();
     const b = getAvailableThemes();
     expect(a).not.toBe(b);

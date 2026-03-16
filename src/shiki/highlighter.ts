@@ -13,9 +13,6 @@ const mthdsLang = {
   name: "mthds",
 } as unknown as LanguageRegistration;
 
-const bundledThemeNames = MTHDS_THEMES.filter((t) => t !== "pipelex-dark");
-
-const loadedThemes = new Set<MthdsThemeName>(["pipelex-dark"]);
 let highlighterPromise: Promise<Highlighter> | null = null;
 
 function getHighlighter(): Promise<Highlighter> {
@@ -25,13 +22,10 @@ function getHighlighter(): Promise<Highlighter> {
       langs: [mthdsLang],
     })
       .then(async (highlighter) => {
-        for (const theme of bundledThemeNames) {
-          try {
-            await highlighter.loadTheme(theme);
-            loadedThemes.add(theme);
-          } catch {
-            // Theme unavailable — omitted from getAvailableThemes()
-          }
+        // No try/catch: all MTHDS_THEMES are bundled shiki themes and must load.
+        // Swallowing errors here would let getAvailableThemes() advertise broken themes.
+        for (const theme of MTHDS_THEMES.filter((t) => t !== "pipelex-dark")) {
+          await highlighter.loadTheme(theme);
         }
         return highlighter;
       })
@@ -55,7 +49,7 @@ export async function highlightMthds(
 }
 
 export function getAvailableThemes(): MthdsThemeName[] {
-  return MTHDS_THEMES.filter((t) => loadedThemes.has(t));
+  return [...MTHDS_THEMES];
 }
 
 export function getMthdsGrammar(): LanguageRegistration {
