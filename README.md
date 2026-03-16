@@ -51,6 +51,7 @@ const final = applyControllers(nodes, edges, graphspec, analysis, true);
 
 ```tsx
 import { ReactFlowProvider } from "@xyflow/react";
+import { DEFAULT_GRAPH_CONFIG } from "@pipelex/mthds-ui";
 import { GraphViewer } from "@pipelex/mthds-ui/graph/react";
 import "@xyflow/react/dist/style.css";
 import "@pipelex/mthds-ui/graph/react/graph-core.css";
