@@ -1,4 +1,4 @@
-.PHONY: build lint format format-check typecheck test test-watch check clean
+.PHONY: all build lint format format-check typecheck test test-watch check clean
 
 build:
 	npx tsup
@@ -23,6 +23,9 @@ test-watch:
 
 check: lint format-check typecheck test
 	@echo "All checks passed."
+
+all: check build
+	@echo "All checks passed and build succeeded."
 
 clean:
 	rm -rf dist node_modules

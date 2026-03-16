@@ -68,8 +68,16 @@ export function getLayoutedElements(
         x: nodeWithPosition.x - width / 2,
         y: nodeWithPosition.y - (node.data?.isStuff ? 30 : 35),
       },
-      sourcePosition: isHorizontal ? (direction === "LR" ? "right" : "left") : "bottom",
-      targetPosition: isHorizontal ? (direction === "LR" ? "left" : "right") : "top",
+      sourcePosition: (isHorizontal
+        ? direction === "LR"
+          ? "right"
+          : "left"
+        : "bottom") as GraphNode["sourcePosition"],
+      targetPosition: (isHorizontal
+        ? direction === "LR"
+          ? "left"
+          : "right"
+        : "top") as GraphNode["targetPosition"],
     };
   });
 

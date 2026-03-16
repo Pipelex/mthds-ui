@@ -1,0 +1,66 @@
+.react-flow-container {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+.react-flow__node {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+.react-flow__background {
+  background: var(--color-bg) !important;
+}
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+.react-flow__edge-text {
+  font-size: 11px;
+  fill: var(--color-text-muted);
+}
+.react-flow__edge-textbg {
+  fill: var(--color-bg);
+}
+/* Selected node highlight */
+.react-flow__node.selected {
+  box-shadow:
+    0 0 0 3px var(--color-accent),
+    var(--shadow-lg) !important;
+  z-index: 1000 !important;
+}
+.react-flow__node-controllerGroup.selected {
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    var(--shadow-lg) !important;
+}
+.react-flow__node-controllerGroup {
+  cursor: default !important;
+}
+.controller-group-node {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.controller-group-label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-controller-text);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.controller-group-type {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--color-controller-text);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
