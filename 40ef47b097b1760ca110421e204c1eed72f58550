@@ -1,0 +1,23 @@
+Makefile
+  fc414fe429a3a246 1,27-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "40ef47b097b1760ca110421e204c1eed72f58550",
+  "prompts": {
+    "fc414fe429a3a246": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "069be107-449d-43ed-ab20-54cef0cc3d83",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 1,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
