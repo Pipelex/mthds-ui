@@ -1,0 +1,42 @@
+src/graph/react/GraphViewer.tsx
+  1d6d6adbf98d5768 69-72,74-83,85,109,119,135,148-149,154,158,166,176-177,179,186
+src/graph/react/rfTypes.ts
+  45c84d66df8baa86 22,48-49
+src/graph/types.ts
+  45c84d66df8baa86 133-134
+src/graph/graphLayout.ts
+  45c84d66df8baa86 71,75-76,80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "bf90edc14ef07081b3e955701b990b2405a896e8",
+  "prompts": {
+    "1d6d6adbf98d5768": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dbf4cf1a-7c93-427c-96c3-64dc6fcce051",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 15,
+      "accepted_lines": 28,
+      "overriden_lines": 0
+    },
+    "45c84d66df8baa86": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "56d9953c-4717-4367-9e96-d7302966a712",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 7,
+      "total_deletions": 3,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
