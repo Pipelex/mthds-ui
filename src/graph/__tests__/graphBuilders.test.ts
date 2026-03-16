@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { buildDataflowGraph, buildOrchestrationGraph, buildGraph } from "../graphBuilders";
+import { buildDataflowGraph, buildGraph } from "../graphBuilders";
 import { buildDataflowAnalysis } from "../graphAnalysis";
-import type { GraphSpec, ViewSpec } from "../types";
+import type { GraphSpec } from "../types";
 
 describe("buildDataflowGraph", () => {
   it("creates pipe and stuff nodes with label descriptors", () => {
@@ -108,64 +108,6 @@ describe("buildDataflowGraph", () => {
   });
 });
 
-describe("buildOrchestrationGraph", () => {
-  it("creates nodes with orchestration label descriptors", () => {
-    const vs: ViewSpec = {
-      nodes: [
-        {
-          id: "n1",
-          label: "my_pipe",
-          kind: "operator",
-          status: "succeeded",
-          ui: { badges: ["v2"] },
-          inspector: { pipe_type: "PipeSimple", pipe_code: "my_pipe" },
-        },
-      ],
-      edges: [],
-    };
-    const { nodes } = buildOrchestrationGraph(vs, "bezier");
-
-    expect(nodes).toHaveLength(1);
-    expect(nodes[0].data.labelDescriptor).toEqual({
-      kind: "orchestration",
-      label: "my_pipe",
-      status: "succeeded",
-      typeText: "PipeSimple",
-      badge: "v2",
-    });
-  });
-
-  it('uses "Controller" as typeText for controller nodes', () => {
-    const vs: ViewSpec = {
-      nodes: [
-        {
-          id: "c1",
-          label: "batch_ctrl",
-          kind: "controller",
-          status: "",
-          inspector: { pipe_type: "PipeBatch" },
-        },
-      ],
-      edges: [],
-    };
-    const { nodes } = buildOrchestrationGraph(vs, "bezier");
-    expect(nodes[0].data.labelDescriptor).toMatchObject({ typeText: "Controller" });
-  });
-
-  it("maps edges with correct type", () => {
-    const vs: ViewSpec = {
-      nodes: [
-        { id: "n1", label: "a" },
-        { id: "n2", label: "b" },
-      ],
-      edges: [{ id: "e1", source: "n1", target: "n2", kind: "data" }],
-    };
-    const { edges } = buildOrchestrationGraph(vs, "step");
-    expect(edges[0].type).toBe("step");
-    expect(edges[0].style?.stroke).toBe("var(--color-edge)");
-  });
-});
-
 describe("buildDataflowGraph — additional cases", () => {
   it("creates parallel_combine edges between stuff nodes", () => {
     const gs: GraphSpec = {
@@ -266,7 +208,6 @@ describe("buildDataflowGraph — additional cases", () => {
 
 describe("buildGraph", () => {
   it("selects dataflow mode when graphspec has stuff", () => {
-    const vs: ViewSpec = { nodes: [], edges: [] };
     const gs: GraphSpec = {
       nodes: [
         {
@@ -276,30 +217,22 @@ describe("buildGraph", () => {
       ],
       edges: [],
     };
-    const { analysis } = buildGraph(vs, gs, "bezier");
+    const { analysis } = buildGraph(gs, "bezier");
     expect(analysis).not.toBeNull();
   });
 
-  it("falls back to orchestration when no graphspec", () => {
-    const vs: ViewSpec = {
-      nodes: [{ id: "n1", label: "test" }],
-      edges: [],
-    };
-    const { analysis, graphData } = buildGraph(vs, null, "bezier");
+  it("returns empty graph when no graphspec", () => {
+    const { analysis, graphData } = buildGraph(null, "bezier");
     expect(analysis).toBeNull();
-    expect(graphData.nodes).toHaveLength(1);
+    expect(graphData.nodes).toHaveLength(0);
   });
 
-  it("falls back to orchestration when graphspec has no stuff", () => {
-    const vs: ViewSpec = {
-      nodes: [{ id: "n1", label: "test" }],
-      edges: [],
-    };
+  it("returns empty graph when graphspec has no stuff", () => {
     const gs: GraphSpec = {
       nodes: [{ id: "op1" }], // no IO
       edges: [],
     };
-    const { analysis } = buildGraph(vs, gs, "bezier");
+    const { analysis } = buildGraph(gs, "bezier");
     expect(analysis).toBeNull();
   });
 });

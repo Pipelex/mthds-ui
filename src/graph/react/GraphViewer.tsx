@@ -8,7 +8,6 @@ import {
 } from "@xyflow/react";
 
 import type {
-  ViewSpec,
   GraphSpec,
   GraphConfig,
   GraphDirection,
@@ -25,7 +24,6 @@ import { hydrateLabels } from "./renderLabel";
 import { controllerNodeTypes } from "./ControllerGroupNode";
 
 export interface GraphViewerProps {
-  viewspec: ViewSpec | null;
   graphspec: GraphSpec | null;
   config: GraphConfig;
   direction: GraphDirection;
@@ -44,15 +42,8 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
 }
 
 export function GraphViewer(props: GraphViewerProps) {
-  const {
-    viewspec,
-    graphspec,
-    config,
-    direction,
-    showControllers,
-    onNavigateToPipe,
-    onReactFlowInit,
-  } = props;
+  const { graphspec, config, direction, showControllers, onNavigateToPipe, onReactFlowInit } =
+    props;
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
@@ -132,9 +123,9 @@ export function GraphViewer(props: GraphViewerProps) {
     setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
     setEdges(toAppEdges(withControllers.edges));
   }, [showControllers]);
-  // Build + layout when viewspec/graphspec/edgeType changes
+  // Build + layout when graphspec/edgeType changes
   React.useEffect(() => {
-    if (!viewspec && !graphspec) {
+    if (!graphspec) {
       initialDataRef.current = null;
       layoutCacheRef.current = null;
       setNodes([]);
@@ -142,8 +133,7 @@ export function GraphViewer(props: GraphViewerProps) {
       return;
     }
 
-    const effectiveViewspec = viewspec || { nodes: [], edges: [] };
-    const { graphData, analysis } = buildGraph(effectiveViewspec, graphspec, edgeType);
+    const { graphData, analysis } = buildGraph(graphspec, edgeType);
     initialDataRef.current = {
       nodes: graphData.nodes,
       edges: graphData.edges,
@@ -189,7 +179,7 @@ export function GraphViewer(props: GraphViewerProps) {
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [viewspec, graphspec, edgeType]);
+  }, [graphspec, edgeType]);
   // Handle node click
   const onNodeClick = React.useCallback(
     (_event: React.MouseEvent, node: AppNode) => {

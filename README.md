@@ -37,8 +37,8 @@ import {
   DEFAULT_GRAPH_CONFIG,
 } from "@pipelex/mthds-ui";
 
-// Build graph data from a ViewSpec/GraphSpec
-const { graphData, analysis } = buildGraph(viewspec, graphspec, "bezier");
+// Build graph data from a GraphSpec
+const { graphData, analysis } = buildGraph(graphspec, "bezier");
 
 // Apply dagre layout
 const { nodes, edges } = getLayoutedElements(graphData.nodes, graphData.edges, "TB");
@@ -56,11 +56,10 @@ import { GraphViewer } from "@pipelex/mthds-ui/graph/react";
 import "@xyflow/react/dist/style.css";
 import "@pipelex/mthds-ui/graph/react/graph-core.css";
 
-function MethodGraph({ viewspec, graphspec }) {
+function MethodGraph({ graphspec }) {
   return (
     <ReactFlowProvider>
       <GraphViewer
-        viewspec={viewspec}
         graphspec={graphspec}
         config={DEFAULT_GRAPH_CONFIG}
         direction="TB"
@@ -76,8 +75,7 @@ function MethodGraph({ viewspec, graphspec }) {
 
 | Prop                | Type                                | Description                                 |
 | ------------------- | ----------------------------------- | ------------------------------------------- |
-| `viewspec`          | `ViewSpec \| null`                  | Node/edge view data                         |
-| `graphspec`         | `GraphSpec \| null`                 | Dataflow spec (IO, containment, edge kinds) |
+| `graphspec`         | `GraphSpec \| null`                 | Graph spec (nodes, edges, IO, containment)  |
 | `config`            | `GraphConfig`                       | Layout and visual configuration             |
 | `direction`         | `GraphDirection`                    | `"TB"`, `"LR"`, `"RL"`, or `"BT"`           |
 | `showControllers`   | `boolean`                           | Show controller group outlines              |
