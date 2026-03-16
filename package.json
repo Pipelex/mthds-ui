@@ -49,8 +49,8 @@
     "dagre": "^0.8.5",
     "@types/dagre": "^0.7.54",
     "shiki": "^3.22.0",
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19",
+    "react": "^19",
+    "react-dom": "^19",
     "@xyflow/react": "^12"
   },
   "peerDependenciesMeta": {
