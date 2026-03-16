@@ -130,6 +130,8 @@ export interface GraphNode {
   data: GraphNodeData;
   position: { x: number; y: number };
   style?: Record<string, string | number>;
+  sourcePosition?: "top" | "bottom" | "left" | "right";
+  targetPosition?: "top" | "bottom" | "left" | "right";
   parentId?: string;
   extent?: "parent";
   selected?: boolean;

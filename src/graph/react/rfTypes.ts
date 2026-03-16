@@ -19,7 +19,7 @@
  *   that don't belong on ReactFlow's Edge type. The boundary mapping is the clean solution.
  */
 import type { CSSProperties } from "react";
-import type { Node, Edge, ReactFlowInstance, EdgeMarkerType } from "@xyflow/react";
+import type { Node, Edge, ReactFlowInstance, EdgeMarkerType, Position } from "@xyflow/react";
 import type { GraphNode, GraphEdge, GraphNodeData } from "../types";
 
 /** ReactFlow node parameterized with our domain data. */
@@ -45,6 +45,8 @@ export function toAppNodes(nodes: GraphNode[]): AppNode[] {
     data: n.data,
     position: n.position,
     style: n.style as CSSProperties | undefined,
+    sourcePosition: n.sourcePosition as Position | undefined,
+    targetPosition: n.targetPosition as Position | undefined,
     parentId: n.parentId,
     extent: n.extent,
     selected: n.selected,

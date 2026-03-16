@@ -57,7 +57,6 @@ export function GraphViewer(props: GraphViewerProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
   const reactFlowRef = React.useRef<AppRFInstance | null>(null);
-  const prevDirectionRef = React.useRef(direction);
   const initialDataRef = React.useRef<{
     nodes: GraphNode[];
     edges: GraphEdge[];
@@ -67,12 +66,24 @@ export function GraphViewer(props: GraphViewerProps) {
   const layoutCacheRef = React.useRef<{ nodes: GraphNode[]; edges: GraphEdge[] } | null>(null);
 
   const edgeType = config.edgeType || "bezier";
-  const layoutConfig = { nodesep: config.nodesep, ranksep: config.ranksep };
+  const layoutConfig = React.useMemo(
+    () => ({ nodesep: config.nodesep, ranksep: config.ranksep }),
+    [config.nodesep, config.ranksep],
+  );
 
-  // Re-layout when direction changes
+  const showControllersRef = React.useRef(showControllers);
+  showControllersRef.current = showControllers;
+  const directionRef = React.useRef(direction);
+  directionRef.current = direction;
+  const layoutConfigRef = React.useRef(layoutConfig);
+  layoutConfigRef.current = layoutConfig;
+  const initialZoomRef = React.useRef(config.initialZoom);
+  initialZoomRef.current = config.initialZoom;
+  const panToTopRef = React.useRef(config.panToTop);
+  panToTopRef.current = config.panToTop;
+
+  // Re-layout when direction or layout config changes
   React.useEffect(() => {
-    if (prevDirectionRef.current === direction) return;
-    prevDirectionRef.current = direction;
     if (!initialDataRef.current) return;
 
     const relayouted = getLayoutedElements(
@@ -95,7 +106,7 @@ export function GraphViewer(props: GraphViewerProps) {
       relayouted.edges,
       initialDataRef.current._graphspec,
       initialDataRef.current._analysis,
-      showControllers,
+      showControllersRef.current,
     );
     setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
     setEdges(toAppEdges(withControllers.edges));
@@ -105,7 +116,7 @@ export function GraphViewer(props: GraphViewerProps) {
       }
     }, 50);
     return () => clearTimeout(timer);
-  }, [direction]);
+  }, [direction, layoutConfig]);
   // Rebuild controllers when showControllers changes (reuses cached layout)
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
@@ -121,7 +132,7 @@ export function GraphViewer(props: GraphViewerProps) {
     setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
     setEdges(toAppEdges(withControllers.edges));
   }, [showControllers]);
-  // Build + layout when viewspec/graphspec data changes
+  // Build + layout when viewspec/graphspec/edgeType changes
   React.useEffect(() => {
     if (!viewspec && !graphspec) return;
 
@@ -134,15 +145,17 @@ export function GraphViewer(props: GraphViewerProps) {
       _graphspec: graphspec,
     };
 
+    const currentDirection = directionRef.current;
+    const currentLayoutConfig = layoutConfigRef.current;
     const needsLayout = graphData.nodes.some(
       (n) => !n.position || (n.position.x === 0 && n.position.y === 0),
     );
     const layouted = needsLayout
-      ? getLayoutedElements(graphData.nodes, graphData.edges, direction, layoutConfig)
+      ? getLayoutedElements(graphData.nodes, graphData.edges, currentDirection, currentLayoutConfig)
       : graphData;
     const spaced =
       analysis && graphspec
-        ? ensureControllerSpacing(layouted.nodes, graphspec, analysis, direction)
+        ? ensureControllerSpacing(layouted.nodes, graphspec, analysis, currentDirection)
         : layouted.nodes;
     layoutCacheRef.current = { nodes: spaced, edges: layouted.edges };
     const withControllers = applyControllers(
@@ -150,7 +163,7 @@ export function GraphViewer(props: GraphViewerProps) {
       layouted.edges,
       graphspec,
       analysis,
-      showControllers,
+      showControllersRef.current,
     );
 
     setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
@@ -160,17 +173,17 @@ export function GraphViewer(props: GraphViewerProps) {
     const timer = setTimeout(() => {
       if (reactFlowRef.current) {
         reactFlowRef.current.fitView({ padding: 0.1 });
-        if (config.initialZoom !== undefined && config.initialZoom !== null) {
-          reactFlowRef.current.zoomTo(config.initialZoom);
+        if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
+          reactFlowRef.current.zoomTo(initialZoomRef.current);
         }
-        if (config.panToTop) {
+        if (panToTopRef.current) {
           const vp = reactFlowRef.current.getViewport();
           reactFlowRef.current.setViewport({ x: vp.x, y: 20, zoom: vp.zoom });
         }
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [viewspec, graphspec]);
+  }, [viewspec, graphspec, edgeType]);
   // Handle node click
   const onNodeClick = React.useCallback(
     (_event: React.MouseEvent, node: AppNode) => {
