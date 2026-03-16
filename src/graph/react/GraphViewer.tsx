@@ -134,7 +134,13 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [showControllers]);
   // Build + layout when viewspec/graphspec/edgeType changes
   React.useEffect(() => {
-    if (!viewspec && !graphspec) return;
+    if (!viewspec && !graphspec) {
+      initialDataRef.current = null;
+      layoutCacheRef.current = null;
+      setNodes([]);
+      setEdges([]);
+      return;
+    }
 
     const effectiveViewspec = viewspec || { nodes: [], edges: [] };
     const { graphData, analysis } = buildGraph(effectiveViewspec, graphspec, edgeType);
