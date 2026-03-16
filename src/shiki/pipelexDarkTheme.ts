@@ -20,9 +20,9 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
     // Pipe sections, pipe types, pipe names
     {
       scope: [
-        "support.type.property-name.pipe.mthds",
-        "support.type.pipe-type.mthds",
-        "support.function.pipe-name.mthds",
+        "entity.name.tag.pipe.mthds",
+        "entity.name.tag.pipe-type.mthds",
+        "entity.name.tag.pipe-name.mthds",
       ],
       settings: {
         foreground: "#FF6B6B",
@@ -33,7 +33,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
     // ── Teal #4ECDC4 bold ───────────────────────────────────
     // Concept sections, concept types
     {
-      scope: ["support.type.property-name.concept.mthds", "support.type.concept.mthds"],
+      scope: ["entity.name.type.concept.mthds"],
       settings: {
         foreground: "#4ECDC4",
         fontStyle: "bold",
@@ -43,7 +43,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
     // ── Pale Green #98FB98 bold ─────────────────────────────
     // Data variables
     {
-      scope: ["variable.name.data.mthds"],
+      scope: ["variable.other.readwrite.mthds"],
       settings: {
         foreground: "#98FB98",
         fontStyle: "bold",
@@ -53,12 +53,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
     // ── Magenta #FF79C6 (no bold) ───────────────────────────
     // Template markers, sigils, escape sequences
     {
-      scope: [
-        "punctuation.definition.data-injection.mthds",
-        "punctuation.definition.template-variable.mthds",
-        "punctuation.definition.model-sigil.mthds",
-        "constant.character.escape.mthds",
-      ],
+      scope: ["storage.modifier.mthds", "constant.character.escape.mthds"],
       settings: {
         foreground: "#FF79C6",
       },
@@ -91,7 +86,7 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
 
     // ── Orange #FFB86C bold (model refs) ────────────────────
     {
-      scope: ["entity.name.model-ref.mthds"],
+      scope: ["constant.other.symbol.mthds"],
       settings: {
         foreground: "#FFB86C",
         fontStyle: "bold",
@@ -211,6 +206,22 @@ export const pipelexDarkTheme: ThemeRegistrationRaw = {
       ],
       settings: {
         foreground: "#d4d4d4",
+      },
+    },
+
+    // ── Pink #FF79C6 (pipe ref arrow) ───────────────────────
+    {
+      scope: ["keyword.operator.arrow.mthds"],
+      settings: {
+        foreground: "#FF79C6",
+      },
+    },
+
+    // ── Muted slate #7C7C9C (namespace/package address) ───
+    {
+      scope: ["punctuation.separator.namespace.mthds"],
+      settings: {
+        foreground: "#7C7C9C",
       },
     },
 
