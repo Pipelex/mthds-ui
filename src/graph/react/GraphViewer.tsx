@@ -20,14 +20,15 @@ import { toAppNodes, toAppEdges } from "./rfTypes";
 import { buildGraph } from "../graphBuilders";
 import { getLayoutedElements, ensureControllerSpacing } from "../graphLayout";
 import { applyControllers } from "../graphControllers";
+import { DEFAULT_GRAPH_CONFIG } from "../graphConfig";
 import { hydrateLabels } from "./renderLabel";
 import { controllerNodeTypes } from "./ControllerGroupNode";
 
 export interface GraphViewerProps {
   graphspec: GraphSpec | null;
-  config: GraphConfig;
-  direction: GraphDirection;
-  showControllers: boolean;
+  config?: GraphConfig;
+  direction?: GraphDirection;
+  showControllers?: boolean;
   onNavigateToPipe?: (pipeCode: string) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
 }
@@ -42,8 +43,24 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
 }
 
 export function GraphViewer(props: GraphViewerProps) {
-  const { graphspec, config, direction, showControllers, onNavigateToPipe, onReactFlowInit } =
-    props;
+  const {
+    graphspec,
+    config = DEFAULT_GRAPH_CONFIG,
+    direction = config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? "TB",
+    showControllers = config.showControllers ?? DEFAULT_GRAPH_CONFIG.showControllers ?? false,
+    onNavigateToPipe,
+    onReactFlowInit,
+  } = props;
+
+  // Apply palette CSS vars on mount (so consumers don't have to)
+  React.useEffect(() => {
+    const palette = config.paletteColors ?? DEFAULT_GRAPH_CONFIG.paletteColors;
+    if (palette) {
+      for (const [cssVar, value] of Object.entries(palette)) {
+        document.documentElement.style.setProperty(cssVar, value);
+      }
+    }
+  }, [config.paletteColors]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);

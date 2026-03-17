@@ -1,3 +1,8 @@
+"use client";
+
+import "@xyflow/react/dist/style.css";
+import "./graph-core.css";
+
 export { GraphViewer } from "./GraphViewer";
 export type { GraphViewerProps } from "./GraphViewer";
 export type { AppNode, AppEdge, AppRFInstance } from "./rfTypes";

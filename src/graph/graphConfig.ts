@@ -1,7 +1,7 @@
 import type { GraphConfig } from "./types";
 
 export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
-  direction: "TB",
+  direction: "LR",
   showControllers: false,
   nodesep: 50,
   ranksep: 30,
@@ -9,6 +9,7 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   initialZoom: null,
   panToTop: true,
   paletteColors: {
+    // Graph node/edge colors
     "--color-pipe": "#ff6b6b",
     "--color-pipe-bg": "rgba(224,108,117,0.18)",
     "--color-pipe-text": "#ffffff",
@@ -27,6 +28,14 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
     "--color-error-bg": "rgba(255,85,85,0.15)",
     "--color-accent": "#8BE9FD",
     "--color-warning": "#FFB86C",
+    // Base theme vars used by graph-core.css
+    "--color-bg": "#1e1e1e",
+    "--color-bg-dots": "#334155",
+    "--color-text-muted": "#94a3b8",
+    "--color-controller-text": "#94a3b8",
+    "--font-sans": '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    "--font-mono": '"JetBrains Mono", "Monaco", "Menlo", monospace',
+    "--shadow-lg": "0 8px 24px rgba(0, 0, 0, 0.5)",
   },
 };
 

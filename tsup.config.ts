@@ -15,7 +15,10 @@ export default defineConfig({
     "react",
     "react-dom",
     "@xyflow/react",
+    /graph-core\.css$/,
   ],
+  // Keep graph-core.css as a standalone export for consumers that need it separately.
+  // GraphViewer.tsx also imports it directly, so it gets bundled into the React entry's CSS.
   onSuccess: async () => {
     mkdirSync("dist/graph/react", { recursive: true });
     cpSync("src/graph/react/graph-core.css", "dist/graph/react/graph-core.css");
