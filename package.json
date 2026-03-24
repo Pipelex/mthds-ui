@@ -50,17 +50,11 @@
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run test"
   },
   "peerDependencies": {
-    "dagre": "^0.8.5",
-    "@types/dagre": "^0.7.54",
     "shiki": "^3.22.0",
     "react": "^19",
-    "react-dom": "^19",
-    "@xyflow/react": "^12"
+    "react-dom": "^19"
   },
   "peerDependenciesMeta": {
-    "@types/dagre": {
-      "optional": true
-    },
     "shiki": {
       "optional": true
     },
@@ -69,9 +63,6 @@
     },
     "react-dom": {
       "optional": true
-    },
-    "@xyflow/react": {
-      "optional": true
     }
   },
   "devDependencies": {
@@ -79,6 +70,7 @@
     "@types/dagre": "^0.7.54",
     "@types/react": "^19",
     "@xyflow/react": "^12",
+    "dagre": "^0.8.5",
     "eslint": "^9.39.4",
     "prettier": "^3.8.1",
     "react": "^19",

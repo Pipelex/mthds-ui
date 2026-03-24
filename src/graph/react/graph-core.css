@@ -1,3 +1,13 @@
+/* Default theme — consumers can override any var on an ancestor element */
+.react-flow-container {
+  --color-bg: #1e1e1e;
+  --color-bg-dots: #334155;
+  --color-text-muted: #94a3b8;
+  --color-controller-text: #94a3b8;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Monaco", "Menlo", monospace;
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
 .react-flow-container {
   position: absolute;
   inset: 0;

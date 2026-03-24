@@ -1,6 +1,5 @@
 "use client";
 
-import "@xyflow/react/dist/style.css";
 import "./graph-core.css";
 
 export { GraphViewer } from "./GraphViewer";
