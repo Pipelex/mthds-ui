@@ -18,6 +18,7 @@ npm install @pipelex/mthds-ui
 | `@types/dagre`       | no (TS only) | Type definitions for dagre  |
 | `react`, `react-dom` | no           | React layer (`graph/react`) |
 | `@xyflow/react`      | no           | React layer (`graph/react`) |
+| `shiki`              | no           | Syntax highlighting (`shiki`) |
 
 ## Quick start (React)
 
@@ -61,7 +62,7 @@ export function MyGraph({ graphspec }) {
 | ------------------- | ----------------------------------- | ---------------------------- | ------------------------------------------ |
 | `graphspec`         | `GraphSpec \| null`                 | —                            | Graph data (nodes + edges)                 |
 | `config`            | `GraphConfig`                       | `DEFAULT_GRAPH_CONFIG`       | Layout and visual configuration            |
-| `direction`         | `GraphDirection`                    | `"TB"`                       | Layout direction: `TB`, `LR`, `RL`, `BT`   |
+| `direction`         | `GraphDirection`                    | `"LR"`                       | Layout direction: `TB`, `LR`, `RL`, `BT`   |
 | `showControllers`   | `boolean`                           | `false`                      | Show controller group outlines             |
 | `onNavigateToPipe`  | `(pipeCode: string) => void`        | —                            | Callback when a pipe node is clicked       |
 | `onReactFlowInit`   | `(instance: AppRFInstance) => void` | —                            | Access the underlying ReactFlow instance   |
@@ -116,7 +117,7 @@ interface GraphSpecEdge {
   id?: string;
   source: string;        // Source node ID
   target: string;        // Target node ID
-  kind: EdgeKind;        // "data", "contains", "batch_item", etc.
+  kind: GraphSpecEdgeKind; // "data", "contains", "batch_item", etc.
   label?: string;
 }
 ```
@@ -143,18 +144,26 @@ Nodes represent pipes (operations) and stuffs (data artifacts) in the pipeline:
 ```json
 {
   "nodes": [
-    { "id": "input_doc", "pipe_type": "Input" },
-    { "id": "extract_text", "pipe_code": "extract_text", "pipe_type": "PipeExtract" },
-    { "id": "pages", "pipe_type": "Stuff" },
-    { "id": "summarize", "pipe_code": "summarize", "pipe_type": "PipeLLM" },
-    { "id": "summary", "pipe_type": "Stuff" }
+    {
+      "id": "extract_text",
+      "pipe_code": "extract_text",
+      "pipe_type": "PipeExtract",
+      "io": {
+        "inputs": [{ "digest": "input_doc", "name": "document", "concept": "Document" }],
+        "outputs": [{ "digest": "pages", "name": "pages", "concept": "TextPages" }]
+      }
+    },
+    {
+      "id": "summarize",
+      "pipe_code": "summarize",
+      "pipe_type": "PipeLLM",
+      "io": {
+        "inputs": [{ "digest": "pages", "name": "pages", "concept": "TextPages" }],
+        "outputs": [{ "digest": "summary", "name": "summary", "concept": "Summary" }]
+      }
+    }
   ],
-  "edges": [
-    { "source": "input_doc", "target": "extract_text", "kind": "data" },
-    { "source": "extract_text", "target": "pages", "kind": "data" },
-    { "source": "pages", "target": "summarize", "kind": "data" },
-    { "source": "summarize", "target": "summary", "kind": "data" }
-  ]
+  "edges": []
 }
 ```
 
@@ -180,7 +189,7 @@ const myConfig = {
 
 | Field              | Type                  | Default    | Description                              |
 | ------------------ | --------------------- | ---------- | ---------------------------------------- |
-| `direction`        | `GraphDirection`      | `"TB"`     | Dagre layout direction                   |
+| `direction`        | `GraphDirection`      | `"LR"`     | Dagre layout direction                   |
 | `showControllers`  | `boolean`             | `false`    | Show controller group boxes              |
 | `nodesep`          | `number`              | `50`       | Horizontal spacing between nodes         |
 | `ranksep`          | `number`              | `30`       | Vertical spacing between ranks           |

@@ -52,14 +52,24 @@ export function GraphViewer(props: GraphViewerProps) {
     onReactFlowInit,
   } = props;
 
-  // Apply palette CSS vars on mount (so consumers don't have to)
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount)
   React.useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
     const palette = config.paletteColors ?? DEFAULT_GRAPH_CONFIG.paletteColors;
-    if (palette) {
-      for (const [cssVar, value] of Object.entries(palette)) {
-        document.documentElement.style.setProperty(cssVar, value);
-      }
+    if (!palette) return;
+
+    for (const [cssVar, value] of Object.entries(palette)) {
+      el.style.setProperty(cssVar, value);
     }
+
+    return () => {
+      for (const cssVar of Object.keys(palette)) {
+        el.style.removeProperty(cssVar);
+      }
+    };
   }, [config.paletteColors]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
@@ -224,7 +234,7 @@ export function GraphViewer(props: GraphViewerProps) {
   );
 
   return (
-    <div className="react-flow-container">
+    <div ref={containerRef} className="react-flow-container">
       <ReactFlow
         nodes={nodes}
         edges={edges}
