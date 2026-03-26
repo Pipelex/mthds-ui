@@ -1,6 +1,4 @@
-import { cpSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
-import { createRequire } from "node:module";
+import { cpSync, mkdirSync } from "node:fs";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
@@ -10,27 +8,19 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
+    "dagre",
+    "@xyflow/react",
     "@shikijs/core",
     "@shikijs/engine-oniguruma",
     "@shikijs/themes",
     "react",
     "react-dom",
+    /graph-core\.css$/,
   ],
+  // graph-core.css is kept external so the import stays in the JS output.
+  // The consumer's bundler resolves it (including the @import for @xyflow CSS).
   onSuccess: async () => {
     mkdirSync("dist/graph/react", { recursive: true });
-    // Keep graph-core.css as a standalone export for consumers that need it separately
     cpSync("src/graph/react/graph-core.css", "dist/graph/react/graph-core.css");
-
-    // Bundle ReactFlow CSS into the output so consumers don't need to import it
-    const require = createRequire(import.meta.url);
-    const xyflowPkg = dirname(require.resolve("@xyflow/react/package.json"));
-    const xyflowCss = readFileSync(resolve(xyflowPkg, "dist/style.css"), "utf-8");
-
-    const outputCss = "dist/graph/react/index.css";
-    const ourCss = readFileSync(outputCss, "utf-8");
-    writeFileSync(
-      outputCss,
-      `/* @xyflow/react base styles */\n${xyflowCss}\n\n${ourCss}`,
-    );
   },
 });
