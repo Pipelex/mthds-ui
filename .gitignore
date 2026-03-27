@@ -7,3 +7,6 @@ coverage/
 .idea/
 /temp/
 .gstack/
+
+*storybook.log
+storybook-static

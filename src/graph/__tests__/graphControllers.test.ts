@@ -31,14 +31,15 @@ describe("buildControllerNodes", () => {
     const layoutedNodes = [makeNode("op1")];
     const ctrlNodes = buildControllerNodes(gs, analysis, layoutedNodes);
 
-    expect(ctrlNodes).toHaveLength(1);
-    expect(ctrlNodes[0].id).toBe("ctrl");
-    expect(ctrlNodes[0].type).toBe("controllerGroup");
-    expect(ctrlNodes[0].data.isController).toBe(true);
-    expect(ctrlNodes[0].data.pipeType).toBe("PipeSequence");
+    // root + ctrl are both created
+    expect(ctrlNodes).toHaveLength(2);
+    const ctrl = ctrlNodes.find((n) => n.id === "ctrl")!;
+    expect(ctrl.type).toBe("controllerGroup");
+    expect(ctrl.data.isController).toBe(true);
+    expect(ctrl.data.pipeType).toBe("PipeSequence");
   });
 
-  it("skips root controller (no parent)", () => {
+  it("includes root controller", () => {
     const gs: GraphSpec = {
       nodes: [{ id: "root" }, { id: "op1" }],
       edges: [{ source: "root", target: "op1", kind: "contains" }],
@@ -47,8 +48,9 @@ describe("buildControllerNodes", () => {
     const layoutedNodes = [makeNode("op1")];
     const ctrlNodes = buildControllerNodes(gs, analysis, layoutedNodes);
 
-    // root has no parent controller, so it should be skipped
-    expect(ctrlNodes).toHaveLength(0);
+    // root controller is now included
+    expect(ctrlNodes).toHaveLength(1);
+    expect(ctrlNodes[0].id).toBe("root");
   });
 
   it("handles nested controllers", () => {
@@ -69,14 +71,15 @@ describe("buildControllerNodes", () => {
     const layoutedNodes = [makeNode("op1")];
     const ctrlNodes = buildControllerNodes(gs, analysis, layoutedNodes);
 
-    // Both outer and inner should be created (root is skipped)
-    expect(ctrlNodes).toHaveLength(2);
+    // All three controllers are created: root, outer, inner
+    expect(ctrlNodes).toHaveLength(3);
     const ids = ctrlNodes.map((n) => n.id);
+    expect(ids).toContain("root");
     expect(ids).toContain("outer");
     expect(ids).toContain("inner");
   });
 
-  it("names implicit batch controllers correctly", () => {
+  it("names batch controllers without implicit distinction", () => {
     const gs: GraphSpec = {
       nodes: [
         { id: "root" },
@@ -92,10 +95,12 @@ describe("buildControllerNodes", () => {
     const layoutedNodes = [makeNode("op1")];
     const ctrlNodes = buildControllerNodes(gs, analysis, layoutedNodes);
 
-    expect(ctrlNodes).toHaveLength(1);
-    expect(ctrlNodes[0].data.label).toBeNull();
-    expect(ctrlNodes[0].data.pipeType).toBe("implicit PipeBatch");
-    expect(ctrlNodes[0].data.pipeCode).toBe("my_pipe");
+    // root + ctrl
+    expect(ctrlNodes).toHaveLength(2);
+    const ctrl = ctrlNodes.find((n) => n.id === "ctrl")!;
+    expect(ctrl.data.label).toBe("my_pipe_batch");
+    expect(ctrl.data.pipeType).toBe("PipeBatch");
+    expect(ctrl.data.pipeCode).toBe("my_pipe_batch");
   });
 
   it("sets parentId on children after building", () => {

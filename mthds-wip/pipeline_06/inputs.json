@@ -1,0 +1,8 @@
+{
+  "data": {
+    "concept": "native.Text",
+    "content": {
+      "text": "Annual Sales Data 2025:\n\nQ1: Revenue $45.2M, Expenses $38.1M, Profit $7.1M, Headcount 234\nQ2: Revenue $52.8M, Expenses $41.3M, Profit $11.5M, Headcount 256\nQ3: Revenue $48.9M, Expenses $39.7M, Profit $9.2M, Headcount 261\nQ4: Revenue $61.4M, Expenses $44.2M, Profit $17.2M, Headcount 289\n\nTop Products: CloudSync Pro ($42M), DataVault Enterprise ($31M), APIGateway Plus ($18M)\nTop Regions: North America (52%), Europe (28%), Asia-Pacific (15%), Other (5%)"
+    }
+  }
+}

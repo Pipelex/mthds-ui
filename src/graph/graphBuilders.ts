@@ -2,11 +2,22 @@ import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } fro
 import { ARROW_CLOSED_MARKER } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 
-const CHAR_WIDTH_PX = 8;
-const PIPE_LABEL_PADDING = 28;
+/** Fallback description when the GraphSpec node doesn't carry one. */
+function defaultDescription(pipeType?: string, pipeCode?: string): string {
+  const code = pipeCode || "this step";
+  const verb: Record<string, string> = {
+    PipeLLM: "Analyze and generate output using",
+    PipeExtract: "Extract content from",
+    PipeCompose: "Compose output using",
+    PipeImgGen: "Generate image for",
+    PipeSearch: "Search the web for",
+    PipeFunc: "Process data in",
+  };
+  return `${verb[pipeType || ""] || "Execute"} ${code.replace(/_/g, " ")}`;
+}
+
 const STUFF_CHAR_WIDTH_PX = 7;
 const STUFF_LABEL_PADDING = 48;
-const MIN_PIPE_WIDTH = 160;
 const MIN_STUFF_WIDTH = 140;
 
 /**
@@ -38,11 +49,18 @@ export function buildDataflowGraph(
 
     const isFailed = node.status === "failed";
     const label = node.pipe_code || node.id.split(":").pop() || node.id;
-    const pipeWidth = Math.max(MIN_PIPE_WIDTH, label.length * CHAR_WIDTH_PX + PIPE_LABEL_PADDING);
+    const inputs = (node.io?.inputs ?? []).map((i) => ({
+      name: i.name ?? "",
+      concept: i.concept ?? "",
+    }));
+    const outputs = (node.io?.outputs ?? []).map((o) => ({
+      name: o.name ?? "",
+      concept: o.concept ?? "",
+    }));
 
     nodes.push({
       id: node.id,
-      type: "default",
+      type: "pipeCard",
       data: {
         labelDescriptor: { kind: "pipe", label, isFailed },
         nodeData: node,
@@ -50,17 +68,17 @@ export function buildDataflowGraph(
         isStuff: false,
         labelText: label,
         pipeCode: node.pipe_code || label,
+        pipeType: node.pipe_type,
+        pipeCardData: {
+          pipeCode: node.pipe_code || label,
+          pipeType: node.pipe_type || "PipeFunc",
+          description: node.description || defaultDescription(node.pipe_type, node.pipe_code),
+          status: node.status || "scheduled",
+          inputs,
+          outputs,
+        },
       },
       position: { x: 0, y: 0 },
-      style: {
-        background: isFailed ? "var(--color-pipe-failed-bg)" : "var(--color-pipe-bg)",
-        border: isFailed ? "2px solid var(--color-pipe-failed)" : "2px solid var(--color-pipe)",
-        borderRadius: "8px",
-        padding: "0",
-        width: pipeWidth + "px",
-        boxShadow: "var(--shadow-md)",
-        cursor: "pointer",
-      },
     });
   }
 
@@ -147,7 +165,7 @@ export function buildDataflowGraph(
       id: edge.id || "edge_" + edgeId++,
       source: sourceId,
       target: targetId,
-      type: edgeType,
+      type: "smoothstep",
       animated: false,
       style: {
         stroke: "var(--color-parallel-combine)",
@@ -270,11 +288,29 @@ export function buildDataflowGraph(
   });
 
   // Mark edges that cross between different sibling controller groups
+  // and assign per-class edge types for better routing
   for (const edge of edges) {
     const srcCtrl = childToCtrl[edge.source] || null;
     const tgtCtrl = childToCtrl[edge.target] || null;
     if (srcCtrl && tgtCtrl && srcCtrl !== tgtCtrl) {
       edge._crossGroup = true;
+      // Keep bezier for long-distance cross-group edges (natural curves look better)
+      // but visually de-emphasize to reduce spaghetti effect
+      edge.style = {
+        ...edge.style,
+        strokeWidth: 1.5,
+        opacity: 0.65,
+      };
+    }
+  }
+
+  // Batch edges: keep bezier but visually differentiate
+  for (const edge of edges) {
+    if (edge._batchEdge) {
+      edge.style = {
+        ...edge.style,
+        opacity: 0.7,
+      };
     }
   }
 

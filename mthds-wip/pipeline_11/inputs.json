@@ -1,0 +1,8 @@
+{
+  "request": {
+    "concept": "native.Text",
+    "content": {
+      "text": "I need to reset my password for the enterprise dashboard. I've been locked out after three failed attempts and the automated recovery email never arrived. My account is john.smith@acmecorp.com and I need access urgently for a client presentation at 3 PM today."
+    }
+  }
+}

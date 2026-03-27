@@ -1,0 +1,211 @@
+{
+  "nodes": [
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "pipe_code": "all_types_chain",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "digest": "U3Cfz",
+            "concept": "Document",
+            "content_type": "qBJdTXzyuqwQgBoGRwMg"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "digest": "GEF8q",
+            "concept": "FinalOutput"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_1",
+      "pipe_code": "step_extract",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "digest": "U3Cfz",
+            "concept": "Document",
+            "content_type": "qBJdTXzyuqwQgBoGRwMg"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "digest": "KrURW",
+            "concept": "Page"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "pipe_code": "step_llm",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "digest": "KrURW",
+            "concept": "Page"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "analysis",
+            "digest": "C3gVB",
+            "concept": "Analysis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_3",
+      "pipe_code": "step_search",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "analysis",
+            "digest": "C3gVB",
+            "concept": "Analysis"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_result",
+            "digest": "StcQX",
+            "concept": "SearchResult"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_4",
+      "pipe_code": "step_imggen",
+      "pipe_type": "PipeImgGen",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "analysis",
+            "digest": "C3gVB",
+            "concept": "Analysis"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "visualization",
+            "digest": "h5Jtc",
+            "concept": "Image",
+            "content_type": "image/jpeg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_5",
+      "pipe_code": "step_compose",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "analysis",
+            "digest": "C3gVB",
+            "concept": "Analysis"
+          },
+          {
+            "name": "search_result",
+            "digest": "StcQX",
+            "concept": "SearchResult"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "digest": "GEF8q",
+            "concept": "FinalOutput"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_1",
+      "kind": "contains",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_0"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "kind": "contains",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_1"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_3",
+      "kind": "contains",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_2"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_4",
+      "kind": "contains",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_3"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_5",
+      "kind": "contains",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_4"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_1",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "kind": "data",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_5",
+      "label": "pages"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_3",
+      "kind": "data",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_6",
+      "label": "analysis"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_4",
+      "kind": "data",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_7",
+      "label": "analysis"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_2",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_5",
+      "kind": "data",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_8",
+      "label": "analysis"
+    },
+    {
+      "source": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_3",
+      "target": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_5",
+      "kind": "data",
+      "id": "49d1a4d8-b475-4578-860e-d924f270cf9b:edge_9",
+      "label": "search_result"
+    }
+  ]
+}

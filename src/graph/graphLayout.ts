@@ -16,8 +16,8 @@ export function getLayoutedElements(
   layoutConfig?: LayoutConfig,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   direction = direction || "TB";
-  const nodesep = layoutConfig?.nodesep ?? 50;
-  const ranksep = layoutConfig?.ranksep ?? 30;
+  const nodesep = layoutConfig?.nodesep ?? 80;
+  const ranksep = layoutConfig?.ranksep ?? 70;
 
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
@@ -25,48 +25,111 @@ export function getLayoutedElements(
     rankdir: direction,
     nodesep,
     ranksep,
-    edgesep: 20,
+    edgesep: 30,
     marginx: 40,
     marginy: 40,
   });
+
+  const isHorizontal = direction === "LR" || direction === "RL";
 
   // NOTE: These dimensions are intentionally different from nodeWidth()/nodeHeight() in types.ts.
   // Dagre needs estimated sizes *before* styles are set (styles are written by graphBuilders).
   // Post-layout passes (ensureControllerSpacing, buildControllerNodes) then read the actual
   // style.width/style.height via nodeWidth()/nodeHeight(). The two serve different pipeline stages.
   const nodeWidths: Record<string, number> = {};
+  const nodeHeights: Record<string, number> = {};
   nodes.forEach((node) => {
     const nodeData = node.data || {};
     const isStuff = nodeData.isStuff;
     const labelText = nodeData.labelText || "";
+    const isPipeCard = node.type === "pipeCard";
     const estimatedWidth = Math.max(180, Math.min(400, labelText.length * 8 + 60));
-    const width = isStuff ? Math.max(180, estimatedWidth) : Math.max(200, estimatedWidth);
-    const height = isStuff ? 60 : 70;
+
+    // Pipe card CSS: LR → min 180 / max 240, TB → min 280 / max 400.
+    const pipeCardMinWidth = isHorizontal ? 180 : 280;
+    const pipeCardMaxWidth = isHorizontal ? 240 : 400;
+    let width: number;
+    if (isStuff) {
+      width = Math.max(180, estimatedWidth);
+    } else if (isPipeCard && nodeData.pipeCardData) {
+      // Use CSS max-width as the dagre estimate. Pipe card content (description + IO)
+      // typically fills to max-width; underestimating causes output nodes to crowd
+      // the card's right edge since the position is anchored at the left.
+      width = pipeCardMaxWidth;
+    } else {
+      width = Math.max(isPipeCard ? pipeCardMinWidth : 200, estimatedWidth);
+    }
+
+    // Adaptive height: account for IO sections on pipe cards.
+    // CSS layout: padding(12+12) + header(~20) + per IO section(gap 8 + row ~22 = 30).
+    // LR cards are narrower → more pill wrapping → taller.
+    let height: number;
+    if (isStuff) {
+      height = 60;
+    } else if (isPipeCard && nodeData.pipeCardData) {
+      const pcd = nodeData.pipeCardData;
+      const inputCount = pcd.inputs?.length ?? 0;
+      const outputCount = pcd.outputs?.length ?? 0;
+      const hasDesc = !!pcd.description || !!nodeData.nodeData?.description;
+      const baseHeight = 44 + (hasDesc ? 24 : 0); // padding(24) + header(20) + description(24?)
+      // LR: label above pills → taller section base; TB: label beside pills
+      const sectionBase = isHorizontal ? 38 : 30;
+      const inputSection = inputCount > 0 ? sectionBase : 0;
+      const outputSection = outputCount > 0 ? sectionBase : 0;
+      // LR stacks pills vertically (1/row); TB wraps (~3/row)
+      const pillsPerRow = isHorizontal ? 1 : 3;
+      const visibleInputs = Math.min(inputCount, 4); // MAX_VISIBLE_INPUTS = 4
+      const inputExtraRows = Math.max(0, Math.ceil(visibleInputs / pillsPerRow) - 1);
+      const outputExtraRows = Math.max(0, Math.ceil(outputCount / pillsPerRow) - 1);
+      height = Math.min(
+        320,
+        baseHeight + inputSection + outputSection + (inputExtraRows + outputExtraRows) * 24,
+      );
+    } else {
+      height = isPipeCard ? 120 : 70;
+    }
     nodeWidths[node.id] = width;
+    nodeHeights[node.id] = height;
     g.setNode(node.id, { width, height });
   });
 
   edges.forEach((edge) => {
     const opts: Record<string, unknown> = {};
-    if (edge._crossGroup) opts.weight = 0;
-    if (edge._batchEdge) opts.weight = 0;
+    if (edge._crossGroup) {
+      opts.weight = 0;
+    }
+    if (edge._batchEdge) {
+      opts.weight = 0;
+    }
     g.setEdge(edge.source, edge.target, opts);
   });
 
   dagre.layout(g);
 
-  const isHorizontal = direction === "LR" || direction === "RL";
   const result = nodes.map((node) => {
     const nodeWithPosition = g.node(node.id);
     if (!nodeWithPosition) {
       throw new Error(`dagre did not produce position for node "${node.id}"`);
     }
     const width = nodeWidths[node.id];
+    const height = nodeHeights[node.id];
+    // Inject direction into pipeCardData so the card component can adjust orientation
+    const pipeCardData = node.data.pipeCardData;
+    const cardDirection = isHorizontal ? ("LR" as const) : ("TB" as const);
+    const updatedPipeCardData = pipeCardData
+      ? { ...pipeCardData, direction: cardDirection }
+      : undefined;
     return {
       ...node,
+      data: {
+        ...node.data,
+        _estimatedWidth: width,
+        _estimatedHeight: height,
+        pipeCardData: updatedPipeCardData,
+      },
       position: {
         x: nodeWithPosition.x - width / 2,
-        y: nodeWithPosition.y - (node.data?.isStuff ? 30 : 35),
+        y: nodeWithPosition.y - height / 2,
       },
       sourcePosition: (isHorizontal
         ? direction === "LR"
@@ -97,7 +160,7 @@ export function ensureControllerSpacing(
   const isHorizontal = direction === "LR" || direction === "RL";
 
   const childToCtrl = buildChildToControllerMap(graphspec, analysis);
-  const MIN_GAP = 20;
+  const MIN_GAP = 30;
 
   function isDescendantOf(nodeId: string, ctrlId: string): boolean {
     const visited = new Set<string>();
@@ -157,7 +220,7 @@ export function ensureControllerSpacing(
     );
     if (childCtrls.length < 2) continue;
 
-    for (let pass = 0; pass < 3; pass++) {
+    for (let pass = 0; pass < 6; pass++) {
       let anyShifted = false;
 
       for (let i = 0; i < childCtrls.length; i++) {
@@ -310,7 +373,8 @@ export function ensureControllerSpacing(
     }
   }
 
-  // Phase 3: align loose input nodes above their downstream controller
+  // Phase 3: align loose input stuff nodes near their downstream controller
+  const INPUT_MARGIN = 40; // gap between input stuff node and controller boundary
   for (let i = 0; i < result.length; i++) {
     const n = result[i];
     if (childToCtrl[n.id]) continue;
@@ -325,32 +389,42 @@ export function ensureControllerSpacing(
       const ctrl = childToCtrl[consumerId];
       if (ctrl) targetCtrls.add(ctrl);
     }
-    if (targetCtrls.size !== 1) continue;
 
-    const targetCtrl = targetCtrls.values().next().value as string;
+    // Collect all target controller boxes
+    const targetBoxes: NonNullable<ReturnType<typeof computeBox>>[] = [];
+    for (const ctrlId of targetCtrls) {
+      const b = computeBox(ctrlId);
+      if (b) targetBoxes.push(b);
+    }
+    if (targetBoxes.length === 0) continue;
 
-    const targetCtrlNode = controllerInfoMap[targetCtrl];
-    if (
-      targetCtrlNode &&
-      (targetCtrlNode.pipe_type === "PipeParallel" ||
-        targetCtrlNode.pipe_type === "PipeBatch" ||
-        targetCtrlNode.pipe_type === "PipeCondition")
-    )
-      continue;
+    // Compute the bounding box of all target controllers
+    let allMinX = Infinity,
+      allMinY = Infinity,
+      allMaxX = -Infinity,
+      allMaxY = -Infinity;
+    for (const b of targetBoxes) {
+      allMinX = Math.min(allMinX, b.padLeft);
+      allMinY = Math.min(allMinY, b.padTop);
+      allMaxX = Math.max(allMaxX, b.padRight);
+      allMaxY = Math.max(allMaxY, b.padBottom);
+    }
 
-    const box = computeBox(targetCtrl);
-    if (!box) continue;
+    const w = nodeWidth(n);
+    const h = nodeHeight(n);
 
     if (isHorizontal) {
-      const groupCenterY =
-        (box.padTop + CONTROLLER_PADDING_TOP + box.padBottom - CONTROLLER_PADDING_BOTTOM) / 2;
-      const h = nodeHeight(n);
-      result[i].position.y = groupCenterY - h / 2;
+      // Vertically center across all target controllers, position to the left
+      const centerY = (allMinY + allMaxY) / 2;
+      result[i].position.y = centerY - h / 2;
+      // Place to the left of the leftmost controller boundary with margin
+      result[i].position.x = Math.min(result[i].position.x, allMinX - w - INPUT_MARGIN);
     } else {
-      const groupCenterX =
-        (box.padLeft + CONTROLLER_PADDING_X + box.padRight - CONTROLLER_PADDING_X) / 2;
-      const w = nodeWidth(n);
-      result[i].position.x = groupCenterX - w / 2;
+      // Horizontally center across all target controllers, position above
+      const centerX = (allMinX + allMaxX) / 2;
+      result[i].position.x = centerX - w / 2;
+      // Place above the topmost controller boundary with margin
+      result[i].position.y = Math.min(result[i].position.y, allMinY - h - INPUT_MARGIN);
     }
   }
 
@@ -387,6 +461,89 @@ export function ensureControllerSpacing(
       const halfSize = orderAxis === "x" ? w / 2 : nodeHeight(n) / 2;
       result[idx].position[orderAxis] = median - halfSize;
     }
+  }
+
+  // Phase 5: reorder loose input stuff nodes to minimize edge crossings.
+  // When multiple unparented stuff nodes are stacked on the entry side, their
+  // vertical/horizontal order should match their primary consumers' order.
+  const looseStuffIndices: number[] = [];
+  for (let i = 0; i < result.length; i++) {
+    const n = result[i];
+    if (childToCtrl[n.id]) continue;
+    if (!n.id.startsWith("stuff_")) continue;
+    const digest = n.id.replace("stuff_", "");
+    const cons = analysis.stuffConsumers[digest];
+    if (!cons || cons.length === 0) continue;
+    looseStuffIndices.push(i);
+  }
+
+  if (looseStuffIndices.length >= 2) {
+    // For each loose stuff node, compute the average cross-axis position of its consumers
+    const crossAxis = isHorizontal ? "y" : "x";
+    const targetCenters: { idx: number; center: number }[] = [];
+    for (const idx of looseStuffIndices) {
+      const n = result[idx];
+      const digest = n.id.replace("stuff_", "");
+      const cons = analysis.stuffConsumers[digest] || [];
+      let sum = 0,
+        count = 0;
+      for (const consumerId of cons) {
+        const consIdx = result.findIndex((r) => r.id === consumerId);
+        if (consIdx >= 0) {
+          const cn = result[consIdx];
+          sum +=
+            cn.position[crossAxis] + (crossAxis === "x" ? nodeWidth(cn) / 2 : nodeHeight(cn) / 2);
+          count++;
+        }
+      }
+      targetCenters.push({ idx, center: count > 0 ? sum / count : 0 });
+    }
+
+    // Sort by target center position
+    targetCenters.sort((a, b) => a.center - b.center);
+
+    // Collect current cross-axis positions (sorted)
+    const currentPositions = looseStuffIndices
+      .map((idx) => result[idx].position[crossAxis])
+      .sort((a, b) => a - b);
+
+    // Assign sorted positions to sorted nodes, preserving spacing
+    for (let j = 0; j < targetCenters.length; j++) {
+      result[targetCenters[j].idx].position[crossAxis] = currentPositions[j];
+    }
+  }
+
+  // Phase 6: align stuff nodes with their producer on the cross-axis.
+  // This ensures output stuff nodes (e.g., "merged") sit at the same vertical
+  // level as the pipe card that produced them, even in non-leaf controllers
+  // where Phase 4 doesn't apply.
+  // Uses _estimatedHeight (set by getLayoutedElements) for accurate centering —
+  // nodeHeight() defaults to 70px for pipe cards without style.height, which is wrong.
+  const crossAxis6 = isHorizontal ? "y" : "x";
+  for (let i = 0; i < result.length; i++) {
+    const n = result[i];
+    if (!n.id.startsWith("stuff_")) continue;
+
+    const digest = n.id.replace("stuff_", "");
+    const producerId = analysis.stuffProducers[digest];
+    if (!producerId) continue;
+
+    const producerIdx = result.findIndex((r) => r.id === producerId);
+    if (producerIdx < 0) continue;
+
+    const producer = result[producerIdx];
+    // Only align if they're in the same controller group
+    if (childToCtrl[n.id] !== childToCtrl[producerId]) continue;
+
+    const estSize = (node: GraphNode) => {
+      if (crossAxis6 === "x") {
+        return (node.data._estimatedWidth as number | undefined) ?? nodeWidth(node);
+      }
+      return (node.data._estimatedHeight as number | undefined) ?? nodeHeight(node);
+    };
+    const producerCenter = producer.position[crossAxis6] + estSize(producer) / 2;
+    const stuffHalf = estSize(n) / 2;
+    result[i].position[crossAxis6] = producerCenter - stuffHalf;
   }
 
   return result;

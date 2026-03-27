@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "ingest_pipeline",
+  "inputs": {
+    "document": {
+      "concept": "native.Document",
+      "content": {
+        "url": "https://mock-8592295b.invalid/26ffd80a-8cea-4e3a-8fb2-3ac218396839"
+      }
+    }
+  }
+}

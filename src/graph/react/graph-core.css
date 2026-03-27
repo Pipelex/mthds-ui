@@ -3,8 +3,8 @@
 
 /* Default theme — consumers can override any var on an ancestor element */
 .react-flow-container {
-  --color-bg: #1e1e1e;
-  --color-bg-dots: #334155;
+  --color-bg: #0a0a0a;
+  --color-bg-dots: rgba(255, 255, 255, 0.35);
   --color-text-muted: #94a3b8;
   --color-controller-text: #94a3b8;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -40,6 +40,23 @@
     var(--shadow-lg) !important;
   z-index: 1000 !important;
 }
+/* Pipe cards handle their own selection styling — suppress the wrapper outline */
+.react-flow__node-pipeCard {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+.react-flow__node-pipeCard.selected {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.react-flow__node-pipeCard.selected .pipe-card {
+  box-shadow:
+    0 0 0 2px var(--color-accent, #3b82f6),
+    0 4px 16px rgba(0, 0, 0, 0.6);
+}
 .react-flow__node-controllerGroup.selected {
   box-shadow:
     0 0 0 2px var(--color-accent),
@@ -48,32 +65,311 @@
 .react-flow__node-controllerGroup {
   cursor: default !important;
 }
+/* ─── Controller Group Node ──────────────────────────────────────────── */
 .controller-group-node {
+  --controller-border: 2px dashed rgba(148, 163, 184, 0.3);
+  --controller-bg: rgba(148, 163, 184, 0.04);
+  --controller-header-color: #64748b;
+
   width: 100%;
   height: 100%;
   position: relative;
+  border: var(--controller-border);
+  border-radius: 12px;
+  background: var(--controller-bg);
+}
+.controller-group-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  pointer-events: none;
+  user-select: none;
+}
+.controller-group-icon {
+  font-size: 13px;
+  color: var(--controller-header-color);
+  line-height: 1;
+}
+.controller-group-badge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--controller-header-color);
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
 }
 .controller-group-label {
-  position: absolute;
-  top: 8px;
-  left: 12px;
-  font-size: 12px;
-  font-family: var(--font-mono);
-  font-weight: 500;
-  color: var(--color-controller-text);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-}
-.controller-group-type {
-  position: absolute;
-  top: 8px;
-  right: 12px;
   font-size: 11px;
-  font-family: var(--font-mono);
-  font-weight: 400;
-  color: var(--color-controller-text);
-  pointer-events: none;
-  user-select: none;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-weight: 500;
+  color: var(--color-controller-text, #94a3b8);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* Collapse / expand toggle for parallel & batch controllers */
+.controller-group-collapse {
+  all: unset;
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 10px;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  color: var(--controller-header-color, #94a3b8);
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  pointer-events: auto;
+  z-index: 10;
   white-space: nowrap;
 }
+.controller-group-collapse:hover {
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Sequence — solid thin border, calm flow */
+.controller-group--sequence {
+  --controller-border: 1.5px solid rgba(148, 163, 184, 0.25);
+  --controller-bg: rgba(148, 163, 184, 0.03);
+  --controller-header-color: #94a3b8;
+}
+
+/* Parallel — double border, forking lanes */
+.controller-group--parallel {
+  --controller-border: 3px double rgba(139, 233, 253, 0.35);
+  --controller-bg: rgba(139, 233, 253, 0.03);
+  --controller-header-color: #8be9fd;
+}
+
+/* Condition — dashed with diamond accent */
+.controller-group--condition {
+  --controller-border: 2px dashed rgba(251, 191, 36, 0.35);
+  --controller-bg: rgba(251, 191, 36, 0.03);
+  --controller-header-color: #fbbf24;
+}
+
+/* Batch — dotted border, loop/repeat */
+.controller-group--batch {
+  --controller-border: 2px dotted rgba(167, 139, 250, 0.35);
+  --controller-bg: rgba(167, 139, 250, 0.03);
+  --controller-header-color: #a78bfa;
+}
+
+/* ─── Pipe Card Node ─────────────────────────────────────────────────── */
+/* All tokens overridable via CSS custom properties on an ancestor.      */
+.pipe-card {
+  --pipe-card-accent: #94a3b8;
+  --pipe-card-bg: rgba(148, 163, 184, 0.08);
+  --pipe-card-text: #e2e8f0;
+  --pipe-card-text-bright: #f8fafc;
+  --pipe-card-text-muted: #94a3b8;
+  --pipe-card-text-dim: #64748b;
+  --pipe-card-pill-bg: rgba(255, 255, 255, 0.06);
+  --pipe-card-pill-border: rgba(255, 255, 255, 0.08);
+  --pipe-card-pill-text: #cbd5e1;
+  --pipe-card-radius: 8px;
+
+  border-left: 4px solid var(--pipe-card-accent);
+  border-radius: var(--pipe-card-radius);
+  padding: 12px 14px;
+  background: var(--pipe-card-bg);
+  font-family: var(--font-sans, "Inter", -apple-system, sans-serif);
+  color: var(--pipe-card-text);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.2s;
+}
+.pipe-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Direction-aware sizing: LR = narrow + tall, TB = wide + short */
+.pipe-card--lr {
+  min-width: 180px;
+  max-width: 240px;
+}
+.pipe-card--tb {
+  min-width: 280px;
+  max-width: 400px;
+}
+
+/* Header: badge + code + status */
+.pipe-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pipe-card-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.4;
+  background: var(--pipe-card-accent);
+  color: #0e0e0e;
+}
+.pipe-card-code {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pipe-card-text-bright);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pipe-card-status {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.pipe-card-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pipe-card-status-dot--pulse {
+  animation: pipe-card-pulse 1.5s ease-in-out infinite;
+}
+@keyframes pipe-card-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* Description */
+.pipe-card-description {
+  font-size: 11.5px;
+  color: var(--pipe-card-text-muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* I/O section — base (appearance only, layout set per-direction below) */
+.pipe-card-io-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pipe-card-text-dim);
+  flex-shrink: 0;
+}
+.pipe-card-io-pills {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.pipe-card-io-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  background: var(--pipe-card-pill-bg);
+  border: 1px solid var(--pipe-card-pill-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  line-height: 1.4;
+  min-width: 0;
+}
+.pipe-card-io-pill-name {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  color: var(--pipe-card-pill-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pipe-card-io-pill-concept {
+  color: var(--pipe-card-text-dim);
+  font-size: 9px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pipe-card-io-more {
+  all: unset;
+  font-size: 10px;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  color: var(--pipe-card-text-muted);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.pipe-card-io-more:hover {
+  color: var(--pipe-card-text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── LR: label on top, pills stacked vertically, hard-truncated ─────── */
+/* Truncation priority: concept shrinks first → name truncates last.     */
+.pipe-card--lr .pipe-card-io {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pipe-card--lr .pipe-card-io-pills {
+  flex-direction: column;
+  align-items: flex-start;       /* pills size to content, not stretch */
+  gap: 4px;
+}
+.pipe-card--lr .pipe-card-io-pill {
+  max-width: 100%;
+  overflow: hidden;
+}
+.pipe-card--lr .pipe-card-io-pill-name {
+  flex: 0 1 auto;              /* natural width, shrinks only after concept is gone */
+  min-width: 30px;
+}
+.pipe-card--lr .pipe-card-io-pill-concept {
+  flex: 0 100 auto;            /* natural width, shrinks 100x faster than name */
+  min-width: 0;                /* allow shrinking to zero */
+}
+.pipe-card--lr .pipe-card-io-more {
+  align-self: flex-start;
+}
+
+/* ─── TB: label on the left, pills wrap horizontally to the right ────── */
+.pipe-card--tb .pipe-card-io {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 6px;
+}
+.pipe-card--tb .pipe-card-io-label {
+  padding-top: 4px;
+  min-width: 52px;
+}
+.pipe-card--tb .pipe-card-io-pills {
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.pipe-card--tb .pipe-card-io-pill {
+  max-width: 100%;
+}
+.pipe-card--tb .pipe-card-io-pill-name {
+  max-width: 140px;
+}
+.pipe-card--tb .pipe-card-io-pill-concept {
+  max-width: 100px;
+}
+

@@ -1,0 +1,8 @@
+{
+  "question": {
+    "concept": "native.Text",
+    "content": {
+      "text": "What are the key differences between transformer-based architectures and traditional recurrent neural networks for natural language processing tasks, and when should each approach be preferred?"
+    }
+  }
+}

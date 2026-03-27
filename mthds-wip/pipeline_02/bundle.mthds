@@ -1,0 +1,34 @@
+domain = "document_analysis"
+description = "Extract pages from a document then analyze them"
+main_pipe = "extract_and_analyze"
+
+[concept.Analysis]
+description = "An analytical assessment of content"
+refines = "Text"
+
+[pipe.extract_and_analyze]
+type = "PipeSequence"
+description = "Extract then analyze a document"
+inputs = {document = "Document"}
+output = "Analysis"
+steps = [
+    {pipe = "extract_document", result = "pages"},
+    {pipe = "analyze_pages", result = "analysis"},
+]
+
+[pipe.extract_document]
+type = "PipeExtract"
+description = "Extract pages from document"
+inputs = {document = "Document"}
+output = "Page[]"
+
+[pipe.analyze_pages]
+type = "PipeLLM"
+description = "Analyze extracted pages"
+inputs = {pages = "Page[]"}
+output = "Analysis"
+prompt = """
+Analyze the following document pages and provide a detailed analysis:
+
+@pages
+"""

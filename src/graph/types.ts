@@ -15,6 +15,7 @@ export interface GraphSpecNode {
   id: string;
   pipe_code?: string;
   pipe_type?: string;
+  description?: string;
   status?: string;
   io?: GraphSpecNodeIo;
 }
@@ -86,6 +87,18 @@ export type LabelDescriptor =
  * used as the generic parameter for ReactFlow's Node<T> in the React layer
  * (see graph/react/rfTypes.ts), while remaining React-free for pure graph logic.
  */
+/** Lightweight pipe card payload — built by graphBuilders, consumed by PipeCardNode. */
+export interface PipeCardPayload {
+  pipeCode: string;
+  pipeType: string;
+  description?: string;
+  status: string;
+  inputs: { name: string; concept: string }[];
+  outputs: { name: string; concept: string }[];
+  /** Layout direction — injected by the layout engine */
+  direction?: "LR" | "TB";
+}
+
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
   label?: unknown;
@@ -96,6 +109,8 @@ export interface GraphNodeData extends Record<string, unknown> {
   labelText: string;
   pipeCode?: string;
   pipeType?: string;
+  /** Present on pipe nodes (type: "pipeCard") — data for the rich card component */
+  pipeCardData?: PipeCardPayload;
 }
 
 // ReactFlow node used in our graph

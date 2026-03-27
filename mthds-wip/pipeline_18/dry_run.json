@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'pr_url': StuffArtefact(pr_url), 'diff': StuffArtefact(diff), 'security_findings': StuffArtefact(security_findings), 'style_findings': StuffArtefact(style_findings), 'logic_findings': StuffArtefact(logic_findings), 'perf_findings': StuffArtefact(perf_findings), 'main_stuff': StuffArtefact(diff)} \u2022 jinja2=# Code Review\n\n## Security\n{{ security_findings|tag(\"security_findings\") }}\n\n## Style\n{{ style_findings|tag(\"style_findings\") }}\n\n## Logic\n{{ logic_findings|tag(\"logic_findings\") }}\n\n## Performance\n{{ perf_findings|tag(\"perf_findings\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_18/dry_run.html"
+  }
+}

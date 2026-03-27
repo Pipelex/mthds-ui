@@ -1,0 +1,256 @@
+{
+  "nodes": [
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "pipe_code": "rag_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "answer",
+            "digest": "EdKdY",
+            "concept": "Answer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_1",
+      "pipe_code": "embed_query",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "query_embedding",
+            "digest": "eFYGF",
+            "concept": "QueryEmbedding"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "pipe_code": "parallel_search",
+      "pipe_type": "PipeParallel",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "query_embedding",
+            "digest": "eFYGF",
+            "concept": "QueryEmbedding"
+          },
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "vector_results",
+            "digest": "nAV68",
+            "concept": "SearchResult"
+          },
+          {
+            "name": "keyword_results",
+            "digest": "SfaH8",
+            "concept": "SearchResult"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_3",
+      "pipe_code": "vector_search",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "query_embedding",
+            "digest": "eFYGF",
+            "concept": "QueryEmbedding"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "vector_results",
+            "digest": "nAV68",
+            "concept": "SearchResult"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_4",
+      "pipe_code": "keyword_search",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "keyword_results",
+            "digest": "SfaH8",
+            "concept": "SearchResult"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_5",
+      "pipe_code": "rerank_results",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "vector_results",
+            "digest": "nAV68",
+            "concept": "SearchResult"
+          },
+          {
+            "name": "keyword_results",
+            "digest": "SfaH8",
+            "concept": "SearchResult"
+          },
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "context",
+            "digest": "W9DKh",
+            "concept": "RankedContext"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_6",
+      "pipe_code": "generate_answer",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "digest": "FckqG",
+            "concept": "Text"
+          },
+          {
+            "name": "context",
+            "digest": "W9DKh",
+            "concept": "RankedContext"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "answer",
+            "digest": "EdKdY",
+            "concept": "Answer"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_1",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_0"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_1"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_3",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_2"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_4",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_3"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_5",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_4"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_6",
+      "kind": "contains",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_5"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_1",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "kind": "data",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_6",
+      "label": "query_embedding"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_1",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_3",
+      "kind": "data",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_7",
+      "label": "query_embedding"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_5",
+      "kind": "data",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_8",
+      "label": "vector_results"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_5",
+      "kind": "data",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_9",
+      "label": "keyword_results"
+    },
+    {
+      "source": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_5",
+      "target": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_6",
+      "kind": "data",
+      "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:edge_10",
+      "label": "context"
+    }
+  ]
+}

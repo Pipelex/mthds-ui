@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "fanout_pipeline",
+  "inputs": {
+    "document": {
+      "concept": "native.Document",
+      "content": {
+        "url": "https://mock-f8b4c8c5.invalid/f5ff6c64-9e09-442a-b1dc-5bfcd89bcf2d"
+      }
+    }
+  }
+}

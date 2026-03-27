@@ -1,0 +1,128 @@
+{
+  "nodes": [
+    {
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
+      "pipe_code": "extract_analyze_report",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "digest": "PfNb6",
+            "concept": "Document",
+            "content_type": "YQVQGFxdnVJDkKInwvck"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "digest": "6WD5P",
+            "concept": "Report"
+          }
+        ]
+      }
+    },
+    {
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_1",
+      "pipe_code": "extract_pages",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "digest": "PfNb6",
+            "concept": "Document",
+            "content_type": "YQVQGFxdnVJDkKInwvck"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "digest": "4DuTY",
+            "concept": "Page"
+          }
+        ]
+      }
+    },
+    {
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_2",
+      "pipe_code": "analyze_content",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "digest": "4DuTY",
+            "concept": "Page"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "analysis",
+            "digest": "4mVak",
+            "concept": "Analysis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_3",
+      "pipe_code": "compose_report",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "io": {
+        "inputs": [
+          {
+            "name": "analysis",
+            "digest": "4mVak",
+            "concept": "Analysis"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "digest": "6WD5P",
+            "concept": "Report"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
+      "target": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_1",
+      "kind": "contains",
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:edge_0"
+    },
+    {
+      "source": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
+      "target": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_2",
+      "kind": "contains",
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:edge_1"
+    },
+    {
+      "source": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
+      "target": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_3",
+      "kind": "contains",
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:edge_2"
+    },
+    {
+      "source": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_1",
+      "target": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_2",
+      "kind": "data",
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:edge_3",
+      "label": "pages"
+    },
+    {
+      "source": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_2",
+      "target": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_3",
+      "kind": "data",
+      "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:edge_4",
+      "label": "analysis"
+    }
+  ]
+}

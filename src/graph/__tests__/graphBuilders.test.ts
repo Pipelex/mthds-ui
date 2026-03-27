@@ -74,7 +74,8 @@ describe("buildDataflowGraph", () => {
 
     const pipeNode = nodes.find((n) => n.id === "op1")!;
     expect(pipeNode.data.labelDescriptor).toMatchObject({ isFailed: true });
-    expect(pipeNode.style?.border).toContain("pipe-failed");
+    expect(pipeNode.type).toBe("pipeCard");
+    expect(pipeNode.data.pipeCardData?.status).toBe("failed");
   });
 
   it("creates batch edges with _batchEdge marker", () => {

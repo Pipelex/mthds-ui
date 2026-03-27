@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'document': StuffArtefact(document), 'pages': StuffArtefact(pages), 'page_summaries': StuffArtefact(page_summaries), 'main_stuff': StuffArtefact(page_summaries)} \u2022 jinja2=# Document Summary\n\n{{ page_summaries|tag(\"page_summaries\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_08/dry_run.html"
+  }
+}

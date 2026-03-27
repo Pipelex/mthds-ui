@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "dual_analysis_pipeline",
+  "inputs": {
+    "text": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}
