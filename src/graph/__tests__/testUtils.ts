@@ -14,7 +14,7 @@ import type {
 } from "../types";
 import { NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "../types";
 import { buildGraph } from "../graphBuilders";
-import { getLayoutedElements, ensureControllerSpacing } from "../graphLayout";
+import { getLayoutedElements } from "../graphLayout";
 import { applyControllers } from "../graphControllers";
 import { toAppNodes, toAppEdges } from "@graph/react/rfTypes";
 
@@ -290,7 +290,6 @@ export interface PipelineResult {
   analysis: DataflowAnalysis | null;
   graphData: { nodes: GraphNode[]; edges: GraphEdge[] };
   layouted: { nodes: GraphNode[]; edges: GraphEdge[] };
-  spaced: GraphNode[];
   withControllers: { nodes: GraphNode[]; edges: GraphEdge[] };
   appNodes: ReturnType<typeof toAppNodes>;
   appEdges: ReturnType<typeof toAppEdges>;
@@ -298,12 +297,12 @@ export interface PipelineResult {
 
 /**
  * Run the full graph pipeline (same sequence as GraphViewer minus React).
- * GraphSpec → buildGraph → getLayoutedElements → ensureControllerSpacing → applyControllers → toAppNodes/toAppEdges
+ * GraphSpec → buildGraph → getLayoutedElements → applyControllers → toAppNodes/toAppEdges
  */
-export function runFullPipeline(
+export async function runFullPipeline(
   graphspec: GraphSpec | null,
   options: PipelineOptions = {},
-): PipelineResult {
+): Promise<PipelineResult> {
   const {
     direction = "LR",
     showControllers = true,
@@ -316,23 +315,30 @@ export function runFullPipeline(
   const { graphData, analysis } = buildGraph(graphspec, edgeType);
 
   const layoutConfig = nodesep != null || ranksep != null ? { nodesep, ranksep } : undefined;
-  const layouted = getLayoutedElements(graphData.nodes, graphData.edges, direction, layoutConfig);
-
-  const spaced = ensureControllerSpacing(layouted.nodes, graphspec, analysis, direction);
+  const layouted = await getLayoutedElements(
+    graphData.nodes,
+    graphData.edges,
+    direction,
+    layoutConfig,
+    graphspec,
+    analysis,
+  );
 
   const withControllers = applyControllers(
-    spaced,
+    layouted.nodes,
     layouted.edges,
     graphspec,
     analysis,
     showControllers,
     expandedControllers,
+    undefined, // onToggleCollapse
+    layouted.controllerPositions,
   );
 
   const appNodes = toAppNodes(withControllers.nodes);
   const appEdges = toAppEdges(withControllers.edges);
 
-  return { analysis, graphData, layouted, spaced, withControllers, appNodes, appEdges };
+  return { analysis, graphData, layouted, withControllers, appNodes, appEdges };
 }
 
 // ─── Assertion helpers ──────────────────────────────────────────────────────
@@ -391,12 +397,14 @@ export function assertNoDuplicateIds(nodes: { id: string }[]): void {
 }
 
 /** Run the pipeline N times and assert identical structural output. */
-export function assertDeterministic(
+export async function assertDeterministic(
   graphspec: GraphSpec,
   runs: number = 5,
   options: PipelineOptions = {},
-): void {
-  const results = Array.from({ length: runs }, () => runFullPipeline(graphspec, options));
+): Promise<void> {
+  const results = await Promise.all(
+    Array.from({ length: runs }, () => runFullPipeline(graphspec, options)),
+  );
   const fingerprints = results.map((r) => ({
     nodeIds: r.appNodes.map((n) => n.id).sort(),
     edgeIds: r.appEdges.map((e) => e.id).sort(),

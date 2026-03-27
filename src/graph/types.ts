@@ -203,9 +203,8 @@ export const CONTROLLER_PADDING_BOTTOM = 20;
 export const ARROW_CLOSED_MARKER = "arrowclosed";
 
 // ─── Node dimension helpers ─────────────────────────────────────────────────
-// Extract dimensions from style. Used by post-layout passes (ensureControllerSpacing,
-// buildControllerNodes). NOT used by getLayoutedElements, which estimates dimensions
-// before styles exist.
+// Extract dimensions from style. Used by buildControllerNodes.
+// NOT used by getLayoutedElements, which estimates dimensions before styles exist.
 
 export function nodeWidth(n: GraphNode): number {
   const raw = n.style?.width;

@@ -155,10 +155,17 @@ describe("buildChildToControllerMap", () => {
     expect(map["op2"]).toBe("ctrl");
   });
 
-  it("assigns stuff to controller of its producer", () => {
+  it("assigns stuff to controller of its producer when consumed inside", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } }],
-      edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
+      nodes: [
+        { id: "ctrl" },
+        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+      ],
+      edges: [
+        { source: "ctrl", target: "op1", kind: "contains" },
+        { source: "ctrl", target: "op2", kind: "contains" },
+      ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
     const map = buildChildToControllerMap(gs, analysis);
@@ -179,7 +186,7 @@ describe("buildChildToControllerMap", () => {
     expect(map["op1"]).toBe("inner");
   });
 
-  it("assigns stuff produced by controllers to parent controller", () => {
+  it("assigns stuff produced by controllers to parent controller when consumed there", () => {
     const gs: GraphSpec = {
       nodes: [
         { id: "root" },
@@ -188,15 +195,18 @@ describe("buildChildToControllerMap", () => {
           io: { outputs: [{ digest: "d1", name: "ctrl_out" }] },
         },
         { id: "op1" },
+        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "inner", kind: "contains" },
         { source: "inner", target: "op1", kind: "contains" },
+        { source: "root", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
     const map = buildChildToControllerMap(gs, analysis);
     // inner is a controller, its output stuff goes to root (parent controller)
+    // because op2 consumes it and is inside root
     expect(map["stuff_d1"]).toBe("root");
   });
 
@@ -259,32 +269,91 @@ describe("buildChildToControllerMap", () => {
     expect(map["stuff_d2"]).toBeUndefined();
   });
 
-  it("stuff produced by a controller's child maps to that controller", () => {
+  it("stuff produced by a controller's child maps to that controller when consumed inside", () => {
     const gs: GraphSpec = {
       nodes: [
         { id: "root" },
         { id: "ctrl" },
-        {
-          id: "op1",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
-        },
-        {
-          id: "op2",
-          io: { outputs: [{ digest: "d2", name: "other" }] },
-        },
+        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", io: { outputs: [{ digest: "d2", name: "other" }] } },
+        { id: "op3", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op4", io: { inputs: [{ digest: "d2", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "ctrl", kind: "contains" },
         { source: "ctrl", target: "op1", kind: "contains" },
+        { source: "ctrl", target: "op3", kind: "contains" },
+        { source: "root", target: "op2", kind: "contains" },
+        { source: "root", target: "op4", kind: "contains" },
+      ],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const map = buildChildToControllerMap(gs, analysis);
+    // stuff_d1 is produced by op1, consumed by op3 — both inside ctrl → maps to ctrl
+    expect(map["stuff_d1"]).toBe("ctrl");
+    // stuff_d2 is produced by op2, consumed by op4 — both inside root → maps to root
+    expect(map["stuff_d2"]).toBe("root");
+  });
+
+  it("promotes stuff with no consumers to root level", () => {
+    const gs: GraphSpec = {
+      nodes: [
+        { id: "ctrl" },
+        { id: "op1", io: { outputs: [{ digest: "d1", name: "final_output" }] } },
+      ],
+      edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const map = buildChildToControllerMap(gs, analysis);
+    // stuff_d1 has no consumers → promoted to root (removed from map)
+    expect(map["stuff_d1"]).toBeUndefined();
+  });
+
+  it("promotes stuff when all consumers are outside the producer's controller", () => {
+    const gs: GraphSpec = {
+      nodes: [
+        { id: "root" },
+        { id: "inner" },
+        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+      ],
+      edges: [
+        { source: "root", target: "inner", kind: "contains" },
+        { source: "inner", target: "op1", kind: "contains" },
         { source: "root", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
     const map = buildChildToControllerMap(gs, analysis);
-    // stuff_d1 is produced by op1 inside ctrl → maps to ctrl
-    expect(map["stuff_d1"]).toBe("ctrl");
-    // stuff_d2 is produced by op2 inside root → maps to root
-    expect(map["stuff_d2"]).toBe("root");
+    // stuff_d1 produced inside inner, consumed by op2 inside root but NOT inside inner
+    // → promoted from inner to root
+    expect(map["stuff_d1"]).toBe("root");
+  });
+
+  it("does not promote stuff involved in batch edges with no operator consumers", () => {
+    const gs: GraphSpec = {
+      nodes: [
+        { id: "batch_ctrl" },
+        {
+          id: "op1",
+          io: { outputs: [{ digest: "d1", name: "result" }] },
+        },
+      ],
+      edges: [
+        { source: "batch_ctrl", target: "op1", kind: "contains" },
+        {
+          source: "op1",
+          target: "batch_ctrl",
+          kind: "batch_aggregate",
+          source_stuff_digest: "d1",
+          target_stuff_digest: "d_agg",
+        },
+      ],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const map = buildChildToControllerMap(gs, analysis);
+    // stuff_d1 has no operator consumers but IS in a batch_aggregate edge → stays
+    expect(map["stuff_d1"]).toBe("batch_ctrl");
   });
 });
 

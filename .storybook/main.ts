@@ -20,6 +20,9 @@ const config: StorybookConfig = {
       ...(config.resolve.alias as Record<string, string>),
       "@graph": path.resolve(dirname, "../src/graph"),
     };
+    // Pre-bundle elkjs CJS module for browser compatibility
+    config.optimizeDeps = config.optimizeDeps || {};
+    config.optimizeDeps.include = [...(config.optimizeDeps.include || []), "elkjs/lib/elk.bundled.js"];
     return config;
   },
 };

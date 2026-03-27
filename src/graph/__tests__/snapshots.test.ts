@@ -15,8 +15,8 @@ import { makeWideParallel } from "@graph/react/viewer/__stories__/extremeGraphSp
 import type { GraphSpec } from "../types";
 
 /** Extract a structural fingerprint that is position-independent. */
-function structuralFingerprint(spec: GraphSpec, direction: "LR" | "TB" = "LR") {
-  const result = runFullPipeline(spec, { direction, showControllers: true });
+async function structuralFingerprint(spec: GraphSpec, direction: "LR" | "TB" = "LR") {
+  const result = await runFullPipeline(spec, { direction, showControllers: true });
   return {
     nodes: result.appNodes.map((n) => ({
       id: n.id,
@@ -34,8 +34,8 @@ function structuralFingerprint(spec: GraphSpec, direction: "LR" | "TB" = "LR") {
 // ─── DRY catalog snapshots ─────────────────────────────────────────────────
 
 describe("snapshot regression — DRY catalog", () => {
-  it.each(Object.entries(DRY_RUN_CATALOG))("DRY %s matches snapshot", (_key, { spec }) => {
-    const fp = structuralFingerprint(spec);
+  it.each(Object.entries(DRY_RUN_CATALOG))("DRY %s matches snapshot", async (_key, { spec }) => {
+    const fp = await structuralFingerprint(spec);
     expect(fp).toMatchSnapshot();
   });
 });
@@ -43,8 +43,8 @@ describe("snapshot regression — DRY catalog", () => {
 // ─── LIVE catalog snapshots ────────────────────────────────────────────────
 
 describe("snapshot regression — LIVE catalog", () => {
-  it.each(Object.entries(LIVE_RUN_CATALOG))("LIVE %s matches snapshot", (_key, { spec }) => {
-    const fp = structuralFingerprint(spec);
+  it.each(Object.entries(LIVE_RUN_CATALOG))("LIVE %s matches snapshot", async (_key, { spec }) => {
+    const fp = await structuralFingerprint(spec);
     expect(fp).toMatchSnapshot();
   });
 });
@@ -52,15 +52,15 @@ describe("snapshot regression — LIVE catalog", () => {
 // ─── Determinism ───────────────────────────────────────────────────────────
 
 describe("determinism: same input always produces same output", () => {
-  it("DRY_ALL_CONTROLLER_TYPES: 10 runs produce identical results", () => {
-    assertDeterministic(DRY_ALL_CONTROLLER_TYPES, 10);
+  it("DRY_ALL_CONTROLLER_TYPES: 10 runs produce identical results", async () => {
+    await assertDeterministic(DRY_ALL_CONTROLLER_TYPES, 10);
   });
 
-  it("DRY_DEEP_NESTING: 10 runs produce identical results", () => {
-    assertDeterministic(DRY_DEEP_NESTING, 10);
+  it("DRY_DEEP_NESTING: 10 runs produce identical results", async () => {
+    await assertDeterministic(DRY_DEEP_NESTING, 10);
   });
 
-  it("makeWideParallel(20): 5 runs produce identical results", () => {
-    assertDeterministic(makeWideParallel(20), 5);
+  it("makeWideParallel(20): 5 runs produce identical results", async () => {
+    await assertDeterministic(makeWideParallel(20), 5);
   });
 });

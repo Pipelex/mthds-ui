@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect } from "storybook/test";
+import { expect, waitFor } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import { DRY_RUN_CATALOG } from "./mockGraphSpec";
 import type { GraphSpec } from "@graph/types";
@@ -27,9 +27,14 @@ async function assertRendersNodes({ canvasElement }: { canvasElement: HTMLElemen
   const viewport = canvasElement.querySelector(".react-flow__viewport");
   await expect(viewport).not.toBeNull();
 
-  // At least one node rendered
-  const nodes = canvasElement.querySelectorAll(".react-flow__node");
-  await expect(nodes.length).toBeGreaterThan(0);
+  // Wait for at least one node to render (layout is async via ELK)
+  await waitFor(
+    () => {
+      const nodes = canvasElement.querySelectorAll(".react-flow__node");
+      expect(nodes.length).toBeGreaterThan(0);
+    },
+    { timeout: 5000 },
+  );
 }
 
 // ─── Generate one story per DRY_RUN_CATALOG entry ──────────────────────────

@@ -554,55 +554,5 @@ describe("buildDataflowGraph — edge styles", () => {
   });
 });
 
-// ─── Node sorting ───────────────────────────────────────────────────────────
-
-describe("buildDataflowGraph — node sorting by controller groups", () => {
-  it("nodes in the same controller group are adjacent", () => {
-    const gs: GraphSpec = {
-      nodes: [
-        { id: "root" },
-        { id: "ctrlA" },
-        { id: "ctrlB" },
-        {
-          id: "opA1",
-          pipe_code: "a1",
-          io: { outputs: [{ digest: "dA1", name: "out" }] },
-        },
-        {
-          id: "opA2",
-          pipe_code: "a2",
-          io: { inputs: [{ digest: "dA1", name: "in" }] },
-        },
-        {
-          id: "opB1",
-          pipe_code: "b1",
-          io: { outputs: [{ digest: "dB1", name: "out" }] },
-        },
-      ],
-      edges: [
-        { source: "root", target: "ctrlA", kind: "contains" },
-        { source: "root", target: "ctrlB", kind: "contains" },
-        { source: "ctrlA", target: "opA1", kind: "contains" },
-        { source: "ctrlA", target: "opA2", kind: "contains" },
-        { source: "ctrlB", target: "opB1", kind: "contains" },
-      ],
-    };
-    const analysis = buildDataflowAnalysis(gs)!;
-    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
-
-    // Find the indices of nodes in ctrlA and ctrlB
-    const aIndices = nodes
-      .map((n, i) => (n.id === "opA1" || n.id === "opA2" || n.id === "stuff_dA1" ? i : -1))
-      .filter((i) => i >= 0);
-    const bIndices = nodes
-      .map((n, i) => (n.id === "opB1" || n.id === "stuff_dB1" ? i : -1))
-      .filter((i) => i >= 0);
-
-    if (aIndices.length > 0 && bIndices.length > 0) {
-      // All A indices should be either all before or all after B indices
-      const allABeforeB = aIndices.every((a) => bIndices.every((b) => a < b));
-      const allBBeforeA = bIndices.every((b) => aIndices.every((a) => b < a));
-      expect(allABeforeB || allBBeforeA).toBe(true);
-    }
-  });
-});
+// Node sorting by controller groups was removed (dagre-specific optimization).
+// ELK handles node ordering via hierarchical children[] natively.

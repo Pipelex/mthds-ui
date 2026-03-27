@@ -447,10 +447,12 @@ describe("buildControllerNodes — bounding box and padding", () => {
         { id: "root" },
         { id: "ctrl", pipe_code: "ctrl" },
         { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "ctrl", kind: "contains" },
         { source: "ctrl", target: "op1", kind: "contains" },
+        { source: "ctrl", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -459,7 +461,11 @@ describe("buildControllerNodes — bounding box and padding", () => {
         position: { x: 100, y: 100 },
         style: { width: "200px", height: "120px" },
       }),
-      // Stuff node further to the right
+      makeNode("op2", {
+        position: { x: 100, y: 300 },
+        style: { width: "200px", height: "120px" },
+      }),
+      // Stuff node further to the right (consumed by op2 so stays inside ctrl)
       makeNode("stuff_d1", {
         data: { isPipe: false, isStuff: true, labelText: "out" },
         position: { x: 400, y: 100 },

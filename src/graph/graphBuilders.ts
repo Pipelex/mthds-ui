@@ -229,75 +229,8 @@ export function buildDataflowGraph(
     });
   }
 
-  // Sort nodes by controller group so dagre's initial ordering clusters
-  // same-group nodes together
-  const childToCtrl = buildChildToControllerMap(graphspec, analysis);
-
-  // For unassigned stuff (method inputs with no producer), assign to
-  // the controller of their first consumer so inputs cluster near their group
-  for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
-    const stuffId = stuffNodeId(digest);
-    if (childToCtrl[stuffId]) continue;
-    for (const consumerId of consumers) {
-      if (childToCtrl[consumerId]) {
-        childToCtrl[stuffId] = childToCtrl[consumerId];
-        break;
-      }
-    }
-  }
-
-  // Depth-first order index for controllers
-  const groupOrder: Record<string, number> = {};
-  let orderIdx = 0;
-  const visiting = new Set<string>();
-  function assignOrder(ctrlId: string) {
-    if (visiting.has(ctrlId)) {
-      throw new Error(
-        `Cycle detected in containment tree: controller "${ctrlId}" appears in its own subtree`,
-      );
-    }
-    visiting.add(ctrlId);
-    groupOrder[ctrlId] = orderIdx++;
-    for (const childId of analysis.containmentTree[ctrlId] || []) {
-      if (analysis.controllerNodeIds.has(childId)) {
-        assignOrder(childId);
-      }
-    }
-    visiting.delete(ctrlId);
-  }
-  for (const ctrlId of analysis.controllerNodeIds) {
-    if (!childToCtrl[ctrlId]) assignOrder(ctrlId);
-  }
-
-  // Build sort key from containment path
-  function sortKey(nodeId: string): number[] {
-    const path: number[] = [];
-    const seen = new Set<string>();
-    let cur = childToCtrl[nodeId];
-    while (cur) {
-      if (seen.has(cur)) {
-        throw new Error(
-          `Cycle detected in controller hierarchy while computing sort key for "${nodeId}"`,
-        );
-      }
-      seen.add(cur);
-      path.unshift(groupOrder[cur] !== undefined ? groupOrder[cur] : 9999);
-      cur = childToCtrl[cur];
-    }
-    while (path.length < 10) path.push(0);
-    return path;
-  }
-
-  nodes.sort((a, b) => {
-    const ka = sortKey(a.id);
-    const kb = sortKey(b.id);
-    for (let i = 0; i < ka.length; i++) {
-      if (ka[i] !== kb[i]) return ka[i] - kb[i];
-    }
-    return 0;
-  });
-
   // Mark edges that cross between different sibling controller groups
+  const childToCtrl = buildChildToControllerMap(graphspec, analysis);
   // and assign per-class edge types for better routing
   for (const edge of edges) {
     const srcCtrl = childToCtrl[edge.source] || null;

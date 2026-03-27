@@ -33,8 +33,20 @@ function getDescendants(
   return result;
 }
 
+/** Position and size for a controller, as computed by the layout engine. */
+export interface ControllerRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 /**
  * Build controller group nodes that wrap child operators/stuff nodes.
+ *
+ * When `controllerPositions` is provided (from ELK layout), uses those exact
+ * positions/sizes instead of recomputing from child bounding boxes. This ensures
+ * controller containers match the layout engine's spacing and edge routing.
  *
  * **Side effect:** mutates `layoutedNodes` entries to set `parentId`, `extent`,
  * and convert positions to parent-relative coordinates.
@@ -43,6 +55,7 @@ export function buildControllerNodes(
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
   layoutedNodes: GraphNode[],
+  controllerPositions?: Record<string, ControllerRect>,
 ): GraphNode[] {
   const nodeById: Record<string, GraphNode> = {};
   for (const n of layoutedNodes) {
@@ -102,32 +115,43 @@ export function buildControllerNodes(
 
     if (allChildren.length === 0) continue;
 
-    let minX = Infinity,
-      minY = Infinity,
-      maxX = -Infinity,
-      maxY = -Infinity;
-    for (const childId of allChildren) {
-      const child = nodeById[childId];
-      const pos = child.position;
-      const w = nodeWidth(child);
-      const h = nodeHeight(child);
-      minX = Math.min(minX, pos.x);
-      minY = Math.min(minY, pos.y);
-      maxX = Math.max(maxX, pos.x + w);
-      maxY = Math.max(maxY, pos.y + h);
+    let groupX: number, groupY: number, groupW: number, groupH: number;
+
+    const elkPos = controllerPositions?.[controllerId];
+    if (elkPos) {
+      // Use ELK's computed position and size — accounts for edge routing and spacing
+      groupX = elkPos.x;
+      groupY = elkPos.y;
+      groupW = elkPos.width;
+      groupH = elkPos.height;
+    } else {
+      // Fallback: compute bounding box from child positions
+      let minX = Infinity,
+        minY = Infinity,
+        maxX = -Infinity,
+        maxY = -Infinity;
+      for (const childId of allChildren) {
+        const child = nodeById[childId];
+        const pos = child.position;
+        const w = nodeWidth(child);
+        const h = nodeHeight(child);
+        minX = Math.min(minX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxX = Math.max(maxX, pos.x + w);
+        maxY = Math.max(maxY, pos.y + h);
+      }
+
+      const depth = depthCache[controllerId] ?? 0;
+      const depthScale = 1 + depth * 0.15;
+      const padX = Math.round(CONTROLLER_PADDING_X * depthScale);
+      const padTop = Math.round(CONTROLLER_PADDING_TOP * depthScale);
+      const padBottom = Math.round(CONTROLLER_PADDING_BOTTOM * depthScale);
+
+      groupX = minX - padX;
+      groupY = minY - padTop;
+      groupW = maxX - minX + 2 * padX;
+      groupH = maxY - minY + padTop + padBottom;
     }
-
-    // Scale padding by nesting depth: deeper controllers get more breathing room
-    const depth = depthCache[controllerId] ?? 0;
-    const depthScale = 1 + depth * 0.15; // +15% per nesting level
-    const padX = Math.round(CONTROLLER_PADDING_X * depthScale);
-    const padTop = Math.round(CONTROLLER_PADDING_TOP * depthScale);
-    const padBottom = Math.round(CONTROLLER_PADDING_BOTTOM * depthScale);
-
-    const groupX = minX - padX;
-    const groupY = minY - padTop;
-    const groupW = maxX - minX + 2 * padX;
-    const groupH = maxY - minY + padTop + padBottom;
 
     const info = controllerInfo[controllerId] || {};
     const pipeCode = info.pipe_code || controllerId.split(":").pop() || controllerId;
@@ -190,6 +214,7 @@ export function applyControllers(
   showControllers: boolean,
   expandedControllers?: ReadonlySet<string>,
   onToggleCollapse?: (controllerId: string) => void,
+  controllerPositions?: Record<string, ControllerRect>,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   if (!showControllers || !analysis || !graphspec) {
     return { nodes: layoutedNodes, edges: layoutedEdges };
@@ -275,7 +300,12 @@ export function applyControllers(
   }
 
   // ─── Build controller group nodes from visible children ────────────────
-  const controllerNodes = buildControllerNodes(graphspec, analysis, filteredNodes);
+  const controllerNodes = buildControllerNodes(
+    graphspec,
+    analysis,
+    filteredNodes,
+    controllerPositions,
+  );
   if (controllerNodes.length === 0) {
     return { nodes: filteredNodes, edges: filteredEdges };
   }

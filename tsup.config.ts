@@ -12,7 +12,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: [
-    "dagre",
+    "elkjs",
     "@xyflow/react",
     "@shikijs/core",
     "@shikijs/engine-oniguruma",

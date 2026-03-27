@@ -156,7 +156,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_Q2Rn6",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_guzYC",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_nMNVW",
       "parentId": undefined,
       "type": "default",
     },
@@ -191,6 +201,16 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
       "type": "default",
     },
     {
+      "id": "stuff_LuLCo",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_eE6cc",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
+      "type": "default",
+    },
+    {
       "id": "stuff_XgbFX",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
       "type": "default",
@@ -211,16 +231,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_LuLCo",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_eE6cc",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_2",
-      "type": "default",
-    },
-    {
       "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_6",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
       "type": "pipeCard",
@@ -238,6 +248,16 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
     {
       "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_9",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
+      "type": "pipeCard",
+    },
+    {
+      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_12",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
+      "type": "pipeCard",
+    },
+    {
+      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_13",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
       "type": "pipeCard",
     },
     {
@@ -278,26 +298,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
     {
       "id": "stuff_nDesx-branch-3",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
-      "type": "default",
-    },
-    {
-      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_12",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "pipeCard",
-    },
-    {
-      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_13",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Q2Rn6",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "default",
-    },
-    {
-      "id": "stuff_nMNVW",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
       "type": "default",
     },
   ],
@@ -370,7 +370,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_PIPE_TYPES matches sn
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_GEF8q",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_U3Cfz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_h5Jtc",
       "parentId": undefined,
       "type": "default",
     },
@@ -400,11 +410,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_PIPE_TYPES matches sn
       "type": "pipeCard",
     },
     {
-      "id": "stuff_GEF8q",
-      "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_KrURW",
       "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
       "type": "default",
@@ -416,11 +421,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_PIPE_TYPES matches sn
     },
     {
       "id": "stuff_StcQX",
-      "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
-      "type": "default",
-    },
-    {
-      "id": "stuff_h5Jtc",
       "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
       "type": "default",
     },
@@ -594,6 +594,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matc
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_W5YFk",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GxmA2",
       "parentId": undefined,
       "type": "default",
@@ -612,11 +617,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matc
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_12",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_W5YFk",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_4y4hH",
@@ -669,16 +669,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_kv53N",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_F9mtA",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
-      "type": "default",
-    },
-    {
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_7",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
       "type": "pipeCard",
@@ -689,16 +679,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_34nKb",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dMxg9",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
-      "type": "default",
-    },
-    {
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_10",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_9",
       "type": "pipeCard",
@@ -707,6 +687,26 @@ exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matc
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_11",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_9",
       "type": "pipeCard",
+    },
+    {
+      "id": "stuff_kv53N",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_F9mtA",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_34nKb",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
+      "type": "default",
+    },
+    {
+      "id": "stuff_dMxg9",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
+      "type": "default",
     },
     {
       "id": "stuff_cespV",
@@ -808,6 +808,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CODE_REVIEW matches snaps
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_YFC4h",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_AGp39",
       "parentId": undefined,
       "type": "default",
@@ -828,12 +833,27 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CODE_REVIEW matches snaps
       "type": "pipeCard",
     },
     {
-      "id": "stuff_YFC4h",
+      "id": "stuff_XXobo",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_XXobo",
+      "id": "stuff_cPVZL",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_YKD6M",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_67RRg",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_3FLdF",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
       "type": "default",
     },
@@ -856,26 +876,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CODE_REVIEW matches snaps
       "id": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_6",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_cPVZL",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_YKD6M",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_67RRg",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3FLdF",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
     },
   ],
 }
@@ -947,7 +947,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CONTENT_MODERATION matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_bXPWz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_fDdx4",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_aMAnn",
       "parentId": undefined,
       "type": "default",
     },
@@ -967,6 +977,16 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CONTENT_MODERATION matche
       "type": "pipeCard",
     },
     {
+      "id": "stuff_bme7c",
+      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_NhpWm",
+      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
+      "type": "default",
+    },
+    {
       "id": "stuff_nn7t3",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
       "type": "default",
@@ -982,16 +1002,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CONTENT_MODERATION matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_bme7c",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_NhpWm",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_1",
-      "type": "default",
-    },
-    {
       "id": "7710057b-d391-42de-8736-debebc39ac16:node_6",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
       "type": "pipeCard",
@@ -1000,16 +1010,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CONTENT_MODERATION matche
       "id": "7710057b-d391-42de-8736-debebc39ac16:node_7",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_bXPWz",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
-      "type": "default",
-    },
-    {
-      "id": "stuff_aMAnn",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
-      "type": "default",
     },
   ],
 }
@@ -1101,6 +1101,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CV_SCREENING matches snap
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_XfJHf",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_9bebx",
       "parentId": undefined,
       "type": "default",
@@ -1131,17 +1136,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CV_SCREENING matches snap
       "type": "pipeCard",
     },
     {
-      "id": "stuff_XfJHf",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_N64J4",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
       "type": "default",
     },
     {
       "id": "stuff_ET7xV",
+      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZZiMz",
+      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_CT6tg",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
       "type": "default",
     },
@@ -1159,16 +1169,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_CV_SCREENING matches snap
       "id": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_5",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_ZZiMz",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_CT6tg",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
-      "type": "default",
     },
   ],
 }
@@ -1310,6 +1310,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DEEP_NESTING matches snap
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_FNfLP",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_93F2L",
       "parentId": undefined,
       "type": "default",
@@ -1330,17 +1335,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DEEP_NESTING matches snap
       "type": "pipeCard",
     },
     {
-      "id": "stuff_FNfLP",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_7kbRi",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
       "type": "default",
     },
     {
       "id": "stuff_8Yd76",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_BXAZh",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
       "type": "default",
     },
@@ -1353,6 +1358,16 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DEEP_NESTING matches snap
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_2",
       "type": "controllerGroup",
+    },
+    {
+      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_5",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "pipeCard",
+    },
+    {
+      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_6",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "pipeCard",
     },
     {
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_7",
@@ -1373,6 +1388,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DEEP_NESTING matches snap
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_10",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
       "type": "pipeCard",
+    },
+    {
+      "id": "stuff_ku2iq",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "default",
     },
     {
       "id": "stuff_ETNBD-branch-0",
@@ -1412,26 +1432,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DEEP_NESTING matches snap
     {
       "id": "stuff_7kbRi-branch-3",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
-      "type": "default",
-    },
-    {
-      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_5",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "pipeCard",
-    },
-    {
-      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_6",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "pipeCard",
-    },
-    {
-      "id": "stuff_BXAZh",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ku2iq",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
       "type": "default",
     },
   ],
@@ -1514,6 +1514,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DIAMOND_PATTERN matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_nTNoM",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_gkZS4",
       "parentId": undefined,
       "type": "default",
@@ -1529,7 +1534,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DIAMOND_PATTERN matches s
       "type": "pipeCard",
     },
     {
-      "id": "stuff_nTNoM",
+      "id": "stuff_Swvhy",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_kdou8",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_3Zw93",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_U9ics",
       "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
       "type": "default",
     },
@@ -1552,26 +1572,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_DIAMOND_PATTERN matches s
       "id": "49faea64-c900-4ad7-91f4-43001da4b749:node_5",
       "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Swvhy",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_kdou8",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3Zw93",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_U9ics",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
     },
   ],
 }
@@ -1628,7 +1628,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_EMAIL_TRIAGE matches snap
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_d7D5T",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_553ff",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_dMrXd",
       "parentId": undefined,
       "type": "default",
     },
@@ -1666,16 +1676,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_EMAIL_TRIAGE matches snap
       "id": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_5",
       "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_d7D5T",
-      "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dMrXd",
-      "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
-      "type": "default",
     },
   ],
 }
@@ -1737,7 +1737,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_IMAGE_PIPELINE matches sn
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_LrjRz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_NdCsP",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_SRveo",
       "parentId": undefined,
       "type": "default",
     },
@@ -1752,7 +1762,12 @@ exports[`snapshot regression — DRY catalog > DRY DRY_IMAGE_PIPELINE matches sn
       "type": "pipeCard",
     },
     {
-      "id": "stuff_LrjRz",
+      "id": "stuff_Ty5ae",
+      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_am757",
       "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_0",
       "type": "default",
     },
@@ -1770,21 +1785,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_IMAGE_PIPELINE matches sn
       "id": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_4",
       "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Ty5ae",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_am757",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_SRveo",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
     },
   ],
 }
@@ -1861,6 +1861,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_LONG_SEQUENCE matches sna
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_cszCC",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_kmqJ3",
       "parentId": undefined,
       "type": "default",
@@ -1894,11 +1899,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_LONG_SEQUENCE matches sna
       "id": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_6",
       "parentId": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_cszCC",
-      "parentId": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_39otC",
@@ -1995,6 +1995,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_INPUT_CONVERGE matc
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_iKyzt",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_6WSjP",
       "parentId": undefined,
       "type": "default",
@@ -2010,7 +2015,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_INPUT_CONVERGE matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_iKyzt",
+      "id": "stuff_ff533",
+      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_UsuUS",
+      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_GvF6e",
       "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
       "type": "default",
     },
@@ -2028,21 +2043,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_INPUT_CONVERGE matc
       "id": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
       "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_ff533",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_UsuUS",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_GvF6e",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
     },
   ],
 }
@@ -2119,6 +2119,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_OUTPUT_FANOUT match
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_NRdmv",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GiZsC",
       "parentId": undefined,
       "type": "default",
@@ -2139,12 +2144,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_OUTPUT_FANOUT match
       "type": "pipeCard",
     },
     {
-      "id": "stuff_NRdmv",
+      "id": "stuff_Csqpo",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_Csqpo",
+      "id": "stuff_RY65q",
+      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_Nbayc",
+      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_mYvqf",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
       "type": "default",
     },
@@ -2162,21 +2177,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_MULTI_OUTPUT_FANOUT match
       "id": "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_RY65q",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_Nbayc",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_mYvqf",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
     },
   ],
 }
@@ -2248,7 +2248,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_COND_SEQ match
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_BNevK",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_4FySt",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_VFaCF",
       "parentId": undefined,
       "type": "default",
     },
@@ -2288,16 +2298,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_COND_SEQ match
       "type": "pipeCard",
     },
     {
-      "id": "stuff_VFaCF",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_8h4iJ",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
-      "type": "default",
-    },
-    {
       "id": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_7",
       "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_6",
       "type": "pipeCard",
@@ -2308,8 +2308,8 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_COND_SEQ match
       "type": "pipeCard",
     },
     {
-      "id": "stuff_BNevK",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_6",
+      "id": "stuff_8h4iJ",
+      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
       "type": "default",
     },
     {
@@ -2397,6 +2397,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_PAR_SEQ matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_gDG4S",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GJjh6",
       "parentId": undefined,
       "type": "default",
@@ -2417,12 +2422,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_PAR_SEQ matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_gDG4S",
+      "id": "stuff_DuJZ4",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_DuJZ4",
+      "id": "stuff_ZEUXM",
+      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_W48NM",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
       "type": "default",
     },
@@ -2447,16 +2457,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_PAR_SEQ matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_ZEUXM",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_WKoXW",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
-      "type": "default",
-    },
-    {
       "id": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_7",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_6",
       "type": "pipeCard",
@@ -2467,8 +2467,8 @@ exports[`snapshot regression — DRY catalog > DRY DRY_NESTED_SEQ_PAR_SEQ matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_W48NM",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_6",
+      "id": "stuff_WKoXW",
+      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
       "type": "default",
     },
     {
@@ -2556,6 +2556,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_RAG_PIPELINE matches snap
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_EdKdY",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_FckqG",
       "parentId": undefined,
       "type": "default",
@@ -2581,12 +2586,17 @@ exports[`snapshot regression — DRY catalog > DRY DRY_RAG_PIPELINE matches snap
       "type": "pipeCard",
     },
     {
-      "id": "stuff_EdKdY",
+      "id": "stuff_eFYGF",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_eFYGF",
+      "id": "stuff_nAV68",
+      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_SfaH8",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
       "type": "default",
     },
@@ -2604,16 +2614,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_RAG_PIPELINE matches snap
       "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_4",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_nAV68",
-      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_SfaH8",
-      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
-      "type": "default",
     },
   ],
 }
@@ -2690,6 +2690,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIBLING_PARALLELS matches
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_i5Xcj",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_9o3qh",
       "parentId": undefined,
       "type": "default",
@@ -2710,7 +2715,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIBLING_PARALLELS matches
       "type": "pipeCard",
     },
     {
-      "id": "stuff_i5Xcj",
+      "id": "stuff_G6mkX",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_AVz8f",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_7EyG2",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_Egt2R",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
       "type": "default",
     },
@@ -2725,16 +2745,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIBLING_PARALLELS matches
       "type": "pipeCard",
     },
     {
-      "id": "stuff_G6mkX",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_AVz8f",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_1",
-      "type": "default",
-    },
-    {
       "id": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_5",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
       "type": "pipeCard",
@@ -2743,16 +2753,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIBLING_PARALLELS matches
       "id": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_6",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_7EyG2",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
-      "type": "default",
-    },
-    {
-      "id": "stuff_Egt2R",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
-      "type": "default",
     },
   ],
 }
@@ -2869,6 +2869,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_BATCH matches snap
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_5K2mv",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GGmy9",
       "parentId": undefined,
       "type": "default",
@@ -2887,11 +2892,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_BATCH matches snap
       "id": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
       "parentId": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_5K2mv",
-      "parentId": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_6WjY7",
@@ -3018,7 +3018,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_CONDITION matches 
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_nYimK",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_3zfd8",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_3hs8Y",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_VmCUe",
       "parentId": undefined,
       "type": "default",
     },
@@ -3051,21 +3066,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_CONDITION matches 
       "id": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_5",
       "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_nYimK",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3hs8Y",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_VmCUe",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
     },
   ],
 }
@@ -3117,6 +3117,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_PARALLEL matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_P7bAf",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_78tjd",
       "parentId": undefined,
       "type": "default",
@@ -3132,7 +3137,12 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_PARALLEL matches s
       "type": "pipeCard",
     },
     {
-      "id": "stuff_P7bAf",
+      "id": "stuff_mapoe",
+      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_S937N",
       "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_0",
       "type": "default",
     },
@@ -3145,16 +3155,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_PARALLEL matches s
       "id": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_3",
       "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_mapoe",
-      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_S937N",
-      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
-      "type": "default",
     },
   ],
 }
@@ -3201,6 +3201,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_SEQUENCE matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_6WD5P",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_PfNb6",
       "parentId": undefined,
       "type": "default",
@@ -3219,11 +3224,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_SIMPLE_SEQUENCE matches s
       "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_3",
       "parentId": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_6WD5P",
-      "parentId": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_4DuTY",
@@ -3344,6 +3344,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_THREE_WAY_PARALLEL matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_Ng5i9",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_dKew3",
       "parentId": undefined,
       "type": "default",
@@ -3364,12 +3369,22 @@ exports[`snapshot regression — DRY catalog > DRY DRY_THREE_WAY_PARALLEL matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_Ng5i9",
+      "id": "stuff_Xvht7",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_Xvht7",
+      "id": "stuff_SMoSo",
+      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_NRNpt",
+      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZGgaf",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
       "type": "default",
     },
@@ -3387,21 +3402,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_THREE_WAY_PARALLEL matche
       "id": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_SMoSo",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_NRNpt",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ZGgaf",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
     },
   ],
 }
@@ -3438,6 +3438,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_TWO_PIPE_CHAIN matches sn
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_XafiD",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_RBBqZ",
       "parentId": undefined,
       "type": "default",
@@ -3451,11 +3456,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_TWO_PIPE_CHAIN matches sn
       "id": "728cd073-678c-4553-ab00-5c50641e964d:node_2",
       "parentId": "728cd073-678c-4553-ab00-5c50641e964d:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_XafiD",
-      "parentId": "728cd073-678c-4553-ab00-5c50641e964d:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_MaUC7",
@@ -3557,6 +3557,11 @@ exports[`snapshot regression — DRY catalog > DRY DRY_WIDE_PARALLEL matches sna
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_PnLJF",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_Q9qnT",
       "parentId": undefined,
       "type": "default",
@@ -3572,7 +3577,27 @@ exports[`snapshot regression — DRY catalog > DRY DRY_WIDE_PARALLEL matches sna
       "type": "pipeCard",
     },
     {
-      "id": "stuff_PnLJF",
+      "id": "stuff_3L2zW",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_VJWzx",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_XGYVR",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZEM5c",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_dBLGW",
       "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
       "type": "default",
     },
@@ -3600,31 +3625,6 @@ exports[`snapshot regression — DRY catalog > DRY DRY_WIDE_PARALLEL matches sna
       "id": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_6",
       "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_3L2zW",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_VJWzx",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_XGYVR",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ZEM5c",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dBLGW",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
     },
   ],
 }
@@ -3786,7 +3786,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_Q2Rn6",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_guzYC",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_nMNVW",
       "parentId": undefined,
       "type": "default",
     },
@@ -3821,6 +3831,16 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
       "type": "default",
     },
     {
+      "id": "stuff_LuLCo",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_eE6cc",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
+      "type": "default",
+    },
+    {
       "id": "stuff_XgbFX",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_0",
       "type": "default",
@@ -3841,16 +3861,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
       "type": "pipeCard",
     },
     {
-      "id": "stuff_LuLCo",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_eE6cc",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_2",
-      "type": "default",
-    },
-    {
       "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_6",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
       "type": "pipeCard",
@@ -3868,6 +3878,16 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
     {
       "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_9",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
+      "type": "pipeCard",
+    },
+    {
+      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_12",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
+      "type": "pipeCard",
+    },
+    {
+      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_13",
+      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
       "type": "pipeCard",
     },
     {
@@ -3908,26 +3928,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
     {
       "id": "stuff_nDesx-branch-3",
       "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_5",
-      "type": "default",
-    },
-    {
-      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_12",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "pipeCard",
-    },
-    {
-      "id": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_13",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Q2Rn6",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
-      "type": "default",
-    },
-    {
-      "id": "stuff_nMNVW",
-      "parentId": "e9ff2e2f-5cb5-4161-943d-06abc8247fbe:node_11",
       "type": "default",
     },
   ],
@@ -4000,7 +4000,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_PIPE_TYPES matches
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_GEF8q",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_U3Cfz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_h5Jtc",
       "parentId": undefined,
       "type": "default",
     },
@@ -4030,11 +4040,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_PIPE_TYPES matches
       "type": "pipeCard",
     },
     {
-      "id": "stuff_GEF8q",
-      "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_KrURW",
       "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
       "type": "default",
@@ -4046,11 +4051,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_PIPE_TYPES matches
     },
     {
       "id": "stuff_StcQX",
-      "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
-      "type": "default",
-    },
-    {
-      "id": "stuff_h5Jtc",
       "parentId": "49d1a4d8-b475-4578-860e-d924f270cf9b:node_0",
       "type": "default",
     },
@@ -4224,6 +4224,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_W5YFk",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GxmA2",
       "parentId": undefined,
       "type": "default",
@@ -4242,11 +4247,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_12",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_W5YFk",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_4y4hH",
@@ -4299,16 +4299,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
       "type": "pipeCard",
     },
     {
-      "id": "stuff_kv53N",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_F9mtA",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
-      "type": "default",
-    },
-    {
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_7",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
       "type": "pipeCard",
@@ -4319,16 +4309,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
       "type": "pipeCard",
     },
     {
-      "id": "stuff_34nKb",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dMxg9",
-      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
-      "type": "default",
-    },
-    {
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_10",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_9",
       "type": "pipeCard",
@@ -4337,6 +4317,26 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
       "id": "f6da930c-d8eb-4391-abc8-5891777b4470:node_11",
       "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_9",
       "type": "pipeCard",
+    },
+    {
+      "id": "stuff_kv53N",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_F9mtA",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_34nKb",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
+      "type": "default",
+    },
+    {
+      "id": "stuff_dMxg9",
+      "parentId": "f6da930c-d8eb-4391-abc8-5891777b4470:node_6",
+      "type": "default",
     },
     {
       "id": "stuff_cespV",
@@ -4438,6 +4438,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CODE_REVIEW matches sn
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_YFC4h",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_AGp39",
       "parentId": undefined,
       "type": "default",
@@ -4458,12 +4463,27 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CODE_REVIEW matches sn
       "type": "pipeCard",
     },
     {
-      "id": "stuff_YFC4h",
+      "id": "stuff_XXobo",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_XXobo",
+      "id": "stuff_cPVZL",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_YKD6M",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_67RRg",
+      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_3FLdF",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_0",
       "type": "default",
     },
@@ -4486,26 +4506,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CODE_REVIEW matches sn
       "id": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_6",
       "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_cPVZL",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_YKD6M",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_67RRg",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3FLdF",
-      "parentId": "85f4c145-d5c4-445c-bb67-d7aa5b2830cc:node_2",
-      "type": "default",
     },
   ],
 }
@@ -4577,7 +4577,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CONTENT_MODERATION mat
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_bXPWz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_fDdx4",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_aMAnn",
       "parentId": undefined,
       "type": "default",
     },
@@ -4597,6 +4607,16 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CONTENT_MODERATION mat
       "type": "pipeCard",
     },
     {
+      "id": "stuff_bme7c",
+      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_NhpWm",
+      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
+      "type": "default",
+    },
+    {
       "id": "stuff_nn7t3",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_0",
       "type": "default",
@@ -4612,16 +4632,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CONTENT_MODERATION mat
       "type": "pipeCard",
     },
     {
-      "id": "stuff_bme7c",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_NhpWm",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_1",
-      "type": "default",
-    },
-    {
       "id": "7710057b-d391-42de-8736-debebc39ac16:node_6",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
       "type": "pipeCard",
@@ -4630,16 +4640,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CONTENT_MODERATION mat
       "id": "7710057b-d391-42de-8736-debebc39ac16:node_7",
       "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_bXPWz",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
-      "type": "default",
-    },
-    {
-      "id": "stuff_aMAnn",
-      "parentId": "7710057b-d391-42de-8736-debebc39ac16:node_5",
-      "type": "default",
     },
   ],
 }
@@ -4731,6 +4731,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_SCREENING matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_XfJHf",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_9bebx",
       "parentId": undefined,
       "type": "default",
@@ -4761,17 +4766,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_SCREENING matches s
       "type": "pipeCard",
     },
     {
-      "id": "stuff_XfJHf",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_N64J4",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
       "type": "default",
     },
     {
       "id": "stuff_ET7xV",
+      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZZiMz",
+      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_CT6tg",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_0",
       "type": "default",
     },
@@ -4789,16 +4799,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_SCREENING matches s
       "id": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_5",
       "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_ZZiMz",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_CT6tg",
-      "parentId": "84dfdd5e-40a5-44b6-9929-ade1426e98d2:node_3",
-      "type": "default",
     },
   ],
 }
@@ -4940,6 +4940,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DEEP_NESTING matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_FNfLP",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_93F2L",
       "parentId": undefined,
       "type": "default",
@@ -4960,17 +4965,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DEEP_NESTING matches s
       "type": "pipeCard",
     },
     {
-      "id": "stuff_FNfLP",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
-      "type": "default",
-    },
-    {
       "id": "stuff_7kbRi",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
       "type": "default",
     },
     {
       "id": "stuff_8Yd76",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_BXAZh",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_0",
       "type": "default",
     },
@@ -4983,6 +4988,16 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DEEP_NESTING matches s
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_2",
       "type": "controllerGroup",
+    },
+    {
+      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_5",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "pipeCard",
+    },
+    {
+      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_6",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "pipeCard",
     },
     {
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_7",
@@ -5003,6 +5018,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DEEP_NESTING matches s
       "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_10",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
       "type": "pipeCard",
+    },
+    {
+      "id": "stuff_ku2iq",
+      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
+      "type": "default",
     },
     {
       "id": "stuff_ETNBD-branch-0",
@@ -5042,26 +5062,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DEEP_NESTING matches s
     {
       "id": "stuff_7kbRi-branch-3",
       "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_3",
-      "type": "default",
-    },
-    {
-      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_5",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "pipeCard",
-    },
-    {
-      "id": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_6",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "pipeCard",
-    },
-    {
-      "id": "stuff_BXAZh",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ku2iq",
-      "parentId": "da551a7d-8076-4025-b0f2-7a9afe929f9c:node_4",
       "type": "default",
     },
   ],
@@ -5144,6 +5144,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DIAMOND_PATTERN matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_nTNoM",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_gkZS4",
       "parentId": undefined,
       "type": "default",
@@ -5159,7 +5164,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DIAMOND_PATTERN matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_nTNoM",
+      "id": "stuff_Swvhy",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_kdou8",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_3Zw93",
+      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_U9ics",
       "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_0",
       "type": "default",
     },
@@ -5182,26 +5202,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_DIAMOND_PATTERN matche
       "id": "49faea64-c900-4ad7-91f4-43001da4b749:node_5",
       "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Swvhy",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_kdou8",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3Zw93",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_U9ics",
-      "parentId": "49faea64-c900-4ad7-91f4-43001da4b749:node_1",
-      "type": "default",
     },
   ],
 }
@@ -5258,7 +5258,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_EMAIL_TRIAGE matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_d7D5T",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_553ff",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_dMrXd",
       "parentId": undefined,
       "type": "default",
     },
@@ -5296,16 +5306,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_EMAIL_TRIAGE matches s
       "id": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_5",
       "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_d7D5T",
-      "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dMrXd",
-      "parentId": "b2620e0e-114b-4d93-9ad5-c151a9bc759b:node_3",
-      "type": "default",
     },
   ],
 }
@@ -5367,7 +5367,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_IMAGE_PIPELINE matches
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_LrjRz",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_NdCsP",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_SRveo",
       "parentId": undefined,
       "type": "default",
     },
@@ -5382,7 +5392,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_IMAGE_PIPELINE matches
       "type": "pipeCard",
     },
     {
-      "id": "stuff_LrjRz",
+      "id": "stuff_Ty5ae",
+      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_am757",
       "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_0",
       "type": "default",
     },
@@ -5400,21 +5415,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_IMAGE_PIPELINE matches
       "id": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_4",
       "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_Ty5ae",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_am757",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_SRveo",
-      "parentId": "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
-      "type": "default",
     },
   ],
 }
@@ -5491,6 +5491,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_LONG_SEQUENCE matches 
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_cszCC",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_kmqJ3",
       "parentId": undefined,
       "type": "default",
@@ -5524,11 +5529,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_LONG_SEQUENCE matches 
       "id": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_6",
       "parentId": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_cszCC",
-      "parentId": "daaefcc1-8916-4be2-9982-71b1431cc5db:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_39otC",
@@ -5625,6 +5625,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_INPUT_CONVERGE m
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_iKyzt",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_6WSjP",
       "parentId": undefined,
       "type": "default",
@@ -5640,7 +5645,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_INPUT_CONVERGE m
       "type": "pipeCard",
     },
     {
-      "id": "stuff_iKyzt",
+      "id": "stuff_ff533",
+      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_UsuUS",
+      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_GvF6e",
       "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
       "type": "default",
     },
@@ -5658,21 +5673,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_INPUT_CONVERGE m
       "id": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
       "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_ff533",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_UsuUS",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_GvF6e",
-      "parentId": "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
-      "type": "default",
     },
   ],
 }
@@ -5749,6 +5749,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_OUTPUT_FANOUT ma
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_NRdmv",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GiZsC",
       "parentId": undefined,
       "type": "default",
@@ -5769,12 +5774,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_OUTPUT_FANOUT ma
       "type": "pipeCard",
     },
     {
-      "id": "stuff_NRdmv",
+      "id": "stuff_Csqpo",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_Csqpo",
+      "id": "stuff_RY65q",
+      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_Nbayc",
+      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_mYvqf",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
       "type": "default",
     },
@@ -5792,21 +5807,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_MULTI_OUTPUT_FANOUT ma
       "id": "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
       "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_RY65q",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_Nbayc",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_mYvqf",
-      "parentId": "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
-      "type": "default",
     },
   ],
 }
@@ -5878,7 +5878,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_COND_SEQ ma
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_BNevK",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_4FySt",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_VFaCF",
       "parentId": undefined,
       "type": "default",
     },
@@ -5918,16 +5928,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_COND_SEQ ma
       "type": "pipeCard",
     },
     {
-      "id": "stuff_VFaCF",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_8h4iJ",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
-      "type": "default",
-    },
-    {
       "id": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_7",
       "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_6",
       "type": "pipeCard",
@@ -5938,8 +5938,8 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_COND_SEQ ma
       "type": "pipeCard",
     },
     {
-      "id": "stuff_BNevK",
-      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_6",
+      "id": "stuff_8h4iJ",
+      "parentId": "e177d2c2-c7c7-4ea1-82ad-1fb5f057d047:node_3",
       "type": "default",
     },
     {
@@ -6027,6 +6027,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_PAR_SEQ mat
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_gDG4S",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GJjh6",
       "parentId": undefined,
       "type": "default",
@@ -6047,12 +6052,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_PAR_SEQ mat
       "type": "pipeCard",
     },
     {
-      "id": "stuff_gDG4S",
+      "id": "stuff_DuJZ4",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_DuJZ4",
+      "id": "stuff_ZEUXM",
+      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_W48NM",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_0",
       "type": "default",
     },
@@ -6077,16 +6087,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_PAR_SEQ mat
       "type": "pipeCard",
     },
     {
-      "id": "stuff_ZEUXM",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
-      "type": "default",
-    },
-    {
-      "id": "stuff_WKoXW",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
-      "type": "default",
-    },
-    {
       "id": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_7",
       "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_6",
       "type": "pipeCard",
@@ -6097,8 +6097,8 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_NESTED_SEQ_PAR_SEQ mat
       "type": "pipeCard",
     },
     {
-      "id": "stuff_W48NM",
-      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_6",
+      "id": "stuff_WKoXW",
+      "parentId": "83fb0fd8-ae8c-4971-a6e5-07b2e8d42488:node_3",
       "type": "default",
     },
     {
@@ -6186,6 +6186,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RAG_PIPELINE matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_EdKdY",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_FckqG",
       "parentId": undefined,
       "type": "default",
@@ -6211,12 +6216,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RAG_PIPELINE matches s
       "type": "pipeCard",
     },
     {
-      "id": "stuff_EdKdY",
+      "id": "stuff_eFYGF",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_eFYGF",
+      "id": "stuff_nAV68",
+      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_SfaH8",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_0",
       "type": "default",
     },
@@ -6234,16 +6244,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RAG_PIPELINE matches s
       "id": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_4",
       "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_nAV68",
-      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_SfaH8",
-      "parentId": "4a27da58-3667-4c8e-b9f9-c8db511c1a93:node_2",
-      "type": "default",
     },
   ],
 }
@@ -6320,6 +6320,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIBLING_PARALLELS matc
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_i5Xcj",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_9o3qh",
       "parentId": undefined,
       "type": "default",
@@ -6340,7 +6345,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIBLING_PARALLELS matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_i5Xcj",
+      "id": "stuff_G6mkX",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_AVz8f",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_7EyG2",
+      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_Egt2R",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_0",
       "type": "default",
     },
@@ -6355,16 +6375,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIBLING_PARALLELS matc
       "type": "pipeCard",
     },
     {
-      "id": "stuff_G6mkX",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_AVz8f",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_1",
-      "type": "default",
-    },
-    {
       "id": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_5",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
       "type": "pipeCard",
@@ -6373,16 +6383,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIBLING_PARALLELS matc
       "id": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_6",
       "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_7EyG2",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
-      "type": "default",
-    },
-    {
-      "id": "stuff_Egt2R",
-      "parentId": "24577d6c-a4b1-41ac-89b9-3d1dd6667515:node_4",
-      "type": "default",
     },
   ],
 }
@@ -6499,6 +6499,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_BATCH matches s
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_5K2mv",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_GGmy9",
       "parentId": undefined,
       "type": "default",
@@ -6517,11 +6522,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_BATCH matches s
       "id": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
       "parentId": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_5K2mv",
-      "parentId": "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_6WjY7",
@@ -6648,7 +6648,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_CONDITION match
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_nYimK",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_3zfd8",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_3hs8Y",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_VmCUe",
       "parentId": undefined,
       "type": "default",
     },
@@ -6681,21 +6696,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_CONDITION match
       "id": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_5",
       "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_nYimK",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_3hs8Y",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_VmCUe",
-      "parentId": "2f4c3318-a504-49d0-8548-e7af231f84d3:node_2",
-      "type": "default",
     },
   ],
 }
@@ -6747,6 +6747,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_PARALLEL matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_P7bAf",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_78tjd",
       "parentId": undefined,
       "type": "default",
@@ -6762,7 +6767,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_PARALLEL matche
       "type": "pipeCard",
     },
     {
-      "id": "stuff_P7bAf",
+      "id": "stuff_mapoe",
+      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_S937N",
       "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_0",
       "type": "default",
     },
@@ -6775,16 +6785,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_PARALLEL matche
       "id": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_3",
       "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_mapoe",
-      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_S937N",
-      "parentId": "3f944e87-efa0-4031-a63c-2dae0dccfd86:node_1",
-      "type": "default",
     },
   ],
 }
@@ -6831,6 +6831,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_SEQUENCE matche
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_6WD5P",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_PfNb6",
       "parentId": undefined,
       "type": "default",
@@ -6849,11 +6854,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_SIMPLE_SEQUENCE matche
       "id": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_3",
       "parentId": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_6WD5P",
-      "parentId": "415c5e6a-abf6-405c-831a-4b598b14e48e:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_4DuTY",
@@ -6974,6 +6974,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_THREE_WAY_PARALLEL mat
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_Ng5i9",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_dKew3",
       "parentId": undefined,
       "type": "default",
@@ -6994,12 +6999,22 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_THREE_WAY_PARALLEL mat
       "type": "pipeCard",
     },
     {
-      "id": "stuff_Ng5i9",
+      "id": "stuff_Xvht7",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
       "type": "default",
     },
     {
-      "id": "stuff_Xvht7",
+      "id": "stuff_SMoSo",
+      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_NRNpt",
+      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZGgaf",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
       "type": "default",
     },
@@ -7017,21 +7032,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_THREE_WAY_PARALLEL mat
       "id": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
       "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_SMoSo",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_NRNpt",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ZGgaf",
-      "parentId": "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
-      "type": "default",
     },
   ],
 }
@@ -7068,6 +7068,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_TWO_PIPE_CHAIN matches
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_XafiD",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_RBBqZ",
       "parentId": undefined,
       "type": "default",
@@ -7081,11 +7086,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_TWO_PIPE_CHAIN matches
       "id": "728cd073-678c-4553-ab00-5c50641e964d:node_2",
       "parentId": "728cd073-678c-4553-ab00-5c50641e964d:node_0",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_XafiD",
-      "parentId": "728cd073-678c-4553-ab00-5c50641e964d:node_0",
-      "type": "default",
     },
     {
       "id": "stuff_MaUC7",
@@ -7187,6 +7187,11 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_WIDE_PARALLEL matches 
       "type": "controllerGroup",
     },
     {
+      "id": "stuff_PnLJF",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
       "id": "stuff_Q9qnT",
       "parentId": undefined,
       "type": "default",
@@ -7202,7 +7207,27 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_WIDE_PARALLEL matches 
       "type": "pipeCard",
     },
     {
-      "id": "stuff_PnLJF",
+      "id": "stuff_3L2zW",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_VJWzx",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_XGYVR",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_ZEM5c",
+      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_dBLGW",
       "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_0",
       "type": "default",
     },
@@ -7230,31 +7255,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_WIDE_PARALLEL matches 
       "id": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_6",
       "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
       "type": "pipeCard",
-    },
-    {
-      "id": "stuff_3L2zW",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_VJWzx",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_XGYVR",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_ZEM5c",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
-    },
-    {
-      "id": "stuff_dBLGW",
-      "parentId": "7f780e87-e50f-4a73-9ac0-579ff84391e8:node_1",
-      "type": "default",
     },
   ],
 }
