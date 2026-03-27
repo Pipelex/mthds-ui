@@ -1,0 +1,431 @@
+import type { GraphSpec } from "@graph/types";
+
+export const DRY_MULTI_INPUT_CONVERGE: GraphSpec = {
+  nodes: [
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      pipe_code: "multi_source_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "combined",
+            digest: "iKyzt",
+            concept: "CombinedData",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      pipe_code: "gather_sources",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_2",
+      pipe_code: "fetch_api",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_3",
+      pipe_code: "search_web",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
+      pipe_code: "search_academic",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      pipe_code: "combine_sources",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "combined",
+            digest: "iKyzt",
+            concept: "CombinedData",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_0",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_2",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_1",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_3",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_2",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_3",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_4",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_5",
+      label: "api_data",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_6",
+      label: "web_data",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_7",
+      label: "academic_data",
+    },
+  ],
+};
+
+export const LIVE_MULTI_INPUT_CONVERGE: GraphSpec = {
+  nodes: [
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      pipe_code: "multi_source_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "combined",
+            digest: "iKyzt",
+            concept: "CombinedData",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      pipe_code: "gather_sources",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_2",
+      pipe_code: "fetch_api",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_3",
+      pipe_code: "search_web",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
+      pipe_code: "search_academic",
+      pipe_type: "PipeSearch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+        ],
+      },
+    },
+    {
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      pipe_code: "combine_sources",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "api_data",
+            digest: "ff533",
+            concept: "SearchResult",
+          },
+          {
+            name: "web_data",
+            digest: "UsuUS",
+            concept: "SearchResult",
+          },
+          {
+            name: "academic_data",
+            digest: "GvF6e",
+            concept: "SearchResult",
+          },
+          {
+            name: "query",
+            digest: "6WSjP",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "combined",
+            digest: "iKyzt",
+            concept: "CombinedData",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_0",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_2",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_1",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_3",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_2",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_4",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_3",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_0",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "contains",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_4",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_5",
+      label: "api_data",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_6",
+      label: "web_data",
+    },
+    {
+      source: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_1",
+      target: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:node_5",
+      kind: "data",
+      id: "8d83d799-7719-4bb8-b19b-3ee47a6c078b:edge_7",
+      label: "academic_data",
+    },
+  ],
+};

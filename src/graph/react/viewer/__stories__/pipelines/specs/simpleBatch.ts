@@ -1,0 +1,627 @@
+import type { GraphSpec } from "@graph/types";
+
+export const DRY_SIMPLE_BATCH: GraphSpec = {
+  nodes: [
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      pipe_code: "batch_ocr_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GGmy9",
+            concept: "Document",
+            content_type: "GLEKWCCSkxSlgmDPwblf",
+          },
+        ],
+        outputs: [
+          {
+            name: "document_summary",
+            digest: "5K2mv",
+            concept: "DocumentSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      pipe_code: "extract_pages",
+      pipe_type: "PipeExtract",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GGmy9",
+            concept: "Document",
+            content_type: "GLEKWCCSkxSlgmDPwblf",
+          },
+        ],
+        outputs: [
+          {
+            name: "pages",
+            digest: "6WjY7",
+            concept: "Page",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      pipe_code: "summarize_page_batch",
+      pipe_type: "PipeBatch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "pages",
+            digest: "6WjY7",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summaries",
+            digest: "HJ6Sh",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-0",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-0",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-1",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-1",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-2",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-2",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-3",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-3",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      pipe_code: "combine_summaries",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page_summaries",
+            digest: "HJ6Sh",
+            concept: "PageSummary",
+          },
+        ],
+        outputs: [
+          {
+            name: "document_summary",
+            digest: "5K2mv",
+            concept: "DocumentSummary",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_0",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_1",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_2",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_3",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_4",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_5",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_6",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "data",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_7",
+      label: "pages",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      kind: "data",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_8",
+      label: "page_summaries",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_9",
+      label: "[0]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-0",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_10",
+      label: "[1]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-1",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_11",
+      label: "[2]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-2",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_12",
+      label: "[3]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-3",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_13",
+      label: "[0]",
+      source_stuff_digest: "ZX6ZQ-branch-0",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_14",
+      label: "[1]",
+      source_stuff_digest: "ZX6ZQ-branch-1",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_15",
+      label: "[2]",
+      source_stuff_digest: "ZX6ZQ-branch-2",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_16",
+      label: "[3]",
+      source_stuff_digest: "ZX6ZQ-branch-3",
+      target_stuff_digest: "HJ6Sh",
+    },
+  ],
+};
+
+export const LIVE_SIMPLE_BATCH: GraphSpec = {
+  nodes: [
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      pipe_code: "batch_ocr_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GGmy9",
+            concept: "Document",
+            content_type: "GLEKWCCSkxSlgmDPwblf",
+          },
+        ],
+        outputs: [
+          {
+            name: "document_summary",
+            digest: "5K2mv",
+            concept: "DocumentSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      pipe_code: "extract_pages",
+      pipe_type: "PipeExtract",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GGmy9",
+            concept: "Document",
+            content_type: "GLEKWCCSkxSlgmDPwblf",
+          },
+        ],
+        outputs: [
+          {
+            name: "pages",
+            digest: "6WjY7",
+            concept: "Page",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      pipe_code: "summarize_page_batch",
+      pipe_type: "PipeBatch",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "pages",
+            digest: "6WjY7",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summaries",
+            digest: "HJ6Sh",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-0",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-0",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-1",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-1",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-2",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-2",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      pipe_code: "summarize_page",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page",
+            digest: "6WjY7-branch-3",
+            concept: "Page",
+          },
+        ],
+        outputs: [
+          {
+            name: "page_summary",
+            digest: "ZX6ZQ-branch-3",
+            concept: "PageSummary",
+          },
+        ],
+      },
+    },
+    {
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      pipe_code: "combine_summaries",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "page_summaries",
+            digest: "HJ6Sh",
+            concept: "PageSummary",
+          },
+        ],
+        outputs: [
+          {
+            name: "document_summary",
+            digest: "5K2mv",
+            concept: "DocumentSummary",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_0",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_1",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_2",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_3",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_4",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_5",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_0",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      kind: "contains",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_6",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_1",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "data",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_7",
+      label: "pages",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_7",
+      kind: "data",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_8",
+      label: "page_summaries",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_9",
+      label: "[0]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-0",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_10",
+      label: "[1]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-1",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_11",
+      label: "[2]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-2",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      kind: "batch_item",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_12",
+      label: "[3]",
+      source_stuff_digest: "6WjY7",
+      target_stuff_digest: "6WjY7-branch-3",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_3",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_13",
+      label: "[0]",
+      source_stuff_digest: "ZX6ZQ-branch-0",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_4",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_14",
+      label: "[1]",
+      source_stuff_digest: "ZX6ZQ-branch-1",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_5",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_15",
+      label: "[2]",
+      source_stuff_digest: "ZX6ZQ-branch-2",
+      target_stuff_digest: "HJ6Sh",
+    },
+    {
+      source: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_6",
+      target: "4331b5a4-7e1c-4bf2-ab93-206631519674:node_2",
+      kind: "batch_aggregate",
+      id: "4331b5a4-7e1c-4bf2-ab93-206631519674:edge_16",
+      label: "[3]",
+      source_stuff_digest: "ZX6ZQ-branch-3",
+      target_stuff_digest: "HJ6Sh",
+    },
+  ],
+};

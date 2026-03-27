@@ -1,0 +1,537 @@
+import type { GraphSpec } from "@graph/types";
+
+export const DRY_MULTI_OUTPUT_FANOUT: GraphSpec = {
+  nodes: [
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      pipe_code: "fanout_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GiZsC",
+            concept: "Document",
+            content_type: "fyYehvawToFPHQufcTEL",
+          },
+        ],
+        outputs: [
+          {
+            name: "distribution_report",
+            digest: "NRdmv",
+            concept: "DistributionReport",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      pipe_code: "deep_analyze",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GiZsC",
+            concept: "Document",
+            content_type: "fyYehvawToFPHQufcTEL",
+          },
+        ],
+        outputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      pipe_code: "distribute",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      pipe_code: "store_summary",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      pipe_code: "index_entities",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      pipe_code: "log_sentiment",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      pipe_code: "report",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+        outputs: [
+          {
+            name: "distribution_report",
+            digest: "NRdmv",
+            concept: "DistributionReport",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_0",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_1",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_2",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_3",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_4",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_5",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_6",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_7",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_8",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_9",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_10",
+      label: "summary",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_11",
+      label: "index_entry",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_12",
+      label: "sentiment_log",
+    },
+  ],
+};
+
+export const LIVE_MULTI_OUTPUT_FANOUT: GraphSpec = {
+  nodes: [
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      pipe_code: "fanout_pipeline",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GiZsC",
+            concept: "Document",
+            content_type: "fyYehvawToFPHQufcTEL",
+          },
+        ],
+        outputs: [
+          {
+            name: "distribution_report",
+            digest: "NRdmv",
+            concept: "DistributionReport",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      pipe_code: "deep_analyze",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "document",
+            digest: "GiZsC",
+            concept: "Document",
+            content_type: "fyYehvawToFPHQufcTEL",
+          },
+        ],
+        outputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      pipe_code: "distribute",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      pipe_code: "store_summary",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      pipe_code: "index_entities",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      pipe_code: "log_sentiment",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "analysis",
+            digest: "Csqpo",
+            concept: "Analysis",
+          },
+        ],
+        outputs: [
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+      },
+    },
+    {
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      pipe_code: "report",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "summary",
+            digest: "RY65q",
+            concept: "Summary",
+          },
+          {
+            name: "index_entry",
+            digest: "Nbayc",
+            concept: "IndexEntry",
+          },
+          {
+            name: "sentiment_log",
+            digest: "mYvqf",
+            concept: "SentimentLog",
+          },
+        ],
+        outputs: [
+          {
+            name: "distribution_report",
+            digest: "NRdmv",
+            concept: "DistributionReport",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_0",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_1",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_2",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_3",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_4",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_0",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "contains",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_5",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_6",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_3",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_7",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_4",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_8",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_1",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_5",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_9",
+      label: "analysis",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_10",
+      label: "summary",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_11",
+      label: "index_entry",
+    },
+    {
+      source: "1b506fae-799c-4450-84c3-f63483d8816f:node_2",
+      target: "1b506fae-799c-4450-84c3-f63483d8816f:node_6",
+      kind: "data",
+      id: "1b506fae-799c-4450-84c3-f63483d8816f:edge_12",
+      label: "sentiment_log",
+    },
+  ],
+};

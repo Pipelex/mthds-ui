@@ -1,0 +1,533 @@
+import type { GraphSpec } from "@graph/types";
+
+export const DRY_THREE_WAY_PARALLEL: GraphSpec = {
+  nodes: [
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      pipe_code: "multi_format_report",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "data",
+            digest: "dKew3",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "report",
+            digest: "Ng5i9",
+            concept: "Report",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      pipe_code: "analyze_data",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "data",
+            digest: "dKew3",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      pipe_code: "generate_outputs",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      pipe_code: "generate_chart",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      pipe_code: "generate_table",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      pipe_code: "write_narrative",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      pipe_code: "assemble_report",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+        outputs: [
+          {
+            name: "report",
+            digest: "Ng5i9",
+            concept: "Report",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_0",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_1",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_2",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_3",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_4",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_5",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_6",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_7",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_8",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_9",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_10",
+      label: "chart_spec",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_11",
+      label: "table_data",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_12",
+      label: "narrative",
+    },
+  ],
+};
+
+export const LIVE_THREE_WAY_PARALLEL: GraphSpec = {
+  nodes: [
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      pipe_code: "multi_format_report",
+      pipe_type: "PipeSequence",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "data",
+            digest: "dKew3",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "report",
+            digest: "Ng5i9",
+            concept: "Report",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      pipe_code: "analyze_data",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "data",
+            digest: "dKew3",
+            concept: "Text",
+          },
+        ],
+        outputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      pipe_code: "generate_outputs",
+      pipe_type: "PipeParallel",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      pipe_code: "generate_chart",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      pipe_code: "generate_table",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      pipe_code: "write_narrative",
+      pipe_type: "PipeLLM",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "insight",
+            digest: "Xvht7",
+            concept: "Insight",
+          },
+        ],
+        outputs: [
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+      },
+    },
+    {
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      pipe_code: "assemble_report",
+      pipe_type: "PipeCompose",
+      status: "succeeded",
+      io: {
+        inputs: [
+          {
+            name: "chart_spec",
+            digest: "SMoSo",
+            concept: "ChartSpec",
+          },
+          {
+            name: "table_data",
+            digest: "NRNpt",
+            concept: "TableData",
+          },
+          {
+            name: "narrative",
+            digest: "ZGgaf",
+            concept: "Narrative",
+          },
+        ],
+        outputs: [
+          {
+            name: "report",
+            digest: "Ng5i9",
+            concept: "Report",
+          },
+        ],
+      },
+    },
+  ],
+  edges: [
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_0",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_1",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_2",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_3",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_4",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_0",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "contains",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_5",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_6",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_3",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_7",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_4",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_8",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_1",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_5",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_9",
+      label: "insight",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_10",
+      label: "chart_spec",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_11",
+      label: "table_data",
+    },
+    {
+      source: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_2",
+      target: "49d10c29-db6a-462c-ae97-2c12e59a322c:node_6",
+      kind: "data",
+      id: "49d10c29-db6a-462c-ae97-2c12e59a322c:edge_12",
+      label: "narrative",
+    },
+  ],
+};
