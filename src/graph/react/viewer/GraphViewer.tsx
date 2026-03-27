@@ -14,13 +14,13 @@ import type {
   GraphNode,
   GraphEdge,
   DataflowAnalysis,
-} from "../../types";
+} from "@graph/types";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
-import { buildGraph } from "../../graphBuilders";
-import { getLayoutedElements, ensureControllerSpacing } from "../../graphLayout";
-import { applyControllers } from "../../graphControllers";
-import { DEFAULT_GRAPH_CONFIG } from "../../graphConfig";
+import { buildGraph } from "@graph/graphBuilders";
+import { getLayoutedElements, ensureControllerSpacing } from "@graph/graphLayout";
+import { applyControllers } from "@graph/graphControllers";
+import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
 import { hydrateLabels } from "./renderLabel";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
 import { PipeCardRFNode } from "../nodes/pipe/PipeCardNode";

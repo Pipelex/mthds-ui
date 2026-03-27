@@ -1,4 +1,4 @@
-import type { GraphSpec, GraphSpecNode } from "../../../../types";
+import type { GraphSpec, GraphSpecNode } from "@graph/types";
 import type { PipeCardData } from "../pipeCardTypes";
 
 /**

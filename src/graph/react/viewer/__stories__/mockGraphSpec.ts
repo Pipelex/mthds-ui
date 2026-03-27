@@ -1,4 +1,4 @@
-import type { GraphSpec } from "../../../types";
+import type { GraphSpec } from "@graph/types";
 
 // Auto-generated from real MTHDS pipeline runs.
 // Do not edit manually — regenerate by running the pipelines.

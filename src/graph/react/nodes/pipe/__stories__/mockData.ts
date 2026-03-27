@@ -1,4 +1,4 @@
-import type { GraphSpecNode, GraphNodeData } from "../../../../types";
+import type { GraphSpecNode, GraphNodeData } from "@graph/types";
 import type { PipeOperatorType, PipeStatus, PipeCardData } from "../pipeCardTypes";
 
 export type { PipeOperatorType, PipeStatus, PipeCardData };

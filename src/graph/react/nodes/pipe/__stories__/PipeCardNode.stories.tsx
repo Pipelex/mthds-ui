@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { GraphViewer } from "../../../viewer/GraphViewer";
+import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { MOCK_PIPES } from "./mockData";
 import { toGraphSpec } from "./edgeCaseGraphSpecs";
 

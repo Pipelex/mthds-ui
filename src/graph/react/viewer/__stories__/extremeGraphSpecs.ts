@@ -1,4 +1,4 @@
-import type { GraphSpec, GraphSpecNode, GraphSpecEdge } from "../../../types";
+import type { GraphSpec, GraphSpecNode, GraphSpecEdge, PipeType } from "@graph/types";
 
 const UUID = "extreme-test";
 
@@ -69,7 +69,14 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   edges.push({ source: rootId, target: parallelId, kind: "contains", id: e(edgeIdx++) });
 
   // Branch pipes inside parallel
-  const pipeTypes = ["PipeLLM", "PipeFunc", "PipeSearch", "PipeLLM", "PipeCompose", "PipeImgGen"];
+  const pipeTypes: PipeType[] = [
+    "PipeLLM",
+    "PipeFunc",
+    "PipeSearch",
+    "PipeLLM",
+    "PipeCompose",
+    "PipeImgGen",
+  ];
   const taskNames = [
     "sentiment_analysis",
     "keyword_extraction",

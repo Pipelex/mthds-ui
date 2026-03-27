@@ -3,8 +3,10 @@ import {
   CONTROLLER_PADDING_X,
   CONTROLLER_PADDING_TOP,
   CONTROLLER_PADDING_BOTTOM,
+  NODE_TYPE_CONTROLLER,
   nodeWidth,
   nodeHeight,
+  isStuffNodeId,
 } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
 
@@ -79,7 +81,7 @@ export function buildControllerNodes(
   const childToController = buildChildToControllerMap(graphspec, analysis);
   const controllerStuffChildren: Record<string, string[]> = {};
   for (const [nodeId, ctrlId] of Object.entries(childToController)) {
-    if (!nodeId.startsWith("stuff_")) continue;
+    if (!isStuffNodeId(nodeId)) continue;
     if (!nodeById[nodeId]) continue;
     if (!controllerStuffChildren[ctrlId]) controllerStuffChildren[ctrlId] = [];
     controllerStuffChildren[ctrlId].push(nodeId);
@@ -129,13 +131,12 @@ export function buildControllerNodes(
 
     const info = controllerInfo[controllerId] || {};
     const pipeCode = info.pipe_code || controllerId.split(":").pop() || controllerId;
-    const pipeType = info.pipe_type || "";
     const groupNode: GraphNode = {
       id: controllerId,
-      type: "controllerGroup",
+      type: NODE_TYPE_CONTROLLER,
       data: {
         label: pipeCode,
-        pipeType: pipeType,
+        pipeType: info.pipe_type,
         isController: true,
         isPipe: false,
         isStuff: false,
@@ -248,13 +249,13 @@ export function applyControllers(
     // because those would keep orphaned branch stuff nodes alive.
     const childToCtrl = buildChildToControllerMap(graphspec, analysis);
     for (const node of layoutedNodes) {
-      if (!node.id.startsWith("stuff_") || hiddenNodes.has(node.id)) continue;
+      if (!isStuffNodeId(node.id) || hiddenNodes.has(node.id)) continue;
       const ctrlId = childToCtrl[node.id];
       if (!ctrlId || !collapsedSet.has(ctrlId)) continue;
       const pipeEdges = layoutedEdges.filter((e) => {
         if (e.source !== node.id && e.target !== node.id) return false;
         const other = e.source === node.id ? e.target : e.source;
-        return !other.startsWith("stuff_"); // only pipe connections
+        return !isStuffNodeId(other); // only pipe connections
       });
       if (
         pipeEdges.length === 0 ||

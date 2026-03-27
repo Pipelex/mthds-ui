@@ -1,5 +1,9 @@
 import { cpSync, mkdirSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "tsup";
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   entry: ["src/index.ts", "src/graph/index.ts", "src/graph/react/index.ts", "src/shiki/index.ts"],
@@ -17,6 +21,11 @@ export default defineConfig({
     "react-dom",
     /graph-core\.css$/,
   ],
+  esbuildOptions(options) {
+    options.alias = {
+      "@graph": path.resolve(dirname, "src/graph"),
+    };
+  },
   // graph-core.css is kept external so the import stays in the JS output.
   // The consumer's bundler resolves it (including the @import for @xyflow CSS).
   onSuccess: async () => {

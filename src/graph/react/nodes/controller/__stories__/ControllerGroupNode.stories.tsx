@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { PipeControllerType } from "@graph/types";
 import { ControllerGroupNode } from "../ControllerGroupNode";
 
 const meta: Meta<typeof ControllerGroupNode> = {
@@ -18,7 +19,7 @@ export default meta;
 type Story = StoryObj<typeof ControllerGroupNode>;
 
 /** Shows just the container chrome at a representative size */
-function ControllerShell({ pipeType, label }: { pipeType: string; label: string }) {
+function ControllerShell({ pipeType, label }: { pipeType: PipeControllerType; label: string }) {
   return (
     <div style={{ position: "relative", width: 600, height: 180 }}>
       <ControllerGroupNode data={{ pipeType, label }} />
@@ -32,7 +33,7 @@ function CollapsibleShell({
   label,
   childCount,
 }: {
-  pipeType: string;
+  pipeType: PipeControllerType;
   label: string;
   childCount: number;
 }) {
@@ -72,11 +73,7 @@ export const Batch: Story = {
 
 export const Parallel100: Story = {
   render: () => (
-    <CollapsibleShell
-      pipeType="PipeParallel"
-      label="enrich_all_candidates"
-      childCount={100}
-    />
+    <CollapsibleShell pipeType="PipeParallel" label="enrich_all_candidates" childCount={100} />
   ),
 };
 

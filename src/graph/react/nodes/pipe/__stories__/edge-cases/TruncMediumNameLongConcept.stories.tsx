@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { GraphViewer } from "../../../../viewer/GraphViewer";
+import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { toGraphSpec } from "../edgeCaseGraphSpecs";
 import { truncMediumNameLongConcept } from "./edgeCaseData";
 

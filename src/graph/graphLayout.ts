@@ -4,8 +4,11 @@ import {
   CONTROLLER_PADDING_X,
   CONTROLLER_PADDING_TOP,
   CONTROLLER_PADDING_BOTTOM,
+  NODE_TYPE_PIPE_CARD,
   nodeWidth,
   nodeHeight,
+  isStuffNodeId,
+  stuffDigestFromId,
 } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
 
@@ -42,7 +45,7 @@ export function getLayoutedElements(
     const nodeData = node.data || {};
     const isStuff = nodeData.isStuff;
     const labelText = nodeData.labelText || "";
-    const isPipeCard = node.type === "pipeCard";
+    const isPipeCard = node.type === NODE_TYPE_PIPE_CARD;
     const estimatedWidth = Math.max(180, Math.min(400, labelText.length * 8 + 60));
 
     // Pipe card CSS: LR → min 180 / max 240, TB → min 280 / max 400.
@@ -378,9 +381,9 @@ export function ensureControllerSpacing(
   for (let i = 0; i < result.length; i++) {
     const n = result[i];
     if (childToCtrl[n.id]) continue;
-    if (!n.id.startsWith("stuff_")) continue;
+    if (!isStuffNodeId(n.id)) continue;
 
-    const digest = n.id.replace("stuff_", "");
+    const digest = stuffDigestFromId(n.id);
     const consumers = analysis.stuffConsumers[digest];
     if (!consumers || consumers.length === 0) continue;
 
@@ -522,9 +525,9 @@ export function ensureControllerSpacing(
   const crossAxis6 = isHorizontal ? "y" : "x";
   for (let i = 0; i < result.length; i++) {
     const n = result[i];
-    if (!n.id.startsWith("stuff_")) continue;
+    if (!isStuffNodeId(n.id)) continue;
 
-    const digest = n.id.replace("stuff_", "");
+    const digest = stuffDigestFromId(n.id);
     const producerId = analysis.stuffProducers[digest];
     if (!producerId) continue;
 

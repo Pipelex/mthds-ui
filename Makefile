@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch check clean storybook
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook
 
 install:
 	npm install
@@ -23,6 +23,9 @@ test:
 
 test-watch:
 	npx vitest
+
+test-coverage:
+	npx vitest run --coverage
 
 check: lint format-check typecheck test
 	@echo "All checks passed."

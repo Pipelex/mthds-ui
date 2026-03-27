@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import type { PipeCardData } from "./pipeCardTypes";
+import type { PipeCardData, PipeOperatorType, PipeStatus } from "./pipeCardTypes";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
-const PIPE_TYPE_BADGES: Record<string, string> = {
+const PIPE_TYPE_BADGES: Record<PipeOperatorType, string> = {
   PipeLLM: "LLM",
   PipeExtract: "Extract",
   PipeCompose: "Compose",
@@ -12,7 +12,7 @@ const PIPE_TYPE_BADGES: Record<string, string> = {
   PipeFunc: "Func",
 };
 
-const STATUS_CONFIG: Record<string, { color: string; label: string }> = {
+const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
   succeeded: { color: "#50FA7B", label: "Succeeded" },
   failed: { color: "#FF5555", label: "Failed" },
   running: { color: "#8BE9FD", label: "Running" },
@@ -22,8 +22,8 @@ const STATUS_CONFIG: Record<string, { color: string; label: string }> = {
 
 const MAX_VISIBLE_INPUTS = 4;
 
-function getBadge(pipeType: string) {
-  return PIPE_TYPE_BADGES[pipeType] ?? pipeType.replace("Pipe", "");
+function getBadge(pipeType: PipeOperatorType): string {
+  return PIPE_TYPE_BADGES[pipeType];
 }
 
 // ─── PipeCardBase — shared card rendering for all pipe types ─────────────

@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { PipeOperatorType } from "./pipeCardTypes";
 import type { PipeCardBaseProps } from "./PipeCardBase";
 import { PipeCardBase } from "./PipeCardBase";
 
@@ -9,7 +10,7 @@ import { PipeCardBase } from "./PipeCardBase";
  * create a wrapper component (e.g. PipeLLMCard) that composes PipeCardBase
  * with extra sections, then register it here.
  */
-const PIPE_CARD_REGISTRY: Record<string, ComponentType<PipeCardBaseProps>> = {
+const PIPE_CARD_REGISTRY: Record<PipeOperatorType, ComponentType<PipeCardBaseProps>> = {
   PipeLLM: PipeCardBase,
   PipeExtract: PipeCardBase,
   PipeCompose: PipeCardBase,
@@ -18,6 +19,6 @@ const PIPE_CARD_REGISTRY: Record<string, ComponentType<PipeCardBaseProps>> = {
   PipeFunc: PipeCardBase,
 };
 
-export function getPipeCardComponent(pipeType: string): ComponentType<PipeCardBaseProps> {
-  return PIPE_CARD_REGISTRY[pipeType] ?? PipeCardBase;
+export function getPipeCardComponent(pipeType: PipeOperatorType): ComponentType<PipeCardBaseProps> {
+  return PIPE_CARD_REGISTRY[pipeType];
 }

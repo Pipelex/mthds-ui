@@ -1,12 +1,6 @@
-export type PipeOperatorType =
-  | "PipeLLM"
-  | "PipeExtract"
-  | "PipeCompose"
-  | "PipeImgGen"
-  | "PipeSearch"
-  | "PipeFunc";
+import type { PipeOperatorType, PipeStatus } from "@graph/types";
 
-export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped";
+export type { PipeOperatorType, PipeStatus };
 
 export type PipeCardDirection = "LR" | "TB";
 

@@ -1,5 +1,12 @@
-import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
-import { ARROW_CLOSED_MARKER } from "./types";
+import type {
+  GraphSpec,
+  DataflowAnalysis,
+  GraphNode,
+  GraphEdge,
+  GraphData,
+  PipeOperatorType,
+} from "./types";
+import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 
 /** Fallback description when the GraphSpec node doesn't carry one. */
@@ -58,9 +65,12 @@ export function buildDataflowGraph(
       concept: o.concept ?? "",
     }));
 
+    // Participating pipes are operators (controllers don't produce/consume stuff directly)
+    const operatorType: PipeOperatorType = (node.pipe_type as PipeOperatorType) || "PipeFunc";
+
     nodes.push({
       id: node.id,
-      type: "pipeCard",
+      type: NODE_TYPE_PIPE_CARD,
       data: {
         labelDescriptor: { kind: "pipe", label, isFailed },
         nodeData: node,
@@ -71,7 +81,7 @@ export function buildDataflowGraph(
         pipeType: node.pipe_type,
         pipeCardData: {
           pipeCode: node.pipe_code || label,
-          pipeType: node.pipe_type || "PipeFunc",
+          pipeType: operatorType,
           description: node.description || defaultDescription(node.pipe_type, node.pipe_code),
           status: node.status || "scheduled",
           inputs,
@@ -84,7 +94,7 @@ export function buildDataflowGraph(
 
   // Create stuff (data) nodes
   for (const [digest, stuffInfo] of Object.entries(analysis.stuffRegistry)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     const label = stuffInfo.name || "data";
     const concept = stuffInfo.concept || "";
     const textWidth =
@@ -93,7 +103,7 @@ export function buildDataflowGraph(
 
     nodes.push({
       id: stuffId,
-      type: "default",
+      type: NODE_TYPE_STUFF,
       data: {
         labelDescriptor: { kind: "stuff", label, concept },
         isStuff: true,
@@ -115,7 +125,7 @@ export function buildDataflowGraph(
   // Create edges: producer -> stuff
   let edgeId = 0;
   for (const [digest, producerNodeId] of Object.entries(analysis.stuffProducers)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     edges.push({
       id: "edge_" + edgeId++,
       source: producerNodeId,
@@ -132,7 +142,7 @@ export function buildDataflowGraph(
 
   // Create edges: stuff -> consumer
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     for (const consumerNodeId of consumers) {
       edges.push({
         id: "edge_" + edgeId++,
@@ -158,8 +168,8 @@ export function buildDataflowGraph(
       !analysis.stuffRegistry[edge.target_stuff_digest]
     )
       continue;
-    const sourceId = "stuff_" + edge.source_stuff_digest;
-    const targetId = "stuff_" + edge.target_stuff_digest;
+    const sourceId = stuffNodeId(edge.source_stuff_digest);
+    const targetId = stuffNodeId(edge.target_stuff_digest);
 
     edges.push({
       id: edge.id || "edge_" + edgeId++,
@@ -189,8 +199,8 @@ export function buildDataflowGraph(
       !analysis.stuffRegistry[edge.target_stuff_digest]
     )
       continue;
-    const sourceId = "stuff_" + edge.source_stuff_digest;
-    const targetId = "stuff_" + edge.target_stuff_digest;
+    const sourceId = stuffNodeId(edge.source_stuff_digest);
+    const targetId = stuffNodeId(edge.target_stuff_digest);
     const isBatchItem = edge.kind === "batch_item";
 
     edges.push({
@@ -226,7 +236,7 @@ export function buildDataflowGraph(
   // For unassigned stuff (method inputs with no producer), assign to
   // the controller of their first consumer so inputs cluster near their group
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     if (childToCtrl[stuffId]) continue;
     for (const consumerId of consumers) {
       if (childToCtrl[consumerId]) {

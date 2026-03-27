@@ -1,90 +1,192 @@
 # @pipelex/mthds-ui
 
-Shared graph rendering logic for MTHDS method visualization. Core graph logic is pure TypeScript; optional React components live under `graph/react/`.
+Shared graph rendering logic for MTHDS method visualization. Pure TypeScript core (`graph/`) with optional React components (`graph/react/`).
 
 ## Tech Stack
 
-- **Language**: TypeScript (strict mode)
-- **Build**: tsup (ESM output with declarations)
-- **Testing**: Vitest
-- **Linting**: ESLint 9 (flat config)
-- **Formatting**: Prettier 3
-- **Layout**: dagre
+| Layer | Tool | Notes |
+|-------|------|-------|
+| Language | TypeScript (strict mode) | `moduleResolution: "bundler"` |
+| Build | tsup | ESM output with declarations, multiple entry points |
+| Testing | Vitest + Storybook | Unit tests (node), visual stories (browser/Chromium) |
+| Linting | ESLint 9 (flat config) | `no-console: error`, `no-explicit-any: off` (ReactFlow compat) |
+| Formatting | Prettier 3 | Double quotes, semicolons, trailing commas, 100 char width |
+| Layout | dagre | Directed graph auto-layout |
+| Graph UI | @xyflow/react (ReactFlow) | Custom node types, pan/zoom |
+| Storybook | Storybook 10 + react-vite | Addon-vitest for browser tests |
 
 ## Project Structure
 
 ```
 src/
-  index.ts                 # Root barrel (re-exports graph/)
+  index.ts                        # Root barrel (re-exports graph/)
   graph/
-    types.ts               # Graph type definitions and constants
-    graphAnalysis.ts        # Dataflow analysis (stuff registry, containment)
-    graphBuilders.ts        # Node/edge construction from method data
-    graphLayout.ts          # Dagre-based auto-layout
-    graphControllers.ts     # Controller group node generation
-    graphConfig.ts          # Default visual configuration
-    index.ts               # Barrel export for pure-TS graph logic
-    __tests__/              # Unit tests
+    types.ts                      # Domain types, constants, utility helpers
+    graphAnalysis.ts              # Dataflow analysis (stuff registry, containment)
+    graphBuilders.ts              # Node/edge construction from GraphSpec
+    graphLayout.ts                # Dagre layout + 6-phase post-layout spacing
+    graphControllers.ts           # Controller group node generation + collapse
+    graphConfig.ts                # Default visual configuration + palette
+    index.ts                      # Barrel export for pure-TS graph logic
+    __tests__/                    # Unit tests (co-located)
     react/
-      GraphViewer.tsx       # Unified ReactFlow graph viewer component
-      renderLabel.tsx       # Label rendering + hydration
-      ControllerGroupNode.tsx # Custom controller group node type
-      graph-core.css        # Shared ReactFlow node/edge styles
-      index.ts              # Barrel export for React components
-  shiki/                   # Syntax highlighting (separate entry point)
+      rfTypes.ts                  # Domain ↔ ReactFlow type bridge
+      graph-core.css              # Shared node/edge/card styles
+      index.ts                    # Barrel export for React components
+      viewer/
+        GraphViewer.tsx           # Unified ReactFlow viewer component
+        renderLabel.tsx           # Label rendering + hydration
+      nodes/
+        controller/
+          ControllerGroupNode.tsx # Custom controller group node
+        pipe/
+          PipeCardNode.tsx        # ReactFlow node wrapper with handles
+          PipeCardBase.tsx        # Shared card rendering (header, IO, status)
+          pipeCardTypes.ts        # PipeCardData interface (imports from types.ts)
+          pipeCardRegistry.ts     # Pipe type → component registry
+  shiki/                          # Syntax highlighting (separate entry point)
 ```
 
-## Code Style (Prettier)
+## Path Alias
 
-Configured in `.prettierrc`:
+The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Configured in:
+- `tsconfig.json` (`paths`)
+- `tsup.config.ts` (`esbuildOptions.alias`)
+- `.storybook/main.ts` (`viteFinal` resolve alias)
+- `vitest.config.mts` (`resolve.alias`)
 
-- Double quotes
-- Semicolons
-- Trailing commas (all)
-- Print width: 100
-- Tab width: 2 (spaces)
+**Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
+
+## Architecture
+
+### Data Pipeline
+
+```
+GraphSpec (JSON from pipelex-agent)
+  → buildDataflowAnalysis()     # Extract stuff registry, containment tree
+  → buildDataflowGraph()        # Create pipe nodes + stuff nodes + edges
+  → getLayoutedElements()       # Dagre auto-layout (direction-aware sizing)
+  → ensureControllerSpacing()   # 6-phase post-layout: overlap, alignment, reorder
+  → applyControllers()          # Wrap children in controller group nodes
+  → hydrateLabels()             # Convert label descriptors → React elements
+  → toAppNodes() / toAppEdges() # Domain → ReactFlow type boundary
+  → ReactFlow render
+```
+
+### Domain Model
+
+**Pipes** have two semantic categories:
+- **Operators** (`PipeOperatorType`): Do work — `PipeLLM`, `PipeExtract`, `PipeCompose`, `PipeImgGen`, `PipeSearch`, `PipeFunc`
+- **Controllers** (`PipeControllerType`): Orchestrate other pipes — `PipeSequence`, `PipeParallel`, `PipeCondition`, `PipeBatch`
+
+**Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
+
+**Controllers** contain child pipes via `contains` edges in GraphSpec. They render as group nodes wrapping their children. Parallel/Batch with >5 children auto-collapse.
+
+### Three Node Types
+
+| Constant | Value | Used By |
+|----------|-------|---------|
+| `NODE_TYPE_PIPE_CARD` | `"pipeCard"` | Operator pipe nodes (custom PipeCardNode component) |
+| `NODE_TYPE_STUFF` | `"default"` | Data nodes (ReactFlow default node with custom label) |
+| `NODE_TYPE_CONTROLLER` | `"controllerGroup"` | Controller group nodes (custom ControllerGroupNode) |
+
+## Type System
+
+### Type Boundary: Domain vs ReactFlow
+
+1. **Domain types** (`types.ts`): `GraphNode`, `GraphEdge`, `GraphNodeData` — used by all pure graph logic. No React dependency.
+
+2. **ReactFlow types** (`rfTypes.ts`): `AppNode`, `AppEdge`, `AppRFInstance` — ReactFlow generics parameterized with our domain data. Used only in the React layer.
+
+**Boundary rule:** Convert domain → ReactFlow types using `toAppNodes()`/`toAppEdges()` at the `setNodes`/`setEdges` call sites.
+
+### Strict Typing Rules
+
+- Use `PipeOperatorType` (not `string`) for operator pipe types
+- Use `PipeControllerType` (not `string`) for controller pipe types
+- Use `PipeStatus` (not `string`) for status values
+- Use `PipeType` (union of both) when the pipe category is unknown
+- Use node type constants (`NODE_TYPE_PIPE_CARD`, etc.) instead of string literals
+- Use stuff ID helpers (`stuffNodeId()`, `isStuffNodeId()`) instead of string concatenation
+- Type Record keys with union types (e.g., `Record<PipeOperatorType, string>`) — the compiler ensures exhaustiveness
+
+### Anti-Patterns
+
+- Do NOT add React or `@xyflow/react` imports to pure graph modules (`types.ts`, `graphAnalysis.ts`, etc.)
+- Do NOT use `as any` to bridge domain ↔ ReactFlow types — use the mapping functions
+- Do NOT add ReactFlow-specific fields (`CSSProperties`, `EdgeMarkerType`) to domain types
+- Do NOT re-define types that exist in `types.ts` — import and re-export instead
+- Do NOT use magic strings for pipe types, statuses, or node types — use the typed constants
+- Do NOT use deep relative imports (`../../../`) — use `@graph/*` alias
+
+## Code Style
+
+### Formatting (Prettier)
+
+- Double quotes, semicolons, trailing commas (`"all"`)
+- Print width: 100, tab width: 2 (spaces)
+
+### Naming Conventions
+
+| Kind | Convention | Example |
+|------|-----------|---------|
+| Types/Interfaces | PascalCase | `GraphNodeData`, `PipeOperatorType` |
+| Constants | UPPER_SNAKE_CASE | `NODE_TYPE_PIPE_CARD`, `CONTROLLER_PADDING_X` |
+| Functions | camelCase | `buildDataflowGraph`, `stuffNodeId` |
+| Files (pure TS) | camelCase | `graphBuilders.ts`, `graphConfig.ts` |
+| Files (React) | PascalCase | `GraphViewer.tsx`, `PipeCardBase.tsx` |
+| CSS classes | kebab-case with BEM-ish nesting | `.pipe-card-header`, `.pipe-card--lr` |
+
+### Module Organization
+
+- **Named exports only** — no default exports (except Storybook `meta`)
+- **Barrel exports** via `index.ts` at each module boundary
+- **Co-located tests** in `__tests__/` directories
+- **Co-located stories** in `__stories__/` directories
+- Pure graph logic must be React-free and importable without React installed
 
 ## Testing
 
-- **Runner**: Vitest
-- **Location**: Co-located test files (`__tests__/` dirs or `.test.ts` files)
-- Pure logic tests only — no DOM, no React
+### Running Tests
+
+| Command | Purpose |
+|---------|---------|
+| `make check` | **Always run after modifying code.** Runs lint + format + typecheck + tests |
+| `make test` | Vitest only (unit tests, single pass) |
+| `make test-watch` | Vitest watch mode |
+| `make storybook` | Storybook dev server on port 6006 |
+
+### Test Philosophy
+
+- **Unit tests** (`__tests__/*.test.ts`): Test pure graph logic functions. Node environment, no DOM.
+- **Storybook stories** (`__stories__/*.stories.tsx`): Visual testing of React components. Browser environment via Playwright.
+- Tests are co-located with their source modules.
+- Test fixtures use proper typed values (`PipeType`, `PipeStatus`, etc.) — not arbitrary strings.
+
+### Writing Tests
+
+- Use `describe` blocks to group related tests. Use `it` for individual assertions.
+- Test happy paths, edge cases (empty inputs, null, missing fields), and error paths (cycle detection, invalid data).
+- For pure functions, test input→output. For stateful logic, test state transitions.
+- When adding a new exported function, add tests for it in the same commit.
 
 ## Scripts
 
-| Command              | Purpose                    |
-| -------------------- | -------------------------- |
-| `npm run build`      | Build with tsup            |
-| `npm run lint`       | ESLint check (`src/`)      |
-| `npm run format`     | Prettier write (src files) |
-| `npm run format:check` | Prettier check (CI)      |
-| `npm run typecheck`  | TypeScript type checking   |
-| `npm run test`       | Vitest run (single pass)   |
+| Command | Purpose |
+|---------|---------|
+| `make check` | Full validation (lint + format + typecheck + tests) |
+| `make all` | Full validation + build |
+| `make build` | Build with tsup |
+| `make lint` | ESLint check |
+| `make format` | Prettier write |
+| `make storybook` | Storybook dev server |
+| `make clean` | Remove dist/ and node_modules/ |
 
 ## Workflow Rules
 
-- **Always run `make check` after modifying code.** This validates linting, formatting, type-checking, and tests before finishing.
-
-## Type Boundary: Domain Types vs ReactFlow Types
-
-The graph module has two type worlds:
-
-1. **Domain types** (`graph/types.ts`): `GraphNode`, `GraphEdge`, `GraphNodeData` — used by
-   all pure graph logic (builders, layout, controllers, analysis). No React dependency.
-
-2. **ReactFlow types** (`graph/react/rfTypes.ts`): `AppNode`, `AppEdge`, `AppRFInstance` —
-   ReactFlow generics parameterized with our domain data. Used only in the React layer.
-
-**Boundary rule:** Convert domain → ReactFlow types using `toAppNodes()`/`toAppEdges()`
-at the `setNodes`/`setEdges` call sites. Never use `as any` to bridge the gap.
-
-**Anti-patterns:**
-- Do NOT add React or `@xyflow/react` imports to `graph/types.ts` or other pure modules
-- Do NOT use `as any` to pass GraphNode[] to setNodes — use the mapping functions
-- Do NOT add ReactFlow-specific fields (CSSProperties, EdgeMarkerType) to domain types
-
-## Anti-patterns to Avoid
-
-- **No React imports in `graph/` or root** — only `graph/react/` may import React
-- **No default exports** for modules
-- **No relative imports across module boundaries** — import from `./types`, `./graphAnalysis`, etc.
+1. **Always run `make check` after modifying code** — before considering work done.
+2. **Use the `@graph/*` path alias** for cross-module imports within `src/graph/`.
+3. **Use typed constants** — never hardcode pipe types, statuses, or node type strings.
+4. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
+5. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.

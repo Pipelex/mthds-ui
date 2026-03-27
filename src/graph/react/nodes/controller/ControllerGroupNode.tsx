@@ -1,29 +1,28 @@
 import React from "react";
-import { MAX_VISIBLE_CONTROLLER_CHILDREN } from "../../../graphControllers";
-
-export type ControllerType = "PipeSequence" | "PipeParallel" | "PipeCondition" | "PipeBatch";
+import type { PipeControllerType } from "@graph/types";
+import { MAX_VISIBLE_CONTROLLER_CHILDREN } from "@graph/graphControllers";
 
 interface ControllerGroupData {
   label?: React.ReactNode;
-  pipeType?: string;
+  pipeType?: PipeControllerType;
   childCount?: number;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
 }
 
-const CONTROLLER_CONFIG: Record<string, { badge: string; icon: string }> = {
+const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
   PipeSequence: { badge: "Sequence", icon: "→" },
   PipeParallel: { badge: "Parallel", icon: "//" },
   PipeCondition: { badge: "Condition", icon: "◇" },
   PipeBatch: { badge: "Batch", icon: "≡" },
 };
 
-function getControllerConfig(pipeType: string | undefined) {
+function getControllerConfig(pipeType: PipeControllerType | undefined) {
   if (!pipeType) return { badge: "", icon: "" };
-  return CONTROLLER_CONFIG[pipeType] ?? { badge: pipeType.replace("Pipe", ""), icon: "⊞" };
+  return CONTROLLER_CONFIG[pipeType];
 }
 
-function getControllerModifier(pipeType: string | undefined): string {
+function getControllerModifier(pipeType: PipeControllerType | undefined): string {
   if (!pipeType) return "";
   const key = pipeType.replace("Pipe", "").toLowerCase();
   return `controller-group--${key}`;
@@ -37,9 +36,7 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
     (data.pipeType === "PipeParallel" || data.pipeType === "PipeBatch") &&
     (data.childCount ?? 0) > MAX_VISIBLE_CONTROLLER_CHILDREN;
 
-  const hiddenCount = isCollapsible
-    ? (data.childCount ?? 0) - MAX_VISIBLE_CONTROLLER_CHILDREN
-    : 0;
+  const hiddenCount = isCollapsible ? (data.childCount ?? 0) - MAX_VISIBLE_CONTROLLER_CHILDREN : 0;
 
   return (
     <div className={`controller-group-node ${modifier}`}>
