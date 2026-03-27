@@ -10,8 +10,8 @@ import {
   LIVE_RUN_CATALOG,
   DRY_ALL_CONTROLLER_TYPES,
   DRY_DEEP_NESTING,
-} from "../../graph/react/viewer/__stories__/mockGraphSpec";
-import { makeWideParallel } from "../../graph/react/viewer/__stories__/extremeGraphSpecs";
+} from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { makeWideParallel } from "@graph/react/viewer/__stories__/extremeGraphSpecs";
 import type { GraphSpec } from "../types";
 
 /** Extract a structural fingerprint that is position-independent. */

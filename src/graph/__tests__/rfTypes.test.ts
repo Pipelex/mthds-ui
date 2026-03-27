@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toAppNodes, toAppEdges } from "../../graph/react/rfTypes";
+import { toAppNodes, toAppEdges } from "@graph/react/rfTypes";
 import { makeGraphNode, makeStuffNode, makePipeCardNode, makeGraphEdge } from "./testUtils";
 
 describe("toAppNodes", () => {

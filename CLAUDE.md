@@ -57,6 +57,10 @@ The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Co
 
 **Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
 
+**This applies everywhere** — including `__tests__/` and `__stories__/` files. A test file at `src/graph/__tests__/foo.test.ts` importing from `src/graph/react/` must use `@graph/react/...`, not `../../graph/react/...`. The only acceptable relative imports from `__tests__/` are:
+- `./testUtils` (sibling in same `__tests__/` dir)
+- `../types`, `../graphBuilders`, etc. (one level up to parent module)
+
 ## Architecture
 
 ### Data Pipeline
@@ -118,7 +122,7 @@ GraphSpec (JSON from pipelex-agent)
 - Do NOT add ReactFlow-specific fields (`CSSProperties`, `EdgeMarkerType`) to domain types
 - Do NOT re-define types that exist in `types.ts` — import and re-export instead
 - Do NOT use magic strings for pipe types, statuses, or node types — use the typed constants
-- Do NOT use deep relative imports (`../../../`) — use `@graph/*` alias
+- Do NOT use deep relative imports (`../../` or deeper) — use `@graph/*` alias. This includes test and story files.
 
 ## Code Style
 
@@ -171,6 +175,24 @@ GraphSpec (JSON from pipelex-agent)
 - For pure functions, test input→output. For stateful logic, test state transitions.
 - When adding a new exported function, add tests for it in the same commit.
 
+### Storybook Play Functions (E2E browser tests)
+
+- Import test utilities from `storybook/test` (not `@storybook/test` — Storybook 10 moved them).
+- Use `within(canvasElement)` + `expect` + `userEvent` for DOM assertions and interactions.
+- ReactFlow nodes may be rendered outside the visible viewport — use `toBeInTheDocument()` instead of `toBeVisible()` when asserting on elements inside ReactFlow nodes.
+- Play functions run via `@storybook/addon-vitest` in the `storybook` vitest project with Playwright/Chromium.
+
+### Test Data
+
+- **Mock GraphSpecs** live in `src/graph/react/viewer/__stories__/mockGraphSpec.ts` — 25 DRY + 25 LIVE fixtures with `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG` dictionaries.
+- **Extreme-scale generators** in `extremeGraphSpecs.ts` — `makeWideParallel(N)`, `makeWideBatch(N)`.
+- **PipeCard edge cases** in `src/graph/react/nodes/pipe/__stories__/edge-cases/edgeCaseData.ts`.
+- **Programmatic factories** in `src/graph/__tests__/testUtils.ts` — `makeMinimalSpec()`, `makeParallelSpec()`, `makeBatchSpec()`, `makeNestedSpec()`, `runFullPipeline()`.
+
+### Coverage
+
+Coverage is configured at the top level of `vitest.config.mts` (not per-project). It targets core graph logic files only. Thresholds: 90% statements, 85% branches, 90% functions, 90% lines. Run with `make test-coverage`.
+
 ## Scripts
 
 | Command | Purpose |
@@ -181,6 +203,7 @@ GraphSpec (JSON from pipelex-agent)
 | `make lint` | ESLint check |
 | `make format` | Prettier write |
 | `make storybook` | Storybook dev server |
+| `make test-coverage` | Vitest with coverage report |
 | `make clean` | Remove dist/ and node_modules/ |
 
 ## Workflow Rules

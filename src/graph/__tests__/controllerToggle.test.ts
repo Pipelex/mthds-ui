@@ -6,8 +6,8 @@ import { runFullPipeline, makeParallelSpec } from "./testUtils";
 import {
   DRY_SIMPLE_PARALLEL,
   DRY_ALL_CONTROLLER_TYPES,
-} from "../../graph/react/viewer/__stories__/mockGraphSpec";
-import { makeWideParallel } from "../../graph/react/viewer/__stories__/extremeGraphSpecs";
+} from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { makeWideParallel } from "@graph/react/viewer/__stories__/extremeGraphSpecs";
 
 describe("controller toggle", () => {
   it("showControllers=false: no controller group nodes in output", () => {

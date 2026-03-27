@@ -16,7 +16,7 @@ import { NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "../types";
 import { buildGraph } from "../graphBuilders";
 import { getLayoutedElements, ensureControllerSpacing } from "../graphLayout";
 import { applyControllers } from "../graphControllers";
-import { toAppNodes, toAppEdges } from "../../graph/react/rfTypes";
+import { toAppNodes, toAppEdges } from "@graph/react/rfTypes";
 
 // ─── Node / Edge factories ──────────────────────────────────────────────────
 
