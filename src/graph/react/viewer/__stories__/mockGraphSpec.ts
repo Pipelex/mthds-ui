@@ -50,6 +50,7 @@ import {
   DRY_ALL_CONTROLLER_TYPES,
   LIVE_ALL_CONTROLLER_TYPES,
 } from "./pipelines/specs/allControllerTypes";
+import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "./pipelines/specs/cvMatching";
 
 // ─── Re-export all individual specs ──────────────────────────────────
 
@@ -104,6 +105,8 @@ export {
   LIVE_DEEP_NESTING,
   DRY_ALL_CONTROLLER_TYPES,
   LIVE_ALL_CONTROLLER_TYPES,
+  DRY_CV_MATCHING,
+  LIVE_CV_MATCHING,
 };
 
 // ─── Catalogs ────────────────────────────────────────────────────────
@@ -143,6 +146,7 @@ export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }>
   DRY_SIBLING_PARALLELS: { label: "23 - Sibling Parallels", spec: DRY_SIBLING_PARALLELS },
   DRY_DEEP_NESTING: { label: "24 - Deep Nesting", spec: DRY_DEEP_NESTING },
   DRY_ALL_CONTROLLER_TYPES: { label: "25 - All Controller Types", spec: DRY_ALL_CONTROLLER_TYPES },
+  DRY_CV_MATCHING: { label: "28 - CV Matching (Seq>Batch>Seq>Condition)", spec: DRY_CV_MATCHING },
 };
 
 export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -185,5 +189,9 @@ export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }
   LIVE_ALL_CONTROLLER_TYPES: {
     label: "25 - All Controller Types",
     spec: LIVE_ALL_CONTROLLER_TYPES,
+  },
+  LIVE_CV_MATCHING: {
+    label: "28 - CV Matching (Seq>Batch>Seq>Condition)",
+    spec: LIVE_CV_MATCHING,
   },
 };

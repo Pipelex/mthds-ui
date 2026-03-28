@@ -2,7 +2,7 @@
   "cv": {
     "concept": "native.Document",
     "content": {
-      "url": "inputs/cv.pdf",
+      "url": "inputs/document.pdf",
       "mime_type": "application/pdf"
     }
   }

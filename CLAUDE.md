@@ -184,10 +184,31 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Test Data
 
-- **Mock GraphSpecs** live in `src/graph/react/viewer/__stories__/mockGraphSpec.ts` — 25 DRY + 25 LIVE fixtures with `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG` dictionaries.
+- **Mock GraphSpecs** live in `src/graph/react/viewer/__stories__/mockGraphSpec.ts` — DRY + LIVE fixtures with `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG` dictionaries.
 - **Extreme-scale generators** in `extremeGraphSpecs.ts` — `makeWideParallel(N)`, `makeWideBatch(N)`.
 - **PipeCard edge cases** in `src/graph/react/nodes/pipe/__stories__/edge-cases/edgeCaseData.ts`.
 - **Programmatic factories** in `src/graph/__tests__/testUtils.ts` — `makeMinimalSpec()`, `makeParallelSpec()`, `makeBatchSpec()`, `makeNestedSpec()`, `runFullPipeline()`.
+
+### Generating GraphSpec from MTHDS bundles
+
+**NEVER manually translate `.mthds` TOML files into GraphSpec JSON.** Always use the pipelex CLI to generate the real `graph.json` output:
+
+```bash
+# Dry run (no inference, mock inputs) — generates graph.json
+pipelex run bundle /path/to/bundle.mthds --dry-run --mock-inputs --graph -o ./results
+
+# Real run with inputs — generates graph.json with real execution data
+pipelex run bundle /path/to/bundle.mthds --graph -i /path/to/inputs.json -o ./results
+```
+
+The pipelex CLI lives at `~/dev/pipelex/pipelex`. The output `graph.json` in the results directory IS the GraphSpec consumed by this library.
+
+To generate fake inputs for a real run, use the `/mthds-inputs` skill or:
+```bash
+mthds-agent inputs bundle /path/to/bundle.mthds -L /path/to/bundle-dir/
+```
+
+The DRY graph.json corresponds to `DRY_*` specs, the LIVE (real run) graph.json corresponds to `LIVE_*` specs in Storybook.
 
 ### Coverage
 
@@ -209,7 +230,9 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 ## Workflow Rules
 
 1. **Always run `make check` after modifying code** — before considering work done.
-2. **Use the `@graph/*` path alias** for cross-module imports within `src/graph/`.
-3. **Use typed constants** — never hardcode pipe types, statuses, or node type strings.
-4. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
-5. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
+2. **Always visually verify Storybook after graph/layout changes** — `make check` only validates logic; graph rendering changes (layout, spacing, node sizing, edge routing) MUST be verified visually in Storybook (`make storybook`, port 6006) using the `/browse` skill before considering work done. Check multiple pipeline stories (especially complex ones like CV screening, nested controllers, wide parallels). Do NOT claim a visual fix works based on tests alone.
+3. **Use the `@graph/*` path alias** for cross-module imports within `src/graph/`.
+4. **Use typed constants** — never hardcode pipe types, statuses, or node type strings.
+5. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
+6. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
+7. **Never hand-write GraphSpec JSON** — always generate it by running the pipelex CLI (`pipelex run bundle ... --dry-run --mock-inputs --graph` for dry run, or with real inputs for live run). The pipelex CLI produces the authoritative `graph.json`. Copy its output into the spec files.

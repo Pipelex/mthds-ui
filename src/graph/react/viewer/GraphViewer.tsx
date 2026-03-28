@@ -14,6 +14,7 @@ import type {
   GraphNode,
   GraphEdge,
   DataflowAnalysis,
+  PipeStatus,
 } from "@graph/types";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
@@ -36,8 +37,10 @@ export interface GraphViewerProps {
   config?: GraphConfig;
   direction?: GraphDirection;
   showControllers?: boolean;
-  onNavigateToPipe?: (pipeCode: string) => void;
+  onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
+  /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
+  statusMap?: Record<string, PipeStatus>;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -49,6 +52,32 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   }));
 }
 
+/** Apply Layer 2 execution state overrides to rendered nodes. */
+function applyStatusOverrides(
+  nodes: AppNode[],
+  statusMap: Record<string, PipeStatus> | undefined,
+): AppNode[] {
+  if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
+  return nodes.map((node) => {
+    const pipeCode = node.data.pipeCode;
+    if (!pipeCode || !(pipeCode in statusMap)) return node;
+    const newStatus = statusMap[pipeCode];
+    if (node.data.pipeCardData?.status === newStatus) return node;
+    return {
+      ...node,
+      data: {
+        ...node.data,
+        nodeData: node.data.nodeData
+          ? { ...node.data.nodeData, status: newStatus }
+          : node.data.nodeData,
+        pipeCardData: node.data.pipeCardData
+          ? { ...node.data.pipeCardData, status: newStatus }
+          : node.data.pipeCardData,
+      },
+    };
+  });
+}
+
 export function GraphViewer(props: GraphViewerProps) {
   const {
     graphspec,
@@ -57,6 +86,7 @@ export function GraphViewer(props: GraphViewerProps) {
     showControllers = config.showControllers ?? DEFAULT_GRAPH_CONFIG.showControllers ?? false,
     onNavigateToPipe,
     onReactFlowInit,
+    statusMap,
   } = props;
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -127,6 +157,8 @@ export function GraphViewer(props: GraphViewerProps) {
   expandedRef.current = expandedControllers;
   const toggleCollapseRef = React.useRef(toggleCollapse);
   toggleCollapseRef.current = toggleCollapse;
+  const statusMapRef = React.useRef(statusMap);
+  statusMapRef.current = statusMap;
 
   // Re-layout when direction or layout config changes
   React.useEffect(() => {
@@ -160,7 +192,7 @@ export function GraphViewer(props: GraphViewerProps) {
         toggleCollapseRef.current,
         relayouted.controllerPositions,
       );
-      setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
+      setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
       setEdges(toAppEdges(withControllers.edges));
       setTimeout(() => {
         if (!cancelled && reactFlowRef.current) {
@@ -189,7 +221,7 @@ export function GraphViewer(props: GraphViewerProps) {
       toggleCollapse,
       layoutCacheRef.current.controllerPositions,
     );
-    setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
+    setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
     setEdges(toAppEdges(withControllers.edges));
   }, [showControllers, expandedControllers, toggleCollapse]);
 
@@ -249,7 +281,7 @@ export function GraphViewer(props: GraphViewerProps) {
         layouted.controllerPositions,
       );
 
-      setNodes(toAppNodes(hydrateLabels(withControllers.nodes)));
+      setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
       setEdges(toAppEdges(withControllers.edges));
 
       // Fit view after render, then apply zoom/pan overrides
@@ -272,6 +304,27 @@ export function GraphViewer(props: GraphViewerProps) {
     };
   }, [graphspec, edgeType]);
 
+  // Apply Layer 2 execution state when statusMap changes (reuses cached layout).
+  // On mount, statusMap is applied inline by the graphspec build effect above.
+  // This effect handles runtime changes only (SSE updates arriving after initial render).
+  React.useEffect(() => {
+    if (!layoutCacheRef.current || !initialDataRef.current) return;
+    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
+    const cachedEdges = layoutCacheRef.current.edges;
+    const withControllers = applyControllers(
+      cachedNodes,
+      cachedEdges,
+      initialDataRef.current._graphspec,
+      initialDataRef.current._analysis,
+      showControllersRef.current,
+      expandedRef.current,
+      toggleCollapseRef.current,
+      layoutCacheRef.current.controllerPositions,
+    );
+    setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMap));
+    setEdges(toAppEdges(withControllers.edges));
+  }, [statusMap]);
+
   // Handle node click
   const onNodeClick = React.useCallback(
     (_event: React.MouseEvent, node: AppNode) => {
@@ -279,7 +332,7 @@ export function GraphViewer(props: GraphViewerProps) {
       if (nodeData.isController || nodeData.isPipe) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
-          onNavigateToPipe(code);
+          onNavigateToPipe(code, nodeData.pipeCardData?.status as PipeStatus | undefined);
         }
       }
 

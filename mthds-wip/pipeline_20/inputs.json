@@ -2,7 +2,7 @@
   "data": {
     "concept": "native.Text",
     "content": {
-      "text": "Patient medical record excerpt: 45-year-old male presenting with persistent lower back pain radiating to the left leg for 6 weeks. History of Type 2 diabetes (diagnosed 2019), hypertension controlled with lisinopril 10mg daily. Recent MRI shows L4-L5 disc herniation with mild neural foraminal stenosis. Physical therapy prescribed, follow-up in 4 weeks."
+      "text": "Machine learning operations (MLOps) encompasses the practices, tools, and organizational structures needed to deploy and maintain machine learning models in production. Key components include data versioning, model registry, automated testing, continuous integration and deployment, monitoring, and governance."
     }
   }
 }

@@ -2,7 +2,7 @@
   "text": {
     "concept": "native.Text",
     "content": {
-      "text": "The rapid advancement of artificial intelligence has transformed multiple industries in the past decade. Machine learning algorithms now power recommendation systems, autonomous vehicles, medical diagnostics, and financial trading platforms. While these developments have increased productivity and opened new possibilities, they have also raised important questions about data privacy, algorithmic bias, and the future of employment. Experts predict that by 2030, AI will contribute over $15 trillion to the global economy, making it one of the most significant technological shifts in human history."
+      "text": "Artificial intelligence has transformed the technology landscape in recent years. Machine learning models, particularly large language models, have shown remarkable capabilities in understanding and generating human language. These models are trained on vast amounts of text data and can perform tasks such as translation, summarization, question answering, and creative writing. The development of transformer architectures in 2017 marked a turning point, enabling models to process sequences of text more efficiently than previous approaches. Companies across industries are now integrating AI into their workflows, from customer service chatbots to medical diagnosis assistance. However, challenges remain around bias, hallucination, and the environmental cost of training large models."
     }
   }
 }
