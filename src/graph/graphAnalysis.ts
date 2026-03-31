@@ -70,6 +70,10 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
 /**
  * Build a map from node id -> controller id for all nodes that belong to a controller.
  * Includes both direct children (operators) and stuff nodes assigned to controllers.
+ *
+ * Stuff nodes are placed at the lowest controller level where they connect producers
+ * to consumers. A stuff node produced inside controller C is promoted to C's parent
+ * if none of its consumers are inside C (output flows outward).
  */
 export function buildChildToControllerMap(
   graphspec: GraphSpec,
@@ -118,5 +122,72 @@ export function buildChildToControllerMap(
     }
   }
 
+  // ─── Promote stuff nodes whose consumers are all outside their controller ──
+  // Stuff involved in stuff-to-stuff edges (batch/parallel) should not be promoted
+  // when they have no operator consumers — they're intermediate batch/parallel data.
+  const stuffInStuffEdges = new Set<string>();
+  for (const edge of graphspec.edges) {
+    if (
+      edge.kind === "batch_item" ||
+      edge.kind === "batch_aggregate" ||
+      edge.kind === "parallel_combine"
+    ) {
+      if (edge.source_stuff_digest) stuffInStuffEdges.add(edge.source_stuff_digest);
+      if (edge.target_stuff_digest) stuffInStuffEdges.add(edge.target_stuff_digest);
+    }
+  }
+
+  const stuffPrefix = "stuff_";
+  const stuffEntries = Object.keys(childToController).filter((id) => id.startsWith(stuffPrefix));
+
+  for (const stuffId of stuffEntries) {
+    const digest = stuffId.slice(stuffPrefix.length);
+    let assignedCtrl: string | undefined = childToController[stuffId];
+    if (!assignedCtrl) continue;
+
+    const consumers = analysis.stuffConsumers[digest] || [];
+
+    if (consumers.length === 0) {
+      // No operator consumers — promote to root only if this is a pure final output
+      // (not involved in batch/parallel stuff-to-stuff edges)
+      if (!stuffInStuffEdges.has(digest)) {
+        delete childToController[stuffId];
+      }
+      continue;
+    }
+
+    // Has consumers — promote until we find a level where at least one consumer is inside
+    while (assignedCtrl) {
+      const ctrl = assignedCtrl;
+      const hasConsumerInside = consumers.some((consumerId) =>
+        isDescendantOf(consumerId, ctrl, childToController),
+      );
+      if (hasConsumerInside) break;
+
+      const parentCtrl: string | undefined = childToController[assignedCtrl];
+      if (parentCtrl) {
+        childToController[stuffId] = parentCtrl;
+        assignedCtrl = parentCtrl;
+      } else {
+        delete childToController[stuffId];
+        assignedCtrl = undefined;
+      }
+    }
+  }
+
   return childToController;
+}
+
+/** Check if nodeId is a descendant of ancestorCtrlId in the containment hierarchy. */
+function isDescendantOf(
+  nodeId: string,
+  ancestorCtrlId: string,
+  childToController: Record<string, string>,
+): boolean {
+  let current = childToController[nodeId];
+  while (current) {
+    if (current === ancestorCtrlId) return true;
+    current = childToController[current];
+  }
+  return false;
 }

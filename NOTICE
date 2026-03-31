@@ -1,0 +1,18 @@
+Third-Party Notices
+====================
+
+This project uses the following third-party libraries with non-permissive licenses:
+
+elkjs
+-----
+License: Eclipse Public License 2.0 (EPL-2.0)
+Project: https://github.com/kieler/elkjs
+Source:  https://github.com/eclipse/elk
+
+ELK (Eclipse Layout Kernel) is used as a runtime dependency for graph layout.
+The full EPL-2.0 license text is available at:
+https://www.eclipse.org/legal/epl-2.0/
+
+elkjs is NOT bundled into this library's distributable output. It is consumed
+as an npm dependency at runtime. This project does not modify or redistribute
+ELK source code.

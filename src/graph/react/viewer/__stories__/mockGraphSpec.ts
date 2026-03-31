@@ -1,0 +1,197 @@
+import type { GraphSpec } from "@graph/types";
+
+// Auto-generated from real MTHDS pipeline runs.
+// Do not edit manually — regenerate by running the pipelines.
+// Individual specs live in ./pipelines/specs/*.ts
+
+import { DRY_SINGLE_PIPE, LIVE_SINGLE_PIPE } from "./pipelines/specs/singlePipe";
+import { DRY_TWO_PIPE_CHAIN, LIVE_TWO_PIPE_CHAIN } from "./pipelines/specs/twoPipeChain";
+import { DRY_SIMPLE_SEQUENCE, LIVE_SIMPLE_SEQUENCE } from "./pipelines/specs/simpleSequence";
+import { DRY_LONG_SEQUENCE, LIVE_LONG_SEQUENCE } from "./pipelines/specs/longSequence";
+import { DRY_SIMPLE_PARALLEL, LIVE_SIMPLE_PARALLEL } from "./pipelines/specs/simpleParallel";
+import {
+  DRY_THREE_WAY_PARALLEL,
+  LIVE_THREE_WAY_PARALLEL,
+} from "./pipelines/specs/threeWayParallel";
+import { DRY_SIMPLE_CONDITION, LIVE_SIMPLE_CONDITION } from "./pipelines/specs/simpleCondition";
+import { DRY_SIMPLE_BATCH, LIVE_SIMPLE_BATCH } from "./pipelines/specs/simpleBatch";
+import { DRY_CV_SCREENING, LIVE_CV_SCREENING } from "./pipelines/specs/cvScreening";
+import { DRY_NESTED_SEQ_PAR_SEQ, LIVE_NESTED_SEQ_PAR_SEQ } from "./pipelines/specs/nestedSeqParSeq";
+import {
+  DRY_NESTED_SEQ_COND_SEQ,
+  LIVE_NESTED_SEQ_COND_SEQ,
+} from "./pipelines/specs/nestedSeqCondSeq";
+import {
+  DRY_BATCH_WITH_INNER_SEQ,
+  LIVE_BATCH_WITH_INNER_SEQ,
+} from "./pipelines/specs/batchWithInnerSeq";
+import { DRY_DIAMOND_PATTERN, LIVE_DIAMOND_PATTERN } from "./pipelines/specs/diamondPattern";
+import { DRY_ALL_PIPE_TYPES, LIVE_ALL_PIPE_TYPES } from "./pipelines/specs/allPipeTypes";
+import { DRY_RAG_PIPELINE, LIVE_RAG_PIPELINE } from "./pipelines/specs/ragPipeline";
+import { DRY_IMAGE_PIPELINE, LIVE_IMAGE_PIPELINE } from "./pipelines/specs/imagePipeline";
+import { DRY_EMAIL_TRIAGE, LIVE_EMAIL_TRIAGE } from "./pipelines/specs/emailTriage";
+import { DRY_CODE_REVIEW, LIVE_CODE_REVIEW } from "./pipelines/specs/codeReview";
+import {
+  DRY_CONTENT_MODERATION,
+  LIVE_CONTENT_MODERATION,
+} from "./pipelines/specs/contentModeration";
+import { DRY_WIDE_PARALLEL, LIVE_WIDE_PARALLEL } from "./pipelines/specs/wideParallel";
+import {
+  DRY_MULTI_INPUT_CONVERGE,
+  LIVE_MULTI_INPUT_CONVERGE,
+} from "./pipelines/specs/multiInputConverge";
+import {
+  DRY_MULTI_OUTPUT_FANOUT,
+  LIVE_MULTI_OUTPUT_FANOUT,
+} from "./pipelines/specs/multiOutputFanout";
+import { DRY_SIBLING_PARALLELS, LIVE_SIBLING_PARALLELS } from "./pipelines/specs/siblingParallels";
+import { DRY_DEEP_NESTING, LIVE_DEEP_NESTING } from "./pipelines/specs/deepNesting";
+import {
+  DRY_ALL_CONTROLLER_TYPES,
+  LIVE_ALL_CONTROLLER_TYPES,
+} from "./pipelines/specs/allControllerTypes";
+import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "./pipelines/specs/cvMatching";
+
+// ─── Re-export all individual specs ──────────────────────────────────
+
+export {
+  DRY_SINGLE_PIPE,
+  LIVE_SINGLE_PIPE,
+  DRY_TWO_PIPE_CHAIN,
+  LIVE_TWO_PIPE_CHAIN,
+  DRY_SIMPLE_SEQUENCE,
+  LIVE_SIMPLE_SEQUENCE,
+  DRY_LONG_SEQUENCE,
+  LIVE_LONG_SEQUENCE,
+  DRY_SIMPLE_PARALLEL,
+  LIVE_SIMPLE_PARALLEL,
+  DRY_THREE_WAY_PARALLEL,
+  LIVE_THREE_WAY_PARALLEL,
+  DRY_SIMPLE_CONDITION,
+  LIVE_SIMPLE_CONDITION,
+  DRY_SIMPLE_BATCH,
+  LIVE_SIMPLE_BATCH,
+  DRY_CV_SCREENING,
+  LIVE_CV_SCREENING,
+  DRY_NESTED_SEQ_PAR_SEQ,
+  LIVE_NESTED_SEQ_PAR_SEQ,
+  DRY_NESTED_SEQ_COND_SEQ,
+  LIVE_NESTED_SEQ_COND_SEQ,
+  DRY_BATCH_WITH_INNER_SEQ,
+  LIVE_BATCH_WITH_INNER_SEQ,
+  DRY_DIAMOND_PATTERN,
+  LIVE_DIAMOND_PATTERN,
+  DRY_ALL_PIPE_TYPES,
+  LIVE_ALL_PIPE_TYPES,
+  DRY_RAG_PIPELINE,
+  LIVE_RAG_PIPELINE,
+  DRY_IMAGE_PIPELINE,
+  LIVE_IMAGE_PIPELINE,
+  DRY_EMAIL_TRIAGE,
+  LIVE_EMAIL_TRIAGE,
+  DRY_CODE_REVIEW,
+  LIVE_CODE_REVIEW,
+  DRY_CONTENT_MODERATION,
+  LIVE_CONTENT_MODERATION,
+  DRY_WIDE_PARALLEL,
+  LIVE_WIDE_PARALLEL,
+  DRY_MULTI_INPUT_CONVERGE,
+  LIVE_MULTI_INPUT_CONVERGE,
+  DRY_MULTI_OUTPUT_FANOUT,
+  LIVE_MULTI_OUTPUT_FANOUT,
+  DRY_SIBLING_PARALLELS,
+  LIVE_SIBLING_PARALLELS,
+  DRY_DEEP_NESTING,
+  LIVE_DEEP_NESTING,
+  DRY_ALL_CONTROLLER_TYPES,
+  LIVE_ALL_CONTROLLER_TYPES,
+  DRY_CV_MATCHING,
+  LIVE_CV_MATCHING,
+};
+
+// ─── Catalogs ────────────────────────────────────────────────────────
+
+export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
+  DRY_SINGLE_PIPE: { label: "01 - Single PipeLLM", spec: DRY_SINGLE_PIPE },
+  DRY_TWO_PIPE_CHAIN: { label: "02 - Two-Pipe Chain", spec: DRY_TWO_PIPE_CHAIN },
+  DRY_SIMPLE_SEQUENCE: { label: "03 - Simple 3-Pipe Sequence", spec: DRY_SIMPLE_SEQUENCE },
+  DRY_LONG_SEQUENCE: { label: "04 - Long 6-Pipe Sequence", spec: DRY_LONG_SEQUENCE },
+  DRY_SIMPLE_PARALLEL: { label: "05 - Simple Parallel (2 branches)", spec: DRY_SIMPLE_PARALLEL },
+  DRY_THREE_WAY_PARALLEL: { label: "06 - Three-Way Parallel", spec: DRY_THREE_WAY_PARALLEL },
+  DRY_SIMPLE_CONDITION: { label: "07 - Simple Condition", spec: DRY_SIMPLE_CONDITION },
+  DRY_SIMPLE_BATCH: { label: "08 - Simple Batch", spec: DRY_SIMPLE_BATCH },
+  DRY_CV_SCREENING: { label: "09 - CV Screening Pipeline", spec: DRY_CV_SCREENING },
+  DRY_NESTED_SEQ_PAR_SEQ: {
+    label: "10 - Nested Seq > Parallel > Seq",
+    spec: DRY_NESTED_SEQ_PAR_SEQ,
+  },
+  DRY_NESTED_SEQ_COND_SEQ: {
+    label: "11 - Nested Seq > Condition > Seq",
+    spec: DRY_NESTED_SEQ_COND_SEQ,
+  },
+  DRY_BATCH_WITH_INNER_SEQ: {
+    label: "12 - Batch with Inner Sequence",
+    spec: DRY_BATCH_WITH_INNER_SEQ,
+  },
+  DRY_DIAMOND_PATTERN: { label: "13 - Diamond Pattern", spec: DRY_DIAMOND_PATTERN },
+  DRY_ALL_PIPE_TYPES: { label: "14 - All Pipe Types", spec: DRY_ALL_PIPE_TYPES },
+  DRY_RAG_PIPELINE: { label: "15 - RAG Pipeline", spec: DRY_RAG_PIPELINE },
+  DRY_IMAGE_PIPELINE: { label: "16 - Image Processing", spec: DRY_IMAGE_PIPELINE },
+  DRY_EMAIL_TRIAGE: { label: "17 - Email Triage", spec: DRY_EMAIL_TRIAGE },
+  DRY_CODE_REVIEW: { label: "18 - Code Review", spec: DRY_CODE_REVIEW },
+  DRY_CONTENT_MODERATION: { label: "19 - Content Moderation", spec: DRY_CONTENT_MODERATION },
+  DRY_WIDE_PARALLEL: { label: "20 - Wide Parallel (5 branches)", spec: DRY_WIDE_PARALLEL },
+  DRY_MULTI_INPUT_CONVERGE: { label: "21 - Multi-Input Converge", spec: DRY_MULTI_INPUT_CONVERGE },
+  DRY_MULTI_OUTPUT_FANOUT: { label: "22 - Multi-Output Fan-out", spec: DRY_MULTI_OUTPUT_FANOUT },
+  DRY_SIBLING_PARALLELS: { label: "23 - Sibling Parallels", spec: DRY_SIBLING_PARALLELS },
+  DRY_DEEP_NESTING: { label: "24 - Deep Nesting", spec: DRY_DEEP_NESTING },
+  DRY_ALL_CONTROLLER_TYPES: { label: "25 - All Controller Types", spec: DRY_ALL_CONTROLLER_TYPES },
+  DRY_CV_MATCHING: { label: "28 - CV Matching (Seq>Batch>Seq>Condition)", spec: DRY_CV_MATCHING },
+};
+
+export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
+  LIVE_SINGLE_PIPE: { label: "01 - Single PipeLLM", spec: LIVE_SINGLE_PIPE },
+  LIVE_TWO_PIPE_CHAIN: { label: "02 - Two-Pipe Chain", spec: LIVE_TWO_PIPE_CHAIN },
+  LIVE_SIMPLE_SEQUENCE: { label: "03 - Simple 3-Pipe Sequence", spec: LIVE_SIMPLE_SEQUENCE },
+  LIVE_LONG_SEQUENCE: { label: "04 - Long 6-Pipe Sequence", spec: LIVE_LONG_SEQUENCE },
+  LIVE_SIMPLE_PARALLEL: { label: "05 - Simple Parallel (2 branches)", spec: LIVE_SIMPLE_PARALLEL },
+  LIVE_THREE_WAY_PARALLEL: { label: "06 - Three-Way Parallel", spec: LIVE_THREE_WAY_PARALLEL },
+  LIVE_SIMPLE_CONDITION: { label: "07 - Simple Condition", spec: LIVE_SIMPLE_CONDITION },
+  LIVE_SIMPLE_BATCH: { label: "08 - Simple Batch", spec: LIVE_SIMPLE_BATCH },
+  LIVE_CV_SCREENING: { label: "09 - CV Screening Pipeline", spec: LIVE_CV_SCREENING },
+  LIVE_NESTED_SEQ_PAR_SEQ: {
+    label: "10 - Nested Seq > Parallel > Seq",
+    spec: LIVE_NESTED_SEQ_PAR_SEQ,
+  },
+  LIVE_NESTED_SEQ_COND_SEQ: {
+    label: "11 - Nested Seq > Condition > Seq",
+    spec: LIVE_NESTED_SEQ_COND_SEQ,
+  },
+  LIVE_BATCH_WITH_INNER_SEQ: {
+    label: "12 - Batch with Inner Sequence",
+    spec: LIVE_BATCH_WITH_INNER_SEQ,
+  },
+  LIVE_DIAMOND_PATTERN: { label: "13 - Diamond Pattern", spec: LIVE_DIAMOND_PATTERN },
+  LIVE_ALL_PIPE_TYPES: { label: "14 - All Pipe Types", spec: LIVE_ALL_PIPE_TYPES },
+  LIVE_RAG_PIPELINE: { label: "15 - RAG Pipeline", spec: LIVE_RAG_PIPELINE },
+  LIVE_IMAGE_PIPELINE: { label: "16 - Image Processing", spec: LIVE_IMAGE_PIPELINE },
+  LIVE_EMAIL_TRIAGE: { label: "17 - Email Triage", spec: LIVE_EMAIL_TRIAGE },
+  LIVE_CODE_REVIEW: { label: "18 - Code Review", spec: LIVE_CODE_REVIEW },
+  LIVE_CONTENT_MODERATION: { label: "19 - Content Moderation", spec: LIVE_CONTENT_MODERATION },
+  LIVE_WIDE_PARALLEL: { label: "20 - Wide Parallel (5 branches)", spec: LIVE_WIDE_PARALLEL },
+  LIVE_MULTI_INPUT_CONVERGE: {
+    label: "21 - Multi-Input Converge",
+    spec: LIVE_MULTI_INPUT_CONVERGE,
+  },
+  LIVE_MULTI_OUTPUT_FANOUT: { label: "22 - Multi-Output Fan-out", spec: LIVE_MULTI_OUTPUT_FANOUT },
+  LIVE_SIBLING_PARALLELS: { label: "23 - Sibling Parallels", spec: LIVE_SIBLING_PARALLELS },
+  LIVE_DEEP_NESTING: { label: "24 - Deep Nesting", spec: LIVE_DEEP_NESTING },
+  LIVE_ALL_CONTROLLER_TYPES: {
+    label: "25 - All Controller Types",
+    spec: LIVE_ALL_CONTROLLER_TYPES,
+  },
+  LIVE_CV_MATCHING: {
+    label: "28 - CV Matching (Seq>Batch>Seq>Condition)",
+    spec: LIVE_CV_MATCHING,
+  },
+};

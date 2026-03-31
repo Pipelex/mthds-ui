@@ -1,4 +1,46 @@
-// GraphSpec types (from pipelex-agent --view output)
+// ─── Pipe type taxonomy ─────────────────────────────────────────────────────
+// Operators perform work; controllers orchestrate other pipes.
+
+export type PipeOperatorType =
+  | "PipeLLM"
+  | "PipeExtract"
+  | "PipeCompose"
+  | "PipeImgGen"
+  | "PipeSearch"
+  | "PipeFunc";
+
+export type PipeControllerType = "PipeSequence" | "PipeParallel" | "PipeCondition" | "PipeBatch";
+
+export type PipeType = PipeOperatorType | PipeControllerType;
+
+export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped";
+
+// ─── Node type constants ────────────────────────────────────────────────────
+// Used by graphBuilders and consumed by ReactFlow custom node registration.
+
+export const NODE_TYPE_PIPE_CARD = "pipeCard" as const;
+export const NODE_TYPE_STUFF = "default" as const;
+export const NODE_TYPE_CONTROLLER = "controllerGroup" as const;
+
+// ─── Stuff node ID helpers ──────────────────────────────────────────────────
+// Stuff (data) nodes use a "stuff_<digest>" convention throughout the graph.
+
+export const STUFF_ID_PREFIX = "stuff_";
+
+export function stuffNodeId(digest: string): string {
+  return STUFF_ID_PREFIX + digest;
+}
+
+export function isStuffNodeId(id: string): boolean {
+  return id.startsWith(STUFF_ID_PREFIX);
+}
+
+export function stuffDigestFromId(id: string): string {
+  return id.slice(STUFF_ID_PREFIX.length);
+}
+
+// ─── GraphSpec types (from pipelex-agent --view output) ─────────────────────
+
 export interface GraphSpecNodeIoItem {
   name?: string;
   digest?: string;
@@ -14,8 +56,9 @@ export interface GraphSpecNodeIo {
 export interface GraphSpecNode {
   id: string;
   pipe_code?: string;
-  pipe_type?: string;
-  status?: string;
+  pipe_type?: PipeType;
+  description?: string;
+  status?: PipeStatus;
   io?: GraphSpecNodeIo;
 }
 
@@ -41,7 +84,8 @@ export interface GraphSpec {
   edges: GraphSpecEdge[];
 }
 
-// Dataflow analysis result
+// ─── Dataflow analysis result ───────────────────────────────────────────────
+
 export interface DataflowAnalysis {
   readonly stuffRegistry: Readonly<
     Record<string, { name?: string; concept?: string; contentType?: string }>
@@ -53,7 +97,8 @@ export interface DataflowAnalysis {
   readonly containmentTree: Readonly<Record<string, readonly string[]>>;
 }
 
-// Graph configuration passed from the extension
+// ─── Graph configuration ────────────────────────────────────────────────────
+
 export type GraphDirection = "TB" | "LR" | "RL" | "BT";
 export type EdgeType = "bezier" | "step" | "straight" | "smoothstep";
 
@@ -68,24 +113,30 @@ export interface GraphConfig {
   paletteColors?: Record<string, string>;
 }
 
-// Label descriptors — plain objects, no React dependency.
-// GraphViewer maps these to React elements at render time.
+// ─── Label descriptors ──────────────────────────────────────────────────────
+// Plain objects, no React dependency. GraphViewer maps these to React elements.
+
 export type LabelDescriptor =
   | { kind: "pipe"; label: string; isFailed: boolean }
-  | { kind: "stuff"; label: string; concept: string }
-  | {
-      kind: "orchestration";
-      label: string;
-      status: string;
-      typeText: string;
-      badge: string;
-    };
+  | { kind: "stuff"; label: string; concept: string };
 
-/**
- * Data payload for graph nodes. Extends Record<string, unknown> so it can be
- * used as the generic parameter for ReactFlow's Node<T> in the React layer
- * (see graph/react/rfTypes.ts), while remaining React-free for pure graph logic.
- */
+// ─── Pipe card payload ──────────────────────────────────────────────────────
+// Built by graphBuilders, consumed by PipeCardNode in the React layer.
+
+export interface PipeCardPayload {
+  pipeCode: string;
+  pipeType: PipeOperatorType;
+  description?: string;
+  status: PipeStatus;
+  inputs: { name: string; concept: string }[];
+  outputs: { name: string; concept: string }[];
+  /** Layout direction — injected by the layout engine */
+  direction?: "LR" | "TB";
+}
+
+// ─── Graph node data ────────────────────────────────────────────────────────
+// Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
+
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
   label?: unknown;
@@ -95,10 +146,12 @@ export interface GraphNodeData extends Record<string, unknown> {
   isController?: boolean;
   labelText: string;
   pipeCode?: string;
-  pipeType?: string;
+  pipeType?: PipeType;
+  pipeCardData?: PipeCardPayload;
 }
 
-// ReactFlow node used in our graph
+// ─── Graph node / edge / data ───────────────────────────────────────────────
+
 export interface GraphNode {
   id: string;
   type: string;
@@ -112,7 +165,6 @@ export interface GraphNode {
   selected?: boolean;
 }
 
-// ReactFlow edge used in our graph
 export interface GraphEdge {
   id: string;
   source: string;
@@ -135,7 +187,8 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-// Layout config subset used by getLayoutedElements
+// ─── Layout ─────────────────────────────────────────────────────────────────
+
 export interface LayoutConfig {
   nodesep?: number;
   ranksep?: number;
@@ -149,10 +202,10 @@ export const CONTROLLER_PADDING_BOTTOM = 20;
 // Default marker type string (avoids ReactFlow dependency in pure modules)
 export const ARROW_CLOSED_MARKER = "arrowclosed";
 
-// Helpers: extract node dimensions from style, handling both string and number values.
-// Used by post-layout passes (ensureControllerSpacing, buildControllerNodes) to read
-// the actual style set by graphBuilders. NOT used by getLayoutedElements, which estimates
-// dimensions from label text before styles exist — see comment in graphLayout.ts.
+// ─── Node dimension helpers ─────────────────────────────────────────────────
+// Extract dimensions from style. Used by buildControllerNodes.
+// NOT used by getLayoutedElements, which estimates dimensions before styles exist.
+
 export function nodeWidth(n: GraphNode): number {
   const raw = n.style?.width;
   if (raw == null) return 200;

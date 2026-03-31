@@ -1,6 +1,19 @@
-export { GraphViewer } from "./GraphViewer";
-export type { GraphViewerProps } from "./GraphViewer";
+"use client";
+
+import "./graph-core.css";
+
+// Viewer
+export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";
+export type { GraphViewerProps } from "./viewer/GraphViewer";
+export { renderLabel, hydrateLabels } from "./viewer/renderLabel";
+
+// ReactFlow type bridge
 export type { AppNode, AppEdge, AppRFInstance } from "./rfTypes";
 export { toAppNodes, toAppEdges } from "./rfTypes";
-export { renderLabel, hydrateLabels } from "./renderLabel";
-export { ControllerGroupNode, controllerNodeTypes } from "./ControllerGroupNode";
+
+// Node types
+export { ControllerGroupNode, controllerNodeTypes } from "./nodes/controller/ControllerGroupNode";
+export { PipeCardNode } from "./nodes/pipe/PipeCardNode";
+export { PipeCardBase } from "./nodes/pipe/PipeCardBase";
+export type { PipeCardBaseProps } from "./nodes/pipe/PipeCardBase";
+export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pipeCardTypes";

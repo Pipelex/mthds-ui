@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch check clean
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook
 
 install:
 	npm install
@@ -24,11 +24,17 @@ test:
 test-watch:
 	npx vitest
 
-check: lint format-check typecheck test
+test-coverage:
+	npx vitest run --coverage
+
+check: lint format-check typecheck
 	@echo "All checks passed."
 
-all: check build
+all: check test build
 	@echo "All checks passed and build succeeded."
+
+storybook:
+	npx storybook dev -p 6006
 
 clean:
 	rm -rf dist node_modules

@@ -3,13 +3,50 @@ import {
   CONTROLLER_PADDING_X,
   CONTROLLER_PADDING_TOP,
   CONTROLLER_PADDING_BOTTOM,
+  NODE_TYPE_CONTROLLER,
   nodeWidth,
   nodeHeight,
+  isStuffNodeId,
 } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
 
+/** Max visible children before a parallel/batch controller auto-collapses. */
+export const MAX_VISIBLE_CONTROLLER_CHILDREN = 5;
+
+/**
+ * Collect all descendant node IDs of a controller (recursive).
+ */
+function getDescendants(
+  controllerId: string,
+  containmentTree: Readonly<Record<string, readonly string[]>>,
+  controllerNodeIds: ReadonlySet<string>,
+): Set<string> {
+  const result = new Set<string>();
+  const stack = [controllerId];
+  while (stack.length > 0) {
+    const id = stack.pop()!;
+    for (const childId of containmentTree[id] || []) {
+      result.add(childId);
+      if (controllerNodeIds.has(childId)) stack.push(childId);
+    }
+  }
+  return result;
+}
+
+/** Position and size for a controller, as computed by the layout engine. */
+export interface ControllerRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 /**
  * Build controller group nodes that wrap child operators/stuff nodes.
+ *
+ * When `controllerPositions` is provided (from ELK layout), uses those exact
+ * positions/sizes instead of recomputing from child bounding boxes. This ensures
+ * controller containers match the layout engine's spacing and edge routing.
  *
  * **Side effect:** mutates `layoutedNodes` entries to set `parentId`, `extent`,
  * and convert positions to parent-relative coordinates.
@@ -18,6 +55,7 @@ export function buildControllerNodes(
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
   layoutedNodes: GraphNode[],
+  controllerPositions?: Record<string, ControllerRect>,
 ): GraphNode[] {
   const nodeById: Record<string, GraphNode> = {};
   for (const n of layoutedNodes) {
@@ -56,7 +94,7 @@ export function buildControllerNodes(
   const childToController = buildChildToControllerMap(graphspec, analysis);
   const controllerStuffChildren: Record<string, string[]> = {};
   for (const [nodeId, ctrlId] of Object.entries(childToController)) {
-    if (!nodeId.startsWith("stuff_")) continue;
+    if (!isStuffNodeId(nodeId)) continue;
     if (!nodeById[nodeId]) continue;
     if (!controllerStuffChildren[ctrlId]) controllerStuffChildren[ctrlId] = [];
     controllerStuffChildren[ctrlId].push(nodeId);
@@ -70,9 +108,6 @@ export function buildControllerNodes(
   const childToParent: Record<string, string> = {};
 
   for (const controllerId of controllerIds) {
-    // Skip the root controller (main pipe) — it wraps everything and adds no value
-    if (!childToController[controllerId]) continue;
-
     const directChildren = analysis.containmentTree[controllerId] || [];
     const renderedChildren = directChildren.filter((cid) => nodeById[cid]);
     const stuffChildren = controllerStuffChildren[controllerId] || [];
@@ -80,49 +115,62 @@ export function buildControllerNodes(
 
     if (allChildren.length === 0) continue;
 
-    let minX = Infinity,
-      minY = Infinity,
-      maxX = -Infinity,
-      maxY = -Infinity;
-    for (const childId of allChildren) {
-      const child = nodeById[childId];
-      const pos = child.position;
-      const w = nodeWidth(child);
-      const h = nodeHeight(child);
-      minX = Math.min(minX, pos.x);
-      minY = Math.min(minY, pos.y);
-      maxX = Math.max(maxX, pos.x + w);
-      maxY = Math.max(maxY, pos.y + h);
-    }
+    let groupX: number, groupY: number, groupW: number, groupH: number;
 
-    const groupX = minX - CONTROLLER_PADDING_X;
-    const groupY = minY - CONTROLLER_PADDING_TOP;
-    const groupW = maxX - minX + 2 * CONTROLLER_PADDING_X;
-    const groupH = maxY - minY + CONTROLLER_PADDING_TOP + CONTROLLER_PADDING_BOTTOM;
+    const elkPos = controllerPositions?.[controllerId];
+    if (elkPos) {
+      // Use ELK's computed position and size — accounts for edge routing and spacing
+      groupX = elkPos.x;
+      groupY = elkPos.y;
+      groupW = elkPos.width;
+      groupH = elkPos.height;
+    } else {
+      // Fallback: compute bounding box from child positions
+      let minX = Infinity,
+        minY = Infinity,
+        maxX = -Infinity,
+        maxY = -Infinity;
+      for (const childId of allChildren) {
+        const child = nodeById[childId];
+        const pos = child.position;
+        const w = nodeWidth(child);
+        const h = nodeHeight(child);
+        minX = Math.min(minX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxX = Math.max(maxX, pos.x + w);
+        maxY = Math.max(maxY, pos.y + h);
+      }
+
+      const depth = depthCache[controllerId] ?? 0;
+      const depthScale = 1 + depth * 0.15;
+      const padX = Math.round(CONTROLLER_PADDING_X * depthScale);
+      const padTop = Math.round(CONTROLLER_PADDING_TOP * depthScale);
+      const padBottom = Math.round(CONTROLLER_PADDING_BOTTOM * depthScale);
+
+      groupX = minX - padX;
+      groupY = minY - padTop;
+      groupW = maxX - minX + 2 * padX;
+      groupH = maxY - minY + padTop + padBottom;
+    }
 
     const info = controllerInfo[controllerId] || {};
     const pipeCode = info.pipe_code || controllerId.split(":").pop() || controllerId;
-    const pipeType = info.pipe_type || "";
-    const isImplicitBatch = pipeType === "PipeBatch" && pipeCode.endsWith("_batch");
     const groupNode: GraphNode = {
       id: controllerId,
-      type: "controllerGroup",
+      type: NODE_TYPE_CONTROLLER,
       data: {
-        label: isImplicitBatch ? null : pipeCode,
-        pipeType: isImplicitBatch ? "implicit PipeBatch" : pipeType,
+        label: pipeCode,
+        pipeType: info.pipe_type,
         isController: true,
         isPipe: false,
         isStuff: false,
-        pipeCode: isImplicitBatch ? pipeCode.slice(0, -6) : pipeCode,
+        pipeCode: pipeCode,
         labelText: pipeCode,
       },
       position: { x: groupX, y: groupY },
       style: {
         width: groupW + "px",
         height: groupH + "px",
-        background: "var(--color-controller-bg)",
-        border: "2px dashed var(--color-controller-border)",
-        borderRadius: "12px",
         padding: "0",
       },
     };
@@ -153,6 +201,10 @@ export function buildControllerNodes(
 
 /**
  * Apply controller containers to layouted nodes if showControllers is enabled.
+ *
+ * When `expandedControllers` is provided, PipeParallel/PipeBatch controllers with
+ * more than MAX_VISIBLE_CONTROLLER_CHILDREN children are auto-collapsed unless the
+ * controller ID is in the expanded set.
  */
 export function applyControllers(
   layoutedNodes: GraphNode[],
@@ -160,17 +212,117 @@ export function applyControllers(
   graphspec: GraphSpec | null,
   analysis: DataflowAnalysis | null,
   showControllers: boolean,
+  expandedControllers?: ReadonlySet<string>,
+  onToggleCollapse?: (controllerId: string) => void,
+  controllerPositions?: Record<string, ControllerRect>,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   if (!showControllers || !analysis || !graphspec) {
     return { nodes: layoutedNodes, edges: layoutedEdges };
   }
 
-  const controllerNodes = buildControllerNodes(graphspec, analysis, layoutedNodes);
-  if (controllerNodes.length === 0) {
-    return { nodes: layoutedNodes, edges: layoutedEdges };
+  // ─── Compute child counts and effective collapse state ─────────────────
+  const childCounts: Record<string, number> = {};
+  const collapsedSet = new Set<string>();
+
+  const controllerTypeMap: Record<string, string> = {};
+  for (const node of graphspec.nodes) {
+    if (analysis.controllerNodeIds.has(node.id)) {
+      controllerTypeMap[node.id] = node.pipe_type || "";
+    }
   }
 
-  const allNodes = [...controllerNodes, ...layoutedNodes];
+  for (const ctrlId of analysis.controllerNodeIds) {
+    const directChildren = analysis.containmentTree[ctrlId] || [];
+    childCounts[ctrlId] = directChildren.length;
+    const pipeType = controllerTypeMap[ctrlId] || "";
+    const isCollapsible = pipeType === "PipeParallel" || pipeType === "PipeBatch";
+    if (
+      isCollapsible &&
+      directChildren.length > MAX_VISIBLE_CONTROLLER_CHILDREN &&
+      !expandedControllers?.has(ctrlId)
+    ) {
+      collapsedSet.add(ctrlId);
+    }
+  }
+
+  // ─── Filter hidden children for collapsed controllers ──────────────────
+  let filteredNodes = layoutedNodes;
+  let filteredEdges = layoutedEdges;
+
+  if (collapsedSet.size > 0) {
+    const hiddenNodes = new Set<string>();
+
+    for (const ctrlId of collapsedSet) {
+      const directChildren = analysis.containmentTree[ctrlId] || [];
+      const toHide = directChildren.slice(MAX_VISIBLE_CONTROLLER_CHILDREN);
+      for (const childId of toHide) {
+        hiddenNodes.add(childId);
+        if (analysis.controllerNodeIds.has(childId)) {
+          for (const d of getDescendants(
+            childId,
+            analysis.containmentTree,
+            analysis.controllerNodeIds,
+          )) {
+            hiddenNodes.add(d);
+          }
+        }
+      }
+    }
+
+    // Also hide stuff nodes inside collapsed controllers that have no visible
+    // pipe connection. We ignore stuff-to-stuff edges (batch_item/batch_aggregate)
+    // because those would keep orphaned branch stuff nodes alive.
+    const childToCtrl = buildChildToControllerMap(graphspec, analysis);
+    for (const node of layoutedNodes) {
+      if (!isStuffNodeId(node.id) || hiddenNodes.has(node.id)) continue;
+      const ctrlId = childToCtrl[node.id];
+      if (!ctrlId || (!collapsedSet.has(ctrlId) && !hiddenNodes.has(ctrlId))) continue;
+      const pipeEdges = layoutedEdges.filter((e) => {
+        if (e.source !== node.id && e.target !== node.id) return false;
+        const other = e.source === node.id ? e.target : e.source;
+        return !isStuffNodeId(other); // only pipe connections
+      });
+      if (
+        pipeEdges.length === 0 ||
+        pipeEdges.every((e) => {
+          const other = e.source === node.id ? e.target : e.source;
+          return hiddenNodes.has(other);
+        })
+      ) {
+        hiddenNodes.add(node.id);
+      }
+    }
+
+    filteredNodes = layoutedNodes.filter((n) => !hiddenNodes.has(n.id));
+    filteredEdges = layoutedEdges.filter(
+      (e) => !hiddenNodes.has(e.source) && !hiddenNodes.has(e.target),
+    );
+  }
+
+  // ─── Build controller group nodes from visible children ────────────────
+  const controllerNodes = buildControllerNodes(
+    graphspec,
+    analysis,
+    filteredNodes,
+    controllerPositions,
+  );
+  if (controllerNodes.length === 0) {
+    return { nodes: filteredNodes, edges: filteredEdges };
+  }
+
+  // Inject collapse metadata into controller node data
+  for (const cn of controllerNodes) {
+    const count = childCounts[cn.id] ?? 0;
+    const isCollapsed = collapsedSet.has(cn.id);
+    cn.data.childCount = count;
+    cn.data.isCollapsed = isCollapsed;
+    if (onToggleCollapse) {
+      const id = cn.id;
+      cn.data.onToggleCollapse = () => onToggleCollapse(id);
+    }
+  }
+
+  const allNodes = [...controllerNodes, ...filteredNodes];
 
   // Sort: ReactFlow requires parent group nodes before their children.
   const nodeMap: Record<string, GraphNode> = {};
@@ -193,5 +345,5 @@ export function applyControllers(
   for (const n of allNodes) getContainmentDepth(n.id);
   allNodes.sort((a, b) => depthOf[a.id] - depthOf[b.id]);
 
-  return { nodes: allNodes, edges: layoutedEdges };
+  return { nodes: allNodes, edges: filteredEdges };
 }

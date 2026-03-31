@@ -1,12 +1,30 @@
-import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
-import { ARROW_CLOSED_MARKER } from "./types";
+import type {
+  GraphSpec,
+  DataflowAnalysis,
+  GraphNode,
+  GraphEdge,
+  GraphData,
+  PipeOperatorType,
+} from "./types";
+import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 
-const CHAR_WIDTH_PX = 8;
-const PIPE_LABEL_PADDING = 28;
+/** Fallback description when the GraphSpec node doesn't carry one. */
+function defaultDescription(pipeType?: string, pipeCode?: string): string {
+  const code = pipeCode || "this step";
+  const verb: Record<string, string> = {
+    PipeLLM: "Analyze and generate output using",
+    PipeExtract: "Extract content from",
+    PipeCompose: "Compose output using",
+    PipeImgGen: "Generate image for",
+    PipeSearch: "Search the web for",
+    PipeFunc: "Process data in",
+  };
+  return `${verb[pipeType || ""] || "Execute"} ${code.replace(/_/g, " ")}`;
+}
+
 const STUFF_CHAR_WIDTH_PX = 7;
 const STUFF_LABEL_PADDING = 48;
-const MIN_PIPE_WIDTH = 160;
 const MIN_STUFF_WIDTH = 140;
 
 /**
@@ -38,11 +56,21 @@ export function buildDataflowGraph(
 
     const isFailed = node.status === "failed";
     const label = node.pipe_code || node.id.split(":").pop() || node.id;
-    const pipeWidth = Math.max(MIN_PIPE_WIDTH, label.length * CHAR_WIDTH_PX + PIPE_LABEL_PADDING);
+    const inputs = (node.io?.inputs ?? []).map((i) => ({
+      name: i.name ?? "",
+      concept: i.concept ?? "",
+    }));
+    const outputs = (node.io?.outputs ?? []).map((o) => ({
+      name: o.name ?? "",
+      concept: o.concept ?? "",
+    }));
+
+    // Participating pipes are operators (controllers don't produce/consume stuff directly)
+    const operatorType: PipeOperatorType = (node.pipe_type as PipeOperatorType) || "PipeFunc";
 
     nodes.push({
       id: node.id,
-      type: "default",
+      type: NODE_TYPE_PIPE_CARD,
       data: {
         labelDescriptor: { kind: "pipe", label, isFailed },
         nodeData: node,
@@ -50,23 +78,23 @@ export function buildDataflowGraph(
         isStuff: false,
         labelText: label,
         pipeCode: node.pipe_code || label,
+        pipeType: node.pipe_type,
+        pipeCardData: {
+          pipeCode: node.pipe_code || label,
+          pipeType: operatorType,
+          description: node.description || defaultDescription(node.pipe_type, node.pipe_code),
+          status: node.status || "scheduled",
+          inputs,
+          outputs,
+        },
       },
       position: { x: 0, y: 0 },
-      style: {
-        background: isFailed ? "var(--color-pipe-failed-bg)" : "var(--color-pipe-bg)",
-        border: isFailed ? "2px solid var(--color-pipe-failed)" : "2px solid var(--color-pipe)",
-        borderRadius: "8px",
-        padding: "0",
-        width: pipeWidth + "px",
-        boxShadow: "var(--shadow-md)",
-        cursor: "pointer",
-      },
     });
   }
 
   // Create stuff (data) nodes
   for (const [digest, stuffInfo] of Object.entries(analysis.stuffRegistry)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     const label = stuffInfo.name || "data";
     const concept = stuffInfo.concept || "";
     const textWidth =
@@ -75,7 +103,7 @@ export function buildDataflowGraph(
 
     nodes.push({
       id: stuffId,
-      type: "default",
+      type: NODE_TYPE_STUFF,
       data: {
         labelDescriptor: { kind: "stuff", label, concept },
         isStuff: true,
@@ -97,7 +125,7 @@ export function buildDataflowGraph(
   // Create edges: producer -> stuff
   let edgeId = 0;
   for (const [digest, producerNodeId] of Object.entries(analysis.stuffProducers)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     edges.push({
       id: "edge_" + edgeId++,
       source: producerNodeId,
@@ -114,7 +142,7 @@ export function buildDataflowGraph(
 
   // Create edges: stuff -> consumer
   for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
-    const stuffId = "stuff_" + digest;
+    const stuffId = stuffNodeId(digest);
     for (const consumerNodeId of consumers) {
       edges.push({
         id: "edge_" + edgeId++,
@@ -140,14 +168,14 @@ export function buildDataflowGraph(
       !analysis.stuffRegistry[edge.target_stuff_digest]
     )
       continue;
-    const sourceId = "stuff_" + edge.source_stuff_digest;
-    const targetId = "stuff_" + edge.target_stuff_digest;
+    const sourceId = stuffNodeId(edge.source_stuff_digest);
+    const targetId = stuffNodeId(edge.target_stuff_digest);
 
     edges.push({
       id: edge.id || "edge_" + edgeId++,
       source: sourceId,
       target: targetId,
-      type: edgeType,
+      type: "smoothstep",
       animated: false,
       style: {
         stroke: "var(--color-parallel-combine)",
@@ -171,8 +199,8 @@ export function buildDataflowGraph(
       !analysis.stuffRegistry[edge.target_stuff_digest]
     )
       continue;
-    const sourceId = "stuff_" + edge.source_stuff_digest;
-    const targetId = "stuff_" + edge.target_stuff_digest;
+    const sourceId = stuffNodeId(edge.source_stuff_digest);
+    const targetId = stuffNodeId(edge.target_stuff_digest);
     const isBatchItem = edge.kind === "batch_item";
 
     edges.push({
@@ -201,80 +229,31 @@ export function buildDataflowGraph(
     });
   }
 
-  // Sort nodes by controller group so dagre's initial ordering clusters
-  // same-group nodes together
-  const childToCtrl = buildChildToControllerMap(graphspec, analysis);
-
-  // For unassigned stuff (method inputs with no producer), assign to
-  // the controller of their first consumer so inputs cluster near their group
-  for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
-    const stuffId = "stuff_" + digest;
-    if (childToCtrl[stuffId]) continue;
-    for (const consumerId of consumers) {
-      if (childToCtrl[consumerId]) {
-        childToCtrl[stuffId] = childToCtrl[consumerId];
-        break;
-      }
-    }
-  }
-
-  // Depth-first order index for controllers
-  const groupOrder: Record<string, number> = {};
-  let orderIdx = 0;
-  const visiting = new Set<string>();
-  function assignOrder(ctrlId: string) {
-    if (visiting.has(ctrlId)) {
-      throw new Error(
-        `Cycle detected in containment tree: controller "${ctrlId}" appears in its own subtree`,
-      );
-    }
-    visiting.add(ctrlId);
-    groupOrder[ctrlId] = orderIdx++;
-    for (const childId of analysis.containmentTree[ctrlId] || []) {
-      if (analysis.controllerNodeIds.has(childId)) {
-        assignOrder(childId);
-      }
-    }
-    visiting.delete(ctrlId);
-  }
-  for (const ctrlId of analysis.controllerNodeIds) {
-    if (!childToCtrl[ctrlId]) assignOrder(ctrlId);
-  }
-
-  // Build sort key from containment path
-  function sortKey(nodeId: string): number[] {
-    const path: number[] = [];
-    const seen = new Set<string>();
-    let cur = childToCtrl[nodeId];
-    while (cur) {
-      if (seen.has(cur)) {
-        throw new Error(
-          `Cycle detected in controller hierarchy while computing sort key for "${nodeId}"`,
-        );
-      }
-      seen.add(cur);
-      path.unshift(groupOrder[cur] !== undefined ? groupOrder[cur] : 9999);
-      cur = childToCtrl[cur];
-    }
-    while (path.length < 10) path.push(0);
-    return path;
-  }
-
-  nodes.sort((a, b) => {
-    const ka = sortKey(a.id);
-    const kb = sortKey(b.id);
-    for (let i = 0; i < ka.length; i++) {
-      if (ka[i] !== kb[i]) return ka[i] - kb[i];
-    }
-    return 0;
-  });
-
   // Mark edges that cross between different sibling controller groups
+  const childToCtrl = buildChildToControllerMap(graphspec, analysis);
+  // and assign per-class edge types for better routing
   for (const edge of edges) {
     const srcCtrl = childToCtrl[edge.source] || null;
     const tgtCtrl = childToCtrl[edge.target] || null;
     if (srcCtrl && tgtCtrl && srcCtrl !== tgtCtrl) {
       edge._crossGroup = true;
+      // Keep bezier for long-distance cross-group edges (natural curves look better)
+      // but visually de-emphasize to reduce spaghetti effect
+      edge.style = {
+        ...edge.style,
+        strokeWidth: 1.5,
+        opacity: 0.65,
+      };
+    }
+  }
+
+  // Batch edges: keep bezier but visually differentiate
+  for (const edge of edges) {
+    if (edge._batchEdge) {
+      edge.style = {
+        ...edge.style,
+        opacity: 0.7,
+      };
     }
   }
 

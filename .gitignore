@@ -6,3 +6,9 @@ coverage/
 .vscode/
 .idea/
 /temp/
+.gstack/
+
+*storybook.log
+storybook-static
+mthds-wip/
+.pipelex/storage/
