@@ -8,6 +8,7 @@ import type {
   GraphNode,
   GraphEdge,
   GraphNodeData,
+  GraphDirection,
   DataflowAnalysis,
   PipeOperatorType,
   PipeStatus,
@@ -278,7 +279,7 @@ export function makeCycleSpec(): GraphSpec {
 // ─── Full pipeline runner ───────────────────────────────────────────────────
 
 export interface PipelineOptions {
-  direction?: "LR" | "TB";
+  direction?: GraphDirection;
   showControllers?: boolean;
   expandedControllers?: ReadonlySet<string>;
   edgeType?: string;

@@ -96,12 +96,16 @@ export async function getLayoutedElements(
         ? direction === "LR"
           ? "right"
           : "left"
-        : "bottom") as GraphNode["sourcePosition"],
+        : direction === "TB"
+          ? "bottom"
+          : "top") as GraphNode["sourcePosition"],
       targetPosition: (isHorizontal
         ? direction === "LR"
           ? "left"
           : "right"
-        : "top") as GraphNode["targetPosition"],
+        : direction === "TB"
+          ? "top"
+          : "bottom") as GraphNode["targetPosition"],
     };
   });
 
