@@ -12,13 +12,19 @@ npm install @pipelex/mthds-ui
 
 ### Peer dependencies
 
-| Dependency           | Required     | Used by                       |
-| -------------------- | ------------ | ----------------------------- |
-| `dagre`              | **yes**      | Graph layout engine           |
-| `@types/dagre`       | no (TS only) | Type definitions for dagre    |
-| `react`, `react-dom` | no           | React layer (`graph/react`)   |
-| `@xyflow/react`      | no           | React layer (`graph/react`)   |
-| `shiki`              | no           | Syntax highlighting (`shiki`) |
+| Dependency           | Required | Used by                       |
+| -------------------- | -------- | ----------------------------- |
+| `react`, `react-dom` | no       | React layer (`graph/react`)   |
+| `@xyflow/react`      | no       | React layer (`graph/react`)   |
+| `shiki`              | no       | Syntax highlighting (`shiki`) |
+
+### Bundled dependencies
+
+| Dependency | License | Used by             |
+| ---------- | ------- | ------------------- |
+| `elkjs`    | EPL-2.0 | Graph layout engine |
+
+`elkjs` (Eclipse Layout Kernel) is licensed under the [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/). See [NOTICE](./NOTICE) for details.
 
 ## Quick start (React)
 
@@ -58,14 +64,14 @@ export function MyGraph({ graphspec }) {
 
 ### GraphViewer props
 
-| Prop               | Type                                | Default                | Description                              |
-| ------------------ | ----------------------------------- | ---------------------- | ---------------------------------------- |
-| `graphspec`        | `GraphSpec \| null`                 | —                      | Graph data (nodes + edges)               |
-| `config`           | `GraphConfig`                       | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration          |
-| `direction`        | `GraphDirection`                    | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT` |
-| `showControllers`  | `boolean`                           | `false`                | Show controller group outlines           |
-| `onNavigateToPipe` | `(pipeCode: string) => void`        | —                      | Callback when a pipe node is clicked     |
-| `onReactFlowInit`  | `(instance: AppRFInstance) => void` | —                      | Access the underlying ReactFlow instance |
+| Prop               | Type                                              | Default                | Description                              |
+| ------------------ | ------------------------------------------------- | ---------------------- | ---------------------------------------- |
+| `graphspec`        | `GraphSpec \| null`                               | —                      | Graph data (nodes + edges)               |
+| `config`           | `GraphConfig`                                     | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration          |
+| `direction`        | `GraphDirection`                                  | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT` |
+| `showControllers`  | `boolean`                                         | `false`                | Show controller group outlines           |
+| `onNavigateToPipe` | `(pipeCode: string, status?: PipeStatus) => void` | —                      | Callback when a pipe node is clicked     |
+| `onReactFlowInit`  | `(instance: AppRFInstance) => void`               | —                      | Access the underlying ReactFlow instance |
 
 ### Container sizing
 
@@ -189,7 +195,7 @@ const myConfig = {
 
 | Field             | Type                     | Default       | Description                            |
 | ----------------- | ------------------------ | ------------- | -------------------------------------- |
-| `direction`       | `GraphDirection`         | `"LR"`        | Dagre layout direction                 |
+| `direction`       | `GraphDirection`         | `"LR"`        | Layout direction                       |
 | `showControllers` | `boolean`                | `false`       | Show controller group boxes            |
 | `nodesep`         | `number`                 | `50`          | Horizontal spacing between nodes       |
 | `ranksep`         | `number`                 | `100`         | Vertical spacing between ranks         |
@@ -258,7 +264,7 @@ import {
 // Build graph data from a GraphSpec
 const { graphData, analysis } = buildGraph(graphspec, "bezier");
 
-// Apply dagre layout
+// Apply ELK layout
 const { nodes, edges } = getLayoutedElements(graphData.nodes, graphData.edges, "TB");
 
 // Optionally wrap nodes in controller groups
@@ -285,4 +291,6 @@ make build    # build to dist/
 
 ## License
 
-MIT
+MIT — see [LICENSE](./LICENSE).
+
+This project depends on [elkjs](https://github.com/kieler/elkjs) which is licensed under [EPL-2.0](https://www.eclipse.org/legal/epl-2.0/). See [NOTICE](./NOTICE) for third-party license details.

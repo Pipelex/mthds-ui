@@ -656,8 +656,7 @@ export const LIVE_LONG_SEQUENCE: GraphSpec = {
             digest: "e7Hwo",
             data: {
               url: "pipelex-storage://normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
+              public_url: "file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -665,7 +664,7 @@ export const LIVE_LONG_SEQUENCE: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/5ztNrwxgj9hooJjdQDwZFp.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf</a>',
+              '<a href="file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf" class="msg-document">file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf</a>',
             extra: {},
           },
         ],
@@ -714,8 +713,7 @@ export const LIVE_LONG_SEQUENCE: GraphSpec = {
             digest: "e7Hwo",
             data: {
               url: "pipelex-storage://normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
+              public_url: "file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -723,7 +721,7 @@ export const LIVE_LONG_SEQUENCE: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/5ztNrwxgj9hooJjdQDwZFp.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf</a>',
+              '<a href="file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf" class="msg-document">file:///mock/storage/normalized/5ztNrwxgj9hooJjdQDwZFp.pdf</a>',
             extra: {},
           },
         ],

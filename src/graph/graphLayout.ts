@@ -1,5 +1,12 @@
 import ELK from "elkjs/lib/elk.bundled.js";
-import type { GraphNode, GraphEdge, GraphSpec, DataflowAnalysis, LayoutConfig } from "./types";
+import type {
+  GraphNode,
+  GraphEdge,
+  GraphSpec,
+  DataflowAnalysis,
+  LayoutConfig,
+  GraphDirection,
+} from "./types";
 import { buildElkGraph, extractAbsolutePositions, estimateNodeDimensions } from "./elkGraphBuilder";
 import type { ElkPositionResult } from "./elkGraphBuilder";
 
@@ -20,14 +27,13 @@ export interface LayoutResult {
 export async function getLayoutedElements(
   nodes: GraphNode[],
   edges: GraphEdge[],
-  direction: string,
+  direction: GraphDirection,
   layoutConfig?: LayoutConfig,
   graphspec?: GraphSpec | null,
   analysis?: DataflowAnalysis | null,
 ): Promise<LayoutResult> {
   if (nodes.length === 0) return { nodes: [], edges, controllerPositions: {} };
 
-  direction = direction || "TB";
   const isHorizontal = direction === "LR" || direction === "RL";
 
   const { elkGraph, dimensionMap } = buildElkGraph(

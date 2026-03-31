@@ -324,8 +324,7 @@ export const LIVE_TWO_PIPE_CHAIN: GraphSpec = {
             digest: "8TaYk",
             data: {
               url: "pipelex-storage://normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
+              public_url: "file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -333,7 +332,7 @@ export const LIVE_TWO_PIPE_CHAIN: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf</a>',
+              '<a href="file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf" class="msg-document">file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf</a>',
             extra: {},
           },
         ],
@@ -382,8 +381,7 @@ export const LIVE_TWO_PIPE_CHAIN: GraphSpec = {
             digest: "8TaYk",
             data: {
               url: "pipelex-storage://normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
+              public_url: "file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -391,7 +389,7 @@ export const LIVE_TWO_PIPE_CHAIN: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf</a>',
+              '<a href="file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf" class="msg-document">file:///mock/storage/normalized/nQQt7D3Gqbz9fwtTfMiXRn.pdf</a>',
             extra: {},
           },
         ],

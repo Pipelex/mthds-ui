@@ -166,44 +166,49 @@ export function GraphViewer(props: GraphViewerProps) {
     let cancelled = false;
 
     (async () => {
-      const data = initialDataRef.current;
-      if (!data) return;
-      const relayouted = await getLayoutedElements(
-        data.nodes,
-        data.edges,
-        direction,
-        layoutConfig,
-        data._graphspec,
-        data._analysis,
-      );
-      if (cancelled) return;
-      layoutCacheRef.current = {
-        nodes: relayouted.nodes,
-        edges: relayouted.edges,
-        controllerPositions: relayouted.controllerPositions,
-      };
-      const withControllers = applyControllers(
-        cloneCachedNodes(relayouted.nodes),
-        relayouted.edges,
-        data._graphspec,
-        data._analysis,
-        showControllersRef.current,
-        expandedRef.current,
-        toggleCollapseRef.current,
-        relayouted.controllerPositions,
-      );
-      setNodes(
-        applyStatusOverrides(
-          toAppNodes(hydrateLabels(withControllers.nodes)),
-          statusMapRef.current,
-        ),
-      );
-      setEdges(toAppEdges(withControllers.edges));
-      setTimeout(() => {
-        if (!cancelled && reactFlowRef.current) {
-          reactFlowRef.current.fitView({ padding: 0.1 });
-        }
-      }, 50);
+      try {
+        const data = initialDataRef.current;
+        if (!data) return;
+        const relayouted = await getLayoutedElements(
+          data.nodes,
+          data.edges,
+          direction,
+          layoutConfig,
+          data._graphspec,
+          data._analysis,
+        );
+        if (cancelled) return;
+        layoutCacheRef.current = {
+          nodes: relayouted.nodes,
+          edges: relayouted.edges,
+          controllerPositions: relayouted.controllerPositions,
+        };
+        const withControllers = applyControllers(
+          cloneCachedNodes(relayouted.nodes),
+          relayouted.edges,
+          data._graphspec,
+          data._analysis,
+          showControllersRef.current,
+          expandedRef.current,
+          toggleCollapseRef.current,
+          relayouted.controllerPositions,
+        );
+        setNodes(
+          applyStatusOverrides(
+            toAppNodes(hydrateLabels(withControllers.nodes)),
+            statusMapRef.current,
+          ),
+        );
+        setEdges(toAppEdges(withControllers.edges));
+        setTimeout(() => {
+          if (!cancelled && reactFlowRef.current) {
+            reactFlowRef.current.fitView({ padding: 0.1 });
+          }
+        }, 50);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error("[GraphViewer] ELK layout failed:", err);
+      }
     })();
 
     return () => {
@@ -256,65 +261,70 @@ export function GraphViewer(props: GraphViewerProps) {
     };
 
     (async () => {
-      const currentDirection = directionRef.current;
-      const currentLayoutConfig = layoutConfigRef.current;
-      const needsLayout = graphData.nodes.some(
-        (n) => !n.position || (n.position.x === 0 && n.position.y === 0),
-      );
-      const layouted = needsLayout
-        ? await getLayoutedElements(
-            graphData.nodes,
-            graphData.edges,
-            currentDirection,
-            currentLayoutConfig,
-            graphspec,
-            analysis,
-          )
-        : {
-            ...graphData,
-            controllerPositions: {} as Record<
-              string,
-              { x: number; y: number; width: number; height: number }
-            >,
-          };
-      if (cancelled) return;
-      layoutCacheRef.current = {
-        nodes: layouted.nodes,
-        edges: layouted.edges,
-        controllerPositions: layouted.controllerPositions,
-      };
-      const withControllers = applyControllers(
-        cloneCachedNodes(layouted.nodes),
-        layouted.edges,
-        graphspec,
-        analysis,
-        showControllersRef.current,
-        expandedRef.current,
-        toggleCollapseRef.current,
-        layouted.controllerPositions,
-      );
+      try {
+        const currentDirection = directionRef.current;
+        const currentLayoutConfig = layoutConfigRef.current;
+        const needsLayout = graphData.nodes.some(
+          (n) => !n.position || (n.position.x === 0 && n.position.y === 0),
+        );
+        const layouted = needsLayout
+          ? await getLayoutedElements(
+              graphData.nodes,
+              graphData.edges,
+              currentDirection,
+              currentLayoutConfig,
+              graphspec,
+              analysis,
+            )
+          : {
+              ...graphData,
+              controllerPositions: {} as Record<
+                string,
+                { x: number; y: number; width: number; height: number }
+              >,
+            };
+        if (cancelled) return;
+        layoutCacheRef.current = {
+          nodes: layouted.nodes,
+          edges: layouted.edges,
+          controllerPositions: layouted.controllerPositions,
+        };
+        const withControllers = applyControllers(
+          cloneCachedNodes(layouted.nodes),
+          layouted.edges,
+          graphspec,
+          analysis,
+          showControllersRef.current,
+          expandedRef.current,
+          toggleCollapseRef.current,
+          layouted.controllerPositions,
+        );
 
-      setNodes(
-        applyStatusOverrides(
-          toAppNodes(hydrateLabels(withControllers.nodes)),
-          statusMapRef.current,
-        ),
-      );
-      setEdges(toAppEdges(withControllers.edges));
+        setNodes(
+          applyStatusOverrides(
+            toAppNodes(hydrateLabels(withControllers.nodes)),
+            statusMapRef.current,
+          ),
+        );
+        setEdges(toAppEdges(withControllers.edges));
 
-      // Fit view after render, then apply zoom/pan overrides
-      setTimeout(() => {
-        if (!cancelled && reactFlowRef.current) {
-          reactFlowRef.current.fitView({ padding: 0.1 });
-          if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
-            reactFlowRef.current.zoomTo(initialZoomRef.current);
+        // Fit view after render, then apply zoom/pan overrides
+        setTimeout(() => {
+          if (!cancelled && reactFlowRef.current) {
+            reactFlowRef.current.fitView({ padding: 0.1 });
+            if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
+              reactFlowRef.current.zoomTo(initialZoomRef.current);
+            }
+            if (panToTopRef.current) {
+              const vp = reactFlowRef.current.getViewport();
+              reactFlowRef.current.setViewport({ x: vp.x, y: 20, zoom: vp.zoom });
+            }
           }
-          if (panToTopRef.current) {
-            const vp = reactFlowRef.current.getViewport();
-            reactFlowRef.current.setViewport({ x: vp.x, y: 20, zoom: vp.zoom });
-          }
-        }
-      }, 100);
+        }, 100);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error("[GraphViewer] ELK layout failed:", err);
+      }
     })();
 
     return () => {

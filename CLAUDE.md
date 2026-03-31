@@ -11,7 +11,7 @@ Shared graph rendering logic for MTHDS method visualization. Pure TypeScript cor
 | Testing    | Vitest + Storybook        | Unit tests (node), visual stories (browser/Chromium)           |
 | Linting    | ESLint 9 (flat config)    | `no-console: error`, `no-explicit-any: off` (ReactFlow compat) |
 | Formatting | Prettier 3                | Double quotes, semicolons, trailing commas, 100 char width     |
-| Layout     | dagre                     | Directed graph auto-layout                                     |
+| Layout     | elkjs (ELK)               | Directed graph auto-layout (EPL-2.0 licensed, see NOTICE)      |
 | Graph UI   | @xyflow/react (ReactFlow) | Custom node types, pan/zoom                                    |
 | Storybook  | Storybook 10 + react-vite | Addon-vitest for browser tests                                 |
 
@@ -24,7 +24,8 @@ src/
     types.ts                      # Domain types, constants, utility helpers
     graphAnalysis.ts              # Dataflow analysis (stuff registry, containment)
     graphBuilders.ts              # Node/edge construction from GraphSpec
-    graphLayout.ts                # Dagre layout + 6-phase post-layout spacing
+    elkGraphBuilder.ts            # ELK graph construction (nodes, ports, edges)
+    graphLayout.ts                # ELK layout + post-layout spacing
     graphControllers.ts           # Controller group node generation + collapse
     graphConfig.ts                # Default visual configuration + palette
     index.ts                      # Barrel export for pure-TS graph logic
@@ -71,8 +72,8 @@ The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Co
 GraphSpec (JSON from pipelex-agent)
   → buildDataflowAnalysis()     # Extract stuff registry, containment tree
   → buildDataflowGraph()        # Create pipe nodes + stuff nodes + edges
-  → getLayoutedElements()       # Dagre auto-layout (direction-aware sizing)
-  → ensureControllerSpacing()   # 6-phase post-layout: overlap, alignment, reorder
+  → getLayoutedElements()       # ELK auto-layout (hierarchical, direction-aware)
+  → ensureControllerSpacing()   # Post-layout spacing: overlap, alignment, reorder
   → applyControllers()          # Wrap children in controller group nodes
   → hydrateLabels()             # Convert label descriptors → React elements
   → toAppNodes() / toAppEdges() # Domain → ReactFlow type boundary

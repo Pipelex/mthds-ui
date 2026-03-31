@@ -2,6 +2,7 @@ import React from "react";
 import { Handle, Position } from "@xyflow/react";
 import type { PipeCardData } from "./pipeCardTypes";
 import { getPipeCardComponent } from "./pipeCardRegistry";
+import { PipeCardBase } from "./PipeCardBase";
 
 export interface PipeCardNodeProps {
   data: PipeCardData;
@@ -9,7 +10,7 @@ export interface PipeCardNodeProps {
 
 /** Resolves the correct card component for the pipe type and renders it. */
 export function PipeCardNode({ data }: PipeCardNodeProps) {
-  const Card = getPipeCardComponent(data.pipeType);
+  const Card = getPipeCardComponent(data.pipeType) ?? PipeCardBase;
   return <Card data={data} />;
 }
 
