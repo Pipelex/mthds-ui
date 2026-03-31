@@ -1,0 +1,47 @@
+src/graph/__tests__/directionParity.test.ts
+  15ccabd169539c19 2,8,15,17-23,25-29,31-43,45-47,49-52
+src/graph/graphLayout.ts
+  15ccabd169539c19 99-101,106-108
+README.md
+  3ccca2b09c8d3569 289
+  15ccabd169539c19 24-25
+src/graph/__tests__/graphLayout.test.ts
+  15ccabd169539c19 153-186
+src/graph/__tests__/testUtils.ts
+  15ccabd169539c19 11,282
+CLAUDE.md
+  3ccca2b09c8d3569 226-228,238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "4c4fd8642a939f16851e57582dfb60ca6d32f2d2",
+  "prompts": {
+    "15ccabd169539c19": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "61bfa85d-b20f-4e5c-a3eb-a763a71e6077",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 86,
+      "total_deletions": 35,
+      "accepted_lines": 84,
+      "overriden_lines": 0
+    },
+    "3ccca2b09c8d3569": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c935251-cf81-4fdd-9bf9-d5112ccc9bc4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Louis Choquel <lchoquel@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 6,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
