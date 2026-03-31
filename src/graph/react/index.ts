@@ -3,7 +3,7 @@
 import "./graph-core.css";
 
 // Viewer
-export { GraphViewer } from "./viewer/GraphViewer";
+export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";
 export type { GraphViewerProps } from "./viewer/GraphViewer";
 export { renderLabel, hydrateLabels } from "./viewer/renderLabel";
 

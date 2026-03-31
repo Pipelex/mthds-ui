@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'query': StuffArtefact(query), 'source_a': StuffArtefact(source_a), 'source_b': StuffArtefact(source_b), 'result_x': StuffArtefact(result_x), 'result_y': StuffArtefact(result_y)} \u2022 jinja2=# Final Results\n\n## Analysis\n{{ result_x|tag(\"result_x\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_23/dry_run.html"
-  }
-}

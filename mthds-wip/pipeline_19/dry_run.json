@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'content': StuffArtefact(content), 'text_score': StuffArtefact(text_score), 'image_score': StuffArtefact(image_score), 'decision': StuffArtefact(decision), 'main_stuff': StuffArtefact(moderation_result)} \u2022 jinja2=REJECTED: {{ decision.reason|format() }} \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_19/dry_run.html"
-  }
-}

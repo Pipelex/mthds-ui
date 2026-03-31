@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'document': StuffArtefact(document), 'analysis': StuffArtefact(analysis), 'summary': StuffArtefact(summary), 'index_entry': StuffArtefact(index_entry), 'sentiment_log': StuffArtefact(sentiment_log), 'main_stuff': StuffArtefact(analysis)} \u2022 jinja2=# Distribution Report\n\n## Summary Stored\n{{ summary|tag(\"summary\") }}\n\n## Entities Indexed\n{{ index_entry|tag(\"index_entry\") }}\n\n## Sentiment Logged\n{{ sentiment_log|tag(\"sentiment_log\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_22/dry_run.html"
-  }
-}

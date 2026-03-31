@@ -618,8 +618,7 @@ export const LIVE_MULTI_OUTPUT_FANOUT: GraphSpec = {
             digest: "EcLRx",
             data: {
               url: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf",
+              public_url: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -627,7 +626,7 @@ export const LIVE_MULTI_OUTPUT_FANOUT: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf</a>',
+              '<a href="pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf" class="msg-document">pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf</a>',
             extra: {},
           },
         ],
@@ -676,8 +675,7 @@ export const LIVE_MULTI_OUTPUT_FANOUT: GraphSpec = {
             digest: "EcLRx",
             data: {
               url: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf",
+              public_url: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
@@ -685,7 +683,7 @@ export const LIVE_MULTI_OUTPUT_FANOUT: GraphSpec = {
             },
             data_text: "pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf\n",
             data_html:
-              '<a href="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/PztoGGaedsebeQSoVxdbA6.pdf</a>',
+              '<a href="pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf" class="msg-document">pipelex-storage://normalized/PztoGGaedsebeQSoVxdbA6.pdf</a>',
             extra: {},
           },
         ],

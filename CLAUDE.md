@@ -4,16 +4,16 @@ Shared graph rendering logic for MTHDS method visualization. Pure TypeScript cor
 
 ## Tech Stack
 
-| Layer | Tool | Notes |
-|-------|------|-------|
-| Language | TypeScript (strict mode) | `moduleResolution: "bundler"` |
-| Build | tsup | ESM output with declarations, multiple entry points |
-| Testing | Vitest + Storybook | Unit tests (node), visual stories (browser/Chromium) |
-| Linting | ESLint 9 (flat config) | `no-console: error`, `no-explicit-any: off` (ReactFlow compat) |
-| Formatting | Prettier 3 | Double quotes, semicolons, trailing commas, 100 char width |
-| Layout | dagre | Directed graph auto-layout |
-| Graph UI | @xyflow/react (ReactFlow) | Custom node types, pan/zoom |
-| Storybook | Storybook 10 + react-vite | Addon-vitest for browser tests |
+| Layer      | Tool                      | Notes                                                          |
+| ---------- | ------------------------- | -------------------------------------------------------------- |
+| Language   | TypeScript (strict mode)  | `moduleResolution: "bundler"`                                  |
+| Build      | tsup                      | ESM output with declarations, multiple entry points            |
+| Testing    | Vitest + Storybook        | Unit tests (node), visual stories (browser/Chromium)           |
+| Linting    | ESLint 9 (flat config)    | `no-console: error`, `no-explicit-any: off` (ReactFlow compat) |
+| Formatting | Prettier 3                | Double quotes, semicolons, trailing commas, 100 char width     |
+| Layout     | dagre                     | Directed graph auto-layout                                     |
+| Graph UI   | @xyflow/react (ReactFlow) | Custom node types, pan/zoom                                    |
+| Storybook  | Storybook 10 + react-vite | Addon-vitest for browser tests                                 |
 
 ## Project Structure
 
@@ -50,6 +50,7 @@ src/
 ## Path Alias
 
 The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Configured in:
+
 - `tsconfig.json` (`paths`)
 - `tsup.config.ts` (`esbuildOptions.alias`)
 - `.storybook/main.ts` (`viteFinal` resolve alias)
@@ -58,6 +59,7 @@ The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Co
 **Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
 
 **This applies everywhere** — including `__tests__/` and `__stories__/` files. A test file at `src/graph/__tests__/foo.test.ts` importing from `src/graph/react/` must use `@graph/react/...`, not `../../graph/react/...`. The only acceptable relative imports from `__tests__/` are:
+
 - `./testUtils` (sibling in same `__tests__/` dir)
 - `../types`, `../graphBuilders`, etc. (one level up to parent module)
 
@@ -80,6 +82,7 @@ GraphSpec (JSON from pipelex-agent)
 ### Domain Model
 
 **Pipes** have two semantic categories:
+
 - **Operators** (`PipeOperatorType`): Do work — `PipeLLM`, `PipeExtract`, `PipeCompose`, `PipeImgGen`, `PipeSearch`, `PipeFunc`
 - **Controllers** (`PipeControllerType`): Orchestrate other pipes — `PipeSequence`, `PipeParallel`, `PipeCondition`, `PipeBatch`
 
@@ -89,11 +92,11 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Three Node Types
 
-| Constant | Value | Used By |
-|----------|-------|---------|
-| `NODE_TYPE_PIPE_CARD` | `"pipeCard"` | Operator pipe nodes (custom PipeCardNode component) |
-| `NODE_TYPE_STUFF` | `"default"` | Data nodes (ReactFlow default node with custom label) |
-| `NODE_TYPE_CONTROLLER` | `"controllerGroup"` | Controller group nodes (custom ControllerGroupNode) |
+| Constant               | Value               | Used By                                               |
+| ---------------------- | ------------------- | ----------------------------------------------------- |
+| `NODE_TYPE_PIPE_CARD`  | `"pipeCard"`        | Operator pipe nodes (custom PipeCardNode component)   |
+| `NODE_TYPE_STUFF`      | `"default"`         | Data nodes (ReactFlow default node with custom label) |
+| `NODE_TYPE_CONTROLLER` | `"controllerGroup"` | Controller group nodes (custom ControllerGroupNode)   |
 
 ## Type System
 
@@ -133,14 +136,14 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Naming Conventions
 
-| Kind | Convention | Example |
-|------|-----------|---------|
-| Types/Interfaces | PascalCase | `GraphNodeData`, `PipeOperatorType` |
-| Constants | UPPER_SNAKE_CASE | `NODE_TYPE_PIPE_CARD`, `CONTROLLER_PADDING_X` |
-| Functions | camelCase | `buildDataflowGraph`, `stuffNodeId` |
-| Files (pure TS) | camelCase | `graphBuilders.ts`, `graphConfig.ts` |
-| Files (React) | PascalCase | `GraphViewer.tsx`, `PipeCardBase.tsx` |
-| CSS classes | kebab-case with BEM-ish nesting | `.pipe-card-header`, `.pipe-card--lr` |
+| Kind             | Convention                      | Example                                       |
+| ---------------- | ------------------------------- | --------------------------------------------- |
+| Types/Interfaces | PascalCase                      | `GraphNodeData`, `PipeOperatorType`           |
+| Constants        | UPPER_SNAKE_CASE                | `NODE_TYPE_PIPE_CARD`, `CONTROLLER_PADDING_X` |
+| Functions        | camelCase                       | `buildDataflowGraph`, `stuffNodeId`           |
+| Files (pure TS)  | camelCase                       | `graphBuilders.ts`, `graphConfig.ts`          |
+| Files (React)    | PascalCase                      | `GraphViewer.tsx`, `PipeCardBase.tsx`         |
+| CSS classes      | kebab-case with BEM-ish nesting | `.pipe-card-header`, `.pipe-card--lr`         |
 
 ### Module Organization
 
@@ -154,12 +157,12 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Running Tests
 
-| Command | Purpose |
-|---------|---------|
-| `make check` | **Always run after modifying code.** Runs lint + format + typecheck + tests |
-| `make test` | Vitest only (unit tests, single pass) |
-| `make test-watch` | Vitest watch mode |
-| `make storybook` | Storybook dev server on port 6006 |
+| Command           | Purpose                                                                     |
+| ----------------- | --------------------------------------------------------------------------- |
+| `make check`      | **Always run after modifying code.** Runs lint + format + typecheck + tests |
+| `make test`       | Vitest only (unit tests, single pass)                                       |
+| `make test-watch` | Vitest watch mode                                                           |
+| `make storybook`  | Storybook dev server on port 6006                                           |
 
 ### Test Philosophy
 
@@ -201,9 +204,10 @@ pipelex run bundle /path/to/bundle.mthds --dry-run --mock-inputs --graph -o ./re
 pipelex run bundle /path/to/bundle.mthds --graph -i /path/to/inputs.json -o ./results
 ```
 
-The pipelex CLI lives at `~/dev/pipelex/pipelex`. The output `graph.json` in the results directory IS the GraphSpec consumed by this library.
+The pipelex CLI is available as `pipelex` (must be on PATH). The output `graph.json` in the results directory IS the GraphSpec consumed by this library.
 
 To generate fake inputs for a real run, use the `/mthds-inputs` skill or:
+
 ```bash
 mthds-agent inputs bundle /path/to/bundle.mthds -L /path/to/bundle-dir/
 ```
@@ -216,16 +220,16 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 
 ## Scripts
 
-| Command | Purpose |
-|---------|---------|
-| `make check` | Full validation (lint + format + typecheck + tests) |
-| `make all` | Full validation + build |
-| `make build` | Build with tsup |
-| `make lint` | ESLint check |
-| `make format` | Prettier write |
-| `make storybook` | Storybook dev server |
-| `make test-coverage` | Vitest with coverage report |
-| `make clean` | Remove dist/ and node_modules/ |
+| Command              | Purpose                                             |
+| -------------------- | --------------------------------------------------- |
+| `make check`         | Full validation (lint + format + typecheck + tests) |
+| `make all`           | Full validation + build                             |
+| `make build`         | Build with tsup                                     |
+| `make lint`          | ESLint check                                        |
+| `make format`        | Prettier write                                      |
+| `make storybook`     | Storybook dev server                                |
+| `make test-coverage` | Vitest with coverage report                         |
+| `make clean`         | Remove dist/ and node_modules/                      |
 
 ## Workflow Rules
 

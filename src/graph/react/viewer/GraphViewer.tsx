@@ -53,14 +53,14 @@ function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
 }
 
 /** Apply Layer 2 execution state overrides to rendered nodes. */
-function applyStatusOverrides(
+export function applyStatusOverrides(
   nodes: AppNode[],
   statusMap: Record<string, PipeStatus> | undefined,
 ): AppNode[] {
   if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
   return nodes.map((node) => {
     const pipeCode = node.data.pipeCode;
-    if (!pipeCode || !(pipeCode in statusMap)) return node;
+    if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];
     if (node.data.pipeCardData?.status === newStatus) return node;
     return {
@@ -192,7 +192,12 @@ export function GraphViewer(props: GraphViewerProps) {
         toggleCollapseRef.current,
         relayouted.controllerPositions,
       );
-      setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
+      setNodes(
+        applyStatusOverrides(
+          toAppNodes(hydrateLabels(withControllers.nodes)),
+          statusMapRef.current,
+        ),
+      );
       setEdges(toAppEdges(withControllers.edges));
       setTimeout(() => {
         if (!cancelled && reactFlowRef.current) {
@@ -221,7 +226,9 @@ export function GraphViewer(props: GraphViewerProps) {
       toggleCollapse,
       layoutCacheRef.current.controllerPositions,
     );
-    setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
+    setNodes(
+      applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current),
+    );
     setEdges(toAppEdges(withControllers.edges));
   }, [showControllers, expandedControllers, toggleCollapse]);
 
@@ -263,7 +270,13 @@ export function GraphViewer(props: GraphViewerProps) {
             graphspec,
             analysis,
           )
-        : { ...graphData, controllerPositions: {} as Record<string, { x: number; y: number; width: number; height: number }> };
+        : {
+            ...graphData,
+            controllerPositions: {} as Record<
+              string,
+              { x: number; y: number; width: number; height: number }
+            >,
+          };
       if (cancelled) return;
       layoutCacheRef.current = {
         nodes: layouted.nodes,
@@ -281,7 +294,12 @@ export function GraphViewer(props: GraphViewerProps) {
         layouted.controllerPositions,
       );
 
-      setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current));
+      setNodes(
+        applyStatusOverrides(
+          toAppNodes(hydrateLabels(withControllers.nodes)),
+          statusMapRef.current,
+        ),
+      );
       setEdges(toAppEdges(withControllers.edges));
 
       // Fit view after render, then apply zoom/pan overrides

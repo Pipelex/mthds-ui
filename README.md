@@ -12,12 +12,12 @@ npm install @pipelex/mthds-ui
 
 ### Peer dependencies
 
-| Dependency           | Required     | Used by                     |
-| -------------------- | ------------ | --------------------------- |
-| `dagre`              | **yes**      | Graph layout engine         |
-| `@types/dagre`       | no (TS only) | Type definitions for dagre  |
-| `react`, `react-dom` | no           | React layer (`graph/react`) |
-| `@xyflow/react`      | no           | React layer (`graph/react`) |
+| Dependency           | Required     | Used by                       |
+| -------------------- | ------------ | ----------------------------- |
+| `dagre`              | **yes**      | Graph layout engine           |
+| `@types/dagre`       | no (TS only) | Type definitions for dagre    |
+| `react`, `react-dom` | no           | React layer (`graph/react`)   |
+| `@xyflow/react`      | no           | React layer (`graph/react`)   |
 | `shiki`              | no           | Syntax highlighting (`shiki`) |
 
 ## Quick start (React)
@@ -58,14 +58,14 @@ export function MyGraph({ graphspec }) {
 
 ### GraphViewer props
 
-| Prop                | Type                                | Default                      | Description                                |
-| ------------------- | ----------------------------------- | ---------------------------- | ------------------------------------------ |
-| `graphspec`         | `GraphSpec \| null`                 | —                            | Graph data (nodes + edges)                 |
-| `config`            | `GraphConfig`                       | `DEFAULT_GRAPH_CONFIG`       | Layout and visual configuration            |
-| `direction`         | `GraphDirection`                    | `"LR"`                       | Layout direction: `TB`, `LR`, `RL`, `BT`   |
-| `showControllers`   | `boolean`                           | `false`                      | Show controller group outlines             |
-| `onNavigateToPipe`  | `(pipeCode: string) => void`        | —                            | Callback when a pipe node is clicked       |
-| `onReactFlowInit`   | `(instance: AppRFInstance) => void` | —                            | Access the underlying ReactFlow instance   |
+| Prop               | Type                                | Default                | Description                              |
+| ------------------ | ----------------------------------- | ---------------------- | ---------------------------------------- |
+| `graphspec`        | `GraphSpec \| null`                 | —                      | Graph data (nodes + edges)               |
+| `config`           | `GraphConfig`                       | `DEFAULT_GRAPH_CONFIG` | Layout and visual configuration          |
+| `direction`        | `GraphDirection`                    | `"LR"`                 | Layout direction: `TB`, `LR`, `RL`, `BT` |
+| `showControllers`  | `boolean`                           | `false`                | Show controller group outlines           |
+| `onNavigateToPipe` | `(pipeCode: string) => void`        | —                      | Callback when a pipe node is clicked     |
+| `onReactFlowInit`  | `(instance: AppRFInstance) => void` | —                      | Access the underlying ReactFlow instance |
 
 ### Container sizing
 
@@ -104,9 +104,9 @@ interface GraphSpec {
 
 interface GraphSpecNode {
   id: string;
-  pipe_code?: string;    // e.g. "analyze_match"
-  pipe_type?: string;    // e.g. "PipeLLM", "PipeSequence", "PipeExtract"
-  status?: string;       // "SUCCEEDED", "FAILED", "RUNNING", etc.
+  pipe_code?: string; // e.g. "analyze_match"
+  pipe_type?: string; // e.g. "PipeLLM", "PipeSequence", "PipeExtract"
+  status?: string; // "succeeded", "failed", "running", "scheduled", "skipped"
   io?: {
     inputs?: IOItem[];
     outputs?: IOItem[];
@@ -115,8 +115,8 @@ interface GraphSpecNode {
 
 interface GraphSpecEdge {
   id?: string;
-  source: string;        // Source node ID
-  target: string;        // Target node ID
+  source: string; // Source node ID
+  target: string; // Target node ID
   kind: GraphSpecEdgeKind; // "data", "contains", "batch_item", etc.
   label?: string;
 }
@@ -131,13 +131,13 @@ Nodes represent pipes (operations) and stuffs (data artifacts) in the pipeline:
 
 ### Edge kinds
 
-| Kind                 | Description                                        |
-| -------------------- | -------------------------------------------------- |
-| `data`               | Data flow — stuff produced by one pipe, consumed by another |
-| `contains`           | Containment — a controller pipe wraps child pipes  |
-| `batch_item`         | Batch processing — items fanned out from a collection |
-| `batch_aggregate`    | Batch aggregation — items collected back            |
-| `parallel_combine`   | Parallel results combined                           |
+| Kind               | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `data`             | Data flow — stuff produced by one pipe, consumed by another |
+| `contains`         | Containment — a controller pipe wraps child pipes           |
+| `batch_item`       | Batch processing — items fanned out from a collection       |
+| `batch_aggregate`  | Batch aggregation — items collected back                    |
+| `parallel_combine` | Parallel results combined                                   |
 
 ### Example GraphSpec (minimal)
 
@@ -187,16 +187,16 @@ const myConfig = {
 };
 ```
 
-| Field              | Type                  | Default    | Description                              |
-| ------------------ | --------------------- | ---------- | ---------------------------------------- |
-| `direction`        | `GraphDirection`      | `"LR"`     | Dagre layout direction                   |
-| `showControllers`  | `boolean`             | `false`    | Show controller group boxes              |
-| `nodesep`          | `number`              | `50`       | Horizontal spacing between nodes         |
-| `ranksep`          | `number`              | `30`       | Vertical spacing between ranks           |
-| `edgeType`         | `EdgeType`            | `"bezier"` | Edge curve style                         |
-| `initialZoom`      | `number \| null`      | `null`     | Override fit-view zoom (`null` = auto)   |
-| `panToTop`         | `boolean`             | `true`     | Pan viewport to top after layout         |
-| `paletteColors`    | `Record<string, string>` | *(see below)* | CSS variable overrides for theming |
+| Field             | Type                     | Default       | Description                            |
+| ----------------- | ------------------------ | ------------- | -------------------------------------- |
+| `direction`       | `GraphDirection`         | `"LR"`        | Dagre layout direction                 |
+| `showControllers` | `boolean`                | `false`       | Show controller group boxes            |
+| `nodesep`         | `number`                 | `50`          | Horizontal spacing between nodes       |
+| `ranksep`         | `number`                 | `100`         | Vertical spacing between ranks         |
+| `edgeType`        | `EdgeType`               | `"bezier"`    | Edge curve style                       |
+| `initialZoom`     | `number \| null`         | `null`        | Override fit-view zoom (`null` = auto) |
+| `panToTop`        | `boolean`                | `true`        | Pan viewport to top after layout       |
+| `paletteColors`   | `Record<string, string>` | _(see below)_ | CSS variable overrides for theming     |
 
 ### Theming with palette colors
 
@@ -219,19 +219,19 @@ const myConfig = {
 
 Default palette colors include:
 
-| Variable                    | Purpose                    |
-| --------------------------- | -------------------------- |
-| `--color-pipe`              | Pipe node border/accent    |
-| `--color-pipe-bg`           | Pipe node background       |
-| `--color-stuff`             | Stuff node border/accent   |
-| `--color-stuff-bg`          | Stuff node background      |
-| `--color-edge`              | Edge line color            |
-| `--color-batch-item`        | Batch item edge color      |
-| `--color-batch-aggregate`   | Batch aggregate edge color |
-| `--color-bg`                | Graph background           |
-| `--color-bg-dots`           | Background dot pattern     |
-| `--font-sans`               | Node font family           |
-| `--font-mono`               | Code/controller font       |
+| Variable                  | Purpose                    |
+| ------------------------- | -------------------------- |
+| `--color-pipe`            | Pipe node border/accent    |
+| `--color-pipe-bg`         | Pipe node background       |
+| `--color-stuff`           | Stuff node border/accent   |
+| `--color-stuff-bg`        | Stuff node background      |
+| `--color-edge`            | Edge line color            |
+| `--color-batch-item`      | Batch item edge color      |
+| `--color-batch-aggregate` | Batch aggregate edge color |
+| `--color-bg`              | Graph background           |
+| `--color-bg-dots`         | Background dot pattern     |
+| `--font-sans`             | Node font family           |
+| `--font-mono`             | Code/controller font       |
 
 See `graphConfig.ts` for the full default palette.
 
@@ -239,9 +239,9 @@ See `graphConfig.ts` for the full default palette.
 
 | Import path                     | Content                                                            |
 | ------------------------------- | ------------------------------------------------------------------ |
-| `@pipelex/mthds-ui`            | Pure-TS graph logic — types, builders, layout, controllers, config |
+| `@pipelex/mthds-ui`             | Pure-TS graph logic — types, builders, layout, controllers, config |
 | `@pipelex/mthds-ui/graph/react` | React components — `GraphViewer`, label helpers, type converters   |
-| `@pipelex/mthds-ui/shiki`       | MTHDS syntax highlighting with shiki                              |
+| `@pipelex/mthds-ui/shiki`       | MTHDS syntax highlighting with shiki                               |
 
 ## Pure TypeScript usage
 
@@ -259,11 +259,7 @@ import {
 const { graphData, analysis } = buildGraph(graphspec, "bezier");
 
 // Apply dagre layout
-const { nodes, edges } = getLayoutedElements(
-  graphData.nodes,
-  graphData.edges,
-  "TB",
-);
+const { nodes, edges } = getLayoutedElements(graphData.nodes, graphData.edges, "TB");
 
 // Optionally wrap nodes in controller groups
 const final = applyControllers(nodes, edges, graphspec, analysis, true);

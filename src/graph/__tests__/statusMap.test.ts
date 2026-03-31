@@ -6,40 +6,8 @@
  * logic directly on pipeline output — the same data the component operates on.
  */
 import { describe, it, expect } from "vitest";
-import type { PipeStatus } from "../types";
-import type { AppNode } from "@graph/react/rfTypes";
+import { applyStatusOverrides } from "@graph/react";
 import { makeMinimalSpec, runFullPipeline } from "./testUtils";
-
-// ─── Helpers ────────────────────────────────────────────────────────────────
-
-/**
- * Mirrors `applyStatusOverrides()` from GraphViewer.tsx.
- * Applies a statusMap to AppNode[], returning updated nodes.
- */
-function applyStatusOverrides(
-  nodes: AppNode[],
-  statusMap: Record<string, PipeStatus> | undefined,
-): AppNode[] {
-  if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
-  return nodes.map((node) => {
-    const pipeCode = node.data.pipeCode;
-    if (!pipeCode || !(pipeCode in statusMap)) return node;
-    const newStatus = statusMap[pipeCode];
-    if (node.data.pipeCardData?.status === newStatus) return node;
-    return {
-      ...node,
-      data: {
-        ...node.data,
-        nodeData: node.data.nodeData
-          ? { ...node.data.nodeData, status: newStatus }
-          : node.data.nodeData,
-        pipeCardData: node.data.pipeCardData
-          ? { ...node.data.pipeCardData, status: newStatus }
-          : node.data.pipeCardData,
-      },
-    };
-  });
-}
 
 // ─── Tests ──────────────────────────────────────────────────────────────────
 

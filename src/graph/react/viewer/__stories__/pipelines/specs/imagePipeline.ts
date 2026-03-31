@@ -548,8 +548,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             digest: "WBMbm",
             data: {
               url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
+              public_url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -560,7 +559,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
+              '<img src="pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -609,8 +608,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             digest: "WBMbm",
             data: {
               url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
+              public_url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -621,7 +619,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
+              '<img src="pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -666,7 +664,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data: {
               url: "pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
+                "pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
               source_prompt: "Thumbnail preview of: None",
               source_negative_prompt: null,
               caption: null,
@@ -680,7 +678,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png          \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/png\n\nSource Prompt:\nThumbnail preview of: None\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png" class="msg-img">',
+              '<img src="pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png" class="msg-img">',
             extra: {},
           },
         ],
@@ -711,8 +709,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             digest: "WBMbm",
             data: {
               url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
+              public_url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -723,7 +720,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
+              '<img src="pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -772,8 +769,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             digest: "WBMbm",
             data: {
               url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
+              public_url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -784,7 +780,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
+              '<img src="pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -831,8 +827,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             digest: "WBMbm",
             data: {
               url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
-              public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
+              public_url: "pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -843,7 +838,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
+              '<img src="pipelex-storage://normalized/i2yVWZjQ9KkXgxp6ZRPyBo.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -858,7 +853,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data: {
               url: "pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
+                "pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png",
               source_prompt: "Thumbnail preview of: None",
               source_negative_prompt: null,
               caption: null,
@@ -872,7 +867,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
             data_text:
               "Image:\nURL: pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png          \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/png\n\nSource Prompt:\nThumbnail preview of: None\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex/mthds-ui/.pipelex/storage/anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png" class="msg-img">',
+              '<img src="pipelex-storage://anonymous/8c686b1f-c29b-4217-84f3-447b211ea126/85bc58dc26cda5ab.png" class="msg-img">',
             extra: {},
           },
         ],
