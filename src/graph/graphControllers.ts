@@ -276,7 +276,7 @@ export function applyControllers(
     for (const node of layoutedNodes) {
       if (!isStuffNodeId(node.id) || hiddenNodes.has(node.id)) continue;
       const ctrlId = childToCtrl[node.id];
-      if (!ctrlId || !collapsedSet.has(ctrlId)) continue;
+      if (!ctrlId || (!collapsedSet.has(ctrlId) && !hiddenNodes.has(ctrlId))) continue;
       const pipeEdges = layoutedEdges.filter((e) => {
         if (e.source !== node.id && e.target !== node.id) return false;
         const other = e.source === node.id ? e.target : e.source;

@@ -1,5 +1,12 @@
 import type { ElkNode, ElkPort, ElkExtendedEdge, LayoutOptions } from "elkjs/lib/elk-api";
-import type { GraphNode, GraphEdge, GraphSpec, DataflowAnalysis, LayoutConfig } from "./types";
+import type {
+  GraphNode,
+  GraphEdge,
+  GraphSpec,
+  DataflowAnalysis,
+  LayoutConfig,
+  GraphDirection,
+} from "./types";
 import {
   NODE_TYPE_PIPE_CARD,
   CONTROLLER_PADDING_X,
@@ -10,7 +17,7 @@ import { buildChildToControllerMap } from "./graphAnalysis";
 
 // ─── Direction mapping ──────────────────────────────────────────────────────
 
-function elkDirection(direction: string): string {
+function elkDirection(direction: GraphDirection): string {
   switch (direction) {
     case "LR":
       return "RIGHT";
@@ -36,16 +43,26 @@ export function outputPortId(nodeId: string): string {
   return nodeId + OUTPUT_PORT_SUFFIX;
 }
 
-function makePorts(nodeId: string, dims: NodeDimensions, isHorizontal: boolean): ElkPort[] {
-  const inSide = isHorizontal ? "WEST" : "NORTH";
-  const outSide = isHorizontal ? "EAST" : "SOUTH";
+function makePorts(nodeId: string, dims: NodeDimensions, direction: GraphDirection): ElkPort[] {
+  // Port sides must match the flow direction so ELK computes edge attachment
+  // on the same side that ReactFlow renders handles.
+  // LR: input=WEST, output=EAST | RL: input=EAST, output=WEST
+  // TB: input=NORTH, output=SOUTH | BT: input=SOUTH, output=NORTH
+  const portSides: Record<GraphDirection, { inSide: string; outSide: string }> = {
+    LR: { inSide: "WEST", outSide: "EAST" },
+    RL: { inSide: "EAST", outSide: "WEST" },
+    TB: { inSide: "NORTH", outSide: "SOUTH" },
+    BT: { inSide: "SOUTH", outSide: "NORTH" },
+  };
+  const { inSide, outSide } = portSides[direction];
 
+  const isHorizontal = direction === "LR" || direction === "RL";
   // Pin ports at the exact center of each side so ELK computes layout
   // with the same edge attachment point that ReactFlow will render.
-  const inX = isHorizontal ? 0 : dims.width / 2;
-  const inY = isHorizontal ? dims.height / 2 : 0;
-  const outX = isHorizontal ? dims.width : dims.width / 2;
-  const outY = isHorizontal ? dims.height / 2 : dims.height;
+  const inX = isHorizontal ? (direction === "LR" ? 0 : dims.width) : dims.width / 2;
+  const inY = isHorizontal ? dims.height / 2 : direction === "TB" ? 0 : dims.height;
+  const outX = isHorizontal ? (direction === "LR" ? dims.width : 0) : dims.width / 2;
+  const outY = isHorizontal ? dims.height / 2 : direction === "TB" ? dims.height : 0;
 
   return [
     {
@@ -151,12 +168,12 @@ function computeDepths(
 
 // ─── Leaf node builder ──────────────────────────────────────────────────────
 
-function makeLeafNode(nodeId: string, dims: NodeDimensions, isHorizontal: boolean): ElkNode {
+function makeLeafNode(nodeId: string, dims: NodeDimensions, direction: GraphDirection): ElkNode {
   return {
     id: nodeId,
     width: dims.width,
     height: dims.height,
-    ports: makePorts(nodeId, dims, isHorizontal),
+    ports: makePorts(nodeId, dims, direction),
     layoutOptions: {
       "elk.portConstraints": "FIXED_POS",
     },
@@ -170,7 +187,7 @@ export function buildElkGraph(
   edges: GraphEdge[],
   graphspec: GraphSpec | null,
   analysis: DataflowAnalysis | null,
-  direction: string,
+  direction: GraphDirection,
   layoutConfig?: LayoutConfig,
 ): { elkGraph: ElkNode; dimensionMap: Record<string, NodeDimensions> } {
   const isHorizontal = direction === "LR" || direction === "RL";
@@ -199,7 +216,7 @@ export function buildElkGraph(
     const elkChildren: ElkNode[] = nodes.map((node) => {
       const dims = estimateNodeDimensions(node, isHorizontal);
       dimensionMap[node.id] = dims;
-      return makeLeafNode(node.id, dims, isHorizontal);
+      return makeLeafNode(node.id, dims, direction);
     });
 
     const elkEdges: ElkExtendedEdge[] = edges.map((edge) => ({
@@ -262,7 +279,7 @@ export function buildElkGraph(
         if (graphNode) {
           const dims = estimateNodeDimensions(graphNode, isHorizontal);
           dimensionMap[childId] = dims;
-          children.push(makeLeafNode(childId, dims, isHorizontal));
+          children.push(makeLeafNode(childId, dims, direction));
         }
       }
     }
@@ -273,7 +290,7 @@ export function buildElkGraph(
         if (!children.some((c) => c.id === node.id)) {
           const dims = estimateNodeDimensions(node, isHorizontal);
           dimensionMap[node.id] = dims;
-          children.push(makeLeafNode(node.id, dims, isHorizontal));
+          children.push(makeLeafNode(node.id, dims, direction));
         }
       }
     }
@@ -301,7 +318,7 @@ export function buildElkGraph(
     if (!childToCtrl[node.id] && !analysis.controllerNodeIds.has(node.id)) {
       const dims = estimateNodeDimensions(node, isHorizontal);
       dimensionMap[node.id] = dims;
-      rootChildren.push(makeLeafNode(node.id, dims, isHorizontal));
+      rootChildren.push(makeLeafNode(node.id, dims, direction));
     }
   }
 

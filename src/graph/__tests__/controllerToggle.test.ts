@@ -3,6 +3,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { runFullPipeline, makeParallelSpec } from "./testUtils";
+import type { GraphSpec } from "@graph/types";
 import {
   DRY_SIMPLE_PARALLEL,
   DRY_ALL_CONTROLLER_TYPES,
@@ -81,8 +82,70 @@ describe("collapse/expand integration", () => {
 
     const controllerNodes = result.appNodes.filter((n) => n.type === "controllerGroup");
     const parallelCtrl = controllerNodes.find((n) => n.data.pipeType === "PipeParallel");
-    if (parallelCtrl) {
-      expect(parallelCtrl.data.isCollapsed).toBeFalsy();
-    }
+    expect(parallelCtrl).toBeDefined();
+    expect(parallelCtrl!.data.isCollapsed).toBeFalsy();
+  });
+
+  it("stuff nodes inside a hidden inner controller are also hidden", async () => {
+    // Outer parallel with >5 children where one child is an inner parallel.
+    // When the outer auto-collapses, the inner controller + its stuff nodes
+    // should be hidden (the hiddenNodes.has(ctrlId) branch in applyControllers).
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "root_seq", pipe_type: "PipeSequence" },
+        { id: "outer_par", pipe_type: "PipeParallel" },
+        // 6 children so outer_par auto-collapses (>5)
+        ...Array.from({ length: 5 }, (_, i) => ({
+          id: `branch_${i}`,
+          pipe_code: `branch_${i}`,
+          pipe_type: "PipeLLM" as const,
+          io: {
+            outputs: [{ digest: `br_out_${i}`, name: `out_${i}`, concept: "Text" }],
+          },
+        })),
+        // Inner parallel as the 6th child (will be sliced off → hidden)
+        { id: "inner_par", pipe_type: "PipeParallel" },
+        {
+          id: "inner_op_a",
+          pipe_code: "inner_op_a",
+          pipe_type: "PipeLLM" as const,
+          io: {
+            outputs: [{ digest: "inner_out", name: "inner_result", concept: "Text" }],
+          },
+        },
+        {
+          id: "inner_op_b",
+          pipe_code: "inner_op_b",
+          pipe_type: "PipeCompose" as const,
+          io: {
+            inputs: [{ digest: "inner_out", name: "inner_result", concept: "Text" }],
+          },
+        },
+      ],
+      edges: [
+        { source: "root_seq", target: "outer_par", kind: "contains" },
+        ...Array.from({ length: 5 }, (_, i) => ({
+          source: "outer_par",
+          target: `branch_${i}`,
+          kind: "contains" as const,
+        })),
+        { source: "outer_par", target: "inner_par", kind: "contains" },
+        { source: "inner_par", target: "inner_op_a", kind: "contains" },
+        { source: "inner_par", target: "inner_op_b", kind: "contains" },
+      ],
+    };
+
+    const result = await runFullPipeline(spec, { showControllers: true });
+
+    // inner_par should be hidden (sliced off by collapse)
+    expect(result.appNodes.find((n) => n.id === "inner_par")).toBeUndefined();
+
+    // inner operators should also be hidden (descendants of hidden controller)
+    expect(result.appNodes.find((n) => n.id === "inner_op_a")).toBeUndefined();
+    expect(result.appNodes.find((n) => n.id === "inner_op_b")).toBeUndefined();
+
+    // stuff node connecting the two inner operators should be hidden too
+    // (exercises the hiddenNodes.has(ctrlId) branch in applyControllers)
+    expect(result.appNodes.find((n) => n.id === "stuff_inner_out")).toBeUndefined();
   });
 });

@@ -27,10 +27,10 @@ test-watch:
 test-coverage:
 	npx vitest run --coverage
 
-check: lint format-check typecheck test
+check: lint format-check typecheck
 	@echo "All checks passed."
 
-all: check build
+all: check test build
 	@echo "All checks passed and build succeeded."
 
 storybook:
