@@ -1,0 +1,233 @@
+/* ─── StuffViewer component styles ────────────────────────────────────────── */
+/* Uses CSS custom properties for consumer theming. Defaults match graph-core.css. */
+
+.stuff-viewer {
+  --sv-bg: var(--color-bg, #0a0a0a);
+  --sv-surface: var(--color-surface, #16213e);
+  --sv-surface-hover: var(--color-surface-hover, #1f2b47);
+  --sv-border: var(--color-border, #2a3a5a);
+  --sv-text: var(--color-text, #e2e8f0);
+  --sv-text-muted: var(--color-text-muted, #94a3b8);
+  --sv-accent: var(--color-accent, #3b82f6);
+  --sv-success: #10b981;
+  --sv-success-bg: rgba(16, 185, 129, 0.2);
+  --sv-radius: 4px;
+  --sv-font-sans: var(
+    --font-sans,
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif
+  );
+  --sv-font-mono: var(--font-mono, "JetBrains Mono", "Monaco", "Menlo", monospace);
+
+  font-family: var(--sv-font-sans);
+  color: var(--sv-text);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.stuff-viewer-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid var(--sv-border);
+  flex-shrink: 0;
+}
+
+.stuff-viewer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sv-text);
+  margin: 0;
+}
+
+.stuff-viewer-subtitle {
+  font-size: 12px;
+  color: var(--sv-text-muted);
+  margin: 0;
+}
+
+/* ─── Toolbar: tabs + action buttons ─────────────────────────────────────── */
+
+.stuff-viewer-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.stuff-viewer-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.stuff-viewer-tab {
+  padding: 5px 10px;
+  border-radius: var(--sv-radius);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--sv-surface-hover);
+  color: var(--sv-text-muted);
+  border: none;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.stuff-viewer-tab:hover {
+  background: var(--sv-border);
+  color: var(--sv-text);
+}
+
+.stuff-viewer-tab--active {
+  background: var(--sv-accent);
+  color: #fff;
+}
+
+/* ─── Action buttons ─────────────────────────────────────────────────────── */
+
+.stuff-viewer-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.stuff-viewer-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--sv-radius);
+  cursor: pointer;
+  background: var(--sv-surface-hover);
+  color: var(--sv-text-muted);
+  border: none;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.stuff-viewer-action-btn:hover {
+  background: var(--sv-border);
+  color: var(--sv-text);
+}
+
+.stuff-viewer-action-btn--copied {
+  background: var(--sv-success-bg);
+  color: var(--sv-success);
+}
+
+.stuff-viewer-action-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* ─── Content area ───────────────────────────────────────────────────────── */
+
+.stuff-viewer-content {
+  flex: 1;
+  overflow: auto;
+  padding: 12px 16px 16px;
+  min-height: 0;
+}
+
+/* Pre-formatted text (JSON and Pretty tabs) */
+.stuff-viewer-pre {
+  font-family: var(--sv-font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  color: var(--sv-text-muted);
+}
+
+.stuff-viewer-pre--nowrap {
+  white-space: pre;
+  word-wrap: normal;
+  line-height: 1;
+  overflow-x: auto;
+  padding-right: 20px;
+}
+
+/* HTML content */
+.stuff-viewer-html {
+  font-family: var(--sv-font-sans);
+  color: var(--sv-text-muted);
+  line-height: 1.6;
+}
+
+.stuff-viewer-html table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.stuff-viewer-html th,
+.stuff-viewer-html td {
+  border: 1px solid var(--sv-border);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.stuff-viewer-html th {
+  background: var(--sv-surface-hover);
+  color: var(--sv-text);
+  font-weight: 600;
+}
+
+.stuff-viewer-html tr:hover {
+  background: var(--sv-surface-hover);
+}
+
+.stuff-viewer-html a {
+  color: var(--sv-accent);
+  text-decoration: none;
+}
+
+.stuff-viewer-html a:hover {
+  text-decoration: underline;
+}
+
+/* PDF embed */
+.stuff-viewer-pdf {
+  min-height: 400px;
+  height: 100%;
+}
+
+.stuff-viewer-pdf embed {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
+}
+
+/* Image content */
+.stuff-viewer-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.stuff-viewer-image img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* Placeholder for missing data */
+.stuff-viewer-placeholder {
+  color: var(--sv-text-muted);
+  font-style: italic;
+  font-size: 13px;
+}
