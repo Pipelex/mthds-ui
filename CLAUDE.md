@@ -158,12 +158,12 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Running Tests
 
-| Command           | Purpose                                                                     |
-| ----------------- | --------------------------------------------------------------------------- |
-| `make check`      | **Always run after modifying code.** Runs lint + format + typecheck + tests |
-| `make test`       | Vitest only (unit tests, single pass)                                       |
-| `make test-watch` | Vitest watch mode                                                           |
-| `make storybook`  | Storybook dev server on port 6006                                           |
+| Command           | Purpose                                                             |
+| ----------------- | ------------------------------------------------------------------- |
+| `make check`      | **Always run after modifying code.** Runs lint + format + typecheck |
+| `make test`       | Vitest only (unit tests, single pass)                               |
+| `make test-watch` | Vitest watch mode                                                   |
+| `make storybook`  | Storybook dev server on port 6006                                   |
 
 ### Test Philosophy
 
@@ -221,20 +221,21 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 
 ## Scripts
 
-| Command              | Purpose                                             |
-| -------------------- | --------------------------------------------------- |
-| `make check`         | Full validation (lint + format + typecheck + tests) |
-| `make all`           | Full validation + build                             |
-| `make build`         | Build with tsup                                     |
-| `make lint`          | ESLint check                                        |
-| `make format`        | Prettier write                                      |
-| `make storybook`     | Storybook dev server                                |
-| `make test-coverage` | Vitest with coverage report                         |
-| `make clean`         | Remove dist/ and node_modules/                      |
+| Command              | Purpose                         |
+| -------------------- | ------------------------------- |
+| `make check`         | Lint + format + typecheck       |
+| `make test`          | Vitest unit tests (single pass) |
+| `make all`           | Full validation + tests + build |
+| `make build`         | Build with tsup                 |
+| `make lint`          | ESLint check                    |
+| `make format`        | Prettier write                  |
+| `make storybook`     | Storybook dev server            |
+| `make test-coverage` | Vitest with coverage report     |
+| `make clean`         | Remove dist/ and node_modules/  |
 
 ## Workflow Rules
 
-1. **Always run `make check` after modifying code** — before considering work done.
+1. **Always run `make check && make test` after modifying code** — before considering work done.
 2. **Always visually verify Storybook after graph/layout changes** — `make check` only validates logic; graph rendering changes (layout, spacing, node sizing, edge routing) MUST be verified visually in Storybook (`make storybook`, port 6006) using the `/browse` skill before considering work done. Check multiple pipeline stories (especially complex ones like CV screening, nested controllers, wide parallels). Do NOT claim a visual fix works based on tests alone.
 3. **Use the `@graph/*` path alias** for cross-module imports within `src/graph/`.
 4. **Use typed constants** — never hardcode pipe types, statuses, or node type strings.

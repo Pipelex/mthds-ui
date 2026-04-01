@@ -15,14 +15,14 @@ npm install @pipelex/mthds-ui
 | Dependency           | Required | Used by                       |
 | -------------------- | -------- | ----------------------------- |
 | `react`, `react-dom` | no       | React layer (`graph/react`)   |
-| `@xyflow/react`      | no       | React layer (`graph/react`)   |
 | `shiki`              | no       | Syntax highlighting (`shiki`) |
 
 ### Bundled dependencies
 
-| Dependency | License | Used by             |
-| ---------- | ------- | ------------------- |
-| `elkjs`    | EPL-2.0 | Graph layout engine |
+| Dependency      | License | Used by                         |
+| --------------- | ------- | ------------------------------- |
+| `elkjs`         | EPL-2.0 | Graph layout engine             |
+| `@xyflow/react` | MIT     | Graph rendering (`graph/react`) |
 
 `elkjs` (Eclipse Layout Kernel) is licensed under the [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/). See [NOTICE](./NOTICE) for details.
 
@@ -285,7 +285,8 @@ const html = await highlightMthds(mthdsSource, "pipelex-dark");
 
 ```bash
 npm install
-make check    # lint + format-check + typecheck + test
+make check    # lint + format-check + typecheck
+make test     # unit tests (vitest)
 make build    # build to dist/
 ```
 

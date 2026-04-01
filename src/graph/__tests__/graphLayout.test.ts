@@ -150,6 +150,40 @@ describe("getLayoutedElements — direction and position injection", () => {
     expect(result.nodes[0].sourcePosition).toBe("bottom");
     expect(result.nodes[0].targetPosition).toBe("top");
   });
+
+  it("sets sourcePosition=left, targetPosition=right for RL", async () => {
+    const nodes = [makeNode("a"), makeNode("b")];
+    const edges = [makeEdge("e1", "a", "b")];
+    const result = await getLayoutedElements(nodes, edges, "RL");
+    expect(result.nodes[0].sourcePosition).toBe("left");
+    expect(result.nodes[0].targetPosition).toBe("right");
+  });
+
+  it("sets sourcePosition=top, targetPosition=bottom for BT", async () => {
+    const nodes = [makeNode("a"), makeNode("b")];
+    const edges = [makeEdge("e1", "a", "b")];
+    const result = await getLayoutedElements(nodes, edges, "BT");
+    expect(result.nodes[0].sourcePosition).toBe("top");
+    expect(result.nodes[0].targetPosition).toBe("bottom");
+  });
+
+  it("BT layout places source node below target node", async () => {
+    const nodes = [makeNode("a"), makeNode("b")];
+    const edges = [makeEdge("e1", "a", "b")];
+    const result = await getLayoutedElements(nodes, edges, "BT");
+    const nodeA = result.nodes.find((n) => n.id === "a")!;
+    const nodeB = result.nodes.find((n) => n.id === "b")!;
+    expect(nodeA.position.y).toBeGreaterThan(nodeB.position.y);
+  });
+
+  it("RL layout places source node to the right of target node", async () => {
+    const nodes = [makeNode("a"), makeNode("b")];
+    const edges = [makeEdge("e1", "a", "b")];
+    const result = await getLayoutedElements(nodes, edges, "RL");
+    const nodeA = result.nodes.find((n) => n.id === "a")!;
+    const nodeB = result.nodes.find((n) => n.id === "b")!;
+    expect(nodeA.position.x).toBeGreaterThan(nodeB.position.x);
+  });
 });
 
 // ─── getLayoutedElements — edge weights ─────────────────────────────────────
