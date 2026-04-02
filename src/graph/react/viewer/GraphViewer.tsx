@@ -16,6 +16,9 @@ import type {
   DataflowAnalysis,
   PipeStatus,
 } from "@graph/types";
+import { stuffDigestFromId } from "@graph/types";
+import type { StuffViewerData } from "../stuff/stuffViewerTypes";
+import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
@@ -38,6 +41,7 @@ export interface GraphViewerProps {
   direction?: GraphDirection;
   showControllers?: boolean;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
+  onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
   /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
   statusMap?: Record<string, PipeStatus>;
@@ -85,6 +89,7 @@ export function GraphViewer(props: GraphViewerProps) {
     direction = config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? "TB",
     showControllers = config.showControllers ?? DEFAULT_GRAPH_CONFIG.showControllers ?? false,
     onNavigateToPipe,
+    onStuffNodeClick,
     onReactFlowInit,
     statusMap,
   } = props;
@@ -362,11 +367,15 @@ export function GraphViewer(props: GraphViewerProps) {
         if (code && onNavigateToPipe) {
           onNavigateToPipe(code, nodeData.pipeCardData?.status as PipeStatus | undefined);
         }
+      } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
+        const digest = stuffDigestFromId(node.id);
+        const stuffData = findStuffDataByDigest(graphspec, digest);
+        if (stuffData) onStuffNodeClick(stuffData);
       }
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
     },
-    [setNodes, onNavigateToPipe],
+    [setNodes, onNavigateToPipe, onStuffNodeClick, graphspec],
   );
 
   const onInit = React.useCallback(

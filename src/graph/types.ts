@@ -46,6 +46,12 @@ export interface GraphSpecNodeIoItem {
   digest?: string;
   concept?: string;
   content_type?: string;
+  preview?: string;
+  size?: number;
+  data?: unknown;
+  data_text?: string;
+  data_html?: string;
+  extra?: Record<string, unknown>;
 }
 
 export interface GraphSpecNodeIo {
