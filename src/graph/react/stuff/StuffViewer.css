@@ -198,6 +198,12 @@
   text-decoration: underline;
 }
 
+.stuff-viewer-html ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
 /* PDF embed */
 .stuff-viewer-pdf {
   min-height: 400px;

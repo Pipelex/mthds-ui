@@ -111,6 +111,24 @@ const NO_HTML_STUFF: StuffViewerData = {
   dataText: '{\n    "key": "value",\n    "nested": {\n        "a": 1,\n        "b": 2\n    }\n}\n',
 };
 
+const PAGE_LIST_STUFF: StuffViewerData = {
+  digest: "cz4Gg",
+  name: "cv_pages",
+  concept: "Page",
+  data: {
+    items: [
+      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
+      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
+      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
+      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
+    ],
+  },
+  dataText:
+    "   1    \u2502 DRY RUN: OCR text\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text\n",
+  dataHtml:
+    "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+};
+
 const EMPTY_STUFF: StuffViewerData = {
   digest: "empty",
 };
@@ -170,6 +188,15 @@ export const MissingHtml: Story = {
     await expect(canvas.getByText("raw_data")).toBeInTheDocument();
     // HTML tab should fall back to JSON display
     await expect(canvas.getByText("HTML")).toBeInTheDocument();
+  },
+};
+
+export const PageList: Story = {
+  args: { stuff: PAGE_LIST_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("cv_pages")).toBeInTheDocument();
+    await expect(canvas.getByText("Page")).toBeInTheDocument();
   },
 };
 
