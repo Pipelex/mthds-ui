@@ -189,15 +189,17 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
     }
     if (!textToCopy) return;
 
-    navigator.clipboard
-      ?.writeText(textToCopy)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      })
-      .catch(() => {
-        // Clipboard API may be unavailable in non-secure contexts
-      });
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        })
+        .catch(() => {
+          // Clipboard API may be unavailable in non-secure contexts
+        });
+    }
   }
 
   function handleDownload() {
@@ -256,6 +258,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
             const isActive = activeTab === tab;
             return (
               <button
+                type="button"
                 key={tab}
                 className={`stuff-viewer-tab${isActive ? " stuff-viewer-tab--active" : ""}`}
                 onClick={() => setActiveTab(tab)}
@@ -269,6 +272,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
         <div className="stuff-viewer-actions">
           {externalUrl && (
             <button
+              type="button"
               className="stuff-viewer-action-btn"
               onClick={handleOpenExternal}
               title="Open in new window"
@@ -277,13 +281,19 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
             </button>
           )}
           <button
+            type="button"
             className={`stuff-viewer-action-btn${copied ? " stuff-viewer-action-btn--copied" : ""}`}
             onClick={handleCopy}
             title="Copy"
           >
             {copied ? ICON_CHECK : ICON_COPY}
           </button>
-          <button className="stuff-viewer-action-btn" onClick={handleDownload} title="Download">
+          <button
+            type="button"
+            className="stuff-viewer-action-btn"
+            onClick={handleDownload}
+            title="Download"
+          >
             {ICON_DOWNLOAD}
           </button>
         </div>

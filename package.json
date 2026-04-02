@@ -82,7 +82,6 @@
     "@storybook/addon-onboarding": "^10.3.3",
     "@storybook/addon-vitest": "^10.3.3",
     "@storybook/react-vite": "^10.3.3",
-    "@types/dompurify": "^3.0.5",
     "@types/react": "^19",
     "@vitest/browser-playwright": "^4.1.0",
     "@vitest/coverage-v8": "^4.1.0",
