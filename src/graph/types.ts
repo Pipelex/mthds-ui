@@ -137,6 +137,8 @@ export interface PipeCardPayload {
 // ─── Graph node data ────────────────────────────────────────────────────────
 // Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
 
+export type StuffRole = "input" | "output";
+
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
   label?: unknown;
@@ -148,6 +150,10 @@ export interface GraphNodeData extends Record<string, unknown> {
   pipeCode?: string;
   pipeType?: PipeType;
   pipeCardData?: PipeCardPayload;
+  /** For stuff nodes: "input" (no producer), "output" (no consumer), or undefined (intermediate). */
+  stuffRole?: StuffRole;
+  /** For stuff nodes: the digest used to build the node ID. */
+  stuffDigest?: string;
 }
 
 // ─── Graph node / edge / data ───────────────────────────────────────────────

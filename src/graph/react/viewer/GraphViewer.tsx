@@ -13,6 +13,7 @@ import type {
   GraphDirection,
   GraphNode,
   GraphEdge,
+  GraphNodeData,
   DataflowAnalysis,
   PipeStatus,
 } from "@graph/types";
@@ -41,6 +42,10 @@ export interface GraphViewerProps {
   onReactFlowInit?: (instance: AppRFInstance) => void;
   /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
   statusMap?: Record<string, PipeStatus>;
+  /** Called when any node is clicked with full node data. Use for detail/inspector panels. */
+  onNodeSelect?: (nodeId: string, nodeData: GraphNodeData, event: React.MouseEvent) => void;
+  /** Called when the graph background (pane) is clicked. Use to dismiss detail panels. */
+  onPaneClick?: () => void;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -87,6 +92,8 @@ export function GraphViewer(props: GraphViewerProps) {
     onNavigateToPipe,
     onReactFlowInit,
     statusMap,
+    onNodeSelect,
+    onPaneClick,
   } = props;
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -355,8 +362,9 @@ export function GraphViewer(props: GraphViewerProps) {
 
   // Handle node click
   const onNodeClick = React.useCallback(
-    (_event: React.MouseEvent, node: AppNode) => {
+    (event: React.MouseEvent, node: AppNode) => {
       const nodeData = node.data;
+      onNodeSelect?.(node.id, nodeData, event);
       if (nodeData.isController || nodeData.isPipe) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
@@ -366,7 +374,7 @@ export function GraphViewer(props: GraphViewerProps) {
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
     },
-    [setNodes, onNavigateToPipe],
+    [setNodes, onNavigateToPipe, onNodeSelect],
   );
 
   const onInit = React.useCallback(
@@ -388,6 +396,7 @@ export function GraphViewer(props: GraphViewerProps) {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onNodeClick={onNodeClick}
+        onPaneClick={onPaneClick ? () => onPaneClick() : undefined}
         onInit={onInit}
         fitView
         fitViewOptions={{ padding: 0.1 }}
