@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- Reset list styles (ul/ol) in StuffViewer HTML content to prevent browser defaults
+- Reset list styles (ul only) in StuffViewer HTML content to prevent browser defaults
 
 ### Added
 
