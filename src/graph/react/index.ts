@@ -17,3 +17,6 @@ export { PipeCardNode } from "./nodes/pipe/PipeCardNode";
 export { PipeCardBase } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardBaseProps } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pipeCardTypes";
+
+// Stuff viewer
+export * from "./stuff";
