@@ -185,7 +185,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
     } else if (activeTab === "text") {
       textToCopy = stuff.dataText || jsonString || "";
     } else {
-      textToCopy = stuff.dataHtml || jsonString || "";
+      textToCopy = stuff.dataText || stuff.dataHtml || jsonString || "";
     }
     if (!textToCopy) return;
 
@@ -276,6 +276,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
               className="stuff-viewer-action-btn"
               onClick={handleOpenExternal}
               title="Open in new window"
+              aria-label="Open in new window"
             >
               {ICON_EXTERNAL}
             </button>
@@ -285,6 +286,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
             className={`stuff-viewer-action-btn${copied ? " stuff-viewer-action-btn--copied" : ""}`}
             onClick={handleCopy}
             title="Copy"
+            aria-label="Copy"
           >
             {copied ? ICON_CHECK : ICON_COPY}
           </button>
@@ -293,6 +295,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
             className="stuff-viewer-action-btn"
             onClick={handleDownload}
             title="Download"
+            aria-label="Download"
           >
             {ICON_DOWNLOAD}
           </button>
