@@ -20,3 +20,6 @@ export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pi
 
 // Stuff viewer
 export * from "./stuff";
+
+// Detail panel
+export * from "./detail";
