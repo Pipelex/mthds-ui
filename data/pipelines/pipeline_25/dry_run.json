@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'document': StuffArtefact(document), 'pages': StuffArtefact(pages), 'analysis': StuffArtefact(analysis), 'search_result': StuffArtefact(search_result), 'page_results': StuffArtefact(page_results), 'classified': StuffArtefact(classified), 'main_stuff': StuffArtefact(final_report)} \u2022 jinja2=# Text Report\n\n{{ classified.content|format() }} \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_25/dry_run.html"
+  }
+}

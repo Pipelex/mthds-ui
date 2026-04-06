@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'data': StuffArtefact(data), 'insight': StuffArtefact(insight), 'chart_spec': StuffArtefact(chart_spec), 'table_data': StuffArtefact(table_data), 'narrative': StuffArtefact(narrative), 'main_stuff': StuffArtefact(insight)} \u2022 jinja2=# Data Report\n\n## Narrative\n{{ narrative|tag(\"narrative\") }}\n\n## Data Table\n{{ table_data|tag(\"table_data\") }}\n\n## Chart\n{{ chart_spec|tag(\"chart_spec\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_06/dry_run.html"
+  }
+}

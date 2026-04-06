@@ -1,0 +1,48 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_bbf6b07252["review_pipeline"]
+        subgraph sg_n_e83e09480a["parallel_checks"]
+            n_11a9105655["logic_check"]
+            s_0598aa003b(["logic_findings<br/>ReviewFinding"]):::stuff
+            n_f8dfbc6310["perf_check"]
+            s_8da5d73d96(["perf_findings<br/>ReviewFinding"]):::stuff
+            n_8e577d260f["security_check"]
+            s_e6f0e7605a(["security_findings<br/>ReviewFinding"]):::stuff
+            n_984dd13c37["style_check"]
+            s_a604c6cf18(["style_findings<br/>ReviewFinding"]):::stuff
+        end
+        n_49398e7f3e["compose_review"]
+        s_3ad0df1714(["review<br/>CodeReview"]):::stuff
+        n_3f12e48d84["fetch_diff"]
+        s_7238de9add(["diff<br/>SearchResult"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_db82918157(["pr_url<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_49398e7f3e --> s_3ad0df1714
+    n_3f12e48d84 --> s_7238de9add
+    n_8e577d260f --> s_e6f0e7605a
+    n_f8dfbc6310 --> s_8da5d73d96
+    n_11a9105655 --> s_0598aa003b
+    n_984dd13c37 --> s_a604c6cf18
+    s_7238de9add --> n_8e577d260f
+    s_7238de9add --> n_984dd13c37
+    s_7238de9add --> n_11a9105655
+    s_7238de9add --> n_f8dfbc6310
+    s_e6f0e7605a --> n_49398e7f3e
+    s_db82918157 --> n_3f12e48d84
+    s_8da5d73d96 --> n_49398e7f3e
+    s_0598aa003b --> n_49398e7f3e
+    s_a604c6cf18 --> n_49398e7f3e
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_bbf6b07252 fill:#e6f3ff
+    style sg_n_e83e09480a fill:#e6ffe6

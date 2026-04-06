@@ -1,0 +1,1671 @@
+{
+  "graph_id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2",
+  "created_at": "2026-04-06T10:18:12.978023Z",
+  "pipeline_ref": {
+    "domain": "data_pipeline",
+    "main_pipe": "ingest_pipeline",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "kind": "controller",
+      "pipe_code": "ingest_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:12.986913Z",
+        "ended_at": "2026-04-06T10:19:12.481030Z",
+        "duration": 59.494117
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "8kYtJ",
+            "data": {
+              "url": "pipelex-storage://normalized/ARLoRumZ2KREevAEMCbnPK.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/ARLoRumZ2KREevAEMCbnPK.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "ValidationReport",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "8Vs9v",
+            "data": {
+              "text": "# Vector Index Validation Report\n\n## Overall Assessment\n**Status: GOOD with Minor Improvements Recommended**\n\nThe index is well-structured and functional, but has some areas that could be enhanced for production use.\n\n---\n\n## ✅ Strengths\n\n1. **Clear Structure**: Logical organization with metadata, categories, and relationships\n2. **Rich Metadata**: Comprehensive tags, metrics, and cross-references\n3. **Consistent Schema**: All vectors follow the same structural pattern\n4. **Bidirectional References**: Cross-references are properly maintained\n5. **Explicit Relationships**: Well-defined relationship types (hierarchical, temporal, supporting)\n6. **Structured Metrics**: Extracted quantitative data for easy filtering/analysis\n\n---\n\n## ⚠️ Issues & Recommendations\n\n### 1. **Missing Vector Embeddings**\n**Severity: HIGH**\n- **Issue**: No actual vector embeddings (numerical arrays) are present\n- **Impact**: Cannot perform similarity searches, which is the primary purpose of a vector index\n- **Recommendation**: Add an `embedding` field with the actual vector representation\n```json\n\"embedding\": [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions\n```\n\n### 2. **No Embedding Metadata**\n**Severity: MEDIUM**\n- **Issue**: Missing information about the embedding model used\n- **Recommendation**: Add index-level metadata:\n```json\n\"embedding_config\": {\n    \"model\": \"text-embedding-ada-002\",\n    \"dimensions\": 1536,\n    \"similarity_metric\": \"cosine\"\n}\n```\n\n### 3. **Inconsistent Metric Formatting**\n**Severity: LOW**\n- **Issue**: Metrics mix strings (\"$4.2B\", \"15%\") with numbers (71, 8500)\n- **Impact**: Harder to perform numerical comparisons/filtering\n- **Recommendation**: Standardize to numerical values with separate unit fields:\n```json\n\"revenue\": {\n    \"value\": 4.2,\n    \"unit\": \"billion\",\n    \"currency\": \"USD\"\n}\n```\n\n### 4. **Missing Temporal Metadata**\n**Severity: LOW**\n- **Issue**: No timestamps for when vectors were created/updated\n- **Recommendation**: Add:\n```json\n\"created_at\": \"2025-01-15T10:30:00Z\",\n\"updated_at\": \"2025-01-15T10:30:00Z\"\n```\n\n### 5. **No Version Control**\n**Severity: LOW**\n- **Issue**: No versioning for the index or individual vectors\n- **Recommendation**: Add version tracking:\n```json\n\"version\": \"1.0.0\",\n\"schema_version\": \"1.0\"\n```\n\n### 6. **Limited Search Optimization**\n**Severity: MEDIUM**\n- **Issue**: No search-specific fields like boost weights or filters\n- **Recommendation**: Consider adding:\n```json\n\"search_weight\": 1.5,\n\"searchable\": true,\n\"filter_fields\": [\"category\", \"tags\", \"metrics.revenue\"]\n```\n\n### 7. **Incomplete Relationship Graph**\n**Severity: LOW**\n- **Issue**: Relationship between vectors 3→4 not explicitly defined\n- **Current**: Only 2→4 and 3→2 relationships exist\n- **Recommendation**: Add relationship if business metrics inform future outlook\n\n### 8. **No Data Validation Rules**\n**Severity: LOW**\n- **Issue**: No schema validation or constraints defined\n- **Recommendation**: Add validation rules:\n```json\n\"validation\": {\n    \"required_fields\": [\"id\", \"content\", \"category\", \"embedding\"],\n    \"id_format\": \"string\",\n    \"content_max_length\": 5000\n}\n```\n\n---\n\n## 📋 Completeness Checklist\n\n| Component | Status | Notes |\n|-----------|--------|-------|\n| Index metadata | ✅ Complete | Name and description present |\n| Vector entries | ✅ Complete | 4 vectors covering all sections |\n| Content text | ✅ Complete | All vectors have descriptive content |\n| **Embeddings** | ❌ **Missing** | **Critical for vector search** |\n| Categories | ✅ Complete | All 4 categories defined |\n| Tags | ✅ Complete | Comprehensive tagging |\n| Cross-references | ✅ Complete | All references valid |\n| Relationships | ⚠️ Partial | Could be more comprehensive |\n| Metrics extraction | ✅ Complete | Good structured data |\n| Timestamps | ❌ Missing | Recommended for tracking |\n\n---\n\n## 🎯 Priority Actions\n\n### **Critical (Before Production)**\n1. Add actual vector embeddings to all entries\n2. Document embedding model and configuration\n\n### **High Priority**\n1. Standardize metric data types\n2. Add search optimization fields\n\n### **Nice to Have**\n1. Add timestamps and versioning\n2. Complete relationship mappings\n3. Add validation schema\n\n---\n\n## Conclusion\n\nThe index demonstrates good structural design and metadata organization. However, it's **not production-ready** without actual vector embeddings. Once embeddings are added and metric formatting is standardized, this will be a high-quality vector index suitable for semantic search applications.\n\n**Recommended Next Steps:**\n1. Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)\n2. Implement the critical fixes above\n3. Add validation logic to ensure data quality\n4. Test similarity search functionality"
+            },
+            "data_text": "                                   Vector Index Validation Report                                   \n\nOverall Assessment                                                                                  \n\nStatus: GOOD with Minor Improvements Recommended                                                    \n\nThe index is well-structured and functional, but has some areas that could be enhanced for          \nproduction use.                                                                                     \n\n----------------------------------------------------------------------------------------------------\n\n✅ Strengths                                                                                        \n\n 1 Clear Structure: Logical organization with metadata, categories, and relationships               \n 2 Rich Metadata: Comprehensive tags, metrics, and cross-references                                 \n 3 Consistent Schema: All vectors follow the same structural pattern                                \n 4 Bidirectional References: Cross-references are properly maintained                               \n 5 Explicit Relationships: Well-defined relationship types (hierarchical, temporal, supporting)     \n 6 Structured Metrics: Extracted quantitative data for easy filtering/analysis                      \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Issues & Recommendations                                                                         \n\n1. Missing Vector Embeddings                                                                        \n\nSeverity: HIGH                                                                                      \n\n • Issue: No actual vector embeddings (numerical arrays) are present                                \n • Impact: Cannot perform similarity searches, which is the primary purpose of a vector index       \n • Recommendation: Add an embedding field with the actual vector representation                     \n\n                                                                                                    \n \"embedding\": [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions                          \n                                                                                                    \n\n2. No Embedding Metadata                                                                            \n\nSeverity: MEDIUM                                                                                    \n\n • Issue: Missing information about the embedding model used                                        \n • Recommendation: Add index-level metadata:                                                        \n\n                                                                                                    \n \"embedding_config\": {                                                                              \n     \"model\": \"text-embedding-ada-002\",                                                             \n     \"dimensions\": 1536,                                                                            \n     \"similarity_metric\": \"cosine\"                                                                  \n }                                                                                                  \n                                                                                                    \n\n3. Inconsistent Metric Formatting                                                                   \n\nSeverity: LOW                                                                                       \n\n • Issue: Metrics mix strings (\"$4.2B\", \"15%\") with numbers (71, 8500)                              \n • Impact: Harder to perform numerical comparisons/filtering                                        \n • Recommendation: Standardize to numerical values with separate unit fields:                       \n\n                                                                                                    \n \"revenue\": {                                                                                       \n     \"value\": 4.2,                                                                                  \n     \"unit\": \"billion\",                                                                             \n     \"currency\": \"USD\"                                                                              \n }                                                                                                  \n                                                                                                    \n\n4. Missing Temporal Metadata                                                                        \n\nSeverity: LOW                                                                                       \n\n • Issue: No timestamps for when vectors were created/updated                                       \n • Recommendation: Add:                                                                             \n\n                                                                                                    \n \"created_at\": \"2025-01-15T10:30:00Z\",                                                              \n \"updated_at\": \"2025-01-15T10:30:00Z\"                                                               \n                                                                                                    \n\n5. No Version Control                                                                               \n\nSeverity: LOW                                                                                       \n\n • Issue: No versioning for the index or individual vectors                                         \n • Recommendation: Add version tracking:                                                            \n\n                                                                                                    \n \"version\": \"1.0.0\",                                                                                \n \"schema_version\": \"1.0\"                                                                            \n                                                                                                    \n\n6. Limited Search Optimization                                                                      \n\nSeverity: MEDIUM                                                                                    \n\n • Issue: No search-specific fields like boost weights or filters                                   \n • Recommendation: Consider adding:                                                                 \n\n                                                                                                    \n \"search_weight\": 1.5,                                                                              \n \"searchable\": true,                                                                                \n \"filter_fields\": [\"category\", \"tags\", \"metrics.revenue\"]                                           \n                                                                                                    \n\n7. Incomplete Relationship Graph                                                                    \n\nSeverity: LOW                                                                                       \n\n • Issue: Relationship between vectors 3→4 not explicitly defined                                   \n • Current: Only 2→4 and 3→2 relationships exist                                                    \n • Recommendation: Add relationship if business metrics inform future outlook                       \n\n8. No Data Validation Rules                                                                         \n\nSeverity: LOW                                                                                       \n\n • Issue: No schema validation or constraints defined                                               \n • Recommendation: Add validation rules:                                                            \n\n                                                                                                    \n \"validation\": {                                                                                    \n     \"required_fields\": [\"id\", \"content\", \"category\", \"embedding\"],                                 \n     \"id_format\": \"string\",                                                                         \n     \"content_max_length\": 5000                                                                     \n }                                                                                                  \n                                                                                                    \n\n----------------------------------------------------------------------------------------------------\n\n📋 Completeness Checklist                                                                           \n\n                                                                       \n Component           Status       Notes                                \n ───────────────────────────────────────────────────────────────────── \n Index metadata      ✅ Complete  Name and description present         \n Vector entries      ✅ Complete  4 vectors covering all sections      \n Content text        ✅ Complete  All vectors have descriptive content \n Embeddings          ❌ Missing   Critical for vector search           \n Categories          ✅ Complete  All 4 categories defined             \n Tags                ✅ Complete  Comprehensive tagging                \n Cross-references    ✅ Complete  All references valid                 \n Relationships       ⚠️ Partial   Could be more comprehensive          \n Metrics extraction  ✅ Complete  Good structured data                 \n Timestamps          ❌ Missing   Recommended for tracking             \n                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n🎯 Priority Actions                                                                                 \n\nCritical (Before Production)                                                                        \n\n 1 Add actual vector embeddings to all entries                                                      \n 2 Document embedding model and configuration                                                       \n\nHigh Priority                                                                                       \n\n 1 Standardize metric data types                                                                    \n 2 Add search optimization fields                                                                   \n\nNice to Have                                                                                        \n\n 1 Add timestamps and versioning                                                                    \n 2 Complete relationship mappings                                                                   \n 3 Add validation schema                                                                            \n\n----------------------------------------------------------------------------------------------------\n\nConclusion                                                                                          \n\nThe index demonstrates good structural design and metadata organization. However, it's not          \nproduction-ready without actual vector embeddings. Once embeddings are added and metric formatting  \nis standardized, this will be a high-quality vector index suitable for semantic search applications.\n\nRecommended Next Steps:                                                                             \n\n 1 Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)               \n 2 Implement the critical fixes above                                                               \n 3 Add validation logic to ensure data quality                                                      \n 4 Test similarity search functionality                                                             \n",
+            "data_html": "# Vector Index Validation Report\n\n## Overall Assessment\n**Status: GOOD with Minor Improvements Recommended**\n\nThe index is well-structured and functional, but has some areas that could be enhanced for production use.\n\n---\n\n## ✅ Strengths\n\n1. **Clear Structure**: Logical organization with metadata, categories, and relationships\n2. **Rich Metadata**: Comprehensive tags, metrics, and cross-references\n3. **Consistent Schema**: All vectors follow the same structural pattern\n4. **Bidirectional References**: Cross-references are properly maintained\n5. **Explicit Relationships**: Well-defined relationship types (hierarchical, temporal, supporting)\n6. **Structured Metrics**: Extracted quantitative data for easy filtering/analysis\n\n---\n\n## ⚠️ Issues &amp; Recommendations\n\n### 1. **Missing Vector Embeddings**\n**Severity: HIGH**\n- **Issue**: No actual vector embeddings (numerical arrays) are present\n- **Impact**: Cannot perform similarity searches, which is the primary purpose of a vector index\n- **Recommendation**: Add an `embedding` field with the actual vector representation\n```json\n&quot;embedding&quot;: [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions\n```\n\n### 2. **No Embedding Metadata**\n**Severity: MEDIUM**\n- **Issue**: Missing information about the embedding model used\n- **Recommendation**: Add index-level metadata:\n```json\n&quot;embedding_config&quot;: {\n    &quot;model&quot;: &quot;text-embedding-ada-002&quot;,\n    &quot;dimensions&quot;: 1536,\n    &quot;similarity_metric&quot;: &quot;cosine&quot;\n}\n```\n\n### 3. **Inconsistent Metric Formatting**\n**Severity: LOW**\n- **Issue**: Metrics mix strings (&quot;$4.2B&quot;, &quot;15%&quot;) with numbers (71, 8500)\n- **Impact**: Harder to perform numerical comparisons/filtering\n- **Recommendation**: Standardize to numerical values with separate unit fields:\n```json\n&quot;revenue&quot;: {\n    &quot;value&quot;: 4.2,\n    &quot;unit&quot;: &quot;billion&quot;,\n    &quot;currency&quot;: &quot;USD&quot;\n}\n```\n\n### 4. **Missing Temporal Metadata**\n**Severity: LOW**\n- **Issue**: No timestamps for when vectors were created/updated\n- **Recommendation**: Add:\n```json\n&quot;created_at&quot;: &quot;2025-01-15T10:30:00Z&quot;,\n&quot;updated_at&quot;: &quot;2025-01-15T10:30:00Z&quot;\n```\n\n### 5. **No Version Control**\n**Severity: LOW**\n- **Issue**: No versioning for the index or individual vectors\n- **Recommendation**: Add version tracking:\n```json\n&quot;version&quot;: &quot;1.0.0&quot;,\n&quot;schema_version&quot;: &quot;1.0&quot;\n```\n\n### 6. **Limited Search Optimization**\n**Severity: MEDIUM**\n- **Issue**: No search-specific fields like boost weights or filters\n- **Recommendation**: Consider adding:\n```json\n&quot;search_weight&quot;: 1.5,\n&quot;searchable&quot;: true,\n&quot;filter_fields&quot;: [&quot;category&quot;, &quot;tags&quot;, &quot;metrics.revenue&quot;]\n```\n\n### 7. **Incomplete Relationship Graph**\n**Severity: LOW**\n- **Issue**: Relationship between vectors 3→4 not explicitly defined\n- **Current**: Only 2→4 and 3→2 relationships exist\n- **Recommendation**: Add relationship if business metrics inform future outlook\n\n### 8. **No Data Validation Rules**\n**Severity: LOW**\n- **Issue**: No schema validation or constraints defined\n- **Recommendation**: Add validation rules:\n```json\n&quot;validation&quot;: {\n    &quot;required_fields&quot;: [&quot;id&quot;, &quot;content&quot;, &quot;category&quot;, &quot;embedding&quot;],\n    &quot;id_format&quot;: &quot;string&quot;,\n    &quot;content_max_length&quot;: 5000\n}\n```\n\n---\n\n## 📋 Completeness Checklist\n\n| Component | Status | Notes |\n|-----------|--------|-------|\n| Index metadata | ✅ Complete | Name and description present |\n| Vector entries | ✅ Complete | 4 vectors covering all sections |\n| Content text | ✅ Complete | All vectors have descriptive content |\n| **Embeddings** | ❌ **Missing** | **Critical for vector search** |\n| Categories | ✅ Complete | All 4 categories defined |\n| Tags | ✅ Complete | Comprehensive tagging |\n| Cross-references | ✅ Complete | All references valid |\n| Relationships | ⚠️ Partial | Could be more comprehensive |\n| Metrics extraction | ✅ Complete | Good structured data |\n| Timestamps | ❌ Missing | Recommended for tracking |\n\n---\n\n## 🎯 Priority Actions\n\n### **Critical (Before Production)**\n1. Add actual vector embeddings to all entries\n2. Document embedding model and configuration\n\n### **High Priority**\n1. Standardize metric data types\n2. Add search optimization fields\n\n### **Nice to Have**\n1. Add timestamps and versioning\n2. Complete relationship mappings\n3. Add validation schema\n\n---\n\n## Conclusion\n\nThe index demonstrates good structural design and metadata organization. However, it&#x27;s **not production-ready** without actual vector embeddings. Once embeddings are added and metric formatting is standardized, this will be a high-quality vector index suitable for semantic search applications.\n\n**Recommended Next Steps:**\n1. Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)\n2. Implement the critical fixes above\n3. Add validation logic to ensure data quality\n4. Test similarity search functionality",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 6
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_raw",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:12.996169Z",
+        "ended_at": "2026-04-06T10:18:19.321854Z",
+        "duration": 6.325685
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "8kYtJ",
+            "data": {
+              "url": "pipelex-storage://normalized/ARLoRumZ2KREevAEMCbnPK.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/ARLoRumZ2KREevAEMCbnPK.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/ARLoRumZ2KREevAEMCbnPK.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cj26e",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "document",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_2",
+      "kind": "operator",
+      "pipe_code": "clean_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:19.322913Z",
+        "ended_at": "2026-04-06T10:18:28.208856Z",
+        "duration": 8.885943
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cj26e",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "clean_text",
+            "concept": "CleanText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "npQpZ",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and \nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost \ndecreased by 12% due to improved marketing efficiency. The company expanded into three new markets: \nSoutheast Asia, Eastern Europe, and South America.                                                  \n\nKey Metrics                                                                                         \n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter  \nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D      \ninvestment was $840M, representing 20% of revenue.                                                  \n\nOutlook                                                                                             \n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the       \nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II         \ncertification for all cloud products.                                                               \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_3",
+      "kind": "operator",
+      "pipe_code": "chunk_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:28.210055Z",
+        "ended_at": "2026-04-06T10:18:32.092334Z",
+        "duration": 3.882279
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "clean_text",
+            "concept": "CleanText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "npQpZ",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and \nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost \ndecreased by 12% due to improved marketing efficiency. The company expanded into three new markets: \nSoutheast Asia, Eastern Europe, and South America.                                                  \n\nKey Metrics                                                                                         \n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter  \nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D      \ninvestment was $840M, representing 20% of revenue.                                                  \n\nOutlook                                                                                             \n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the       \nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II         \ncertification for all cloud products.                                                               \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "chunks",
+            "concept": "TextChunk",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QKTPS",
+            "data": {
+              "items": [
+                {
+                  "text": "# Quarterly Business Report - Q4 2025"
+                },
+                {
+                  "text": "## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America."
+                },
+                {
+                  "text": "## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue."
+                },
+                {
+                  "text": "## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D      \n        │ investment was $840M, representing 20% of revenue.                    \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li># Quarterly Business Report - Q4 2025</li><li>## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.</li><li>## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.</li><li>## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n<clean_text>\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.\n</clean_text>\n\n---\nThe instance we want to generate will be for the following class:\nclass TextChunk(TextContent):\n    \"\"\"A segment of text split for processing\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_4",
+      "kind": "operator",
+      "pipe_code": "embed_chunks",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:32.093351Z",
+        "ended_at": "2026-04-06T10:18:36.123552Z",
+        "duration": 4.030201
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "chunks",
+            "concept": "TextChunk",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QKTPS",
+            "data": {
+              "items": [
+                {
+                  "text": "# Quarterly Business Report - Q4 2025"
+                },
+                {
+                  "text": "## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America."
+                },
+                {
+                  "text": "## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue."
+                },
+                {
+                  "text": "## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D      \n        │ investment was $840M, representing 20% of revenue.                    \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li># Quarterly Business Report - Q4 2025</li><li>## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.</li><li>## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.</li><li>## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.</li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "embeddings",
+            "concept": "Embedding",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "eqWtv",
+            "data": {
+              "items": [
+                {
+                  "text": "Q4 2025 quarterly business report title"
+                },
+                {
+                  "text": "Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America"
+                },
+                {
+                  "text": "Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue"
+                },
+                {
+                  "text": "Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products"
+                }
+              ]
+            },
+            "data_text": "   1    │ Q4 2025 quarterly business report title                               \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Executive summary showing strong Q4 2025 financial performance with   \n        │ 15% revenue growth to $4.2B, improved operating margin to 28%,        \n        │ reduced customer acquisition costs by 12%, and geographic expansion   \n        │ into Southeast Asia, Eastern Europe, and South America                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Key business metrics including 45 million active users (22% growth),  \n        │ $350M monthly recurring revenue, net promoter score of 71, 8,500      \n        │ employees across 12 global offices, and $840M R&D investment          \n        │ representing 20% of revenue                                           \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic \n        │ initiatives focused on AI-powered analytics platform launch, partner  \n        │ ecosystem expansion, and SOC 2 Type II certification for cloud        \n        │ products                                                              \n",
+            "data_html": "<ul><li>Q4 2025 quarterly business report title</li><li>Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America</li><li>Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&amp;D investment representing 20% of revenue</li><li>Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\n# Quarterly Business Report - Q4 2025\n\n • item #2:\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n • item #3:\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n • item #4:\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass Embedding(TextContent):\n    \"\"\"Vector embedding of text\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_5",
+      "kind": "operator",
+      "pipe_code": "build_index",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:36.124957Z",
+        "ended_at": "2026-04-06T10:18:48.707240Z",
+        "duration": 12.582283
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "embeddings",
+            "concept": "Embedding",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "eqWtv",
+            "data": {
+              "items": [
+                {
+                  "text": "Q4 2025 quarterly business report title"
+                },
+                {
+                  "text": "Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America"
+                },
+                {
+                  "text": "Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue"
+                },
+                {
+                  "text": "Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products"
+                }
+              ]
+            },
+            "data_text": "   1    │ Q4 2025 quarterly business report title                               \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Executive summary showing strong Q4 2025 financial performance with   \n        │ 15% revenue growth to $4.2B, improved operating margin to 28%,        \n        │ reduced customer acquisition costs by 12%, and geographic expansion   \n        │ into Southeast Asia, Eastern Europe, and South America                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Key business metrics including 45 million active users (22% growth),  \n        │ $350M monthly recurring revenue, net promoter score of 71, 8,500      \n        │ employees across 12 global offices, and $840M R&D investment          \n        │ representing 20% of revenue                                           \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic \n        │ initiatives focused on AI-powered analytics platform launch, partner  \n        │ ecosystem expansion, and SOC 2 Type II certification for cloud        \n        │ products                                                              \n",
+            "data_html": "<ul><li>Q4 2025 quarterly business report title</li><li>Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America</li><li>Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&amp;D investment representing 20% of revenue</li><li>Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products</li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "index",
+            "concept": "VectorIndex",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ErTvn",
+            "data": {
+              "json_obj": {
+                "name": "Q4 2025 Business Report Index",
+                "description": "Structured index of Q4 2025 quarterly business report embeddings with categories and cross-references",
+                "vectors": [
+                  {
+                    "id": "1",
+                    "content": "Q4 2025 quarterly business report title",
+                    "category": "Document Metadata",
+                    "tags": [
+                      "title",
+                      "Q4 2025",
+                      "business report"
+                    ],
+                    "cross_references": [
+                      "2",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "2",
+                    "content": "Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America",
+                    "category": "Executive Summary",
+                    "subcategory": "Financial Performance & Strategic Expansion",
+                    "tags": [
+                      "executive summary",
+                      "Q4 2025",
+                      "revenue growth",
+                      "operating margin",
+                      "customer acquisition",
+                      "geographic expansion",
+                      "financial metrics"
+                    ],
+                    "metrics": {
+                      "revenue": "$4.2B",
+                      "revenue_growth": "15%",
+                      "operating_margin": "28%",
+                      "cac_reduction": "12%"
+                    },
+                    "cross_references": [
+                      "1",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "3",
+                    "content": "Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue",
+                    "category": "Business Metrics",
+                    "subcategory": "Operational KPIs",
+                    "tags": [
+                      "business metrics",
+                      "active users",
+                      "MRR",
+                      "NPS",
+                      "employees",
+                      "R&D investment",
+                      "KPIs"
+                    ],
+                    "metrics": {
+                      "active_users": "45M",
+                      "user_growth": "22%",
+                      "monthly_recurring_revenue": "$350M",
+                      "net_promoter_score": 71,
+                      "employees": 8500,
+                      "global_offices": 12,
+                      "rd_investment": "$840M",
+                      "rd_percentage": "20%"
+                    },
+                    "cross_references": [
+                      "1",
+                      "2",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "4",
+                    "content": "Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products",
+                    "category": "Future Outlook",
+                    "subcategory": "Q1 2026 Projections & Strategic Initiatives",
+                    "tags": [
+                      "outlook",
+                      "Q1 2026",
+                      "revenue projection",
+                      "strategic initiatives",
+                      "AI analytics",
+                      "partner ecosystem",
+                      "SOC 2 certification"
+                    ],
+                    "metrics": {
+                      "projected_revenue_min": "$4.4B",
+                      "projected_revenue_max": "$4.6B"
+                    },
+                    "cross_references": [
+                      "1",
+                      "2",
+                      "3"
+                    ]
+                  }
+                ],
+                "categories": [
+                  {
+                    "name": "Document Metadata",
+                    "description": "Report identification and structural information",
+                    "vector_ids": [
+                      "1"
+                    ]
+                  },
+                  {
+                    "name": "Executive Summary",
+                    "description": "High-level financial performance and strategic expansion overview",
+                    "vector_ids": [
+                      "2"
+                    ]
+                  },
+                  {
+                    "name": "Business Metrics",
+                    "description": "Operational KPIs and performance indicators",
+                    "vector_ids": [
+                      "3"
+                    ]
+                  },
+                  {
+                    "name": "Future Outlook",
+                    "description": "Forward-looking projections and strategic initiatives",
+                    "vector_ids": [
+                      "4"
+                    ]
+                  }
+                ],
+                "relationships": [
+                  {
+                    "type": "hierarchical",
+                    "description": "Report title references all content sections",
+                    "from": "1",
+                    "to": [
+                      "2",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "type": "temporal",
+                    "description": "Q4 2025 results inform Q1 2026 outlook",
+                    "from": "2",
+                    "to": "4"
+                  },
+                  {
+                    "type": "supporting",
+                    "description": "Business metrics support executive summary claims",
+                    "from": "3",
+                    "to": "2"
+                  }
+                ]
+              }
+            },
+            "data_text": "{\n    \"name\": \"Q4 2025 Business Report Index\",\n    \"description\": \"Structured index of Q4 2025 quarterly business report embeddings with categories\nand cross-references\",\n    \"vectors\": [\n        {\n            \"id\": \"1\",\n            \"content\": \"Q4 2025 quarterly business report title\",\n            \"category\": \"Document Metadata\",\n            \"tags\": [\n                \"title\",\n                \"Q4 2025\",\n                \"business report\"\n            ],\n            \"cross_references\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"2\",\n            \"content\": \"Executive summary showing strong Q4 2025 financial performance with 15% \nrevenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by \n12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America\",\n            \"category\": \"Executive Summary\",\n            \"subcategory\": \"Financial Performance & Strategic Expansion\",\n            \"tags\": [\n                \"executive summary\",\n                \"Q4 2025\",\n                \"revenue growth\",\n                \"operating margin\",\n                \"customer acquisition\",\n                \"geographic expansion\",\n                \"financial metrics\"\n            ],\n            \"metrics\": {\n                \"revenue\": \"$4.2B\",\n                \"revenue_growth\": \"15%\",\n                \"operating_margin\": \"28%\",\n                \"cac_reduction\": \"12%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"3\",\n            \"content\": \"Key business metrics including 45 million active users (22% growth), $350M \nmonthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and \n$840M R&D investment representing 20% of revenue\",\n            \"category\": \"Business Metrics\",\n            \"subcategory\": \"Operational KPIs\",\n            \"tags\": [\n                \"business metrics\",\n                \"active users\",\n                \"MRR\",\n                \"NPS\",\n                \"employees\",\n                \"R&D investment\",\n                \"KPIs\"\n            ],\n            \"metrics\": {\n                \"active_users\": \"45M\",\n                \"user_growth\": \"22%\",\n                \"monthly_recurring_revenue\": \"$350M\",\n                \"net_promoter_score\": 71,\n                \"employees\": 8500,\n                \"global_offices\": 12,\n                \"rd_investment\": \"$840M\",\n                \"rd_percentage\": \"20%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"4\",\n            \"content\": \"Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic \ninitiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 \nType II certification for cloud products\",\n            \"category\": \"Future Outlook\",\n            \"subcategory\": \"Q1 2026 Projections & Strategic Initiatives\",\n            \"tags\": [\n                \"outlook\",\n                \"Q1 2026\",\n                \"revenue projection\",\n                \"strategic initiatives\",\n                \"AI analytics\",\n                \"partner ecosystem\",\n                \"SOC 2 certification\"\n            ],\n            \"metrics\": {\n                \"projected_revenue_min\": \"$4.4B\",\n                \"projected_revenue_max\": \"$4.6B\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"3\"\n            ]\n        }\n    ],\n    \"categories\": [\n        {\n            \"name\": \"Document Metadata\",\n            \"description\": \"Report identification and structural information\",\n            \"vector_ids\": [\n                \"1\"\n            ]\n        },\n        {\n            \"name\": \"Executive Summary\",\n            \"description\": \"High-level financial performance and strategic expansion overview\",\n            \"vector_ids\": [\n                \"2\"\n            ]\n        },\n        {\n            \"name\": \"Business Metrics\",\n            \"description\": \"Operational KPIs and performance indicators\",\n            \"vector_ids\": [\n                \"3\"\n            ]\n        },\n        {\n            \"name\": \"Future Outlook\",\n            \"description\": \"Forward-looking projections and strategic initiatives\",\n            \"vector_ids\": [\n                \"4\"\n            ]\n        }\n    ],\n    \"relationships\": [\n        {\n            \"type\": \"hierarchical\",\n            \"description\": \"Report title references all content sections\",\n            \"from\": \"1\",\n            \"to\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"type\": \"temporal\",\n            \"description\": \"Q4 2025 results inform Q1 2026 outlook\",\n            \"from\": \"2\",\n            \"to\": \"4\"\n        },\n        {\n            \"type\": \"supporting\",\n            \"description\": \"Business metrics support executive summary claims\",\n            \"from\": \"3\",\n            \"to\": \"2\"\n        }\n    ]\n}\n",
+            "data_html": "<table ><tr><th>name</th><td>Q4 2025 Business Report Index</td></tr><tr><th>description</th><td>Structured index of Q4 2025 quarterly business report embeddings with categories and cross-references</td></tr><tr><th>vectors</th><td><ul><li><table ><tr><th>id</th><td>1</td></tr><tr><th>content</th><td>Q4 2025 quarterly business report title</td></tr><tr><th>category</th><td>Document Metadata</td></tr><tr><th>tags</th><td><ul><li>title</li><li>Q4 2025</li><li>business report</li></ul></td></tr><tr><th>cross_references</th><td><ul><li>2</li><li>3</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>2</td></tr><tr><th>content</th><td>Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America</td></tr><tr><th>category</th><td>Executive Summary</td></tr><tr><th>subcategory</th><td>Financial Performance &amp; Strategic Expansion</td></tr><tr><th>tags</th><td><ul><li>executive summary</li><li>Q4 2025</li><li>revenue growth</li><li>operating margin</li><li>customer acquisition</li><li>geographic expansion</li><li>financial metrics</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>revenue</th><td>$4.2B</td></tr><tr><th>revenue_growth</th><td>15%</td></tr><tr><th>operating_margin</th><td>28%</td></tr><tr><th>cac_reduction</th><td>12%</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>3</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>3</td></tr><tr><th>content</th><td>Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&amp;D investment representing 20% of revenue</td></tr><tr><th>category</th><td>Business Metrics</td></tr><tr><th>subcategory</th><td>Operational KPIs</td></tr><tr><th>tags</th><td><ul><li>business metrics</li><li>active users</li><li>MRR</li><li>NPS</li><li>employees</li><li>R&amp;D investment</li><li>KPIs</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>active_users</th><td>45M</td></tr><tr><th>user_growth</th><td>22%</td></tr><tr><th>monthly_recurring_revenue</th><td>$350M</td></tr><tr><th>net_promoter_score</th><td>71</td></tr><tr><th>employees</th><td>8500</td></tr><tr><th>global_offices</th><td>12</td></tr><tr><th>rd_investment</th><td>$840M</td></tr><tr><th>rd_percentage</th><td>20%</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>2</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>4</td></tr><tr><th>content</th><td>Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products</td></tr><tr><th>category</th><td>Future Outlook</td></tr><tr><th>subcategory</th><td>Q1 2026 Projections &amp; Strategic Initiatives</td></tr><tr><th>tags</th><td><ul><li>outlook</li><li>Q1 2026</li><li>revenue projection</li><li>strategic initiatives</li><li>AI analytics</li><li>partner ecosystem</li><li>SOC 2 certification</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>projected_revenue_min</th><td>$4.4B</td></tr><tr><th>projected_revenue_max</th><td>$4.6B</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>2</li><li>3</li></ul></td></tr></table></li></ul></td></tr><tr><th>categories</th><td><table ><thead><tr><th>name</th><th>description</th><th>vector_ids</th></tr></thead><tbody><tr><td>Document Metadata</td><td>Report identification and structural information</td><td><ul><li>1</li></ul></td></tr><tr><td>Executive Summary</td><td>High-level financial performance and strategic expansion overview</td><td><ul><li>2</li></ul></td></tr><tr><td>Business Metrics</td><td>Operational KPIs and performance indicators</td><td><ul><li>3</li></ul></td></tr><tr><td>Future Outlook</td><td>Forward-looking projections and strategic initiatives</td><td><ul><li>4</li></ul></td></tr></tbody></table></td></tr><tr><th>relationships</th><td><table ><thead><tr><th>type</th><th>description</th><th>from</th><th>to</th></tr></thead><tbody><tr><td>hierarchical</td><td>Report title references all content sections</td><td>1</td><td><ul><li>2</li><li>3</li><li>4</li></ul></td></tr><tr><td>temporal</td><td>Q4 2025 results inform Q1 2026 outlook</td><td>2</td><td>4</td></tr><tr><td>supporting</td><td>Business metrics support executive summary claims</td><td>3</td><td>2</td></tr></tbody></table></td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nQ4 2025 quarterly business report title\n\n • item #2:\n\nExecutive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America\n\n • item #3:\n\nKey business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue\n\n • item #4:\n\nQ1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass VectorIndex(JSONContent):\n    \"\"\"An indexed collection of vectors\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_6",
+      "kind": "operator",
+      "pipe_code": "validate_index",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:48.708783Z",
+        "ended_at": "2026-04-06T10:19:12.472064Z",
+        "duration": 23.763281
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "index",
+            "concept": "VectorIndex",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ErTvn",
+            "data": {
+              "json_obj": {
+                "name": "Q4 2025 Business Report Index",
+                "description": "Structured index of Q4 2025 quarterly business report embeddings with categories and cross-references",
+                "vectors": [
+                  {
+                    "id": "1",
+                    "content": "Q4 2025 quarterly business report title",
+                    "category": "Document Metadata",
+                    "tags": [
+                      "title",
+                      "Q4 2025",
+                      "business report"
+                    ],
+                    "cross_references": [
+                      "2",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "2",
+                    "content": "Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America",
+                    "category": "Executive Summary",
+                    "subcategory": "Financial Performance & Strategic Expansion",
+                    "tags": [
+                      "executive summary",
+                      "Q4 2025",
+                      "revenue growth",
+                      "operating margin",
+                      "customer acquisition",
+                      "geographic expansion",
+                      "financial metrics"
+                    ],
+                    "metrics": {
+                      "revenue": "$4.2B",
+                      "revenue_growth": "15%",
+                      "operating_margin": "28%",
+                      "cac_reduction": "12%"
+                    },
+                    "cross_references": [
+                      "1",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "3",
+                    "content": "Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue",
+                    "category": "Business Metrics",
+                    "subcategory": "Operational KPIs",
+                    "tags": [
+                      "business metrics",
+                      "active users",
+                      "MRR",
+                      "NPS",
+                      "employees",
+                      "R&D investment",
+                      "KPIs"
+                    ],
+                    "metrics": {
+                      "active_users": "45M",
+                      "user_growth": "22%",
+                      "monthly_recurring_revenue": "$350M",
+                      "net_promoter_score": 71,
+                      "employees": 8500,
+                      "global_offices": 12,
+                      "rd_investment": "$840M",
+                      "rd_percentage": "20%"
+                    },
+                    "cross_references": [
+                      "1",
+                      "2",
+                      "4"
+                    ]
+                  },
+                  {
+                    "id": "4",
+                    "content": "Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products",
+                    "category": "Future Outlook",
+                    "subcategory": "Q1 2026 Projections & Strategic Initiatives",
+                    "tags": [
+                      "outlook",
+                      "Q1 2026",
+                      "revenue projection",
+                      "strategic initiatives",
+                      "AI analytics",
+                      "partner ecosystem",
+                      "SOC 2 certification"
+                    ],
+                    "metrics": {
+                      "projected_revenue_min": "$4.4B",
+                      "projected_revenue_max": "$4.6B"
+                    },
+                    "cross_references": [
+                      "1",
+                      "2",
+                      "3"
+                    ]
+                  }
+                ],
+                "categories": [
+                  {
+                    "name": "Document Metadata",
+                    "description": "Report identification and structural information",
+                    "vector_ids": [
+                      "1"
+                    ]
+                  },
+                  {
+                    "name": "Executive Summary",
+                    "description": "High-level financial performance and strategic expansion overview",
+                    "vector_ids": [
+                      "2"
+                    ]
+                  },
+                  {
+                    "name": "Business Metrics",
+                    "description": "Operational KPIs and performance indicators",
+                    "vector_ids": [
+                      "3"
+                    ]
+                  },
+                  {
+                    "name": "Future Outlook",
+                    "description": "Forward-looking projections and strategic initiatives",
+                    "vector_ids": [
+                      "4"
+                    ]
+                  }
+                ],
+                "relationships": [
+                  {
+                    "type": "hierarchical",
+                    "description": "Report title references all content sections",
+                    "from": "1",
+                    "to": [
+                      "2",
+                      "3",
+                      "4"
+                    ]
+                  },
+                  {
+                    "type": "temporal",
+                    "description": "Q4 2025 results inform Q1 2026 outlook",
+                    "from": "2",
+                    "to": "4"
+                  },
+                  {
+                    "type": "supporting",
+                    "description": "Business metrics support executive summary claims",
+                    "from": "3",
+                    "to": "2"
+                  }
+                ]
+              }
+            },
+            "data_text": "{\n    \"name\": \"Q4 2025 Business Report Index\",\n    \"description\": \"Structured index of Q4 2025 quarterly business report embeddings with categories\nand cross-references\",\n    \"vectors\": [\n        {\n            \"id\": \"1\",\n            \"content\": \"Q4 2025 quarterly business report title\",\n            \"category\": \"Document Metadata\",\n            \"tags\": [\n                \"title\",\n                \"Q4 2025\",\n                \"business report\"\n            ],\n            \"cross_references\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"2\",\n            \"content\": \"Executive summary showing strong Q4 2025 financial performance with 15% \nrevenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by \n12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America\",\n            \"category\": \"Executive Summary\",\n            \"subcategory\": \"Financial Performance & Strategic Expansion\",\n            \"tags\": [\n                \"executive summary\",\n                \"Q4 2025\",\n                \"revenue growth\",\n                \"operating margin\",\n                \"customer acquisition\",\n                \"geographic expansion\",\n                \"financial metrics\"\n            ],\n            \"metrics\": {\n                \"revenue\": \"$4.2B\",\n                \"revenue_growth\": \"15%\",\n                \"operating_margin\": \"28%\",\n                \"cac_reduction\": \"12%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"3\",\n            \"content\": \"Key business metrics including 45 million active users (22% growth), $350M \nmonthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and \n$840M R&D investment representing 20% of revenue\",\n            \"category\": \"Business Metrics\",\n            \"subcategory\": \"Operational KPIs\",\n            \"tags\": [\n                \"business metrics\",\n                \"active users\",\n                \"MRR\",\n                \"NPS\",\n                \"employees\",\n                \"R&D investment\",\n                \"KPIs\"\n            ],\n            \"metrics\": {\n                \"active_users\": \"45M\",\n                \"user_growth\": \"22%\",\n                \"monthly_recurring_revenue\": \"$350M\",\n                \"net_promoter_score\": 71,\n                \"employees\": 8500,\n                \"global_offices\": 12,\n                \"rd_investment\": \"$840M\",\n                \"rd_percentage\": \"20%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"4\",\n            \"content\": \"Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic \ninitiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 \nType II certification for cloud products\",\n            \"category\": \"Future Outlook\",\n            \"subcategory\": \"Q1 2026 Projections & Strategic Initiatives\",\n            \"tags\": [\n                \"outlook\",\n                \"Q1 2026\",\n                \"revenue projection\",\n                \"strategic initiatives\",\n                \"AI analytics\",\n                \"partner ecosystem\",\n                \"SOC 2 certification\"\n            ],\n            \"metrics\": {\n                \"projected_revenue_min\": \"$4.4B\",\n                \"projected_revenue_max\": \"$4.6B\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"3\"\n            ]\n        }\n    ],\n    \"categories\": [\n        {\n            \"name\": \"Document Metadata\",\n            \"description\": \"Report identification and structural information\",\n            \"vector_ids\": [\n                \"1\"\n            ]\n        },\n        {\n            \"name\": \"Executive Summary\",\n            \"description\": \"High-level financial performance and strategic expansion overview\",\n            \"vector_ids\": [\n                \"2\"\n            ]\n        },\n        {\n            \"name\": \"Business Metrics\",\n            \"description\": \"Operational KPIs and performance indicators\",\n            \"vector_ids\": [\n                \"3\"\n            ]\n        },\n        {\n            \"name\": \"Future Outlook\",\n            \"description\": \"Forward-looking projections and strategic initiatives\",\n            \"vector_ids\": [\n                \"4\"\n            ]\n        }\n    ],\n    \"relationships\": [\n        {\n            \"type\": \"hierarchical\",\n            \"description\": \"Report title references all content sections\",\n            \"from\": \"1\",\n            \"to\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"type\": \"temporal\",\n            \"description\": \"Q4 2025 results inform Q1 2026 outlook\",\n            \"from\": \"2\",\n            \"to\": \"4\"\n        },\n        {\n            \"type\": \"supporting\",\n            \"description\": \"Business metrics support executive summary claims\",\n            \"from\": \"3\",\n            \"to\": \"2\"\n        }\n    ]\n}\n",
+            "data_html": "<table ><tr><th>name</th><td>Q4 2025 Business Report Index</td></tr><tr><th>description</th><td>Structured index of Q4 2025 quarterly business report embeddings with categories and cross-references</td></tr><tr><th>vectors</th><td><ul><li><table ><tr><th>id</th><td>1</td></tr><tr><th>content</th><td>Q4 2025 quarterly business report title</td></tr><tr><th>category</th><td>Document Metadata</td></tr><tr><th>tags</th><td><ul><li>title</li><li>Q4 2025</li><li>business report</li></ul></td></tr><tr><th>cross_references</th><td><ul><li>2</li><li>3</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>2</td></tr><tr><th>content</th><td>Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America</td></tr><tr><th>category</th><td>Executive Summary</td></tr><tr><th>subcategory</th><td>Financial Performance &amp; Strategic Expansion</td></tr><tr><th>tags</th><td><ul><li>executive summary</li><li>Q4 2025</li><li>revenue growth</li><li>operating margin</li><li>customer acquisition</li><li>geographic expansion</li><li>financial metrics</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>revenue</th><td>$4.2B</td></tr><tr><th>revenue_growth</th><td>15%</td></tr><tr><th>operating_margin</th><td>28%</td></tr><tr><th>cac_reduction</th><td>12%</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>3</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>3</td></tr><tr><th>content</th><td>Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&amp;D investment representing 20% of revenue</td></tr><tr><th>category</th><td>Business Metrics</td></tr><tr><th>subcategory</th><td>Operational KPIs</td></tr><tr><th>tags</th><td><ul><li>business metrics</li><li>active users</li><li>MRR</li><li>NPS</li><li>employees</li><li>R&amp;D investment</li><li>KPIs</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>active_users</th><td>45M</td></tr><tr><th>user_growth</th><td>22%</td></tr><tr><th>monthly_recurring_revenue</th><td>$350M</td></tr><tr><th>net_promoter_score</th><td>71</td></tr><tr><th>employees</th><td>8500</td></tr><tr><th>global_offices</th><td>12</td></tr><tr><th>rd_investment</th><td>$840M</td></tr><tr><th>rd_percentage</th><td>20%</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>2</li><li>4</li></ul></td></tr></table></li><li><table ><tr><th>id</th><td>4</td></tr><tr><th>content</th><td>Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products</td></tr><tr><th>category</th><td>Future Outlook</td></tr><tr><th>subcategory</th><td>Q1 2026 Projections &amp; Strategic Initiatives</td></tr><tr><th>tags</th><td><ul><li>outlook</li><li>Q1 2026</li><li>revenue projection</li><li>strategic initiatives</li><li>AI analytics</li><li>partner ecosystem</li><li>SOC 2 certification</li></ul></td></tr><tr><th>metrics</th><td><table ><tr><th>projected_revenue_min</th><td>$4.4B</td></tr><tr><th>projected_revenue_max</th><td>$4.6B</td></tr></table></td></tr><tr><th>cross_references</th><td><ul><li>1</li><li>2</li><li>3</li></ul></td></tr></table></li></ul></td></tr><tr><th>categories</th><td><table ><thead><tr><th>name</th><th>description</th><th>vector_ids</th></tr></thead><tbody><tr><td>Document Metadata</td><td>Report identification and structural information</td><td><ul><li>1</li></ul></td></tr><tr><td>Executive Summary</td><td>High-level financial performance and strategic expansion overview</td><td><ul><li>2</li></ul></td></tr><tr><td>Business Metrics</td><td>Operational KPIs and performance indicators</td><td><ul><li>3</li></ul></td></tr><tr><td>Future Outlook</td><td>Forward-looking projections and strategic initiatives</td><td><ul><li>4</li></ul></td></tr></tbody></table></td></tr><tr><th>relationships</th><td><table ><thead><tr><th>type</th><th>description</th><th>from</th><th>to</th></tr></thead><tbody><tr><td>hierarchical</td><td>Report title references all content sections</td><td>1</td><td><ul><li>2</li><li>3</li><li>4</li></ul></td></tr><tr><td>temporal</td><td>Q4 2025 results inform Q1 2026 outlook</td><td>2</td><td>4</td></tr><tr><td>supporting</td><td>Business metrics support executive summary claims</td><td>3</td><td>2</td></tr></tbody></table></td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "ValidationReport",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "8Vs9v",
+            "data": {
+              "text": "# Vector Index Validation Report\n\n## Overall Assessment\n**Status: GOOD with Minor Improvements Recommended**\n\nThe index is well-structured and functional, but has some areas that could be enhanced for production use.\n\n---\n\n## ✅ Strengths\n\n1. **Clear Structure**: Logical organization with metadata, categories, and relationships\n2. **Rich Metadata**: Comprehensive tags, metrics, and cross-references\n3. **Consistent Schema**: All vectors follow the same structural pattern\n4. **Bidirectional References**: Cross-references are properly maintained\n5. **Explicit Relationships**: Well-defined relationship types (hierarchical, temporal, supporting)\n6. **Structured Metrics**: Extracted quantitative data for easy filtering/analysis\n\n---\n\n## ⚠️ Issues & Recommendations\n\n### 1. **Missing Vector Embeddings**\n**Severity: HIGH**\n- **Issue**: No actual vector embeddings (numerical arrays) are present\n- **Impact**: Cannot perform similarity searches, which is the primary purpose of a vector index\n- **Recommendation**: Add an `embedding` field with the actual vector representation\n```json\n\"embedding\": [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions\n```\n\n### 2. **No Embedding Metadata**\n**Severity: MEDIUM**\n- **Issue**: Missing information about the embedding model used\n- **Recommendation**: Add index-level metadata:\n```json\n\"embedding_config\": {\n    \"model\": \"text-embedding-ada-002\",\n    \"dimensions\": 1536,\n    \"similarity_metric\": \"cosine\"\n}\n```\n\n### 3. **Inconsistent Metric Formatting**\n**Severity: LOW**\n- **Issue**: Metrics mix strings (\"$4.2B\", \"15%\") with numbers (71, 8500)\n- **Impact**: Harder to perform numerical comparisons/filtering\n- **Recommendation**: Standardize to numerical values with separate unit fields:\n```json\n\"revenue\": {\n    \"value\": 4.2,\n    \"unit\": \"billion\",\n    \"currency\": \"USD\"\n}\n```\n\n### 4. **Missing Temporal Metadata**\n**Severity: LOW**\n- **Issue**: No timestamps for when vectors were created/updated\n- **Recommendation**: Add:\n```json\n\"created_at\": \"2025-01-15T10:30:00Z\",\n\"updated_at\": \"2025-01-15T10:30:00Z\"\n```\n\n### 5. **No Version Control**\n**Severity: LOW**\n- **Issue**: No versioning for the index or individual vectors\n- **Recommendation**: Add version tracking:\n```json\n\"version\": \"1.0.0\",\n\"schema_version\": \"1.0\"\n```\n\n### 6. **Limited Search Optimization**\n**Severity: MEDIUM**\n- **Issue**: No search-specific fields like boost weights or filters\n- **Recommendation**: Consider adding:\n```json\n\"search_weight\": 1.5,\n\"searchable\": true,\n\"filter_fields\": [\"category\", \"tags\", \"metrics.revenue\"]\n```\n\n### 7. **Incomplete Relationship Graph**\n**Severity: LOW**\n- **Issue**: Relationship between vectors 3→4 not explicitly defined\n- **Current**: Only 2→4 and 3→2 relationships exist\n- **Recommendation**: Add relationship if business metrics inform future outlook\n\n### 8. **No Data Validation Rules**\n**Severity: LOW**\n- **Issue**: No schema validation or constraints defined\n- **Recommendation**: Add validation rules:\n```json\n\"validation\": {\n    \"required_fields\": [\"id\", \"content\", \"category\", \"embedding\"],\n    \"id_format\": \"string\",\n    \"content_max_length\": 5000\n}\n```\n\n---\n\n## 📋 Completeness Checklist\n\n| Component | Status | Notes |\n|-----------|--------|-------|\n| Index metadata | ✅ Complete | Name and description present |\n| Vector entries | ✅ Complete | 4 vectors covering all sections |\n| Content text | ✅ Complete | All vectors have descriptive content |\n| **Embeddings** | ❌ **Missing** | **Critical for vector search** |\n| Categories | ✅ Complete | All 4 categories defined |\n| Tags | ✅ Complete | Comprehensive tagging |\n| Cross-references | ✅ Complete | All references valid |\n| Relationships | ⚠️ Partial | Could be more comprehensive |\n| Metrics extraction | ✅ Complete | Good structured data |\n| Timestamps | ❌ Missing | Recommended for tracking |\n\n---\n\n## 🎯 Priority Actions\n\n### **Critical (Before Production)**\n1. Add actual vector embeddings to all entries\n2. Document embedding model and configuration\n\n### **High Priority**\n1. Standardize metric data types\n2. Add search optimization fields\n\n### **Nice to Have**\n1. Add timestamps and versioning\n2. Complete relationship mappings\n3. Add validation schema\n\n---\n\n## Conclusion\n\nThe index demonstrates good structural design and metadata organization. However, it's **not production-ready** without actual vector embeddings. Once embeddings are added and metric formatting is standardized, this will be a high-quality vector index suitable for semantic search applications.\n\n**Recommended Next Steps:**\n1. Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)\n2. Implement the critical fixes above\n3. Add validation logic to ensure data quality\n4. Test similarity search functionality"
+            },
+            "data_text": "                                   Vector Index Validation Report                                   \n\nOverall Assessment                                                                                  \n\nStatus: GOOD with Minor Improvements Recommended                                                    \n\nThe index is well-structured and functional, but has some areas that could be enhanced for          \nproduction use.                                                                                     \n\n----------------------------------------------------------------------------------------------------\n\n✅ Strengths                                                                                        \n\n 1 Clear Structure: Logical organization with metadata, categories, and relationships               \n 2 Rich Metadata: Comprehensive tags, metrics, and cross-references                                 \n 3 Consistent Schema: All vectors follow the same structural pattern                                \n 4 Bidirectional References: Cross-references are properly maintained                               \n 5 Explicit Relationships: Well-defined relationship types (hierarchical, temporal, supporting)     \n 6 Structured Metrics: Extracted quantitative data for easy filtering/analysis                      \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Issues & Recommendations                                                                         \n\n1. Missing Vector Embeddings                                                                        \n\nSeverity: HIGH                                                                                      \n\n • Issue: No actual vector embeddings (numerical arrays) are present                                \n • Impact: Cannot perform similarity searches, which is the primary purpose of a vector index       \n • Recommendation: Add an embedding field with the actual vector representation                     \n\n                                                                                                    \n \"embedding\": [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions                          \n                                                                                                    \n\n2. No Embedding Metadata                                                                            \n\nSeverity: MEDIUM                                                                                    \n\n • Issue: Missing information about the embedding model used                                        \n • Recommendation: Add index-level metadata:                                                        \n\n                                                                                                    \n \"embedding_config\": {                                                                              \n     \"model\": \"text-embedding-ada-002\",                                                             \n     \"dimensions\": 1536,                                                                            \n     \"similarity_metric\": \"cosine\"                                                                  \n }                                                                                                  \n                                                                                                    \n\n3. Inconsistent Metric Formatting                                                                   \n\nSeverity: LOW                                                                                       \n\n • Issue: Metrics mix strings (\"$4.2B\", \"15%\") with numbers (71, 8500)                              \n • Impact: Harder to perform numerical comparisons/filtering                                        \n • Recommendation: Standardize to numerical values with separate unit fields:                       \n\n                                                                                                    \n \"revenue\": {                                                                                       \n     \"value\": 4.2,                                                                                  \n     \"unit\": \"billion\",                                                                             \n     \"currency\": \"USD\"                                                                              \n }                                                                                                  \n                                                                                                    \n\n4. Missing Temporal Metadata                                                                        \n\nSeverity: LOW                                                                                       \n\n • Issue: No timestamps for when vectors were created/updated                                       \n • Recommendation: Add:                                                                             \n\n                                                                                                    \n \"created_at\": \"2025-01-15T10:30:00Z\",                                                              \n \"updated_at\": \"2025-01-15T10:30:00Z\"                                                               \n                                                                                                    \n\n5. No Version Control                                                                               \n\nSeverity: LOW                                                                                       \n\n • Issue: No versioning for the index or individual vectors                                         \n • Recommendation: Add version tracking:                                                            \n\n                                                                                                    \n \"version\": \"1.0.0\",                                                                                \n \"schema_version\": \"1.0\"                                                                            \n                                                                                                    \n\n6. Limited Search Optimization                                                                      \n\nSeverity: MEDIUM                                                                                    \n\n • Issue: No search-specific fields like boost weights or filters                                   \n • Recommendation: Consider adding:                                                                 \n\n                                                                                                    \n \"search_weight\": 1.5,                                                                              \n \"searchable\": true,                                                                                \n \"filter_fields\": [\"category\", \"tags\", \"metrics.revenue\"]                                           \n                                                                                                    \n\n7. Incomplete Relationship Graph                                                                    \n\nSeverity: LOW                                                                                       \n\n • Issue: Relationship between vectors 3→4 not explicitly defined                                   \n • Current: Only 2→4 and 3→2 relationships exist                                                    \n • Recommendation: Add relationship if business metrics inform future outlook                       \n\n8. No Data Validation Rules                                                                         \n\nSeverity: LOW                                                                                       \n\n • Issue: No schema validation or constraints defined                                               \n • Recommendation: Add validation rules:                                                            \n\n                                                                                                    \n \"validation\": {                                                                                    \n     \"required_fields\": [\"id\", \"content\", \"category\", \"embedding\"],                                 \n     \"id_format\": \"string\",                                                                         \n     \"content_max_length\": 5000                                                                     \n }                                                                                                  \n                                                                                                    \n\n----------------------------------------------------------------------------------------------------\n\n📋 Completeness Checklist                                                                           \n\n                                                                       \n Component           Status       Notes                                \n ───────────────────────────────────────────────────────────────────── \n Index metadata      ✅ Complete  Name and description present         \n Vector entries      ✅ Complete  4 vectors covering all sections      \n Content text        ✅ Complete  All vectors have descriptive content \n Embeddings          ❌ Missing   Critical for vector search           \n Categories          ✅ Complete  All 4 categories defined             \n Tags                ✅ Complete  Comprehensive tagging                \n Cross-references    ✅ Complete  All references valid                 \n Relationships       ⚠️ Partial   Could be more comprehensive          \n Metrics extraction  ✅ Complete  Good structured data                 \n Timestamps          ❌ Missing   Recommended for tracking             \n                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n🎯 Priority Actions                                                                                 \n\nCritical (Before Production)                                                                        \n\n 1 Add actual vector embeddings to all entries                                                      \n 2 Document embedding model and configuration                                                       \n\nHigh Priority                                                                                       \n\n 1 Standardize metric data types                                                                    \n 2 Add search optimization fields                                                                   \n\nNice to Have                                                                                        \n\n 1 Add timestamps and versioning                                                                    \n 2 Complete relationship mappings                                                                   \n 3 Add validation schema                                                                            \n\n----------------------------------------------------------------------------------------------------\n\nConclusion                                                                                          \n\nThe index demonstrates good structural design and metadata organization. However, it's not          \nproduction-ready without actual vector embeddings. Once embeddings are added and metric formatting  \nis standardized, this will be a high-quality vector index suitable for semantic search applications.\n\nRecommended Next Steps:                                                                             \n\n 1 Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)               \n 2 Implement the critical fixes above                                                               \n 3 Add validation logic to ensure data quality                                                      \n 4 Test similarity search functionality                                                             \n",
+            "data_html": "# Vector Index Validation Report\n\n## Overall Assessment\n**Status: GOOD with Minor Improvements Recommended**\n\nThe index is well-structured and functional, but has some areas that could be enhanced for production use.\n\n---\n\n## ✅ Strengths\n\n1. **Clear Structure**: Logical organization with metadata, categories, and relationships\n2. **Rich Metadata**: Comprehensive tags, metrics, and cross-references\n3. **Consistent Schema**: All vectors follow the same structural pattern\n4. **Bidirectional References**: Cross-references are properly maintained\n5. **Explicit Relationships**: Well-defined relationship types (hierarchical, temporal, supporting)\n6. **Structured Metrics**: Extracted quantitative data for easy filtering/analysis\n\n---\n\n## ⚠️ Issues &amp; Recommendations\n\n### 1. **Missing Vector Embeddings**\n**Severity: HIGH**\n- **Issue**: No actual vector embeddings (numerical arrays) are present\n- **Impact**: Cannot perform similarity searches, which is the primary purpose of a vector index\n- **Recommendation**: Add an `embedding` field with the actual vector representation\n```json\n&quot;embedding&quot;: [0.123, -0.456, 0.789, ...] // typically 384-1536 dimensions\n```\n\n### 2. **No Embedding Metadata**\n**Severity: MEDIUM**\n- **Issue**: Missing information about the embedding model used\n- **Recommendation**: Add index-level metadata:\n```json\n&quot;embedding_config&quot;: {\n    &quot;model&quot;: &quot;text-embedding-ada-002&quot;,\n    &quot;dimensions&quot;: 1536,\n    &quot;similarity_metric&quot;: &quot;cosine&quot;\n}\n```\n\n### 3. **Inconsistent Metric Formatting**\n**Severity: LOW**\n- **Issue**: Metrics mix strings (&quot;$4.2B&quot;, &quot;15%&quot;) with numbers (71, 8500)\n- **Impact**: Harder to perform numerical comparisons/filtering\n- **Recommendation**: Standardize to numerical values with separate unit fields:\n```json\n&quot;revenue&quot;: {\n    &quot;value&quot;: 4.2,\n    &quot;unit&quot;: &quot;billion&quot;,\n    &quot;currency&quot;: &quot;USD&quot;\n}\n```\n\n### 4. **Missing Temporal Metadata**\n**Severity: LOW**\n- **Issue**: No timestamps for when vectors were created/updated\n- **Recommendation**: Add:\n```json\n&quot;created_at&quot;: &quot;2025-01-15T10:30:00Z&quot;,\n&quot;updated_at&quot;: &quot;2025-01-15T10:30:00Z&quot;\n```\n\n### 5. **No Version Control**\n**Severity: LOW**\n- **Issue**: No versioning for the index or individual vectors\n- **Recommendation**: Add version tracking:\n```json\n&quot;version&quot;: &quot;1.0.0&quot;,\n&quot;schema_version&quot;: &quot;1.0&quot;\n```\n\n### 6. **Limited Search Optimization**\n**Severity: MEDIUM**\n- **Issue**: No search-specific fields like boost weights or filters\n- **Recommendation**: Consider adding:\n```json\n&quot;search_weight&quot;: 1.5,\n&quot;searchable&quot;: true,\n&quot;filter_fields&quot;: [&quot;category&quot;, &quot;tags&quot;, &quot;metrics.revenue&quot;]\n```\n\n### 7. **Incomplete Relationship Graph**\n**Severity: LOW**\n- **Issue**: Relationship between vectors 3→4 not explicitly defined\n- **Current**: Only 2→4 and 3→2 relationships exist\n- **Recommendation**: Add relationship if business metrics inform future outlook\n\n### 8. **No Data Validation Rules**\n**Severity: LOW**\n- **Issue**: No schema validation or constraints defined\n- **Recommendation**: Add validation rules:\n```json\n&quot;validation&quot;: {\n    &quot;required_fields&quot;: [&quot;id&quot;, &quot;content&quot;, &quot;category&quot;, &quot;embedding&quot;],\n    &quot;id_format&quot;: &quot;string&quot;,\n    &quot;content_max_length&quot;: 5000\n}\n```\n\n---\n\n## 📋 Completeness Checklist\n\n| Component | Status | Notes |\n|-----------|--------|-------|\n| Index metadata | ✅ Complete | Name and description present |\n| Vector entries | ✅ Complete | 4 vectors covering all sections |\n| Content text | ✅ Complete | All vectors have descriptive content |\n| **Embeddings** | ❌ **Missing** | **Critical for vector search** |\n| Categories | ✅ Complete | All 4 categories defined |\n| Tags | ✅ Complete | Comprehensive tagging |\n| Cross-references | ✅ Complete | All references valid |\n| Relationships | ⚠️ Partial | Could be more comprehensive |\n| Metrics extraction | ✅ Complete | Good structured data |\n| Timestamps | ❌ Missing | Recommended for tracking |\n\n---\n\n## 🎯 Priority Actions\n\n### **Critical (Before Production)**\n1. Add actual vector embeddings to all entries\n2. Document embedding model and configuration\n\n### **High Priority**\n1. Standardize metric data types\n2. Add search optimization fields\n\n### **Nice to Have**\n1. Add timestamps and versioning\n2. Complete relationship mappings\n3. Add validation schema\n\n---\n\n## Conclusion\n\nThe index demonstrates good structural design and metadata organization. However, it&#x27;s **not production-ready** without actual vector embeddings. Once embeddings are added and metric formatting is standardized, this will be a high-quality vector index suitable for semantic search applications.\n\n**Recommended Next Steps:**\n1. Generate embeddings using your chosen model (e.g., OpenAI, Cohere, or open-source)\n2. Implement the critical fixes above\n3. Add validation logic to ensure data quality\n4. Test similarity search functionality",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"name\": \"Q4 2025 Business Report Index\",\n    \"description\": \"Structured index of Q4 2025 quarterly business report embeddings with categories and cross-references\",\n    \"vectors\": [\n        {\n            \"id\": \"1\",\n            \"content\": \"Q4 2025 quarterly business report title\",\n            \"category\": \"Document Metadata\",\n            \"tags\": [\n                \"title\",\n                \"Q4 2025\",\n                \"business report\"\n            ],\n            \"cross_references\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"2\",\n            \"content\": \"Executive summary showing strong Q4 2025 financial performance with 15% revenue growth to $4.2B, improved operating margin to 28%, reduced customer acquisition costs by 12%, and geographic expansion into Southeast Asia, Eastern Europe, and South America\",\n            \"category\": \"Executive Summary\",\n            \"subcategory\": \"Financial Performance & Strategic Expansion\",\n            \"tags\": [\n                \"executive summary\",\n                \"Q4 2025\",\n                \"revenue growth\",\n                \"operating margin\",\n                \"customer acquisition\",\n                \"geographic expansion\",\n                \"financial metrics\"\n            ],\n            \"metrics\": {\n                \"revenue\": \"$4.2B\",\n                \"revenue_growth\": \"15%\",\n                \"operating_margin\": \"28%\",\n                \"cac_reduction\": \"12%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"3\",\n            \"content\": \"Key business metrics including 45 million active users (22% growth), $350M monthly recurring revenue, net promoter score of 71, 8,500 employees across 12 global offices, and $840M R&D investment representing 20% of revenue\",\n            \"category\": \"Business Metrics\",\n            \"subcategory\": \"Operational KPIs\",\n            \"tags\": [\n                \"business metrics\",\n                \"active users\",\n                \"MRR\",\n                \"NPS\",\n                \"employees\",\n                \"R&D investment\",\n                \"KPIs\"\n            ],\n            \"metrics\": {\n                \"active_users\": \"45M\",\n                \"user_growth\": \"22%\",\n                \"monthly_recurring_revenue\": \"$350M\",\n                \"net_promoter_score\": 71,\n                \"employees\": 8500,\n                \"global_offices\": 12,\n                \"rd_investment\": \"$840M\",\n                \"rd_percentage\": \"20%\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"4\"\n            ]\n        },\n        {\n            \"id\": \"4\",\n            \"content\": \"Q1 2026 outlook projecting revenue between $4.4B-$4.6B with strategic initiatives focused on AI-powered analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification for cloud products\",\n            \"category\": \"Future Outlook\",\n            \"subcategory\": \"Q1 2026 Projections & Strategic Initiatives\",\n            \"tags\": [\n                \"outlook\",\n                \"Q1 2026\",\n                \"revenue projection\",\n                \"strategic initiatives\",\n                \"AI analytics\",\n                \"partner ecosystem\",\n                \"SOC 2 certification\"\n            ],\n            \"metrics\": {\n                \"projected_revenue_min\": \"$4.4B\",\n                \"projected_revenue_max\": \"$4.6B\"\n            },\n            \"cross_references\": [\n                \"1\",\n                \"2\",\n                \"3\"\n            ]\n        }\n    ],\n    \"categories\": [\n        {\n            \"name\": \"Document Metadata\",\n            \"description\": \"Report identification and structural information\",\n            \"vector_ids\": [\n                \"1\"\n            ]\n        },\n        {\n            \"name\": \"Executive Summary\",\n            \"description\": \"High-level financial performance and strategic expansion overview\",\n            \"vector_ids\": [\n                \"2\"\n            ]\n        },\n        {\n            \"name\": \"Business Metrics\",\n            \"description\": \"Operational KPIs and performance indicators\",\n            \"vector_ids\": [\n                \"3\"\n            ]\n        },\n        {\n            \"name\": \"Future Outlook\",\n            \"description\": \"Forward-looking projections and strategic initiatives\",\n            \"vector_ids\": [\n                \"4\"\n            ]\n        }\n    ],\n    \"relationships\": [\n        {\n            \"type\": \"hierarchical\",\n            \"description\": \"Report title references all content sections\",\n            \"from\": \"1\",\n            \"to\": [\n                \"2\",\n                \"3\",\n                \"4\"\n            ]\n        },\n        {\n            \"type\": \"temporal\",\n            \"description\": \"Q4 2025 results inform Q1 2026 outlook\",\n            \"from\": \"2\",\n            \"to\": \"4\"\n        },\n        {\n            \"type\": \"supporting\",\n            \"description\": \"Business metrics support executive summary claims\",\n            \"from\": \"3\",\n            \"to\": \"2\"\n        }\n    ]\n}\n</index>",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_0",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_1",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_2",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_3",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_4",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_5",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_0",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_6",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_1",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_2",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_7",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_2",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_3",
+      "kind": "data",
+      "label": "clean_text",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_8",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_3",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_4",
+      "kind": "data",
+      "label": "chunks",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_9",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_4",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_5",
+      "kind": "data",
+      "label": "embeddings",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:edge_10",
+      "source": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_5",
+      "target": "c4a03cb5-16bd-4bc0-8ed0-c161701370c2:node_6",
+      "kind": "data",
+      "label": "index",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "data_pipeline.ingest_pipeline": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "ingest_pipeline",
+      "domain_code": "data_pipeline",
+      "description": "Full document ingestion pipeline",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ValidationReport",
+          "domain_code": "data_pipeline",
+          "description": "Report validating the index quality",
+          "structure_class_name": "ValidationReport",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_raw",
+          "output_name": "pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "clean_text",
+          "output_name": "clean_text",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "chunk_text",
+          "output_name": "chunks",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "embed_chunks",
+          "output_name": "embeddings",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "build_index",
+          "output_name": "index",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "validate_index",
+          "output_name": "report",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "data_pipeline.extract_raw": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_raw",
+      "domain_code": "data_pipeline",
+      "description": "Extract raw content from document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "document"
+    },
+    "data_pipeline.clean_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "clean_text",
+      "domain_code": "data_pipeline",
+      "description": "Clean and normalize extracted text",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CleanText",
+          "domain_code": "data_pipeline",
+          "description": "Text that has been cleaned and normalized",
+          "structure_class_name": "CleanText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n@pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "data_pipeline.chunk_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "chunk_text",
+      "domain_code": "data_pipeline",
+      "description": "Split text into semantic chunks",
+      "inputs": {
+        "clean_text": {
+          "concept": {
+            "code": "CleanText",
+            "domain_code": "data_pipeline",
+            "description": "Text that has been cleaned and normalized",
+            "structure_class_name": "CleanText",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TextChunk",
+          "domain_code": "data_pipeline",
+          "description": "A segment of text split for processing",
+          "structure_class_name": "TextChunk",
+          "refines": "native.Text"
+        },
+        "multiplicity": true
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n@clean_text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": true
+    },
+    "data_pipeline.embed_chunks": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "embed_chunks",
+      "domain_code": "data_pipeline",
+      "description": "Generate embeddings for text chunks",
+      "inputs": {
+        "chunks": {
+          "concept": {
+            "code": "TextChunk",
+            "domain_code": "data_pipeline",
+            "description": "A segment of text split for processing",
+            "structure_class_name": "TextChunk",
+            "refines": "native.Text"
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Embedding",
+          "domain_code": "data_pipeline",
+          "description": "Vector embedding of text",
+          "structure_class_name": "Embedding",
+          "refines": "native.Text"
+        },
+        "multiplicity": true
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Generate a semantic summary for each text chunk that captures its meaning:\n\n@chunks\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": true
+    },
+    "data_pipeline.build_index": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "build_index",
+      "domain_code": "data_pipeline",
+      "description": "Build vector index from embeddings",
+      "inputs": {
+        "embeddings": {
+          "concept": {
+            "code": "Embedding",
+            "domain_code": "data_pipeline",
+            "description": "Vector embedding of text",
+            "structure_class_name": "Embedding",
+            "refines": "native.Text"
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "VectorIndex",
+          "domain_code": "data_pipeline",
+          "description": "An indexed collection of vectors",
+          "structure_class_name": "VectorIndex",
+          "refines": "native.JSON"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Organize the following embeddings into a structured index with categories and cross-references:\n\n@embeddings\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "data_pipeline.validate_index": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "validate_index",
+      "domain_code": "data_pipeline",
+      "description": "Validate the quality of the built index",
+      "inputs": {
+        "index": {
+          "concept": {
+            "code": "VectorIndex",
+            "domain_code": "data_pipeline",
+            "description": "An indexed collection of vectors",
+            "structure_class_name": "VectorIndex",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ValidationReport",
+          "domain_code": "data_pipeline",
+          "description": "Report validating the index quality",
+          "structure_class_name": "ValidationReport",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Validate the following vector index for completeness and quality. Report any issues:\n\n@index\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "data_pipeline.ValidationReport": {
+      "code": "ValidationReport",
+      "domain_code": "data_pipeline",
+      "description": "Report validating the index quality",
+      "structure_class_name": "ValidationReport",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Report validating the index quality",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "ValidationReport",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageSize"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The size in pixels (width and height) of the image"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "data_pipeline.CleanText": {
+      "code": "CleanText",
+      "domain_code": "data_pipeline",
+      "description": "Text that has been cleaned and normalized",
+      "structure_class_name": "CleanText",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Text that has been cleaned and normalized",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "CleanText",
+        "type": "object"
+      }
+    },
+    "data_pipeline.TextChunk": {
+      "code": "TextChunk",
+      "domain_code": "data_pipeline",
+      "description": "A segment of text split for processing",
+      "structure_class_name": "TextChunk",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A segment of text split for processing",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextChunk",
+        "type": "object"
+      }
+    },
+    "data_pipeline.Embedding": {
+      "code": "Embedding",
+      "domain_code": "data_pipeline",
+      "description": "Vector embedding of text",
+      "structure_class_name": "Embedding",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Vector embedding of text",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Embedding",
+        "type": "object"
+      }
+    },
+    "data_pipeline.VectorIndex": {
+      "code": "VectorIndex",
+      "domain_code": "data_pipeline",
+      "description": "An indexed collection of vectors",
+      "structure_class_name": "VectorIndex",
+      "refines": "native.JSON",
+      "json_schema": {
+        "description": "An indexed collection of vectors",
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "VectorIndex",
+        "type": "object"
+      }
+    }
+  }
+}

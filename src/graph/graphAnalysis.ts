@@ -1,4 +1,4 @@
-import type { GraphSpec, DataflowAnalysis } from "./types";
+import type { GraphSpec, DataflowAnalysis, PipeBlueprintUnion, ConceptInfo } from "./types";
 
 export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnalysis | null {
   if (!graphspec) return null;
@@ -190,4 +190,26 @@ function isDescendantOf(
     current = childToController[current];
   }
   return false;
+}
+
+// ─── Registry lookup helpers ───────────────────────────────────────────────
+
+export function getPipeBlueprint(spec: GraphSpec, pipeRef: string): PipeBlueprintUnion | undefined {
+  return spec.pipe_registry?.[pipeRef];
+}
+
+export function getConceptInfo(spec: GraphSpec, conceptRef: string): ConceptInfo | undefined {
+  return spec.concept_registry?.[conceptRef];
+}
+
+export function resolveConceptRef(spec: GraphSpec, codeOrRef: string): ConceptInfo | undefined {
+  if (!spec.concept_registry) return undefined;
+  // Direct lookup first (e.g., "test_domain.Summary")
+  const direct = spec.concept_registry[codeOrRef];
+  if (direct) return direct;
+  // Search by code (e.g., "Summary" matches "test_domain.Summary")
+  for (const info of Object.values(spec.concept_registry)) {
+    if (info.code === codeOrRef) return info;
+  }
+  return undefined;
 }

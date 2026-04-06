@@ -101,6 +101,17 @@ export function buildDataflowGraph(
       Math.max(label.length, concept.length) * STUFF_CHAR_WIDTH_PX + STUFF_LABEL_PADDING;
     const stuffWidth = Math.max(MIN_STUFF_WIDTH, textWidth);
 
+    // Classify: input (no producer), output (no consumer), or intermediate
+    const isInput = !analysis.stuffProducers[digest];
+    const isOutput = !isInput && !analysis.stuffConsumers[digest]?.length;
+    const stuffRole = isInput ? ("input" as const) : isOutput ? ("output" as const) : undefined;
+
+    const borderColor = isInput
+      ? "var(--color-stuff-input-border, #50FA7B)"
+      : isOutput
+        ? "var(--color-stuff-output-border, #a78bfa)"
+        : "var(--color-stuff-border)";
+
     nodes.push({
       id: stuffId,
       type: NODE_TYPE_STUFF,
@@ -109,11 +120,13 @@ export function buildDataflowGraph(
         isStuff: true,
         isPipe: false,
         labelText: label,
+        stuffRole,
+        stuffDigest: digest,
       },
       position: { x: 0, y: 0 },
       style: {
         background: "var(--color-stuff-bg)",
-        border: "2px solid var(--color-stuff-border)",
+        border: `2px solid ${borderColor}`,
         borderRadius: "999px",
         padding: "0",
         width: stuffWidth + "px",

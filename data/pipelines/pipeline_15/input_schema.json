@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "rag_pipeline",
+  "inputs": {
+    "question": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

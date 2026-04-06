@@ -1,0 +1,9 @@
+{
+  "image": {
+    "concept": "native.Image",
+    "content": {
+      "url": "inputs/image.jpg",
+      "mime_type": "image/jpeg"
+    }
+  }
+}

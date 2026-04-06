@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_llm_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: make_llm_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Draf\n    ",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_11/dry_run.html"
+  }
+}

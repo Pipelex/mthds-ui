@@ -1,0 +1,358 @@
+/* ─── Detail Panel — sliding side panel for node inspection ─────────────── */
+
+.detail-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 380px;
+  height: 100%;
+  background: #111118;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", -apple-system, sans-serif;
+  color: #e2e8f0;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.detail-panel--closed {
+  transform: translateX(100%);
+  pointer-events: none;
+}
+
+.detail-panel-close {
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #64748b;
+  font-size: 18px;
+  line-height: 1;
+  z-index: 1;
+}
+
+.detail-panel-close:hover {
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.detail-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Shared detail components ──────────────────────────────────────────── */
+
+.detail-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.detail-badge--operator {
+  background: #ff6b6b;
+  color: #0e0e0e;
+}
+
+.detail-badge--controller {
+  background: #bd93f9;
+  color: #0e0e0e;
+}
+
+.detail-pipe-code {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+.detail-pipe-code--controller {
+  color: #bd93f9;
+}
+
+.detail-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.detail-status-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.detail-duration {
+  font-size: 11px;
+  color: #64748b;
+  font-family: "JetBrains Mono", "Monaco", monospace;
+}
+
+.detail-description {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* ─── IO Pills ──────────────────────────────────────────────────────────── */
+
+.detail-io-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detail-io-name {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: #e2e8f0;
+}
+
+.detail-io-concept {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.detail-io-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ─── Blueprint-specific sections ───────────────────────────────────────── */
+
+.detail-prompt-block {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 11px;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+.detail-kv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  padding: 3px 0;
+}
+
+.detail-kv-key {
+  color: #64748b;
+}
+
+.detail-kv-value {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: #e2e8f0;
+}
+
+/* ─── Concept schema table ──────────────────────────────────────────────── */
+
+.detail-schema-table {
+  width: 100%;
+  font-size: 11px;
+  border-collapse: collapse;
+}
+
+.detail-schema-table th {
+  text-align: left;
+  font-weight: 700;
+  color: #64748b;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detail-schema-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+}
+
+.detail-schema-field {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: #e2e8f0;
+}
+
+.detail-schema-type {
+  color: #8be9fd;
+}
+
+.detail-schema-required {
+  color: #ff6b6b;
+  font-size: 9px;
+}
+
+/* ─── Error section ─────────────────────────────────────────────────────── */
+
+.detail-error {
+  background: rgba(255, 85, 85, 0.08);
+  border: 1px solid rgba(255, 85, 85, 0.2);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.detail-error-type {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ff5555;
+  margin-bottom: 4px;
+}
+
+.detail-error-message {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.detail-error-stack {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ─── Steps list (PipeSequence, PipeCondition outcomes) ─────────────────── */
+
+.detail-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detail-step-index {
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+}
+
+.detail-step-code {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: #e2e8f0;
+}
+
+/* ─── Tags/Metrics ──────────────────────────────────────────────────────── */
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.detail-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detail-tag-key {
+  color: #64748b;
+}
+
+.detail-tag-value {
+  color: #e2e8f0;
+  font-family: "JetBrains Mono", "Monaco", monospace;
+}
+
+/* ─── Concept panel header ──────────────────────────────────────────────── */
+
+.detail-concept-code {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #50fa7b;
+}
+
+.detail-concept-domain {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.detail-refines {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.detail-refines-code {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: #8be9fd;
+}
+
+/* ─── Not available fallback ────────────────────────────────────────────── */
+
+.detail-not-available {
+  font-size: 12px;
+  color: #64748b;
+  font-style: italic;
+  padding: 8px 0;
+}

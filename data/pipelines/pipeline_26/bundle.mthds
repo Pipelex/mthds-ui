@@ -1,0 +1,123 @@
+domain      = "cv_matching"
+description = "Screen CVs against a job offer: evaluate match, generate interview questions or refusal email"
+main_pipe   = "screen_cvs"
+
+[concept.CvEvaluation]
+description = "Evaluation of a CV against a job offer"
+
+[concept.CvEvaluation.structure]
+candidate_name = { type = "text", description = "Name of the candidate", required = true }
+match = { type = "text", description = "Whether the CV matches: yes or no", required = true, choices = [
+  "yes",
+  "no",
+] }
+match_score = { type = "number", description = "Match score from 0 to 100", required = true }
+strengths = { type = "list", description = "Key strengths relative to the job" }
+gaps = { type = "list", description = "Missing qualifications relative to the job" }
+summary = { type = "text", description = "Overall evaluation summary", required = true }
+
+[concept.InterviewQuestion]
+description = "A tailored interview question for a candidate"
+refines     = "Text"
+
+[pipe.extract_cv_pages]
+type        = "PipeExtract"
+description = "Extract text pages from a CV document"
+inputs      = { cv = "Document" }
+output      = "Page[]"
+
+[pipe.extract_job_pages]
+type        = "PipeExtract"
+description = "Extract text pages from the job offer document"
+inputs      = { job_offer = "Document" }
+output      = "Page[]"
+
+[pipe.evaluate_cv]
+type = "PipeLLM"
+description = "Evaluate how well the CV matches the job offer requirements"
+inputs = { cv_pages = "Page[]", job_pages = "Page[]" }
+output = "CvEvaluation"
+prompt = """
+You are an experienced HR recruiter. Analyze the following CV and job offer, then evaluate how well the candidate matches the position.
+
+## Job Offer
+@job_pages
+
+## Candidate CV
+@cv_pages
+
+## Instructions
+- Extract the candidate name from the CV
+- Assess whether the candidate is a good match (yes/no) based on required qualifications, experience, and skills
+- Provide a match score from 0 to 100
+- List key strengths relevant to the position
+- List gaps or missing qualifications
+- Write a concise overall summary of the evaluation
+"""
+
+[pipe.route_by_match]
+type            = "PipeCondition"
+description     = "Route based on whether the CV matches the job offer"
+inputs          = { evaluation = "CvEvaluation" }
+output          = "Anything"
+expression      = "evaluation.match"
+outcomes        = { yes = "generate_interview_questions", no = "write_refusal_email" }
+default_outcome = "write_refusal_email"
+
+[pipe.generate_interview_questions]
+type = "PipeLLM"
+description = "Generate tailored interview questions for a matching candidate"
+inputs = { evaluation = "CvEvaluation" }
+output = "InterviewQuestion[]"
+prompt = """
+Based on the following CV evaluation, generate exactly 5 tailored interview questions that:
+- Probe the candidate's strengths to verify depth of expertise
+- Explore the identified gaps to assess if they can be overcome
+- Are specific to this candidate and role, not generic
+
+## Evaluation
+@evaluation
+
+Generate 5 insightful, role-specific interview questions.
+"""
+
+[pipe.write_refusal_email]
+type = "PipeCompose"
+description = "Write a professional refusal email for a non-matching candidate"
+inputs = { evaluation = "CvEvaluation" }
+output = "Text"
+template = """
+Dear {{ evaluation.candidate_name }},
+
+Thank you for your interest in the position and for taking the time to submit your application.
+
+After careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.
+
+{{ evaluation.summary }}
+
+We encourage you to apply for future openings that may better match your qualifications.
+
+Best regards,
+HR Team
+"""
+
+[pipe.screen_single_cv]
+type = "PipeSequence"
+description = "Screen a single CV against a job offer"
+inputs = { cv = "Document", job_pages = "Page[]" }
+output = "Anything"
+steps = [
+  { pipe = "extract_cv_pages", result = "cv_pages" },
+  { pipe = "evaluate_cv", result = "evaluation" },
+  { pipe = "route_by_match", result = "output" },
+]
+
+[pipe.screen_cvs]
+type = "PipeSequence"
+description = "Screen multiple CVs against a job offer"
+inputs = { cvs = "Document[]", job_offer = "Document" }
+output = "Anything[]"
+steps = [
+  { pipe = "extract_job_pages", result = "job_pages" },
+  { pipe = "screen_single_cv", batch_over = "cvs", batch_as = "cv", result = "results" },
+]
