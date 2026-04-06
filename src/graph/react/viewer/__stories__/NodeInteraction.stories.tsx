@@ -85,8 +85,8 @@ function getStuffInfo(spec: GraphSpec, digest: string) {
   let dataPreview: string | undefined;
   if (producerNode?.io?.outputs) {
     for (const out of producerNode.io.outputs) {
-      if (out.digest === digest && (out as any).data_text) {
-        dataPreview = (out as any).data_text;
+      if (out.digest === digest && out.data_text) {
+        dataPreview = out.data_text;
         break;
       }
     }
