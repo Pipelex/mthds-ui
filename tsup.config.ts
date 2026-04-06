@@ -33,5 +33,7 @@ export default defineConfig({
     cpSync("src/graph/react/graph-core.css", "dist/graph/react/graph-core.css");
     mkdirSync("dist/graph/react/stuff", { recursive: true });
     cpSync("src/graph/react/stuff/StuffViewer.css", "dist/graph/react/stuff/StuffViewer.css");
+    mkdirSync("dist/graph/react/detail", { recursive: true });
+    cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
   },
 });
