@@ -1,0 +1,1712 @@
+{
+  "graph_id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f",
+  "created_at": "2026-04-06T10:21:04.754260Z",
+  "pipeline_ref": {
+    "domain": "content_etl",
+    "main_pipe": "etl_pipeline",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_0",
+      "kind": "controller",
+      "pipe_code": "etl_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:04.760678Z",
+        "ended_at": "2026-04-06T10:21:26.091543Z",
+        "duration": 21.330865
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "LYHvW",
+            "data": {
+              "url": "pipelex-storage://normalized/8xPWXTjXYdb4RtepasZKck.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/8xPWXTjXYdb4RtepasZKck.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "processed",
+            "concept": "ProcessedContent",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3XyV8",
+            "data": {
+              "text": "# Processed Content\n\n## Text\nclean_text: ```\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>\n```\n\n## Images\nprocessed_image: ```\n# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.\n```"
+            },
+            "data_text": "                                         Processed Content                                          \n\nText                                                                                                \n\nclean_text: ```                                                                                     \n\n                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n\n                                                                                                    \n                                                                                                    \n ## Images                                                                                          \n processed_image: ```                                                                               \n # Image Captions                                                                                   \n                                                                                                    \n **No captions generated.**                                                                         \n                                                                                                    \n **Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is  \n a text-only quarterly business report.                                                             \n                                                                                                    \n",
+            "data_html": "# Processed Content\n\n## Text\nclean_text: ```\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;\n```\n\n## Images\nprocessed_image: ```\n# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_content",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:04.766797Z",
+        "ended_at": "2026-04-06T10:21:10.874440Z",
+        "duration": 6.107643
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "LYHvW",
+            "data": {
+              "url": "pipelex-storage://normalized/8xPWXTjXYdb4RtepasZKck.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/8xPWXTjXYdb4RtepasZKck.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/8xPWXTjXYdb4RtepasZKck.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "document",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "kind": "controller",
+      "pipe_code": "dual_process",
+      "pipe_type": "PipeParallel",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:10.875800Z",
+        "ended_at": "2026-04-06T10:21:26.071194Z",
+        "duration": 15.195394
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "clean_text",
+            "concept": "EnrichedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "F5tR8",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>"
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;",
+            "extra": {}
+          },
+          {
+            "name": "processed_image",
+            "concept": "ProcessedImage",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "goB83",
+            "data": {
+              "text": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report."
+            },
+            "data_text": "                                           Image Captions                                           \n\nNo captions generated.                                                                              \n\nReason: The document contains no images, figures, charts, graphs, or visual elements. This is a     \ntext-only quarterly business report.                                                                \n",
+            "data_html": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "branch_count": 2,
+        "add_each_output": true,
+        "combined_output_concept": null
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_3",
+      "kind": "controller",
+      "pipe_code": "text_branch",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:10.883141Z",
+        "ended_at": "2026-04-06T10:21:26.060651Z",
+        "duration": 15.17751
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "clean_text",
+            "concept": "EnrichedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "F5tR8",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>"
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_4",
+      "kind": "operator",
+      "pipe_code": "clean_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:10.890135Z",
+        "ended_at": "2026-04-06T10:21:15.845161Z",
+        "duration": 4.955026
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "clean_text",
+            "concept": "CleanText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3ANCz",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and \nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost \ndecreased by 12% due to improved marketing efficiency. The company expanded into three new markets: \nSoutheast Asia, Eastern Europe, and South America.                                                  \n\nKey Metrics                                                                                         \n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter  \nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D      \ninvestment was $840M, representing 20% of revenue.                                                  \n\nOutlook                                                                                             \n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the       \nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II         \ncertification for all cloud products.                                                               \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_5",
+      "kind": "controller",
+      "pipe_code": "image_branch",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:12.163949Z",
+        "ended_at": "2026-04-06T10:21:22.701051Z",
+        "duration": 10.537102
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "processed_image",
+            "concept": "ProcessedImage",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "goB83",
+            "data": {
+              "text": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report."
+            },
+            "data_text": "                                           Image Captions                                           \n\nNo captions generated.                                                                              \n\nReason: The document contains no images, figures, charts, graphs, or visual elements. This is a     \ntext-only quarterly business report.                                                                \n",
+            "data_html": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_6",
+      "kind": "operator",
+      "pipe_code": "extract_images",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:12.176757Z",
+        "ended_at": "2026-04-06T10:21:17.697355Z",
+        "duration": 5.520598
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Psf3s",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "described",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "myF9k",
+            "data": {
+              "text": "# Analysis of Images and Figures\n\nBased on my review of the provided pages, **there are no images or figures present in this document.**\n\n## What the Document Contains:\n\nThe document is a **Quarterly Business Report for Q4 2025** that consists entirely of text content organized into three main sections:\n\n1. **Executive Summary** - Financial performance metrics and market expansion information\n2. **Key Metrics** - User statistics, revenue data, and operational metrics\n3. **Outlook** - Forward-looking projections and strategic initiatives for Q1 2026\n\n## Confirmation:\n\nThe document structure explicitly indicates:\n- **images:** (empty section)\n- **raw_html:** None\n- **page_view:** None\n\nThis is a text-only business report with no visual elements such as charts, graphs, tables, photographs, diagrams, or other figures that would typically accompany financial reporting documents."
+            },
+            "data_text": "                                   Analysis of Images and Figures                                   \n\nBased on my review of the provided pages, there are no images or figures present in this document.  \n\nWhat the Document Contains:                                                                         \n\nThe document is a Quarterly Business Report for Q4 2025 that consists entirely of text content      \norganized into three main sections:                                                                 \n\n 1 Executive Summary - Financial performance metrics and market expansion information               \n 2 Key Metrics - User statistics, revenue data, and operational metrics                             \n 3 Outlook - Forward-looking projections and strategic initiatives for Q1 2026                      \n\nConfirmation:                                                                                       \n\nThe document structure explicitly indicates:                                                        \n\n • images: (empty section)                                                                          \n • raw_html: None                                                                                   \n • page_view: None                                                                                  \n\nThis is a text-only business report with no visual elements such as charts, graphs, tables,         \nphotographs, diagrams, or other figures that would typically accompany financial reporting          \ndocuments.                                                                                          \n",
+            "data_html": "# Analysis of Images and Figures\n\nBased on my review of the provided pages, **there are no images or figures present in this document.**\n\n## What the Document Contains:\n\nThe document is a **Quarterly Business Report for Q4 2025** that consists entirely of text content organized into three main sections:\n\n1. **Executive Summary** - Financial performance metrics and market expansion information\n2. **Key Metrics** - User statistics, revenue data, and operational metrics\n3. **Outlook** - Forward-looking projections and strategic initiatives for Q1 2026\n\n## Confirmation:\n\nThe document structure explicitly indicates:\n- **images:** (empty section)\n- **raw_html:** None\n- **page_view:** None\n\nThis is a text-only business report with no visual elements such as charts, graphs, tables, photographs, diagrams, or other figures that would typically accompany financial reporting documents.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_7",
+      "kind": "operator",
+      "pipe_code": "enrich_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:15.846395Z",
+        "ended_at": "2026-04-06T10:21:26.058968Z",
+        "duration": 10.212573
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "clean_text",
+            "concept": "CleanText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3ANCz",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and \nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost \ndecreased by 12% due to improved marketing efficiency. The company expanded into three new markets: \nSoutheast Asia, Eastern Europe, and South America.                                                  \n\nKey Metrics                                                                                         \n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter  \nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D      \ninvestment was $840M, representing 20% of revenue.                                                  \n\nOutlook                                                                                             \n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the       \nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II         \ncertification for all cloud products.                                                               \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "F5tR8",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>"
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Add semantic tags and structure to this cleaned text:\n\n<clean_text>\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.\n</clean_text>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_8",
+      "kind": "operator",
+      "pipe_code": "caption_images",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:17.700690Z",
+        "ended_at": "2026-04-06T10:21:22.699272Z",
+        "duration": 4.998582
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "described",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "myF9k",
+            "data": {
+              "text": "# Analysis of Images and Figures\n\nBased on my review of the provided pages, **there are no images or figures present in this document.**\n\n## What the Document Contains:\n\nThe document is a **Quarterly Business Report for Q4 2025** that consists entirely of text content organized into three main sections:\n\n1. **Executive Summary** - Financial performance metrics and market expansion information\n2. **Key Metrics** - User statistics, revenue data, and operational metrics\n3. **Outlook** - Forward-looking projections and strategic initiatives for Q1 2026\n\n## Confirmation:\n\nThe document structure explicitly indicates:\n- **images:** (empty section)\n- **raw_html:** None\n- **page_view:** None\n\nThis is a text-only business report with no visual elements such as charts, graphs, tables, photographs, diagrams, or other figures that would typically accompany financial reporting documents."
+            },
+            "data_text": "                                   Analysis of Images and Figures                                   \n\nBased on my review of the provided pages, there are no images or figures present in this document.  \n\nWhat the Document Contains:                                                                         \n\nThe document is a Quarterly Business Report for Q4 2025 that consists entirely of text content      \norganized into three main sections:                                                                 \n\n 1 Executive Summary - Financial performance metrics and market expansion information               \n 2 Key Metrics - User statistics, revenue data, and operational metrics                             \n 3 Outlook - Forward-looking projections and strategic initiatives for Q1 2026                      \n\nConfirmation:                                                                                       \n\nThe document structure explicitly indicates:                                                        \n\n • images: (empty section)                                                                          \n • raw_html: None                                                                                   \n • page_view: None                                                                                  \n\nThis is a text-only business report with no visual elements such as charts, graphs, tables,         \nphotographs, diagrams, or other figures that would typically accompany financial reporting          \ndocuments.                                                                                          \n",
+            "data_html": "# Analysis of Images and Figures\n\nBased on my review of the provided pages, **there are no images or figures present in this document.**\n\n## What the Document Contains:\n\nThe document is a **Quarterly Business Report for Q4 2025** that consists entirely of text content organized into three main sections:\n\n1. **Executive Summary** - Financial performance metrics and market expansion information\n2. **Key Metrics** - User statistics, revenue data, and operational metrics\n3. **Outlook** - Forward-looking projections and strategic initiatives for Q1 2026\n\n## Confirmation:\n\nThe document structure explicitly indicates:\n- **images:** (empty section)\n- **raw_html:** None\n- **page_view:** None\n\nThis is a text-only business report with no visual elements such as charts, graphs, tables, photographs, diagrams, or other figures that would typically accompany financial reporting documents.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "captioned",
+            "concept": "ProcessedImage",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "goB83",
+            "data": {
+              "text": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report."
+            },
+            "data_text": "                                           Image Captions                                           \n\nNo captions generated.                                                                              \n\nReason: The document contains no images, figures, charts, graphs, or visual elements. This is a     \ntext-only quarterly business report.                                                                \n",
+            "data_html": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Generate concise captions for each image described:\n\n<described>\n# Analysis of Images and Figures\n\nBased on my review of the provided pages, **there are no images or figures present in this document.**\n\n## What the Document Contains:\n\nThe document is a **Quarterly Business Report for Q4 2025** that consists entirely of text content organized into three main sections:\n\n1. **Executive Summary** - Financial performance metrics and market expansion information\n2. **Key Metrics** - User statistics, revenue data, and operational metrics\n3. **Outlook** - Forward-looking projections and strategic initiatives for Q1 2026\n\n## Confirmation:\n\nThe document structure explicitly indicates:\n- **images:** (empty section)\n- **raw_html:** None\n- **page_view:** None\n\nThis is a text-only business report with no visual elements such as charts, graphs, tables, photographs, diagrams, or other figures that would typically accompany financial reporting documents.\n</described>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_9",
+      "kind": "operator",
+      "pipe_code": "combine_results",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:21:26.072737Z",
+        "ended_at": "2026-04-06T10:21:26.087445Z",
+        "duration": 0.014708
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "clean_text",
+            "concept": "EnrichedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "F5tR8",
+            "data": {
+              "text": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>"
+            },
+            "data_text": "                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n",
+            "data_html": "# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;",
+            "extra": {}
+          },
+          {
+            "name": "processed_image",
+            "concept": "ProcessedImage",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "goB83",
+            "data": {
+              "text": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report."
+            },
+            "data_text": "                                           Image Captions                                           \n\nNo captions generated.                                                                              \n\nReason: The document contains no images, figures, charts, graphs, or visual elements. This is a     \ntext-only quarterly business report.                                                                \n",
+            "data_html": "# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "processed",
+            "concept": "ProcessedContent",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3XyV8",
+            "data": {
+              "text": "# Processed Content\n\n## Text\nclean_text: ```\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>\n```\n\n## Images\nprocessed_image: ```\n# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.\n```"
+            },
+            "data_text": "                                         Processed Content                                          \n\nText                                                                                                \n\nclean_text: ```                                                                                     \n\n                                Quarterly Business Report - Q4 2025                                 \n\nExecutive Summary                                                                                   \n\n\n\n\n\nKey Metrics                                                                                         \n\n\n\n\n\n\nOutlook                                                                                             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<strategic_initiatives>  launching AI-powered analytics platform   expanding partner ecosystem      \nachieving SOC 2 Type II certification for all cloud products  </strategic_initiatives>              \n\n                                                                                                    \n                                                                                                    \n ## Images                                                                                          \n processed_image: ```                                                                               \n # Image Captions                                                                                   \n                                                                                                    \n **No captions generated.**                                                                         \n                                                                                                    \n **Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is  \n a text-only quarterly business report.                                                             \n                                                                                                    \n",
+            "data_html": "# Processed Content\n\n## Text\nclean_text: ```\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n&lt;metric type=&quot;financial&quot; period=&quot;year-over-year&quot;&gt;\n  &lt;name&gt;Revenue&lt;/name&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;15&lt;/change&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.2&lt;/value&gt;\n&lt;/metric&gt;, driven by strong performance in &lt;business_segment&gt;cloud services&lt;/business_segment&gt; and &lt;business_segment&gt;enterprise software&lt;/business_segment&gt;. \n\n&lt;metric type=&quot;financial&quot; period=&quot;quarterly&quot;&gt;\n  &lt;name&gt;Operating margin&lt;/name&gt;\n  &lt;value unit=&quot;percent&quot;&gt;28&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; comparison=&quot;Q3&quot;&gt;up from &lt;previous_value unit=&quot;percent&quot;&gt;24&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;. \n\n&lt;metric type=&quot;operational&quot;&gt;\n  &lt;name&gt;Customer acquisition cost&lt;/name&gt;\n  &lt;change direction=&quot;decrease&quot; unit=&quot;percent&quot;&gt;12&lt;/change&gt;\n  &lt;reason&gt;improved marketing efficiency&lt;/reason&gt;\n&lt;/metric&gt;. \n\n&lt;expansion type=&quot;geographic&quot;&gt;\n  The company expanded into &lt;count&gt;3&lt;/count&gt; new markets:\n  &lt;market_list&gt;\n    &lt;market&gt;Southeast Asia&lt;/market&gt;\n    &lt;market&gt;Eastern Europe&lt;/market&gt;\n    &lt;market&gt;South America&lt;/market&gt;\n  &lt;/market_list&gt;\n&lt;/expansion&gt;\n\n## Key Metrics\n\n&lt;metric type=&quot;user_engagement&quot;&gt;\n  &lt;name&gt;Active users&lt;/name&gt;\n  &lt;value unit=&quot;million&quot;&gt;45&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot; unit=&quot;percent&quot;&gt;22&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;financial&quot; period=&quot;monthly&quot; recurring=&quot;true&quot;&gt;\n  &lt;name&gt;Monthly recurring revenue&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;350&lt;/value&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;satisfaction&quot;&gt;\n  &lt;name&gt;Net promoter score&lt;/name&gt;\n  &lt;value&gt;71&lt;/value&gt;\n  &lt;change direction=&quot;increase&quot;&gt;improved from &lt;previous_value&gt;62&lt;/previous_value&gt;&lt;/change&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;organizational&quot;&gt;\n  &lt;name&gt;Employee headcount&lt;/name&gt;\n  &lt;value&gt;8,500&lt;/value&gt;\n  &lt;distribution&gt;across &lt;count&gt;12&lt;/count&gt; offices globally&lt;/distribution&gt;\n&lt;/metric&gt;\n\n&lt;metric type=&quot;investment&quot;&gt;\n  &lt;name&gt;R&amp;D investment&lt;/name&gt;\n  &lt;value unit=&quot;USD&quot; scale=&quot;million&quot;&gt;840&lt;/value&gt;\n  &lt;percentage_of_revenue unit=&quot;percent&quot;&gt;20&lt;/percentage_of_revenue&gt;\n&lt;/metric&gt;\n\n## Outlook\n\n&lt;forecast period=&quot;Q1 2026&quot;&gt;\n  &lt;metric type=&quot;financial&quot;&gt;\n    &lt;name&gt;Revenue&lt;/name&gt;\n    &lt;range&gt;\n      &lt;min unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.4&lt;/min&gt;\n      &lt;max unit=&quot;USD&quot; scale=&quot;billion&quot;&gt;4.6&lt;/max&gt;\n    &lt;/range&gt;\n  &lt;/metric&gt;\n  \n  &lt;strategic_initiatives&gt;\n    &lt;initiative priority=&quot;1&quot;&gt;\n      &lt;action&gt;launching&lt;/action&gt;\n      &lt;description&gt;AI-powered analytics platform&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;2&quot;&gt;\n      &lt;action&gt;expanding&lt;/action&gt;\n      &lt;description&gt;partner ecosystem&lt;/description&gt;\n    &lt;/initiative&gt;\n    &lt;initiative priority=&quot;3&quot;&gt;\n      &lt;action&gt;achieving&lt;/action&gt;\n      &lt;description&gt;SOC 2 Type II certification for all cloud products&lt;/description&gt;\n    &lt;/initiative&gt;\n  &lt;/strategic_initiatives&gt;\n&lt;/forecast&gt;\n```\n\n## Images\nprocessed_image: ```\n# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "# Processed Content\n\n## Text\nclean_text: ```\n# Quarterly Business Report - Q4 2025\n\n## Executive Summary\n\n<metric type=\"financial\" period=\"year-over-year\">\n  <name>Revenue</name>\n  <change direction=\"increase\" unit=\"percent\">15</change>\n  <value unit=\"USD\" scale=\"billion\">4.2</value>\n</metric>, driven by strong performance in <business_segment>cloud services</business_segment> and <business_segment>enterprise software</business_segment>. \n\n<metric type=\"financial\" period=\"quarterly\">\n  <name>Operating margin</name>\n  <value unit=\"percent\">28</value>\n  <change direction=\"increase\" comparison=\"Q3\">up from <previous_value unit=\"percent\">24</previous_value></change>\n</metric>. \n\n<metric type=\"operational\">\n  <name>Customer acquisition cost</name>\n  <change direction=\"decrease\" unit=\"percent\">12</change>\n  <reason>improved marketing efficiency</reason>\n</metric>. \n\n<expansion type=\"geographic\">\n  The company expanded into <count>3</count> new markets:\n  <market_list>\n    <market>Southeast Asia</market>\n    <market>Eastern Europe</market>\n    <market>South America</market>\n  </market_list>\n</expansion>\n\n## Key Metrics\n\n<metric type=\"user_engagement\">\n  <name>Active users</name>\n  <value unit=\"million\">45</value>\n  <change direction=\"increase\" unit=\"percent\">22</change>\n</metric>\n\n<metric type=\"financial\" period=\"monthly\" recurring=\"true\">\n  <name>Monthly recurring revenue</name>\n  <value unit=\"USD\" scale=\"million\">350</value>\n</metric>\n\n<metric type=\"satisfaction\">\n  <name>Net promoter score</name>\n  <value>71</value>\n  <change direction=\"increase\">improved from <previous_value>62</previous_value></change>\n</metric>\n\n<metric type=\"organizational\">\n  <name>Employee headcount</name>\n  <value>8,500</value>\n  <distribution>across <count>12</count> offices globally</distribution>\n</metric>\n\n<metric type=\"investment\">\n  <name>R&D investment</name>\n  <value unit=\"USD\" scale=\"million\">840</value>\n  <percentage_of_revenue unit=\"percent\">20</percentage_of_revenue>\n</metric>\n\n## Outlook\n\n<forecast period=\"Q1 2026\">\n  <metric type=\"financial\">\n    <name>Revenue</name>\n    <range>\n      <min unit=\"USD\" scale=\"billion\">4.4</min>\n      <max unit=\"USD\" scale=\"billion\">4.6</max>\n    </range>\n  </metric>\n  \n  <strategic_initiatives>\n    <initiative priority=\"1\">\n      <action>launching</action>\n      <description>AI-powered analytics platform</description>\n    </initiative>\n    <initiative priority=\"2\">\n      <action>expanding</action>\n      <description>partner ecosystem</description>\n    </initiative>\n    <initiative priority=\"3\">\n      <action>achieving</action>\n      <description>SOC 2 Type II certification for all cloud products</description>\n    </initiative>\n  </strategic_initiatives>\n</forecast>\n```\n\n## Images\nprocessed_image: ```\n# Image Captions\n\n**No captions generated.**\n\n**Reason:** The document contains no images, figures, charts, graphs, or visual elements. This is a text-only quarterly business report.\n```"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_0",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_0",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_1",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_0",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_2",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_3",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_3",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_4",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_5",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_5",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_6",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_3",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_7",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_7",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_5",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_8",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_8",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_0",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_9",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_9",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_10",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_3",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_11",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_4",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_12",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_5",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_13",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_1",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_6",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_14",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_4",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_7",
+      "kind": "data",
+      "label": "clean_text",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_15",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_6",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_8",
+      "kind": "data",
+      "label": "described",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_16",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_9",
+      "kind": "data",
+      "label": "clean_text",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:edge_17",
+      "source": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_2",
+      "target": "82968a64-61de-4f4a-b7c8-0fa79d4d408f:node_9",
+      "kind": "data",
+      "label": "processed_image",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "content_etl.etl_pipeline": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "etl_pipeline",
+      "domain_code": "content_etl",
+      "description": "Extract content, process text and images in parallel, then combine",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedContent",
+          "domain_code": "content_etl",
+          "description": "Combined processed content",
+          "structure_class_name": "ProcessedContent",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_content",
+          "output_name": "pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "dual_process",
+          "output_name": "clean_text",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "combine_results",
+          "output_name": "processed",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "content_etl.extract_content": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_content",
+      "domain_code": "content_etl",
+      "description": "Extract content from document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "document"
+    },
+    "content_etl.dual_process": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "dual_process",
+      "domain_code": "content_etl",
+      "description": "Process text and images in parallel branches",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CleanText",
+          "domain_code": "content_etl",
+          "description": "Cleaned and normalized text",
+          "structure_class_name": "CleanText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "text_branch",
+          "output_name": "clean_text",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "image_branch",
+          "output_name": "processed_image",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true,
+      "combined_output": null
+    },
+    "content_etl.text_branch": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "text_branch",
+      "domain_code": "content_etl",
+      "description": "Clean then enrich text",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichedText",
+          "domain_code": "content_etl",
+          "description": "Text enriched with metadata",
+          "structure_class_name": "EnrichedText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "clean_text",
+          "output_name": "clean_text",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "enrich_text",
+          "output_name": "enriched",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "content_etl.clean_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "clean_text",
+      "domain_code": "content_etl",
+      "description": "Clean and normalize text",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CleanText",
+          "domain_code": "content_etl",
+          "description": "Cleaned and normalized text",
+          "structure_class_name": "CleanText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Clean the following text by removing artifacts, headers, and footers:\n\n@pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "content_etl.image_branch": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "image_branch",
+      "domain_code": "content_etl",
+      "description": "Extract and describe images",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedImage",
+          "domain_code": "content_etl",
+          "description": "Processed image with metadata",
+          "structure_class_name": "ProcessedImage",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_images",
+          "output_name": "described",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "caption_images",
+          "output_name": "captioned",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "content_etl.extract_images": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "extract_images",
+      "domain_code": "content_etl",
+      "description": "Identify and describe images in pages",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Text",
+          "domain_code": "native",
+          "description": "A text",
+          "structure_class_name": "TextContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Identify and describe any images or figures found in these pages:\n\n@pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "content_etl.enrich_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "enrich_text",
+      "domain_code": "content_etl",
+      "description": "Enrich text with semantic tags",
+      "inputs": {
+        "clean_text": {
+          "concept": {
+            "code": "CleanText",
+            "domain_code": "content_etl",
+            "description": "Cleaned and normalized text",
+            "structure_class_name": "CleanText",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichedText",
+          "domain_code": "content_etl",
+          "description": "Text enriched with metadata",
+          "structure_class_name": "EnrichedText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Add semantic tags and structure to this cleaned text:\n\n@clean_text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "content_etl.caption_images": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "caption_images",
+      "domain_code": "content_etl",
+      "description": "Generate captions for images",
+      "inputs": {
+        "described": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedImage",
+          "domain_code": "content_etl",
+          "description": "Processed image with metadata",
+          "structure_class_name": "ProcessedImage",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Generate concise captions for each image described:\n\n@described\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "content_etl.combine_results": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "combine_results",
+      "domain_code": "content_etl",
+      "description": "Combine processed text and images",
+      "inputs": {
+        "clean_text": {
+          "concept": {
+            "code": "EnrichedText",
+            "domain_code": "content_etl",
+            "description": "Text enriched with metadata",
+            "structure_class_name": "EnrichedText",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        },
+        "processed_image": {
+          "concept": {
+            "code": "ProcessedImage",
+            "domain_code": "content_etl",
+            "description": "Processed image with metadata",
+            "structure_class_name": "ProcessedImage",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedContent",
+          "domain_code": "content_etl",
+          "description": "Combined processed content",
+          "structure_class_name": "ProcessedContent",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "# Processed Content\n\n## Text\n{{ clean_text|tag(\"clean_text\") }}\n\n## Images\n{{ processed_image|tag(\"processed_image\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "content_etl.ProcessedContent": {
+      "code": "ProcessedContent",
+      "domain_code": "content_etl",
+      "description": "Combined processed content",
+      "structure_class_name": "ProcessedContent",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Combined processed content",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "ProcessedContent",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageSize"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The size in pixels (width and height) of the image"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "content_etl.CleanText": {
+      "code": "CleanText",
+      "domain_code": "content_etl",
+      "description": "Cleaned and normalized text",
+      "structure_class_name": "CleanText",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Cleaned and normalized text",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "CleanText",
+        "type": "object"
+      }
+    },
+    "content_etl.EnrichedText": {
+      "code": "EnrichedText",
+      "domain_code": "content_etl",
+      "description": "Text enriched with metadata",
+      "structure_class_name": "EnrichedText",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Text enriched with metadata",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "EnrichedText",
+        "type": "object"
+      }
+    },
+    "content_etl.ProcessedImage": {
+      "code": "ProcessedImage",
+      "domain_code": "content_etl",
+      "description": "Processed image with metadata",
+      "structure_class_name": "ProcessedImage",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Processed image with metadata",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "ProcessedImage",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    }
+  }
+}

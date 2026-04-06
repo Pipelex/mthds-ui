@@ -1,0 +1,164 @@
+{
+  "graph_id": "c7ee9f06-0c4d-4fe7-b363-0c8bf6cf1e2c",
+  "created_at": "2026-04-06T10:15:03.039791Z",
+  "pipeline_ref": {
+    "domain": "text_processing",
+    "main_pipe": "summarize",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "c7ee9f06-0c4d-4fe7-b363-0c8bf6cf1e2c:node_0",
+      "kind": "operator",
+      "pipe_code": "summarize",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:03.045386Z",
+        "ended_at": "2026-04-06T10:15:03.054454Z",
+        "duration": 0.009068
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "text",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "dyAZV",
+            "data": {
+              "text": "IjPBLRLbyIXWJAyaBizm"
+            },
+            "data_text": "IjPBLRLbyIXWJAyaBizm                                                                                \n",
+            "data_html": "IjPBLRLbyIXWJAyaBizm",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "summary",
+            "concept": "Summary",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "38zwA",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nIjPBLRLbyIXWJAyaBizm\n</text>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nIjPBLRLbyIXWJAyaBizm\n&lt;/text&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nIjPBLRLbyIXWJAyaBizm\n</text>",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [],
+  "meta": {},
+  "pipe_registry": {
+    "text_processing.summarize": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "summarize",
+      "domain_code": "text_processing",
+      "description": "Summarize input text",
+      "inputs": {
+        "text": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Summary",
+          "domain_code": "text_processing",
+          "description": "A text summary of content",
+          "structure_class_name": "Summary",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Summarize the following text concisely:\n\n@text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "text_processing.Summary": {
+      "code": "Summary",
+      "domain_code": "text_processing",
+      "description": "A text summary of content",
+      "structure_class_name": "Summary",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A text summary of content",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Summary",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    }
+  }
+}

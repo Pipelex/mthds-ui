@@ -1,0 +1,1074 @@
+{
+  "graph_id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab",
+  "created_at": "2026-04-06T10:15:15.405849Z",
+  "pipeline_ref": {
+    "domain": "report_generation",
+    "main_pipe": "multi_format_report",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_0",
+      "kind": "controller",
+      "pipe_code": "multi_format_report",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.410905Z",
+        "ended_at": "2026-04-06T10:15:15.453627Z",
+        "duration": 0.042722
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "gGkeQ",
+            "data": {
+              "text": "EfbzMOsDvnFHLedVCuAN"
+            },
+            "data_text": "EfbzMOsDvnFHLedVCuAN                                                                                \n",
+            "data_html": "EfbzMOsDvnFHLedVCuAN",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "Report",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VojTu",
+            "data": {
+              "text": "# Data Report\n\n## Narrative\nnarrative: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    \n```\n\n## Data Table\ntable_data: ```\n{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n```\n\n## Chart\nchart_spec: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    \n```"
+            },
+            "data_text": "                                            Data Report                                             \n\nNarrative                                                                                           \n\nnarrative: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,        \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a    \nclear narrative describing these insights:                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Data Table                                                                                      \n table_data: ```                                                                                    \n {                                                                                                  \n     \"eHPoASTFKTaxNYukPwzs\": \"b158\"                                                                 \n }                                                                                                  \n                                                                                                    \n\nChart                                                                                               \n\nchart_spec: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,       \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nchart specification for visualizing these insights:                                                 \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Data Report\n\n## Narrative\nnarrative: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    \n```\n\n## Data Table\ntable_data: ```\n{\n    &quot;eHPoASTFKTaxNYukPwzs&quot;: &quot;b158&quot;\n}\n```\n\n## Chart\nchart_spec: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    \n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "kind": "operator",
+      "pipe_code": "analyze_data",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.413327Z",
+        "ended_at": "2026-04-06T10:15:15.420820Z",
+        "duration": 0.007493
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "gGkeQ",
+            "data": {
+              "text": "EfbzMOsDvnFHLedVCuAN"
+            },
+            "data_text": "EfbzMOsDvnFHLedVCuAN                                                                                \n",
+            "data_html": "EfbzMOsDvnFHLedVCuAN",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "insight",
+            "concept": "Insight",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bxSsG",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following data  \nand extract key insights:                                                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n&lt;data&gt;\nEfbzMOsDvnFHLedVCuAN\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "kind": "controller",
+      "pipe_code": "generate_outputs",
+      "pipe_type": "PipeParallel",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.421570Z",
+        "ended_at": "2026-04-06T10:15:15.445143Z",
+        "duration": 0.023573
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "insight",
+            "concept": "Insight",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bxSsG",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following data  \nand extract key insights:                                                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n&lt;data&gt;\nEfbzMOsDvnFHLedVCuAN\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "chart_spec",
+            "concept": "ChartSpec",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3MtVe",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a chart specification\nfor visualizing these insights:                                                                     \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    ",
+            "extra": {}
+          },
+          {
+            "name": "table_data",
+            "concept": "TableData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "FGnDp",
+            "data": {
+              "json_obj": {
+                "eHPoASTFKTaxNYukPwzs": "b158"
+              }
+            },
+            "data_text": "{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n",
+            "data_html": "<table ><tr><th>eHPoASTFKTaxNYukPwzs</th><td>b158</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "narrative",
+            "concept": "Narrative",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QFLmx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a clear narrative     \ndescribing these insights:                                                                          \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "branch_count": 3,
+        "add_each_output": true,
+        "combined_output_concept": null
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_3",
+      "kind": "operator",
+      "pipe_code": "generate_chart",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.423848Z",
+        "ended_at": "2026-04-06T10:15:15.429313Z",
+        "duration": 0.005465
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "insight",
+            "concept": "Insight",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bxSsG",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following data  \nand extract key insights:                                                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n&lt;data&gt;\nEfbzMOsDvnFHLedVCuAN\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "chart_spec",
+            "concept": "ChartSpec",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3MtVe",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a chart specification\nfor visualizing these insights:                                                                     \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    \n</insight>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_4",
+      "kind": "operator",
+      "pipe_code": "generate_table",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.430012Z",
+        "ended_at": "2026-04-06T10:15:15.437959Z",
+        "duration": 0.007947
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "insight",
+            "concept": "Insight",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bxSsG",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following data  \nand extract key insights:                                                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n&lt;data&gt;\nEfbzMOsDvnFHLedVCuAN\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "table_data",
+            "concept": "TableData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "FGnDp",
+            "data": {
+              "json_obj": {
+                "eHPoASTFKTaxNYukPwzs": "b158"
+              }
+            },
+            "data_text": "{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n",
+            "data_html": "<table ><tr><th>eHPoASTFKTaxNYukPwzs</th><td>b158</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Create a structured data table summarizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    \n</insight>\n\n---\nThe instance we want to generate will be for the following class:\nclass TableData(JSONContent):\n    \"\"\"Structured table data\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_5",
+      "kind": "operator",
+      "pipe_code": "write_narrative",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.438601Z",
+        "ended_at": "2026-04-06T10:15:15.443803Z",
+        "duration": 0.005202
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "insight",
+            "concept": "Insight",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bxSsG",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following data  \nand extract key insights:                                                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n&lt;data&gt;\nEfbzMOsDvnFHLedVCuAN\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "narrative",
+            "concept": "Narrative",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QFLmx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a clear narrative     \ndescribing these insights:                                                                          \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following data and extract key insights:\n\n<data>\nEfbzMOsDvnFHLedVCuAN\n</data>\n    \n</insight>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_6",
+      "kind": "operator",
+      "pipe_code": "assemble_report",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:15.446062Z",
+        "ended_at": "2026-04-06T10:15:15.452580Z",
+        "duration": 0.006518
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "chart_spec",
+            "concept": "ChartSpec",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3MtVe",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a chart specification\nfor visualizing these insights:                                                                     \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    ",
+            "extra": {}
+          },
+          {
+            "name": "table_data",
+            "concept": "TableData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "FGnDp",
+            "data": {
+              "json_obj": {
+                "eHPoASTFKTaxNYukPwzs": "b158"
+              }
+            },
+            "data_text": "{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n",
+            "data_html": "<table ><tr><th>eHPoASTFKTaxNYukPwzs</th><td>b158</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "narrative",
+            "concept": "Narrative",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QFLmx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a clear narrative     \ndescribing these insights:                                                                          \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "Report",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VojTu",
+            "data": {
+              "text": "# Data Report\n\n## Narrative\nnarrative: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    \n```\n\n## Data Table\ntable_data: ```\n{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n```\n\n## Chart\nchart_spec: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    \n```"
+            },
+            "data_text": "                                            Data Report                                             \n\nNarrative                                                                                           \n\nnarrative: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,        \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a    \nclear narrative describing these insights:                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Data Table                                                                                      \n table_data: ```                                                                                    \n {                                                                                                  \n     \"eHPoASTFKTaxNYukPwzs\": \"b158\"                                                                 \n }                                                                                                  \n                                                                                                    \n\nChart                                                                                               \n\nchart_spec: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,       \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nchart specification for visualizing these insights:                                                 \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Data Report\n\n## Narrative\nnarrative: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    \n```\n\n## Data Table\ntable_data: ```\n{\n    &quot;eHPoASTFKTaxNYukPwzs&quot;: &quot;b158&quot;\n}\n```\n\n## Chart\nchart_spec: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n&lt;insight&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    \n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "# Data Report\n\n## Narrative\nnarrative: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a clear narrative describing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the followi\n    \n```\n\n## Data Table\ntable_data: ```\n{\n    \"eHPoASTFKTaxNYukPwzs\": \"b158\"\n}\n```\n\n## Chart\nchart_spec: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a chart specification for visualizing these insights:\n\n<insight>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze t\n    \n```"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_0",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_0",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_1",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_0",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_2",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_3",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_4",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_5",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_0",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_6",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "kind": "data",
+      "label": "insight",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_7",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_3",
+      "kind": "data",
+      "label": "insight",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_8",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_4",
+      "kind": "data",
+      "label": "insight",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_9",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_1",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_5",
+      "kind": "data",
+      "label": "insight",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_10",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_6",
+      "kind": "data",
+      "label": "chart_spec",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_11",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_6",
+      "kind": "data",
+      "label": "table_data",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:edge_12",
+      "source": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_2",
+      "target": "dbfc0826-e4a7-4278-9d54-aae8a08edcab:node_6",
+      "kind": "data",
+      "label": "narrative",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "report_generation.multi_format_report": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "multi_format_report",
+      "domain_code": "report_generation",
+      "description": "Analyze data then generate chart, table, and narrative in parallel",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Report",
+          "domain_code": "report_generation",
+          "description": "A formatted report combining visuals and text",
+          "structure_class_name": "Report",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "analyze_data",
+          "output_name": "insight",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "generate_outputs",
+          "output_name": "chart_spec",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "assemble_report",
+          "output_name": "report",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "report_generation.analyze_data": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_data",
+      "domain_code": "report_generation",
+      "description": "Analyze raw data for key insights",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Insight",
+          "domain_code": "report_generation",
+          "description": "Data insight extracted from analysis",
+          "structure_class_name": "Insight",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Analyze the following data and extract key insights:\n\n@data\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "report_generation.generate_outputs": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "generate_outputs",
+      "domain_code": "report_generation",
+      "description": "Generate chart, table, and narrative in parallel",
+      "inputs": {
+        "insight": {
+          "concept": {
+            "code": "Insight",
+            "domain_code": "report_generation",
+            "description": "Data insight extracted from analysis",
+            "structure_class_name": "Insight",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ChartSpec",
+          "domain_code": "report_generation",
+          "description": "Specification for a chart visualization",
+          "structure_class_name": "ChartSpec",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "generate_chart",
+          "output_name": "chart_spec",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "generate_table",
+          "output_name": "table_data",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "write_narrative",
+          "output_name": "narrative",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true,
+      "combined_output": null
+    },
+    "report_generation.generate_chart": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_chart",
+      "domain_code": "report_generation",
+      "description": "Generate chart specification from insights",
+      "inputs": {
+        "insight": {
+          "concept": {
+            "code": "Insight",
+            "domain_code": "report_generation",
+            "description": "Data insight extracted from analysis",
+            "structure_class_name": "Insight",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ChartSpec",
+          "domain_code": "report_generation",
+          "description": "Specification for a chart visualization",
+          "structure_class_name": "ChartSpec",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Create a chart specification for visualizing these insights:\n\n@insight\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "report_generation.generate_table": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_table",
+      "domain_code": "report_generation",
+      "description": "Generate structured table from insights",
+      "inputs": {
+        "insight": {
+          "concept": {
+            "code": "Insight",
+            "domain_code": "report_generation",
+            "description": "Data insight extracted from analysis",
+            "structure_class_name": "Insight",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TableData",
+          "domain_code": "report_generation",
+          "description": "Structured table data",
+          "structure_class_name": "TableData",
+          "refines": "native.JSON"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Create a structured data table summarizing these insights:\n\n@insight\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "report_generation.write_narrative": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "write_narrative",
+      "domain_code": "report_generation",
+      "description": "Write narrative description of insights",
+      "inputs": {
+        "insight": {
+          "concept": {
+            "code": "Insight",
+            "domain_code": "report_generation",
+            "description": "Data insight extracted from analysis",
+            "structure_class_name": "Insight",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Narrative",
+          "domain_code": "report_generation",
+          "description": "Written narrative describing insights",
+          "structure_class_name": "Narrative",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Write a clear narrative describing these insights:\n\n@insight\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "report_generation.assemble_report": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "assemble_report",
+      "domain_code": "report_generation",
+      "description": "Assemble final report from all outputs",
+      "inputs": {
+        "chart_spec": {
+          "concept": {
+            "code": "ChartSpec",
+            "domain_code": "report_generation",
+            "description": "Specification for a chart visualization",
+            "structure_class_name": "ChartSpec",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        },
+        "table_data": {
+          "concept": {
+            "code": "TableData",
+            "domain_code": "report_generation",
+            "description": "Structured table data",
+            "structure_class_name": "TableData",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        },
+        "narrative": {
+          "concept": {
+            "code": "Narrative",
+            "domain_code": "report_generation",
+            "description": "Written narrative describing insights",
+            "structure_class_name": "Narrative",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Report",
+          "domain_code": "report_generation",
+          "description": "A formatted report combining visuals and text",
+          "structure_class_name": "Report",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "# Data Report\n\n## Narrative\n{{ narrative|tag(\"narrative\") }}\n\n## Data Table\n{{ table_data|tag(\"table_data\") }}\n\n## Chart\n{{ chart_spec|tag(\"chart_spec\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "report_generation.Report": {
+      "code": "Report",
+      "domain_code": "report_generation",
+      "description": "A formatted report combining visuals and text",
+      "structure_class_name": "Report",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A formatted report combining visuals and text",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Report",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "report_generation.Insight": {
+      "code": "Insight",
+      "domain_code": "report_generation",
+      "description": "Data insight extracted from analysis",
+      "structure_class_name": "Insight",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Data insight extracted from analysis",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Insight",
+        "type": "object"
+      }
+    },
+    "report_generation.ChartSpec": {
+      "code": "ChartSpec",
+      "domain_code": "report_generation",
+      "description": "Specification for a chart visualization",
+      "structure_class_name": "ChartSpec",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Specification for a chart visualization",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "ChartSpec",
+        "type": "object"
+      }
+    },
+    "report_generation.TableData": {
+      "code": "TableData",
+      "domain_code": "report_generation",
+      "description": "Structured table data",
+      "structure_class_name": "TableData",
+      "refines": "native.JSON",
+      "json_schema": {
+        "description": "Structured table data",
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "TableData",
+        "type": "object"
+      }
+    },
+    "report_generation.Narrative": {
+      "code": "Narrative",
+      "domain_code": "report_generation",
+      "description": "Written narrative describing insights",
+      "structure_class_name": "Narrative",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Written narrative describing insights",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Narrative",
+        "type": "object"
+      }
+    }
+  }
+}

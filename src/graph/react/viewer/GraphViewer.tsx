@@ -16,10 +16,16 @@ import type {
   GraphNodeData,
   DataflowAnalysis,
   PipeStatus,
+  ConceptInfo,
 } from "@graph/types";
 import { stuffDigestFromId } from "@graph/types";
+import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
+import { StuffViewer } from "../stuff/StuffViewer";
+import { DetailPanel } from "../detail/DetailPanel";
+import { PipeDetailPanel } from "../detail/PipeDetailPanel";
+import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
@@ -50,6 +56,31 @@ export interface GraphViewerProps {
   onNodeSelect?: (nodeId: string, nodeData: GraphNodeData, event: React.MouseEvent) => void;
   /** Called when the graph background (pane) is clicked. Use to dismiss detail panels. */
   onPaneClick?: () => void;
+}
+
+/** Stuff node detail: concept structure + data viewer. */
+function StuffNodeDetail({
+  stuffData,
+  graphspec,
+}: {
+  stuffData: StuffViewerData;
+  graphspec: GraphSpec | null;
+}) {
+  const conceptInfo = stuffData.concept && graphspec
+    ? resolveConceptRef(graphspec, stuffData.concept)
+    : undefined;
+
+  return (
+    <>
+      {/* Concept structure (header + schema table) */}
+      {conceptInfo ? (
+        <ConceptDetailPanel concept={conceptInfo} ioData={stuffData} />
+      ) : (
+        /* Fallback: just show the StuffViewer if no concept info */
+        <StuffViewer stuff={stuffData} />
+      )}
+    </>
+  );
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -87,6 +118,16 @@ export function applyStatusOverrides(
   });
 }
 
+// ─── Detail panel selection state ──────────────────────────────────────
+
+interface DetailSelection {
+  kind: "pipe" | "stuff" | "concept";
+  nodeId: string;
+  nodeData: GraphNodeData;
+  conceptInfo?: ConceptInfo;
+  stuffData?: StuffViewerData;
+}
+
 export function GraphViewer(props: GraphViewerProps) {
   const {
     graphspec,
@@ -102,6 +143,16 @@ export function GraphViewer(props: GraphViewerProps) {
   } = props;
 
   const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Detail panel state (built-in)
+  const [detailSelection, setDetailSelection] = React.useState<DetailSelection | null>(null);
+  const [conceptOverride, setConceptOverride] = React.useState<ConceptInfo | null>(null);
+
+  // Reset detail panel when graphspec changes
+  React.useEffect(() => {
+    setDetailSelection(null);
+    setConceptOverride(null);
+  }, [graphspec]);
 
   // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount)
   React.useEffect(() => {
@@ -365,10 +416,12 @@ export function GraphViewer(props: GraphViewerProps) {
     setEdges(toAppEdges(withControllers.edges));
   }, [statusMap]);
 
-  // Handle node click
+  // Handle node click — opens detail panel + fires external callbacks
   const onNodeClick = React.useCallback(
     (event: React.MouseEvent, node: AppNode) => {
       const nodeData = node.data;
+
+      // Fire external callbacks
       onNodeSelect?.(node.id, nodeData, event);
       if (nodeData.isController || nodeData.isPipe) {
         const code = nodeData.pipeCode || nodeData.labelText;
@@ -377,13 +430,25 @@ export function GraphViewer(props: GraphViewerProps) {
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
         const digest = stuffDigestFromId(node.id);
-        const stuffData = findStuffDataByDigest(graphspec, digest);
-        if (stuffData) onStuffNodeClick(stuffData);
+        const sd = findStuffDataByDigest(graphspec, digest);
+        if (sd) onStuffNodeClick(sd);
+      }
+
+      // Update detail panel (toggle off if same node clicked again)
+      setConceptOverride(null);
+      if (detailSelection?.nodeId === node.id && !conceptOverride) {
+        setDetailSelection(null);
+      } else if (nodeData.isPipe || nodeData.isController) {
+        setDetailSelection({ kind: "pipe", nodeId: node.id, nodeData });
+      } else if (nodeData.isStuff && graphspec) {
+        const digest = stuffDigestFromId(node.id);
+        const sd = findStuffDataByDigest(graphspec, digest);
+        setDetailSelection({ kind: "stuff", nodeId: node.id, nodeData, stuffData: sd ?? undefined });
       }
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
     },
-    [setNodes, onNavigateToPipe, onNodeSelect, onStuffNodeClick, graphspec],
+    [setNodes, onNavigateToPipe, onNodeSelect, onStuffNodeClick, graphspec, detailSelection, conceptOverride],
   );
 
   const onInit = React.useCallback(
@@ -396,6 +461,31 @@ export function GraphViewer(props: GraphViewerProps) {
     [onReactFlowInit],
   );
 
+  // Dismiss detail panel on pane click
+  const handlePaneClick = React.useCallback(() => {
+    setDetailSelection(null);
+    setConceptOverride(null);
+    onPaneClick?.();
+  }, [onPaneClick]);
+
+  // Navigate from pipe IO concept → concept detail
+  const handleConceptClick = React.useCallback(
+    (conceptCode: string) => {
+      if (!graphspec) return;
+      const info = resolveConceptRef(graphspec, conceptCode);
+      if (info) setConceptOverride(info);
+    },
+    [graphspec],
+  );
+
+  // Resolve the selected pipe's GraphSpecNode for the detail panel
+  const selectedSpecNode =
+    detailSelection?.kind === "pipe" && graphspec
+      ? graphspec.nodes.find((n) => n.pipe_code === detailSelection.nodeData.pipeCode)
+      : undefined;
+
+  const detailOpen = detailSelection !== null || conceptOverride !== null;
+
   return (
     <div ref={containerRef} className="react-flow-container">
       <ReactFlow
@@ -405,7 +495,7 @@ export function GraphViewer(props: GraphViewerProps) {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onNodeClick={onNodeClick}
-        onPaneClick={onPaneClick ? () => onPaneClick() : undefined}
+        onPaneClick={handlePaneClick}
         onInit={onInit}
         fitView
         fitViewOptions={{ padding: 0.1 }}
@@ -421,6 +511,22 @@ export function GraphViewer(props: GraphViewerProps) {
           color="var(--color-bg-dots)"
         />
       </ReactFlow>
+      <DetailPanel isOpen={detailOpen} onClose={handlePaneClick}>
+        {conceptOverride ? (
+          <ConceptDetailPanel concept={conceptOverride} />
+        ) : selectedSpecNode && graphspec ? (
+          <PipeDetailPanel
+            node={selectedSpecNode}
+            spec={graphspec}
+            onConceptClick={handleConceptClick}
+          />
+        ) : detailSelection?.stuffData ? (
+          <StuffNodeDetail
+            stuffData={detailSelection.stuffData}
+            graphspec={graphspec}
+          />
+        ) : null}
+      </DetailPanel>
     </div>
   );
 }

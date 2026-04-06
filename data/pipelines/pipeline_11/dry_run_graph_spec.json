@@ -1,0 +1,1354 @@
+{
+  "graph_id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6",
+  "created_at": "2026-04-06T10:15:30.308664Z",
+  "pipeline_ref": {
+    "domain": "customer_support",
+    "main_pipe": "smart_responder",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_0",
+      "kind": "controller",
+      "pipe_code": "smart_responder",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.314684Z",
+        "ended_at": "2026-04-06T10:15:30.384644Z",
+        "duration": 0.06996
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "request",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LKjbU",
+            "data": {
+              "text": "cIKMAoRjhokzZuTkYJfv"
+            },
+            "data_text": "cIKMAoRjhokzZuTkYJfv                                                                                \n",
+            "data_html": "cIKMAoRjhokzZuTkYJfv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "captioned",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NwjGp",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: pjOfqsHtEMPpTOyKpKKr Image: None                                                           \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "kind": "operator",
+      "pipe_code": "classify_request",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.318482Z",
+        "ended_at": "2026-04-06T10:15:30.330284Z",
+        "duration": 0.011802
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "request",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LKjbU",
+            "data": {
+              "text": "cIKMAoRjhokzZuTkYJfv"
+            },
+            "data_text": "cIKMAoRjhokzZuTkYJfv                                                                                \n",
+            "data_html": "cIKMAoRjhokzZuTkYJfv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Classify this user request as either a text query or an image request:\n\n<request>\ncIKMAoRjhokzZuTkYJfv\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass ClassifiedRequest(StructuredContent):\n    \"\"\"User request classified by type\"\"\"\n    request_text: str  # Original request\n    request_type: Literal[\n        \"text_query\",\n        \"image_request\",\n    ]  # Request type\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_2",
+      "kind": "controller",
+      "pipe_code": "route_response",
+      "pipe_type": "PipeCondition",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.330330Z",
+        "ended_at": "2026-04-06T10:15:30.384246Z",
+        "duration": 0.053916
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "response",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NwjGp",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: pjOfqsHtEMPpTOyKpKKr Image: None                                                           \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_3",
+      "kind": "controller",
+      "pipe_code": "text_response_path",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.334075Z",
+        "ended_at": "2026-04-06T10:15:30.357047Z",
+        "duration": 0.022972
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "polished",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "eHApP",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draf\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draf\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_4",
+      "kind": "operator",
+      "pipe_code": "draft_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.337187Z",
+        "ended_at": "2026-04-06T10:15:30.346335Z",
+        "duration": 0.009148
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "draft",
+            "concept": "DraftResponse",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "fksLf",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Draft a helpful response to \nthis request:                                                                                       \n\npjOfqsHtEMPpTOyKpKKr                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_5",
+      "kind": "operator",
+      "pipe_code": "polish_text",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.347606Z",
+        "ended_at": "2026-04-06T10:15:30.356610Z",
+        "duration": 0.009004
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "draft",
+            "concept": "DraftResponse",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "fksLf",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Draft a helpful response to \nthis request:                                                                                       \n\npjOfqsHtEMPpTOyKpKKr                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "polished",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "eHApP",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draf\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draf\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\npjOfqsHtEMPpTOyKpKKr\n    \n</draft>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_6",
+      "kind": "controller",
+      "pipe_code": "image_response_path",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.357067Z",
+        "ended_at": "2026-04-06T10:15:30.383830Z",
+        "duration": 0.026763
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "captioned",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NwjGp",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: pjOfqsHtEMPpTOyKpKKr Image: None                                                           \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_7",
+      "kind": "operator",
+      "pipe_code": "generate_response_image",
+      "pipe_type": "PipeImgGen",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.359574Z",
+        "ended_at": "2026-04-06T10:15:30.372515Z",
+        "duration": 0.012941
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "image",
+            "concept": "Image",
+            "content_type": "image/jpeg",
+            "preview": null,
+            "size": null,
+            "digest": "hSQ3Y",
+            "data": {
+              "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "source_prompt": "pjOfqsHtEMPpTOyKpKKr",
+              "source_negative_prompt": null,
+              "caption": null,
+              "mime_type": "image/jpeg",
+              "size": {
+                "width": 1024,
+                "height": 1024
+              },
+              "filename": null
+            },
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\npjOfqsHtEMPpTOyKpKKr\n",
+            "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "@default-general",
+        "rendered_prompt": "pjOfqsHtEMPpTOyKpKKr",
+        "rendered_negative_prompt": null,
+        "aspect_ratio": "square",
+        "nb_images": 1
+      }
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_8",
+      "kind": "operator",
+      "pipe_code": "caption_response",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:30.373750Z",
+        "ended_at": "2026-04-06T10:15:30.383261Z",
+        "duration": 0.009511
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "image",
+            "concept": "Image",
+            "content_type": "image/jpeg",
+            "preview": null,
+            "size": null,
+            "digest": "hSQ3Y",
+            "data": {
+              "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "source_prompt": "pjOfqsHtEMPpTOyKpKKr",
+              "source_negative_prompt": null,
+              "caption": null,
+              "mime_type": "image/jpeg",
+              "size": {
+                "width": 1024,
+                "height": 1024
+              },
+              "filename": null
+            },
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\npjOfqsHtEMPpTOyKpKKr\n",
+            "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
+            "extra": {}
+          },
+          {
+            "name": "classified",
+            "concept": "ClassifiedRequest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "EVhMf",
+            "data": {
+              "request_text": "pjOfqsHtEMPpTOyKpKKr",
+              "request_type": "text_query"
+            },
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ pjOfqsHtEMPpTOyKpKKr                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
+            "data_html": "<table><tr><th>request_text</th><td>pjOfqsHtEMPpTOyKpKKr</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "captioned",
+            "concept": "Response",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NwjGp",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: pjOfqsHtEMPpTOyKpKKr Image: None                                                           \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Write a caption and explanation for this generated image, given the original request:\n\nRequest: pjOfqsHtEMPpTOyKpKKr\nImage: None",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_0",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_0",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_1",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_0",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_2",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_2",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_3",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_3",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_4",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_3",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_5",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_2",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_6",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_6",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_7",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_7",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_6",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_8",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_8",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_2",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_9",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_3",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_10",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_4",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_11",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_4",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_5",
+      "kind": "data",
+      "label": "draft",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_12",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_6",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_13",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_7",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_14",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_7",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_8",
+      "kind": "data",
+      "label": "image",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:edge_15",
+      "source": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_1",
+      "target": "8aaaea4a-0ec9-4e6d-852f-6f06d923d1a6:node_8",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "customer_support.smart_responder": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "smart_responder",
+      "domain_code": "customer_support",
+      "description": "Classify request and route to appropriate response path",
+      "inputs": {
+        "request": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "classify_request",
+          "output_name": "classified",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "route_response",
+          "output_name": "response",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "customer_support.classify_request": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "classify_request",
+      "domain_code": "customer_support",
+      "description": "Classify the user request type",
+      "inputs": {
+        "request": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ClassifiedRequest",
+          "domain_code": "customer_support",
+          "description": "User request classified by type",
+          "structure_class_name": "ClassifiedRequest",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Classify this user request as either a text query or an image request:\n\n@request\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "customer_support.route_response": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_response",
+      "domain_code": "customer_support",
+      "description": "Route to text or image response path",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "expression": "{{ classified.request_type }}",
+      "outcome_map": {
+        "text_query": "text_response_path",
+        "image_request": "image_response_path"
+      },
+      "default_outcome": "text_response_path",
+      "add_alias_from_expression_to": null
+    },
+    "customer_support.text_response_path": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "text_response_path",
+      "domain_code": "customer_support",
+      "description": "Draft and polish a text response",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "draft_text",
+          "output_name": "draft",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "polish_text",
+          "output_name": "polished",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "customer_support.draft_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "draft_text",
+      "domain_code": "customer_support",
+      "description": "Draft a text response",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "DraftResponse",
+          "domain_code": "customer_support",
+          "description": "A draft response to the user",
+          "structure_class_name": "DraftResponse",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Draft a helpful response to this request:\n\n$classified.request_text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "customer_support.polish_text": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "polish_text",
+      "domain_code": "customer_support",
+      "description": "Polish the draft response",
+      "inputs": {
+        "draft": {
+          "concept": {
+            "code": "DraftResponse",
+            "domain_code": "customer_support",
+            "description": "A draft response to the user",
+            "structure_class_name": "DraftResponse",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Polish and improve this draft response for clarity and helpfulness:\n\n@draft\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "customer_support.image_response_path": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "image_response_path",
+      "domain_code": "customer_support",
+      "description": "Generate and caption an image response",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "generate_response_image",
+          "output_name": "image",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "caption_response",
+          "output_name": "captioned",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "customer_support.generate_response_image": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeImgGen",
+      "code": "generate_response_image",
+      "domain_code": "customer_support",
+      "description": "Generate an image for the response",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Image",
+          "domain_code": "native",
+          "description": "An image",
+          "structure_class_name": "ImageContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "img_gen_prompt_blueprint": {
+        "prompt_blueprint": {
+          "template": "$classified.request_text",
+          "templating_style": null,
+          "category": "img_gen_prompt",
+          "extra_context": null
+        },
+        "negative_prompt_blueprint": null,
+        "image_references": null
+      },
+      "img_gen_choice": null,
+      "aspect_ratio": null,
+      "is_raw": null,
+      "seed": null,
+      "background": null,
+      "output_format": null,
+      "output_multiplicity": 1
+    },
+    "customer_support.caption_response": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "caption_response",
+      "domain_code": "customer_support",
+      "description": "Add caption to generated image",
+      "inputs": {
+        "image": {
+          "concept": {
+            "code": "Image",
+            "domain_code": "native",
+            "description": "An image",
+            "structure_class_name": "ImageContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "classified": {
+          "concept": {
+            "code": "ClassifiedRequest",
+            "domain_code": "customer_support",
+            "description": "User request classified by type",
+            "structure_class_name": "ClassifiedRequest",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Response",
+          "domain_code": "customer_support",
+          "description": "Final delivered response",
+          "structure_class_name": "Response",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Write a caption and explanation for this generated image, given the original request:\n\nRequest: $classified.request_text\nImage: $image.caption\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "customer_support.Response": {
+      "code": "Response",
+      "domain_code": "customer_support",
+      "description": "Final delivered response",
+      "structure_class_name": "Response",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Final delivered response",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Response",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "customer_support.ClassifiedRequest": {
+      "code": "ClassifiedRequest",
+      "domain_code": "customer_support",
+      "description": "User request classified by type",
+      "structure_class_name": "ClassifiedRequest",
+      "refines": null,
+      "json_schema": {
+        "description": "User request classified by type",
+        "properties": {
+          "request_text": {
+            "description": "Original request",
+            "title": "Request Text",
+            "type": "string"
+          },
+          "request_type": {
+            "description": "Request type",
+            "enum": [
+              "text_query",
+              "image_request"
+            ],
+            "title": "Request Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_text",
+          "request_type"
+        ],
+        "title": "ClassifiedRequest",
+        "type": "object"
+      }
+    },
+    "customer_support.DraftResponse": {
+      "code": "DraftResponse",
+      "domain_code": "customer_support",
+      "description": "A draft response to the user",
+      "structure_class_name": "DraftResponse",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A draft response to the user",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "DraftResponse",
+        "type": "object"
+      }
+    },
+    "native.Image": {
+      "code": "Image",
+      "domain_code": "native",
+      "description": "An image",
+      "structure_class_name": "ImageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "url": {
+            "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public URL of the image",
+            "title": "Public Url"
+          },
+          "source_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The source prompt of the image",
+            "title": "Source Prompt"
+          },
+          "source_negative_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The source negative prompt of the image",
+            "title": "Source Negative Prompt"
+          },
+          "caption": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The caption of the image",
+            "title": "Caption"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the image",
+            "title": "Mime Type"
+          },
+          "size": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageSize"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The size in pixels (width and height) of the image"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the image",
+            "title": "Filename"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "ImageContent",
+        "type": "object"
+      }
+    }
+  }
+}

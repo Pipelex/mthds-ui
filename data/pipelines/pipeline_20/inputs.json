@@ -1,0 +1,8 @@
+{
+  "data": {
+    "concept": "native.Text",
+    "content": {
+      "text": "Machine learning operations (MLOps) encompasses the practices, tools, and organizational structures needed to deploy and maintain machine learning models in production. Key components include data versioning, model registry, automated testing, continuous integration and deployment, monitoring, and governance."
+    }
+  }
+}

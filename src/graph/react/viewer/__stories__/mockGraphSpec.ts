@@ -1,55 +1,64 @@
 import type { GraphSpec } from "@graph/types";
 
-// Auto-generated from real MTHDS pipeline runs.
-// Do not edit manually — regenerate by running the pipelines.
-// Individual specs live in ./pipelines/specs/*.ts
-
-import { DRY_SINGLE_PIPE, LIVE_SINGLE_PIPE } from "./pipelines/specs/singlePipe";
-import { DRY_TWO_PIPE_CHAIN, LIVE_TWO_PIPE_CHAIN } from "./pipelines/specs/twoPipeChain";
-import { DRY_SIMPLE_SEQUENCE, LIVE_SIMPLE_SEQUENCE } from "./pipelines/specs/simpleSequence";
-import { DRY_LONG_SEQUENCE, LIVE_LONG_SEQUENCE } from "./pipelines/specs/longSequence";
-import { DRY_SIMPLE_PARALLEL, LIVE_SIMPLE_PARALLEL } from "./pipelines/specs/simpleParallel";
+// All specs generated from real pipelex output (dry-run + live-run).
+// Both DRY and LIVE have pipe_registry + concept_registry populated.
+// Regenerate by running all pipeline bundles in data/pipelines/.
 import {
+  DRY_SINGLE_PIPE,
+  LIVE_SINGLE_PIPE,
+  DRY_TWO_PIPE_CHAIN,
+  LIVE_TWO_PIPE_CHAIN,
+  DRY_SIMPLE_SEQUENCE,
+  LIVE_SIMPLE_SEQUENCE,
+  DRY_LONG_SEQUENCE,
+  LIVE_LONG_SEQUENCE,
+  DRY_SIMPLE_PARALLEL,
+  LIVE_SIMPLE_PARALLEL,
   DRY_THREE_WAY_PARALLEL,
   LIVE_THREE_WAY_PARALLEL,
-} from "./pipelines/specs/threeWayParallel";
-import { DRY_SIMPLE_CONDITION, LIVE_SIMPLE_CONDITION } from "./pipelines/specs/simpleCondition";
-import { DRY_SIMPLE_BATCH, LIVE_SIMPLE_BATCH } from "./pipelines/specs/simpleBatch";
-import { DRY_CV_SCREENING, LIVE_CV_SCREENING } from "./pipelines/specs/cvScreening";
-import { DRY_NESTED_SEQ_PAR_SEQ, LIVE_NESTED_SEQ_PAR_SEQ } from "./pipelines/specs/nestedSeqParSeq";
-import {
+  DRY_SIMPLE_CONDITION,
+  LIVE_SIMPLE_CONDITION,
+  DRY_SIMPLE_BATCH,
+  LIVE_SIMPLE_BATCH,
+  DRY_CV_SCREENING,
+  LIVE_CV_SCREENING,
+  DRY_NESTED_SEQ_PAR_SEQ,
+  LIVE_NESTED_SEQ_PAR_SEQ,
   DRY_NESTED_SEQ_COND_SEQ,
   LIVE_NESTED_SEQ_COND_SEQ,
-} from "./pipelines/specs/nestedSeqCondSeq";
-import {
   DRY_BATCH_WITH_INNER_SEQ,
   LIVE_BATCH_WITH_INNER_SEQ,
-} from "./pipelines/specs/batchWithInnerSeq";
-import { DRY_DIAMOND_PATTERN, LIVE_DIAMOND_PATTERN } from "./pipelines/specs/diamondPattern";
-import { DRY_ALL_PIPE_TYPES, LIVE_ALL_PIPE_TYPES } from "./pipelines/specs/allPipeTypes";
-import { DRY_RAG_PIPELINE, LIVE_RAG_PIPELINE } from "./pipelines/specs/ragPipeline";
-import { DRY_IMAGE_PIPELINE, LIVE_IMAGE_PIPELINE } from "./pipelines/specs/imagePipeline";
-import { DRY_EMAIL_TRIAGE, LIVE_EMAIL_TRIAGE } from "./pipelines/specs/emailTriage";
-import { DRY_CODE_REVIEW, LIVE_CODE_REVIEW } from "./pipelines/specs/codeReview";
-import {
+  DRY_DIAMOND_PATTERN,
+  LIVE_DIAMOND_PATTERN,
+  DRY_ALL_PIPE_TYPES,
+  LIVE_ALL_PIPE_TYPES,
+  DRY_RAG_PIPELINE,
+  LIVE_RAG_PIPELINE,
+  DRY_IMAGE_PIPELINE,
+  LIVE_IMAGE_PIPELINE,
+  DRY_EMAIL_TRIAGE,
+  LIVE_EMAIL_TRIAGE,
+  DRY_CODE_REVIEW,
+  LIVE_CODE_REVIEW,
   DRY_CONTENT_MODERATION,
   LIVE_CONTENT_MODERATION,
-} from "./pipelines/specs/contentModeration";
-import { DRY_WIDE_PARALLEL, LIVE_WIDE_PARALLEL } from "./pipelines/specs/wideParallel";
-import {
+  DRY_WIDE_PARALLEL,
+  LIVE_WIDE_PARALLEL,
   DRY_MULTI_INPUT_CONVERGE,
   LIVE_MULTI_INPUT_CONVERGE,
-} from "./pipelines/specs/multiInputConverge";
-import {
   DRY_MULTI_OUTPUT_FANOUT,
   LIVE_MULTI_OUTPUT_FANOUT,
-} from "./pipelines/specs/multiOutputFanout";
-import { DRY_SIBLING_PARALLELS, LIVE_SIBLING_PARALLELS } from "./pipelines/specs/siblingParallels";
-import { DRY_DEEP_NESTING, LIVE_DEEP_NESTING } from "./pipelines/specs/deepNesting";
-import {
+  DRY_SIBLING_PARALLELS,
+  LIVE_SIBLING_PARALLELS,
+  DRY_DEEP_NESTING,
+  LIVE_DEEP_NESTING,
   DRY_ALL_CONTROLLER_TYPES,
   LIVE_ALL_CONTROLLER_TYPES,
-} from "./pipelines/specs/allControllerTypes";
+  DRY_CV_MATCHING as DRY_CV_MATCHING_26,
+  LIVE_CV_MATCHING as LIVE_CV_MATCHING_26,
+} from "./pipelines/specs/_generated";
+
+// CV Matching (pipeline_28) — not in data/pipelines/, uses old spec format
 import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "./pipelines/specs/cvMatching";
 
 // ─── Re-export all individual specs ──────────────────────────────────
@@ -107,6 +116,8 @@ export {
   LIVE_ALL_CONTROLLER_TYPES,
   DRY_CV_MATCHING,
   LIVE_CV_MATCHING,
+  DRY_CV_MATCHING_26,
+  LIVE_CV_MATCHING_26,
 };
 
 // ─── Catalogs ────────────────────────────────────────────────────────

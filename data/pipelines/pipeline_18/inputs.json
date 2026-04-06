@@ -1,0 +1,8 @@
+{
+  "pr_url": {
+    "concept": "native.Text",
+    "content": {
+      "text": "https://github.com/example/repo/pull/42"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+domain = "controller_showcase"
+description = "All controller types: Sequence + Parallel + Condition + Batch in one pipeline"
+main_pipe = "all_controllers"
+
+[concept.ClassifiedItem]
+description = "Item classified for routing"
+
+[concept.ClassifiedItem.structure]
+content = {type = "text", description = "Item content", required = true}
+category = {type = "text", description = "Item category", required = true, choices = ["text", "data"]}
+
+[concept.ProcessedItem]
+description = "A fully processed item"
+refines = "Text"
+
+[concept.FinalReport]
+description = "Final report of all processing"
+refines = "Text"
+
+[pipe.all_controllers]
+type = "PipeSequence"
+description = "Showcase all controller types in one pipeline"
+inputs = {document = "Document"}
+output = "FinalReport"
+steps = [
+    {pipe = "extract_input", result = "pages"},
+    {pipe = "parallel_classify", result = "search_result"},
+    {pipe = "batch_process", batch_over = "pages", batch_as = "page", result = "page_results"},
+    {pipe = "classify_content", result = "classified"},
+    {pipe = "route_processing", result = "processed"},
+]
+
+[pipe.extract_input]
+type = "PipeExtract"
+description = "Extract content from document"
+inputs = {document = "Document"}
+output = "Page[]"
+
+[pipe.parallel_classify]
+type = "PipeParallel"
+description = "Parallel: analyze and search simultaneously"
+inputs = {pages = "Page[]"}
+output = "SearchResult"
+add_each_output = true
+branches = [
+    {pipe = "analyze_content", result = "analysis"},
+    {pipe = "search_context", result = "search_result"},
+]
+
+[pipe.analyze_content]
+type = "PipeLLM"
+description = "Analyze document content"
+inputs = {pages = "Page[]"}
+output = "Text"
+prompt = "Analyze this content:\n\n@pages"
+
+[pipe.search_context]
+type = "PipeSearch"
+description = "Search for related context"
+inputs = {pages = "Page[]"}
+output = "SearchResult"
+prompt = "Related context for: $pages"
+
+[pipe.batch_process]
+type = "PipeLLM"
+description = "Process a single page"
+inputs = {page = "Page"}
+output = "ProcessedItem"
+prompt = "Summarize this page:\n\n@page"
+
+[pipe.classify_content]
+type = "PipeLLM"
+description = "Classify content for routing"
+inputs = {analysis = "Text", search_result = "SearchResult"}
+output = "ClassifiedItem"
+prompt = """
+Classify this content as either 'text' or 'data':
+
+Analysis: @analysis
+Context: @search_result
+"""
+
+[pipe.route_processing]
+type = "PipeCondition"
+description = "Condition: route by category"
+inputs = {classified = "ClassifiedItem"}
+output = "FinalReport"
+expression = "classified.category"
+outcomes = {text = "process_text", data = "process_data"}
+default_outcome = "process_text"
+
+[pipe.process_text]
+type = "PipeCompose"
+description = "Format as text report"
+inputs = {classified = "ClassifiedItem"}
+output = "FinalReport"
+template = "# Text Report\n\n$classified.content"
+
+[pipe.process_data]
+type = "PipeCompose"
+description = "Format as data report"
+inputs = {classified = "ClassifiedItem"}
+output = "FinalReport"
+template = "# Data Report\n\n$classified.content"

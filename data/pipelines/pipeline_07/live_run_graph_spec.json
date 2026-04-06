@@ -1,0 +1,543 @@
+{
+  "graph_id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c",
+  "created_at": "2026-04-06T10:20:11.084016Z",
+  "pipeline_ref": {
+    "domain": "translation",
+    "main_pipe": "translate_pipeline",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_0",
+      "kind": "controller",
+      "pipe_code": "translate_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:20:11.090244Z",
+        "ended_at": "2026-04-06T10:20:18.235196Z",
+        "duration": 7.144952
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "text",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RDk2o",
+            "data": {
+              "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
+            },
+            "data_text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les\nmodèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues.     \nCette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance       \nmultilingue.                                                                                        \n",
+            "data_html": "La technologie d&#x27;intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l&#x27;assistance multilingue.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "translated",
+            "concept": "TranslatedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mu6nc",
+            "data": {
+              "text": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."
+            },
+            "data_text": "                                            Translation                                             \n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models\ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.                                               \n",
+            "data_html": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_1",
+      "kind": "operator",
+      "pipe_code": "detect_language",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:20:11.096687Z",
+        "ended_at": "2026-04-06T10:20:16.148611Z",
+        "duration": 5.051924
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "text",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RDk2o",
+            "data": {
+              "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
+            },
+            "data_text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les\nmodèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues.     \nCette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance       \nmultilingue.                                                                                        \n",
+            "data_html": "La technologie d&#x27;intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l&#x27;assistance multilingue.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "XPkDL",
+            "data": {
+              "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
+              "language": "french"
+            },
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text      │ La technologie d'intelligence artificielle a fait des progrès      \n           │ remarquables ces dernières années. Les modèles de langage peuvent  \n           │ désormais comprendre et générer du texte dans de nombreuses        \n           │ langues. Cette capacité ouvre de nouvelles possibilités dans la    \n           │ traduction automatique et l'assistance multilingue.                \n───────────┼────────────────────────────────────────────────────────────────────\n language  │ french                                                             \n",
+            "data_html": "<table><tr><th>text</th><td>La technologie d&#x27;intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l&#x27;assistance multilingue.</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Detect the language of the following text and classify it:\n\n<text>\nLa technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass ClassifiedText(StructuredContent):\n    \"\"\"Text with detected language\"\"\"\n    text: str  # The original text\n    language: Literal[\n        \"english\",\n        \"french\",\n        \"spanish\",\n        \"german\",\n        \"other\",\n    ]  # Detected language code\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_2",
+      "kind": "controller",
+      "pipe_code": "route_translation",
+      "pipe_type": "PipeCondition",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:20:16.148704Z",
+        "ended_at": "2026-04-06T10:20:18.234105Z",
+        "duration": 2.085401
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "XPkDL",
+            "data": {
+              "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
+              "language": "french"
+            },
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text      │ La technologie d'intelligence artificielle a fait des progrès      \n           │ remarquables ces dernières années. Les modèles de langage peuvent  \n           │ désormais comprendre et générer du texte dans de nombreuses        \n           │ langues. Cette capacité ouvre de nouvelles possibilités dans la    \n           │ traduction automatique et l'assistance multilingue.                \n───────────┼────────────────────────────────────────────────────────────────────\n language  │ french                                                             \n",
+            "data_html": "<table><tr><th>text</th><td>La technologie d&#x27;intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l&#x27;assistance multilingue.</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "translated",
+            "concept": "TranslatedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mu6nc",
+            "data": {
+              "text": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."
+            },
+            "data_text": "                                            Translation                                             \n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models\ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.                                               \n",
+            "data_html": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "evaluated_expression": "french",
+        "selected_outcome": "translate_french"
+      }
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_3",
+      "kind": "operator",
+      "pipe_code": "translate_french",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:20:16.161138Z",
+        "ended_at": "2026-04-06T10:20:18.230690Z",
+        "duration": 2.069552
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "XPkDL",
+            "data": {
+              "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
+              "language": "french"
+            },
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text      │ La technologie d'intelligence artificielle a fait des progrès      \n           │ remarquables ces dernières années. Les modèles de langage peuvent  \n           │ désormais comprendre et générer du texte dans de nombreuses        \n           │ langues. Cette capacité ouvre de nouvelles possibilités dans la    \n           │ traduction automatique et l'assistance multilingue.                \n───────────┼────────────────────────────────────────────────────────────────────\n language  │ french                                                             \n",
+            "data_html": "<table><tr><th>text</th><td>La technologie d&#x27;intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l&#x27;assistance multilingue.</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "translated",
+            "concept": "TranslatedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mu6nc",
+            "data": {
+              "text": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."
+            },
+            "data_text": "                                            Translation                                             \n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models\ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.                                               \n",
+            "data_html": "# Translation\n\nThe artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Translate the following French text to English:\n\nLa technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:edge_0",
+      "source": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_0",
+      "target": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:edge_1",
+      "source": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_0",
+      "target": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:edge_2",
+      "source": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_2",
+      "target": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:edge_3",
+      "source": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_1",
+      "target": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_2",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:edge_4",
+      "source": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_1",
+      "target": "fd5c85ae-d298-4c84-9a79-b6fcd3aef98c:node_3",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "translation.translate_pipeline": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "translate_pipeline",
+      "domain_code": "translation",
+      "description": "Detect language and translate if needed",
+      "inputs": {
+        "text": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TranslatedText",
+          "domain_code": "translation",
+          "description": "Text translated to English",
+          "structure_class_name": "TranslatedText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "detect_language",
+          "output_name": "classified",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "route_translation",
+          "output_name": "translated",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "translation.detect_language": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "detect_language",
+      "domain_code": "translation",
+      "description": "Detect the language of input text",
+      "inputs": {
+        "text": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ClassifiedText",
+          "domain_code": "translation",
+          "description": "Text with detected language",
+          "structure_class_name": "ClassifiedText",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Detect the language of the following text and classify it:\n\n@text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "translation.route_translation": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_translation",
+      "domain_code": "translation",
+      "description": "Route based on detected language",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedText",
+            "domain_code": "translation",
+            "description": "Text with detected language",
+            "structure_class_name": "ClassifiedText",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TranslatedText",
+          "domain_code": "translation",
+          "description": "Text translated to English",
+          "structure_class_name": "TranslatedText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "expression": "{{ classified.language }}",
+      "outcome_map": {
+        "english": "passthrough",
+        "french": "translate_french"
+      },
+      "default_outcome": "translate_other",
+      "add_alias_from_expression_to": null
+    },
+    "translation.translate_french": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "translate_french",
+      "domain_code": "translation",
+      "description": "Translate French text to English",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "ClassifiedText",
+            "domain_code": "translation",
+            "description": "Text with detected language",
+            "structure_class_name": "ClassifiedText",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TranslatedText",
+          "domain_code": "translation",
+          "description": "Text translated to English",
+          "structure_class_name": "TranslatedText",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Translate the following French text to English:\n\n$classified.text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "translation.TranslatedText": {
+      "code": "TranslatedText",
+      "domain_code": "translation",
+      "description": "Text translated to English",
+      "structure_class_name": "TranslatedText",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TranslatedText",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "translation.ClassifiedText": {
+      "code": "ClassifiedText",
+      "domain_code": "translation",
+      "description": "Text with detected language",
+      "structure_class_name": "ClassifiedText",
+      "refines": null,
+      "json_schema": {
+        "description": "Text with detected language",
+        "properties": {
+          "text": {
+            "description": "The original text",
+            "title": "Text",
+            "type": "string"
+          },
+          "language": {
+            "description": "Detected language code",
+            "enum": [
+              "english",
+              "french",
+              "spanish",
+              "german",
+              "other"
+            ],
+            "title": "Language",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "language"
+        ],
+        "title": "ClassifiedText",
+        "type": "object"
+      }
+    }
+  }
+}

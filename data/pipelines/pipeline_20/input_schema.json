@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "wide_pipeline",
+  "inputs": {
+    "data": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

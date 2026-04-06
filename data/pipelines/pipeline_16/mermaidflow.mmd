@@ -1,0 +1,38 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_d15d4de63e["image_pipeline"]
+        subgraph sg_n_13a2743e3d["parallel_analyze"]
+            n_b582d80558["classify_image"]
+            s_05a836c5cb(["tags<br/>TagList"]):::stuff
+            n_80abfc1a57["describe_image"]
+            s_22ea51e96d(["description<br/>Description"]):::stuff
+            n_e57487df26["generate_thumbnail"]
+            s_2377117eb3(["thumbnail<br/>Image"]):::stuff
+        end
+        n_fdec8bb12c["build_catalog"]
+        s_18d6d22815(["entry<br/>CatalogEntry"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_11fdc4978f(["image<br/>Image"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_fdec8bb12c --> s_18d6d22815
+    n_b582d80558 --> s_05a836c5cb
+    n_80abfc1a57 --> s_22ea51e96d
+    n_e57487df26 --> s_2377117eb3
+    s_05a836c5cb --> n_fdec8bb12c
+    s_11fdc4978f --> n_80abfc1a57
+    s_11fdc4978f --> n_b582d80558
+    s_11fdc4978f --> n_e57487df26
+    s_22ea51e96d --> n_fdec8bb12c
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_13a2743e3d fill:#e6ffe6
+    style sg_n_d15d4de63e fill:#e6f3ff

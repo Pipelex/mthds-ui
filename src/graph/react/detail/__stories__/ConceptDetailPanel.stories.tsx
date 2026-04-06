@@ -2,7 +2,12 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DetailPanel } from "../DetailPanel";
 import { ConceptDetailPanel } from "../ConceptDetailPanel";
-import { CONCEPT_TEXT, CONCEPT_SUMMARY } from "./enrichedMockData";
+import {
+  CONCEPT_TEXT,
+  CONCEPT_CANDIDATEPROFILE,
+  CONCEPT_MATCHSCORE,
+  CONCEPT_REPORT,
+} from "./enrichedMockData";
 
 const meta: Meta = {
   title: "Graph/Detail Panel/Concept Detail",
@@ -20,7 +25,6 @@ export default meta;
 type Story = StoryObj;
 
 export const SimpleText: Story = {
-  name: "Simple Text",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
       <ConceptDetailPanel concept={CONCEPT_TEXT} />
@@ -29,28 +33,28 @@ export const SimpleText: Story = {
 };
 
 export const StructuredConcept: Story = {
-  name: "Structured (Summary)",
+  name: "Structured (CandidateProfile)",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
-      <ConceptDetailPanel concept={CONCEPT_SUMMARY} />
+      <ConceptDetailPanel concept={CONCEPT_CANDIDATEPROFILE} />
     </DetailPanel>
   ),
 };
 
 export const WithRefinement: Story = {
-  name: "With Refinement",
+  name: "With Refinement (Report)",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
-      <ConceptDetailPanel concept={CONCEPT_SUMMARY} />
+      <ConceptDetailPanel concept={CONCEPT_REPORT} />
     </DetailPanel>
   ),
 };
 
 export const DryRunSchemaOnly: Story = {
-  name: "Dry Run (Schema Only)",
+  name: "Dry Run (Required Fields Only)",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
-      <ConceptDetailPanel concept={CONCEPT_SUMMARY} isDryRun={true} />
+      <ConceptDetailPanel concept={CONCEPT_CANDIDATEPROFILE} isDryRun={true} />
     </DetailPanel>
   ),
 };
@@ -60,22 +64,16 @@ export const WithLiveData: Story = {
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
       <ConceptDetailPanel
-        concept={CONCEPT_SUMMARY}
+        concept={CONCEPT_MATCHSCORE}
         ioData={{
-          name: "summary",
-          concept: "Summary",
-          digest: "def456",
+          name: "match_score",
+          concept: "MatchScore",
+          digest: "score_001",
           data: {
-            text: "The candidate has strong experience in machine learning and distributed systems.",
-            key_points: [
-              "5 years ML experience",
-              "Led team of 8 engineers",
-              "Published 3 papers on NLP",
-            ],
-            confidence: 0.87,
+            score: 85,
+            reasoning: "Strong technical background with relevant experience in ML and distributed systems.",
           },
-          data_text:
-            "The candidate has strong experience in machine learning and distributed systems.\n\nKey points:\n- 5 years ML experience\n- Led team of 8 engineers\n- Published 3 papers on NLP\n\nConfidence: 0.87",
+          data_text: "Score: 85\nReasoning: Strong technical background with relevant experience in ML and distributed systems.",
         }}
       />
     </DetailPanel>

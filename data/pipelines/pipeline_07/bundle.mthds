@@ -1,0 +1,73 @@
+domain = "translation"
+description = "Detect language and conditionally translate or pass through"
+main_pipe = "translate_pipeline"
+
+[concept.ClassifiedText]
+description = "Text with detected language"
+
+[concept.ClassifiedText.structure]
+text = {type = "text", description = "The original text", required = true}
+language = {type = "text", description = "Detected language code", required = true, choices = ["english", "french", "spanish", "german", "other"]}
+
+[concept.TranslatedText]
+description = "Text translated to English"
+refines = "Text"
+
+[pipe.translate_pipeline]
+type = "PipeSequence"
+description = "Detect language and translate if needed"
+inputs = {text = "Text"}
+output = "TranslatedText"
+steps = [
+    {pipe = "detect_language", result = "classified"},
+    {pipe = "route_translation", result = "translated"},
+]
+
+[pipe.detect_language]
+type = "PipeLLM"
+description = "Detect the language of input text"
+inputs = {text = "Text"}
+output = "ClassifiedText"
+prompt = """
+Detect the language of the following text and classify it:
+
+@text
+"""
+
+[pipe.route_translation]
+type = "PipeCondition"
+description = "Route based on detected language"
+inputs = {classified = "ClassifiedText"}
+output = "TranslatedText"
+expression = "classified.language"
+outcomes = {english = "passthrough", french = "translate_french"}
+default_outcome = "translate_other"
+
+[pipe.passthrough]
+type = "PipeCompose"
+description = "Pass English text through unchanged"
+inputs = {classified = "ClassifiedText"}
+output = "TranslatedText"
+template = "$classified.text"
+
+[pipe.translate_french]
+type = "PipeLLM"
+description = "Translate French text to English"
+inputs = {classified = "ClassifiedText"}
+output = "TranslatedText"
+prompt = """
+Translate the following French text to English:
+
+$classified.text
+"""
+
+[pipe.translate_other]
+type = "PipeLLM"
+description = "Translate any language to English"
+inputs = {classified = "ClassifiedText"}
+output = "TranslatedText"
+prompt = """
+Translate the following text from $classified.language to English:
+
+$classified.text
+"""

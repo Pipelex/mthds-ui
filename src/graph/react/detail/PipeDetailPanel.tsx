@@ -6,6 +6,28 @@ import type {
   GraphSpec,
 } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
+import {
+  formatDuration,
+  KV,
+  PipeLLMSection,
+  LLMExecutionData,
+  PipeImgGenSection,
+  ImgGenExecutionData,
+  PipeExtractSection,
+  ExtractExecutionData,
+  PipeSearchSection,
+  SearchExecutionData,
+  PipeComposeSection,
+  ComposeExecutionData,
+  PipeConditionSection,
+  ConditionExecutionData,
+  PipeSequenceSection,
+  SequenceExecutionData,
+  PipeParallelSection,
+  ParallelExecutionData,
+  PipeBatchSection,
+  BatchExecutionData,
+} from "./sections";
 import "./DetailPanel.css";
 
 // ─── Badge / Status config ─────────────────────────────────────────────
@@ -38,11 +60,6 @@ const STATUS_COLORS: Record<string, string> = {
   skipped: "#6272a4",
 };
 
-function formatDuration(seconds: number): string {
-  if (seconds < 1) return `${(seconds * 1000).toFixed(0)}ms`;
-  return `${seconds.toFixed(2)}s`;
-}
-
 // ─── Props ──────────────────────────────────────────────────────────────
 
 export interface PipeDetailPanelProps {
@@ -60,9 +77,20 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const status = node.status ?? "scheduled";
   const statusColor = STATUS_COLORS[status] ?? "#6272a4";
 
-  // Look up the full blueprint from registry
-  const pipeRef = node.pipe_code ? `${spec.pipeline_ref?.domain ?? ""}.${node.pipe_code}` : "";
-  const blueprint = pipeRef ? getPipeBlueprint(spec, pipeRef) : undefined;
+  // Look up the full blueprint from registry — search by pipe_code suffix since
+  // the registry key is domain.pipe_code and the node only has pipe_code
+  const blueprint = React.useMemo(() => {
+    if (!node.pipe_code || !spec.pipe_registry) return undefined;
+    // Direct lookup with pipeline domain
+    const directKey = `${spec.pipeline_ref?.domain ?? ""}.${node.pipe_code}`;
+    const direct = getPipeBlueprint(spec, directKey);
+    if (direct) return direct;
+    // Search all registry entries by pipe_code suffix
+    for (const [ref, pipe] of Object.entries(spec.pipe_registry)) {
+      if (ref.endsWith(`.${node.pipe_code}`)) return pipe as PipeBlueprintUnion;
+    }
+    return undefined;
+  }, [node.pipe_code, spec]);
 
   const inputs = node.io?.inputs ?? [];
   const outputs = node.io?.outputs ?? [];
@@ -134,8 +162,20 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         </div>
       )}
 
+      {/* Separator after IO */}
+      {(inputs.length > 0 || outputs.length > 0) && (
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", margin: "4px 0" }} />
+      )}
+
       {/* Blueprint-specific sections */}
-      {blueprint && <BlueprintSection blueprint={blueprint} />}
+      {blueprint && (
+        <BlueprintSection blueprint={blueprint} executionData={node.execution_data} />
+      )}
+
+      {/* Execution data (runtime-resolved values) */}
+      {node.execution_data && Object.keys(node.execution_data).length > 0 && (
+        <ExecutionDataSection executionData={node.execution_data} pipeType={pipeType} />
+      )}
 
       {/* Error */}
       {node.error && (
@@ -151,10 +191,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         <div>
           <div className="detail-section-label">Metrics</div>
           {Object.entries(node.metrics).map(([key, value]) => (
-            <div key={key} className="detail-kv-row">
-              <span className="detail-kv-key">{key}</span>
-              <span className="detail-kv-value">{typeof value === "number" ? value.toLocaleString() : String(value)}</span>
-            </div>
+            <KV key={key} label={key} value={typeof value === "number" ? value.toLocaleString() : String(value)} />
           ))}
         </div>
       )}
@@ -180,133 +217,81 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   );
 }
 
-// ─── Blueprint-specific sections ────────────────────────────────────────
+// ─── Blueprint dispatch ─────────────────────────────────────────────────────
 
-function BlueprintSection({ blueprint }: { blueprint: PipeBlueprintUnion }) {
+function BlueprintSection({
+  blueprint,
+  executionData,
+}: {
+  blueprint: PipeBlueprintUnion;
+  executionData?: Record<string, unknown>;
+}) {
   switch (blueprint.type) {
     case "PipeLLM":
-      return <PipeLLMSection blueprint={blueprint} />;
+      return <PipeLLMSection blueprint={blueprint} executionData={executionData} />;
     case "PipeImgGen":
-      return <PipeImgGenSection blueprint={blueprint} />;
+      return <PipeImgGenSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeCompose":
+      return <PipeComposeSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeExtract":
+      return <PipeExtractSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeSearch":
+      return <PipeSearchSection blueprint={blueprint} executionData={executionData} />;
     case "PipeSequence":
-      return <PipeSequenceSection blueprint={blueprint} />;
+      return <PipeSequenceSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeParallel":
+      return <PipeParallelSection blueprint={blueprint} executionData={executionData} />;
     case "PipeCondition":
-      return <PipeConditionSection blueprint={blueprint} />;
-    default:
+      return <PipeConditionSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeBatch":
+      return <PipeBatchSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeFunc":
       return null;
   }
 }
 
-function PipeLLMSection({ blueprint }: { blueprint: Extract<PipeBlueprintUnion, { type: "PipeLLM" }> }) {
-  const prompt = blueprint.llm_prompt_spec?.prompt_blueprint?.template;
-  const systemPrompt = blueprint.llm_prompt_spec?.system_prompt_blueprint?.template;
+// ─── Execution data dispatch ────────────────────────────────────────────────
 
-  return (
-    <>
-      {systemPrompt && (
-        <div>
-          <div className="detail-section-label">System Prompt</div>
-          <div className="detail-prompt-block">{systemPrompt}</div>
-        </div>
-      )}
-      {prompt && (
-        <div>
-          <div className="detail-section-label">Prompt</div>
-          <div className="detail-prompt-block">{prompt}</div>
-        </div>
-      )}
-      {blueprint.structuring_method && (
-        <div className="detail-kv-row">
-          <span className="detail-kv-key">Structuring</span>
-          <span className="detail-kv-value">{blueprint.structuring_method}</span>
-        </div>
-      )}
-    </>
-  );
+function ExecutionDataSection({
+  executionData,
+  pipeType,
+}: {
+  executionData: Record<string, unknown>;
+  pipeType: string;
+}) {
+  switch (pipeType) {
+    case "PipeLLM":
+      return <LLMExecutionData data={executionData} />;
+    case "PipeImgGen":
+      return <ImgGenExecutionData data={executionData} />;
+    case "PipeExtract":
+      return <ExtractExecutionData data={executionData} />;
+    case "PipeSearch":
+      return <SearchExecutionData data={executionData} />;
+    case "PipeCompose":
+      return <ComposeExecutionData data={executionData} />;
+    case "PipeCondition":
+      return <ConditionExecutionData data={executionData} />;
+    case "PipeSequence":
+      return <SequenceExecutionData data={executionData} />;
+    case "PipeParallel":
+      return <ParallelExecutionData data={executionData} />;
+    case "PipeBatch":
+      return <BatchExecutionData data={executionData} />;
+    default:
+      return <GenericExecutionData data={executionData} />;
+  }
 }
 
-function PipeImgGenSection({ blueprint }: { blueprint: Extract<PipeBlueprintUnion, { type: "PipeImgGen" }> }) {
-  const prompt = blueprint.img_gen_prompt_blueprint?.prompt_blueprint?.template;
-  const negPrompt = blueprint.img_gen_prompt_blueprint?.negative_prompt_blueprint?.template;
-
+function GenericExecutionData({ data }: { data: Record<string, unknown> }) {
+  const entries = Object.entries(data);
+  if (entries.length === 0) return null;
   return (
     <>
-      {prompt && (
-        <div>
-          <div className="detail-section-label">Prompt</div>
-          <div className="detail-prompt-block">{prompt}</div>
-        </div>
-      )}
-      {negPrompt && (
-        <div>
-          <div className="detail-section-label">Negative Prompt</div>
-          <div className="detail-prompt-block">{negPrompt}</div>
-        </div>
-      )}
-      {blueprint.aspect_ratio && (
-        <div className="detail-kv-row">
-          <span className="detail-kv-key">Aspect Ratio</span>
-          <span className="detail-kv-value">{blueprint.aspect_ratio}</span>
-        </div>
-      )}
-      {blueprint.output_format && (
-        <div className="detail-kv-row">
-          <span className="detail-kv-key">Format</span>
-          <span className="detail-kv-value">{blueprint.output_format}</span>
-        </div>
-      )}
-    </>
-  );
-}
-
-function PipeSequenceSection({ blueprint }: { blueprint: Extract<PipeBlueprintUnion, { type: "PipeSequence" }> }) {
-  const steps = blueprint.sequential_sub_pipes ?? [];
-  if (steps.length === 0) return null;
-
-  return (
-    <div>
-      <div className="detail-section-label">Steps</div>
-      <div className="detail-steps-list">
-        {steps.map((step, idx) => (
-          <div key={idx} className="detail-step-item">
-            <span className="detail-step-index">{idx + 1}</span>
-            <span className="detail-step-code">{step.pipe_code}</span>
-            {step.output_name && (
-              <span className="detail-io-concept">-&gt; {step.output_name}</span>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function PipeConditionSection({ blueprint }: { blueprint: Extract<PipeBlueprintUnion, { type: "PipeCondition" }> }) {
-  return (
-    <>
-      {blueprint.expression && (
-        <div>
-          <div className="detail-section-label">Expression</div>
-          <div className="detail-prompt-block">{blueprint.expression}</div>
-        </div>
-      )}
-      {blueprint.outcome_map && Object.keys(blueprint.outcome_map).length > 0 && (
-        <div>
-          <div className="detail-section-label">Outcomes</div>
-          {Object.entries(blueprint.outcome_map).map(([outcome, pipeCode]) => (
-            <div key={outcome} className="detail-kv-row">
-              <span className="detail-kv-key">{outcome}</span>
-              <span className="detail-kv-value">{pipeCode}</span>
-            </div>
-          ))}
-          {blueprint.default_outcome && (
-            <div className="detail-kv-row">
-              <span className="detail-kv-key">default</span>
-              <span className="detail-kv-value">{blueprint.default_outcome}</span>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="detail-section-label">Execution</div>
+      {entries.map(([key, value]) => (
+        <KV key={key} label={key} value={String(value)} />
+      ))}
     </>
   );
 }

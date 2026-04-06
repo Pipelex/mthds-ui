@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "cv_screening",
+  "inputs": {
+    "cv": {
+      "concept": "native.Document",
+      "content": {
+        "url": "https://mock-d0f56f3c.invalid/ba6b29c1-e8df-4a12-a81b-083863ef7d46"
+      }
+    }
+  }
+}

@@ -1,0 +1,1516 @@
+{
+  "graph_id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141",
+  "created_at": "2026-04-06T10:15:54.331618Z",
+  "pipeline_ref": {
+    "domain": "wide_processing",
+    "main_pipe": "wide_pipeline",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_0",
+      "kind": "controller",
+      "pipe_code": "wide_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.337437Z",
+        "ended_at": "2026-04-06T10:15:54.392501Z",
+        "duration": 0.055064
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "collected",
+            "concept": "CollectedResults",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CsrrQ",
+            "data": {
+              "text": "# Collected Results\n\n## Technical: alpha: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Market: beta: ```\nPKVVzAMIDwwsWcCXGObG\n\nSources:\n- lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba\n  NpcqUaoAvZzTomOAyNBR\n- mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd\n  vYPggpgvAeniVCEdPWtH\n- pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr\n  CISJSdMXpOzmtrhLIenZ\n```\n## Risk: delta: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Compliance: epsilon: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```"
+            },
+            "data_text": "                                         Collected Results                                          \n\nTechnical: alpha: ```                                                                               \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n\n                                                                                                    \n ## Market: beta: ```                                                                               \n PKVVzAMIDwwsWcCXGObG                                                                               \n                                                                                                    \n Sources:                                                                                           \n - lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba                                                       \n   NpcqUaoAvZzTomOAyNBR                                                                             \n - mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd                                                       \n   vYPggpgvAeniVCEdPWtH                                                                             \n - pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr                                                       \n   CISJSdMXpOzmtrhLIenZ                                                                             \n                                                                                                    \n\nRisk: delta: ```                                                                                    \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n\n                                                                                                    \n ## Compliance: epsilon: ```                                                                        \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n hHQLSoNVNBCgKJsTiAzC                                                                               \n </data>                                                                                            \n                                                                                                    \n",
+            "data_html": "# Collected Results\n\n## Technical: alpha: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```\n## Market: beta: ```\nPKVVzAMIDwwsWcCXGObG\n\nSources:\n- lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba\n  NpcqUaoAvZzTomOAyNBR\n- mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd\n  vYPggpgvAeniVCEdPWtH\n- pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr\n  CISJSdMXpOzmtrhLIenZ\n```\n## Risk: delta: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```\n## Compliance: epsilon: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "kind": "controller",
+      "pipe_code": "five_way_split",
+      "pipe_type": "PipeParallel",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.340317Z",
+        "ended_at": "2026-04-06T10:15:54.378329Z",
+        "duration": 0.038012
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "alpha",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "2SVqZ",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          },
+          {
+            "name": "beta",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GtpMs",
+            "data": {
+              "answer": "PKVVzAMIDwwsWcCXGObG",
+              "sources": [
+                {
+                  "url": "mKfWelmvsFEgWkadXQba",
+                  "public_url": "fEwFrMOWOdCWwehjTlsl",
+                  "mime_type": "rJVohRNgynyKaUFDVGOC",
+                  "filename": "hEyvviNNYJkRNiDvOjpM",
+                  "title": "lCOxTbmDfuSeRPuZjUxz",
+                  "snippet": "NpcqUaoAvZzTomOAyNBR"
+                },
+                {
+                  "url": "vewYUjZIWGkUErqXvtJd",
+                  "public_url": "BCngzYaquSMJaiQDpHfn",
+                  "mime_type": "xOptcZQpRtPWOLPstDyc",
+                  "filename": "edOcsSSZviJfVGGrcwfO",
+                  "title": "mrHIhUnwKdNLlRNTJnwR",
+                  "snippet": "vYPggpgvAeniVCEdPWtH"
+                },
+                {
+                  "url": "DOsGdqwkJSHZhanZWoqr",
+                  "public_url": "HhcvWDDKvboUsICvENaZ",
+                  "mime_type": "HRfMGbUHlQQgQYKxWAjf",
+                  "filename": "eBQEbfSAdoEplyylbzFm",
+                  "title": "pYGHMicgTSRUhVjuXgTZ",
+                  "snippet": "CISJSdMXpOzmtrhLIenZ"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nPKVVzAMIDwwsWcCXGObG                                                                                \n\nSources (3):\nlCOxTbmDfuSeRPuZjUxz (mKfWelmvsFEgWkadXQba)\n  NpcqUaoAvZzTomOAyNBR\n\nmrHIhUnwKdNLlRNTJnwR (vewYUjZIWGkUErqXvtJd)\n  vYPggpgvAeniVCEdPWtH\n\npYGHMicgTSRUhVjuXgTZ (DOsGdqwkJSHZhanZWoqr)\n  CISJSdMXpOzmtrhLIenZ\n",
+            "data_html": "<div><p>PKVVzAMIDwwsWcCXGObG</p><h4>Sources</h4><ul><li><a href=\"fEwFrMOWOdCWwehjTlsl\" class=\"msg-document\">lCOxTbmDfuSeRPuZjUxz</a><br/><small>NpcqUaoAvZzTomOAyNBR</small></li><li><a href=\"BCngzYaquSMJaiQDpHfn\" class=\"msg-document\">mrHIhUnwKdNLlRNTJnwR</a><br/><small>vYPggpgvAeniVCEdPWtH</small></li><li><a href=\"HhcvWDDKvboUsICvENaZ\" class=\"msg-document\">pYGHMicgTSRUhVjuXgTZ</a><br/><small>CISJSdMXpOzmtrhLIenZ</small></li></ul></div>",
+            "extra": {}
+          },
+          {
+            "name": "gamma",
+            "concept": "Image",
+            "content_type": "image/jpeg",
+            "preview": null,
+            "size": null,
+            "digest": "UQZBP",
+            "data": {
+              "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "source_prompt": "Infographic for: hHQLSoNVNBCgKJsTiAzC",
+              "source_negative_prompt": null,
+              "caption": null,
+              "mime_type": "image/jpeg",
+              "size": {
+                "width": 1024,
+                "height": 1024
+              },
+              "filename": null
+            },
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: hHQLSoNVNBCgKJsTiAzC\n",
+            "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
+            "extra": {}
+          },
+          {
+            "name": "delta",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HGUCx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          },
+          {
+            "name": "epsilon",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CCHn4",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "branch_count": 5,
+        "add_each_output": true,
+        "combined_output_concept": null
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_2",
+      "kind": "operator",
+      "pipe_code": "process_alpha",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.342433Z",
+        "ended_at": "2026-04-06T10:15:54.348705Z",
+        "duration": 0.006272
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "alpha",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "2SVqZ",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_3",
+      "kind": "operator",
+      "pipe_code": "process_beta",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.349304Z",
+        "ended_at": "2026-04-06T10:15:54.354815Z",
+        "duration": 0.005511
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "beta",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GtpMs",
+            "data": {
+              "answer": "PKVVzAMIDwwsWcCXGObG",
+              "sources": [
+                {
+                  "url": "mKfWelmvsFEgWkadXQba",
+                  "public_url": "fEwFrMOWOdCWwehjTlsl",
+                  "mime_type": "rJVohRNgynyKaUFDVGOC",
+                  "filename": "hEyvviNNYJkRNiDvOjpM",
+                  "title": "lCOxTbmDfuSeRPuZjUxz",
+                  "snippet": "NpcqUaoAvZzTomOAyNBR"
+                },
+                {
+                  "url": "vewYUjZIWGkUErqXvtJd",
+                  "public_url": "BCngzYaquSMJaiQDpHfn",
+                  "mime_type": "xOptcZQpRtPWOLPstDyc",
+                  "filename": "edOcsSSZviJfVGGrcwfO",
+                  "title": "mrHIhUnwKdNLlRNTJnwR",
+                  "snippet": "vYPggpgvAeniVCEdPWtH"
+                },
+                {
+                  "url": "DOsGdqwkJSHZhanZWoqr",
+                  "public_url": "HhcvWDDKvboUsICvENaZ",
+                  "mime_type": "HRfMGbUHlQQgQYKxWAjf",
+                  "filename": "eBQEbfSAdoEplyylbzFm",
+                  "title": "pYGHMicgTSRUhVjuXgTZ",
+                  "snippet": "CISJSdMXpOzmtrhLIenZ"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nPKVVzAMIDwwsWcCXGObG                                                                                \n\nSources (3):\nlCOxTbmDfuSeRPuZjUxz (mKfWelmvsFEgWkadXQba)\n  NpcqUaoAvZzTomOAyNBR\n\nmrHIhUnwKdNLlRNTJnwR (vewYUjZIWGkUErqXvtJd)\n  vYPggpgvAeniVCEdPWtH\n\npYGHMicgTSRUhVjuXgTZ (DOsGdqwkJSHZhanZWoqr)\n  CISJSdMXpOzmtrhLIenZ\n",
+            "data_html": "<div><p>PKVVzAMIDwwsWcCXGObG</p><h4>Sources</h4><ul><li><a href=\"fEwFrMOWOdCWwehjTlsl\" class=\"msg-document\">lCOxTbmDfuSeRPuZjUxz</a><br/><small>NpcqUaoAvZzTomOAyNBR</small></li><li><a href=\"BCngzYaquSMJaiQDpHfn\" class=\"msg-document\">mrHIhUnwKdNLlRNTJnwR</a><br/><small>vYPggpgvAeniVCEdPWtH</small></li><li><a href=\"HhcvWDDKvboUsICvENaZ\" class=\"msg-document\">pYGHMicgTSRUhVjuXgTZ</a><br/><small>CISJSdMXpOzmtrhLIenZ</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_4",
+      "kind": "operator",
+      "pipe_code": "process_gamma",
+      "pipe_type": "PipeImgGen",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.355488Z",
+        "ended_at": "2026-04-06T10:15:54.362318Z",
+        "duration": 0.00683
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "gamma",
+            "concept": "Image",
+            "content_type": "image/jpeg",
+            "preview": null,
+            "size": null,
+            "digest": "UQZBP",
+            "data": {
+              "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "source_prompt": "Infographic for: hHQLSoNVNBCgKJsTiAzC",
+              "source_negative_prompt": null,
+              "caption": null,
+              "mime_type": "image/jpeg",
+              "size": {
+                "width": 1024,
+                "height": 1024
+              },
+              "filename": null
+            },
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: hHQLSoNVNBCgKJsTiAzC\n",
+            "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "@default-general",
+        "rendered_prompt": "Infographic for: hHQLSoNVNBCgKJsTiAzC",
+        "rendered_negative_prompt": null,
+        "aspect_ratio": "square",
+        "nb_images": 1
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_5",
+      "kind": "operator",
+      "pipe_code": "process_delta",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.362937Z",
+        "ended_at": "2026-04-06T10:15:54.367876Z",
+        "duration": 0.004939
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "delta",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HGUCx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_6",
+      "kind": "operator",
+      "pipe_code": "process_epsilon",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.368455Z",
+        "ended_at": "2026-04-06T10:15:54.373923Z",
+        "duration": 0.005468
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "data",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CrUPM",
+            "data": {
+              "text": "hHQLSoNVNBCgKJsTiAzC"
+            },
+            "data_text": "hHQLSoNVNBCgKJsTiAzC                                                                                \n",
+            "data_html": "hHQLSoNVNBCgKJsTiAzC",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "epsilon",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CCHn4",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "operator",
+      "pipe_code": "collect_all",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:54.379651Z",
+        "ended_at": "2026-04-06T10:15:54.391029Z",
+        "duration": 0.011378
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "alpha",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "2SVqZ",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          },
+          {
+            "name": "beta",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GtpMs",
+            "data": {
+              "answer": "PKVVzAMIDwwsWcCXGObG",
+              "sources": [
+                {
+                  "url": "mKfWelmvsFEgWkadXQba",
+                  "public_url": "fEwFrMOWOdCWwehjTlsl",
+                  "mime_type": "rJVohRNgynyKaUFDVGOC",
+                  "filename": "hEyvviNNYJkRNiDvOjpM",
+                  "title": "lCOxTbmDfuSeRPuZjUxz",
+                  "snippet": "NpcqUaoAvZzTomOAyNBR"
+                },
+                {
+                  "url": "vewYUjZIWGkUErqXvtJd",
+                  "public_url": "BCngzYaquSMJaiQDpHfn",
+                  "mime_type": "xOptcZQpRtPWOLPstDyc",
+                  "filename": "edOcsSSZviJfVGGrcwfO",
+                  "title": "mrHIhUnwKdNLlRNTJnwR",
+                  "snippet": "vYPggpgvAeniVCEdPWtH"
+                },
+                {
+                  "url": "DOsGdqwkJSHZhanZWoqr",
+                  "public_url": "HhcvWDDKvboUsICvENaZ",
+                  "mime_type": "HRfMGbUHlQQgQYKxWAjf",
+                  "filename": "eBQEbfSAdoEplyylbzFm",
+                  "title": "pYGHMicgTSRUhVjuXgTZ",
+                  "snippet": "CISJSdMXpOzmtrhLIenZ"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nPKVVzAMIDwwsWcCXGObG                                                                                \n\nSources (3):\nlCOxTbmDfuSeRPuZjUxz (mKfWelmvsFEgWkadXQba)\n  NpcqUaoAvZzTomOAyNBR\n\nmrHIhUnwKdNLlRNTJnwR (vewYUjZIWGkUErqXvtJd)\n  vYPggpgvAeniVCEdPWtH\n\npYGHMicgTSRUhVjuXgTZ (DOsGdqwkJSHZhanZWoqr)\n  CISJSdMXpOzmtrhLIenZ\n",
+            "data_html": "<div><p>PKVVzAMIDwwsWcCXGObG</p><h4>Sources</h4><ul><li><a href=\"fEwFrMOWOdCWwehjTlsl\" class=\"msg-document\">lCOxTbmDfuSeRPuZjUxz</a><br/><small>NpcqUaoAvZzTomOAyNBR</small></li><li><a href=\"BCngzYaquSMJaiQDpHfn\" class=\"msg-document\">mrHIhUnwKdNLlRNTJnwR</a><br/><small>vYPggpgvAeniVCEdPWtH</small></li><li><a href=\"HhcvWDDKvboUsICvENaZ\" class=\"msg-document\">pYGHMicgTSRUhVjuXgTZ</a><br/><small>CISJSdMXpOzmtrhLIenZ</small></li></ul></div>",
+            "extra": {}
+          },
+          {
+            "name": "gamma",
+            "concept": "Image",
+            "content_type": "image/jpeg",
+            "preview": null,
+            "size": null,
+            "digest": "UQZBP",
+            "data": {
+              "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
+              "source_prompt": "Infographic for: hHQLSoNVNBCgKJsTiAzC",
+              "source_negative_prompt": null,
+              "caption": null,
+              "mime_type": "image/jpeg",
+              "size": {
+                "width": 1024,
+                "height": 1024
+              },
+              "filename": null
+            },
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: hHQLSoNVNBCgKJsTiAzC\n",
+            "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
+            "extra": {}
+          },
+          {
+            "name": "delta",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HGUCx",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          },
+          {
+            "name": "epsilon",
+            "concept": "ProcessedData",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CCHn4",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "collected",
+            "concept": "CollectedResults",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "CsrrQ",
+            "data": {
+              "text": "# Collected Results\n\n## Technical: alpha: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Market: beta: ```\nPKVVzAMIDwwsWcCXGObG\n\nSources:\n- lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba\n  NpcqUaoAvZzTomOAyNBR\n- mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd\n  vYPggpgvAeniVCEdPWtH\n- pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr\n  CISJSdMXpOzmtrhLIenZ\n```\n## Risk: delta: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Compliance: epsilon: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```"
+            },
+            "data_text": "                                         Collected Results                                          \n\nTechnical: alpha: ```                                                                               \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n\n                                                                                                    \n ## Market: beta: ```                                                                               \n PKVVzAMIDwwsWcCXGObG                                                                               \n                                                                                                    \n Sources:                                                                                           \n - lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba                                                       \n   NpcqUaoAvZzTomOAyNBR                                                                             \n - mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd                                                       \n   vYPggpgvAeniVCEdPWtH                                                                             \n - pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr                                                       \n   CISJSdMXpOzmtrhLIenZ                                                                             \n                                                                                                    \n\nRisk: delta: ```                                                                                    \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n\n                                                                                                    \n ## Compliance: epsilon: ```                                                                        \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n hHQLSoNVNBCgKJsTiAzC                                                                               \n </data>                                                                                            \n                                                                                                    \n",
+            "data_html": "# Collected Results\n\n## Technical: alpha: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```\n## Market: beta: ```\nPKVVzAMIDwwsWcCXGObG\n\nSources:\n- lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba\n  NpcqUaoAvZzTomOAyNBR\n- mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd\n  vYPggpgvAeniVCEdPWtH\n- pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr\n  CISJSdMXpOzmtrhLIenZ\n```\n## Risk: delta: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```\n## Compliance: epsilon: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nhHQLSoNVNBCgKJsTiAzC\n&lt;/data&gt;\n    \n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "# Collected Results\n\n## Technical: alpha: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Market: beta: ```\nPKVVzAMIDwwsWcCXGObG\n\nSources:\n- lCOxTbmDfuSeRPuZjUxz: mKfWelmvsFEgWkadXQba\n  NpcqUaoAvZzTomOAyNBR\n- mrHIhUnwKdNLlRNTJnwR: vewYUjZIWGkUErqXvtJd\n  vYPggpgvAeniVCEdPWtH\n- pYGHMicgTSRUhVjuXgTZ: DOsGdqwkJSHZhanZWoqr\n  CISJSdMXpOzmtrhLIenZ\n```\n## Risk: delta: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```\n## Compliance: epsilon: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nhHQLSoNVNBCgKJsTiAzC\n</data>\n    \n```"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_0",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_0",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_1",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_2",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_3",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_4",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_5",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_6",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_0",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_7",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "data",
+      "label": "alpha",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_8",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "data",
+      "label": "beta",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_9",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "data",
+      "label": "gamma",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_10",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "data",
+      "label": "delta",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:edge_11",
+      "source": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_1",
+      "target": "6dba51dc-d78e-4962-b31b-11cd8ff7c141:node_7",
+      "kind": "data",
+      "label": "epsilon",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "wide_processing.wide_pipeline": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "wide_pipeline",
+      "domain_code": "wide_processing",
+      "description": "Process data through 5 parallel paths then collect",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CollectedResults",
+          "domain_code": "wide_processing",
+          "description": "All results collected from parallel paths",
+          "structure_class_name": "CollectedResults",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "five_way_split",
+          "output_name": "alpha",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "collect_all",
+          "output_name": "collected",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "wide_processing.five_way_split": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "five_way_split",
+      "domain_code": "wide_processing",
+      "description": "Five parallel processing branches",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedData",
+          "domain_code": "wide_processing",
+          "description": "Data processed through a specific pathway",
+          "structure_class_name": "ProcessedData",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "process_alpha",
+          "output_name": "alpha",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "process_beta",
+          "output_name": "beta",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "process_gamma",
+          "output_name": "gamma",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "process_delta",
+          "output_name": "delta",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "process_epsilon",
+          "output_name": "epsilon",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true,
+      "combined_output": null
+    },
+    "wide_processing.process_alpha": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "process_alpha",
+      "domain_code": "wide_processing",
+      "description": "Technical analysis branch",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedData",
+          "domain_code": "wide_processing",
+          "description": "Data processed through a specific pathway",
+          "structure_class_name": "ProcessedData",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Perform technical analysis:\n\n@data",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "wide_processing.process_beta": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeSearch",
+      "code": "process_beta",
+      "domain_code": "wide_processing",
+      "description": "Market research branch",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "search_choice": null,
+      "prompt_blueprint": {
+        "template": "Market research for: $data",
+        "templating_style": null,
+        "category": "basic",
+        "extra_context": null
+      },
+      "include_images_override": null,
+      "max_results_override": null,
+      "from_date": null,
+      "to_date": null,
+      "include_domains": null,
+      "exclude_domains": null,
+      "is_structured_output": false
+    },
+    "wide_processing.process_gamma": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeImgGen",
+      "code": "process_gamma",
+      "domain_code": "wide_processing",
+      "description": "Visual summary branch",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Image",
+          "domain_code": "native",
+          "description": "An image",
+          "structure_class_name": "ImageContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "img_gen_prompt_blueprint": {
+        "prompt_blueprint": {
+          "template": "Infographic for: $data",
+          "templating_style": null,
+          "category": "img_gen_prompt",
+          "extra_context": null
+        },
+        "negative_prompt_blueprint": null,
+        "image_references": null
+      },
+      "img_gen_choice": null,
+      "aspect_ratio": null,
+      "is_raw": null,
+      "seed": null,
+      "background": null,
+      "output_format": null,
+      "output_multiplicity": 1
+    },
+    "wide_processing.process_delta": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "process_delta",
+      "domain_code": "wide_processing",
+      "description": "Risk assessment branch",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedData",
+          "domain_code": "wide_processing",
+          "description": "Data processed through a specific pathway",
+          "structure_class_name": "ProcessedData",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Assess risks:\n\n@data",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "wide_processing.process_epsilon": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "process_epsilon",
+      "domain_code": "wide_processing",
+      "description": "Compliance check branch",
+      "inputs": {
+        "data": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ProcessedData",
+          "domain_code": "wide_processing",
+          "description": "Data processed through a specific pathway",
+          "structure_class_name": "ProcessedData",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Check compliance:\n\n@data",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "wide_processing.collect_all": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "collect_all",
+      "domain_code": "wide_processing",
+      "description": "Collect all parallel results",
+      "inputs": {
+        "alpha": {
+          "concept": {
+            "code": "ProcessedData",
+            "domain_code": "wide_processing",
+            "description": "Data processed through a specific pathway",
+            "structure_class_name": "ProcessedData",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        },
+        "beta": {
+          "concept": {
+            "code": "SearchResult",
+            "domain_code": "native",
+            "description": "A search result with answer and sources",
+            "structure_class_name": "SearchResultContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "gamma": {
+          "concept": {
+            "code": "Image",
+            "domain_code": "native",
+            "description": "An image",
+            "structure_class_name": "ImageContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "delta": {
+          "concept": {
+            "code": "ProcessedData",
+            "domain_code": "wide_processing",
+            "description": "Data processed through a specific pathway",
+            "structure_class_name": "ProcessedData",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        },
+        "epsilon": {
+          "concept": {
+            "code": "ProcessedData",
+            "domain_code": "wide_processing",
+            "description": "Data processed through a specific pathway",
+            "structure_class_name": "ProcessedData",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CollectedResults",
+          "domain_code": "wide_processing",
+          "description": "All results collected from parallel paths",
+          "structure_class_name": "CollectedResults",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "# Collected Results\n\n## Technical: {{ alpha|tag(\"alpha\") }}\n## Market: {{ beta|tag(\"beta\") }}\n## Risk: {{ delta|tag(\"delta\") }}\n## Compliance: {{ epsilon|tag(\"epsilon\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "wide_processing.CollectedResults": {
+      "code": "CollectedResults",
+      "domain_code": "wide_processing",
+      "description": "All results collected from parallel paths",
+      "structure_class_name": "CollectedResults",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "All results collected from parallel paths",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "CollectedResults",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "wide_processing.ProcessedData": {
+      "code": "ProcessedData",
+      "domain_code": "wide_processing",
+      "description": "Data processed through a specific pathway",
+      "structure_class_name": "ProcessedData",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Data processed through a specific pathway",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "ProcessedData",
+        "type": "object"
+      }
+    },
+    "native.SearchResult": {
+      "code": "SearchResult",
+      "domain_code": "native",
+      "description": "A search result with answer and sources",
+      "structure_class_name": "SearchResultContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "DocumentContent": {
+            "properties": {
+              "url": {
+                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public HTTPS URL of the document",
+                "title": "Public Url"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the document",
+                "title": "Mime Type"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the document",
+                "title": "Filename"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The title of the document or source",
+                "title": "Title"
+              },
+              "snippet": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text snippet or excerpt from the document",
+                "title": "Snippet"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "DocumentContent",
+            "type": "object"
+          }
+        },
+        "description": "Represents the result of a search query with an answer and list of sources.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/$defs/DocumentContent"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "SearchResultContent",
+        "type": "object"
+      }
+    },
+    "native.Image": {
+      "code": "Image",
+      "domain_code": "native",
+      "description": "An image",
+      "structure_class_name": "ImageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "url": {
+            "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public URL of the image",
+            "title": "Public Url"
+          },
+          "source_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The source prompt of the image",
+            "title": "Source Prompt"
+          },
+          "source_negative_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The source negative prompt of the image",
+            "title": "Source Negative Prompt"
+          },
+          "caption": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The caption of the image",
+            "title": "Caption"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the image",
+            "title": "Mime Type"
+          },
+          "size": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageSize"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The size in pixels (width and height) of the image"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the image",
+            "title": "Filename"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "ImageContent",
+        "type": "object"
+      }
+    }
+  }
+}

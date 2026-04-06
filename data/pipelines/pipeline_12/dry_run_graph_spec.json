@@ -1,0 +1,1842 @@
+{
+  "graph_id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee",
+  "created_at": "2026-04-06T10:15:33.310536Z",
+  "pipeline_ref": {
+    "domain": "data_enrichment",
+    "main_pipe": "batch_enrich",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_0",
+      "kind": "controller",
+      "pipe_code": "batch_enrich",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.317064Z",
+        "ended_at": "2026-04-06T10:15:33.405581Z",
+        "duration": 0.088517
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "fCyaaDRWSFBuuAwnRAqr",
+            "preview": null,
+            "size": null,
+            "digest": "8xK8c",
+            "data": {
+              "url": "ZZisNfoPIWtCvmmMZXgs",
+              "public_url": "uhHANqPzigYHVKflsuJW",
+              "mime_type": "fCyaaDRWSFBuuAwnRAqr",
+              "filename": "OwjQNkcSjgekwleYmCaB",
+              "title": "axbGxYzuflcPvMszmthI",
+              "snippet": "ukqVmhuKnzgmJQagEtEd"
+            },
+            "data_text": "axbGxYzuflcPvMszmthI (ZZisNfoPIWtCvmmMZXgs)\n  ukqVmhuKnzgmJQagEtEd\n",
+            "data_html": "<a href=\"uhHANqPzigYHVKflsuJW\" class=\"msg-document\">axbGxYzuflcPvMszmthI</a><br/><small>ukqVmhuKnzgmJQagEtEd</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "EnrichmentReport",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "A634d",
+            "data": {
+              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```\n\n```"
+            },
+            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                                                \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n gqSGSNSjmyXXezEnUOJy                                                                               \n                                                                                                    \n Sources:                                                                                           \n - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                                                       \n   bZeNJAimkZypjXSEmflZ                                                                             \n - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                                                       \n   YCuuFTakYtjhmZpjXzsv                                                                             \n - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                                                       \n   crvNpUwNQyXpTeebrgOr                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                                                        \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n CnfYrMUwIBGaDHvuWYTO                                                                               \n                                                                                                    \n Sources:                                                                                           \n - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                                                       \n   QmDMYTDMOeYBVjuAtnNz                                                                             \n - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                                                       \n   TQENFumEkmVgKiReZPXW                                                                             \n - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                                                       \n   cCmrkHXzSDgPpsvtzAjl                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FzsGlIeZWZWoErYMrLWe                                                                               \n                                                                                                    \n Sources:                                                                                           \n - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                                                       \n   TycAPTyaANBtNBPjWvzd                                                                             \n - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                                                       \n   zautInnMKqSrxRNqcZLp                                                                             \n - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                                                       \n   lDXOiSgpRUTWuuKoLoas                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```\n\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_1",
+      "kind": "operator",
+      "pipe_code": "load_records",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.320900Z",
+        "ended_at": "2026-04-06T10:15:33.334446Z",
+        "duration": 0.013546
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "fCyaaDRWSFBuuAwnRAqr",
+            "preview": null,
+            "size": null,
+            "digest": "8xK8c",
+            "data": {
+              "url": "ZZisNfoPIWtCvmmMZXgs",
+              "public_url": "uhHANqPzigYHVKflsuJW",
+              "mime_type": "fCyaaDRWSFBuuAwnRAqr",
+              "filename": "OwjQNkcSjgekwleYmCaB",
+              "title": "axbGxYzuflcPvMszmthI",
+              "snippet": "ukqVmhuKnzgmJQagEtEd"
+            },
+            "data_text": "axbGxYzuflcPvMszmthI (ZZisNfoPIWtCvmmMZXgs)\n  ukqVmhuKnzgmJQagEtEd\n",
+            "data_html": "<a href=\"uhHANqPzigYHVKflsuJW\" class=\"msg-document\">axbGxYzuflcPvMszmthI</a><br/><small>ukqVmhuKnzgmJQagEtEd</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "records",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B",
+            "data": {
+              "items": [
+                {
+                  "json_obj": {
+                    "hpIOXIPGsmKVTfpfrbYI": "84f3e69c75"
+                  }
+                },
+                {
+                  "json_obj": {
+                    "KsDPqbBnRaqSbNRvziMZ": "41"
+                  }
+                },
+                {
+                  "json_obj": {
+                    "IZebnxvgYikpYkjKVeXs": "8d03d2"
+                  }
+                }
+              ]
+            },
+            "data_text": "      1      │ {                                                                \n             │     \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"                         \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"KsDPqbBnRaqSbNRvziMZ\": \"41\"                                 \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"                             \n             │ }                                                                \n",
+            "data_html": "<ul><li><table ><tr><th>hpIOXIPGsmKVTfpfrbYI</th><td>84f3e69c75</td></tr></table></li><li><table ><tr><th>KsDPqbBnRaqSbNRvziMZ</th><td>41</td></tr></table></li><li><table ><tr><th>IZebnxvgYikpYkjKVeXs</th><td>8d03d2</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Extract all structured records from this document as a list:\n\n<document>\n[Document 1]\n</document>\n\n---\nThe instance we want to generate will be for the following class:\nclass Record(JSONContent):\n    \"\"\"A data record to enrich\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "controller",
+      "pipe_code": "enrich_single_batch",
+      "pipe_type": "PipeBatch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.334631Z",
+        "ended_at": "2026-04-06T10:15:33.393726Z",
+        "duration": 0.059095
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "records",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B",
+            "data": {
+              "items": [
+                {
+                  "json_obj": {
+                    "hpIOXIPGsmKVTfpfrbYI": "84f3e69c75"
+                  }
+                },
+                {
+                  "json_obj": {
+                    "KsDPqbBnRaqSbNRvziMZ": "41"
+                  }
+                },
+                {
+                  "json_obj": {
+                    "IZebnxvgYikpYkjKVeXs": "8d03d2"
+                  }
+                }
+              ]
+            },
+            "data_text": "      1      │ {                                                                \n             │     \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"                         \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"KsDPqbBnRaqSbNRvziMZ\": \"41\"                                 \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"                             \n             │ }                                                                \n",
+            "data_html": "<ul><li><table ><tr><th>hpIOXIPGsmKVTfpfrbYI</th><td>84f3e69c75</td></tr></table></li><li><table ><tr><th>KsDPqbBnRaqSbNRvziMZ</th><td>41</td></tr></table></li><li><table ><tr><th>IZebnxvgYikpYkjKVeXs</th><td>8d03d2</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched_records",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "A39wH",
+            "data": {
+              "items": [
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```"
+                },
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```"
+                },
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```"
+                }
+              ]
+            },
+            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                  \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  gqSGSNSjmyXXezEnUOJy                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                         \n        │    bZeNJAimkZypjXSEmflZ                                               \n        │  - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                         \n        │    YCuuFTakYtjhmZpjXzsv                                               \n        │  - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                         \n        │    crvNpUwNQyXpTeebrgOr                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                          \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  CnfYrMUwIBGaDHvuWYTO                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                         \n        │    QmDMYTDMOeYBVjuAtnNz                                               \n        │  - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                         \n        │    TQENFumEkmVgKiReZPXW                                               \n        │  - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                         \n        │    cCmrkHXzSDgPpsvtzAjl                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                      \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  FzsGlIeZWZWoErYMrLWe                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                         \n        │    TycAPTyaANBtNBPjWvzd                                               \n        │  - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                         \n        │    zautInnMKqSrxRNqcZLp                                               \n        │  - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                         \n        │    lDXOiSgpRUTWuuKoLoas                                               \n        │                                                                       \n",
+            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```</li><li>## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```</li><li>## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "item_count": 3,
+        "branch_pipe_code": "enrich_single"
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "kind": "controller",
+      "pipe_code": "enrich_single",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.339040Z",
+        "ended_at": "2026-04-06T10:15:33.358072Z",
+        "duration": 0.019032
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-0",
+            "data": {
+              "json_obj": {
+                "hpIOXIPGsmKVTfpfrbYI": "84f3e69c75"
+              }
+            },
+            "data_text": "{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n",
+            "data_html": "<table ><tr><th>hpIOXIPGsmKVTfpfrbYI</th><td>84f3e69c75</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nBeZP",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                                                \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n gqSGSNSjmyXXezEnUOJy                                                                               \n                                                                                                    \n Sources:                                                                                           \n - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                                                       \n   bZeNJAimkZypjXSEmflZ                                                                             \n - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                                                       \n   YCuuFTakYtjhmZpjXzsv                                                                             \n - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                                                       \n   crvNpUwNQyXpTeebrgOr                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_4",
+      "kind": "operator",
+      "pipe_code": "lookup_details",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.340786Z",
+        "ended_at": "2026-04-06T10:15:33.348672Z",
+        "duration": 0.007886
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-0",
+            "data": {
+              "json_obj": {
+                "hpIOXIPGsmKVTfpfrbYI": "84f3e69c75"
+              }
+            },
+            "data_text": "{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n",
+            "data_html": "<table ><tr><th>hpIOXIPGsmKVTfpfrbYI</th><td>84f3e69c75</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DAPtM",
+            "data": {
+              "answer": "gqSGSNSjmyXXezEnUOJy",
+              "sources": [
+                {
+                  "url": "NJtUcmjBXpwVMpPZKiOs",
+                  "public_url": "odIOxUAPVQHyfgxUjsEc",
+                  "mime_type": "RVMQpYiLdwWQRGiCmyMY",
+                  "filename": "dRoXxSZOpqvHWxWJeWyq",
+                  "title": "fIvceXaDsyDAmSbcrIgn",
+                  "snippet": "bZeNJAimkZypjXSEmflZ"
+                },
+                {
+                  "url": "IEBlnctBBYCDNpcrIkub",
+                  "public_url": "rioWWhWAtyYPEUDdvlxM",
+                  "mime_type": "TZmkTUYMLEmHpUWWyYUD",
+                  "filename": "wlEgGBbgBVomIVJDZDSG",
+                  "title": "nGEuAitUqqDEXcTkrJzx",
+                  "snippet": "YCuuFTakYtjhmZpjXzsv"
+                },
+                {
+                  "url": "TKedcPnWmkfRluyWVgPh",
+                  "public_url": "LnBtSUMtOYmmKzxvXCiz",
+                  "mime_type": "PSsZpgBPEmpMYfBtizva",
+                  "filename": "aemodbsTKDkEyYfKlImo",
+                  "title": "MFTKpfTZNetpnTduFemW",
+                  "snippet": "crvNpUwNQyXpTeebrgOr"
+                }
+              ]
+            },
+            "data_text": "Search Result:\ngqSGSNSjmyXXezEnUOJy                                                                                \n\nSources (3):\nfIvceXaDsyDAmSbcrIgn (NJtUcmjBXpwVMpPZKiOs)\n  bZeNJAimkZypjXSEmflZ\n\nnGEuAitUqqDEXcTkrJzx (IEBlnctBBYCDNpcrIkub)\n  YCuuFTakYtjhmZpjXzsv\n\nMFTKpfTZNetpnTduFemW (TKedcPnWmkfRluyWVgPh)\n  crvNpUwNQyXpTeebrgOr\n",
+            "data_html": "<div><p>gqSGSNSjmyXXezEnUOJy</p><h4>Sources</h4><ul><li><a href=\"odIOxUAPVQHyfgxUjsEc\" class=\"msg-document\">fIvceXaDsyDAmSbcrIgn</a><br/><small>bZeNJAimkZypjXSEmflZ</small></li><li><a href=\"rioWWhWAtyYPEUDdvlxM\" class=\"msg-document\">nGEuAitUqqDEXcTkrJzx</a><br/><small>YCuuFTakYtjhmZpjXzsv</small></li><li><a href=\"LnBtSUMtOYmmKzxvXCiz\" class=\"msg-document\">MFTKpfTZNetpnTduFemW</a><br/><small>crvNpUwNQyXpTeebrgOr</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_5",
+      "kind": "operator",
+      "pipe_code": "format_entry",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.349682Z",
+        "ended_at": "2026-04-06T10:15:33.357195Z",
+        "duration": 0.007513
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-0",
+            "data": {
+              "json_obj": {
+                "hpIOXIPGsmKVTfpfrbYI": "84f3e69c75"
+              }
+            },
+            "data_text": "{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n",
+            "data_html": "<table ><tr><th>hpIOXIPGsmKVTfpfrbYI</th><td>84f3e69c75</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DAPtM",
+            "data": {
+              "answer": "gqSGSNSjmyXXezEnUOJy",
+              "sources": [
+                {
+                  "url": "NJtUcmjBXpwVMpPZKiOs",
+                  "public_url": "odIOxUAPVQHyfgxUjsEc",
+                  "mime_type": "RVMQpYiLdwWQRGiCmyMY",
+                  "filename": "dRoXxSZOpqvHWxWJeWyq",
+                  "title": "fIvceXaDsyDAmSbcrIgn",
+                  "snippet": "bZeNJAimkZypjXSEmflZ"
+                },
+                {
+                  "url": "IEBlnctBBYCDNpcrIkub",
+                  "public_url": "rioWWhWAtyYPEUDdvlxM",
+                  "mime_type": "TZmkTUYMLEmHpUWWyYUD",
+                  "filename": "wlEgGBbgBVomIVJDZDSG",
+                  "title": "nGEuAitUqqDEXcTkrJzx",
+                  "snippet": "YCuuFTakYtjhmZpjXzsv"
+                },
+                {
+                  "url": "TKedcPnWmkfRluyWVgPh",
+                  "public_url": "LnBtSUMtOYmmKzxvXCiz",
+                  "mime_type": "PSsZpgBPEmpMYfBtizva",
+                  "filename": "aemodbsTKDkEyYfKlImo",
+                  "title": "MFTKpfTZNetpnTduFemW",
+                  "snippet": "crvNpUwNQyXpTeebrgOr"
+                }
+              ]
+            },
+            "data_text": "Search Result:\ngqSGSNSjmyXXezEnUOJy                                                                                \n\nSources (3):\nfIvceXaDsyDAmSbcrIgn (NJtUcmjBXpwVMpPZKiOs)\n  bZeNJAimkZypjXSEmflZ\n\nnGEuAitUqqDEXcTkrJzx (IEBlnctBBYCDNpcrIkub)\n  YCuuFTakYtjhmZpjXzsv\n\nMFTKpfTZNetpnTduFemW (TKedcPnWmkfRluyWVgPh)\n  crvNpUwNQyXpTeebrgOr\n",
+            "data_html": "<div><p>gqSGSNSjmyXXezEnUOJy</p><h4>Sources</h4><ul><li><a href=\"odIOxUAPVQHyfgxUjsEc\" class=\"msg-document\">fIvceXaDsyDAmSbcrIgn</a><br/><small>bZeNJAimkZypjXSEmflZ</small></li><li><a href=\"rioWWhWAtyYPEUDdvlxM\" class=\"msg-document\">nGEuAitUqqDEXcTkrJzx</a><br/><small>YCuuFTakYtjhmZpjXzsv</small></li><li><a href=\"LnBtSUMtOYmmKzxvXCiz\" class=\"msg-document\">MFTKpfTZNetpnTduFemW</a><br/><small>crvNpUwNQyXpTeebrgOr</small></li></ul></div>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nBeZP",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                                                \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n gqSGSNSjmyXXezEnUOJy                                                                               \n                                                                                                    \n Sources:                                                                                           \n - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                                                       \n   bZeNJAimkZypjXSEmflZ                                                                             \n - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                                                       \n   YCuuFTakYtjhmZpjXzsv                                                                             \n - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                                                       \n   crvNpUwNQyXpTeebrgOr                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```"
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "kind": "controller",
+      "pipe_code": "enrich_single",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.358089Z",
+        "ended_at": "2026-04-06T10:15:33.373957Z",
+        "duration": 0.015868
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-1",
+            "data": {
+              "json_obj": {
+                "KsDPqbBnRaqSbNRvziMZ": "41"
+              }
+            },
+            "data_text": "{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n",
+            "data_html": "<table ><tr><th>KsDPqbBnRaqSbNRvziMZ</th><td>41</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "jeT3F",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                                                        \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n CnfYrMUwIBGaDHvuWYTO                                                                               \n                                                                                                    \n Sources:                                                                                           \n - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                                                       \n   QmDMYTDMOeYBVjuAtnNz                                                                             \n - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                                                       \n   TQENFumEkmVgKiReZPXW                                                                             \n - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                                                       \n   cCmrkHXzSDgPpsvtzAjl                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_7",
+      "kind": "operator",
+      "pipe_code": "lookup_details",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.359826Z",
+        "ended_at": "2026-04-06T10:15:33.365889Z",
+        "duration": 0.006063
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-1",
+            "data": {
+              "json_obj": {
+                "KsDPqbBnRaqSbNRvziMZ": "41"
+              }
+            },
+            "data_text": "{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n",
+            "data_html": "<table ><tr><th>KsDPqbBnRaqSbNRvziMZ</th><td>41</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mLNYn",
+            "data": {
+              "answer": "CnfYrMUwIBGaDHvuWYTO",
+              "sources": [
+                {
+                  "url": "yyAmwxwGWWkJgHGDNrJu",
+                  "public_url": "GgqfJFoYLiGENSsnyzsP",
+                  "mime_type": "SHHKcgpzKHGRXEkofsIp",
+                  "filename": "iiZdQCFkhAqWghVcmKpa",
+                  "title": "jpUNlhjpwgdJWhSHkvmH",
+                  "snippet": "QmDMYTDMOeYBVjuAtnNz"
+                },
+                {
+                  "url": "weMhAwpaGdjzQkBfCYED",
+                  "public_url": "aqhafqkbFapjXSvvPzfm",
+                  "mime_type": "LsanQJoviDLpZSVujnIP",
+                  "filename": "yTFNpMVHChkkrDfAJOrX",
+                  "title": "LwNpjzJlWOXHmQfNQZSo",
+                  "snippet": "TQENFumEkmVgKiReZPXW"
+                },
+                {
+                  "url": "jvjVrufcwggUchlBppbx",
+                  "public_url": "AlittabQIWpcbhPnZMlN",
+                  "mime_type": "LgtJzccNhYXVWAlQWnpS",
+                  "filename": "CaEsnzCykvEqaASJhkNJ",
+                  "title": "yyxcMcrhrWrAaHrgvsKA",
+                  "snippet": "cCmrkHXzSDgPpsvtzAjl"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nCnfYrMUwIBGaDHvuWYTO                                                                                \n\nSources (3):\njpUNlhjpwgdJWhSHkvmH (yyAmwxwGWWkJgHGDNrJu)\n  QmDMYTDMOeYBVjuAtnNz\n\nLwNpjzJlWOXHmQfNQZSo (weMhAwpaGdjzQkBfCYED)\n  TQENFumEkmVgKiReZPXW\n\nyyxcMcrhrWrAaHrgvsKA (jvjVrufcwggUchlBppbx)\n  cCmrkHXzSDgPpsvtzAjl\n",
+            "data_html": "<div><p>CnfYrMUwIBGaDHvuWYTO</p><h4>Sources</h4><ul><li><a href=\"GgqfJFoYLiGENSsnyzsP\" class=\"msg-document\">jpUNlhjpwgdJWhSHkvmH</a><br/><small>QmDMYTDMOeYBVjuAtnNz</small></li><li><a href=\"aqhafqkbFapjXSvvPzfm\" class=\"msg-document\">LwNpjzJlWOXHmQfNQZSo</a><br/><small>TQENFumEkmVgKiReZPXW</small></li><li><a href=\"AlittabQIWpcbhPnZMlN\" class=\"msg-document\">yyxcMcrhrWrAaHrgvsKA</a><br/><small>cCmrkHXzSDgPpsvtzAjl</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_8",
+      "kind": "operator",
+      "pipe_code": "format_entry",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.366775Z",
+        "ended_at": "2026-04-06T10:15:33.373051Z",
+        "duration": 0.006276
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-1",
+            "data": {
+              "json_obj": {
+                "KsDPqbBnRaqSbNRvziMZ": "41"
+              }
+            },
+            "data_text": "{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n",
+            "data_html": "<table ><tr><th>KsDPqbBnRaqSbNRvziMZ</th><td>41</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mLNYn",
+            "data": {
+              "answer": "CnfYrMUwIBGaDHvuWYTO",
+              "sources": [
+                {
+                  "url": "yyAmwxwGWWkJgHGDNrJu",
+                  "public_url": "GgqfJFoYLiGENSsnyzsP",
+                  "mime_type": "SHHKcgpzKHGRXEkofsIp",
+                  "filename": "iiZdQCFkhAqWghVcmKpa",
+                  "title": "jpUNlhjpwgdJWhSHkvmH",
+                  "snippet": "QmDMYTDMOeYBVjuAtnNz"
+                },
+                {
+                  "url": "weMhAwpaGdjzQkBfCYED",
+                  "public_url": "aqhafqkbFapjXSvvPzfm",
+                  "mime_type": "LsanQJoviDLpZSVujnIP",
+                  "filename": "yTFNpMVHChkkrDfAJOrX",
+                  "title": "LwNpjzJlWOXHmQfNQZSo",
+                  "snippet": "TQENFumEkmVgKiReZPXW"
+                },
+                {
+                  "url": "jvjVrufcwggUchlBppbx",
+                  "public_url": "AlittabQIWpcbhPnZMlN",
+                  "mime_type": "LgtJzccNhYXVWAlQWnpS",
+                  "filename": "CaEsnzCykvEqaASJhkNJ",
+                  "title": "yyxcMcrhrWrAaHrgvsKA",
+                  "snippet": "cCmrkHXzSDgPpsvtzAjl"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nCnfYrMUwIBGaDHvuWYTO                                                                                \n\nSources (3):\njpUNlhjpwgdJWhSHkvmH (yyAmwxwGWWkJgHGDNrJu)\n  QmDMYTDMOeYBVjuAtnNz\n\nLwNpjzJlWOXHmQfNQZSo (weMhAwpaGdjzQkBfCYED)\n  TQENFumEkmVgKiReZPXW\n\nyyxcMcrhrWrAaHrgvsKA (jvjVrufcwggUchlBppbx)\n  cCmrkHXzSDgPpsvtzAjl\n",
+            "data_html": "<div><p>CnfYrMUwIBGaDHvuWYTO</p><h4>Sources</h4><ul><li><a href=\"GgqfJFoYLiGENSsnyzsP\" class=\"msg-document\">jpUNlhjpwgdJWhSHkvmH</a><br/><small>QmDMYTDMOeYBVjuAtnNz</small></li><li><a href=\"aqhafqkbFapjXSvvPzfm\" class=\"msg-document\">LwNpjzJlWOXHmQfNQZSo</a><br/><small>TQENFumEkmVgKiReZPXW</small></li><li><a href=\"AlittabQIWpcbhPnZMlN\" class=\"msg-document\">yyxcMcrhrWrAaHrgvsKA</a><br/><small>cCmrkHXzSDgPpsvtzAjl</small></li></ul></div>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "jeT3F",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                                                        \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n CnfYrMUwIBGaDHvuWYTO                                                                               \n                                                                                                    \n Sources:                                                                                           \n - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                                                       \n   QmDMYTDMOeYBVjuAtnNz                                                                             \n - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                                                       \n   TQENFumEkmVgKiReZPXW                                                                             \n - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                                                       \n   cCmrkHXzSDgPpsvtzAjl                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```"
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "kind": "controller",
+      "pipe_code": "enrich_single",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.373986Z",
+        "ended_at": "2026-04-06T10:15:33.389747Z",
+        "duration": 0.015761
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-2",
+            "data": {
+              "json_obj": {
+                "IZebnxvgYikpYkjKVeXs": "8d03d2"
+              }
+            },
+            "data_text": "{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n",
+            "data_html": "<table ><tr><th>IZebnxvgYikpYkjKVeXs</th><td>8d03d2</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bjH49",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FzsGlIeZWZWoErYMrLWe                                                                               \n                                                                                                    \n Sources:                                                                                           \n - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                                                       \n   TycAPTyaANBtNBPjWvzd                                                                             \n - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                                                       \n   zautInnMKqSrxRNqcZLp                                                                             \n - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                                                       \n   lDXOiSgpRUTWuuKoLoas                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_10",
+      "kind": "operator",
+      "pipe_code": "lookup_details",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.375626Z",
+        "ended_at": "2026-04-06T10:15:33.381267Z",
+        "duration": 0.005641
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-2",
+            "data": {
+              "json_obj": {
+                "IZebnxvgYikpYkjKVeXs": "8d03d2"
+              }
+            },
+            "data_text": "{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n",
+            "data_html": "<table ><tr><th>IZebnxvgYikpYkjKVeXs</th><td>8d03d2</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Z5xc2",
+            "data": {
+              "answer": "FzsGlIeZWZWoErYMrLWe",
+              "sources": [
+                {
+                  "url": "pHfWMLIeSArfVXwNZAEr",
+                  "public_url": "PykDFIweFXZPIdhpXWyS",
+                  "mime_type": "AIfgRMVDtgcxRouRdbYZ",
+                  "filename": "UyugsigRAUuxeldeyNKM",
+                  "title": "heEMtyJZTMkLriGxieWf",
+                  "snippet": "TycAPTyaANBtNBPjWvzd"
+                },
+                {
+                  "url": "DHrHaicyLXrHkuDtovFC",
+                  "public_url": "XFDRWKdvrUOsdCfWfzxu",
+                  "mime_type": "lsuFCzXnftAKZlVWkuuI",
+                  "filename": "EBNkngfsauTCQQwcgkrP",
+                  "title": "HYWpOXiWDJcnZXlGYDyD",
+                  "snippet": "zautInnMKqSrxRNqcZLp"
+                },
+                {
+                  "url": "QQyJNizkPrMQopUONJWp",
+                  "public_url": "AXogSXxBEVTdBKHruuzc",
+                  "mime_type": "IxdhnovLeRpUpwxbhInq",
+                  "filename": "vcajItMqrXZXeHkdJXZJ",
+                  "title": "DxgiYDxagvIjXNxqjfEY",
+                  "snippet": "lDXOiSgpRUTWuuKoLoas"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nFzsGlIeZWZWoErYMrLWe                                                                                \n\nSources (3):\nheEMtyJZTMkLriGxieWf (pHfWMLIeSArfVXwNZAEr)\n  TycAPTyaANBtNBPjWvzd\n\nHYWpOXiWDJcnZXlGYDyD (DHrHaicyLXrHkuDtovFC)\n  zautInnMKqSrxRNqcZLp\n\nDxgiYDxagvIjXNxqjfEY (QQyJNizkPrMQopUONJWp)\n  lDXOiSgpRUTWuuKoLoas\n",
+            "data_html": "<div><p>FzsGlIeZWZWoErYMrLWe</p><h4>Sources</h4><ul><li><a href=\"PykDFIweFXZPIdhpXWyS\" class=\"msg-document\">heEMtyJZTMkLriGxieWf</a><br/><small>TycAPTyaANBtNBPjWvzd</small></li><li><a href=\"XFDRWKdvrUOsdCfWfzxu\" class=\"msg-document\">HYWpOXiWDJcnZXlGYDyD</a><br/><small>zautInnMKqSrxRNqcZLp</small></li><li><a href=\"AXogSXxBEVTdBKHruuzc\" class=\"msg-document\">DxgiYDxagvIjXNxqjfEY</a><br/><small>lDXOiSgpRUTWuuKoLoas</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_11",
+      "kind": "operator",
+      "pipe_code": "format_entry",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.382219Z",
+        "ended_at": "2026-04-06T10:15:33.388943Z",
+        "duration": 0.006724
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "record",
+            "concept": "Record",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "cvM8B-branch-2",
+            "data": {
+              "json_obj": {
+                "IZebnxvgYikpYkjKVeXs": "8d03d2"
+              }
+            },
+            "data_text": "{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n",
+            "data_html": "<table ><tr><th>IZebnxvgYikpYkjKVeXs</th><td>8d03d2</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Z5xc2",
+            "data": {
+              "answer": "FzsGlIeZWZWoErYMrLWe",
+              "sources": [
+                {
+                  "url": "pHfWMLIeSArfVXwNZAEr",
+                  "public_url": "PykDFIweFXZPIdhpXWyS",
+                  "mime_type": "AIfgRMVDtgcxRouRdbYZ",
+                  "filename": "UyugsigRAUuxeldeyNKM",
+                  "title": "heEMtyJZTMkLriGxieWf",
+                  "snippet": "TycAPTyaANBtNBPjWvzd"
+                },
+                {
+                  "url": "DHrHaicyLXrHkuDtovFC",
+                  "public_url": "XFDRWKdvrUOsdCfWfzxu",
+                  "mime_type": "lsuFCzXnftAKZlVWkuuI",
+                  "filename": "EBNkngfsauTCQQwcgkrP",
+                  "title": "HYWpOXiWDJcnZXlGYDyD",
+                  "snippet": "zautInnMKqSrxRNqcZLp"
+                },
+                {
+                  "url": "QQyJNizkPrMQopUONJWp",
+                  "public_url": "AXogSXxBEVTdBKHruuzc",
+                  "mime_type": "IxdhnovLeRpUpwxbhInq",
+                  "filename": "vcajItMqrXZXeHkdJXZJ",
+                  "title": "DxgiYDxagvIjXNxqjfEY",
+                  "snippet": "lDXOiSgpRUTWuuKoLoas"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nFzsGlIeZWZWoErYMrLWe                                                                                \n\nSources (3):\nheEMtyJZTMkLriGxieWf (pHfWMLIeSArfVXwNZAEr)\n  TycAPTyaANBtNBPjWvzd\n\nHYWpOXiWDJcnZXlGYDyD (DHrHaicyLXrHkuDtovFC)\n  zautInnMKqSrxRNqcZLp\n\nDxgiYDxagvIjXNxqjfEY (QQyJNizkPrMQopUONJWp)\n  lDXOiSgpRUTWuuKoLoas\n",
+            "data_html": "<div><p>FzsGlIeZWZWoErYMrLWe</p><h4>Sources</h4><ul><li><a href=\"PykDFIweFXZPIdhpXWyS\" class=\"msg-document\">heEMtyJZTMkLriGxieWf</a><br/><small>TycAPTyaANBtNBPjWvzd</small></li><li><a href=\"XFDRWKdvrUOsdCfWfzxu\" class=\"msg-document\">HYWpOXiWDJcnZXlGYDyD</a><br/><small>zautInnMKqSrxRNqcZLp</small></li><li><a href=\"AXogSXxBEVTdBKHruuzc\" class=\"msg-document\">DxgiYDxagvIjXNxqjfEY</a><br/><small>lDXOiSgpRUTWuuKoLoas</small></li></ul></div>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "enriched",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bjH49",
+            "data": {
+              "text": "## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```"
+            },
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FzsGlIeZWZWoErYMrLWe                                                                               \n                                                                                                    \n Sources:                                                                                           \n - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                                                       \n   TycAPTyaANBtNBPjWvzd                                                                             \n - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                                                       \n   zautInnMKqSrxRNqcZLp                                                                             \n - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                                                       \n   lDXOiSgpRUTWuuKoLoas                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```"
+      }
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_12",
+      "kind": "operator",
+      "pipe_code": "export_results",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:33.394643Z",
+        "ended_at": "2026-04-06T10:15:33.403392Z",
+        "duration": 0.008749
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "enriched_records",
+            "concept": "EnrichedRecord",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "A39wH",
+            "data": {
+              "items": [
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```"
+                },
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```"
+                },
+                {
+                  "text": "## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```"
+                }
+              ]
+            },
+            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                  \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  gqSGSNSjmyXXezEnUOJy                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                         \n        │    bZeNJAimkZypjXSEmflZ                                               \n        │  - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                         \n        │    YCuuFTakYtjhmZpjXzsv                                               \n        │  - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                         \n        │    crvNpUwNQyXpTeebrgOr                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                          \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  CnfYrMUwIBGaDHvuWYTO                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                         \n        │    QmDMYTDMOeYBVjuAtnNz                                               \n        │  - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                         \n        │    TQENFumEkmVgKiReZPXW                                               \n        │  - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                         \n        │    cCmrkHXzSDgPpsvtzAjl                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                      \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  FzsGlIeZWZWoErYMrLWe                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                         \n        │    TycAPTyaANBtNBPjWvzd                                               \n        │  - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                         \n        │    zautInnMKqSrxRNqcZLp                                               \n        │  - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                         \n        │    lDXOiSgpRUTWuuKoLoas                                               \n        │                                                                       \n",
+            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```</li><li>## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```</li><li>## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```</li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "EnrichmentReport",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "A634d",
+            "data": {
+              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```\n\n```"
+            },
+            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\" }                                                \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n gqSGSNSjmyXXezEnUOJy                                                                               \n                                                                                                    \n Sources:                                                                                           \n - fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs                                                       \n   bZeNJAimkZypjXSEmflZ                                                                             \n - nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub                                                       \n   YCuuFTakYtjhmZpjXzsv                                                                             \n - MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh                                                       \n   crvNpUwNQyXpTeebrgOr                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"KsDPqbBnRaqSbNRvziMZ\": \"41\" }                                                        \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n CnfYrMUwIBGaDHvuWYTO                                                                               \n                                                                                                    \n Sources:                                                                                           \n - jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu                                                       \n   QmDMYTDMOeYBVjuAtnNz                                                                             \n - LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED                                                       \n   TQENFumEkmVgKiReZPXW                                                                             \n - yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx                                                       \n   cCmrkHXzSDgPpsvtzAjl                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FzsGlIeZWZWoErYMrLWe                                                                               \n                                                                                                    \n Sources:                                                                                           \n - heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr                                                       \n   TycAPTyaANBtNBPjWvzd                                                                             \n - HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC                                                       \n   zautInnMKqSrxRNqcZLp                                                                             \n - DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp                                                       \n   lDXOiSgpRUTWuuKoLoas                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;hpIOXIPGsmKVTfpfrbYI&quot;: &quot;84f3e69c75&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;KsDPqbBnRaqSbNRvziMZ&quot;: &quot;41&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;IZebnxvgYikpYkjKVeXs&quot;: &quot;8d03d2&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```\n\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"hpIOXIPGsmKVTfpfrbYI\": \"84f3e69c75\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ngqSGSNSjmyXXezEnUOJy\n\nSources:\n- fIvceXaDsyDAmSbcrIgn: NJtUcmjBXpwVMpPZKiOs\n  bZeNJAimkZypjXSEmflZ\n- nGEuAitUqqDEXcTkrJzx: IEBlnctBBYCDNpcrIkub\n  YCuuFTakYtjhmZpjXzsv\n- MFTKpfTZNetpnTduFemW: TKedcPnWmkfRluyWVgPh\n  crvNpUwNQyXpTeebrgOr\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"KsDPqbBnRaqSbNRvziMZ\": \"41\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nCnfYrMUwIBGaDHvuWYTO\n\nSources:\n- jpUNlhjpwgdJWhSHkvmH: yyAmwxwGWWkJgHGDNrJu\n  QmDMYTDMOeYBVjuAtnNz\n- LwNpjzJlWOXHmQfNQZSo: weMhAwpaGdjzQkBfCYED\n  TQENFumEkmVgKiReZPXW\n- yyxcMcrhrWrAaHrgvsKA: jvjVrufcwggUchlBppbx\n  cCmrkHXzSDgPpsvtzAjl\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"IZebnxvgYikpYkjKVeXs\": \"8d03d2\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFzsGlIeZWZWoErYMrLWe\n\nSources:\n- heEMtyJZTMkLriGxieWf: pHfWMLIeSArfVXwNZAEr\n  TycAPTyaANBtNBPjWvzd\n- HYWpOXiWDJcnZXlGYDyD: DHrHaicyLXrHkuDtovFC\n  zautInnMKqSrxRNqcZLp\n- DxgiYDxagvIjXNxqjfEY: QQyJNizkPrMQopUONJWp\n  lDXOiSgpRUTWuuKoLoas\n```\n\n```"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_0",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_0",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_1",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_0",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_2",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_3",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_4",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_5",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_6",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_7",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_7",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_8",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_8",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_9",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_10",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_10",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_11",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_11",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_0",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_12",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_12",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_1",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "data",
+      "label": "records",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_13",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_4",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_5",
+      "kind": "data",
+      "label": "search_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_14",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_7",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_8",
+      "kind": "data",
+      "label": "search_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_15",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_10",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_11",
+      "kind": "data",
+      "label": "search_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_16",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_12",
+      "kind": "data",
+      "label": "enriched_records",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_17",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "kind": "batch_item",
+      "label": "[0]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_18",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_4",
+      "kind": "batch_item",
+      "label": "[0]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_19",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_5",
+      "kind": "batch_item",
+      "label": "[0]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_20",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "kind": "batch_item",
+      "label": "[1]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_21",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_7",
+      "kind": "batch_item",
+      "label": "[1]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_22",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_8",
+      "kind": "batch_item",
+      "label": "[1]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_23",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "kind": "batch_item",
+      "label": "[2]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-2",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_24",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_10",
+      "kind": "batch_item",
+      "label": "[2]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-2",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_25",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_11",
+      "kind": "batch_item",
+      "label": "[2]",
+      "source_stuff_digest": "cvM8B",
+      "target_stuff_digest": "cvM8B-branch-2",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_26",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_3",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "batch_aggregate",
+      "label": "[0]",
+      "source_stuff_digest": "nBeZP",
+      "target_stuff_digest": "A39wH",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_27",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_6",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "batch_aggregate",
+      "label": "[1]",
+      "source_stuff_digest": "jeT3F",
+      "target_stuff_digest": "A39wH",
+      "meta": {}
+    },
+    {
+      "id": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:edge_28",
+      "source": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_9",
+      "target": "3ba07ad5-d14e-4f39-80d8-ce8da7f38bee:node_2",
+      "kind": "batch_aggregate",
+      "label": "[2]",
+      "source_stuff_digest": "bjH49",
+      "target_stuff_digest": "A39wH",
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "data_enrichment.batch_enrich": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "batch_enrich",
+      "domain_code": "data_enrichment",
+      "description": "Load records, batch-enrich each, then export",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichmentReport",
+          "domain_code": "data_enrichment",
+          "description": "Report of all enriched records",
+          "structure_class_name": "EnrichmentReport",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "load_records",
+          "output_name": "records",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "enrich_single",
+          "output_name": "enriched_records",
+          "output_multiplicity": true,
+          "batch_params": {
+            "input_list_stuff_name": "records",
+            "input_item_stuff_name": "record"
+          }
+        },
+        {
+          "pipe_code": "export_results",
+          "output_name": "report",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "data_enrichment.load_records": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "load_records",
+      "domain_code": "data_enrichment",
+      "description": "Extract structured records from document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Record",
+          "domain_code": "data_enrichment",
+          "description": "A data record to enrich",
+          "structure_class_name": "Record",
+          "refines": "native.JSON"
+        },
+        "multiplicity": true
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Extract all structured records from this document as a list:\n\n@document\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": [
+          {
+            "variable_path": "document",
+            "kind": "direct"
+          }
+        ],
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": true
+    },
+    "data_enrichment.enrich_single_batch": {
+      "pipe_category": "PipeController",
+      "type": "PipeBatch",
+      "code": "enrich_single_batch",
+      "domain_code": "data_enrichment",
+      "description": "Batch processing for enrich_single",
+      "inputs": {
+        "records": {
+          "concept": {
+            "code": "Record",
+            "domain_code": "data_enrichment",
+            "description": "A data record to enrich",
+            "structure_class_name": "Record",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichedRecord",
+          "domain_code": "data_enrichment",
+          "description": "A record enriched with details",
+          "structure_class_name": "EnrichedRecord",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "branch_pipe_code": "enrich_single",
+      "batch_params": {
+        "input_list_stuff_name": "records",
+        "input_item_stuff_name": "record"
+      }
+    },
+    "data_enrichment.enrich_single": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "enrich_single",
+      "domain_code": "data_enrichment",
+      "description": "Lookup details and format a single record",
+      "inputs": {
+        "record": {
+          "concept": {
+            "code": "Record",
+            "domain_code": "data_enrichment",
+            "description": "A data record to enrich",
+            "structure_class_name": "Record",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichedRecord",
+          "domain_code": "data_enrichment",
+          "description": "A record enriched with details",
+          "structure_class_name": "EnrichedRecord",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "lookup_details",
+          "output_name": "search_result",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "format_entry",
+          "output_name": "enriched",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "data_enrichment.lookup_details": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeSearch",
+      "code": "lookup_details",
+      "domain_code": "data_enrichment",
+      "description": "Search for additional details about a record",
+      "inputs": {
+        "record": {
+          "concept": {
+            "code": "Record",
+            "domain_code": "data_enrichment",
+            "description": "A data record to enrich",
+            "structure_class_name": "Record",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "search_choice": null,
+      "prompt_blueprint": {
+        "template": "Find more information about $record",
+        "templating_style": null,
+        "category": "basic",
+        "extra_context": null
+      },
+      "include_images_override": null,
+      "max_results_override": null,
+      "from_date": null,
+      "to_date": null,
+      "include_domains": null,
+      "exclude_domains": null,
+      "is_structured_output": false
+    },
+    "data_enrichment.format_entry": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "format_entry",
+      "domain_code": "data_enrichment",
+      "description": "Format enriched record entry",
+      "inputs": {
+        "record": {
+          "concept": {
+            "code": "Record",
+            "domain_code": "data_enrichment",
+            "description": "A data record to enrich",
+            "structure_class_name": "Record",
+            "refines": "native.JSON"
+          },
+          "multiplicity": null
+        },
+        "search_result": {
+          "concept": {
+            "code": "SearchResult",
+            "domain_code": "native",
+            "description": "A search result with answer and sources",
+            "structure_class_name": "SearchResultContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichedRecord",
+          "domain_code": "data_enrichment",
+          "description": "A record enriched with details",
+          "structure_class_name": "EnrichedRecord",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "## Record\n{{ record|tag(\"record\") }}\n\n### Additional Details\n{{ search_result|tag(\"search_result\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    },
+    "data_enrichment.export_results": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "export_results",
+      "domain_code": "data_enrichment",
+      "description": "Compile all enriched records into report",
+      "inputs": {
+        "enriched_records": {
+          "concept": {
+            "code": "EnrichedRecord",
+            "domain_code": "data_enrichment",
+            "description": "A record enriched with details",
+            "structure_class_name": "EnrichedRecord",
+            "refines": "native.Text"
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EnrichmentReport",
+          "domain_code": "data_enrichment",
+          "description": "Report of all enriched records",
+          "structure_class_name": "EnrichmentReport",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "# Enrichment Report\n\n{{ enriched_records|tag(\"enriched_records\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "data_enrichment.EnrichmentReport": {
+      "code": "EnrichmentReport",
+      "domain_code": "data_enrichment",
+      "description": "Report of all enriched records",
+      "structure_class_name": "EnrichmentReport",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Report of all enriched records",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "EnrichmentReport",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "data_enrichment.Record": {
+      "code": "Record",
+      "domain_code": "data_enrichment",
+      "description": "A data record to enrich",
+      "structure_class_name": "Record",
+      "refines": "native.JSON",
+      "json_schema": {
+        "description": "A data record to enrich",
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "Record",
+        "type": "object"
+      }
+    },
+    "data_enrichment.EnrichedRecord": {
+      "code": "EnrichedRecord",
+      "domain_code": "data_enrichment",
+      "description": "A record enriched with details",
+      "structure_class_name": "EnrichedRecord",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A record enriched with details",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "EnrichedRecord",
+        "type": "object"
+      }
+    },
+    "native.SearchResult": {
+      "code": "SearchResult",
+      "domain_code": "native",
+      "description": "A search result with answer and sources",
+      "structure_class_name": "SearchResultContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "DocumentContent": {
+            "properties": {
+              "url": {
+                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public HTTPS URL of the document",
+                "title": "Public Url"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the document",
+                "title": "Mime Type"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the document",
+                "title": "Filename"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The title of the document or source",
+                "title": "Title"
+              },
+              "snippet": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text snippet or excerpt from the document",
+                "title": "Snippet"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "DocumentContent",
+            "type": "object"
+          }
+        },
+        "description": "Represents the result of a search query with an answer and list of sources.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/$defs/DocumentContent"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "SearchResultContent",
+        "type": "object"
+      }
+    }
+  }
+}
