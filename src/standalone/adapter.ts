@@ -5,7 +5,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import type { GraphSpec, GraphConfig, GraphDirection } from "@graph/types";
-import { GraphViewer } from "../graph/react/viewer/GraphViewer";
+import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 

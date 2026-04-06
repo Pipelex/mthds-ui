@@ -204,6 +204,21 @@ body[data-theme="light"] .header-logo.light-logo {
   display: inline;
 }
 
+@media (prefers-color-scheme: light) {
+  body[data-theme="system"] .header-logo.dark-logo {
+    display: none;
+  }
+  body[data-theme="system"] .header-logo.light-logo {
+    display: inline;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="system"] .header-logo.light-logo {
+    display: none;
+  }
+}
+
 .header-title {
   font-size: 12px;
   font-weight: 600;

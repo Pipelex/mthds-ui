@@ -60,12 +60,13 @@ console.log("Assembling standalone HTML...");
 const template = readFileSync("./src/standalone/graph-standalone.html", "utf-8");
 const js = readFileSync("./dist/standalone/graph-viewer.js", "utf-8");
 
-// Escape </script> in JS to prevent premature script tag closure in HTML
+// Escape closing tags to prevent premature tag closure in HTML
 const escapedJs = js.replace(/<\/script>/gi, "<\\/script>");
+const escapedCss = css.replace(/<\/style>/gi, "<\\/style>");
 
 // Use function replacer to avoid $-pattern interpretation in String.replace
 const html = template
-  .replace("<!--PIPELEX_CSS-->", () => css)
+  .replace("<!--PIPELEX_CSS-->", () => escapedCss)
   .replace("<!--PIPELEX_JS-->", () => escapedJs);
 
 writeFileSync("./dist/standalone/graph-standalone.html", html);
