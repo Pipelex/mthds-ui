@@ -1,0 +1,757 @@
+{
+  "graph_id": "b20240b6-c639-44be-bacf-657020d37b81",
+  "created_at": "2026-04-06T10:15:05.546831Z",
+  "pipeline_ref": {
+    "domain": "document_analysis",
+    "main_pipe": "extract_and_analyze",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:node_0",
+      "kind": "controller",
+      "pipe_code": "extract_and_analyze",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:05.552240Z",
+        "ended_at": "2026-04-06T10:15:05.574036Z",
+        "duration": 0.021796
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "CkfByobrFAMJBmpuIaiN",
+            "preview": null,
+            "size": null,
+            "digest": "NSsZh",
+            "data": {
+              "url": "kgbTFdbYUKccuHZxBsyd",
+              "public_url": "hcwkYisRoGLpWWwcjYrn",
+              "mime_type": "CkfByobrFAMJBmpuIaiN",
+              "filename": "YfthGrPCuNEVwjISqrnm",
+              "title": "nDTNvjNiwuVmFWnANVKD",
+              "snippet": "hZRLsTFNFgXjdpWDbLXm"
+            },
+            "data_text": "nDTNvjNiwuVmFWnANVKD (kgbTFdbYUKccuHZxBsyd)\n  hZRLsTFNFgXjdpWDbLXm\n",
+            "data_html": "<a href=\"hcwkYisRoGLpWWwcjYrn\" class=\"msg-document\">nDTNvjNiwuVmFWnANVKD</a><br/><small>hZRLsTFNFgXjdpWDbLXm</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "analysis",
+            "concept": "Analysis",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "aC4D7",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument pages and provide a detailed analysis:                                                     \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_document",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:05.555554Z",
+        "ended_at": "2026-04-06T10:15:05.562687Z",
+        "duration": 0.007133
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "CkfByobrFAMJBmpuIaiN",
+            "preview": null,
+            "size": null,
+            "digest": "NSsZh",
+            "data": {
+              "url": "kgbTFdbYUKccuHZxBsyd",
+              "public_url": "hcwkYisRoGLpWWwcjYrn",
+              "mime_type": "CkfByobrFAMJBmpuIaiN",
+              "filename": "YfthGrPCuNEVwjISqrnm",
+              "title": "nDTNvjNiwuVmFWnANVKD",
+              "snippet": "hZRLsTFNFgXjdpWDbLXm"
+            },
+            "data_text": "nDTNvjNiwuVmFWnANVKD (kgbTFdbYUKccuHZxBsyd)\n  hZRLsTFNFgXjdpWDbLXm\n",
+            "data_html": "<a href=\"hcwkYisRoGLpWWwcjYrn\" class=\"msg-document\">nDTNvjNiwuVmFWnANVKD</a><br/><small>hZRLsTFNFgXjdpWDbLXm</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VKJxv",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "document",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:node_2",
+      "kind": "operator",
+      "pipe_code": "analyze_pages",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:05.563654Z",
+        "ended_at": "2026-04-06T10:15:05.573194Z",
+        "duration": 0.00954
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VKJxv",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "analysis",
+            "concept": "Analysis",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "aC4D7",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument pages and provide a detailed analysis:                                                     \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:edge_0",
+      "source": "b20240b6-c639-44be-bacf-657020d37b81:node_0",
+      "target": "b20240b6-c639-44be-bacf-657020d37b81:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:edge_1",
+      "source": "b20240b6-c639-44be-bacf-657020d37b81:node_0",
+      "target": "b20240b6-c639-44be-bacf-657020d37b81:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "b20240b6-c639-44be-bacf-657020d37b81:edge_2",
+      "source": "b20240b6-c639-44be-bacf-657020d37b81:node_1",
+      "target": "b20240b6-c639-44be-bacf-657020d37b81:node_2",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "document_analysis.extract_and_analyze": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "extract_and_analyze",
+      "domain_code": "document_analysis",
+      "description": "Extract then analyze a document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Analysis",
+          "domain_code": "document_analysis",
+          "description": "An analytical assessment of content",
+          "structure_class_name": "Analysis",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_document",
+          "output_name": "pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_pages",
+          "output_name": "analysis",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "document_analysis.extract_document": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_document",
+      "domain_code": "document_analysis",
+      "description": "Extract pages from document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "document"
+    },
+    "document_analysis.analyze_pages": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_pages",
+      "domain_code": "document_analysis",
+      "description": "Analyze extracted pages",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Analysis",
+          "domain_code": "document_analysis",
+          "description": "An analytical assessment of content",
+          "structure_class_name": "Analysis",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Analyze the following document pages and provide a detailed analysis:\n\n@pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "document_analysis.Analysis": {
+      "code": "Analysis",
+      "domain_code": "document_analysis",
+      "description": "An analytical assessment of content",
+      "structure_class_name": "Analysis",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "An analytical assessment of content",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Analysis",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageSize"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The size in pixels (width and height) of the image"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    }
+  }
+}

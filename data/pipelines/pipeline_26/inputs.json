@@ -1,0 +1,22 @@
+{
+  "cvs": {
+    "concept": "native.Document",
+    "content": [
+      {
+        "url": "inputs/cv_marie_dupont.pdf",
+        "mime_type": "application/pdf"
+      },
+      {
+        "url": "inputs/cv_jean_martin.pdf",
+        "mime_type": "application/pdf"
+      }
+    ]
+  },
+  "job_offer": {
+    "concept": "native.Document",
+    "content": {
+      "url": "inputs/job_offer.pdf",
+      "mime_type": "application/pdf"
+    }
+  }
+}

@@ -1,0 +1,831 @@
+{
+  "graph_id": "aae13844-e159-4eb9-8024-f83ab9bbfa60",
+  "created_at": "2026-04-06T10:17:46.164246Z",
+  "pipeline_ref": {
+    "domain": "document_processing",
+    "main_pipe": "extract_analyze_report",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_0",
+      "kind": "controller",
+      "pipe_code": "extract_analyze_report",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:17:46.170402Z",
+        "ended_at": "2026-04-06T10:18:09.875824Z",
+        "duration": 23.705422
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "cswz8",
+            "data": {
+              "url": "pipelex-storage://normalized/NJqUjuWESLrWTULyUBUDH9.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/NJqUjuWESLrWTULyUBUDH9.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "Report",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nRaEm",
+            "data": {
+              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights & Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale & Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing \"text_and_images\" with placeholders for images and raw HTML that contain no data in this instance.\n```"
+            },
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\nDocument Overview                                                                                   \n\nThis is a structured quarterly business report for Q4 2025, containing three main sections:         \nExecutive Summary, Key Metrics, and Outlook.                                                        \n\n----------------------------------------------------------------------------------------------------\n\nDetailed Content Analysis                                                                           \n\n1. Executive Summary - Financial Performance                                                        \n\nRevenue Metrics:                                                                                    \n\n • Q4 2025 Revenue: $4.2 billion                                                                    \n • Growth Rate: 15% year-over-year                                                                  \n • Primary Growth Drivers: Cloud services and enterprise software                                   \n\nProfitability:                                                                                      \n\n • Operating Margin: 28% (Q4 2025)                                                                  \n • Previous Quarter: 24% (Q3 2025)                                                                  \n • Improvement: 4 percentage point increase                                                         \n\nEfficiency Gains:                                                                                   \n\n • Customer Acquisition Cost (CAC): Decreased by 12%                                                \n • Reason: Improved marketing efficiency                                                            \n\nGeographic Expansion:                                                                               \n\n • Three new markets entered:                                                                       \n    1 Southeast Asia                                                                                \n    2 Eastern Europe                                                                                \n    3 South America                                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n2. Key Metrics - Operational Performance                                                            \n\nUser Base:                                                                                          \n\n • Active Users: 45 million                                                                         \n • Growth: 22% increase (period not specified, likely YoY)                                          \n\nRevenue Metrics:                                                                                    \n\n • Monthly Recurring Revenue (MRR): $350 million                                                    \n • Annualized: ~$4.2 billion (consistent with quarterly revenue)                                    \n\nCustomer Satisfaction:                                                                              \n\n • Net Promoter Score (NPS): 71                                                                     \n • Previous Score: 62                                                                               \n • Improvement: 9-point increase (significant positive movement)                                    \n\nOrganizational Scale:                                                                               \n\n • Employee Headcount: 8,500                                                                        \n • Global Presence: 12 offices worldwide                                                            \n\nInvestment in Innovation:                                                                           \n\n • R&D Spending: $840 million                                                                       \n • Percentage of Revenue: 20%                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n3. Outlook - Q1 2026 Projections                                                                    \n\nRevenue Guidance:                                                                                   \n\n • Expected Range: $4.4B - $4.6B                                                                    \n • Midpoint: $4.5B                                                                                  \n • Implied Growth: 7-10% quarter-over-quarter                                                       \n\nStrategic Initiatives:                                                                              \n\n 1 Product Development: Launch AI-powered analytics platform                                        \n 2 Partnership Strategy: Expand partner ecosystem                                                   \n 3 Compliance/Security: Achieve SOC 2 Type II certification for all cloud products                  \n\n----------------------------------------------------------------------------------------------------\n\nKey Insights & Observations                                                                         \n\nStrengths:                                                                                          \n\n • Strong revenue growth with improving margins                                                     \n • Excellent customer satisfaction trajectory (NPS improvement)                                     \n • Significant investment in R&D (20% of revenue shows commitment to innovation)                    \n • Successful geographic diversification                                                            \n • Improving unit economics (lower CAC)                                                             \n\nStrategic Focus:                                                                                    \n\n • Cloud services as core growth engine                                                             \n • AI/analytics as next-generation product offering                                                 \n • Enterprise market positioning                                                                    \n • Security and compliance as competitive differentiators                                           \n\nFinancial Health Indicators:                                                                        \n\n • Healthy operating margin (28%)                                                                   \n • Strong recurring revenue model (MRR of $350M)                                                    \n • Efficient growth (CAC reduction while user base expands)                                         \n\nScale & Maturity:                                                                                   \n\n • Substantial organization (8,500 employees)                                                       \n • Global footprint (12 offices, multiple continents)                                               \n • Significant R&D investment capacity                                                              \n\n----------------------------------------------------------------------------------------------------\n\nDocument Structure Note                                                                             \n\nThe document appears to be extracted from a larger system (possibly a content management or document\nprocessing platform), as indicated by the metadata structure showing \"text_and_images\" with         \nplaceholders for images and raw HTML that contain no data in this instance.                         \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&amp;D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights &amp; Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&amp;D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale &amp; Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&amp;D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing &quot;text_and_images&quot; with placeholders for images and raw HTML that contain no data in this instance.\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_pages",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:17:46.176686Z",
+        "ended_at": "2026-04-06T10:17:52.643232Z",
+        "duration": 6.466546
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "document",
+            "concept": "Document",
+            "content_type": "application/pdf",
+            "preview": null,
+            "size": null,
+            "digest": "cswz8",
+            "data": {
+              "url": "pipelex-storage://normalized/NJqUjuWESLrWTULyUBUDH9.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf",
+              "mime_type": "application/pdf",
+              "filename": "document.pdf",
+              "title": null,
+              "snippet": null
+            },
+            "data_text": "pipelex-storage://normalized/NJqUjuWESLrWTULyUBUDH9.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/pipelex/.pipelex/storage/normalized/NJqUjuWESLrWTULyUBUDH9.pdf</a>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Vptqh",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "document",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_2",
+      "kind": "operator",
+      "pipe_code": "analyze_content",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:17:52.645351Z",
+        "ended_at": "2026-04-06T10:18:09.835030Z",
+        "duration": 17.189679
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Vptqh",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │                  Quarterly Business Report - Q4 2025                  \n        │                                                                       \n        │ Executive Summary                                                     \n        │                                                                       \n        │ Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        │ performance in cloud services and enterprise software. Operating      \n        │ margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        │ decreased by 12% due to improved marketing efficiency. The company    \n        │ expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        │ South America.                                                        \n        │                                                                       \n        │ Key Metrics                                                           \n        │                                                                       \n        │ Active users reached 45 million, a 22% increase. Monthly recurring    \n        │ revenue hit $350M. Net promoter score improved from 62 to 71.         \n        │ Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        │ investment was $840M, representing 20% of revenue.                    \n        │                                                                       \n        │ Outlook                                                               \n        │                                                                       \n        │ For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        │ initiatives include launching the AI-powered analytics platform,      \n        │ expanding the partner ecosystem, and achieving SOC 2 Type II          \n        │ certification for all cloud products.                                 \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "analysis",
+            "concept": "Analysis",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GftEy",
+            "data": {
+              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights & Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale & Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing \"text_and_images\" with placeholders for images and raw HTML that contain no data in this instance."
+            },
+            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\nDocument Overview                                                                                   \n\nThis is a structured quarterly business report for Q4 2025, containing three main sections:         \nExecutive Summary, Key Metrics, and Outlook.                                                        \n\n----------------------------------------------------------------------------------------------------\n\nDetailed Content Analysis                                                                           \n\n1. Executive Summary - Financial Performance                                                        \n\nRevenue Metrics:                                                                                    \n\n • Q4 2025 Revenue: $4.2 billion                                                                    \n • Growth Rate: 15% year-over-year                                                                  \n • Primary Growth Drivers: Cloud services and enterprise software                                   \n\nProfitability:                                                                                      \n\n • Operating Margin: 28% (Q4 2025)                                                                  \n • Previous Quarter: 24% (Q3 2025)                                                                  \n • Improvement: 4 percentage point increase                                                         \n\nEfficiency Gains:                                                                                   \n\n • Customer Acquisition Cost (CAC): Decreased by 12%                                                \n • Reason: Improved marketing efficiency                                                            \n\nGeographic Expansion:                                                                               \n\n • Three new markets entered:                                                                       \n    1 Southeast Asia                                                                                \n    2 Eastern Europe                                                                                \n    3 South America                                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n2. Key Metrics - Operational Performance                                                            \n\nUser Base:                                                                                          \n\n • Active Users: 45 million                                                                         \n • Growth: 22% increase (period not specified, likely YoY)                                          \n\nRevenue Metrics:                                                                                    \n\n • Monthly Recurring Revenue (MRR): $350 million                                                    \n • Annualized: ~$4.2 billion (consistent with quarterly revenue)                                    \n\nCustomer Satisfaction:                                                                              \n\n • Net Promoter Score (NPS): 71                                                                     \n • Previous Score: 62                                                                               \n • Improvement: 9-point increase (significant positive movement)                                    \n\nOrganizational Scale:                                                                               \n\n • Employee Headcount: 8,500                                                                        \n • Global Presence: 12 offices worldwide                                                            \n\nInvestment in Innovation:                                                                           \n\n • R&D Spending: $840 million                                                                       \n • Percentage of Revenue: 20%                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n3. Outlook - Q1 2026 Projections                                                                    \n\nRevenue Guidance:                                                                                   \n\n • Expected Range: $4.4B - $4.6B                                                                    \n • Midpoint: $4.5B                                                                                  \n • Implied Growth: 7-10% quarter-over-quarter                                                       \n\nStrategic Initiatives:                                                                              \n\n 1 Product Development: Launch AI-powered analytics platform                                        \n 2 Partnership Strategy: Expand partner ecosystem                                                   \n 3 Compliance/Security: Achieve SOC 2 Type II certification for all cloud products                  \n\n----------------------------------------------------------------------------------------------------\n\nKey Insights & Observations                                                                         \n\nStrengths:                                                                                          \n\n • Strong revenue growth with improving margins                                                     \n • Excellent customer satisfaction trajectory (NPS improvement)                                     \n • Significant investment in R&D (20% of revenue shows commitment to innovation)                    \n • Successful geographic diversification                                                            \n • Improving unit economics (lower CAC)                                                             \n\nStrategic Focus:                                                                                    \n\n • Cloud services as core growth engine                                                             \n • AI/analytics as next-generation product offering                                                 \n • Enterprise market positioning                                                                    \n • Security and compliance as competitive differentiators                                           \n\nFinancial Health Indicators:                                                                        \n\n • Healthy operating margin (28%)                                                                   \n • Strong recurring revenue model (MRR of $350M)                                                    \n • Efficient growth (CAC reduction while user base expands)                                         \n\nScale & Maturity:                                                                                   \n\n • Substantial organization (8,500 employees)                                                       \n • Global footprint (12 offices, multiple continents)                                               \n • Significant R&D investment capacity                                                              \n\n----------------------------------------------------------------------------------------------------\n\nDocument Structure Note                                                                             \n\nThe document appears to be extracted from a larger system (possibly a content management or document\nprocessing platform), as indicated by the metadata structure showing \"text_and_images\" with         \nplaceholders for images and raw HTML that contain no data in this instance.                         \n",
+            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&amp;D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights &amp; Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&amp;D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale &amp; Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&amp;D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing &quot;text_and_images&quot; with placeholders for images and raw HTML that contain no data in this instance.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_3",
+      "kind": "operator",
+      "pipe_code": "compose_report",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:18:09.837097Z",
+        "ended_at": "2026-04-06T10:18:09.869958Z",
+        "duration": 0.032861
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "analysis",
+            "concept": "Analysis",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GftEy",
+            "data": {
+              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights & Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale & Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing \"text_and_images\" with placeholders for images and raw HTML that contain no data in this instance."
+            },
+            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\nDocument Overview                                                                                   \n\nThis is a structured quarterly business report for Q4 2025, containing three main sections:         \nExecutive Summary, Key Metrics, and Outlook.                                                        \n\n----------------------------------------------------------------------------------------------------\n\nDetailed Content Analysis                                                                           \n\n1. Executive Summary - Financial Performance                                                        \n\nRevenue Metrics:                                                                                    \n\n • Q4 2025 Revenue: $4.2 billion                                                                    \n • Growth Rate: 15% year-over-year                                                                  \n • Primary Growth Drivers: Cloud services and enterprise software                                   \n\nProfitability:                                                                                      \n\n • Operating Margin: 28% (Q4 2025)                                                                  \n • Previous Quarter: 24% (Q3 2025)                                                                  \n • Improvement: 4 percentage point increase                                                         \n\nEfficiency Gains:                                                                                   \n\n • Customer Acquisition Cost (CAC): Decreased by 12%                                                \n • Reason: Improved marketing efficiency                                                            \n\nGeographic Expansion:                                                                               \n\n • Three new markets entered:                                                                       \n    1 Southeast Asia                                                                                \n    2 Eastern Europe                                                                                \n    3 South America                                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n2. Key Metrics - Operational Performance                                                            \n\nUser Base:                                                                                          \n\n • Active Users: 45 million                                                                         \n • Growth: 22% increase (period not specified, likely YoY)                                          \n\nRevenue Metrics:                                                                                    \n\n • Monthly Recurring Revenue (MRR): $350 million                                                    \n • Annualized: ~$4.2 billion (consistent with quarterly revenue)                                    \n\nCustomer Satisfaction:                                                                              \n\n • Net Promoter Score (NPS): 71                                                                     \n • Previous Score: 62                                                                               \n • Improvement: 9-point increase (significant positive movement)                                    \n\nOrganizational Scale:                                                                               \n\n • Employee Headcount: 8,500                                                                        \n • Global Presence: 12 offices worldwide                                                            \n\nInvestment in Innovation:                                                                           \n\n • R&D Spending: $840 million                                                                       \n • Percentage of Revenue: 20%                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n3. Outlook - Q1 2026 Projections                                                                    \n\nRevenue Guidance:                                                                                   \n\n • Expected Range: $4.4B - $4.6B                                                                    \n • Midpoint: $4.5B                                                                                  \n • Implied Growth: 7-10% quarter-over-quarter                                                       \n\nStrategic Initiatives:                                                                              \n\n 1 Product Development: Launch AI-powered analytics platform                                        \n 2 Partnership Strategy: Expand partner ecosystem                                                   \n 3 Compliance/Security: Achieve SOC 2 Type II certification for all cloud products                  \n\n----------------------------------------------------------------------------------------------------\n\nKey Insights & Observations                                                                         \n\nStrengths:                                                                                          \n\n • Strong revenue growth with improving margins                                                     \n • Excellent customer satisfaction trajectory (NPS improvement)                                     \n • Significant investment in R&D (20% of revenue shows commitment to innovation)                    \n • Successful geographic diversification                                                            \n • Improving unit economics (lower CAC)                                                             \n\nStrategic Focus:                                                                                    \n\n • Cloud services as core growth engine                                                             \n • AI/analytics as next-generation product offering                                                 \n • Enterprise market positioning                                                                    \n • Security and compliance as competitive differentiators                                           \n\nFinancial Health Indicators:                                                                        \n\n • Healthy operating margin (28%)                                                                   \n • Strong recurring revenue model (MRR of $350M)                                                    \n • Efficient growth (CAC reduction while user base expands)                                         \n\nScale & Maturity:                                                                                   \n\n • Substantial organization (8,500 employees)                                                       \n • Global footprint (12 offices, multiple continents)                                               \n • Significant R&D investment capacity                                                              \n\n----------------------------------------------------------------------------------------------------\n\nDocument Structure Note                                                                             \n\nThe document appears to be extracted from a larger system (possibly a content management or document\nprocessing platform), as indicated by the metadata structure showing \"text_and_images\" with         \nplaceholders for images and raw HTML that contain no data in this instance.                         \n",
+            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&amp;D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights &amp; Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&amp;D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale &amp; Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&amp;D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing &quot;text_and_images&quot; with placeholders for images and raw HTML that contain no data in this instance.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "report",
+            "concept": "Report",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nRaEm",
+            "data": {
+              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights & Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale & Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing \"text_and_images\" with placeholders for images and raw HTML that contain no data in this instance.\n```"
+            },
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\nDocument Overview                                                                                   \n\nThis is a structured quarterly business report for Q4 2025, containing three main sections:         \nExecutive Summary, Key Metrics, and Outlook.                                                        \n\n----------------------------------------------------------------------------------------------------\n\nDetailed Content Analysis                                                                           \n\n1. Executive Summary - Financial Performance                                                        \n\nRevenue Metrics:                                                                                    \n\n • Q4 2025 Revenue: $4.2 billion                                                                    \n • Growth Rate: 15% year-over-year                                                                  \n • Primary Growth Drivers: Cloud services and enterprise software                                   \n\nProfitability:                                                                                      \n\n • Operating Margin: 28% (Q4 2025)                                                                  \n • Previous Quarter: 24% (Q3 2025)                                                                  \n • Improvement: 4 percentage point increase                                                         \n\nEfficiency Gains:                                                                                   \n\n • Customer Acquisition Cost (CAC): Decreased by 12%                                                \n • Reason: Improved marketing efficiency                                                            \n\nGeographic Expansion:                                                                               \n\n • Three new markets entered:                                                                       \n    1 Southeast Asia                                                                                \n    2 Eastern Europe                                                                                \n    3 South America                                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n2. Key Metrics - Operational Performance                                                            \n\nUser Base:                                                                                          \n\n • Active Users: 45 million                                                                         \n • Growth: 22% increase (period not specified, likely YoY)                                          \n\nRevenue Metrics:                                                                                    \n\n • Monthly Recurring Revenue (MRR): $350 million                                                    \n • Annualized: ~$4.2 billion (consistent with quarterly revenue)                                    \n\nCustomer Satisfaction:                                                                              \n\n • Net Promoter Score (NPS): 71                                                                     \n • Previous Score: 62                                                                               \n • Improvement: 9-point increase (significant positive movement)                                    \n\nOrganizational Scale:                                                                               \n\n • Employee Headcount: 8,500                                                                        \n • Global Presence: 12 offices worldwide                                                            \n\nInvestment in Innovation:                                                                           \n\n • R&D Spending: $840 million                                                                       \n • Percentage of Revenue: 20%                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n3. Outlook - Q1 2026 Projections                                                                    \n\nRevenue Guidance:                                                                                   \n\n • Expected Range: $4.4B - $4.6B                                                                    \n • Midpoint: $4.5B                                                                                  \n • Implied Growth: 7-10% quarter-over-quarter                                                       \n\nStrategic Initiatives:                                                                              \n\n 1 Product Development: Launch AI-powered analytics platform                                        \n 2 Partnership Strategy: Expand partner ecosystem                                                   \n 3 Compliance/Security: Achieve SOC 2 Type II certification for all cloud products                  \n\n----------------------------------------------------------------------------------------------------\n\nKey Insights & Observations                                                                         \n\nStrengths:                                                                                          \n\n • Strong revenue growth with improving margins                                                     \n • Excellent customer satisfaction trajectory (NPS improvement)                                     \n • Significant investment in R&D (20% of revenue shows commitment to innovation)                    \n • Successful geographic diversification                                                            \n • Improving unit economics (lower CAC)                                                             \n\nStrategic Focus:                                                                                    \n\n • Cloud services as core growth engine                                                             \n • AI/analytics as next-generation product offering                                                 \n • Enterprise market positioning                                                                    \n • Security and compliance as competitive differentiators                                           \n\nFinancial Health Indicators:                                                                        \n\n • Healthy operating margin (28%)                                                                   \n • Strong recurring revenue model (MRR of $350M)                                                    \n • Efficient growth (CAC reduction while user base expands)                                         \n\nScale & Maturity:                                                                                   \n\n • Substantial organization (8,500 employees)                                                       \n • Global footprint (12 offices, multiple continents)                                               \n • Significant R&D investment capacity                                                              \n\n----------------------------------------------------------------------------------------------------\n\nDocument Structure Note                                                                             \n\nThe document appears to be extracted from a larger system (possibly a content management or document\nprocessing platform), as indicated by the metadata structure showing \"text_and_images\" with         \nplaceholders for images and raw HTML that contain no data in this instance.                         \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&amp;D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights &amp; Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&amp;D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale &amp; Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&amp;D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing &quot;text_and_images&quot; with placeholders for images and raw HTML that contain no data in this instance.\n```",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## Document Overview\nThis is a structured quarterly business report for Q4 2025, containing three main sections: Executive Summary, Key Metrics, and Outlook.\n\n---\n\n## Detailed Content Analysis\n\n### **1. Executive Summary - Financial Performance**\n\n**Revenue Metrics:**\n- **Q4 2025 Revenue:** $4.2 billion\n- **Growth Rate:** 15% year-over-year\n- **Primary Growth Drivers:** Cloud services and enterprise software\n\n**Profitability:**\n- **Operating Margin:** 28% (Q4 2025)\n- **Previous Quarter:** 24% (Q3 2025)\n- **Improvement:** 4 percentage point increase\n\n**Efficiency Gains:**\n- **Customer Acquisition Cost (CAC):** Decreased by 12%\n- **Reason:** Improved marketing efficiency\n\n**Geographic Expansion:**\n- Three new markets entered:\n  1. Southeast Asia\n  2. Eastern Europe\n  3. South America\n\n---\n\n### **2. Key Metrics - Operational Performance**\n\n**User Base:**\n- **Active Users:** 45 million\n- **Growth:** 22% increase (period not specified, likely YoY)\n\n**Revenue Metrics:**\n- **Monthly Recurring Revenue (MRR):** $350 million\n- **Annualized:** ~$4.2 billion (consistent with quarterly revenue)\n\n**Customer Satisfaction:**\n- **Net Promoter Score (NPS):** 71\n- **Previous Score:** 62\n- **Improvement:** 9-point increase (significant positive movement)\n\n**Organizational Scale:**\n- **Employee Headcount:** 8,500\n- **Global Presence:** 12 offices worldwide\n\n**Investment in Innovation:**\n- **R&D Spending:** $840 million\n- **Percentage of Revenue:** 20%\n\n---\n\n### **3. Outlook - Q1 2026 Projections**\n\n**Revenue Guidance:**\n- **Expected Range:** $4.4B - $4.6B\n- **Midpoint:** $4.5B\n- **Implied Growth:** 7-10% quarter-over-quarter\n\n**Strategic Initiatives:**\n1. **Product Development:** Launch AI-powered analytics platform\n2. **Partnership Strategy:** Expand partner ecosystem\n3. **Compliance/Security:** Achieve SOC 2 Type II certification for all cloud products\n\n---\n\n## Key Insights & Observations\n\n### **Strengths:**\n- Strong revenue growth with improving margins\n- Excellent customer satisfaction trajectory (NPS improvement)\n- Significant investment in R&D (20% of revenue shows commitment to innovation)\n- Successful geographic diversification\n- Improving unit economics (lower CAC)\n\n### **Strategic Focus:**\n- Cloud services as core growth engine\n- AI/analytics as next-generation product offering\n- Enterprise market positioning\n- Security and compliance as competitive differentiators\n\n### **Financial Health Indicators:**\n- Healthy operating margin (28%)\n- Strong recurring revenue model (MRR of $350M)\n- Efficient growth (CAC reduction while user base expands)\n\n### **Scale & Maturity:**\n- Substantial organization (8,500 employees)\n- Global footprint (12 offices, multiple continents)\n- Significant R&D investment capacity\n\n---\n\n## Document Structure Note\nThe document appears to be extracted from a larger system (possibly a content management or document processing platform), as indicated by the metadata structure showing \"text_and_images\" with placeholders for images and raw HTML that contain no data in this instance.\n```"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:edge_0",
+      "source": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_0",
+      "target": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:edge_1",
+      "source": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_0",
+      "target": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:edge_2",
+      "source": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_0",
+      "target": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:edge_3",
+      "source": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_1",
+      "target": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_2",
+      "kind": "data",
+      "label": "pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "aae13844-e159-4eb9-8024-f83ab9bbfa60:edge_4",
+      "source": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_2",
+      "target": "aae13844-e159-4eb9-8024-f83ab9bbfa60:node_3",
+      "kind": "data",
+      "label": "analysis",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "document_processing.extract_analyze_report": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "extract_analyze_report",
+      "domain_code": "document_processing",
+      "description": "Full document processing pipeline",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Report",
+          "domain_code": "document_processing",
+          "description": "A formatted report document",
+          "structure_class_name": "Report",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_pages",
+          "output_name": "pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_content",
+          "output_name": "analysis",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "compose_report",
+          "output_name": "report",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "document_processing.extract_pages": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_pages",
+      "domain_code": "document_processing",
+      "description": "Extract pages from document",
+      "inputs": {
+        "document": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "document"
+    },
+    "document_processing.analyze_content": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_content",
+      "domain_code": "document_processing",
+      "description": "Analyze extracted content",
+      "inputs": {
+        "pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Analysis",
+          "domain_code": "document_processing",
+          "description": "An analytical assessment of content",
+          "structure_class_name": "Analysis",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Analyze the following document content thoroughly:\n\n@pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "document_processing.compose_report": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "compose_report",
+      "domain_code": "document_processing",
+      "description": "Format analysis into final report",
+      "inputs": {
+        "analysis": {
+          "concept": {
+            "code": "Analysis",
+            "domain_code": "document_processing",
+            "description": "An analytical assessment of content",
+            "structure_class_name": "Analysis",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Report",
+          "domain_code": "document_processing",
+          "description": "A formatted report document",
+          "structure_class_name": "Report",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "# Document Analysis Report\n\n{{ analysis|tag(\"analysis\") }}\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "document_processing.Report": {
+      "code": "Report",
+      "domain_code": "document_processing",
+      "description": "A formatted report document",
+      "structure_class_name": "Report",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A formatted report document",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Report",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageSize"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The size in pixels (width and height) of the image"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "document_processing.Analysis": {
+      "code": "Analysis",
+      "domain_code": "document_processing",
+      "description": "An analytical assessment of content",
+      "structure_class_name": "Analysis",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "An analytical assessment of content",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Analysis",
+        "type": "object"
+      }
+    }
+  }
+}

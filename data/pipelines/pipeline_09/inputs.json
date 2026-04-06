@@ -1,0 +1,9 @@
+{
+  "cv": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf",
+      "mime_type": "application/pdf"
+    }
+  }
+}

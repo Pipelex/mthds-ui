@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'document': StuffArtefact(document), 'records': StuffArtefact(records), 'enriched_records': StuffArtefact(enriched_records), 'main_stuff': StuffArtefact(enriched_records)} \u2022 jinja2=# Enrichment Report\n\n{{ enriched_records|tag(\"enriched_records\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_12/dry_run.html"
+  }
+}

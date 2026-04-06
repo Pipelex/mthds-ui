@@ -1,0 +1,8 @@
+{
+  "query": {
+    "concept": "native.Text",
+    "content": {
+      "text": "What are the best practices for implementing microservices architecture in a cloud-native environment?"
+    }
+  }
+}

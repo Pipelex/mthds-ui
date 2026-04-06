@@ -1,0 +1,942 @@
+{
+  "graph_id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a",
+  "created_at": "2026-04-06T10:15:46.380931Z",
+  "pipeline_ref": {
+    "domain": "email_management",
+    "main_pipe": "email_triage",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_0",
+      "kind": "controller",
+      "pipe_code": "email_triage",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.386673Z",
+        "ended_at": "2026-04-06T10:15:46.434312Z",
+        "duration": 0.047639
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "query",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "UCpZi",
+            "data": {
+              "text": "BHCLWRNXYQDIPkipBmGO"
+            },
+            "data_text": "BHCLWRNXYQDIPkipBmGO                                                                                \n",
+            "data_html": "BHCLWRNXYQDIPkipBmGO",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "inbox_digest",
+            "concept": "InboxDigest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hVYMv",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: SobEPJYpijcDzSznNbOh Summary: lwtGhvhiHboIlIGuQBYf                                         \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_1",
+      "kind": "operator",
+      "pipe_code": "search_inbox",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.389927Z",
+        "ended_at": "2026-04-06T10:15:46.402179Z",
+        "duration": 0.012252
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "query",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "UCpZi",
+            "data": {
+              "text": "BHCLWRNXYQDIPkipBmGO"
+            },
+            "data_text": "BHCLWRNXYQDIPkipBmGO                                                                                \n",
+            "data_html": "BHCLWRNXYQDIPkipBmGO",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bwc52",
+            "data": {
+              "answer": "HlPgeGrupsAyioCPqdwN",
+              "sources": [
+                {
+                  "url": "UrhaPTBUqJLSNRhecUjk",
+                  "public_url": "PSsFNgQnmiozmYgtxwEi",
+                  "mime_type": "DmRIdbLDHyWhJGgxhXtf",
+                  "filename": "yeRjyplAOieSblPYlYxY",
+                  "title": "NmRPIXjqKoEzXGUxBToO",
+                  "snippet": "qmIxAzrTqpMWcuFuCOUc"
+                },
+                {
+                  "url": "JjQjEglGNzPyPDjMbOSz",
+                  "public_url": "VWXrEtnAhyOJLTsYWPOR",
+                  "mime_type": "QhlyrDVCNuSYcEPOFgcX",
+                  "filename": "oHXKFltmqLkNmKTLWSJA",
+                  "title": "EqErdQzgqLQwLaWpczUR",
+                  "snippet": "KoLxWhQHmpByiwyUUmlb"
+                },
+                {
+                  "url": "vAxtaQhdKgNWraNcnhho",
+                  "public_url": "QCSdNsRJYxBQraQeNaEa",
+                  "mime_type": "IldCBtVasPKpnLEHygDL",
+                  "filename": "QuzFMJOpDOxUKPHSccOe",
+                  "title": "OCJfAQMHLGmLbrVPJhqZ",
+                  "snippet": "HAfjdTpQtucNHjvdXtad"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nHlPgeGrupsAyioCPqdwN                                                                                \n\nSources (3):\nNmRPIXjqKoEzXGUxBToO (UrhaPTBUqJLSNRhecUjk)\n  qmIxAzrTqpMWcuFuCOUc\n\nEqErdQzgqLQwLaWpczUR (JjQjEglGNzPyPDjMbOSz)\n  KoLxWhQHmpByiwyUUmlb\n\nOCJfAQMHLGmLbrVPJhqZ (vAxtaQhdKgNWraNcnhho)\n  HAfjdTpQtucNHjvdXtad\n",
+            "data_html": "<div><p>HlPgeGrupsAyioCPqdwN</p><h4>Sources</h4><ul><li><a href=\"PSsFNgQnmiozmYgtxwEi\" class=\"msg-document\">NmRPIXjqKoEzXGUxBToO</a><br/><small>qmIxAzrTqpMWcuFuCOUc</small></li><li><a href=\"VWXrEtnAhyOJLTsYWPOR\" class=\"msg-document\">EqErdQzgqLQwLaWpczUR</a><br/><small>KoLxWhQHmpByiwyUUmlb</small></li><li><a href=\"QCSdNsRJYxBQraQeNaEa\" class=\"msg-document\">OCJfAQMHLGmLbrVPJhqZ</a><br/><small>HAfjdTpQtucNHjvdXtad</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "kind": "operator",
+      "pipe_code": "classify_email",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.403285Z",
+        "ended_at": "2026-04-06T10:15:46.416592Z",
+        "duration": 0.013307
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "search_result",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "bwc52",
+            "data": {
+              "answer": "HlPgeGrupsAyioCPqdwN",
+              "sources": [
+                {
+                  "url": "UrhaPTBUqJLSNRhecUjk",
+                  "public_url": "PSsFNgQnmiozmYgtxwEi",
+                  "mime_type": "DmRIdbLDHyWhJGgxhXtf",
+                  "filename": "yeRjyplAOieSblPYlYxY",
+                  "title": "NmRPIXjqKoEzXGUxBToO",
+                  "snippet": "qmIxAzrTqpMWcuFuCOUc"
+                },
+                {
+                  "url": "JjQjEglGNzPyPDjMbOSz",
+                  "public_url": "VWXrEtnAhyOJLTsYWPOR",
+                  "mime_type": "QhlyrDVCNuSYcEPOFgcX",
+                  "filename": "oHXKFltmqLkNmKTLWSJA",
+                  "title": "EqErdQzgqLQwLaWpczUR",
+                  "snippet": "KoLxWhQHmpByiwyUUmlb"
+                },
+                {
+                  "url": "vAxtaQhdKgNWraNcnhho",
+                  "public_url": "QCSdNsRJYxBQraQeNaEa",
+                  "mime_type": "IldCBtVasPKpnLEHygDL",
+                  "filename": "QuzFMJOpDOxUKPHSccOe",
+                  "title": "OCJfAQMHLGmLbrVPJhqZ",
+                  "snippet": "HAfjdTpQtucNHjvdXtad"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nHlPgeGrupsAyioCPqdwN                                                                                \n\nSources (3):\nNmRPIXjqKoEzXGUxBToO (UrhaPTBUqJLSNRhecUjk)\n  qmIxAzrTqpMWcuFuCOUc\n\nEqErdQzgqLQwLaWpczUR (JjQjEglGNzPyPDjMbOSz)\n  KoLxWhQHmpByiwyUUmlb\n\nOCJfAQMHLGmLbrVPJhqZ (vAxtaQhdKgNWraNcnhho)\n  HAfjdTpQtucNHjvdXtad\n",
+            "data_html": "<div><p>HlPgeGrupsAyioCPqdwN</p><h4>Sources</h4><ul><li><a href=\"PSsFNgQnmiozmYgtxwEi\" class=\"msg-document\">NmRPIXjqKoEzXGUxBToO</a><br/><small>qmIxAzrTqpMWcuFuCOUc</small></li><li><a href=\"VWXrEtnAhyOJLTsYWPOR\" class=\"msg-document\">EqErdQzgqLQwLaWpczUR</a><br/><small>KoLxWhQHmpByiwyUUmlb</small></li><li><a href=\"QCSdNsRJYxBQraQeNaEa\" class=\"msg-document\">OCJfAQMHLGmLbrVPJhqZ</a><br/><small>HAfjdTpQtucNHjvdXtad</small></li></ul></div>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "classified",
+            "concept": "EmailClassification",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ZT964",
+            "data": {
+              "subject": "SobEPJYpijcDzSznNbOh",
+              "priority": "needs_review",
+              "summary": "lwtGhvhiHboIlIGuQBYf"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ SobEPJYpijcDzSznNbOh                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ lwtGhvhiHboIlIGuQBYf                               \n",
+            "data_html": "<table><tr><th>subject</th><td>SobEPJYpijcDzSznNbOh</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>lwtGhvhiHboIlIGuQBYf</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Classify this email by priority (auto_reply or needs_review):\n\n<search_result>\nHlPgeGrupsAyioCPqdwN\n\nSources:\n- NmRPIXjqKoEzXGUxBToO: UrhaPTBUqJLSNRhecUjk\n  qmIxAzrTqpMWcuFuCOUc\n- EqErdQzgqLQwLaWpczUR: JjQjEglGNzPyPDjMbOSz\n  KoLxWhQHmpByiwyUUmlb\n- OCJfAQMHLGmLbrVPJhqZ: vAxtaQhdKgNWraNcnhho\n  HAfjdTpQtucNHjvdXtad\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass EmailClassification(StructuredContent):\n    \"\"\"Classified email with priority\"\"\"\n    subject: str  # Email subject\n    priority: Literal[\n        \"auto_reply\",\n        \"needs_review\",\n    ]  # Priority level\n    summary: str  # Brief summary of the email\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_3",
+      "kind": "controller",
+      "pipe_code": "route_email",
+      "pipe_type": "PipeCondition",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.416622Z",
+        "ended_at": "2026-04-06T10:15:46.433695Z",
+        "duration": 0.017073
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "EmailClassification",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ZT964",
+            "data": {
+              "subject": "SobEPJYpijcDzSznNbOh",
+              "priority": "needs_review",
+              "summary": "lwtGhvhiHboIlIGuQBYf"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ SobEPJYpijcDzSznNbOh                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ lwtGhvhiHboIlIGuQBYf                               \n",
+            "data_html": "<table><tr><th>subject</th><td>SobEPJYpijcDzSznNbOh</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>lwtGhvhiHboIlIGuQBYf</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "digest",
+            "concept": "InboxDigest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hVYMv",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: SobEPJYpijcDzSznNbOh Summary: lwtGhvhiHboIlIGuQBYf                                         \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_4",
+      "kind": "operator",
+      "pipe_code": "flag_for_review",
+      "pipe_type": "PipeCompose",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.419855Z",
+        "ended_at": "2026-04-06T10:15:46.425319Z",
+        "duration": 0.005464
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "EmailClassification",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ZT964",
+            "data": {
+              "subject": "SobEPJYpijcDzSznNbOh",
+              "priority": "needs_review",
+              "summary": "lwtGhvhiHboIlIGuQBYf"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ SobEPJYpijcDzSznNbOh                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ lwtGhvhiHboIlIGuQBYf                               \n",
+            "data_html": "<table><tr><th>subject</th><td>SobEPJYpijcDzSznNbOh</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>lwtGhvhiHboIlIGuQBYf</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "inbox_digest",
+            "concept": "InboxDigest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "XWTvZ",
+            "data": {
+              "text": "FLAGGED FOR REVIEW: SobEPJYpijcDzSznNbOh - lwtGhvhiHboIlIGuQBYf"
+            },
+            "data_text": "FLAGGED FOR REVIEW: SobEPJYpijcDzSznNbOh - lwtGhvhiHboIlIGuQBYf                                     \n",
+            "data_html": "FLAGGED FOR REVIEW: SobEPJYpijcDzSznNbOh - lwtGhvhiHboIlIGuQBYf",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "FLAGGED FOR REVIEW: SobEPJYpijcDzSznNbOh - lwtGhvhiHboIlIGuQBYf"
+      }
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_5",
+      "kind": "operator",
+      "pipe_code": "generate_auto_reply",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:46.425340Z",
+        "ended_at": "2026-04-06T10:15:46.433256Z",
+        "duration": 0.007916
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "EmailClassification",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ZT964",
+            "data": {
+              "subject": "SobEPJYpijcDzSznNbOh",
+              "priority": "needs_review",
+              "summary": "lwtGhvhiHboIlIGuQBYf"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ SobEPJYpijcDzSznNbOh                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ lwtGhvhiHboIlIGuQBYf                               \n",
+            "data_html": "<table><tr><th>subject</th><td>SobEPJYpijcDzSznNbOh</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>lwtGhvhiHboIlIGuQBYf</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "inbox_digest",
+            "concept": "InboxDigest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hVYMv",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: SobEPJYpijcDzSznNbOh Summary: lwtGhvhiHboIlIGuQBYf                                         \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Generate a professional auto-reply digest for this email:\n\nSubject: SobEPJYpijcDzSznNbOh\nSummary: lwtGhvhiHboIlIGuQBYf",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_0",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_0",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_1",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_0",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_2",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_0",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_3",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_3",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_4",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_3",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_5",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_1",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "kind": "data",
+      "label": "search_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_6",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_3",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_7",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_4",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:edge_8",
+      "source": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_2",
+      "target": "8ca2b673-3b2c-42f0-bf71-2b79bd76723a:node_5",
+      "kind": "data",
+      "label": "classified",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "email_management.email_triage": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "email_triage",
+      "domain_code": "email_management",
+      "description": "Search inbox, classify, and route to action",
+      "inputs": {
+        "query": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InboxDigest",
+          "domain_code": "email_management",
+          "description": "Summary digest of inbox processing",
+          "structure_class_name": "InboxDigest",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "search_inbox",
+          "output_name": "search_result",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "classify_email",
+          "output_name": "classified",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "route_email",
+          "output_name": "digest",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "email_management.search_inbox": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeSearch",
+      "code": "search_inbox",
+      "domain_code": "email_management",
+      "description": "Search email inbox",
+      "inputs": {
+        "query": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "search_choice": null,
+      "prompt_blueprint": {
+        "template": "Recent emails about: $query",
+        "templating_style": null,
+        "category": "basic",
+        "extra_context": null
+      },
+      "include_images_override": null,
+      "max_results_override": null,
+      "from_date": null,
+      "to_date": null,
+      "include_domains": null,
+      "exclude_domains": null,
+      "is_structured_output": false
+    },
+    "email_management.classify_email": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "classify_email",
+      "domain_code": "email_management",
+      "description": "Classify email priority",
+      "inputs": {
+        "search_result": {
+          "concept": {
+            "code": "SearchResult",
+            "domain_code": "native",
+            "description": "A search result with answer and sources",
+            "structure_class_name": "SearchResultContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "EmailClassification",
+          "domain_code": "email_management",
+          "description": "Classified email with priority",
+          "structure_class_name": "EmailClassification",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Classify this email by priority (auto_reply or needs_review):\n\n@search_result\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "email_management.route_email": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_email",
+      "domain_code": "email_management",
+      "description": "Route email based on classification",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "EmailClassification",
+            "domain_code": "email_management",
+            "description": "Classified email with priority",
+            "structure_class_name": "EmailClassification",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InboxDigest",
+          "domain_code": "email_management",
+          "description": "Summary digest of inbox processing",
+          "structure_class_name": "InboxDigest",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "expression": "{{ classified.priority }}",
+      "outcome_map": {
+        "auto_reply": "generate_auto_reply",
+        "needs_review": "flag_for_review"
+      },
+      "default_outcome": "flag_for_review",
+      "add_alias_from_expression_to": null
+    },
+    "email_management.flag_for_review": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "flag_for_review",
+      "domain_code": "email_management",
+      "description": "Flag email for human review",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "EmailClassification",
+            "domain_code": "email_management",
+            "description": "Classified email with priority",
+            "structure_class_name": "EmailClassification",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InboxDigest",
+          "domain_code": "email_management",
+          "description": "Summary digest of inbox processing",
+          "structure_class_name": "InboxDigest",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "template": "FLAGGED FOR REVIEW: {{ classified.subject|format() }} - {{ classified.summary|format() }}",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    },
+    "email_management.generate_auto_reply": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_auto_reply",
+      "domain_code": "email_management",
+      "description": "Generate automatic reply",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "EmailClassification",
+            "domain_code": "email_management",
+            "description": "Classified email with priority",
+            "structure_class_name": "EmailClassification",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InboxDigest",
+          "domain_code": "email_management",
+          "description": "Summary digest of inbox processing",
+          "structure_class_name": "InboxDigest",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Generate a professional auto-reply digest for this email:\n\nSubject: $classified.subject\nSummary: $classified.summary\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "email_management.InboxDigest": {
+      "code": "InboxDigest",
+      "domain_code": "email_management",
+      "description": "Summary digest of inbox processing",
+      "structure_class_name": "InboxDigest",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Summary digest of inbox processing",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "InboxDigest",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.SearchResult": {
+      "code": "SearchResult",
+      "domain_code": "native",
+      "description": "A search result with answer and sources",
+      "structure_class_name": "SearchResultContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "DocumentContent": {
+            "properties": {
+              "url": {
+                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public HTTPS URL of the document",
+                "title": "Public Url"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the document",
+                "title": "Mime Type"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the document",
+                "title": "Filename"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The title of the document or source",
+                "title": "Title"
+              },
+              "snippet": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text snippet or excerpt from the document",
+                "title": "Snippet"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "DocumentContent",
+            "type": "object"
+          }
+        },
+        "description": "Represents the result of a search query with an answer and list of sources.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/$defs/DocumentContent"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "SearchResultContent",
+        "type": "object"
+      }
+    },
+    "email_management.EmailClassification": {
+      "code": "EmailClassification",
+      "domain_code": "email_management",
+      "description": "Classified email with priority",
+      "structure_class_name": "EmailClassification",
+      "refines": null,
+      "json_schema": {
+        "description": "Classified email with priority",
+        "properties": {
+          "subject": {
+            "description": "Email subject",
+            "title": "Subject",
+            "type": "string"
+          },
+          "priority": {
+            "description": "Priority level",
+            "enum": [
+              "auto_reply",
+              "needs_review"
+            ],
+            "title": "Priority",
+            "type": "string"
+          },
+          "summary": {
+            "description": "Brief summary of the email",
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "subject",
+          "priority",
+          "summary"
+        ],
+        "title": "EmailClassification",
+        "type": "object"
+      }
+    }
+  }
+}

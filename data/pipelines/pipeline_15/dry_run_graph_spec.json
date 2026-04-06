@@ -1,0 +1,1304 @@
+{
+  "graph_id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8",
+  "created_at": "2026-04-06T10:15:40.887975Z",
+  "pipeline_ref": {
+    "domain": "rag",
+    "main_pipe": "rag_pipeline",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_0",
+      "kind": "controller",
+      "pipe_code": "rag_pipeline",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.896173Z",
+        "ended_at": "2026-04-06T10:15:40.967340Z",
+        "duration": 0.071167
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "answer",
+            "concept": "Answer",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LnWtZ",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nContext:\n<context>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, p\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\n\n\nQuestion:  HRgjWRugZLeGpiGpbcMv                                                                     \n\n\nContext:  DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,             \ntemperature=0.5, max_tokens=None, p                                                                 \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: &lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n\nContext:\n&lt;context&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, p\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 4
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_1",
+      "kind": "operator",
+      "pipe_code": "embed_query",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.907263Z",
+        "ended_at": "2026-04-06T10:15:40.918830Z",
+        "duration": 0.011567
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "query_embedding",
+            "concept": "QueryEmbedding",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "n55vS",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nHRgjWRugZLeGpiGpbcMv\n</question>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "kind": "controller",
+      "pipe_code": "parallel_search",
+      "pipe_type": "PipeParallel",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.919861Z",
+        "ended_at": "2026-04-06T10:15:40.944370Z",
+        "duration": 0.024509
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "query_embedding",
+            "concept": "QueryEmbedding",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "n55vS",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n    ",
+            "extra": {}
+          },
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "vector_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5pQBG",
+            "data": {
+              "answer": "LoKTYUlMxuPqNRLEJexj",
+              "sources": [
+                {
+                  "url": "RGpWbKGvEeXDDwMfzyIH",
+                  "public_url": "gGbpSWgxUtyqIRQEVjmg",
+                  "mime_type": "drNkTZweWQUzJQVAXXpy",
+                  "filename": "vawdqTfbTRPaWmNIlMsB",
+                  "title": "NMltxRvElsifuAZXrfVd",
+                  "snippet": "JzlbBHjyxjuiorIMMWOd"
+                },
+                {
+                  "url": "CJpPqISVaPOOOyYJCGcN",
+                  "public_url": "BGVXJtNdAymtqyOuuIez",
+                  "mime_type": "FefXunwAPWZhkwbTpFZF",
+                  "filename": "aqVcdpvBtLLqWVUwQjwv",
+                  "title": "XAZLDQpiKwMcHmaprZfV",
+                  "snippet": "rXmydOFmbfNBibttzTOt"
+                },
+                {
+                  "url": "jDMstYIFxiiWojcTkjIu",
+                  "public_url": "dDPQAxvMwIYHVJajqvtc",
+                  "mime_type": "DoENFrPSfOILibBPbYpK",
+                  "filename": "XgwfvnbqoTXwOtzKgbKh",
+                  "title": "yoSBHpSZhxRafeOsiXEY",
+                  "snippet": "NzrWYmakOThsXmRtbGXt"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nLoKTYUlMxuPqNRLEJexj                                                                                \n\nSources (3):\nNMltxRvElsifuAZXrfVd (RGpWbKGvEeXDDwMfzyIH)\n  JzlbBHjyxjuiorIMMWOd\n\nXAZLDQpiKwMcHmaprZfV (CJpPqISVaPOOOyYJCGcN)\n  rXmydOFmbfNBibttzTOt\n\nyoSBHpSZhxRafeOsiXEY (jDMstYIFxiiWojcTkjIu)\n  NzrWYmakOThsXmRtbGXt\n",
+            "data_html": "<div><p>LoKTYUlMxuPqNRLEJexj</p><h4>Sources</h4><ul><li><a href=\"gGbpSWgxUtyqIRQEVjmg\" class=\"msg-document\">NMltxRvElsifuAZXrfVd</a><br/><small>JzlbBHjyxjuiorIMMWOd</small></li><li><a href=\"BGVXJtNdAymtqyOuuIez\" class=\"msg-document\">XAZLDQpiKwMcHmaprZfV</a><br/><small>rXmydOFmbfNBibttzTOt</small></li><li><a href=\"dDPQAxvMwIYHVJajqvtc\" class=\"msg-document\">yoSBHpSZhxRafeOsiXEY</a><br/><small>NzrWYmakOThsXmRtbGXt</small></li></ul></div>",
+            "extra": {}
+          },
+          {
+            "name": "keyword_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "actQ9",
+            "data": {
+              "answer": "gnoVQbBezZeJXBthiRga",
+              "sources": [
+                {
+                  "url": "McdxtYDCpoZsnwAQXnXs",
+                  "public_url": "BvwaTNLsqwSKQnqdXjPH",
+                  "mime_type": "KtMnZWCuwKtWTChPsfuE",
+                  "filename": "uWNVGDCSduMuCvjlLAAN",
+                  "title": "NsiAwYxIUOxdCXmbNZCO",
+                  "snippet": "iDBKqTmmsrkWLFhrvYgd"
+                },
+                {
+                  "url": "uyiEtwMOhAZTUUpBWdpz",
+                  "public_url": "sDjfhUGFfeOAfbTUXTBs",
+                  "mime_type": "kQqHvxNhAMoWgdkuZqEV",
+                  "filename": "jysAtzgbrhnPjrmEZiBV",
+                  "title": "klmFizlFjqCbOHXQZJmb",
+                  "snippet": "GoKPVsSNqJyrHeEfDTse"
+                },
+                {
+                  "url": "ldKqCQwxuovIWlhVCsFd",
+                  "public_url": "FAYYlqcwSXnOeBiDbqgu",
+                  "mime_type": "zmVwKROIObSeczUiWGpB",
+                  "filename": "mQjTgxbyepmvybwcHCgw",
+                  "title": "CAqUlddQaYHiMZwxGDTh",
+                  "snippet": "hGDnpOVcXsvXakuBKsTs"
+                }
+              ]
+            },
+            "data_text": "Search Result:\ngnoVQbBezZeJXBthiRga                                                                                \n\nSources (3):\nNsiAwYxIUOxdCXmbNZCO (McdxtYDCpoZsnwAQXnXs)\n  iDBKqTmmsrkWLFhrvYgd\n\nklmFizlFjqCbOHXQZJmb (uyiEtwMOhAZTUUpBWdpz)\n  GoKPVsSNqJyrHeEfDTse\n\nCAqUlddQaYHiMZwxGDTh (ldKqCQwxuovIWlhVCsFd)\n  hGDnpOVcXsvXakuBKsTs\n",
+            "data_html": "<div><p>gnoVQbBezZeJXBthiRga</p><h4>Sources</h4><ul><li><a href=\"BvwaTNLsqwSKQnqdXjPH\" class=\"msg-document\">NsiAwYxIUOxdCXmbNZCO</a><br/><small>iDBKqTmmsrkWLFhrvYgd</small></li><li><a href=\"sDjfhUGFfeOAfbTUXTBs\" class=\"msg-document\">klmFizlFjqCbOHXQZJmb</a><br/><small>GoKPVsSNqJyrHeEfDTse</small></li><li><a href=\"FAYYlqcwSXnOeBiDbqgu\" class=\"msg-document\">CAqUlddQaYHiMZwxGDTh</a><br/><small>hGDnpOVcXsvXakuBKsTs</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "branch_count": 2,
+        "add_each_output": true,
+        "combined_output_concept": null
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_3",
+      "kind": "operator",
+      "pipe_code": "vector_search",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.923769Z",
+        "ended_at": "2026-04-06T10:15:40.931729Z",
+        "duration": 0.00796
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "query_embedding",
+            "concept": "QueryEmbedding",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "n55vS",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "vector_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5pQBG",
+            "data": {
+              "answer": "LoKTYUlMxuPqNRLEJexj",
+              "sources": [
+                {
+                  "url": "RGpWbKGvEeXDDwMfzyIH",
+                  "public_url": "gGbpSWgxUtyqIRQEVjmg",
+                  "mime_type": "drNkTZweWQUzJQVAXXpy",
+                  "filename": "vawdqTfbTRPaWmNIlMsB",
+                  "title": "NMltxRvElsifuAZXrfVd",
+                  "snippet": "JzlbBHjyxjuiorIMMWOd"
+                },
+                {
+                  "url": "CJpPqISVaPOOOyYJCGcN",
+                  "public_url": "BGVXJtNdAymtqyOuuIez",
+                  "mime_type": "FefXunwAPWZhkwbTpFZF",
+                  "filename": "aqVcdpvBtLLqWVUwQjwv",
+                  "title": "XAZLDQpiKwMcHmaprZfV",
+                  "snippet": "rXmydOFmbfNBibttzTOt"
+                },
+                {
+                  "url": "jDMstYIFxiiWojcTkjIu",
+                  "public_url": "dDPQAxvMwIYHVJajqvtc",
+                  "mime_type": "DoENFrPSfOILibBPbYpK",
+                  "filename": "XgwfvnbqoTXwOtzKgbKh",
+                  "title": "yoSBHpSZhxRafeOsiXEY",
+                  "snippet": "NzrWYmakOThsXmRtbGXt"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nLoKTYUlMxuPqNRLEJexj                                                                                \n\nSources (3):\nNMltxRvElsifuAZXrfVd (RGpWbKGvEeXDDwMfzyIH)\n  JzlbBHjyxjuiorIMMWOd\n\nXAZLDQpiKwMcHmaprZfV (CJpPqISVaPOOOyYJCGcN)\n  rXmydOFmbfNBibttzTOt\n\nyoSBHpSZhxRafeOsiXEY (jDMstYIFxiiWojcTkjIu)\n  NzrWYmakOThsXmRtbGXt\n",
+            "data_html": "<div><p>LoKTYUlMxuPqNRLEJexj</p><h4>Sources</h4><ul><li><a href=\"gGbpSWgxUtyqIRQEVjmg\" class=\"msg-document\">NMltxRvElsifuAZXrfVd</a><br/><small>JzlbBHjyxjuiorIMMWOd</small></li><li><a href=\"BGVXJtNdAymtqyOuuIez\" class=\"msg-document\">XAZLDQpiKwMcHmaprZfV</a><br/><small>rXmydOFmbfNBibttzTOt</small></li><li><a href=\"dDPQAxvMwIYHVJajqvtc\" class=\"msg-document\">yoSBHpSZhxRafeOsiXEY</a><br/><small>NzrWYmakOThsXmRtbGXt</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_4",
+      "kind": "operator",
+      "pipe_code": "keyword_search",
+      "pipe_type": "PipeSearch",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.932546Z",
+        "ended_at": "2026-04-06T10:15:40.940013Z",
+        "duration": 0.007467
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "keyword_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "actQ9",
+            "data": {
+              "answer": "gnoVQbBezZeJXBthiRga",
+              "sources": [
+                {
+                  "url": "McdxtYDCpoZsnwAQXnXs",
+                  "public_url": "BvwaTNLsqwSKQnqdXjPH",
+                  "mime_type": "KtMnZWCuwKtWTChPsfuE",
+                  "filename": "uWNVGDCSduMuCvjlLAAN",
+                  "title": "NsiAwYxIUOxdCXmbNZCO",
+                  "snippet": "iDBKqTmmsrkWLFhrvYgd"
+                },
+                {
+                  "url": "uyiEtwMOhAZTUUpBWdpz",
+                  "public_url": "sDjfhUGFfeOAfbTUXTBs",
+                  "mime_type": "kQqHvxNhAMoWgdkuZqEV",
+                  "filename": "jysAtzgbrhnPjrmEZiBV",
+                  "title": "klmFizlFjqCbOHXQZJmb",
+                  "snippet": "GoKPVsSNqJyrHeEfDTse"
+                },
+                {
+                  "url": "ldKqCQwxuovIWlhVCsFd",
+                  "public_url": "FAYYlqcwSXnOeBiDbqgu",
+                  "mime_type": "zmVwKROIObSeczUiWGpB",
+                  "filename": "mQjTgxbyepmvybwcHCgw",
+                  "title": "CAqUlddQaYHiMZwxGDTh",
+                  "snippet": "hGDnpOVcXsvXakuBKsTs"
+                }
+              ]
+            },
+            "data_text": "Search Result:\ngnoVQbBezZeJXBthiRga                                                                                \n\nSources (3):\nNsiAwYxIUOxdCXmbNZCO (McdxtYDCpoZsnwAQXnXs)\n  iDBKqTmmsrkWLFhrvYgd\n\nklmFizlFjqCbOHXQZJmb (uyiEtwMOhAZTUUpBWdpz)\n  GoKPVsSNqJyrHeEfDTse\n\nCAqUlddQaYHiMZwxGDTh (ldKqCQwxuovIWlhVCsFd)\n  hGDnpOVcXsvXakuBKsTs\n",
+            "data_html": "<div><p>gnoVQbBezZeJXBthiRga</p><h4>Sources</h4><ul><li><a href=\"BvwaTNLsqwSKQnqdXjPH\" class=\"msg-document\">NsiAwYxIUOxdCXmbNZCO</a><br/><small>iDBKqTmmsrkWLFhrvYgd</small></li><li><a href=\"sDjfhUGFfeOAfbTUXTBs\" class=\"msg-document\">klmFizlFjqCbOHXQZJmb</a><br/><small>GoKPVsSNqJyrHeEfDTse</small></li><li><a href=\"FAYYlqcwSXnOeBiDbqgu\" class=\"msg-document\">CAqUlddQaYHiMZwxGDTh</a><br/><small>hGDnpOVcXsvXakuBKsTs</small></li></ul></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "rendered_query": "mock",
+        "resolved_model": "mock",
+        "is_structured_output": false
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_5",
+      "kind": "operator",
+      "pipe_code": "rerank_results",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.945462Z",
+        "ended_at": "2026-04-06T10:15:40.956722Z",
+        "duration": 0.01126
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "vector_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5pQBG",
+            "data": {
+              "answer": "LoKTYUlMxuPqNRLEJexj",
+              "sources": [
+                {
+                  "url": "RGpWbKGvEeXDDwMfzyIH",
+                  "public_url": "gGbpSWgxUtyqIRQEVjmg",
+                  "mime_type": "drNkTZweWQUzJQVAXXpy",
+                  "filename": "vawdqTfbTRPaWmNIlMsB",
+                  "title": "NMltxRvElsifuAZXrfVd",
+                  "snippet": "JzlbBHjyxjuiorIMMWOd"
+                },
+                {
+                  "url": "CJpPqISVaPOOOyYJCGcN",
+                  "public_url": "BGVXJtNdAymtqyOuuIez",
+                  "mime_type": "FefXunwAPWZhkwbTpFZF",
+                  "filename": "aqVcdpvBtLLqWVUwQjwv",
+                  "title": "XAZLDQpiKwMcHmaprZfV",
+                  "snippet": "rXmydOFmbfNBibttzTOt"
+                },
+                {
+                  "url": "jDMstYIFxiiWojcTkjIu",
+                  "public_url": "dDPQAxvMwIYHVJajqvtc",
+                  "mime_type": "DoENFrPSfOILibBPbYpK",
+                  "filename": "XgwfvnbqoTXwOtzKgbKh",
+                  "title": "yoSBHpSZhxRafeOsiXEY",
+                  "snippet": "NzrWYmakOThsXmRtbGXt"
+                }
+              ]
+            },
+            "data_text": "Search Result:\nLoKTYUlMxuPqNRLEJexj                                                                                \n\nSources (3):\nNMltxRvElsifuAZXrfVd (RGpWbKGvEeXDDwMfzyIH)\n  JzlbBHjyxjuiorIMMWOd\n\nXAZLDQpiKwMcHmaprZfV (CJpPqISVaPOOOyYJCGcN)\n  rXmydOFmbfNBibttzTOt\n\nyoSBHpSZhxRafeOsiXEY (jDMstYIFxiiWojcTkjIu)\n  NzrWYmakOThsXmRtbGXt\n",
+            "data_html": "<div><p>LoKTYUlMxuPqNRLEJexj</p><h4>Sources</h4><ul><li><a href=\"gGbpSWgxUtyqIRQEVjmg\" class=\"msg-document\">NMltxRvElsifuAZXrfVd</a><br/><small>JzlbBHjyxjuiorIMMWOd</small></li><li><a href=\"BGVXJtNdAymtqyOuuIez\" class=\"msg-document\">XAZLDQpiKwMcHmaprZfV</a><br/><small>rXmydOFmbfNBibttzTOt</small></li><li><a href=\"dDPQAxvMwIYHVJajqvtc\" class=\"msg-document\">yoSBHpSZhxRafeOsiXEY</a><br/><small>NzrWYmakOThsXmRtbGXt</small></li></ul></div>",
+            "extra": {}
+          },
+          {
+            "name": "keyword_results",
+            "concept": "SearchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "actQ9",
+            "data": {
+              "answer": "gnoVQbBezZeJXBthiRga",
+              "sources": [
+                {
+                  "url": "McdxtYDCpoZsnwAQXnXs",
+                  "public_url": "BvwaTNLsqwSKQnqdXjPH",
+                  "mime_type": "KtMnZWCuwKtWTChPsfuE",
+                  "filename": "uWNVGDCSduMuCvjlLAAN",
+                  "title": "NsiAwYxIUOxdCXmbNZCO",
+                  "snippet": "iDBKqTmmsrkWLFhrvYgd"
+                },
+                {
+                  "url": "uyiEtwMOhAZTUUpBWdpz",
+                  "public_url": "sDjfhUGFfeOAfbTUXTBs",
+                  "mime_type": "kQqHvxNhAMoWgdkuZqEV",
+                  "filename": "jysAtzgbrhnPjrmEZiBV",
+                  "title": "klmFizlFjqCbOHXQZJmb",
+                  "snippet": "GoKPVsSNqJyrHeEfDTse"
+                },
+                {
+                  "url": "ldKqCQwxuovIWlhVCsFd",
+                  "public_url": "FAYYlqcwSXnOeBiDbqgu",
+                  "mime_type": "zmVwKROIObSeczUiWGpB",
+                  "filename": "mQjTgxbyepmvybwcHCgw",
+                  "title": "CAqUlddQaYHiMZwxGDTh",
+                  "snippet": "hGDnpOVcXsvXakuBKsTs"
+                }
+              ]
+            },
+            "data_text": "Search Result:\ngnoVQbBezZeJXBthiRga                                                                                \n\nSources (3):\nNsiAwYxIUOxdCXmbNZCO (McdxtYDCpoZsnwAQXnXs)\n  iDBKqTmmsrkWLFhrvYgd\n\nklmFizlFjqCbOHXQZJmb (uyiEtwMOhAZTUUpBWdpz)\n  GoKPVsSNqJyrHeEfDTse\n\nCAqUlddQaYHiMZwxGDTh (ldKqCQwxuovIWlhVCsFd)\n  hGDnpOVcXsvXakuBKsTs\n",
+            "data_html": "<div><p>gnoVQbBezZeJXBthiRga</p><h4>Sources</h4><ul><li><a href=\"BvwaTNLsqwSKQnqdXjPH\" class=\"msg-document\">NsiAwYxIUOxdCXmbNZCO</a><br/><small>iDBKqTmmsrkWLFhrvYgd</small></li><li><a href=\"sDjfhUGFfeOAfbTUXTBs\" class=\"msg-document\">klmFizlFjqCbOHXQZJmb</a><br/><small>GoKPVsSNqJyrHeEfDTse</small></li><li><a href=\"FAYYlqcwSXnOeBiDbqgu\" class=\"msg-document\">CAqUlddQaYHiMZwxGDTh</a><br/><small>hGDnpOVcXsvXakuBKsTs</small></li></ul></div>",
+            "extra": {}
+          },
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "context",
+            "concept": "RankedContext",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NZ39k",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorI\n    "
+            },
+            "data_text": "\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nHRgjWRugZLeGpiGpbcMv                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> LoKTYUlMxuPqNRLEJexj                                               \n\nSources:                                                                                            \n\n • NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH JzlbBHjyxjuiorI                                       \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: &lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorI\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Given this question: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorIMMWOd\n- XAZLDQpiKwMcHmaprZfV: CJpPqISVaPOOOyYJCGcN\n  rXmydOFmbfNBibttzTOt\n- yoSBHpSZhxRafeOsiXEY: jDMstYIFxiiWojcTkjIu\n  NzrWYmakOThsXmRtbGXt\n</vector_results>\n\nKeyword results:\n<keyword_results>\ngnoVQbBezZeJXBthiRga\n\nSources:\n- NsiAwYxIUOxdCXmbNZCO: McdxtYDCpoZsnwAQXnXs\n  iDBKqTmmsrkWLFhrvYgd\n- klmFizlFjqCbOHXQZJmb: uyiEtwMOhAZTUUpBWdpz\n  GoKPVsSNqJyrHeEfDTse\n- CAqUlddQaYHiMZwxGDTh: ldKqCQwxuovIWlhVCsFd\n  hGDnpOVcXsvXakuBKsTs\n</keyword_results>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_6",
+      "kind": "operator",
+      "pipe_code": "generate_answer",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-06T10:15:40.957734Z",
+        "ended_at": "2026-04-06T10:15:40.966307Z",
+        "duration": 0.008573
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "question",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Yng2p",
+            "data": {
+              "text": "HRgjWRugZLeGpiGpbcMv"
+            },
+            "data_text": "HRgjWRugZLeGpiGpbcMv                                                                                \n",
+            "data_html": "HRgjWRugZLeGpiGpbcMv",
+            "extra": {}
+          },
+          {
+            "name": "context",
+            "concept": "RankedContext",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NZ39k",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorI\n    "
+            },
+            "data_text": "\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nHRgjWRugZLeGpiGpbcMv                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> LoKTYUlMxuPqNRLEJexj                                               \n\nSources:                                                                                            \n\n • NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH JzlbBHjyxjuiorI                                       \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: &lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorI\n    ",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "answer",
+            "concept": "Answer",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LnWtZ",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nContext:\n<context>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, p\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\n\n\nQuestion:  HRgjWRugZLeGpiGpbcMv                                                                     \n\n\nContext:  DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,             \ntemperature=0.5, max_tokens=None, p                                                                 \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: &lt;question&gt;\nHRgjWRugZLeGpiGpbcMv\n&lt;/question&gt;\n\nContext:\n&lt;context&gt;\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, p\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.5-sonnet",
+        "resolved_model_for_object": "claude-4.5-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Answer this question using the provided context. Cite your sources.\n\nQuestion: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nContext:\n<context>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: <question>\nHRgjWRugZLeGpiGpbcMv\n</question>\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nLoKTYUlMxuPqNRLEJexj\n\nSources:\n- NMltxRvElsifuAZXrfVd: RGpWbKGvEeXDDwMfzyIH\n  JzlbBHjyxjuiorI\n    \n</context>",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_0",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_0",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_1",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_0",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_2",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_3",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_4",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_0",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_5",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_0",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_6",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_1",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "kind": "data",
+      "label": "query_embedding",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_7",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_1",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_3",
+      "kind": "data",
+      "label": "query_embedding",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_8",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_5",
+      "kind": "data",
+      "label": "vector_results",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_9",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_2",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_5",
+      "kind": "data",
+      "label": "keyword_results",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:edge_10",
+      "source": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_5",
+      "target": "6a37fccc-ed31-4a0a-aa80-3dff3b916dc8:node_6",
+      "kind": "data",
+      "label": "context",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "rag.rag_pipeline": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "rag_pipeline",
+      "domain_code": "rag",
+      "description": "Retrieve context and generate an answer",
+      "inputs": {
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Answer",
+          "domain_code": "rag",
+          "description": "Generated answer with citations",
+          "structure_class_name": "Answer",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "embed_query",
+          "output_name": "query_embedding",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "parallel_search",
+          "output_name": "vector_results",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "rerank_results",
+          "output_name": "context",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "generate_answer",
+          "output_name": "answer",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "rag.embed_query": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "embed_query",
+      "domain_code": "rag",
+      "description": "Generate embedding representation of the query",
+      "inputs": {
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "QueryEmbedding",
+          "domain_code": "rag",
+          "description": "Embedded representation of a query",
+          "structure_class_name": "QueryEmbedding",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Rephrase this question to capture the core semantic meaning for retrieval:\n\n@question\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "rag.parallel_search": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "parallel_search",
+      "domain_code": "rag",
+      "description": "Vector and keyword search in parallel",
+      "inputs": {
+        "query_embedding": {
+          "concept": {
+            "code": "QueryEmbedding",
+            "domain_code": "rag",
+            "description": "Embedded representation of a query",
+            "structure_class_name": "QueryEmbedding",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        },
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "vector_search",
+          "output_name": "vector_results",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "keyword_search",
+          "output_name": "keyword_results",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true,
+      "combined_output": null
+    },
+    "rag.vector_search": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeSearch",
+      "code": "vector_search",
+      "domain_code": "rag",
+      "description": "Semantic vector search",
+      "inputs": {
+        "query_embedding": {
+          "concept": {
+            "code": "QueryEmbedding",
+            "domain_code": "rag",
+            "description": "Embedded representation of a query",
+            "structure_class_name": "QueryEmbedding",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "search_choice": null,
+      "prompt_blueprint": {
+        "template": "$query_embedding",
+        "templating_style": null,
+        "category": "basic",
+        "extra_context": null
+      },
+      "include_images_override": null,
+      "max_results_override": null,
+      "from_date": null,
+      "to_date": null,
+      "include_domains": null,
+      "exclude_domains": null,
+      "is_structured_output": false
+    },
+    "rag.keyword_search": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeSearch",
+      "code": "keyword_search",
+      "domain_code": "rag",
+      "description": "Keyword-based search",
+      "inputs": {
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SearchResult",
+          "domain_code": "native",
+          "description": "A search result with answer and sources",
+          "structure_class_name": "SearchResultContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "search_choice": null,
+      "prompt_blueprint": {
+        "template": "$question",
+        "templating_style": null,
+        "category": "basic",
+        "extra_context": null
+      },
+      "include_images_override": null,
+      "max_results_override": null,
+      "from_date": null,
+      "to_date": null,
+      "include_domains": null,
+      "exclude_domains": null,
+      "is_structured_output": false
+    },
+    "rag.rerank_results": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "rerank_results",
+      "domain_code": "rag",
+      "description": "Rerank and filter search results",
+      "inputs": {
+        "vector_results": {
+          "concept": {
+            "code": "SearchResult",
+            "domain_code": "native",
+            "description": "A search result with answer and sources",
+            "structure_class_name": "SearchResultContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "keyword_results": {
+          "concept": {
+            "code": "SearchResult",
+            "domain_code": "native",
+            "description": "A search result with answer and sources",
+            "structure_class_name": "SearchResultContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "RankedContext",
+          "domain_code": "rag",
+          "description": "Reranked and filtered context passages",
+          "structure_class_name": "RankedContext",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Given this question: @question\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n@vector_results\n\nKeyword results:\n@keyword_results\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "rag.generate_answer": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_answer",
+      "domain_code": "rag",
+      "description": "Generate answer from context",
+      "inputs": {
+        "question": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "context": {
+          "concept": {
+            "code": "RankedContext",
+            "domain_code": "rag",
+            "description": "Reranked and filtered context passages",
+            "structure_class_name": "RankedContext",
+            "refines": "native.Text"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Answer",
+          "domain_code": "rag",
+          "description": "Generated answer with citations",
+          "structure_class_name": "Answer",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Answer this question using the provided context. Cite your sources.\n\nQuestion: @question\n\nContext:\n@context\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "rag.Answer": {
+      "code": "Answer",
+      "domain_code": "rag",
+      "description": "Generated answer with citations",
+      "structure_class_name": "Answer",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Generated answer with citations",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Answer",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "rag.QueryEmbedding": {
+      "code": "QueryEmbedding",
+      "domain_code": "rag",
+      "description": "Embedded representation of a query",
+      "structure_class_name": "QueryEmbedding",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Embedded representation of a query",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "QueryEmbedding",
+        "type": "object"
+      }
+    },
+    "native.SearchResult": {
+      "code": "SearchResult",
+      "domain_code": "native",
+      "description": "A search result with answer and sources",
+      "structure_class_name": "SearchResultContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "DocumentContent": {
+            "properties": {
+              "url": {
+                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public HTTPS URL of the document",
+                "title": "Public Url"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the document",
+                "title": "Mime Type"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the document",
+                "title": "Filename"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The title of the document or source",
+                "title": "Title"
+              },
+              "snippet": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text snippet or excerpt from the document",
+                "title": "Snippet"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "DocumentContent",
+            "type": "object"
+          }
+        },
+        "description": "Represents the result of a search query with an answer and list of sources.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/$defs/DocumentContent"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "answer"
+        ],
+        "title": "SearchResultContent",
+        "type": "object"
+      }
+    },
+    "rag.RankedContext": {
+      "code": "RankedContext",
+      "domain_code": "rag",
+      "description": "Reranked and filtered context passages",
+      "structure_class_name": "RankedContext",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "Reranked and filtered context passages",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "RankedContext",
+        "type": "object"
+      }
+    }
+  }
+}

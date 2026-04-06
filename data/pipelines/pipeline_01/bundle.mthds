@@ -1,0 +1,18 @@
+domain = "text_processing"
+description = "Single pipe that summarizes text"
+main_pipe = "summarize"
+
+[concept.Summary]
+description = "A text summary of content"
+refines = "Text"
+
+[pipe.summarize]
+type = "PipeLLM"
+description = "Summarize input text"
+inputs = {text = "Text"}
+output = "Summary"
+prompt = """
+Summarize the following text concisely:
+
+@text
+"""

@@ -1,0 +1,8 @@
+{
+  "question": {
+    "concept": "native.Text",
+    "content": {
+      "text": "What are the main differences between transformer and recurrent neural network architectures for natural language processing?"
+    }
+  }
+}

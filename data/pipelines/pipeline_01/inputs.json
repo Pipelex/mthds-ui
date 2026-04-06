@@ -1,0 +1,8 @@
+{
+  "text": {
+    "concept": "native.Text",
+    "content": {
+      "text": "Artificial intelligence has transformed the technology landscape in recent years. Machine learning models, particularly large language models, have shown remarkable capabilities in understanding and generating human language. These models are trained on vast amounts of text data and can perform tasks such as translation, summarization, question answering, and creative writing. The development of transformer architectures in 2017 marked a turning point, enabling models to process sequences of text more efficiently than previous approaches. Companies across industries are now integrating AI into their workflows, from customer service chatbots to medical diagnosis assistance. However, challenges remain around bias, hallucination, and the environmental cost of training large models."
+    }
+  }
+}

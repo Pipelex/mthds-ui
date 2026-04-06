@@ -1,0 +1,52 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_9e70dbc1f9["etl_pipeline"]
+        subgraph sg_n_b90b572d13["dual_process"]
+            subgraph sg_n_3f5a21a2d4["image_branch"]
+                n_7f9812b3c7["caption_images"]
+                s_6c8b4859c8(["captioned<br/>ProcessedImage"]):::stuff
+                n_f5ad4e40fa["extract_images"]
+                s_50881bdfaf(["described<br/>Text"]):::stuff
+            end
+            subgraph sg_n_e5f574c0a4["text_branch"]
+                n_4e13cd2522["clean_text"]
+                s_32ba4d181e(["clean_text<br/>CleanText"]):::stuff
+                n_90e0daf4a0["enrich_text"]
+                s_e9c0f9b382(["enriched<br/>EnrichedText"]):::stuff
+            end
+        end
+        n_df74f979c9["combine_results"]
+        s_af4e94db8f(["processed<br/>ProcessedContent"]):::stuff
+        n_a2e41c506a["extract_content"]
+        s_1c5cafccb5(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_82f542fb8f(["document<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_90e0daf4a0 --> s_e9c0f9b382
+    n_4e13cd2522 --> s_32ba4d181e
+    n_a2e41c506a --> s_1c5cafccb5
+    n_df74f979c9 --> s_af4e94db8f
+    n_f5ad4e40fa --> s_50881bdfaf
+    n_7f9812b3c7 --> s_6c8b4859c8
+    s_e9c0f9b382 --> n_df74f979c9
+    s_32ba4d181e --> n_90e0daf4a0
+    s_1c5cafccb5 --> n_4e13cd2522
+    s_1c5cafccb5 --> n_f5ad4e40fa
+    s_50881bdfaf --> n_7f9812b3c7
+    s_6c8b4859c8 --> n_df74f979c9
+    s_82f542fb8f --> n_a2e41c506a
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_3f5a21a2d4 fill:#fffde6
+    style sg_n_9e70dbc1f9 fill:#e6f3ff
+    style sg_n_b90b572d13 fill:#e6ffe6
+    style sg_n_e5f574c0a4 fill:#fffde6

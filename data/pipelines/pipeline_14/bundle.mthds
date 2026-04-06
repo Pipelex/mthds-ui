@@ -1,0 +1,70 @@
+domain = "pipe_showcase"
+description = "All pipe types in a single chain: Extract, LLM, Search, ImgGen, Compose"
+main_pipe = "all_types_chain"
+
+[concept.Analysis]
+description = "Analytical assessment"
+refines = "Text"
+
+[concept.FinalOutput]
+description = "Final combined output"
+refines = "Text"
+
+[pipe.all_types_chain]
+type = "PipeSequence"
+description = "Chain all pipe types together"
+inputs = {document = "Document"}
+output = "FinalOutput"
+steps = [
+    {pipe = "step_extract", result = "pages"},
+    {pipe = "step_llm", result = "analysis"},
+    {pipe = "step_search", result = "search_result"},
+    {pipe = "step_imggen", result = "visualization"},
+    {pipe = "step_compose", result = "output"},
+]
+
+[pipe.step_extract]
+type = "PipeExtract"
+description = "Extract pages from document"
+inputs = {document = "Document"}
+output = "Page[]"
+
+[pipe.step_llm]
+type = "PipeLLM"
+description = "Analyze extracted content"
+inputs = {pages = "Page[]"}
+output = "Analysis"
+prompt = """
+Analyze the content of these pages:
+
+@pages
+"""
+
+[pipe.step_search]
+type = "PipeSearch"
+description = "Search for related information"
+inputs = {analysis = "Analysis"}
+output = "SearchResult"
+prompt = "Find related research for: $analysis"
+
+[pipe.step_imggen]
+type = "PipeImgGen"
+description = "Generate visual summary"
+inputs = {analysis = "Analysis"}
+output = "Image"
+prompt = "Infographic summarizing: $analysis"
+
+[pipe.step_compose]
+type = "PipeCompose"
+description = "Compose final output"
+inputs = {analysis = "Analysis", search_result = "SearchResult"}
+output = "FinalOutput"
+template = """
+# Complete Analysis
+
+## Analysis
+@analysis
+
+## Related Research
+@search_result
+"""

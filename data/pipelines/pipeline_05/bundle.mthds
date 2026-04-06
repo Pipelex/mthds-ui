@@ -1,0 +1,81 @@
+domain = "text_analysis"
+description = "Parallel sentiment and keyword analysis of text"
+main_pipe = "dual_analysis_pipeline"
+
+[concept.Sentiment]
+description = "Sentiment analysis result"
+
+[concept.Sentiment.structure]
+sentiment = {type = "text", description = "The detected sentiment", required = true, choices = ["positive", "negative", "neutral"]}
+confidence = {type = "number", description = "Confidence score 0-1", required = true}
+explanation = "Why this sentiment was detected"
+
+[concept.Keyword]
+description = "An extracted keyword with relevance score"
+
+[concept.Keyword.structure]
+keyword = {type = "text", description = "The keyword text", required = true}
+relevance = {type = "number", description = "Relevance score 0-1", required = true}
+
+[concept.AnalysisReport]
+description = "Combined analysis report"
+refines = "Text"
+
+[pipe.dual_analysis_pipeline]
+type = "PipeSequence"
+description = "Analyze text for sentiment and keywords then merge"
+inputs = {text = "Text"}
+output = "AnalysisReport"
+steps = [
+    {pipe = "parallel_analyze", result = "sentiment"},
+    {pipe = "merge_results", result = "report"},
+]
+
+[pipe.parallel_analyze]
+type = "PipeParallel"
+description = "Run sentiment and keyword extraction in parallel"
+inputs = {text = "Text"}
+output = "Sentiment"
+add_each_output = true
+branches = [
+    {pipe = "analyze_sentiment", result = "sentiment"},
+    {pipe = "extract_keywords", result = "keywords"},
+]
+
+[pipe.analyze_sentiment]
+type = "PipeLLM"
+description = "Analyze sentiment of text"
+inputs = {text = "Text"}
+output = "Sentiment"
+prompt = """
+Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:
+
+@text
+"""
+
+[pipe.extract_keywords]
+type = "PipeLLM"
+description = "Extract keywords from text"
+inputs = {text = "Text"}
+output = "Keyword[]"
+prompt = """
+Extract the most relevant keywords from the following text:
+
+@text
+"""
+
+[pipe.merge_results]
+type = "PipeCompose"
+description = "Merge sentiment and keyword results"
+inputs = {sentiment = "Sentiment", keywords = "Keyword[]"}
+output = "AnalysisReport"
+template = """
+# Text Analysis Report
+
+## Sentiment
+$sentiment.sentiment (confidence: $sentiment.confidence)
+$sentiment.explanation
+
+## Keywords
+@keywords
+"""

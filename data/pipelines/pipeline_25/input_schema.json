@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "all_controllers",
+  "inputs": {
+    "document": {
+      "concept": "native.Document",
+      "content": {
+        "url": "https://mock-3b83dd0e.invalid/81063d08-1e6b-411b-860c-cf904441f267"
+      }
+    }
+  }
+}

@@ -1,0 +1,126 @@
+domain = "content_etl"
+description = "Nested Seq > Parallel > Seq: text branch and image branch process content in parallel"
+main_pipe = "etl_pipeline"
+
+[concept.CleanText]
+description = "Cleaned and normalized text"
+refines = "Text"
+
+[concept.EnrichedText]
+description = "Text enriched with metadata"
+refines = "Text"
+
+[concept.ProcessedImage]
+description = "Processed image with metadata"
+refines = "Text"
+
+[concept.ProcessedContent]
+description = "Combined processed content"
+refines = "Text"
+
+[pipe.etl_pipeline]
+type = "PipeSequence"
+description = "Extract content, process text and images in parallel, then combine"
+inputs = {document = "Document"}
+output = "ProcessedContent"
+steps = [
+    {pipe = "extract_content", result = "pages"},
+    {pipe = "dual_process", result = "clean_text"},
+    {pipe = "combine_results", result = "processed"},
+]
+
+[pipe.extract_content]
+type = "PipeExtract"
+description = "Extract content from document"
+inputs = {document = "Document"}
+output = "Page[]"
+
+[pipe.dual_process]
+type = "PipeParallel"
+description = "Process text and images in parallel branches"
+inputs = {pages = "Page[]"}
+output = "CleanText"
+add_each_output = true
+branches = [
+    {pipe = "text_branch", result = "clean_text"},
+    {pipe = "image_branch", result = "processed_image"},
+]
+
+[pipe.text_branch]
+type = "PipeSequence"
+description = "Clean then enrich text"
+inputs = {pages = "Page[]"}
+output = "EnrichedText"
+steps = [
+    {pipe = "clean_text", result = "clean_text"},
+    {pipe = "enrich_text", result = "enriched"},
+]
+
+[pipe.clean_text]
+type = "PipeLLM"
+description = "Clean and normalize text"
+inputs = {pages = "Page[]"}
+output = "CleanText"
+prompt = """
+Clean the following text by removing artifacts, headers, and footers:
+
+@pages
+"""
+
+[pipe.enrich_text]
+type = "PipeLLM"
+description = "Enrich text with semantic tags"
+inputs = {clean_text = "CleanText"}
+output = "EnrichedText"
+prompt = """
+Add semantic tags and structure to this cleaned text:
+
+@clean_text
+"""
+
+[pipe.image_branch]
+type = "PipeSequence"
+description = "Extract and describe images"
+inputs = {pages = "Page[]"}
+output = "ProcessedImage"
+steps = [
+    {pipe = "extract_images", result = "described"},
+    {pipe = "caption_images", result = "captioned"},
+]
+
+[pipe.extract_images]
+type = "PipeLLM"
+description = "Identify and describe images in pages"
+inputs = {pages = "Page[]"}
+output = "Text"
+prompt = """
+Identify and describe any images or figures found in these pages:
+
+@pages
+"""
+
+[pipe.caption_images]
+type = "PipeLLM"
+description = "Generate captions for images"
+inputs = {described = "Text"}
+output = "ProcessedImage"
+prompt = """
+Generate concise captions for each image described:
+
+@described
+"""
+
+[pipe.combine_results]
+type = "PipeCompose"
+description = "Combine processed text and images"
+inputs = {clean_text = "EnrichedText", processed_image = "ProcessedImage"}
+output = "ProcessedContent"
+template = """
+# Processed Content
+
+## Text
+@clean_text
+
+## Images
+@processed_image
+"""

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "smart_responder",
+  "inputs": {
+    "request": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

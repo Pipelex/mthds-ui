@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "moderation_pipeline",
+  "inputs": {
+    "content": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

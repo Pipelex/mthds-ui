@@ -144,7 +144,7 @@
 /* Pre-formatted text (JSON and Pretty tabs) */
 .stuff-viewer-pre {
   font-family: var(--sv-font-mono);
-  font-size: 13px;
+  font-size: 11px;
   line-height: 1.5;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -163,8 +163,9 @@
 /* HTML content */
 .stuff-viewer-html {
   font-family: var(--sv-font-sans);
+  font-size: 11px;
   color: var(--sv-text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .stuff-viewer-html table {

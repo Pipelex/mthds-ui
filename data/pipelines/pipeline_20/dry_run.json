@@ -1,0 +1,6 @@
+{
+  "text": "DRY RUN: make_templated_text \u2022 context={'data': StuffArtefact(data), 'alpha': StuffArtefact(alpha), 'beta': StuffArtefact(beta), 'gamma': StuffArtefact(gamma), 'delta': StuffArtefact(delta), 'epsilon': StuffArtefact(epsilon)} \u2022 jinja2=# Collected Results\n\n## Technical: {{ alpha|tag(\"alpha\") }}\n## Market: {{ beta|tag(\"beta\") }}\n## Risk: {{ delta|tag(\"delta\") }}\n## Compliance: {{ epsilon|tag(\"epsilon\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
+  "graph_files": {
+    "graph_html": "mthds-wip/pipeline_20/dry_run.html"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "review_pipeline",
+  "inputs": {
+    "pr_url": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

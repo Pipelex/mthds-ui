@@ -59,18 +59,47 @@ export interface GraphSpecNodeIo {
   outputs?: GraphSpecNodeIoItem[];
 }
 
+export type NodeKind =
+  | "pipe_call"
+  | "controller"
+  | "operator"
+  | "input"
+  | "output"
+  | "artifact"
+  | "error";
+
+export interface GraphSpecNodeTiming {
+  started_at: string;
+  ended_at: string;
+  duration: number;
+}
+
+export interface GraphSpecNodeError {
+  error_type: string;
+  message: string;
+  stack?: string;
+}
+
 export interface GraphSpecNode {
   id: string;
+  kind?: NodeKind;
   pipe_code?: string;
   pipe_type?: PipeType;
   description?: string;
   status?: PipeStatus;
+  timing?: GraphSpecNodeTiming;
   io?: GraphSpecNodeIo;
+  error?: GraphSpecNodeError;
+  tags?: Record<string, string>;
+  metrics?: Record<string, number>;
+  execution_data?: Record<string, unknown>;
 }
 
 export type GraphSpecEdgeKind =
   | "contains"
   | "data"
+  | "control"
+  | "selected_outcome"
   | "batch_item"
   | "batch_aggregate"
   | "parallel_combine";
@@ -83,11 +112,180 @@ export interface GraphSpecEdge {
   label?: string;
   source_stuff_digest?: string;
   target_stuff_digest?: string;
+  meta?: Record<string, unknown>;
 }
 
+// ─── Concept and Pipe registry types ───────────────────────────────────────
+// Serialized from Python Concept and PipeAbstract instances via model_dump().
+
+export interface ConceptInfo {
+  code: string;
+  domain_code: string;
+  description: string;
+  structure_class_name: string;
+  refines: string | null;
+  json_schema?: Record<string, unknown>;
+}
+
+export interface StuffSpecInfo {
+  concept: ConceptInfo;
+  multiplicity: number | boolean | null;
+}
+
+// ─── Template blueprint (shared by LLM prompts, Search, Compose, ImgGen) ───
+
+export interface TemplateBlueprint {
+  template: string;
+  templating_style: string | null;
+  category: string;
+  extra_context: Record<string, unknown> | null;
+}
+
+// ─── Sub-pipe (used by Sequence, Parallel, Batch) ──────────────────────
+
+export interface SubPipeSpec {
+  pipe_code: string;
+  output_name: string | null;
+  output_multiplicity: string | number | boolean | null;
+  batch_params: { input_list_stuff_name: string; input_item_stuff_name: string } | null;
+}
+
+// ─── PipeAbstract base (common to all pipe types) ──────────────────────
+
+export interface PipeBlueprintBase {
+  type: PipeType;
+  pipe_category: "PipeOperator" | "PipeController";
+  code: string;
+  domain_code: string;
+  description: string;
+  inputs: Record<string, StuffSpecInfo>;
+  output: StuffSpecInfo;
+}
+
+// ─── Operator blueprints ───────────────────────────────────────────────
+
+export interface PipeLLMBlueprint extends PipeBlueprintBase {
+  type: "PipeLLM";
+  llm_prompt_spec: {
+    templating_style: string | null;
+    system_prompt_blueprint: TemplateBlueprint | null;
+    prompt_blueprint: TemplateBlueprint | null;
+    user_image_references: unknown[] | null;
+    user_document_references: unknown[] | null;
+    system_image_references: unknown[] | null;
+    system_document_references: unknown[] | null;
+  };
+  llm_choices: { for_text: string | null; for_object: string | null } | null;
+  structuring_method: string | null;
+  output_multiplicity: string | number | null;
+}
+
+export interface PipeImgGenBlueprint extends PipeBlueprintBase {
+  type: "PipeImgGen";
+  img_gen_prompt_blueprint: {
+    prompt_blueprint: TemplateBlueprint | null;
+    negative_prompt_blueprint: TemplateBlueprint | null;
+    image_references: unknown[] | null;
+  };
+  img_gen_choice: string | null;
+  aspect_ratio: string | null;
+  is_raw: boolean | null;
+  seed: number | string | null;
+  background: string | null;
+  output_format: string | null;
+  output_multiplicity: number;
+}
+
+export interface PipeComposeBlueprint extends PipeBlueprintBase {
+  type: "PipeCompose";
+  template: string;
+  templating_style: string | null;
+  category: string;
+  extra_context: Record<string, unknown> | null;
+  construct_blueprint: Record<string, unknown> | null;
+}
+
+export interface PipeExtractBlueprint extends PipeBlueprintBase {
+  type: "PipeExtract";
+  extract_choice: string | null;
+  should_caption_images: boolean;
+  max_page_images: number | null;
+  should_include_page_views: boolean;
+  page_views_dpi: number | null;
+  render_js: boolean | null;
+  include_raw_html: boolean | null;
+  image_stuff_name: string | null;
+  document_stuff_name: string;
+}
+
+export interface PipeSearchBlueprint extends PipeBlueprintBase {
+  type: "PipeSearch";
+  search_choice: string | null;
+  prompt_blueprint: TemplateBlueprint;
+  include_images_override: boolean | null;
+  max_results_override: number | null;
+  from_date: string | null;
+  to_date: string | null;
+  include_domains: string[] | null;
+  exclude_domains: string[] | null;
+  is_structured_output: boolean;
+}
+
+export interface PipeFuncBlueprint extends PipeBlueprintBase {
+  type: "PipeFunc";
+}
+
+// ─── Controller blueprints ─────────────────────────────────────────────
+
+export interface PipeSequenceBlueprint extends PipeBlueprintBase {
+  type: "PipeSequence";
+  sequential_sub_pipes: SubPipeSpec[];
+}
+
+export interface PipeParallelBlueprint extends PipeBlueprintBase {
+  type: "PipeParallel";
+  parallel_sub_pipes: SubPipeSpec[];
+  add_each_output: boolean;
+  combined_output: string | null;
+}
+
+export interface PipeConditionBlueprint extends PipeBlueprintBase {
+  type: "PipeCondition";
+  expression: string;
+  outcome_map: Record<string, string>;
+  default_outcome: string;
+  add_alias_from_expression_to: string | null;
+}
+
+export interface PipeBatchBlueprint extends PipeBlueprintBase {
+  type: "PipeBatch";
+  branch_pipe_code: string;
+  batch_params: { input_list_stuff_name: string; input_item_stuff_name: string };
+}
+
+export type PipeBlueprintUnion =
+  | PipeLLMBlueprint
+  | PipeImgGenBlueprint
+  | PipeComposeBlueprint
+  | PipeExtractBlueprint
+  | PipeSearchBlueprint
+  | PipeFuncBlueprint
+  | PipeSequenceBlueprint
+  | PipeParallelBlueprint
+  | PipeConditionBlueprint
+  | PipeBatchBlueprint;
+
+// ─── GraphSpec top-level ───────────────────────────────────────────────────
+
 export interface GraphSpec {
+  graph_id?: string;
+  created_at?: string;
+  pipeline_ref?: { domain?: string; main_pipe?: string; entrypoint?: string };
   nodes: GraphSpecNode[];
   edges: GraphSpecEdge[];
+  meta?: Record<string, unknown>;
+  pipe_registry?: Record<string, PipeBlueprintUnion>;
+  concept_registry?: Record<string, ConceptInfo>;
 }
 
 // ─── Dataflow analysis result ───────────────────────────────────────────────

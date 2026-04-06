@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "multi_source_pipeline",
+  "inputs": {
+    "query": {
+      "concept": "native.Text",
+      "content": {
+        "text": "text_value"
+      }
+    }
+  }
+}

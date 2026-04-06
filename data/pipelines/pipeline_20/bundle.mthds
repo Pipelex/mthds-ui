@@ -1,0 +1,84 @@
+domain = "wide_processing"
+description = "Wide parallel: 5 branches processing data simultaneously"
+main_pipe = "wide_pipeline"
+
+[concept.ProcessedData]
+description = "Data processed through a specific pathway"
+refines = "Text"
+
+[concept.CollectedResults]
+description = "All results collected from parallel paths"
+refines = "Text"
+
+[pipe.wide_pipeline]
+type = "PipeSequence"
+description = "Process data through 5 parallel paths then collect"
+inputs = {data = "Text"}
+output = "CollectedResults"
+steps = [
+    {pipe = "five_way_split", result = "alpha"},
+    {pipe = "collect_all", result = "collected"},
+]
+
+[pipe.five_way_split]
+type = "PipeParallel"
+description = "Five parallel processing branches"
+inputs = {data = "Text"}
+output = "ProcessedData"
+add_each_output = true
+branches = [
+    {pipe = "process_alpha", result = "alpha"},
+    {pipe = "process_beta", result = "beta"},
+    {pipe = "process_gamma", result = "gamma"},
+    {pipe = "process_delta", result = "delta"},
+    {pipe = "process_epsilon", result = "epsilon"},
+]
+
+[pipe.process_alpha]
+type = "PipeLLM"
+description = "Technical analysis branch"
+inputs = {data = "Text"}
+output = "ProcessedData"
+prompt = "Perform technical analysis:\n\n@data"
+
+[pipe.process_beta]
+type = "PipeSearch"
+description = "Market research branch"
+inputs = {data = "Text"}
+output = "SearchResult"
+prompt = "Market research for: $data"
+
+[pipe.process_gamma]
+type = "PipeImgGen"
+description = "Visual summary branch"
+inputs = {data = "Text"}
+output = "Image"
+prompt = "Infographic for: $data"
+
+[pipe.process_delta]
+type = "PipeLLM"
+description = "Risk assessment branch"
+inputs = {data = "Text"}
+output = "ProcessedData"
+prompt = "Assess risks:\n\n@data"
+
+[pipe.process_epsilon]
+type = "PipeLLM"
+description = "Compliance check branch"
+inputs = {data = "Text"}
+output = "ProcessedData"
+prompt = "Check compliance:\n\n@data"
+
+[pipe.collect_all]
+type = "PipeCompose"
+description = "Collect all parallel results"
+inputs = {alpha = "ProcessedData", beta = "SearchResult", gamma = "Image", delta = "ProcessedData", epsilon = "ProcessedData"}
+output = "CollectedResults"
+template = """
+# Collected Results
+
+## Technical: @alpha
+## Market: @beta
+## Risk: @delta
+## Compliance: @epsilon
+"""

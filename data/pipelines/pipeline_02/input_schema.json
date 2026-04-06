@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "pipe_code": "extract_and_analyze",
+  "inputs": {
+    "document": {
+      "concept": "native.Document",
+      "content": {
+        "url": "https://mock-28f3e949.invalid/44c164fe-dea8-4665-bce8-fcd51273001b"
+      }
+    }
+  }
+}
