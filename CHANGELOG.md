@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.2.5] - 2026-04-07
+
+### Changed
+
+- elkjs loaded via CDN — use shim that reads `window.ELK` instead of bundling elkjs
+
 ## [v0.2.4] - 2026-04-07
 
 ### Added
