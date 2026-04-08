@@ -1,14 +1,31 @@
 import type { GraphSpec } from "@graph/types";
 import type { StuffViewerData } from "./stuffViewerTypes";
 
-/** Check whether a URL is safe for display (no javascript: or data: injection). */
+/** Check whether a URL is safe for links/downloads (no javascript: or data: injection). */
 export function isSafeDisplayUrl(url: unknown): url is string {
   if (!url || typeof url !== "string") return false;
-  return url.startsWith("https://") || url.startsWith("http://") || url.startsWith("file://");
+  return (
+    url.startsWith("https://") ||
+    url.startsWith("http://") ||
+    url.startsWith("file://") ||
+    url.startsWith("/")
+  );
+}
+
+/** Check whether a URL can be rendered inline in an <img> or <embed> tag.
+ *  Allows http://, https://, file:// (local dev / Electron), and relative paths. */
+export function isInlineRenderableUrl(url: unknown): url is string {
+  if (!url || typeof url !== "string") return false;
+  return (
+    url.startsWith("https://") ||
+    url.startsWith("http://") ||
+    url.startsWith("file://") ||
+    url.startsWith("/")
+  );
 }
 
 /**
- * Extract a displayable URL from stuff data.
+ * Extract a displayable URL from stuff data (for links, downloads, open-external).
  * Prefers public_url (pre-signed S3 / file:// URI) over internal pipelex-storage:// URLs.
  * Returns null for unsafe or missing URLs.
  */
@@ -23,6 +40,33 @@ export function extractUrl(data: unknown): string | null {
   for (const candidate of candidates) {
     if (isSafeDisplayUrl(candidate)) return candidate;
   }
+  return null;
+}
+
+/**
+ * Extract a URL that can be rendered inline in <img>/<embed> tags.
+ * Returns http/https, file://, and relative URLs.
+ * Internal schemes like pipelex-storage:// are excluded.
+ */
+export function extractInlineUrl(data: unknown): string | null {
+  if (!data) return null;
+  if (typeof data === "string") {
+    return isInlineRenderableUrl(data) ? data : null;
+  }
+  if (typeof data !== "object") return null;
+  const obj = data as Record<string, unknown>;
+  const candidates = [obj.public_url, obj.src, obj.href, obj.uri, obj.url];
+  for (const candidate of candidates) {
+    if (isInlineRenderableUrl(candidate)) return candidate;
+  }
+  return null;
+}
+
+/** Extract the filename from stuff data, if available. */
+export function extractFilename(data: unknown): string | null {
+  if (!data || typeof data !== "object") return null;
+  const obj = data as Record<string, unknown>;
+  if (typeof obj.filename === "string" && obj.filename) return obj.filename;
   return null;
 }
 

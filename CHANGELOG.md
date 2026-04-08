@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.2.6] - 2026-04-08
+
+### Fixed
+
+- StuffViewer now renders images and PDFs inline with both local URLs (`file://`) and remote URLs (`http://`, `https://`)
+- `pipelex-storage://` URLs (internal, non-browser-renderable) show a clean fallback card with filename instead of a blank embed or generic placeholder
+- PDF embed hides the browser sidebar by default (`#pagemode=none`)
+- PDF Storybook story now uses a real, loadable PDF URL
+
+### Added
+
+- `isInlineRenderableUrl` and `extractInlineUrl` utilities for separating inline-renderable URLs from link-safe URLs
+- `extractFilename` utility for extracting filename metadata from stuff data
+- `InternalStorageImage` Storybook story demonstrating the fallback for non-renderable URLs
+
 ## [v0.2.5] - 2026-04-07
 
 ### Changed

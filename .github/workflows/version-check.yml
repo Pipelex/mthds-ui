@@ -1,0 +1,115 @@
+name: Version check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'release/v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch info
+        id: branch_info
+        run: |
+          BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Source branch: $SOURCE_BRANCH"
+          echo "Target branch: $BASE_BRANCH"
+
+          echo "base_branch=$BASE_BRANCH" >> $GITHUB_OUTPUT
+          echo "source_branch=$SOURCE_BRANCH" >> $GITHUB_OUTPUT
+
+          # Check if target is a release branch
+          if [[ "$BASE_BRANCH" =~ ^release/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "is_release_target=true" >> $GITHUB_OUTPUT
+            echo "target_release_version=${BASE_BRANCH#release/v}" >> $GITHUB_OUTPUT
+          else
+            echo "is_release_target=false" >> $GITHUB_OUTPUT
+          fi
+
+          # Check if source is a release branch
+          if [[ "$SOURCE_BRANCH" =~ ^release/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "is_release_source=true" >> $GITHUB_OUTPUT
+            echo "source_release_version=${SOURCE_BRANCH#release/v}" >> $GITHUB_OUTPUT
+          else
+            echo "is_release_source=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from package.json
+        id: current_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Current package.json version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # MAIN BRANCH CASE - Check that version is bumped
+      - name: Check version bump for main branch
+        if: steps.branch_info.outputs.base_branch == 'main'
+        run: |
+          # Get version from main branch
+          git checkout ${{ github.event.pull_request.base.ref }}
+          MAIN_VERSION=$(node -p "require('./package.json').version")
+
+          # Get version from PR branch
+          git checkout ${{ github.event.pull_request.head.sha }}
+          PR_VERSION="${{ steps.current_version.outputs.version }}"
+
+          echo "Main version: $MAIN_VERSION"
+          echo "PR version: $PR_VERSION"
+
+          compare_versions() {
+            local ver1=$1
+            local ver2=$2
+            IFS='.' read -ra VER1 <<< "$ver1"
+            IFS='.' read -ra VER2 <<< "$ver2"
+            for i in {0..2}; do
+              if [ "${VER1[$i]:-0}" -gt "${VER2[$i]:-0}" ]; then
+                return 0
+              elif [ "${VER1[$i]:-0}" -lt "${VER2[$i]:-0}" ]; then
+                return 1
+              fi
+            done
+            return 1
+          }
+
+          if ! compare_versions "$PR_VERSION" "$MAIN_VERSION"; then
+            echo "::error::PR version ($PR_VERSION) is not greater than main version ($MAIN_VERSION). Please bump the version."
+            exit 1
+          else
+            echo "Version properly bumped from $MAIN_VERSION to $PR_VERSION"
+          fi
+
+      # TARGET RELEASE BRANCH CASE
+      - name: Check version matches target release branch
+        if: steps.branch_info.outputs.is_release_target == 'true'
+        run: |
+          RELEASE_VERSION="${{ steps.branch_info.outputs.target_release_version }}"
+          PR_VERSION="${{ steps.current_version.outputs.version }}"
+
+          if [[ "$PR_VERSION" != "$RELEASE_VERSION" ]]; then
+            echo "::error::Version in package.json ($PR_VERSION) does not match target release branch version ($RELEASE_VERSION)"
+            exit 1
+          else
+            echo "Version in package.json matches target release branch version"
+          fi
+
+      # SOURCE RELEASE BRANCH CASE
+      - name: Check version matches source release branch
+        if: steps.branch_info.outputs.is_release_source == 'true'
+        run: |
+          RELEASE_VERSION="${{ steps.branch_info.outputs.source_release_version }}"
+          PR_VERSION="${{ steps.current_version.outputs.version }}"
+
+          if [[ "$PR_VERSION" != "$RELEASE_VERSION" ]]; then
+            echo "::error::Version in package.json ($PR_VERSION) does not match source release branch version ($RELEASE_VERSION)"
+            exit 1
+          else
+            echo "Version in package.json matches source release branch version"
+          fi
