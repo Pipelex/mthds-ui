@@ -43,6 +43,10 @@ jobs:
         if: steps.check_tag.outputs.already_released == 'false'
         run: npm install
 
+      - name: Install Playwright browsers
+        if: steps.check_tag.outputs.already_released == 'false'
+        run: npx playwright install chromium
+
       - name: Build
         if: steps.check_tag.outputs.already_released == 'false'
         run: npm run build
