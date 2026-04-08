@@ -1,0 +1,110 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Extract version from package.json
+        id: get_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Releasing version: $VERSION"
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          VERSION=${{ steps.get_version.outputs.version }}
+          if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
+            echo "Tag v$VERSION already exists"
+            echo "already_released=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v$VERSION does not exist yet"
+            echo "already_released=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install dependencies
+        if: steps.check_tag.outputs.already_released == 'false'
+        run: npm install
+
+      - name: Build
+        if: steps.check_tag.outputs.already_released == 'false'
+        run: npm run build
+
+      - name: Run tests
+        if: steps.check_tag.outputs.already_released == 'false'
+        run: npm test
+
+      - name: Create git tag
+        if: steps.check_tag.outputs.already_released == 'false'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=${{ steps.get_version.outputs.version }}
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
+
+      - name: Extract changelog notes
+        if: steps.check_tag.outputs.already_released == 'false'
+        run: |
+          VERSION=${{ steps.get_version.outputs.version }}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+          START_LINE=$(grep -n "## \[v$VERSION\] - " CHANGELOG.md | cut -d: -f1)
+
+          if [ -z "$START_LINE" ]; then
+            echo "Warning: No changelog entry found for version v$VERSION"
+            echo "CHANGELOG_NOTES=" >> $GITHUB_ENV
+            exit 0
+          fi
+
+          NEXT_VERSION_LINE=$(tail -n +$((START_LINE + 1)) CHANGELOG.md | grep -n "^## \[v.*\] - " | head -1 | cut -d: -f1)
+
+          if [ -z "$NEXT_VERSION_LINE" ]; then
+            CHANGELOG_CONTENT=$(tail -n +$START_LINE CHANGELOG.md)
+          else
+            END_LINE=$((START_LINE + NEXT_VERSION_LINE - 1))
+            CHANGELOG_CONTENT=$(sed -n "$START_LINE,$((END_LINE - 1))p" CHANGELOG.md)
+          fi
+
+          HEADER_LINE=$(echo "$CHANGELOG_CONTENT" | head -1)
+          CONTENT_LINES=$(echo "$CHANGELOG_CONTENT" | tail -n +2 | sed '/^$/d' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+
+          CHANGELOG_CONTENT=$(printf "%s\n\n%s" "$HEADER_LINE" "$CONTENT_LINES")
+
+          echo "CHANGELOG_NOTES<<EOF" >> $GITHUB_ENV
+          echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.already_released == 'false'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$CHANGELOG_NOTES" ]; then
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "v$VERSION" \
+              --notes "$CHANGELOG_NOTES"
+          else
+            gh release create "v$VERSION" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "v$VERSION" \
+              --notes "Release v$VERSION"
+          fi
