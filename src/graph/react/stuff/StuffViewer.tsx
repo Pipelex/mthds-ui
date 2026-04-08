@@ -2,7 +2,7 @@ import React from "react";
 import DOMPurify from "dompurify";
 
 import type { StuffViewerData } from "./stuffViewerTypes";
-import { extractUrl, getHtmlTabLabel } from "./stuffViewerUtils";
+import { extractFilename, extractInlineUrl, extractUrl, getHtmlTabLabel } from "./stuffViewerUtils";
 import "./StuffViewer.css";
 
 type StuffTab = "html" | "json" | "text";
@@ -38,6 +38,12 @@ const ICON_EXTERNAL = (
   </svg>
 );
 
+const ICON_LOCAL_FILE = (
+  <svg viewBox="0 0 24 24">
+    <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+  </svg>
+);
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function escapeHtml(text: string): string {
@@ -70,7 +76,11 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
   const [copied, setCopied] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
+  // URL for inline rendering (img/embed) — only http/https
+  const inlineUrl = React.useMemo(() => extractInlineUrl(stuff.data), [stuff.data]);
+  // URL for links/downloads — includes file:// too
   const externalUrl = React.useMemo(() => extractUrl(stuff.data), [stuff.data]);
+  const filename = React.useMemo(() => extractFilename(stuff.data), [stuff.data]);
   const htmlTabLabel = getHtmlTabLabel(stuff.contentType);
   const jsonString = React.useMemo(() => {
     if (stuff.data == null) return null;
@@ -92,32 +102,51 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
 
   // ── Tab rendering ────────────────────────────────────────────────────────
 
+  /** Fallback for images/PDFs when no inline-renderable URL is available
+   *  (e.g., only pipelex-storage:// internal URLs exist). */
+  function renderMediaFallback(mediaLabel: string) {
+    const displayName = filename || stuff.name;
+    return (
+      <div className="stuff-viewer-local-file">
+        <div className="stuff-viewer-local-file-icon">{ICON_LOCAL_FILE}</div>
+        <div className="stuff-viewer-local-file-info">
+          {displayName && (
+            <div className="stuff-viewer-local-file-name">{displayName}</div>
+          )}
+          <div className="stuff-viewer-local-file-hint">
+            {mediaLabel} — no preview available
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function renderContent() {
     if (activeTab === "html") {
       // PDF embed
       if (stuff.contentType === "application/pdf") {
-        const url = externalUrl;
-        if (url) {
+        if (inlineUrl) {
+          // #pagemode=none hides the sidebar/page thumbnails in the browser PDF viewer
+          const pdfUrl = inlineUrl.includes("#") ? inlineUrl : `${inlineUrl}#pagemode=none`;
           return (
             <div className="stuff-viewer-pdf">
-              <embed src={url} type="application/pdf" />
+              <embed src={pdfUrl} type="application/pdf" />
             </div>
           );
         }
-        return <div className="stuff-viewer-placeholder">PDF content (no URL available)</div>;
+        return renderMediaFallback("PDF");
       }
 
       // Image display
       if (stuff.contentType?.startsWith("image/")) {
-        const url = externalUrl;
-        if (url) {
+        if (inlineUrl) {
           return (
             <div className="stuff-viewer-image">
-              <img src={url} alt={stuff.name || "Image content"} />
+              <img src={inlineUrl} alt={stuff.name || "Image content"} />
             </div>
           );
         }
-        return <div className="stuff-viewer-placeholder">Image content (no URL available)</div>;
+        return renderMediaFallback("Image");
       }
 
       // HTML content

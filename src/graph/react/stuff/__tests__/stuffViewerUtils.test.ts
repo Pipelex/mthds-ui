@@ -1,7 +1,10 @@
 import { describe, it, expect } from "vitest";
 import {
   isSafeDisplayUrl,
+  isInlineRenderableUrl,
   extractUrl,
+  extractInlineUrl,
+  extractFilename,
   getHtmlTabLabel,
   findStuffDataByDigest,
 } from "../stuffViewerUtils";
@@ -20,6 +23,10 @@ describe("isSafeDisplayUrl", () => {
 
   it("accepts file:// URIs", () => {
     expect(isSafeDisplayUrl("file:///home/user/doc.pdf")).toBe(true);
+  });
+
+  it("accepts relative URLs", () => {
+    expect(isSafeDisplayUrl("/fixtures/image.jpg")).toBe(true);
   });
 
   it("rejects javascript: URLs", () => {
@@ -42,6 +49,89 @@ describe("isSafeDisplayUrl", () => {
   it("rejects non-string values", () => {
     expect(isSafeDisplayUrl(42)).toBe(false);
     expect(isSafeDisplayUrl({})).toBe(false);
+  });
+});
+
+// ─── isInlineRenderableUrl ──────────────────────────────────────────────────
+
+describe("isInlineRenderableUrl", () => {
+  it("accepts https URLs", () => {
+    expect(isInlineRenderableUrl("https://example.com/img.png")).toBe(true);
+  });
+
+  it("accepts http URLs", () => {
+    expect(isInlineRenderableUrl("http://localhost:3000/img.png")).toBe(true);
+  });
+
+  it("accepts file:// URIs", () => {
+    expect(isInlineRenderableUrl("file:///home/user/doc.pdf")).toBe(true);
+  });
+
+  it("accepts relative URLs", () => {
+    expect(isInlineRenderableUrl("/fixtures/image.jpg")).toBe(true);
+  });
+
+  it("rejects pipelex-storage:// URLs", () => {
+    expect(isInlineRenderableUrl("pipelex-storage://normalized/abc.pdf")).toBe(false);
+  });
+
+  it("rejects null/undefined", () => {
+    expect(isInlineRenderableUrl(null)).toBe(false);
+    expect(isInlineRenderableUrl(undefined)).toBe(false);
+  });
+});
+
+// ─── extractInlineUrl ──────────────────────────────────────────────────────
+
+describe("extractInlineUrl", () => {
+  it("extracts https public_url", () => {
+    expect(
+      extractInlineUrl({ public_url: "https://cdn.example.com/img.png", url: "internal://x" }),
+    ).toBe("https://cdn.example.com/img.png");
+  });
+
+  it("extracts file:// URLs for inline rendering", () => {
+    expect(
+      extractInlineUrl({
+        public_url: "file:///Users/someone/file.jpg",
+        url: "pipelex-storage://abc",
+      }),
+    ).toBe("file:///Users/someone/file.jpg");
+  });
+
+  it("returns null for pipelex-storage:// only URLs", () => {
+    expect(
+      extractInlineUrl({
+        public_url: "pipelex-storage://anonymous/img.png",
+        url: "pipelex-storage://normalized/img.png",
+      }),
+    ).toBeNull();
+  });
+
+  it("returns null for null/undefined data", () => {
+    expect(extractInlineUrl(null)).toBeNull();
+    expect(extractInlineUrl(undefined)).toBeNull();
+  });
+});
+
+// ─── extractFilename ────────────────────────────────────────────────────────
+
+describe("extractFilename", () => {
+  it("extracts filename from data object", () => {
+    expect(extractFilename({ filename: "report.pdf" })).toBe("report.pdf");
+  });
+
+  it("returns null when filename is missing", () => {
+    expect(extractFilename({ url: "https://example.com" })).toBeNull();
+  });
+
+  it("returns null for null filename", () => {
+    expect(extractFilename({ filename: null })).toBeNull();
+  });
+
+  it("returns null for non-object data", () => {
+    expect(extractFilename(null)).toBeNull();
+    expect(extractFilename("string")).toBeNull();
   });
 });
 

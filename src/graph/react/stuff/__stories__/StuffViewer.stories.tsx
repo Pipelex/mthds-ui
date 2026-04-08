@@ -64,25 +64,29 @@ const PDF_STUFF: StuffViewerData = {
   contentType: "application/pdf",
   data: {
     url: "pipelex-storage://normalized/abc.pdf",
-    public_url: "https://example.com/sample.pdf",
+    public_url: "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf",
     mime_type: "application/pdf",
     filename: "job_offer.pdf",
   },
-  dataText: "https://example.com/sample.pdf\n",
-  dataHtml: '<a href="https://example.com/sample.pdf">job_offer.pdf</a>',
+  dataText: "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf\n",
+  dataHtml:
+    '<a href="https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf">job_offer.pdf</a>',
 };
 
 const IMAGE_STUFF: StuffViewerData = {
   digest: "img01",
-  name: "generated_image",
+  name: "alan_turing",
   concept: "Image",
-  contentType: "image/png",
+  contentType: "image/jpeg",
   data: {
-    url: "pipelex-storage://images/photo.png",
-    public_url: "https://picsum.photos/400/300",
+    url: "pipelex-storage://images/alan_turing.jpg",
+    public_url: "https://pipelex-web.s3.us-west-2.amazonaws.com/tests/alan_turing.jpg",
+    mime_type: "image/jpeg",
+    filename: "alan_turing.jpg",
   },
-  dataText: "https://picsum.photos/400/300\n",
-  dataHtml: '<img src="https://picsum.photos/400/300" class="msg-img">',
+  dataText: "https://pipelex-web.s3.us-west-2.amazonaws.com/tests/alan_turing.jpg\n",
+  dataHtml:
+    '<img src="https://pipelex-web.s3.us-west-2.amazonaws.com/tests/alan_turing.jpg" class="msg-img">',
 };
 
 const RICH_HTML_STUFF: StuffViewerData = {
@@ -129,6 +133,52 @@ const PAGE_LIST_STUFF: StuffViewerData = {
     "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
 };
 
+const LOCAL_IMAGE_STUFF: StuffViewerData = {
+  digest: "li001",
+  name: "eiffel_tower",
+  concept: "Image",
+  contentType: "image/jpeg",
+  data: {
+    url: "pipelex-storage://normalized/eiffel_tower.jpg",
+    public_url: "/fixtures/eiffel_tower.jpg",
+    mime_type: "image/jpeg",
+    filename: "eiffel_tower.jpg",
+  },
+  dataText: "/fixtures/eiffel_tower.jpg\n",
+  dataHtml: '<img src="/fixtures/eiffel_tower.jpg" class="msg-img">',
+};
+
+const LOCAL_PDF_STUFF: StuffViewerData = {
+  digest: "lp001",
+  name: "job_offer",
+  concept: "Document",
+  contentType: "application/pdf",
+  data: {
+    url: "pipelex-storage://normalized/Job-Offer.pdf",
+    public_url: "/fixtures/Job-Offer.pdf",
+    mime_type: "application/pdf",
+    filename: "Job-Offer.pdf",
+  },
+  dataText: "/fixtures/Job-Offer.pdf\n",
+  dataHtml: '<a href="/fixtures/Job-Offer.pdf">Job-Offer.pdf</a>',
+};
+
+const INTERNAL_STORAGE_IMAGE_STUFF: StuffViewerData = {
+  digest: "is001",
+  name: "thumbnail",
+  concept: "Image",
+  contentType: "image/png",
+  data: {
+    url: "pipelex-storage://anonymous/85bc58dc26cda5ab.png",
+    public_url: "pipelex-storage://anonymous/85bc58dc26cda5ab.png",
+    mime_type: "image/png",
+    filename: null,
+  },
+  dataText: "pipelex-storage://anonymous/85bc58dc26cda5ab.png\n",
+  dataHtml:
+    '<img src="pipelex-storage://anonymous/85bc58dc26cda5ab.png" class="msg-img">',
+};
+
 const EMPTY_STUFF: StuffViewerData = {
   digest: "empty",
 };
@@ -166,7 +216,7 @@ export const ImageContent: Story = {
   args: { stuff: IMAGE_STUFF },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("generated_image")).toBeInTheDocument();
+    await expect(canvas.getByText("alan_turing")).toBeInTheDocument();
     // "Image" appears in both subtitle and tab label — verify at least one exists
     const imageElements = canvas.getAllByText("Image");
     await expect(imageElements.length).toBeGreaterThanOrEqual(1);
@@ -197,6 +247,34 @@ export const PageList: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("cv_pages")).toBeInTheDocument();
     await expect(canvas.getByText("Page")).toBeInTheDocument();
+  },
+};
+
+export const LocalImage: Story = {
+  args: { stuff: LOCAL_IMAGE_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("eiffel_tower")).toBeInTheDocument();
+  },
+};
+
+export const LocalPDF: Story = {
+  args: { stuff: LOCAL_PDF_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("job_offer")).toBeInTheDocument();
+    await expect(canvas.getByText("PDF")).toBeInTheDocument();
+  },
+};
+
+export const InternalStorageImage: Story = {
+  args: { stuff: INTERNAL_STORAGE_IMAGE_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // "thumbnail" appears in both the header title and the local file card
+    const thumbnailElements = canvas.getAllByText("thumbnail");
+    await expect(thumbnailElements.length).toBeGreaterThanOrEqual(1);
+    await expect(canvas.getByText(/no preview available/)).toBeInTheDocument();
   },
 };
 
