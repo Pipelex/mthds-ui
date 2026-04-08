@@ -12,7 +12,8 @@ export function isSafeDisplayUrl(url: unknown): url is string {
   );
 }
 
-/** Check whether a URL can be rendered inline in an <img> or <embed> tag. */
+/** Check whether a URL can be rendered inline in an <img> or <embed> tag.
+ *  Allows http://, https://, file:// (local dev / Electron), and relative paths. */
 export function isInlineRenderableUrl(url: unknown): url is string {
   if (!url || typeof url !== "string") return false;
   return (
@@ -44,8 +45,8 @@ export function extractUrl(data: unknown): string | null {
 
 /**
  * Extract a URL that can be rendered inline in <img>/<embed> tags.
- * Only returns http/https URLs — file:// URLs are safe for links but browsers
- * block them from inline rendering in web contexts.
+ * Returns http/https, file://, and relative URLs.
+ * Internal schemes like pipelex-storage:// are excluded.
  */
 export function extractInlineUrl(data: unknown): string | null {
   if (!data) return null;

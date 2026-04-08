@@ -30,7 +30,7 @@ jobs:
       - name: Check if tag already exists
         id: check_tag
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION="${{ steps.get_version.outputs.version }}"
           if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
             echo "Tag v$VERSION already exists"
             echo "already_released=true" >> $GITHUB_OUTPUT
@@ -56,14 +56,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION="${{ steps.get_version.outputs.version }}"
           git tag "v$VERSION"
           git push origin "v$VERSION"
 
       - name: Extract changelog notes
         if: steps.check_tag.outputs.already_released == 'false'
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION="${{ steps.get_version.outputs.version }}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
           START_LINE=$(grep -n "## \[v$VERSION\] - " CHANGELOG.md | cut -d: -f1)

@@ -46,8 +46,11 @@ jobs:
   # ───────────────────────────────────────────────────────────────
   protect-workflows:
     runs-on: ubuntu-latest
-    # only block non-maintainers
-    if: github.event.pull_request.author_association == 'CONTRIBUTOR'
+    # block all non-maintainers: NONE, FIRST_TIME_CONTRIBUTOR, and CONTRIBUTOR
+    if: >-
+      github.event.pull_request.author_association == 'CONTRIBUTOR' ||
+      github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' ||
+      github.event.pull_request.author_association == 'NONE'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
