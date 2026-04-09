@@ -1,35 +1,35 @@
-domain = "rag"
+domain      = "rag"
 description = "RAG pipeline: embed query, parallel search (vector + keyword), rerank, generate answer"
-main_pipe = "rag_pipeline"
+main_pipe   = "rag_pipeline"
 
 [concept.QueryEmbedding]
 description = "Embedded representation of a query"
-refines = "Text"
+refines     = "Text"
 
 [concept.RankedContext]
 description = "Reranked and filtered context passages"
-refines = "Text"
+refines     = "Text"
 
 [concept.Answer]
 description = "Generated answer with citations"
-refines = "Text"
+refines     = "Text"
 
 [pipe.rag_pipeline]
 type = "PipeSequence"
 description = "Retrieve context and generate an answer"
-inputs = {question = "Text"}
+inputs = { question = "Text" }
 output = "Answer"
 steps = [
-    {pipe = "embed_query", result = "query_embedding"},
-    {pipe = "parallel_search", result = "vector_results"},
-    {pipe = "rerank_results", result = "context"},
-    {pipe = "generate_answer", result = "answer"},
+  { pipe = "embed_query", result = "query_embedding" },
+  { pipe = "parallel_search", result = "vector_results" },
+  { pipe = "rerank_results", result = "context" },
+  { pipe = "generate_answer", result = "answer" },
 ]
 
 [pipe.embed_query]
 type = "PipeLLM"
 description = "Generate embedding representation of the query"
-inputs = {question = "Text"}
+inputs = { question = "Text" }
 output = "QueryEmbedding"
 prompt = """
 Rephrase this question to capture the core semantic meaning for retrieval:
@@ -40,32 +40,32 @@ Rephrase this question to capture the core semantic meaning for retrieval:
 [pipe.parallel_search]
 type = "PipeParallel"
 description = "Vector and keyword search in parallel"
-inputs = {query_embedding = "QueryEmbedding", question = "Text"}
+inputs = { query_embedding = "QueryEmbedding", question = "Text" }
 output = "SearchResult"
 add_each_output = true
 branches = [
-    {pipe = "vector_search", result = "vector_results"},
-    {pipe = "keyword_search", result = "keyword_results"},
+  { pipe = "vector_search", result = "vector_results" },
+  { pipe = "keyword_search", result = "keyword_results" },
 ]
 
 [pipe.vector_search]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Semantic vector search"
-inputs = {query_embedding = "QueryEmbedding"}
-output = "SearchResult"
-prompt = "$query_embedding"
+inputs      = { query_embedding = "QueryEmbedding" }
+output      = "SearchResult"
+prompt      = "$query_embedding"
 
 [pipe.keyword_search]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Keyword-based search"
-inputs = {question = "Text"}
-output = "SearchResult"
-prompt = "$question"
+inputs      = { question = "Text" }
+output      = "SearchResult"
+prompt      = "$question"
 
 [pipe.rerank_results]
 type = "PipeLLM"
 description = "Rerank and filter search results"
-inputs = {vector_results = "SearchResult", keyword_results = "SearchResult", question = "Text"}
+inputs = { vector_results = "SearchResult", keyword_results = "SearchResult", question = "Text" }
 output = "RankedContext"
 prompt = """
 Given this question: @question
@@ -82,7 +82,7 @@ Keyword results:
 [pipe.generate_answer]
 type = "PipeLLM"
 description = "Generate answer from context"
-inputs = {question = "Text", context = "RankedContext"}
+inputs = { question = "Text", context = "RankedContext" }
 output = "Answer"
 prompt = """
 Answer this question using the provided context. Cite your sources.

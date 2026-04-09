@@ -1,0 +1,21 @@
+# Dev-only data and fixtures
+data/
+public/
+
+# Storybook and stories
+.storybook/
+src/**/__stories__/
+
+# Tests
+src/**/__tests__/
+coverage/
+
+# CI/CD and tooling config
+.claude/
+.github/
+vitest.config.mts
+eslint.config.mjs
+.prettierrc
+Makefile
+CLAUDE.md
+TODOS.md

@@ -1,42 +1,42 @@
-domain = "content_distribution"
+domain      = "content_distribution"
 description = "Multi-output fan-out: one analysis feeds three parallel consumers"
-main_pipe = "fanout_pipeline"
+main_pipe   = "fanout_pipeline"
 
 [concept.Analysis]
 description = "Deep content analysis"
-refines = "Text"
+refines     = "Text"
 
 [concept.Summary]
 description = "Executive summary"
-refines = "Text"
+refines     = "Text"
 
 [concept.IndexEntry]
 description = "Search index entry"
-refines = "JSON"
+refines     = "JSON"
 
 [concept.SentimentLog]
 description = "Sentiment tracking log"
-refines = "Text"
+refines     = "Text"
 
 [concept.DistributionReport]
 description = "Report of all distribution actions"
-refines = "Text"
+refines     = "Text"
 
 [pipe.fanout_pipeline]
 type = "PipeSequence"
 description = "Analyze then distribute to 3 parallel consumers"
-inputs = {document = "Document"}
+inputs = { document = "Document" }
 output = "DistributionReport"
 steps = [
-    {pipe = "deep_analyze", result = "analysis"},
-    {pipe = "distribute", result = "summary"},
-    {pipe = "report", result = "distribution_report"},
+  { pipe = "deep_analyze", result = "analysis" },
+  { pipe = "distribute", result = "summary" },
+  { pipe = "report", result = "distribution_report" },
 ]
 
 [pipe.deep_analyze]
 type = "PipeLLM"
 description = "Perform deep content analysis"
-inputs = {document = "Document"}
+inputs = { document = "Document" }
 output = "Analysis"
 prompt = """
 Perform a deep analysis of this document covering summary, entities, and sentiment:
@@ -47,40 +47,40 @@ Perform a deep analysis of this document covering summary, entities, and sentime
 [pipe.distribute]
 type = "PipeParallel"
 description = "Distribute analysis to 3 consumers"
-inputs = {analysis = "Analysis"}
+inputs = { analysis = "Analysis" }
 output = "Summary"
 add_each_output = true
 branches = [
-    {pipe = "store_summary", result = "summary"},
-    {pipe = "index_entities", result = "index_entry"},
-    {pipe = "log_sentiment", result = "sentiment_log"},
+  { pipe = "store_summary", result = "summary" },
+  { pipe = "index_entities", result = "index_entry" },
+  { pipe = "log_sentiment", result = "sentiment_log" },
 ]
 
 [pipe.store_summary]
-type = "PipeLLM"
+type        = "PipeLLM"
 description = "Generate and store executive summary"
-inputs = {analysis = "Analysis"}
-output = "Summary"
-prompt = "Create a concise executive summary:\n\n@analysis"
+inputs      = { analysis = "Analysis" }
+output      = "Summary"
+prompt      = "Create a concise executive summary:\n\n@analysis"
 
 [pipe.index_entities]
-type = "PipeLLM"
+type        = "PipeLLM"
 description = "Extract and index named entities"
-inputs = {analysis = "Analysis"}
-output = "IndexEntry"
-prompt = "Extract named entities for indexing:\n\n@analysis"
+inputs      = { analysis = "Analysis" }
+output      = "IndexEntry"
+prompt      = "Extract named entities for indexing:\n\n@analysis"
 
 [pipe.log_sentiment]
-type = "PipeLLM"
+type        = "PipeLLM"
 description = "Track sentiment for analytics"
-inputs = {analysis = "Analysis"}
-output = "SentimentLog"
-prompt = "Log the sentiment trends:\n\n@analysis"
+inputs      = { analysis = "Analysis" }
+output      = "SentimentLog"
+prompt      = "Log the sentiment trends:\n\n@analysis"
 
 [pipe.report]
 type = "PipeCompose"
 description = "Report on all distribution actions"
-inputs = {summary = "Summary", index_entry = "IndexEntry", sentiment_log = "SentimentLog"}
+inputs = { summary = "Summary", index_entry = "IndexEntry", sentiment_log = "SentimentLog" }
 output = "DistributionReport"
 template = """
 # Distribution Report

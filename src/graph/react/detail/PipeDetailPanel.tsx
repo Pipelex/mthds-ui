@@ -98,74 +98,77 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
 
   return (
     <>
-      {/* Header: badge + pipe code */}
-      <div className="detail-header">
-        <span className={`detail-badge ${isController ? "detail-badge--controller" : "detail-badge--operator"}`}>
-          {badge}
-        </span>
-        <span className={`detail-pipe-code ${isController ? "detail-pipe-code--controller" : ""}`}>
-          {node.pipe_code ?? "unknown"}
-        </span>
-      </div>
+      {/* Sticky header: badge, status, description, IO */}
+      <div className="detail-sticky-header">
+        {/* Header: badge + pipe code */}
+        <div className="detail-header">
+          <span className={`detail-badge ${isController ? "detail-badge--controller" : "detail-badge--operator"}`}>
+            {badge}
+          </span>
+          <span className={`detail-pipe-code ${isController ? "detail-pipe-code--controller" : ""}`}>
+            {node.pipe_code ?? "unknown"}
+          </span>
+        </div>
 
-      {/* Status + Duration */}
-      <div className="detail-status">
-        <span className="detail-status-dot" style={{ background: statusColor }} />
-        <span className="detail-status-label" style={{ color: statusColor }}>
-          {status}
-        </span>
-        {node.timing?.duration != null && (
-          <span className="detail-duration">{formatDuration(node.timing.duration)}</span>
+        {/* Status + Duration */}
+        <div className="detail-status">
+          <span className="detail-status-dot" style={{ background: statusColor }} />
+          <span className="detail-status-label" style={{ color: statusColor }}>
+            {status}
+          </span>
+          {node.timing?.duration != null && (
+            <span className="detail-duration">{formatDuration(node.timing.duration)}</span>
+          )}
+        </div>
+
+        {/* Description */}
+        {description && <div className="detail-description">{description}</div>}
+
+        {/* Inputs */}
+        {inputs.length > 0 && (
+          <div>
+            <div className="detail-section-label">Inputs</div>
+            <div className="detail-io-list">
+              {inputs.map((input, idx) => (
+                <div
+                  key={idx}
+                  className="detail-io-pill"
+                  style={{ cursor: input.concept && onConceptClick ? "pointer" : undefined }}
+                  onClick={() => input.concept && onConceptClick?.(input.concept)}
+                >
+                  <span className="detail-io-name">{input.name ?? "unnamed"}</span>
+                  {input.concept && <span className="detail-io-concept">{input.concept}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Outputs */}
+        {outputs.length > 0 && (
+          <div>
+            <div className="detail-section-label">Output</div>
+            <div className="detail-io-list">
+              {outputs.map((output, idx) => (
+                <div
+                  key={idx}
+                  className="detail-io-pill"
+                  style={{ cursor: output.concept && onConceptClick ? "pointer" : undefined }}
+                  onClick={() => output.concept && onConceptClick?.(output.concept)}
+                >
+                  <span className="detail-io-name">{output.name ?? "unnamed"}</span>
+                  {output.concept && <span className="detail-io-concept">{output.concept}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Separator after IO */}
+        {(inputs.length > 0 || outputs.length > 0) && (
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", margin: "4px 0" }} />
         )}
       </div>
-
-      {/* Description */}
-      {description && <div className="detail-description">{description}</div>}
-
-      {/* Inputs */}
-      {inputs.length > 0 && (
-        <div>
-          <div className="detail-section-label">Inputs</div>
-          <div className="detail-io-list">
-            {inputs.map((input, idx) => (
-              <div
-                key={idx}
-                className="detail-io-pill"
-                style={{ cursor: input.concept && onConceptClick ? "pointer" : undefined }}
-                onClick={() => input.concept && onConceptClick?.(input.concept)}
-              >
-                <span className="detail-io-name">{input.name ?? "unnamed"}</span>
-                {input.concept && <span className="detail-io-concept">{input.concept}</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Outputs */}
-      {outputs.length > 0 && (
-        <div>
-          <div className="detail-section-label">Output</div>
-          <div className="detail-io-list">
-            {outputs.map((output, idx) => (
-              <div
-                key={idx}
-                className="detail-io-pill"
-                style={{ cursor: output.concept && onConceptClick ? "pointer" : undefined }}
-                onClick={() => output.concept && onConceptClick?.(output.concept)}
-              >
-                <span className="detail-io-name">{output.name ?? "unnamed"}</span>
-                {output.concept && <span className="detail-io-concept">{output.concept}</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Separator after IO */}
-      {(inputs.length > 0 || outputs.length > 0) && (
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", margin: "4px 0" }} />
-      )}
 
       {/* Blueprint-specific sections */}
       {blueprint && (

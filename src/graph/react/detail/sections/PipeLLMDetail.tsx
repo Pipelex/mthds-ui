@@ -39,18 +39,6 @@ export function PipeLLMSection({
         <KV label="Model (object)" value={modelForObjectDisplay} />
       )}
 
-      {/* Prompts — toggle between template and rendered */}
-      <PromptToggle
-        label="System Prompt"
-        templateText={spec.system_prompt_blueprint?.template}
-        renderedText={renderedSystem}
-      />
-      <PromptToggle
-        label="Prompt"
-        templateText={spec.prompt_blueprint?.template}
-        renderedText={renderedUser}
-      />
-
       {/* Structuring — show runtime path if available, otherwise config method */}
       <KV label="Structuring" value={structuringPath || blueprint.structuring_method} />
       <KV label="Multiple Output" value={isMultipleOutput} />
@@ -70,6 +58,18 @@ export function PipeLLMSection({
       {hasSysDocRefs && (
         <KV label="System Document Refs" value={`${spec.system_document_references!.length} references`} />
       )}
+
+      {/* Prompts — last, toggle between template and rendered */}
+      <PromptToggle
+        label="System Prompt"
+        templateText={spec.system_prompt_blueprint?.template}
+        renderedText={renderedSystem}
+      />
+      <PromptToggle
+        label="Prompt"
+        templateText={spec.prompt_blueprint?.template}
+        renderedText={renderedUser}
+      />
     </>
   );
 }

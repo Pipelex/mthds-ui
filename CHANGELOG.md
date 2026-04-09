@@ -1,5 +1,31 @@
 # Changelog
 
+## [v0.3.0] - 2026-04-09
+
+### Fixed
+
+- Close button z-index fixed to stay above sticky header
+
+### Added
+
+- Resizable detail panel: drag the left edge to resize between 280px and 800px, width persists during session
+- Escape key closes the detail panel (controllable via `closeOnEscape` prop)
+- Sticky header in pipe detail panel: pipe info, status, inputs, outputs stay pinned at top while scrolling
+- Prompt expand/collapse toggle button: collapsed shows 300px with scroll, expanded shows full content
+- Copy button on prompt blocks (system prompt, user prompt, template)
+- PipeLLM and PipeCompose: prompts moved to bottom of the detail section
+- `useResizable` hook for horizontal panel resize (pure React, no dependencies)
+- Storybook stories: resizable panel (default/min/max width), local image/PDF fixtures
+- Pipeline 30: CV Analyzer with concept refinement (`DetailedMatchResult` refines `MatchResult`), dry + live runs
+- Pipeline 31: RFP Qualifier with structured concepts, dry + live runs
+- Concept detail panel stories: parent concept (`Evaluation`) and refined concept (`TechnicalEvaluation`)
+- `/add-pipeline-story` skill for adding new pipeline examples from `.mthds` bundles
+- Storybook static file serving (`staticDirs`) for local fixture files
+
+### Changed
+
+- Detail panel resize handle hit area widened to 12px (visible bar stays 2px)
+
 ## [v0.2.6] - 2026-04-08
 
 ### Fixed
@@ -14,6 +40,8 @@
 - `isInlineRenderableUrl` and `extractInlineUrl` utilities for separating inline-renderable URLs from link-safe URLs
 - `extractFilename` utility for extracting filename metadata from stuff data
 - `InternalStorageImage` Storybook story demonstrating the fallback for non-renderable URLs
+- GitHub Actions workflows: guard-branches, version-check, changelog-check, quality-checks, release (tag + GitHub Release), CLA
+- README install instructions updated for git tag references (`github:Pipelex/mthds-ui#vX.Y.Z`)
 
 ## [v0.2.5] - 2026-04-07
 

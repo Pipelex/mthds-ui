@@ -1,52 +1,52 @@
-domain = "recruitment"
+domain      = "recruitment"
 description = "CV screening: extract, analyze candidate, enrich in parallel (search + image), score match, compose report"
-main_pipe = "cv_screening"
+main_pipe   = "cv_screening"
 
 [concept.CandidateProfile]
 description = "Structured profile of a job candidate"
 
 [concept.CandidateProfile.structure]
-name = {type = "text", description = "Full name", required = true}
-skills = {type = "list", description = "Key skills"}
-experience_years = {type = "integer", description = "Years of experience"}
-summary = "Brief profile summary"
+name             = { type = "text", description = "Full name", required = true }
+skills           = { type = "list", description = "Key skills" }
+experience_years = { type = "integer", description = "Years of experience" }
+summary          = "Brief profile summary"
 
 [concept.MatchScore]
 description = "Score for how well a candidate matches a role"
 
 [concept.MatchScore.structure]
-score = {type = "number", description = "Match score 0-100", required = true}
-strengths = {type = "list", description = "Key strengths"}
-gaps = {type = "list", description = "Skill gaps"}
-recommendation = {type = "text", description = "Hiring recommendation", required = true}
+score          = { type = "number", description = "Match score 0-100", required = true }
+strengths      = { type = "list", description = "Key strengths" }
+gaps           = { type = "list", description = "Skill gaps" }
+recommendation = { type = "text", description = "Hiring recommendation", required = true }
 
 [concept.Report]
 description = "Formatted screening report"
-refines = "Text"
+refines     = "Text"
 
 [pipe.cv_screening]
 type = "PipeSequence"
 description = "Full CV screening pipeline"
-inputs = {cv = "Document"}
+inputs = { cv = "Document" }
 output = "Report"
 steps = [
-    {pipe = "extract_cv", result = "pages"},
-    {pipe = "analyze_candidate", result = "profile"},
-    {pipe = "enrich_candidate", result = "search_result"},
-    {pipe = "score_match", result = "match"},
-    {pipe = "compose_report", result = "report"},
+  { pipe = "extract_cv", result = "pages" },
+  { pipe = "analyze_candidate", result = "profile" },
+  { pipe = "enrich_candidate", result = "search_result" },
+  { pipe = "score_match", result = "match" },
+  { pipe = "compose_report", result = "report" },
 ]
 
 [pipe.extract_cv]
-type = "PipeExtract"
+type        = "PipeExtract"
 description = "Extract pages from CV document"
-inputs = {cv = "Document"}
-output = "Page[]"
+inputs      = { cv = "Document" }
+output      = "Page[]"
 
 [pipe.analyze_candidate]
 type = "PipeLLM"
 description = "Analyze CV to build candidate profile"
-inputs = {pages = "Page[]"}
+inputs = { pages = "Page[]" }
 output = "CandidateProfile"
 prompt = """
 Analyze this CV and extract a structured candidate profile:
@@ -57,32 +57,32 @@ Analyze this CV and extract a structured candidate profile:
 [pipe.enrich_candidate]
 type = "PipeParallel"
 description = "Search online and generate profile card in parallel"
-inputs = {profile = "CandidateProfile"}
+inputs = { profile = "CandidateProfile" }
 output = "SearchResult"
 add_each_output = true
 branches = [
-    {pipe = "search_candidate", result = "search_result"},
-    {pipe = "generate_card", result = "card_image"},
+  { pipe = "search_candidate", result = "search_result" },
+  { pipe = "generate_card", result = "card_image" },
 ]
 
 [pipe.search_candidate]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search for candidate online presence"
-inputs = {profile = "CandidateProfile"}
-output = "SearchResult"
-prompt = "$profile.name professional background"
+inputs      = { profile = "CandidateProfile" }
+output      = "SearchResult"
+prompt      = "$profile.name professional background"
 
 [pipe.generate_card]
-type = "PipeImgGen"
+type        = "PipeImgGen"
 description = "Generate candidate profile card image"
-inputs = {profile = "CandidateProfile"}
-output = "Image"
-prompt = "Professional profile card for $profile.name, $profile.summary"
+inputs      = { profile = "CandidateProfile" }
+output      = "Image"
+prompt      = "Professional profile card for $profile.name, $profile.summary"
 
 [pipe.score_match]
 type = "PipeLLM"
 description = "Score candidate-role match"
-inputs = {profile = "CandidateProfile", search_result = "SearchResult"}
+inputs = { profile = "CandidateProfile", search_result = "SearchResult" }
 output = "MatchScore"
 prompt = """
 Based on this candidate profile and online research, score how well they match our open role:
@@ -97,7 +97,7 @@ Online research:
 [pipe.compose_report]
 type = "PipeCompose"
 description = "Compose final screening report"
-inputs = {profile = "CandidateProfile", match = "MatchScore", card_image = "Image"}
+inputs = { profile = "CandidateProfile", match = "MatchScore", card_image = "Image" }
 output = "Report"
 template = """
 # Candidate Screening Report

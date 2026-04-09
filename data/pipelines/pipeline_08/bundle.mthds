@@ -1,36 +1,36 @@
-domain = "document_batch"
+domain      = "document_batch"
 description = "Batch-process each page from a PDF with OCR"
-main_pipe = "batch_ocr_pipeline"
+main_pipe   = "batch_ocr_pipeline"
 
 [concept.PageSummary]
 description = "Summary of a single page"
-refines = "Text"
+refines     = "Text"
 
 [concept.DocumentSummary]
 description = "Combined summary of all pages"
-refines = "Text"
+refines     = "Text"
 
 [pipe.batch_ocr_pipeline]
 type = "PipeSequence"
 description = "Extract pages then batch-process each"
-inputs = {document = "Document"}
+inputs = { document = "Document" }
 output = "DocumentSummary"
 steps = [
-    {pipe = "extract_pages", result = "pages"},
-    {pipe = "summarize_page", batch_over = "pages", batch_as = "page", result = "page_summaries"},
-    {pipe = "combine_summaries", result = "document_summary"},
+  { pipe = "extract_pages", result = "pages" },
+  { pipe = "summarize_page", batch_over = "pages", batch_as = "page", result = "page_summaries" },
+  { pipe = "combine_summaries", result = "document_summary" },
 ]
 
 [pipe.extract_pages]
-type = "PipeExtract"
+type        = "PipeExtract"
 description = "Extract pages from document"
-inputs = {document = "Document"}
-output = "Page[]"
+inputs      = { document = "Document" }
+output      = "Page[]"
 
 [pipe.summarize_page]
 type = "PipeLLM"
 description = "Summarize a single page"
-inputs = {page = "Page"}
+inputs = { page = "Page" }
 output = "PageSummary"
 prompt = """
 Summarize the content of this page concisely:
@@ -41,7 +41,7 @@ Summarize the content of this page concisely:
 [pipe.combine_summaries]
 type = "PipeCompose"
 description = "Combine all page summaries into document summary"
-inputs = {page_summaries = "PageSummary[]"}
+inputs = { page_summaries = "PageSummary[]" }
 output = "DocumentSummary"
 template = """
 # Document Summary

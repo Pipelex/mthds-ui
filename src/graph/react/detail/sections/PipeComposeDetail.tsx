@@ -15,13 +15,13 @@ export function PipeComposeSection({
   return (
     <>
       <KV label="Mode" value={composeMode || "template"} />
+      <KV label="Category" value={blueprint.category} />
+      <KV label="Templating Style" value={blueprint.templating_style} />
       <PromptToggle
         label="Template"
         templateText={blueprint.template}
         renderedText={renderedText}
       />
-      <KV label="Category" value={blueprint.category} />
-      <KV label="Templating Style" value={blueprint.templating_style} />
     </>
   );
 }
