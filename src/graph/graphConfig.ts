@@ -6,7 +6,7 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   showControllers: false,
   nodesep: 50,
   ranksep: 100,
-  edgeType: EDGE_TYPE.BEZIER,
+  edgeType: EDGE_TYPE.DEFAULT,
   initialZoom: null,
   panToTop: true,
   paletteColors: {

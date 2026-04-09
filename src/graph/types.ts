@@ -305,9 +305,9 @@ export interface DataflowAnalysis {
 
 export type GraphDirection = "TB" | "LR" | "RL" | "BT";
 
-/** ReactFlow edge types. "default" is the bezier curve (renamed in ReactFlow v12). */
 export const EDGE_TYPE = {
-  BEZIER: "default",
+  /** Bezier curve — ReactFlow v12 renamed this type from "bezier" to "default". */
+  DEFAULT: "default",
   STEP: "step",
   STRAIGHT: "straight",
   SMOOTH_STEP: "smoothstep",

@@ -208,7 +208,7 @@ export function GraphViewer(props: GraphViewerProps) {
     });
   }, []);
 
-  const edgeType = config.edgeType || EDGE_TYPE.BEZIER;
+  const edgeType = config.edgeType || EDGE_TYPE.DEFAULT;
   const layoutConfig = React.useMemo(
     () => ({ nodesep: config.nodesep, ranksep: config.ranksep }),
     [config.nodesep, config.ranksep],
