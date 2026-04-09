@@ -18,7 +18,7 @@ import type {
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId } from "@graph/types";
+import { stuffDigestFromId, EDGE_TYPE } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -208,7 +208,7 @@ export function GraphViewer(props: GraphViewerProps) {
     });
   }, []);
 
-  const edgeType = config.edgeType || "bezier";
+  const edgeType = config.edgeType || EDGE_TYPE.DEFAULT;
   const layoutConfig = React.useMemo(
     () => ({ nodesep: config.nodesep, ranksep: config.ranksep }),
     [config.nodesep, config.ranksep],

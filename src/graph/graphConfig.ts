@@ -1,11 +1,12 @@
 import type { GraphConfig } from "./types";
+import { EDGE_TYPE } from "./types";
 
 export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   direction: "LR",
   showControllers: false,
   nodesep: 50,
   ranksep: 100,
-  edgeType: "bezier",
+  edgeType: EDGE_TYPE.DEFAULT,
   initialZoom: null,
   panToTop: true,
   paletteColors: {
