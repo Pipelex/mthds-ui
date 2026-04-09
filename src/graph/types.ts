@@ -304,7 +304,16 @@ export interface DataflowAnalysis {
 // ─── Graph configuration ────────────────────────────────────────────────────
 
 export type GraphDirection = "TB" | "LR" | "RL" | "BT";
-export type EdgeType = "bezier" | "step" | "straight" | "smoothstep";
+
+/** ReactFlow edge types. "default" is the bezier curve (renamed in ReactFlow v12). */
+export const EDGE_TYPE = {
+  BEZIER: "default",
+  STEP: "step",
+  STRAIGHT: "straight",
+  SMOOTH_STEP: "smoothstep",
+} as const;
+
+export type EdgeType = (typeof EDGE_TYPE)[keyof typeof EDGE_TYPE];
 
 export interface GraphConfig {
   direction?: GraphDirection;

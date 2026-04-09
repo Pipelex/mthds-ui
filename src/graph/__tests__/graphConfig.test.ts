@@ -10,8 +10,8 @@ describe("DEFAULT_GRAPH_CONFIG", () => {
     expect(DEFAULT_GRAPH_CONFIG.showControllers).toBe(false);
   });
 
-  it("has edgeType 'bezier'", () => {
-    expect(DEFAULT_GRAPH_CONFIG.edgeType).toBe("bezier");
+  it("has edgeType 'default' (bezier curve, renamed in ReactFlow v12)", () => {
+    expect(DEFAULT_GRAPH_CONFIG.edgeType).toBe("default");
   });
 
   it("has nodesep and ranksep as positive numbers", () => {

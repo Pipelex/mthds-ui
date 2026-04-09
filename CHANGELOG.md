@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- Edge type `"bezier"` renamed to `"default"` to match ReactFlow v12 (fixes console spam)
+- `useState` hooks moved before early return in `PromptToggle` (React rules of hooks violation)
+- Guard `navigator.clipboard` before `writeText` call (prevents error when Clipboard API unavailable)
+
+### Changed
+
+- `EDGE_TYPE` constant object for ReactFlow edge types (replaces string literals)
+
 ## [v0.3.0] - 2026-04-09
 
 ### Fixed
@@ -21,6 +33,8 @@
 - Concept detail panel stories: parent concept (`Evaluation`) and refined concept (`TechnicalEvaluation`)
 - `/add-pipeline-story` skill for adding new pipeline examples from `.mthds` bundles
 - Storybook static file serving (`staticDirs`) for local fixture files
+- `.npmignore` to exclude dev files from git installs
+- CLA document
 
 ### Changed
 
