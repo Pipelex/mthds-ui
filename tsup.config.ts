@@ -20,6 +20,8 @@ export default defineConfig({
     "react",
     "react-dom",
     /graph-core\.css$/,
+    /detail\/DetailPanel\.css$/,
+    /stuff\/StuffViewer\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {

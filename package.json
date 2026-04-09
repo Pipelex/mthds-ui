@@ -30,6 +30,7 @@
       "types": "./dist/graph/react/index.d.ts"
     },
     "./graph/react/graph-core.css": "./dist/graph/react/graph-core.css",
+    "./graph/react/detail/DetailPanel.css": "./dist/graph/react/detail/DetailPanel.css",
     "./graph/react/stuff/StuffViewer.css": "./dist/graph/react/stuff/StuffViewer.css",
     "./shiki": {
       "import": "./dist/shiki/index.js",
