@@ -91,13 +91,13 @@ export function PromptToggle({
   templateText: string | null | undefined;
   renderedText: string | null | undefined;
 }) {
-  const hasTemplate = !!templateText;
-  const hasRendered = !!renderedText;
-  if (!hasTemplate && !hasRendered) return null;
-
   const [showTemplate, setShowTemplate] = useState(false);
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
+
+  const hasTemplate = !!templateText;
+  const hasRendered = !!renderedText;
+  if (!hasTemplate && !hasRendered) return null;
   const activeText = showTemplate ? templateText : renderedText;
   const canToggle = hasTemplate && hasRendered;
 
