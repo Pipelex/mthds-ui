@@ -1,0 +1,19 @@
+# Source and dev files (dist/ is the only thing consumers need)
+src/
+data/
+public/
+scripts/
+.storybook/
+.claude/
+.github/
+coverage/
+
+# Config files
+tsup.config.ts
+tsconfig.json
+vitest.config.mts
+eslint.config.mjs
+.prettierrc
+Makefile
+CLAUDE.md
+TODOS.md
