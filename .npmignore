@@ -1,16 +1,18 @@
-# Source and dev files (dist/ is the only thing consumers need)
-src/
+# Dev-only data and fixtures
 data/
 public/
-scripts/
+
+# Storybook and stories
 .storybook/
-.claude/
-.github/
+src/**/__stories__/
+
+# Tests
+src/**/__tests__/
 coverage/
 
-# Config files
-tsup.config.ts
-tsconfig.json
+# CI/CD and tooling config
+.claude/
+.github/
 vitest.config.mts
 eslint.config.mjs
 .prettierrc
