@@ -98,8 +98,13 @@ export function PromptToggle({
   const hasTemplate = !!templateText;
   const hasRendered = !!renderedText;
   if (!hasTemplate && !hasRendered) return null;
-  const activeText = showTemplate ? templateText : renderedText;
   const canToggle = hasTemplate && hasRendered;
+  // Show rendered by default when available; fall back to template
+  const activeText = canToggle
+    ? showTemplate
+      ? templateText
+      : renderedText
+    : templateText || renderedText;
 
   function handleCopy() {
     if (!activeText || !navigator.clipboard) return;

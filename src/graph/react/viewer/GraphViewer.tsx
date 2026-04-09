@@ -57,6 +57,8 @@ export interface GraphViewerProps {
   onNodeSelect?: (nodeId: string, nodeData: GraphNodeData, event: React.MouseEvent) => void;
   /** Called when the graph background (pane) is clicked. Use to dismiss detail panels. */
   onPaneClick?: () => void;
+  /** Render extra content below the built-in detail panel content for the selected node. */
+  renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
 }
 
 /** Stuff node detail: concept structure + data viewer. */
@@ -141,6 +143,7 @@ export function GraphViewer(props: GraphViewerProps) {
     statusMap,
     onNodeSelect,
     onPaneClick,
+    renderDetailExtra,
   } = props;
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -540,6 +543,10 @@ export function GraphViewer(props: GraphViewerProps) {
             graphspec={graphspec}
           />
         ) : null}
+        {renderDetailExtra &&
+          detailSelection &&
+          !conceptOverride &&
+          renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
       </DetailPanel>
     </div>
   );

@@ -1,6 +1,6 @@
 {
   "name": "@pipelex/mthds-ui",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Shared graph rendering logic for MTHDS method visualization",
   "license": "MIT",
   "repository": {
@@ -30,6 +30,7 @@
       "types": "./dist/graph/react/index.d.ts"
     },
     "./graph/react/graph-core.css": "./dist/graph/react/graph-core.css",
+    "./graph/react/detail/DetailPanel.css": "./dist/graph/react/detail/DetailPanel.css",
     "./graph/react/stuff/StuffViewer.css": "./dist/graph/react/stuff/StuffViewer.css",
     "./shiki": {
       "import": "./dist/shiki/index.js",
