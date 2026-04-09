@@ -24,6 +24,7 @@ import type { StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import { StuffViewer } from "../stuff/StuffViewer";
 import { DetailPanel } from "../detail/DetailPanel";
+import { useResizable } from "../detail/useResizable";
 import { PipeDetailPanel } from "../detail/PipeDetailPanel";
 import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
@@ -147,6 +148,13 @@ export function GraphViewer(props: GraphViewerProps) {
   // Detail panel state (built-in)
   const [detailSelection, setDetailSelection] = React.useState<DetailSelection | null>(null);
   const [conceptOverride, setConceptOverride] = React.useState<ConceptInfo | null>(null);
+
+  // Panel resize
+  const {
+    width: panelWidth,
+    isDragging: isPanelDragging,
+    handleMouseDown: onResizeMouseDown,
+  } = useResizable({ defaultWidth: 380, minWidth: 280, maxWidth: 800, containerRef });
 
   // Reset detail panel when graphspec changes
   React.useEffect(() => {
@@ -511,7 +519,13 @@ export function GraphViewer(props: GraphViewerProps) {
           color="var(--color-bg-dots)"
         />
       </ReactFlow>
-      <DetailPanel isOpen={detailOpen} onClose={handlePaneClick}>
+      <DetailPanel
+        isOpen={detailOpen}
+        onClose={handlePaneClick}
+        width={panelWidth}
+        isDragging={isPanelDragging}
+        onResizeHandleMouseDown={onResizeMouseDown}
+      >
         {conceptOverride ? (
           <ConceptDetailPanel concept={conceptOverride} />
         ) : selectedSpecNode && graphspec ? (

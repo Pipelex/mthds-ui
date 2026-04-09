@@ -1,41 +1,44 @@
-domain = "email_management"
+domain      = "email_management"
 description = "Email triage: search inbox, classify, conditionally auto-reply or flag"
-main_pipe = "email_triage"
+main_pipe   = "email_triage"
 
 [concept.EmailClassification]
 description = "Classified email with priority"
 
 [concept.EmailClassification.structure]
-subject = {type = "text", description = "Email subject", required = true}
-priority = {type = "text", description = "Priority level", required = true, choices = ["auto_reply", "needs_review"]}
+subject = { type = "text", description = "Email subject", required = true }
+priority = { type = "text", description = "Priority level", required = true, choices = [
+  "auto_reply",
+  "needs_review",
+] }
 summary = "Brief summary of the email"
 
 [concept.InboxDigest]
 description = "Summary digest of inbox processing"
-refines = "Text"
+refines     = "Text"
 
 [pipe.email_triage]
 type = "PipeSequence"
 description = "Search inbox, classify, and route to action"
-inputs = {query = "Text"}
+inputs = { query = "Text" }
 output = "InboxDigest"
 steps = [
-    {pipe = "search_inbox", result = "search_result"},
-    {pipe = "classify_email", result = "classified"},
-    {pipe = "route_email", result = "digest"},
+  { pipe = "search_inbox", result = "search_result" },
+  { pipe = "classify_email", result = "classified" },
+  { pipe = "route_email", result = "digest" },
 ]
 
 [pipe.search_inbox]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search email inbox"
-inputs = {query = "Text"}
-output = "SearchResult"
-prompt = "Recent emails about: $query"
+inputs      = { query = "Text" }
+output      = "SearchResult"
+prompt      = "Recent emails about: $query"
 
 [pipe.classify_email]
 type = "PipeLLM"
 description = "Classify email priority"
-inputs = {search_result = "SearchResult"}
+inputs = { search_result = "SearchResult" }
 output = "EmailClassification"
 prompt = """
 Classify this email by priority (auto_reply or needs_review):
@@ -44,18 +47,18 @@ Classify this email by priority (auto_reply or needs_review):
 """
 
 [pipe.route_email]
-type = "PipeCondition"
-description = "Route email based on classification"
-inputs = {classified = "EmailClassification"}
-output = "InboxDigest"
-expression = "classified.priority"
-outcomes = {auto_reply = "generate_auto_reply", needs_review = "flag_for_review"}
+type            = "PipeCondition"
+description     = "Route email based on classification"
+inputs          = { classified = "EmailClassification" }
+output          = "InboxDigest"
+expression      = "classified.priority"
+outcomes        = { auto_reply = "generate_auto_reply", needs_review = "flag_for_review" }
 default_outcome = "flag_for_review"
 
 [pipe.generate_auto_reply]
 type = "PipeLLM"
 description = "Generate automatic reply"
-inputs = {classified = "EmailClassification"}
+inputs = { classified = "EmailClassification" }
 output = "InboxDigest"
 prompt = """
 Generate a professional auto-reply digest for this email:
@@ -65,8 +68,8 @@ Summary: $classified.summary
 """
 
 [pipe.flag_for_review]
-type = "PipeCompose"
+type        = "PipeCompose"
 description = "Flag email for human review"
-inputs = {classified = "EmailClassification"}
-output = "InboxDigest"
-template = "FLAGGED FOR REVIEW: $classified.subject - $classified.summary"
+inputs      = { classified = "EmailClassification" }
+output      = "InboxDigest"
+template    = "FLAGGED FOR REVIEW: $classified.subject - $classified.summary"

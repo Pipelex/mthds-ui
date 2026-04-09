@@ -1,59 +1,63 @@
-domain = "code_review"
+domain      = "code_review"
 description = "Code review: extract diff, parallel checks (security, style, logic, perf), compose review"
-main_pipe = "review_pipeline"
+main_pipe   = "review_pipeline"
 
 [concept.CodeDiff]
 description = "A code diff from a pull request"
-refines = "Text"
+refines     = "Text"
 
 [concept.ReviewFinding]
 description = "A finding from code review"
 
 [concept.ReviewFinding.structure]
-severity = {type = "text", description = "Severity level", required = true, choices = ["critical", "warning", "info"]}
-category = {type = "text", description = "Finding category", required = true}
-description = {type = "text", description = "Description of the finding", required = true}
+severity = { type = "text", description = "Severity level", required = true, choices = [
+  "critical",
+  "warning",
+  "info",
+] }
+category = { type = "text", description = "Finding category", required = true }
+description = { type = "text", description = "Description of the finding", required = true }
 line_ref = "Line reference in the diff"
 
 [concept.CodeReview]
 description = "Complete code review report"
-refines = "Text"
+refines     = "Text"
 
 [pipe.review_pipeline]
 type = "PipeSequence"
 description = "Full code review pipeline"
-inputs = {pr_url = "Text"}
+inputs = { pr_url = "Text" }
 output = "CodeReview"
 steps = [
-    {pipe = "fetch_diff", result = "diff"},
-    {pipe = "parallel_checks", result = "security_findings"},
-    {pipe = "compose_review", result = "review"},
+  { pipe = "fetch_diff", result = "diff" },
+  { pipe = "parallel_checks", result = "security_findings" },
+  { pipe = "compose_review", result = "review" },
 ]
 
 [pipe.fetch_diff]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Fetch PR diff content"
-inputs = {pr_url = "Text"}
-output = "SearchResult"
-prompt = "Pull request diff from $pr_url"
+inputs      = { pr_url = "Text" }
+output      = "SearchResult"
+prompt      = "Pull request diff from $pr_url"
 
 [pipe.parallel_checks]
 type = "PipeParallel"
 description = "Run security, style, logic, and perf checks in parallel"
-inputs = {diff = "SearchResult"}
+inputs = { diff = "SearchResult" }
 output = "ReviewFinding[]"
 add_each_output = true
 branches = [
-    {pipe = "security_check", result = "security_findings"},
-    {pipe = "style_check", result = "style_findings"},
-    {pipe = "logic_check", result = "logic_findings"},
-    {pipe = "perf_check", result = "perf_findings"},
+  { pipe = "security_check", result = "security_findings" },
+  { pipe = "style_check", result = "style_findings" },
+  { pipe = "logic_check", result = "logic_findings" },
+  { pipe = "perf_check", result = "perf_findings" },
 ]
 
 [pipe.security_check]
 type = "PipeLLM"
 description = "Check for security vulnerabilities"
-inputs = {diff = "SearchResult"}
+inputs = { diff = "SearchResult" }
 output = "ReviewFinding[]"
 prompt = """
 Review this code diff for security vulnerabilities (injection, XSS, auth issues, etc.):
@@ -64,7 +68,7 @@ Review this code diff for security vulnerabilities (injection, XSS, auth issues,
 [pipe.style_check]
 type = "PipeLLM"
 description = "Check code style and conventions"
-inputs = {diff = "SearchResult"}
+inputs = { diff = "SearchResult" }
 output = "ReviewFinding[]"
 prompt = """
 Review this code diff for style issues and convention violations:
@@ -75,7 +79,7 @@ Review this code diff for style issues and convention violations:
 [pipe.logic_check]
 type = "PipeLLM"
 description = "Check for logic errors"
-inputs = {diff = "SearchResult"}
+inputs = { diff = "SearchResult" }
 output = "ReviewFinding[]"
 prompt = """
 Review this code diff for logic errors, edge cases, and correctness issues:
@@ -86,7 +90,7 @@ Review this code diff for logic errors, edge cases, and correctness issues:
 [pipe.perf_check]
 type = "PipeLLM"
 description = "Check for performance issues"
-inputs = {diff = "SearchResult"}
+inputs = { diff = "SearchResult" }
 output = "ReviewFinding[]"
 prompt = """
 Review this code diff for performance issues (N+1 queries, memory leaks, expensive operations):
@@ -97,7 +101,7 @@ Review this code diff for performance issues (N+1 queries, memory leaks, expensi
 [pipe.compose_review]
 type = "PipeCompose"
 description = "Compose final review from all findings"
-inputs = {security_findings = "ReviewFinding[]", style_findings = "ReviewFinding[]", logic_findings = "ReviewFinding[]", perf_findings = "ReviewFinding[]"}
+inputs = { security_findings = "ReviewFinding[]", style_findings = "ReviewFinding[]", logic_findings = "ReviewFinding[]", perf_findings = "ReviewFinding[]" }
 output = "CodeReview"
 template = """
 # Code Review

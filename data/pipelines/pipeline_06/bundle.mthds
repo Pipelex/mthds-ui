@@ -1,42 +1,42 @@
-domain = "report_generation"
+domain      = "report_generation"
 description = "Three-way parallel: chart, table, and narrative from data analysis"
-main_pipe = "multi_format_report"
+main_pipe   = "multi_format_report"
 
 [concept.Insight]
 description = "Data insight extracted from analysis"
-refines = "Text"
+refines     = "Text"
 
 [concept.ChartSpec]
 description = "Specification for a chart visualization"
-refines = "Text"
+refines     = "Text"
 
 [concept.TableData]
 description = "Structured table data"
-refines = "JSON"
+refines     = "JSON"
 
 [concept.Narrative]
 description = "Written narrative describing insights"
-refines = "Text"
+refines     = "Text"
 
 [concept.Report]
 description = "A formatted report combining visuals and text"
-refines = "Text"
+refines     = "Text"
 
 [pipe.multi_format_report]
 type = "PipeSequence"
 description = "Analyze data then generate chart, table, and narrative in parallel"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "Report"
 steps = [
-    {pipe = "analyze_data", result = "insight"},
-    {pipe = "generate_outputs", result = "chart_spec"},
-    {pipe = "assemble_report", result = "report"},
+  { pipe = "analyze_data", result = "insight" },
+  { pipe = "generate_outputs", result = "chart_spec" },
+  { pipe = "assemble_report", result = "report" },
 ]
 
 [pipe.analyze_data]
 type = "PipeLLM"
 description = "Analyze raw data for key insights"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "Insight"
 prompt = """
 Analyze the following data and extract key insights:
@@ -47,19 +47,19 @@ Analyze the following data and extract key insights:
 [pipe.generate_outputs]
 type = "PipeParallel"
 description = "Generate chart, table, and narrative in parallel"
-inputs = {insight = "Insight"}
+inputs = { insight = "Insight" }
 output = "ChartSpec"
 add_each_output = true
 branches = [
-    {pipe = "generate_chart", result = "chart_spec"},
-    {pipe = "generate_table", result = "table_data"},
-    {pipe = "write_narrative", result = "narrative"},
+  { pipe = "generate_chart", result = "chart_spec" },
+  { pipe = "generate_table", result = "table_data" },
+  { pipe = "write_narrative", result = "narrative" },
 ]
 
 [pipe.generate_chart]
 type = "PipeLLM"
 description = "Generate chart specification from insights"
-inputs = {insight = "Insight"}
+inputs = { insight = "Insight" }
 output = "ChartSpec"
 prompt = """
 Create a chart specification for visualizing these insights:
@@ -70,7 +70,7 @@ Create a chart specification for visualizing these insights:
 [pipe.generate_table]
 type = "PipeLLM"
 description = "Generate structured table from insights"
-inputs = {insight = "Insight"}
+inputs = { insight = "Insight" }
 output = "TableData"
 prompt = """
 Create a structured data table summarizing these insights:
@@ -81,7 +81,7 @@ Create a structured data table summarizing these insights:
 [pipe.write_narrative]
 type = "PipeLLM"
 description = "Write narrative description of insights"
-inputs = {insight = "Insight"}
+inputs = { insight = "Insight" }
 output = "Narrative"
 prompt = """
 Write a clear narrative describing these insights:
@@ -92,7 +92,7 @@ Write a clear narrative describing these insights:
 [pipe.assemble_report]
 type = "PipeCompose"
 description = "Assemble final report from all outputs"
-inputs = {chart_spec = "ChartSpec", table_data = "TableData", narrative = "Narrative"}
+inputs = { chart_spec = "ChartSpec", table_data = "TableData", narrative = "Narrative" }
 output = "Report"
 template = """
 # Data Report

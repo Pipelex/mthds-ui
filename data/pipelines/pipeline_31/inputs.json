@@ -1,0 +1,14 @@
+{
+  "rfp": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://pipelex-web.s3.amazonaws.com/demo/Job-Offer.pdf"
+    }
+  },
+  "capabilities": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf"
+    }
+  }
+}

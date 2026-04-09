@@ -1,45 +1,45 @@
-domain = "image_catalog"
+domain      = "image_catalog"
 description = "Image processing: upload, parallel (thumbnail + describe + classify), catalog entry"
-main_pipe = "image_pipeline"
+main_pipe   = "image_pipeline"
 
 [concept.Description]
 description = "Text description of an image"
-refines = "Text"
+refines     = "Text"
 
 [concept.TagList]
 description = "List of classification tags"
-refines = "JSON"
+refines     = "JSON"
 
 [concept.CatalogEntry]
 description = "Complete catalog entry for an image"
-refines = "Text"
+refines     = "Text"
 
 [pipe.image_pipeline]
 type = "PipeSequence"
 description = "Process image: analyze in parallel then build catalog entry"
-inputs = {image = "Image"}
+inputs = { image = "Image" }
 output = "CatalogEntry"
 steps = [
-    {pipe = "parallel_analyze", result = "description"},
-    {pipe = "build_catalog", result = "entry"},
+  { pipe = "parallel_analyze", result = "description" },
+  { pipe = "build_catalog", result = "entry" },
 ]
 
 [pipe.parallel_analyze]
 type = "PipeParallel"
 description = "Describe, classify, and generate thumbnail in parallel"
-inputs = {image = "Image"}
+inputs = { image = "Image" }
 output = "Description"
 add_each_output = true
 branches = [
-    {pipe = "describe_image", result = "description"},
-    {pipe = "classify_image", result = "tags"},
-    {pipe = "generate_thumbnail", result = "thumbnail"},
+  { pipe = "describe_image", result = "description" },
+  { pipe = "classify_image", result = "tags" },
+  { pipe = "generate_thumbnail", result = "thumbnail" },
 ]
 
 [pipe.describe_image]
 type = "PipeLLM"
 description = "Generate detailed image description"
-inputs = {image = "Image"}
+inputs = { image = "Image" }
 output = "Description"
 prompt = """
 Describe this image in detail:
@@ -50,7 +50,7 @@ $image.caption
 [pipe.classify_image]
 type = "PipeLLM"
 description = "Classify image with tags"
-inputs = {image = "Image"}
+inputs = { image = "Image" }
 output = "TagList"
 prompt = """
 Classify this image with relevant tags:
@@ -59,16 +59,16 @@ $image.caption
 """
 
 [pipe.generate_thumbnail]
-type = "PipeImgGen"
+type        = "PipeImgGen"
 description = "Generate thumbnail version"
-inputs = {image = "Image"}
-output = "Image"
-prompt = "Thumbnail preview of: $image.caption"
+inputs      = { image = "Image" }
+output      = "Image"
+prompt      = "Thumbnail preview of: $image.caption"
 
 [pipe.build_catalog]
 type = "PipeCompose"
 description = "Build catalog entry from analyzed data"
-inputs = {description = "Description", tags = "TagList"}
+inputs = { description = "Description", tags = "TagList" }
 output = "CatalogEntry"
 template = """
 ## Catalog Entry

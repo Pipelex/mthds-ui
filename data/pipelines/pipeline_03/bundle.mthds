@@ -1,36 +1,36 @@
-domain = "document_processing"
+domain      = "document_processing"
 description = "Extract, analyze, and compose a report from a document"
-main_pipe = "extract_analyze_report"
+main_pipe   = "extract_analyze_report"
 
 [concept.Analysis]
 description = "An analytical assessment of content"
-refines = "Text"
+refines     = "Text"
 
 [concept.Report]
 description = "A formatted report document"
-refines = "Text"
+refines     = "Text"
 
 [pipe.extract_analyze_report]
 type = "PipeSequence"
 description = "Full document processing pipeline"
-inputs = {document = "Document"}
+inputs = { document = "Document" }
 output = "Report"
 steps = [
-    {pipe = "extract_pages", result = "pages"},
-    {pipe = "analyze_content", result = "analysis"},
-    {pipe = "compose_report", result = "report"},
+  { pipe = "extract_pages", result = "pages" },
+  { pipe = "analyze_content", result = "analysis" },
+  { pipe = "compose_report", result = "report" },
 ]
 
 [pipe.extract_pages]
-type = "PipeExtract"
+type        = "PipeExtract"
 description = "Extract pages from document"
-inputs = {document = "Document"}
-output = "Page[]"
+inputs      = { document = "Document" }
+output      = "Page[]"
 
 [pipe.analyze_content]
 type = "PipeLLM"
 description = "Analyze extracted content"
-inputs = {pages = "Page[]"}
+inputs = { pages = "Page[]" }
 output = "Analysis"
 prompt = """
 Analyze the following document content thoroughly:
@@ -41,7 +41,7 @@ Analyze the following document content thoroughly:
 [pipe.compose_report]
 type = "PipeCompose"
 description = "Format analysis into final report"
-inputs = {analysis = "Analysis"}
+inputs = { analysis = "Analysis" }
 output = "Report"
 template = """
 # Document Analysis Report

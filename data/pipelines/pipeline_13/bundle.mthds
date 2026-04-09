@@ -1,42 +1,42 @@
-domain = "data_processing"
+domain      = "data_processing"
 description = "Diamond pattern: 4-way fan-out then fan-in merge"
-main_pipe = "diamond_pipeline"
+main_pipe   = "diamond_pipeline"
 
 [concept.ProcessedData]
 description = "Data processed through one pathway"
-refines = "Text"
+refines     = "Text"
 
 [concept.MergedResult]
 description = "Result merged from all pathways"
-refines = "Text"
+refines     = "Text"
 
 [pipe.diamond_pipeline]
 type = "PipeSequence"
 description = "Split input, process 4 ways in parallel, merge"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "MergedResult"
 steps = [
-    {pipe = "quad_process", result = "alpha_result"},
-    {pipe = "merge_all", result = "merged"},
+  { pipe = "quad_process", result = "alpha_result" },
+  { pipe = "merge_all", result = "merged" },
 ]
 
 [pipe.quad_process]
 type = "PipeParallel"
 description = "Process data through 4 parallel paths"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "ProcessedData"
 add_each_output = true
 branches = [
-    {pipe = "process_alpha", result = "alpha_result"},
-    {pipe = "process_beta", result = "beta_result"},
-    {pipe = "process_gamma", result = "gamma_result"},
-    {pipe = "process_delta", result = "delta_result"},
+  { pipe = "process_alpha", result = "alpha_result" },
+  { pipe = "process_beta", result = "beta_result" },
+  { pipe = "process_gamma", result = "gamma_result" },
+  { pipe = "process_delta", result = "delta_result" },
 ]
 
 [pipe.process_alpha]
 type = "PipeLLM"
 description = "Process data for technical analysis"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "ProcessedData"
 prompt = """
 Perform a technical analysis of this data:
@@ -45,16 +45,16 @@ Perform a technical analysis of this data:
 """
 
 [pipe.process_beta]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search for related context"
-inputs = {data = "Text"}
-output = "SearchResult"
-prompt = "Find related information about $data"
+inputs      = { data = "Text" }
+output      = "SearchResult"
+prompt      = "Find related information about $data"
 
 [pipe.process_gamma]
 type = "PipeLLM"
 description = "Process data for risk assessment"
-inputs = {data = "Text"}
+inputs = { data = "Text" }
 output = "ProcessedData"
 prompt = """
 Perform a risk assessment of this data:
@@ -63,16 +63,16 @@ Perform a risk assessment of this data:
 """
 
 [pipe.process_delta]
-type = "PipeImgGen"
+type        = "PipeImgGen"
 description = "Generate visualization of the data"
-inputs = {data = "Text"}
-output = "Image"
-prompt = "Data visualization diagram for: $data"
+inputs      = { data = "Text" }
+output      = "Image"
+prompt      = "Data visualization diagram for: $data"
 
 [pipe.merge_all]
 type = "PipeCompose"
 description = "Merge all processed results"
-inputs = {alpha_result = "ProcessedData", beta_result = "SearchResult", gamma_result = "ProcessedData", delta_result = "Image"}
+inputs = { alpha_result = "ProcessedData", beta_result = "SearchResult", gamma_result = "ProcessedData", delta_result = "Image" }
 output = "MergedResult"
 template = """
 # Merged Analysis

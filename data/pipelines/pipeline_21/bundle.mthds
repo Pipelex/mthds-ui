@@ -1,58 +1,58 @@
-domain = "data_aggregation"
+domain      = "data_aggregation"
 description = "Multi-input converge: 3 parallel data sources feed into one combiner"
-main_pipe = "multi_source_pipeline"
+main_pipe   = "multi_source_pipeline"
 
 [concept.CombinedData]
 description = "Data combined from multiple sources"
-refines = "Text"
+refines     = "Text"
 
 [pipe.multi_source_pipeline]
 type = "PipeSequence"
 description = "Gather from 3 sources in parallel then combine"
-inputs = {query = "Text"}
+inputs = { query = "Text" }
 output = "CombinedData"
 steps = [
-    {pipe = "gather_sources", result = "api_data"},
-    {pipe = "combine_sources", result = "combined"},
+  { pipe = "gather_sources", result = "api_data" },
+  { pipe = "combine_sources", result = "combined" },
 ]
 
 [pipe.gather_sources]
 type = "PipeParallel"
 description = "Fetch from API, file, and web in parallel"
-inputs = {query = "Text"}
+inputs = { query = "Text" }
 output = "SearchResult"
 add_each_output = true
 branches = [
-    {pipe = "fetch_api", result = "api_data"},
-    {pipe = "search_web", result = "web_data"},
-    {pipe = "search_academic", result = "academic_data"},
+  { pipe = "fetch_api", result = "api_data" },
+  { pipe = "search_web", result = "web_data" },
+  { pipe = "search_academic", result = "academic_data" },
 ]
 
 [pipe.fetch_api]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search API data sources"
-inputs = {query = "Text"}
-output = "SearchResult"
-prompt = "API data about $query"
+inputs      = { query = "Text" }
+output      = "SearchResult"
+prompt      = "API data about $query"
 
 [pipe.search_web]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search the web"
-inputs = {query = "Text"}
-output = "SearchResult"
-prompt = "$query latest information"
+inputs      = { query = "Text" }
+output      = "SearchResult"
+prompt      = "$query latest information"
 
 [pipe.search_academic]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search academic papers"
-inputs = {query = "Text"}
-output = "SearchResult"
-prompt = "Academic research on $query"
+inputs      = { query = "Text" }
+output      = "SearchResult"
+prompt      = "Academic research on $query"
 
 [pipe.combine_sources]
 type = "PipeLLM"
 description = "Combine and synthesize data from all sources"
-inputs = {api_data = "SearchResult", web_data = "SearchResult", academic_data = "SearchResult", query = "Text"}
+inputs = { api_data = "SearchResult", web_data = "SearchResult", academic_data = "SearchResult", query = "Text" }
 output = "CombinedData"
 prompt = """
 Synthesize information from these three sources to answer: @query

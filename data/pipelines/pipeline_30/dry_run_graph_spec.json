@@ -1,0 +1,1957 @@
+{
+  "graph_id": "4fd42d64-767e-4a08-a917-183d1f28a132",
+  "created_at": "2026-04-09T09:46:08.506866Z",
+  "pipeline_ref": {
+    "domain": "candidate_screening",
+    "main_pipe": "screen_candidate",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_0",
+      "kind": "controller",
+      "pipe_code": "screen_candidate",
+      "pipe_type": "PipeSequence",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.516858Z",
+        "ended_at": "2026-04-09T09:46:08.591044Z",
+        "duration": 0.074186
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "sNlVSeZfAsRHVKgVOFcR",
+            "preview": null,
+            "size": null,
+            "digest": "P5CDS",
+            "data": {
+              "url": "TRadZwKzustDNJTlJuHz",
+              "public_url": "szFdOHWbpHAwMjkAGftn",
+              "mime_type": "sNlVSeZfAsRHVKgVOFcR",
+              "filename": "kAvWUJGYLsOTLkzfsTNW",
+              "title": "OKlJITdfitHhSnjRiKln",
+              "snippet": "NBuJphQAypZQtbScmnmg"
+            },
+            "data_text": "OKlJITdfitHhSnjRiKln (TRadZwKzustDNJTlJuHz)\n  NBuJphQAypZQtbScmnmg\n",
+            "data_html": "<a href=\"szFdOHWbpHAwMjkAGftn\" class=\"msg-document\">OKlJITdfitHhSnjRiKln</a><br/><small>NBuJphQAypZQtbScmnmg</small>",
+            "extra": {}
+          },
+          {
+            "name": "job_offer",
+            "concept": "Document",
+            "content_type": "foCQEduLWEJCpMXHJMpV",
+            "preview": null,
+            "size": null,
+            "digest": "ato74",
+            "data": {
+              "url": "HeVZgxdiPoTZwmDUjgOz",
+              "public_url": "IopOSibaqAcIIUrHBfVw",
+              "mime_type": "foCQEduLWEJCpMXHJMpV",
+              "filename": "eoUjpmIGMSAhLihfBnpm",
+              "title": "rBxQhkrMqdGTerHZIaJX",
+              "snippet": "WMrOFJHscxcBbBTAliuU"
+            },
+            "data_text": "rBxQhkrMqdGTerHZIaJX (HeVZgxdiPoTZwmDUjgOz)\n  WMrOFJHscxcBbBTAliuU\n",
+            "data_html": "<a href=\"IopOSibaqAcIIUrHBfVw\" class=\"msg-document\">rBxQhkrMqdGTerHZIaJX</a><br/><small>WMrOFJHscxcBbBTAliuU</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "interview_question",
+            "concept": "InterviewQuestion",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "PnDkM",
+            "data": {
+              "items": [
+                {
+                  "text": "NnonTmqJTNzbTXeCnaKJ"
+                },
+                {
+                  "text": "GFTRGrHXqdBTAYArFOOV"
+                },
+                {
+                  "text": "mbdwapZcivxrthwlOVIM"
+                },
+                {
+                  "text": "ZMNuFkIusfzvsRhGCjSy"
+                },
+                {
+                  "text": "foUzdctNuQwDbaicljep"
+                }
+              ]
+            },
+            "data_text": "   1    │ NnonTmqJTNzbTXeCnaKJ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ GFTRGrHXqdBTAYArFOOV                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ mbdwapZcivxrthwlOVIM                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ ZMNuFkIusfzvsRhGCjSy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │ foUzdctNuQwDbaicljep                                                  \n",
+            "data_html": "<ul><li>NnonTmqJTNzbTXeCnaKJ</li><li>GFTRGrHXqdBTAYArFOOV</li><li>mbdwapZcivxrthwlOVIM</li><li>ZMNuFkIusfzvsRhGCjSy</li><li>foUzdctNuQwDbaicljep</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 4
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_cv",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.521298Z",
+        "ended_at": "2026-04-09T09:46:08.528530Z",
+        "duration": 0.007232
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "sNlVSeZfAsRHVKgVOFcR",
+            "preview": null,
+            "size": null,
+            "digest": "P5CDS",
+            "data": {
+              "url": "TRadZwKzustDNJTlJuHz",
+              "public_url": "szFdOHWbpHAwMjkAGftn",
+              "mime_type": "sNlVSeZfAsRHVKgVOFcR",
+              "filename": "kAvWUJGYLsOTLkzfsTNW",
+              "title": "OKlJITdfitHhSnjRiKln",
+              "snippet": "NBuJphQAypZQtbScmnmg"
+            },
+            "data_text": "OKlJITdfitHhSnjRiKln (TRadZwKzustDNJTlJuHz)\n  NBuJphQAypZQtbScmnmg\n",
+            "data_html": "<a href=\"szFdOHWbpHAwMjkAGftn\" class=\"msg-document\">OKlJITdfitHhSnjRiKln</a><br/><small>NBuJphQAypZQtbScmnmg</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NYdk4",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "cv",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "kind": "operator",
+      "pipe_code": "extract_job_offer",
+      "pipe_type": "PipeExtract",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.529386Z",
+        "ended_at": "2026-04-09T09:46:08.535710Z",
+        "duration": 0.006324
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer",
+            "concept": "Document",
+            "content_type": "foCQEduLWEJCpMXHJMpV",
+            "preview": null,
+            "size": null,
+            "digest": "ato74",
+            "data": {
+              "url": "HeVZgxdiPoTZwmDUjgOz",
+              "public_url": "IopOSibaqAcIIUrHBfVw",
+              "mime_type": "foCQEduLWEJCpMXHJMpV",
+              "filename": "eoUjpmIGMSAhLihfBnpm",
+              "title": "rBxQhkrMqdGTerHZIaJX",
+              "snippet": "WMrOFJHscxcBbBTAliuU"
+            },
+            "data_text": "rBxQhkrMqdGTerHZIaJX (HeVZgxdiPoTZwmDUjgOz)\n  WMrOFJHscxcBbBTAliuU\n",
+            "data_html": "<a href=\"IopOSibaqAcIIUrHBfVw\" class=\"msg-document\">rBxQhkrMqdGTerHZIaJX</a><br/><small>WMrOFJHscxcBbBTAliuU</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "MdG44",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "job_offer",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "kind": "operator",
+      "pipe_code": "analyze_match",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.536694Z",
+        "ended_at": "2026-04-09T09:46:08.551952Z",
+        "duration": 0.015258
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NYdk4",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "MdG44",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_result",
+            "concept": "DetailedMatchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RCW75",
+            "data": {
+              "is_match": false,
+              "match_analysis": "xenobDUDfVztmyBrCggs"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ False                                       \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ xenobDUDfVztmyBrCggs                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>xenobDUDfVztmyBrCggs</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "@default-premium",
+        "resolved_model_for_object": "@default-premium",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an experienced HR expert specializing in candidate screening and recruitment. Your task is to analyze a candidate's CV against a job offer and produce a detailed structured assessment including per-skill scoring, culture fit, and growth areas.",
+        "rendered_user_prompt": "Analyze the following candidate CV pages and job offer to determine if the candidate is a good match for the position.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass DetailedMatchResult(MatchResult):\n    \"\"\"An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.\"\"\"\n    # No additional fields\n\nclass MatchResult(StructuredContent):\n    \"\"\"A structured assessment of whether a candidate's CV matches a job offer.\"\"\"\n    is_match: bool  # Whether the candidate's profile is a good match for the job offer\n    match_analysis: str  # Brief explanation of the reasoning behind the match or mismatch determination\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "kind": "controller",
+      "pipe_code": "route_on_match",
+      "pipe_type": "PipeCondition",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.551989Z",
+        "ended_at": "2026-04-09T09:46:08.590163Z",
+        "duration": 0.038174
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "match_result",
+            "concept": "DetailedMatchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RCW75",
+            "data": {
+              "is_match": false,
+              "match_analysis": "xenobDUDfVztmyBrCggs"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ False                                       \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ xenobDUDfVztmyBrCggs                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>xenobDUDfVztmyBrCggs</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NYdk4",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "MdG44",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "decision_output",
+            "concept": "InterviewQuestion",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "PnDkM",
+            "data": {
+              "items": [
+                {
+                  "text": "NnonTmqJTNzbTXeCnaKJ"
+                },
+                {
+                  "text": "GFTRGrHXqdBTAYArFOOV"
+                },
+                {
+                  "text": "mbdwapZcivxrthwlOVIM"
+                },
+                {
+                  "text": "ZMNuFkIusfzvsRhGCjSy"
+                },
+                {
+                  "text": "foUzdctNuQwDbaicljep"
+                }
+              ]
+            },
+            "data_text": "   1    │ NnonTmqJTNzbTXeCnaKJ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ GFTRGrHXqdBTAYArFOOV                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ mbdwapZcivxrthwlOVIM                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ ZMNuFkIusfzvsRhGCjSy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │ foUzdctNuQwDbaicljep                                                  \n",
+            "data_html": "<ul><li>NnonTmqJTNzbTXeCnaKJ</li><li>GFTRGrHXqdBTAYArFOOV</li><li>mbdwapZcivxrthwlOVIM</li><li>ZMNuFkIusfzvsRhGCjSy</li><li>foUzdctNuQwDbaicljep</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_5",
+      "kind": "operator",
+      "pipe_code": "write_refusal_email",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.557315Z",
+        "ended_at": "2026-04-09T09:46:08.572410Z",
+        "duration": 0.015095
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NYdk4",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "MdG44",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "match_result",
+            "concept": "DetailedMatchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RCW75",
+            "data": {
+              "is_match": false,
+              "match_analysis": "xenobDUDfVztmyBrCggs"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ False                                       \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ xenobDUDfVztmyBrCggs                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>xenobDUDfVztmyBrCggs</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "email",
+            "concept": "Email",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "WLhjW",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while re\n    \n    user_text:\n    Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: D\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: system_text: You are a seasoned HR     \nprofessional skilled at writing empathetic, professional correspondence. Your task is to draft a    \nrefusal email to a candidate whose profile does not match a job offer. The email must be courteous, \nrespectful, and encouraging, while re                                                               \n\n                                                                                                    \n user_text:                                                                                         \n Based on the candidate's CV and the job offer below, write a professional refusal email. Use the   \n match result to reference specific reasons why the candidate's profile does not fit the role.      \n                                                                                                    \n\n<cv_pages>                                                                                          \n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: D                                                                                   \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while re\n    \n    user_text:\n    Based on the candidate&#x27;s CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate&#x27;s profile does not fit the role.\n\n&lt;cv_pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: D\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "@default-premium",
+        "resolved_model_for_object": "@default-premium",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while referencing specific reasons from the match analysis to explain the decision. Be concise.",
+        "rendered_user_prompt": "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: False\n\n# match_analysis: xenobDUDfVztmyBrCggs\n</match_result>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:node_6",
+      "kind": "operator",
+      "pipe_code": "generate_interview_questions",
+      "pipe_type": "PipeLLM",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-04-09T09:46:08.572449Z",
+        "ended_at": "2026-04-09T09:46:08.589262Z",
+        "duration": 0.016813
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NYdk4",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "MdG44",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "match_result",
+            "concept": "DetailedMatchResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "RCW75",
+            "data": {
+              "is_match": false,
+              "match_analysis": "xenobDUDfVztmyBrCggs"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ False                                       \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ xenobDUDfVztmyBrCggs                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>xenobDUDfVztmyBrCggs</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "interview_question",
+            "concept": "InterviewQuestion",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "PnDkM",
+            "data": {
+              "items": [
+                {
+                  "text": "NnonTmqJTNzbTXeCnaKJ"
+                },
+                {
+                  "text": "GFTRGrHXqdBTAYArFOOV"
+                },
+                {
+                  "text": "mbdwapZcivxrthwlOVIM"
+                },
+                {
+                  "text": "ZMNuFkIusfzvsRhGCjSy"
+                },
+                {
+                  "text": "foUzdctNuQwDbaicljep"
+                }
+              ]
+            },
+            "data_text": "   1    │ NnonTmqJTNzbTXeCnaKJ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ GFTRGrHXqdBTAYArFOOV                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ mbdwapZcivxrthwlOVIM                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ ZMNuFkIusfzvsRhGCjSy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │ foUzdctNuQwDbaicljep                                                  \n",
+            "data_html": "<ul><li>NnonTmqJTNzbTXeCnaKJ</li><li>GFTRGrHXqdBTAYArFOOV</li><li>mbdwapZcivxrthwlOVIM</li><li>ZMNuFkIusfzvsRhGCjSy</li><li>foUzdctNuQwDbaicljep</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "@default-premium",
+        "resolved_model_for_object": "@default-premium",
+        "is_multiple_output": true,
+        "rendered_system_prompt": "You are an experienced HR interviewer. Your task is to craft tailored interview questions for a candidate based on their CV, the job offer, and a prior match analysis. Each question should probe relevant experience, skills, and cultural fit, focusing on the key strengths and gaps identified in the analysis.",
+        "rendered_user_prompt": "Based on the following candidate CV, job offer, and match analysis, generate 5 tailored interview questions that probe the candidate's relevant experience, skills, and fit for the role. Focus on the key areas highlighted in the match analysis.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: False\n\n# match_analysis: xenobDUDfVztmyBrCggs\n</match_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate based on their profile and the job requirements.\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_0",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_0",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_1",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_0",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_2",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_0",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_3",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_0",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_4",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_5",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_5",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_6",
+      "kind": "contains",
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_6",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "kind": "data",
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_7",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "kind": "data",
+      "label": "job_offer_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_8",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "kind": "data",
+      "label": "match_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_9",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "kind": "data",
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_10",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_4",
+      "kind": "data",
+      "label": "job_offer_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_11",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_5",
+      "kind": "data",
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_12",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_5",
+      "kind": "data",
+      "label": "job_offer_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_13",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_5",
+      "kind": "data",
+      "label": "match_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_14",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_1",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_6",
+      "kind": "data",
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_15",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_2",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_6",
+      "kind": "data",
+      "label": "job_offer_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4fd42d64-767e-4a08-a917-183d1f28a132:edge_16",
+      "source": "4fd42d64-767e-4a08-a917-183d1f28a132:node_3",
+      "target": "4fd42d64-767e-4a08-a917-183d1f28a132:node_6",
+      "kind": "data",
+      "label": "match_result",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    }
+  ],
+  "meta": {},
+  "pipe_registry": {
+    "candidate_screening.screen_candidate": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "screen_candidate",
+      "domain_code": "candidate_screening",
+      "description": "Main pipeline orchestrator for end-to-end candidate screening: extract the CV, analyze the match against the job offer, then conditionally generate either a refusal email or interview questions.\n",
+      "inputs": {
+        "cv": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        },
+        "job_offer": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_cv",
+          "output_name": "cv_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "extract_job_offer",
+          "output_name": "job_offer_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_match",
+          "output_name": "match_result",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "route_on_match",
+          "output_name": "decision_output",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "candidate_screening.extract_cv": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_cv",
+      "domain_code": "candidate_screening",
+      "description": "Extract text content from the candidate's CV document into pages.",
+      "inputs": {
+        "cv": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": "@default-extract-document",
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "cv"
+    },
+    "candidate_screening.extract_job_offer": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_job_offer",
+      "domain_code": "candidate_screening",
+      "description": "Extract text content from the job offer document into pages.",
+      "inputs": {
+        "job_offer": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true
+      },
+      "extract_choice": "@default-extract-document",
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "job_offer"
+    },
+    "candidate_screening.analyze_match": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_match",
+      "domain_code": "candidate_screening",
+      "description": "Analyze the match between the candidate's CV and the job offer. Determine if the candidate is a good fit and provide structured reasoning including an is_match boolean.\n",
+      "inputs": {
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "job_offer_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "DetailedMatchResult",
+          "domain_code": "candidate_screening",
+          "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+          "structure_class_name": "DetailedMatchResult",
+          "refines": "candidate_screening.MatchResult"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": {
+          "template": "You are an experienced HR expert specializing in candidate screening and recruitment. Your task is to analyze a candidate's CV against a job offer and produce a detailed structured assessment including per-skill scoring, culture fit, and growth areas.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Analyze the following candidate CV pages and job offer to determine if the candidate is a good match for the position.\n\n@cv_pages\n\n@job_offer_pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "candidate_screening.route_on_match": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_on_match",
+      "domain_code": "candidate_screening",
+      "description": "Route to refusal email generation if the candidate does not match the job offer, or to interview question generation if they do match.\n",
+      "inputs": {
+        "match_result": {
+          "concept": {
+            "code": "DetailedMatchResult",
+            "domain_code": "candidate_screening",
+            "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+            "structure_class_name": "DetailedMatchResult",
+            "refines": "candidate_screening.MatchResult"
+          },
+          "multiplicity": null
+        },
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "job_offer_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": null
+      },
+      "expression": "{{ match_result.is_match }}",
+      "outcome_map": {
+        "True": "generate_interview_questions",
+        "False": "write_refusal_email"
+      },
+      "default_outcome": "fail",
+      "add_alias_from_expression_to": null
+    },
+    "candidate_screening.write_refusal_email": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "write_refusal_email",
+      "domain_code": "candidate_screening",
+      "description": "Write a professional, courteous refusal email to the candidate. Reference specific reasons from the match analysis explaining why their profile does not fit the role. Keep the tone respectful and encouraging.\n",
+      "inputs": {
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "job_offer_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "match_result": {
+          "concept": {
+            "code": "DetailedMatchResult",
+            "domain_code": "candidate_screening",
+            "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+            "structure_class_name": "DetailedMatchResult",
+            "refines": "candidate_screening.MatchResult"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Email",
+          "domain_code": "candidate_screening",
+          "description": "A professional email message.",
+          "structure_class_name": "Email",
+          "refines": "native.Text"
+        },
+        "multiplicity": null
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": {
+          "template": "You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while referencing specific reasons from the match analysis to explain the decision. Be concise.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n@cv_pages\n\n@job_offer_pages\n\n@match_result\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
+    },
+    "candidate_screening.generate_interview_questions": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_interview_questions",
+      "domain_code": "candidate_screening",
+      "description": "Generate 5 tailored interview questions based on the candidate's CV and the job requirements. Questions should probe relevant experience, skills, and fit, focusing on key areas identified in the match analysis.\n",
+      "inputs": {
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "job_offer_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true
+        },
+        "match_result": {
+          "concept": {
+            "code": "DetailedMatchResult",
+            "domain_code": "candidate_screening",
+            "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+            "structure_class_name": "DetailedMatchResult",
+            "refines": "candidate_screening.MatchResult"
+          },
+          "multiplicity": null
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InterviewQuestion",
+          "domain_code": "candidate_screening",
+          "description": "A tailored interview question for a candidate based on their profile and the job requirements.",
+          "structure_class_name": "InterviewQuestion",
+          "refines": "native.Text"
+        },
+        "multiplicity": 5
+      },
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": {
+          "template": "You are an experienced HR interviewer. Your task is to craft tailored interview questions for a candidate based on their CV, the job offer, and a prior match analysis. Each question should probe relevant experience, skills, and cultural fit, focusing on the key strengths and gaps identified in the analysis.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Based on the following candidate CV, job offer, and match analysis, generate 5 tailored interview questions that probe the candidate's relevant experience, skills, and fit for the role. Focus on the key areas highlighted in the match analysis.\n\n@cv_pages\n\n@job_offer_pages\n\n@match_result\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": 5
+    }
+  },
+  "concept_registry": {
+    "native.Anything": {
+      "code": "Anything",
+      "domain_code": "native",
+      "description": "Anything",
+      "structure_class_name": "AnythingContent",
+      "refines": null,
+      "json_schema": null
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageSize"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The size in pixels (width and height) of the image"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "ImageSize": {
+            "properties": {
+              "width": {
+                "title": "Width",
+                "type": "integer"
+              },
+              "height": {
+                "title": "Height",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "width",
+              "height"
+            ],
+            "title": "ImageSize",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "candidate_screening.DetailedMatchResult": {
+      "code": "DetailedMatchResult",
+      "domain_code": "candidate_screening",
+      "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+      "structure_class_name": "DetailedMatchResult",
+      "refines": "candidate_screening.MatchResult",
+      "json_schema": {
+        "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+        "properties": {
+          "is_match": {
+            "description": "Whether the candidate's profile is a good match for the job offer",
+            "title": "Is Match",
+            "type": "boolean"
+          },
+          "match_analysis": {
+            "description": "Brief explanation of the reasoning behind the match or mismatch determination",
+            "title": "Match Analysis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "is_match",
+          "match_analysis"
+        ],
+        "title": "DetailedMatchResult",
+        "type": "object"
+      }
+    },
+    "candidate_screening.Email": {
+      "code": "Email",
+      "domain_code": "candidate_screening",
+      "description": "A professional email message.",
+      "structure_class_name": "Email",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A professional email message.",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Email",
+        "type": "object"
+      }
+    },
+    "candidate_screening.InterviewQuestion": {
+      "code": "InterviewQuestion",
+      "domain_code": "candidate_screening",
+      "description": "A tailored interview question for a candidate based on their profile and the job requirements.",
+      "structure_class_name": "InterviewQuestion",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A tailored interview question for a candidate based on their profile and the job requirements.",
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "InterviewQuestion",
+        "type": "object"
+      }
+    }
+  }
+}

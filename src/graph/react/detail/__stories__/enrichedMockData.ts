@@ -718,6 +718,86 @@ export const CONCEPT_REPORT: ConceptInfo = {
   },
 } as any as ConceptInfo;
 
+export const CONCEPT_EVALUATION: ConceptInfo = {
+  code: "Evaluation",
+  domain_code: "recruitment",
+  description: "Structured evaluation of a candidate against a role",
+  structure_class_name: "recruitment__Evaluation",
+  refines: null,
+  json_schema: {
+    description: "Structured evaluation of a candidate against a role",
+    properties: {
+      score: {
+        description: "Overall evaluation score 0-100",
+        title: "Score",
+        type: "number",
+      },
+      summary: {
+        description: "Brief evaluation summary",
+        title: "Summary",
+        type: "string",
+      },
+      criteria: {
+        description: "Evaluation criteria breakdown",
+        items: { type: "object" },
+        title: "Criteria",
+        type: "array",
+      },
+    },
+    required: ["score", "summary"],
+    title: "recruitment__Evaluation",
+    type: "object",
+  },
+} as any as ConceptInfo;
+
+export const CONCEPT_TECHNICAL_EVALUATION: ConceptInfo = {
+  code: "TechnicalEvaluation",
+  domain_code: "recruitment",
+  description: "Technical skills evaluation with coding assessment results",
+  structure_class_name: "recruitment__TechnicalEvaluation",
+  refines: "recruitment.Evaluation",
+  json_schema: {
+    description: "Technical skills evaluation with coding assessment results",
+    properties: {
+      score: {
+        description: "Overall evaluation score 0-100",
+        title: "Score",
+        type: "number",
+      },
+      summary: {
+        description: "Brief evaluation summary",
+        title: "Summary",
+        type: "string",
+      },
+      criteria: {
+        description: "Evaluation criteria breakdown",
+        items: { type: "object" },
+        title: "Criteria",
+        type: "array",
+      },
+      languages: {
+        description: "Programming languages assessed",
+        items: { type: "string" },
+        title: "Languages",
+        type: "array",
+      },
+      coding_score: {
+        description: "Coding challenge score 0-100",
+        title: "Coding Score",
+        type: "number",
+      },
+      system_design_score: {
+        description: "System design assessment score 0-100",
+        title: "System Design Score",
+        type: "number",
+      },
+    },
+    required: ["score", "summary", "languages", "coding_score"],
+    title: "recruitment__TechnicalEvaluation",
+    type: "object",
+  },
+} as any as ConceptInfo;
+
 export const CONCEPT_CLASSIFIEDTEXT: ConceptInfo = {
   code: "ClassifiedText",
   domain_code: "translation",

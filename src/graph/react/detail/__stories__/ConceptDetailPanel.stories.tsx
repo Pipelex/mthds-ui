@@ -7,6 +7,8 @@ import {
   CONCEPT_CANDIDATEPROFILE,
   CONCEPT_MATCHSCORE,
   CONCEPT_REPORT,
+  CONCEPT_EVALUATION,
+  CONCEPT_TECHNICAL_EVALUATION,
 } from "./enrichedMockData";
 
 const meta: Meta = {
@@ -76,6 +78,24 @@ export const WithLiveData: Story = {
           data_text: "Score: 85\nReasoning: Strong technical background with relevant experience in ML and distributed systems.",
         }}
       />
+    </DetailPanel>
+  ),
+};
+
+export const ParentConcept: Story = {
+  name: "Parent (Evaluation)",
+  render: () => (
+    <DetailPanel isOpen={true} onClose={() => {}}>
+      <ConceptDetailPanel concept={CONCEPT_EVALUATION} />
+    </DetailPanel>
+  ),
+};
+
+export const RefinedConcept: Story = {
+  name: "Refined (TechnicalEvaluation → Evaluation)",
+  render: () => (
+    <DetailPanel isOpen={true} onClose={() => {}}>
+      <ConceptDetailPanel concept={CONCEPT_TECHNICAL_EVALUATION} />
     </DetailPanel>
   ),
 };

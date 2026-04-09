@@ -61,6 +61,12 @@ import {
 // CV Matching (pipeline_28) — not in data/pipelines/, uses old spec format
 import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "./pipelines/specs/cvMatching";
 
+// CV Analyzer — has concepts refining other concepts
+import { DRY_CV_ANALYZER, LIVE_CV_ANALYZER } from "./pipelines/specs/cvAnalyzer";
+
+// RFP Qualifier — structured concepts with refinement
+import { DRY_RFP_QUALIFIER, LIVE_RFP_QUALIFIER } from "./pipelines/specs/rfpQualifier";
+
 // ─── Re-export all individual specs ──────────────────────────────────
 
 export {
@@ -118,6 +124,10 @@ export {
   LIVE_CV_MATCHING,
   DRY_CV_MATCHING_26,
   LIVE_CV_MATCHING_26,
+  DRY_CV_ANALYZER,
+  LIVE_CV_ANALYZER,
+  DRY_RFP_QUALIFIER,
+  LIVE_RFP_QUALIFIER,
 };
 
 // ─── Catalogs ────────────────────────────────────────────────────────

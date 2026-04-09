@@ -1,91 +1,91 @@
-domain = "deep_processing"
+domain      = "deep_processing"
 description = "Deep nesting 3 levels: Seq > Parallel > (Batch + Seq)"
-main_pipe = "deep_nested_pipeline"
+main_pipe   = "deep_nested_pipeline"
 
 [concept.BatchResult]
 description = "Result from batch processing"
-refines = "Text"
+refines     = "Text"
 
 [concept.SearchSummary]
 description = "Summary from search results"
-refines = "Text"
+refines     = "Text"
 
 [concept.FinalOutput]
 description = "Final combined output"
-refines = "Text"
+refines     = "Text"
 
 [pipe.deep_nested_pipeline]
 type = "PipeSequence"
 description = "Entry, deep parallel processing, then exit"
-inputs = {document = "Document"}
+inputs = { document = "Document" }
 output = "FinalOutput"
 steps = [
-    {pipe = "extract_input", result = "pages"},
-    {pipe = "level_2_parallel", result = "batch_result"},
-    {pipe = "exit_combine", result = "final"},
+  { pipe = "extract_input", result = "pages" },
+  { pipe = "level_2_parallel", result = "batch_result" },
+  { pipe = "exit_combine", result = "final" },
 ]
 
 [pipe.extract_input]
-type = "PipeExtract"
+type        = "PipeExtract"
 description = "Extract content from input document"
-inputs = {document = "Document"}
-output = "Page[]"
+inputs      = { document = "Document" }
+output      = "Page[]"
 
 [pipe.level_2_parallel]
 type = "PipeParallel"
 description = "Level 2: batch branch and sequence branch in parallel"
-inputs = {pages = "Page[]"}
+inputs = { pages = "Page[]" }
 output = "BatchResult"
 add_each_output = true
 branches = [
-    {pipe = "batch_branch", result = "batch_result"},
-    {pipe = "search_branch", result = "search_summary"},
+  { pipe = "batch_branch", result = "batch_result" },
+  { pipe = "search_branch", result = "search_summary" },
 ]
 
 [pipe.batch_branch]
-type = "PipeBatch"
-description = "Level 3: batch-process each page"
-inputs = {pages = "Page[]"}
-output = "BatchResult[]"
+type             = "PipeBatch"
+description      = "Level 3: batch-process each page"
+inputs           = { pages = "Page[]" }
+output           = "BatchResult[]"
 branch_pipe_code = "process_single_page"
-input_list_name = "pages"
-input_item_name = "page"
+input_list_name  = "pages"
+input_item_name  = "page"
 
 [pipe.process_single_page]
-type = "PipeLLM"
+type        = "PipeLLM"
 description = "Process a single page"
-inputs = {page = "Page"}
-output = "BatchResult"
-prompt = "Summarize this page:\n\n@page"
+inputs      = { page = "Page" }
+output      = "BatchResult"
+prompt      = "Summarize this page:\n\n@page"
 
 [pipe.search_branch]
 type = "PipeSequence"
 description = "Level 3: search and summarize"
-inputs = {pages = "Page[]"}
+inputs = { pages = "Page[]" }
 output = "SearchSummary"
 steps = [
-    {pipe = "search_context", result = "search_result"},
-    {pipe = "summarize_search", result = "search_summary"},
+  { pipe = "search_context", result = "search_result" },
+  { pipe = "summarize_search", result = "search_summary" },
 ]
 
 [pipe.search_context]
-type = "PipeSearch"
+type        = "PipeSearch"
 description = "Search for related context"
-inputs = {pages = "Page[]"}
-output = "SearchResult"
-prompt = "Related information for: $pages"
+inputs      = { pages = "Page[]" }
+output      = "SearchResult"
+prompt      = "Related information for: $pages"
 
 [pipe.summarize_search]
-type = "PipeLLM"
+type        = "PipeLLM"
 description = "Summarize search findings"
-inputs = {search_result = "SearchResult"}
-output = "SearchSummary"
-prompt = "Summarize these search findings:\n\n@search_result"
+inputs      = { search_result = "SearchResult" }
+output      = "SearchSummary"
+prompt      = "Summarize these search findings:\n\n@search_result"
 
 [pipe.exit_combine]
 type = "PipeCompose"
 description = "Combine batch and search results"
-inputs = {batch_result = "BatchResult[]", search_summary = "SearchSummary"}
+inputs = { batch_result = "BatchResult[]", search_summary = "SearchSummary" }
 output = "FinalOutput"
 template = """
 # Deep Processing Results
