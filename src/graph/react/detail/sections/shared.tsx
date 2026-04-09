@@ -102,7 +102,7 @@ export function PromptToggle({
   const canToggle = hasTemplate && hasRendered;
 
   function handleCopy() {
-    if (!activeText) return;
+    if (!activeText || !navigator.clipboard) return;
     navigator.clipboard.writeText(activeText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
