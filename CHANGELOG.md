@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.3.2] - 2026-04-10
+
+### Fixed
+
+- **Detail panel CSS not loading in consumers**: `DetailPanel.css` and `StuffViewer.css` were extracted into `index.css` by tsup but never imported by the built JS. Externalized both CSS files in `tsup.config.ts` so their imports are preserved in the output, matching the existing `graph-core.css` pattern.
+- **PromptToggle showing empty when only template available**: When `renderedText` (from execution_data) was undefined, the component showed blank instead of falling back to `templateText`. Now shows whichever text is available, defaulting to rendered when both exist.
+
+### Added
+
+- `renderDetailExtra` prop on `GraphViewer`: render function that injects custom content below the built-in detail panel for the selected node. Enables consumers to add app-specific UI (e.g., input forms) without reimplementing the panel.
+- `DetailPanel.css` export in `package.json` (`./graph/react/detail/DetailPanel.css`)
+
 ## [v0.3.1] - 2026-04-09
 
 ### Fixed
