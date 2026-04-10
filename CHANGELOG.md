@@ -1,26 +1,39 @@
 # Changelog
 
+## [v0.3.4] - 2026-04-10
+
+### Fixed
+
+- **PipeCompose detail panel was surfacing input data as if the pipe had produced it**. The panel was reading `execution_data.resolved_fields` for every construct field method, which made `from_var` fields display the actual value pulled from working memory (e.g. `score = 2`, `candidate_name = "John Doe"`). That value isn't authored by the pipe — it lives in the input stuff node — so showing it on the pipe was misleading. The panel now follows a strict design rule: it shows the **field contract**, not runtime data. `from_var` displays as `← match_assessment.score` (the path), `fixed` as `= "no_match"` (the literal), `nested` recurses, and `template` is the only method that still shows the rendered output (since template is the only construct method where the pipe actually computes something new).
+- **PipeCompose detail panel: long resolved field values broke the KV row layout**: when `execution_data.resolved_fields` contained a long value (e.g. an LLM-generated `rationale` of 800+ chars), the value wrapped across many lines inside a flex row designed for one-line content. The label drifted to the vertical center of the wrapped block. Long values (>60 chars or containing newlines) now render as a labeled `FieldBlock` (bordered scrollable text box, max-height 240px) instead of a KV row. The KV row CSS was also hardened (`align-items: flex-start`, `flex: 1 1 0`, `word-break`, `overflow-wrap`) as defense-in-depth.
+
+### Added
+
+- **Recursive nested construct rendering in the PipeCompose detail panel**. Previously, `nested` fields rendered as a flat `(nested construct)` placeholder, hiding everything inside. The panel now walks the construct tree recursively: each nested sub-construct renders its own header (`name · nested · N fields`) followed by its sub-fields, indented 12px per depth level, with a green left border connecting the sub-section to its parent. Deep structures (4+ levels) are fully visible by default — no clicking, no tooltips, just scroll. Implementation lives in a new `ConstructFieldsBlock` component in `PipeComposeDetail.tsx`.
+- **Reorganized detail panel storybook layout** under `src/graph/react/detail/__stories__/`:
+  - `Stuff/` for stuff/concept stories (`ConceptDetail.stories.tsx`)
+  - `Resizable/` for the resizable panel stories
+  - `Pipes/` with one subfolder per pipe type (`PipeLLM/`, `PipeExtract/`, `PipeImgGen/`, `PipeSearch/`, `PipeSequence/`, `PipeParallel/`, `PipeCompose/`)
+  - Inside `Pipes/PipeCompose/`, dedicated edge-case files: `TemplateMode`, `ConstructFixed`, `ConstructFromVar`, `ConstructTemplate`, `ConstructNested`, `ConstructMixed`, `ConstructRenderedTemplates`, `EmptyTemplateField`
+  - Shared helpers (`detailPanelDecorator`, `PipeStory` wrapper, `makeComposeBlueprint`, sample text fixtures) extracted into `_shared.tsx`
+- **HUGE-content stress-test variants for every PipeCompose construct story**. Each construct edge-case file now has a `Huge*` story exercising the renderer at scale: ~3000-char rationale paragraph, ~4000-char multi-paragraph email template, 25-question interview bank, deeply-structured pipeline config object, 14-field deeply-nested `from_var` paths, 4-level deeply-nested sub-constructs. Stress-tests `FieldBlock` rendering, panel scroll behavior, and the recursive nested renderer.
+
+### Changed
+
+- **`PipeComposeConstructField.method` is a closed union** (`"from_var" | "fixed" | "template" | "nested"`). Previously included a trailing `| string` escape hatch that absorbed the literal cases and killed exhaustiveness checking on switches. The construct field formatter is now exhaustive — any new method added to the union will fail to compile until it's handled. (carried forward from v0.3.3 work, finalized here)
+- **`PipeComposeConstructField.nested`** now typed as recursive `PipeComposeConstructBlueprint | null` instead of `Record<string, unknown> | null`. Enables the recursive renderer to drill into sub-constructs with full type safety.
+
 ## [v0.3.3] - 2026-04-10
 
 ### Fixed
 
 - **PipeCompose detail panel empty for field-level construct form**: `PipeComposeDetail.tsx` only read the legacy monolithic `blueprint.template` field, which is `null` when a pipe uses `[pipe.X.construct]` (the field-level form where each output field has its own method — `from_var`, `fixed`, `template`, `nested`). The panel now renders the `construct_blueprint.fields` map: non-template fields appear as a FIELDS section with KV rows, and each template field gets its own `PromptToggle` labeled `Template — <field_name>`.
-- **Runtime-resolved construct values now rendered**: when the graph tracer emits `execution_data.resolved_fields` (new in pipelex worker), the panel shows the runtime value instead of the static blueprint summary. Template fields display the Jinja-rendered text (with `$var` substitutions applied), and `from_var`/`fixed` fields show the concrete value pulled from working memory.
+- **Runtime-resolved construct values now rendered**: when the graph tracer emits `execution_data.resolved_fields` (new in pipelex worker), the panel shows the runtime value instead of the static blueprint summary. Template fields display the Jinja-rendered text (with `$var` substitutions applied), and `from_var`/`fixed` fields show the concrete value pulled from working memory. **(Note: this behavior was reversed in v0.3.4 — see the v0.3.4 entry for the rationale.)**
 - **PipeCompose template-field routing bug**: fields with `method === "template"` but an empty/null `template` string were misrouted to the non-template KV section and rendered as `(template)`. Routing now depends on `method` alone — `PromptToggle` already returns null when both `templateText` and `renderedText` are falsy, so empty templates are handled gracefully. (PR #23 review)
 - **Pipe card description clipping in LR and TB**: description was hardcoded to `-webkit-line-clamp: 2` for both directions, which didn't match the card shapes. LR cards (narrow/tall) are now 3-line clamped vertically; TB cards (wide/short) are 1-line with horizontal ellipsis. Both truncate cleanly with `...`.
 - **Pipe card height undercounted for wrapping pills in TB**: the height estimator assumed 3 pills per row regardless of pill width, so long input names caused outputs to overflow the card and get clipped. The estimator now bin-packs pills against the available area width (accounting for label column + padding) and reserves accurate height per wrapping row. The description height also now scales with actual line count instead of a fixed 24px reserve.
 - **Stuff nodes wider than pipe cards in LR**: stuff nodes were capped at 400px regardless of direction, while LR pipe cards max out at 240px — producing visually lopsided graphs. Stuff node width now tracks the pipe card max for the current direction (240 in LR, 400 in TB).
 - **Stuff/pipe node labels overflowed their container**: `renderLabel.tsx` set no max-width or truncation on label/concept spans, so long identifiers bled past the node edges. Both spans now truncate with `text-overflow: ellipsis` + `white-space: nowrap` and surface the full text via a native `title` tooltip on hover.
-- **PipeCompose detail panel: long resolved field values broke the KV row layout**: when `execution_data.resolved_fields` contained a long value (e.g. an LLM-generated `rationale` of 800+ chars), the value wrapped across many lines inside a flex row designed for one-line content. The label drifted to the vertical center of the wrapped block, producing a visually broken layout. Fix: long values (>60 chars or containing newlines) now render as a labeled `FieldBlock` (bordered scrollable text box, max-height 240px) instead of a KV row. Short values still render as KV. The KV row CSS was also hardened (`align-items: flex-start`, `flex: 1 1 0`, `word-break`, `overflow-wrap`) as defense-in-depth.
-
-### Added
-
-- **Storybook stories: PipeCompose edge cases**. New `PipeComposeEdgeCases.stories.tsx` covers every PipeCompose mode + method combination so the detail panel can be visually verified end-to-end:
-  - Template mode: short, long, with/without rendered text
-  - Construct mode (single method): fixed only, from_var only, template only, nested
-  - Construct mode (mixed): all 4 methods together
-  - Construct mode + runtime data: short resolved values, long rationale (the regression case), template field with rendered text
-  - Edge case: empty-string template field (regression test for the routing fix)
 
 ### Changed
 
