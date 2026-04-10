@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { DetailPanel } from "../DetailPanel";
-import { ConceptDetailPanel } from "../ConceptDetailPanel";
+import { DetailPanel } from "../../DetailPanel";
+import { ConceptDetailPanel } from "../../ConceptDetailPanel";
 import {
   CONCEPT_TEXT,
   CONCEPT_CANDIDATEPROFILE,
@@ -9,18 +9,13 @@ import {
   CONCEPT_REPORT,
   CONCEPT_EVALUATION,
   CONCEPT_TECHNICAL_EVALUATION,
-} from "./enrichedMockData";
+} from "../enrichedMockData";
+import { detailPanelDecorator, detailPanelParameters } from "../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Concept Detail",
-  parameters: { layout: "centered" },
-  decorators: [
-    (Story) => (
-      <div style={{ width: 380, height: 700, position: "relative", background: "#0a0a0f" }}>
-        <Story />
-      </div>
-    ),
-  ],
+  title: "Graph/Detail Panel/Stuff/Concept Detail",
+  parameters: detailPanelParameters,
+  decorators: [detailPanelDecorator],
 };
 
 export default meta;
@@ -62,7 +57,6 @@ export const DryRunSchemaOnly: Story = {
 };
 
 export const WithLiveData: Story = {
-  name: "With Live Data",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
       <ConceptDetailPanel
@@ -73,9 +67,11 @@ export const WithLiveData: Story = {
           digest: "score_001",
           data: {
             score: 85,
-            reasoning: "Strong technical background with relevant experience in ML and distributed systems.",
+            reasoning:
+              "Strong technical background with relevant experience in ML and distributed systems.",
           },
-          data_text: "Score: 85\nReasoning: Strong technical background with relevant experience in ML and distributed systems.",
+          data_text:
+            "Score: 85\nReasoning: Strong technical background with relevant experience in ML and distributed systems.",
         }}
       />
     </DetailPanel>

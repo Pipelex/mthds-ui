@@ -196,15 +196,32 @@ export interface PipeImgGenBlueprint extends PipeBlueprintBase {
   output_multiplicity: number;
 }
 
+/**
+ * A single field in a PipeCompose construct blueprint. Mirrors the
+ * `ConstructFieldBlueprint` Pydantic model in pipelex. Exactly one of
+ * `fixed_value` / `from_path` / `template` / `nested` is populated, matching
+ * the `method` discriminator.
+ *
+ * - `fixed`    → `fixed_value` holds a literal (string, number, bool, list)
+ * - `from_var` → `from_path` holds a dotted path into working memory,
+ *                optionally with a `list_to_dict_keyed_by` modifier
+ * - `template` → `template` holds a Jinja2 template string (per-field)
+ * - `nested`   → `nested` holds a recursive construct blueprint for building
+ *                nested structured content
+ */
 export interface PipeComposeConstructField {
   method: "from_var" | "fixed" | "template" | "nested";
   fixed_value?: unknown;
   from_path?: string | null;
   template?: string | null;
-  nested?: Record<string, unknown> | null;
+  nested?: PipeComposeConstructBlueprint | null;
   list_to_dict_keyed_by?: string | null;
 }
 
+/**
+ * A PipeCompose construct blueprint, parsed from `[pipe.X.construct]` in MTHDS.
+ * Mirrors the `ConstructBlueprint` Pydantic model in pipelex.
+ */
 export interface PipeComposeConstructBlueprint {
   fields: Record<string, PipeComposeConstructField>;
 }
