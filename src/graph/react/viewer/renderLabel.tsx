@@ -11,7 +11,11 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
           flexDirection: "column",
           gap: "2px",
           textAlign: "center",
+          width: "100%",
+          boxSizing: "border-box",
+          minWidth: 0,
         }}
+        title={desc.label}
       >
         <span
           style={{
@@ -19,6 +23,10 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
             fontSize: "13px",
             fontWeight: 600,
             color: "var(--color-pipe-text)",
+            maxWidth: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
         >
           {desc.label}
@@ -28,6 +36,8 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
   }
 
   // desc.kind === "stuff"
+  // width: 100% + min-width: 0 lets the flex children's overflow/ellipsis
+  // actually kick in — without it, the spans would stretch the parent instead.
   return (
     <div
       style={{
@@ -37,7 +47,11 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
         alignItems: "center",
         gap: "2px",
         textAlign: "center",
+        width: "100%",
+        boxSizing: "border-box",
+        minWidth: 0,
       }}
+      title={desc.concept ? `${desc.label}: ${desc.concept}` : desc.label}
     >
       <span
         style={{
@@ -45,6 +59,10 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
           fontSize: "12px",
           fontWeight: 600,
           color: "var(--color-stuff-text)",
+          maxWidth: "100%",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
         }}
       >
         {desc.label}
@@ -54,6 +72,10 @@ export function renderLabel(desc: LabelDescriptor): React.ReactNode {
           style={{
             fontSize: "14px",
             color: "var(--color-stuff-text-dim)",
+            maxWidth: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
         >
           {desc.concept}
