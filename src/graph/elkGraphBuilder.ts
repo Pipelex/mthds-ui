@@ -92,15 +92,107 @@ interface NodeDimensions {
   height: number;
 }
 
+// ─── Pipe card layout constants (keep in sync with graph-core.css) ──────────
+// If you change these, update the matching rules in graph-core.css.
+const PIPE_CARD_HEIGHT_CAP = 320;
+
+// Horizontal padding (12 + 12 = 24) + vertical padding (12 + 12 = 24)
+const PIPE_CARD_PADDING_X = 28; // padding-left + padding-right (14 + 14)
+const PIPE_CARD_PADDING_Y = 24; // padding-top + padding-bottom (12 + 12)
+const PIPE_CARD_GAP = 8; // gap between flex children (header / description / io sections)
+
+// Header: badge (~20px) + code line with status dot
+const PIPE_CARD_HEADER_HEIGHT = 22;
+
+// Description: 11.5px font × 1.4 line-height ≈ 16.1px per line
+const PIPE_CARD_DESC_LINE_HEIGHT = 16;
+const PIPE_CARD_DESC_MAX_LINES_LR = 3;
+
+// I/O section heights (label + first row of pills)
+const PIPE_CARD_IO_SECTION_HEIGHT_LR = 38; // stacked: label on top, pills below
+const PIPE_CARD_IO_SECTION_HEIGHT_TB = 30; // inline: label on left, pills on right
+const PIPE_CARD_IO_EXTRA_ROW_HEIGHT = 22; // each additional wrapping row of pills
+
+// Pill dimension caps (keep in sync with .pipe-card--tb .pipe-card-io-pill-name/concept max-width)
+const PIPE_CARD_PILL_NAME_MAX_WIDTH = 140;
+const PIPE_CARD_PILL_CONCEPT_MAX_WIDTH = 100;
+const PIPE_CARD_PILL_CHROME_WIDTH = 17; // pill padding (10) + name/concept gap (3) + inter-pill gap (4)
+const PIPE_CARD_IO_LABEL_WIDTH_TB = 58; // min-width 52 + gap 6
+
+// Character width estimates for Inter font
+const CHAR_WIDTH_DESC = 5.5; // 11.5px font
+const CHAR_WIDTH_PILL_NAME = 5.0; // 10px font (pill-name)
+const CHAR_WIDTH_PILL_CONCEPT = 4.5; // 9px font (pill-concept)
+
+const MAX_VISIBLE_INPUTS = 4;
+
+/** Estimate how many lines the description will wrap to, given direction + text length. */
+function estimateDescriptionLines(
+  description: string,
+  isHorizontal: boolean,
+  cardWidth: number,
+): number {
+  if (!description) return 0;
+  if (!isHorizontal) return 1; // TB always clamps to 1 line (CSS handles ellipsis)
+  const textWidth = cardWidth - PIPE_CARD_PADDING_X;
+  const charsPerLine = Math.max(1, Math.floor(textWidth / CHAR_WIDTH_DESC));
+  const neededLines = Math.ceil(description.length / charsPerLine);
+  return Math.min(PIPE_CARD_DESC_MAX_LINES_LR, Math.max(1, neededLines));
+}
+
+/** Estimate the rendered width of a single pill in TB mode. */
+function estimateTbPillWidth(name: string, concept: string): number {
+  const nameWidth = Math.min(
+    PIPE_CARD_PILL_NAME_MAX_WIDTH,
+    Math.ceil(name.length * CHAR_WIDTH_PILL_NAME),
+  );
+  const conceptWidth = Math.min(
+    PIPE_CARD_PILL_CONCEPT_MAX_WIDTH,
+    Math.ceil(concept.length * CHAR_WIDTH_PILL_CONCEPT),
+  );
+  return nameWidth + conceptWidth + PIPE_CARD_PILL_CHROME_WIDTH;
+}
+
+/** Count how many wrapping rows a set of pills will occupy in TB mode.
+ *  Uses a simple first-fit bin-packing against the available pill area width.
+ */
+function countTbPillRows(
+  pills: readonly { name: string; concept: string }[],
+  cardWidth: number,
+): number {
+  if (pills.length === 0) return 0;
+  const availableWidth = cardWidth - PIPE_CARD_PADDING_X - PIPE_CARD_IO_LABEL_WIDTH_TB;
+  let rows = 1;
+  let currentRowWidth = 0;
+  for (const pill of pills) {
+    const pillWidth = estimateTbPillWidth(pill.name, pill.concept);
+    if (currentRowWidth === 0) {
+      currentRowWidth = pillWidth;
+      continue;
+    }
+    if (currentRowWidth + pillWidth <= availableWidth) {
+      currentRowWidth += pillWidth;
+    } else {
+      rows += 1;
+      currentRowWidth = pillWidth;
+    }
+  }
+  return rows;
+}
+
 export function estimateNodeDimensions(node: GraphNode, isHorizontal: boolean): NodeDimensions {
   const nodeData = node.data || {};
   const isStuff = nodeData.isStuff;
   const labelText = nodeData.labelText || "";
   const isPipeCard = node.type === NODE_TYPE_PIPE_CARD;
-  const estimatedWidth = Math.max(180, Math.min(400, labelText.length * 8 + 60));
 
   const pipeCardMinWidth = isHorizontal ? 180 : 280;
   const pipeCardMaxWidth = isHorizontal ? 240 : 400;
+  // Stuff nodes are visually aligned with pipe cards — they must never be wider
+  // than the pipe card max for the current direction, otherwise the graph looks
+  // lopsided (a 400px stuff node next to a 240px pipe card in LR mode).
+  const estimatedWidth = Math.max(180, Math.min(pipeCardMaxWidth, labelText.length * 8 + 60));
+
   let width: number;
   if (isStuff) {
     width = Math.max(180, estimatedWidth);
@@ -115,21 +207,48 @@ export function estimateNodeDimensions(node: GraphNode, isHorizontal: boolean): 
     height = 60;
   } else if (isPipeCard && nodeData.pipeCardData) {
     const pcd = nodeData.pipeCardData;
-    const inputCount = pcd.inputs?.length ?? 0;
-    const outputCount = pcd.outputs?.length ?? 0;
-    const hasDesc = !!pcd.description || !!nodeData.nodeData?.description;
-    const baseHeight = 44 + (hasDesc ? 24 : 0);
-    const sectionBase = isHorizontal ? 38 : 30;
-    const inputSection = inputCount > 0 ? sectionBase : 0;
-    const outputSection = outputCount > 0 ? sectionBase : 0;
-    const pillsPerRow = isHorizontal ? 1 : 3;
-    const visibleInputs = Math.min(inputCount, 4);
-    const inputExtraRows = Math.max(0, Math.ceil(visibleInputs / pillsPerRow) - 1);
-    const outputExtraRows = Math.max(0, Math.ceil(outputCount / pillsPerRow) - 1);
-    height = Math.min(
-      320,
-      baseHeight + inputSection + outputSection + (inputExtraRows + outputExtraRows) * 24,
-    );
+    const inputs = pcd.inputs ?? [];
+    const outputs = pcd.outputs ?? [];
+    const description = pcd.description || nodeData.nodeData?.description || "";
+
+    // Header
+    let total = PIPE_CARD_PADDING_Y + PIPE_CARD_HEADER_HEIGHT;
+
+    // Description: actual lines needed
+    const descLines = estimateDescriptionLines(description, isHorizontal, width);
+    if (descLines > 0) {
+      total += PIPE_CARD_GAP + descLines * PIPE_CARD_DESC_LINE_HEIGHT;
+    }
+
+    // Inputs — cap visible to MAX_VISIBLE_INPUTS (rest collapses behind "+N more")
+    const visibleInputs = inputs.slice(0, MAX_VISIBLE_INPUTS);
+    if (visibleInputs.length > 0) {
+      total += PIPE_CARD_GAP;
+      if (isHorizontal) {
+        // LR: one pill per row, always stacked
+        total +=
+          PIPE_CARD_IO_SECTION_HEIGHT_LR +
+          (visibleInputs.length - 1) * PIPE_CARD_IO_EXTRA_ROW_HEIGHT;
+      } else {
+        // TB: bin-pack pills horizontally, each extra row adds height
+        const rows = countTbPillRows(visibleInputs, width);
+        total += PIPE_CARD_IO_SECTION_HEIGHT_TB + (rows - 1) * PIPE_CARD_IO_EXTRA_ROW_HEIGHT;
+      }
+    }
+
+    // Outputs — same logic as inputs
+    if (outputs.length > 0) {
+      total += PIPE_CARD_GAP;
+      if (isHorizontal) {
+        total +=
+          PIPE_CARD_IO_SECTION_HEIGHT_LR + (outputs.length - 1) * PIPE_CARD_IO_EXTRA_ROW_HEIGHT;
+      } else {
+        const rows = countTbPillRows(outputs, width);
+        total += PIPE_CARD_IO_SECTION_HEIGHT_TB + (rows - 1) * PIPE_CARD_IO_EXTRA_ROW_HEIGHT;
+      }
+    }
+
+    height = Math.min(PIPE_CARD_HEIGHT_CAP, total);
   } else {
     height = isPipeCard ? 120 : 70;
   }

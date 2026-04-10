@@ -196,13 +196,28 @@ export interface PipeImgGenBlueprint extends PipeBlueprintBase {
   output_multiplicity: number;
 }
 
+export interface PipeComposeConstructField {
+  method: "from_var" | "fixed" | "template" | "nested";
+  fixed_value?: unknown;
+  from_path?: string | null;
+  template?: string | null;
+  nested?: Record<string, unknown> | null;
+  list_to_dict_keyed_by?: string | null;
+}
+
+export interface PipeComposeConstructBlueprint {
+  fields: Record<string, PipeComposeConstructField>;
+}
+
 export interface PipeComposeBlueprint extends PipeBlueprintBase {
   type: "PipeCompose";
-  template: string;
+  /** Legacy monolithic template. Null when construct_blueprint is used instead. */
+  template: string | null;
   templating_style: string | null;
   category: string;
   extra_context: Record<string, unknown> | null;
-  construct_blueprint: Record<string, unknown> | null;
+  /** Field-level construct form (e.g. `[pipe.X.construct]` in MTHDS). */
+  construct_blueprint: PipeComposeConstructBlueprint | null;
 }
 
 export interface PipeExtractBlueprint extends PipeBlueprintBase {
