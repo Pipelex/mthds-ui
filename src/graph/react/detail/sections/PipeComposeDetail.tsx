@@ -11,8 +11,12 @@ function formatConstructField(field: PipeComposeConstructField): string {
       return `= ${JSON.stringify(field.fixed_value)}`;
     case "nested":
       return "(nested construct)";
-    default:
-      return `(${field.method})`;
+    case "template":
+      // Defensive: template fields are routed to templateFields and rendered via
+      // PromptToggle, so this branch is unreachable in practice. Kept for
+      // exhaustiveness over the closed union — if routing ever changes, we still
+      // display something useful instead of nothing.
+      return field.template ?? "(empty template)";
   }
 }
 
@@ -45,11 +49,15 @@ export function PipeComposeSection({
   const hasConstruct = constructFields !== null && Object.keys(constructFields).length > 0;
 
   // Separate template fields from non-template fields for different rendering.
+  // Route purely on `method === "template"` — PromptToggle already short-circuits
+  // (returns null) when both templateText and renderedText are falsy, so an empty
+  // template field is handled gracefully instead of being misrouted to the FIELDS
+  // KV section as "(template)".
   const templateFields: [string, PipeComposeConstructField][] = [];
   const nonTemplateFields: [string, PipeComposeConstructField][] = [];
   if (constructFields) {
     for (const [name, field] of Object.entries(constructFields)) {
-      if (field.method === "template" && field.template) {
+      if (field.method === "template") {
         templateFields.push([name, field]);
       } else {
         nonTemplateFields.push([name, field]);

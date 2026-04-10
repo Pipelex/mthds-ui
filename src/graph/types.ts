@@ -197,7 +197,7 @@ export interface PipeImgGenBlueprint extends PipeBlueprintBase {
 }
 
 export interface PipeComposeConstructField {
-  method: "from_var" | "fixed" | "template" | "nested" | string;
+  method: "from_var" | "fixed" | "template" | "nested";
   fixed_value?: unknown;
   from_path?: string | null;
   template?: string | null;
