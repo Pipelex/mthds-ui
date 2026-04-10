@@ -11,6 +11,16 @@
 - **Pipe card height undercounted for wrapping pills in TB**: the height estimator assumed 3 pills per row regardless of pill width, so long input names caused outputs to overflow the card and get clipped. The estimator now bin-packs pills against the available area width (accounting for label column + padding) and reserves accurate height per wrapping row. The description height also now scales with actual line count instead of a fixed 24px reserve.
 - **Stuff nodes wider than pipe cards in LR**: stuff nodes were capped at 400px regardless of direction, while LR pipe cards max out at 240px — producing visually lopsided graphs. Stuff node width now tracks the pipe card max for the current direction (240 in LR, 400 in TB).
 - **Stuff/pipe node labels overflowed their container**: `renderLabel.tsx` set no max-width or truncation on label/concept spans, so long identifiers bled past the node edges. Both spans now truncate with `text-overflow: ellipsis` + `white-space: nowrap` and surface the full text via a native `title` tooltip on hover.
+- **PipeCompose detail panel: long resolved field values broke the KV row layout**: when `execution_data.resolved_fields` contained a long value (e.g. an LLM-generated `rationale` of 800+ chars), the value wrapped across many lines inside a flex row designed for one-line content. The label drifted to the vertical center of the wrapped block, producing a visually broken layout. Fix: long values (>60 chars or containing newlines) now render as a labeled `FieldBlock` (bordered scrollable text box, max-height 240px) instead of a KV row. Short values still render as KV. The KV row CSS was also hardened (`align-items: flex-start`, `flex: 1 1 0`, `word-break`, `overflow-wrap`) as defense-in-depth.
+
+### Added
+
+- **Storybook stories: PipeCompose edge cases**. New `PipeComposeEdgeCases.stories.tsx` covers every PipeCompose mode + method combination so the detail panel can be visually verified end-to-end:
+  - Template mode: short, long, with/without rendered text
+  - Construct mode (single method): fixed only, from_var only, template only, nested
+  - Construct mode (mixed): all 4 methods together
+  - Construct mode + runtime data: short resolved values, long rationale (the regression case), template field with rendered text
+  - Edge case: empty-string template field (regression test for the routing fix)
 
 ### Changed
 

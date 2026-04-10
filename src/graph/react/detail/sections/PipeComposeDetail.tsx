@@ -20,7 +20,7 @@ function formatConstructField(field: PipeComposeConstructField): string {
   }
 }
 
-/** Format a runtime-resolved value for display in a KV row. */
+/** Format a runtime-resolved value for display as a string. */
 function formatResolvedValue(value: unknown): string {
   if (value === null || value === undefined) return "—";
   if (typeof value === "string") return value;
@@ -31,6 +31,27 @@ function formatResolvedValue(value: unknown): string {
   }
   if (typeof value === "object") return "{…}";
   return String(value);
+}
+
+/** A field's string value is "long" when it wraps across multiple lines OR exceeds ~60 chars.
+ *  Long values get a dedicated text block (label above, value in a bordered scrollable box);
+ *  short values render inline as a KV row (label left, value right).
+ */
+const LONG_VALUE_THRESHOLD_CHARS = 60;
+function isLongValue(text: string): boolean {
+  return text.length > LONG_VALUE_THRESHOLD_CHARS || text.includes("\n");
+}
+
+/** Labeled multi-line text block — used for long resolved construct field values
+ *  (e.g. the `rationale` field holding ~800 chars of LLM output).
+ */
+function FieldBlock({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="detail-field-block">
+      <div className="detail-field-block-label">{label}</div>
+      <div className="detail-field-block-value">{value}</div>
+    </div>
+  );
 }
 
 export function PipeComposeSection({
@@ -80,14 +101,21 @@ export function PipeComposeSection({
         />
       )}
 
-      {/* Field-level construct form: show non-template fields as KV rows. */}
-      {/* If the run emitted resolved_fields, show the runtime value; otherwise show the blueprint summary. */}
+      {/* Field-level construct form: show non-template fields.
+          Short values render as KV rows (label left, value right).
+          Long or multiline values render as labeled text blocks so long
+          content (e.g. an LLM-generated `rationale` with 800+ chars) doesn't
+          break the row layout. If the run emitted `resolved_fields`, prefer
+          the runtime value; otherwise show the blueprint summary. */}
       {nonTemplateFields.length > 0 && (
         <>
           <div className="detail-section-label">FIELDS</div>
           {nonTemplateFields.map(([name, field]) => {
             const hasResolved = resolvedFields !== null && name in resolvedFields;
             const display = hasResolved ? formatResolvedValue(resolvedFields[name]) : formatConstructField(field);
+            if (isLongValue(display)) {
+              return <FieldBlock key={name} label={name} value={display} />;
+            }
             return <KV key={name} label={name} value={display} />;
           })}
         </>
