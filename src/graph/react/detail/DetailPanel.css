@@ -332,6 +332,37 @@
   overflow-y: auto;
 }
 
+/* ─── Nested construct sub-section header ───────────────────────────────── */
+/* Rendered before each nested sub-construct's recursive contents. The left
+ * border + indent provides a visual "branch" cue so the tree structure is
+ * obvious without needing collapse state. */
+
+.detail-nested-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  padding: 4px 0 4px 8px;
+  border-left: 2px solid rgba(80, 250, 123, 0.35);
+}
+
+.detail-nested-header-name {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.detail-nested-header-meta {
+  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-size: 9px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 /* ─── Concept schema table ──────────────────────────────────────────────── */
 
 .detail-schema-table {

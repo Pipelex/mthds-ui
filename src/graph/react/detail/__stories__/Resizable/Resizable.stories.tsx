@@ -1,10 +1,10 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
-import { DetailPanel } from "../DetailPanel";
-import { useResizable } from "../useResizable";
-import { PipeDetailPanel } from "../PipeDetailPanel";
-import { ENRICHED_SPEC, NODE_ANALYZE_CANDIDATE } from "./enrichedMockData";
+import { DetailPanel } from "../../DetailPanel";
+import { useResizable } from "../../useResizable";
+import { PipeDetailPanel } from "../../PipeDetailPanel";
+import { ENRICHED_SPEC, NODE_ANALYZE_CANDIDATE } from "../enrichedMockData";
 
 // ─── Wrapper component that wires up useResizable ─────────────────────────
 
@@ -59,10 +59,8 @@ export const DefaultWidth: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    // Resize handle should be present
     const handle = canvas.getByRole("separator");
     await expect(handle).toBeInTheDocument();
-    // Panel content should render
     await expect(canvas.getByText("analyze_candidate")).toBeInTheDocument();
   },
 };
@@ -78,7 +76,6 @@ export const WithoutResizeHandle: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    // No resize handle when prop not provided
     const handle = canvas.queryByRole("separator");
     await expect(handle).toBeNull();
   },
@@ -90,12 +87,7 @@ export const AtMinWidth: Story = {
     return (
       <div ref={containerRef} style={{ position: "relative", width: "100%", height: "100%" }}>
         <div style={{ position: "absolute", inset: 0, background: "#0a0a0a" }} />
-        <DetailPanel
-          isOpen
-          onClose={() => {}}
-          width={280}
-          onResizeHandleMouseDown={() => {}}
-        >
+        <DetailPanel isOpen onClose={() => {}} width={280} onResizeHandleMouseDown={() => {}}>
           <PipeDetailPanel node={NODE_ANALYZE_CANDIDATE} spec={ENRICHED_SPEC} />
         </DetailPanel>
       </div>
@@ -111,12 +103,7 @@ export const AtMaxWidth: Story = {
   render: () => (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <div style={{ position: "absolute", inset: 0, background: "#0a0a0a" }} />
-      <DetailPanel
-        isOpen
-        onClose={() => {}}
-        width={800}
-        onResizeHandleMouseDown={() => {}}
-      >
+      <DetailPanel isOpen onClose={() => {}} width={800} onResizeHandleMouseDown={() => {}}>
         <PipeDetailPanel node={NODE_ANALYZE_CANDIDATE} spec={ENRICHED_SPEC} />
       </DetailPanel>
     </div>
