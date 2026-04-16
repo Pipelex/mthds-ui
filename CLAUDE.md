@@ -64,6 +64,19 @@ The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Co
 - `./testUtils` (sibling in same `__tests__/` dir)
 - `../types`, `../graphBuilders`, etc. (one level up to parent module)
 
+## CSS Packaging — MANDATORY when adding a `.css` file
+
+**Every new `.css` file must be registered in `tsup.config.ts` — in BOTH places — or it will silently disappear in the built package.**
+
+tsup treats unregistered `.css` imports as bundle-time assets and drops them. The JS output still contains `className="..."` but the stylesheet is never written to `dist/` or imported, so the feature renders unstyled (and invisible) for every consumer. This caused the v0.4.0 `GraphToolbar.css` regression — the toolbar shipped with no styles and looked completely absent in downstream apps.
+
+When you add `import "./Foo.css"` to any source file, you MUST also:
+
+1. Add `/path\/to\/Foo\.css$/` to the `external` array so the import survives in the JS output.
+2. Add a `mkdirSync` + `cpSync` pair in `onSuccess` so the raw CSS file is copied to `dist/` at the same relative path.
+
+Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the import, and the file must exist at `dist/<same-relative-path>/Foo.css`. If either is missing, the bundler ate the stylesheet.
+
 ## Architecture
 
 ### Data Pipeline

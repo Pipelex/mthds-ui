@@ -22,13 +22,14 @@ export default defineConfig({
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /stuff\/StuffViewer\.css$/,
+    /viewer\/GraphToolbar\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {
       "@graph": path.resolve(dirname, "src/graph"),
     };
   },
-  // graph-core.css is kept external so the import stays in the JS output.
+  // CSS files are kept external so the import stays in the JS output.
   // The consumer's bundler resolves it (including the @import for @xyflow CSS).
   onSuccess: async () => {
     mkdirSync("dist/graph/react", { recursive: true });
@@ -37,5 +38,7 @@ export default defineConfig({
     cpSync("src/graph/react/stuff/StuffViewer.css", "dist/graph/react/stuff/StuffViewer.css");
     mkdirSync("dist/graph/react/detail", { recursive: true });
     cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
+    mkdirSync("dist/graph/react/viewer", { recursive: true });
+    cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
   },
 });

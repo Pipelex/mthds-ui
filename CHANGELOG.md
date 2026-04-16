@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.4.1] - 2026-04-16
+
+### Fixed
+
+- **`GraphToolbar` rendered without styles in the published package.** The v0.4.0 toolbar shipped as invisible/unstyled for every consumer because `tsup.config.ts` didn't register `GraphToolbar.css` — tsup silently dropped the `import "./GraphToolbar.css"` from the built JS and never copied the file to `dist/`. The CSS file is now externalized and copied to `dist/graph/react/viewer/GraphToolbar.css` alongside the other component stylesheets. Added a `CSS Packaging` section to `CLAUDE.md` documenting the two-step registration required whenever a new `.css` file is added.
+
 ## [v0.4.0] - 2026-04-16
 
 ### Added
