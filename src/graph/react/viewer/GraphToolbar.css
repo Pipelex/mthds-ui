@@ -1,0 +1,54 @@
+/* ─── Graph Toolbar — floating controls over the graph background ─────── */
+
+.graph-toolbar {
+  position: absolute;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 11;
+  pointer-events: auto;
+}
+
+.graph-toolbar-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: rgba(17, 17, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  backdrop-filter: blur(6px);
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.graph-toolbar-btn:hover {
+  background: rgba(30, 30, 40, 0.9);
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.graph-toolbar-btn:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 1px;
+}
+
+.graph-toolbar-btn--active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.graph-toolbar-btn--active:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}

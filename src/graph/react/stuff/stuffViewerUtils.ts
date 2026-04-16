@@ -62,6 +62,28 @@ export function extractInlineUrl(data: unknown): string | null {
   return null;
 }
 
+/**
+ * Extract a `pipelex-storage://` URI from stuff data, if present.
+ *
+ * Pipelex-storage URIs are internal logical pointers that need to be resolved
+ * to a browser-fetchable URL (e.g. presigned S3) before rendering inline.
+ */
+export function extractStorageUri(data: unknown): string | null {
+  if (!data) return null;
+  if (typeof data === "string") {
+    return data.startsWith("pipelex-storage://") ? data : null;
+  }
+  if (typeof data !== "object") return null;
+  const obj = data as Record<string, unknown>;
+  const candidates = [obj.uri, obj.url, obj.src, obj.href];
+  for (const candidate of candidates) {
+    if (typeof candidate === "string" && candidate.startsWith("pipelex-storage://")) {
+      return candidate;
+    }
+  }
+  return null;
+}
+
 /** Extract the filename from stuff data, if available. */
 export function extractFilename(data: unknown): string | null {
   if (!data || typeof data !== "object") return null;
@@ -70,8 +92,50 @@ export function extractFilename(data: unknown): string | null {
   return null;
 }
 
+/**
+ * Determine the effective MIME type of a stuff item for preview rendering.
+ *
+ * Checks (in order):
+ *   1. Stuff-level `contentType` (when it's already a MIME type like "application/pdf")
+ *   2. The `mime_type` field on the data object (Document content carries this)
+ *   3. The file extension from `filename` or from the URL/URI
+ *
+ * The concept-level `contentType` (e.g. "document") is not a MIME type; we
+ * ignore it and look at the data instead. Returns null when nothing recognizable
+ * is found.
+ */
+export function resolveMimeType(
+  data: unknown,
+  contentType: string | undefined,
+  url: string | null,
+): string | null {
+  // 1. Already a MIME type
+  if (contentType && contentType.includes("/")) return contentType;
+
+  // 2. data.mime_type field
+  if (data && typeof data === "object") {
+    const obj = data as Record<string, unknown>;
+    if (typeof obj.mime_type === "string" && obj.mime_type) return obj.mime_type;
+  }
+
+  // 3. Guess from extension
+  const source = extractFilename(data) || url || (typeof data === "string" ? data : null);
+  if (source) {
+    const match = source.match(/\.([a-zA-Z0-9]+)(?:\?|#|$)/);
+    const ext = match?.[1]?.toLowerCase();
+    if (ext) {
+      if (ext === "pdf") return "application/pdf";
+      if (["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp"].includes(ext)) {
+        return `image/${ext === "jpg" ? "jpeg" : ext === "svg" ? "svg+xml" : ext}`;
+      }
+    }
+  }
+
+  return null;
+}
+
 /** Get the appropriate first-tab label based on content MIME type. */
-export function getHtmlTabLabel(contentType?: string): string {
+export function getHtmlTabLabel(contentType?: string | null): string {
   if (contentType === "application/pdf") return "PDF";
   if (contentType?.startsWith("image/")) return "Image";
   return "HTML";

@@ -20,7 +20,7 @@ import type {
 } from "@graph/types";
 import { stuffDigestFromId, EDGE_TYPE } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
-import type { StuffViewerData } from "../stuff/stuffViewerTypes";
+import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import { StuffViewer } from "../stuff/StuffViewer";
 import { DetailPanel } from "../detail/DetailPanel";
@@ -34,6 +34,7 @@ import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
 import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
 import { hydrateLabels } from "./renderLabel";
+import { GraphToolbar } from "./GraphToolbar";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
 import { PipeCardRFNode } from "../nodes/pipe/PipeCardNode";
 
@@ -46,8 +47,12 @@ const nodeTypes = {
 export interface GraphViewerProps {
   graphspec: GraphSpec | null;
   config?: GraphConfig;
-  direction?: GraphDirection;
-  showControllers?: boolean;
+  /** Initial layout direction. Users can toggle this via the built-in toolbar. */
+  initialDirection?: GraphDirection;
+  /** Initial controller-grouping state. Users can toggle this via the built-in toolbar. */
+  initialShowControllers?: boolean;
+  /** Hide the built-in floating toolbar (direction + controllers toggle). */
+  hideToolbar?: boolean;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
@@ -59,15 +64,22 @@ export interface GraphViewerProps {
   onPaneClick?: () => void;
   /** Render extra content below the built-in detail panel content for the selected node. */
   renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
+  /**
+   * Resolver for `pipelex-storage://` URIs. Passed down to StuffViewer so it can
+   * exchange internal URIs for browser-fetchable presigned URLs when rendering media.
+   */
+  resolveStorageUrl?: ResolveStorageUrl;
 }
 
 /** Stuff node detail: concept structure + data viewer. */
 function StuffNodeDetail({
   stuffData,
   graphspec,
+  resolveStorageUrl,
 }: {
   stuffData: StuffViewerData;
   graphspec: GraphSpec | null;
+  resolveStorageUrl?: ResolveStorageUrl;
 }) {
   const conceptInfo = stuffData.concept && graphspec
     ? resolveConceptRef(graphspec, stuffData.concept)
@@ -77,10 +89,14 @@ function StuffNodeDetail({
     <>
       {/* Concept structure (header + schema table) */}
       {conceptInfo ? (
-        <ConceptDetailPanel concept={conceptInfo} ioData={stuffData} />
+        <ConceptDetailPanel
+          concept={conceptInfo}
+          ioData={stuffData}
+          resolveStorageUrl={resolveStorageUrl}
+        />
       ) : (
         /* Fallback: just show the StuffViewer if no concept info */
-        <StuffViewer stuff={stuffData} />
+        <StuffViewer stuff={stuffData} resolveStorageUrl={resolveStorageUrl} />
       )}
     </>
   );
@@ -135,8 +151,9 @@ export function GraphViewer(props: GraphViewerProps) {
   const {
     graphspec,
     config = DEFAULT_GRAPH_CONFIG,
-    direction = config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? "TB",
-    showControllers = config.showControllers ?? DEFAULT_GRAPH_CONFIG.showControllers ?? false,
+    initialDirection,
+    initialShowControllers,
+    hideToolbar = false,
     onNavigateToPipe,
     onStuffNodeClick,
     onReactFlowInit,
@@ -144,7 +161,19 @@ export function GraphViewer(props: GraphViewerProps) {
     onNodeSelect,
     onPaneClick,
     renderDetailExtra,
+    resolveStorageUrl,
   } = props;
+
+  const [direction, setDirection] = React.useState<GraphDirection>(
+    () => initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? "TB",
+  );
+  const [showControllers, setShowControllers] = React.useState<boolean>(
+    () =>
+      initialShowControllers ??
+      config.showControllers ??
+      DEFAULT_GRAPH_CONFIG.showControllers ??
+      false,
+  );
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -541,6 +570,7 @@ export function GraphViewer(props: GraphViewerProps) {
           <StuffNodeDetail
             stuffData={detailSelection.stuffData}
             graphspec={graphspec}
+            resolveStorageUrl={resolveStorageUrl}
           />
         ) : null}
         {renderDetailExtra &&
@@ -548,6 +578,15 @@ export function GraphViewer(props: GraphViewerProps) {
           !conceptOverride &&
           renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
       </DetailPanel>
+      {!hideToolbar && (
+        <GraphToolbar
+          direction={direction}
+          onDirectionChange={setDirection}
+          showControllers={showControllers}
+          onShowControllersChange={setShowControllers}
+          rightOffset={detailOpen ? panelWidth : 0}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
 import "./stuff/StuffViewer.css";
+import "./viewer/GraphToolbar.css";
 
 // Viewer
 export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";

@@ -46,8 +46,8 @@ function App() {
   return React.createElement(GraphViewer, {
     graphspec: currentGraphspec,
     config: currentConfig,
-    direction: currentDirection,
-    showControllers: currentShowControllers,
+    initialDirection: currentDirection,
+    initialShowControllers: currentShowControllers,
     onReactFlowInit,
   });
 }
