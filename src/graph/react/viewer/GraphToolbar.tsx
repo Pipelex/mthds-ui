@@ -1,6 +1,6 @@
 import React from "react";
 import "./GraphToolbar.css";
-import type { GraphDirection } from "@graph/types";
+import { GRAPH_DIRECTION, type GraphDirection } from "@graph/types";
 
 export interface GraphToolbarProps {
   direction: GraphDirection;
@@ -77,8 +77,10 @@ export function GraphToolbar({
   onFitView,
   rightOffset = 0,
 }: GraphToolbarProps) {
-  const directionLabel =
-    direction === "TB" ? "Switch to horizontal layout" : "Switch to vertical layout";
+  const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
+  const directionLabel = isVertical
+    ? "Switch to horizontal layout"
+    : "Switch to vertical layout";
   const controllersLabel = showControllers
     ? "Hide pipe controllers"
     : "Show pipe controllers — groups pipes by their controlling pipe";
@@ -91,11 +93,13 @@ export function GraphToolbar({
       <button
         type="button"
         className="graph-toolbar-btn"
-        onClick={() => onDirectionChange(direction === "TB" ? "LR" : "TB")}
+        onClick={() =>
+          onDirectionChange(isVertical ? GRAPH_DIRECTION.LR : GRAPH_DIRECTION.TB)
+        }
         title={directionLabel}
         aria-label={directionLabel}
       >
-        {direction === "TB" ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
+        {isVertical ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
       </button>
 
       <button

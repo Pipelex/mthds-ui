@@ -18,7 +18,7 @@ import type {
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId, EDGE_TYPE } from "@graph/types";
+import { stuffDigestFromId, EDGE_TYPE, GRAPH_DIRECTION } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -165,7 +165,11 @@ export function GraphViewer(props: GraphViewerProps) {
   } = props;
 
   const [direction, setDirection] = React.useState<GraphDirection>(
-    () => initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? "TB",
+    () =>
+      initialDirection ??
+      config.direction ??
+      DEFAULT_GRAPH_CONFIG.direction ??
+      GRAPH_DIRECTION.TB,
   );
   const [showControllers, setShowControllers] = React.useState<boolean>(
     () =>

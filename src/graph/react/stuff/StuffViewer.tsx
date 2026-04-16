@@ -8,6 +8,7 @@ import {
   extractStorageUri,
   extractUrl,
   getHtmlTabLabel,
+  isInlineRenderableUrl,
   resolveMimeType,
 } from "./stuffViewerUtils";
 import "./StuffViewer.css";
@@ -102,14 +103,22 @@ export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewer
   // Only runs when no direct http(s) URL is available — we prefer public_url/src/href first.
   const [resolvedStorageUrl, setResolvedStorageUrl] = React.useState<string | null>(null);
   React.useEffect(() => {
+    // Clear any previously resolved URL synchronously so a second stuff item
+    // never briefly renders with the prior item's resolved URL while the new
+    // promise is in flight.
+    setResolvedStorageUrl(null);
     if (!storageUri || !resolveStorageUrl || httpInlineUrl) {
-      setResolvedStorageUrl(null);
       return;
     }
     let cancelled = false;
     resolveStorageUrl(storageUri)
       .then((url) => {
-        if (!cancelled) setResolvedStorageUrl(url);
+        if (cancelled) return;
+        // Defensive: the resolver is consumer-supplied. Gate its output through
+        // the same scheme check as every other URL path (isInlineRenderableUrl
+        // rejects javascript:, data:, vbscript:, etc.) so a faulty or
+        // compromised resolver can't inject an unsafe URL into <img>/<iframe>.
+        setResolvedStorageUrl(isInlineRenderableUrl(url) ? url : null);
       })
       .catch(() => {
         if (!cancelled) setResolvedStorageUrl(null);
