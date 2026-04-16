@@ -242,3 +242,4 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 5. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
 6. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
 7. **Never hand-write GraphSpec JSON** — always generate it by running the pipelex CLI (`pipelex run bundle ... --dry-run --mock-inputs --graph` for dry run, or with real inputs for live run). The pipelex CLI produces the authoritative `graph.json`. Copy its output into the spec files.
+8. **Don't reinvent the wheel.** Before writing custom behavior, check whether a dependency already ships it — hooks, utilities, components, APIs. Reuse the library's logic aggressively. Only replace a library's UI chrome when it genuinely doesn't fit the design, and even then keep driving it with the library's behavior underneath.

@@ -52,3 +52,10 @@
   border-color: #2563eb;
   color: #ffffff;
 }
+
+.graph-toolbar-separator {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 2px;
+}

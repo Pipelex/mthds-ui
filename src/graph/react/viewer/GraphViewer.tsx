@@ -584,6 +584,9 @@ export function GraphViewer(props: GraphViewerProps) {
           onDirectionChange={setDirection}
           showControllers={showControllers}
           onShowControllersChange={setShowControllers}
+          onZoomIn={() => reactFlowRef.current?.zoomIn()}
+          onZoomOut={() => reactFlowRef.current?.zoomOut()}
+          onFitView={() => reactFlowRef.current?.fitView({ padding: 0.1 })}
           rightOffset={detailOpen ? panelWidth : 0}
         />
       )}

@@ -7,6 +7,9 @@ export interface GraphToolbarProps {
   onDirectionChange: (direction: GraphDirection) => void;
   showControllers: boolean;
   onShowControllersChange: (showControllers: boolean) => void;
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
+  onFitView?: () => void;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
 }
@@ -22,6 +25,28 @@ const ARROW_DOWN_ICON = (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="12" y1="5" x2="12" y2="19" />
     <polyline points="19 12 12 19 5 12" />
+  </svg>
+);
+
+const MINUS_ICON = (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+
+const PLUS_ICON = (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+
+const FIT_VIEW_ICON = (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 3 21 3 21 9" />
+    <polyline points="9 21 3 21 3 15" />
+    <line x1="21" y1="3" x2="14" y2="10" />
+    <line x1="3" y1="21" x2="10" y2="14" />
   </svg>
 );
 
@@ -47,6 +72,9 @@ export function GraphToolbar({
   onDirectionChange,
   showControllers,
   onShowControllersChange,
+  onZoomIn,
+  onZoomOut,
+  onFitView,
   rightOffset = 0,
 }: GraphToolbarProps) {
   const directionLabel =
@@ -79,6 +107,44 @@ export function GraphToolbar({
       >
         {BOXES_ICON}
       </button>
+
+      {(onZoomOut || onZoomIn || onFitView) && <div className="graph-toolbar-separator" />}
+
+      {onZoomOut && (
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={onZoomOut}
+          title="Zoom out"
+          aria-label="Zoom out"
+        >
+          {MINUS_ICON}
+        </button>
+      )}
+
+      {onZoomIn && (
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={onZoomIn}
+          title="Zoom in"
+          aria-label="Zoom in"
+        >
+          {PLUS_ICON}
+        </button>
+      )}
+
+      {onFitView && (
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={onFitView}
+          title="Fit view"
+          aria-label="Fit view"
+        >
+          {FIT_VIEW_ICON}
+        </button>
+      )}
     </div>
   );
 }
