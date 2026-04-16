@@ -13,15 +13,15 @@ const meta: Meta<typeof GraphViewer> = {
     ),
   ],
   argTypes: {
-    direction: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
-    showControllers: { control: { type: "boolean" } },
+    initialDirection: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
+    initialShowControllers: { control: { type: "boolean" } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { direction: "LR" as const, showControllers: true };
+const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 export const DryRun: Story = {
   args: { graphspec: DRY_LONG_SEQUENCE, ...D },

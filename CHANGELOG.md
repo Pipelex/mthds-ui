@@ -1,5 +1,28 @@
 # Changelog
 
+## [v0.4.0] - 2026-04-16
+
+### Added
+
+- **Built-in floating toolbar on `GraphViewer`** with five controls, grouped left-to-right: toggle layout direction (LR ↔ TB), toggle pipe-controller grouping, then a separator followed by `−` zoom out, `+` zoom in, and fit-view. Zoom/fit buttons delegate to xyflow's own `zoomIn()` / `zoomOut()` / `fitView()` on the ReactFlow instance — no custom zoom math — but share the dark translucent chrome of the direction/controllers buttons so the whole cluster reads as one toolbar. The toolbar now lives inside mthds-ui so every consumer gets the same UI — no need to re-implement it per app. Positioned absolutely at the top-right of the graph background; when the detail panel is open, the toolbar shifts left by the panel's width so it stays on the graph background (never over the panel) and remains visible at any panel size. New `hideToolbar` prop disables it for consumers that want to provide their own controls. (`<Controls />` from `@xyflow/react` was considered but rejected: its light-theme chrome clashed with the dark toolbar and its built-in positioning can't shift with the detail panel.)
+- **`pipelex-storage://` URI resolution in `StuffViewer`** via a new `resolveStorageUrl?: ResolveStorageUrl` prop. Internal pipelex-storage URIs aren't browser-fetchable; the viewer now calls the consumer-supplied resolver to exchange them for short-lived, browser-fetchable URLs (e.g. presigned S3) before rendering images/PDFs inline. If the stuff data already has an `http(s)://` URL, that's preferred and the resolver is skipped. Resolution is async, cancellation-safe on unmount/stuff-change, and falls back to the "no preview" placeholder if the resolver returns `null`. The resolver is threaded through `ConceptDetailPanel` and `GraphViewer`'s built-in stuff detail panel so consumers only have to pass it once at the top level.
+- **Smarter MIME detection via `resolveMimeType`** (new utility in `stuffViewerUtils`). Previously, PDF/image preview decisions were made from `stuff.contentType` — but `contentType` is often the concept tag (e.g. `"document"`), not a MIME type. The resolver now checks in order: (1) `contentType` when it already looks like a MIME, (2) `data.mime_type` (Document content carries this), (3) the file extension in `filename` or in the URL/URI. Supports `pdf`, `png`, `jpg`/`jpeg`, `gif`, `webp`, `svg`, `bmp`. This makes storage-resolved PDFs and images actually render as previews instead of falling back to raw JSON.
+- **New public exports** from `@pipelex/mthds-ui/graph/react`: `ResolveStorageUrl` type, `extractStorageUri(data)`, and `resolveMimeType(data, contentType, url)` — consumers can reuse them when building custom viewers or precomputing preview state.
+- **`GRAPH_DIRECTION` constant** exported from `@graph/types` (mirrors the existing `EDGE_TYPE` pattern). `GraphDirection` type is now derived from it. Use `GRAPH_DIRECTION.TB` / `LR` / `RL` / `BT` instead of string literals so the compiler enforces exhaustiveness.
+
+### Changed
+
+- **BREAKING: `GraphViewer` props `direction` and `showControllers` renamed to `initialDirection` and `initialShowControllers`.** They are now initial values for internal state (the built-in toolbar drives user-facing toggling). Consumers that previously passed these as controlled values should either rely on the new toolbar or set `hideToolbar` and manage state externally via their own UI.
+- **`getHtmlTabLabel` now accepts `string | null | undefined`** (was `string | undefined`) to match the new `effectiveMime` nullability inside `StuffViewer`.
+- **Standalone HTML shell: removed the redundant external toolbar** (direction toggle, controllers toggle, zoom in/out/fit). Those now live inside `GraphViewer` itself, and the external buttons stopped driving viewer state once `direction`/`showControllers` became mount-only initial props. Title/logo and theme toggle remain. DOM ids `direction-toggle`, `controllers-toggle`, `zoom-in`, `zoom-out`, `zoom-fit` no longer exist.
+- **Direction toggle now handles all four axes.** Previously, clicking the toggle while `direction` was `RL` or `BT` collapsed the graph to `TB`. The toggle now treats `TB`/`BT` as vertical and `LR`/`RL` as horizontal, flipping between the two canonical forms so label, icon, and click behavior stay consistent. (Flagged in PR review: cubic-dev-ai.)
+
+### Fixed
+
+- **Storage URL resolver output is now scheme-validated** through the same `isInlineRenderableUrl` guard used by every other URL path in `StuffViewer` — a faulty or compromised resolver can't slip `javascript:` / `data:` / `vbscript:` URLs into `<img>` / `<iframe>`. (Flagged in PR review: cubic-dev-ai.)
+- **Stale resolved storage URL** when switching between two `pipelex-storage://` stuff items: the viewer now clears the previously resolved URL synchronously before kicking off the new async resolution, so the new item never briefly renders the old one's image/PDF during the in-flight window. (Flagged in PR review: cubic-dev-ai, greptile-apps.)
+- **`ResolveStorageUrl` JSDoc** now documents the stable-reference requirement (wrap in `useCallback` or define outside the component), since the resolver is in `StuffViewer`'s `useEffect` deps and a fresh arrow on every parent render re-triggers the presigned-URL fetch. (Flagged in PR review: greptile-apps.)
+
 ## [v0.3.4] - 2026-04-10
 
 ### Fixed

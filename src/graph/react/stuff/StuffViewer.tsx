@@ -1,8 +1,16 @@
 import React from "react";
 import DOMPurify from "dompurify";
 
-import type { StuffViewerData } from "./stuffViewerTypes";
-import { extractFilename, extractInlineUrl, extractUrl, getHtmlTabLabel } from "./stuffViewerUtils";
+import type { ResolveStorageUrl, StuffViewerData } from "./stuffViewerTypes";
+import {
+  extractFilename,
+  extractInlineUrl,
+  extractStorageUri,
+  extractUrl,
+  getHtmlTabLabel,
+  isInlineRenderableUrl,
+  resolveMimeType,
+} from "./stuffViewerUtils";
 import "./StuffViewer.css";
 
 type StuffTab = "html" | "json" | "text";
@@ -10,6 +18,13 @@ type StuffTab = "html" | "json" | "text";
 export interface StuffViewerProps {
   stuff: StuffViewerData;
   className?: string;
+  /**
+   * Resolver for `pipelex-storage://` URIs. If provided and the stuff data
+   * references an internal URI, the viewer will call this to obtain a
+   * presigned URL for inline rendering. Without a resolver, media with only
+   * internal URIs falls back to the "no preview" placeholder.
+   */
+  resolveStorageUrl?: ResolveStorageUrl;
 }
 
 // ─── SVG icon paths ──────────────────────────────────────────────────────────
@@ -71,17 +86,59 @@ function downloadUrl(url: string, filename: string) {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function StuffViewer({ stuff, className }: StuffViewerProps) {
+export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewerProps) {
   const [activeTab, setActiveTab] = React.useState<StuffTab>("html");
   const [copied, setCopied] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
   // URL for inline rendering (img/embed) — only http/https
-  const inlineUrl = React.useMemo(() => extractInlineUrl(stuff.data), [stuff.data]);
+  const httpInlineUrl = React.useMemo(() => extractInlineUrl(stuff.data), [stuff.data]);
   // URL for links/downloads — includes file:// too
-  const externalUrl = React.useMemo(() => extractUrl(stuff.data), [stuff.data]);
+  const httpExternalUrl = React.useMemo(() => extractUrl(stuff.data), [stuff.data]);
+  // Internal pipelex-storage:// URI, if any — needs async resolution before rendering
+  const storageUri = React.useMemo(() => extractStorageUri(stuff.data), [stuff.data]);
   const filename = React.useMemo(() => extractFilename(stuff.data), [stuff.data]);
-  const htmlTabLabel = getHtmlTabLabel(stuff.contentType);
+
+  // Resolve pipelex-storage:// URIs to browser-fetchable URLs via the provided resolver.
+  // Only runs when no direct http(s) URL is available — we prefer public_url/src/href first.
+  const [resolvedStorageUrl, setResolvedStorageUrl] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    // Clear any previously resolved URL synchronously so a second stuff item
+    // never briefly renders with the prior item's resolved URL while the new
+    // promise is in flight.
+    setResolvedStorageUrl(null);
+    if (!storageUri || !resolveStorageUrl || httpInlineUrl) {
+      return;
+    }
+    let cancelled = false;
+    resolveStorageUrl(storageUri)
+      .then((url) => {
+        if (cancelled) return;
+        // Defensive: the resolver is consumer-supplied. Gate its output through
+        // the same scheme check as every other URL path (isInlineRenderableUrl
+        // rejects javascript:, data:, vbscript:, etc.) so a faulty or
+        // compromised resolver can't inject an unsafe URL into <img>/<iframe>.
+        setResolvedStorageUrl(isInlineRenderableUrl(url) ? url : null);
+      })
+      .catch(() => {
+        if (!cancelled) setResolvedStorageUrl(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [storageUri, resolveStorageUrl, httpInlineUrl]);
+
+  const inlineUrl = httpInlineUrl ?? resolvedStorageUrl;
+  const externalUrl = httpExternalUrl ?? resolvedStorageUrl;
+  // Effective MIME type: stuff.contentType is often the concept tag ("document"),
+  // not a MIME. Fall back to data.mime_type or the file extension.
+  const effectiveMime = React.useMemo(
+    () => resolveMimeType(stuff.data, stuff.contentType, externalUrl ?? storageUri),
+    [stuff.data, stuff.contentType, externalUrl, storageUri],
+  );
+  const isPdf = effectiveMime === "application/pdf";
+  const isImage = effectiveMime?.startsWith("image/") ?? false;
+  const htmlTabLabel = getHtmlTabLabel(effectiveMime ?? stuff.contentType);
   const jsonString = React.useMemo(() => {
     if (stuff.data == null) return null;
     try {
@@ -124,7 +181,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
   function renderContent() {
     if (activeTab === "html") {
       // PDF embed
-      if (stuff.contentType === "application/pdf") {
+      if (isPdf) {
         if (inlineUrl) {
           // #pagemode=none hides the sidebar/page thumbnails in the browser PDF viewer
           const pdfUrl = inlineUrl.includes("#") ? inlineUrl : `${inlineUrl}#pagemode=none`;
@@ -138,7 +195,7 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
       }
 
       // Image display
-      if (stuff.contentType?.startsWith("image/")) {
+      if (isImage) {
         if (inlineUrl) {
           return (
             <div className="stuff-viewer-image">
@@ -233,14 +290,14 @@ export function StuffViewer({ stuff, className }: StuffViewerProps) {
 
   function handleDownload() {
     // For images, download the actual file
-    if (stuff.contentType?.startsWith("image/") && externalUrl) {
-      const ext = stuff.contentType.split("/")[1] || "png";
+    if (isImage && externalUrl) {
+      const ext = effectiveMime?.split("/")[1] || "png";
       downloadUrl(externalUrl, `${stuff.name || "stuff"}.${ext}`);
       return;
     }
 
     // For PDFs, download the actual file
-    if (stuff.contentType === "application/pdf" && externalUrl) {
+    if (isPdf && externalUrl) {
       downloadUrl(externalUrl, `${stuff.name || "stuff"}.pdf`);
       return;
     }
