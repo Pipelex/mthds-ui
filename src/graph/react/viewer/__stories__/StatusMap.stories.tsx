@@ -61,8 +61,8 @@ function StatusCyclingWrapper() {
   return (
     <GraphViewer
       graphspec={DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec}
-      direction="LR"
-      showControllers={true}
+      initialDirection="LR"
+      initialShowControllers={true}
       statusMap={statusMap}
     />
   );
@@ -87,8 +87,8 @@ export const LiveStatusCycling: Story = {
 export const MixedStatuses: Story = {
   args: {
     graphspec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec,
-    direction: "LR",
-    showControllers: true,
+    initialDirection: "LR",
+    initialShowControllers: true,
     statusMap: {
       extract_pages: "succeeded",
       analyze_content: "running",
@@ -111,8 +111,8 @@ export const MixedStatuses: Story = {
 export const NoStatusMap: Story = {
   args: {
     graphspec: DRY_RUN_CATALOG.DRY_SIMPLE_SEQUENCE.spec,
-    direction: "LR",
-    showControllers: true,
+    initialDirection: "LR",
+    initialShowControllers: true,
   },
   play: async ({ canvasElement }) => {
     await waitFor(

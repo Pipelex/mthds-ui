@@ -14,8 +14,8 @@ const meta: Meta<typeof GraphViewer> = {
     ),
   ],
   argTypes: {
-    direction: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
-    showControllers: { control: { type: "boolean" } },
+    initialDirection: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
+    initialShowControllers: { control: { type: "boolean" } },
   },
 };
 
@@ -25,9 +25,9 @@ type Story = StoryObj<typeof GraphViewer>;
 const spec = toGraphSpec(truncLongBoth);
 
 export const LR: Story = {
-  args: { graphspec: spec, direction: "LR", showControllers: false },
+  args: { graphspec: spec, initialDirection: "LR", initialShowControllers: false },
 };
 
 export const TB: Story = {
-  args: { graphspec: spec, direction: "TB", showControllers: false },
+  args: { graphspec: spec, initialDirection: "TB", initialShowControllers: false },
 };

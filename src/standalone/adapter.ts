@@ -5,15 +5,15 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import type { GraphSpec, GraphConfig, GraphDirection } from "@graph/types";
+import { GRAPH_DIRECTION } from "@graph/types";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
 let currentGraphspec: GraphSpec | null = null;
 let currentConfig: GraphConfig = {};
-let currentDirection: GraphDirection = "LR";
+let currentDirection: GraphDirection = GRAPH_DIRECTION.LR;
 let currentShowControllers = false;
-let reactFlowInstance: any = null;
 let renderApp: (() => void) | null = null;
 
 // ─── Helpers ────────────────────────────────────────────────────────────
@@ -28,27 +28,14 @@ function readJsonScript(id: string): any {
   }
 }
 
-function applyDirectionIcon(direction: string) {
-  document.querySelectorAll(".direction-icon").forEach((icon) => icon.classList.remove("active"));
-  const target = document.querySelector(direction === "LR" ? ".tb-icon" : ".lr-icon");
-  if (target) target.classList.add("active");
-}
-
-// ─── Callbacks ──────────────────────────────────────────────────────────
-
-function onReactFlowInit(instance: any) {
-  reactFlowInstance = instance;
-}
-
 // ─── React app ──────────────────────────────────────────────────────────
 
 function App() {
   return React.createElement(GraphViewer, {
     graphspec: currentGraphspec,
     config: currentConfig,
-    direction: currentDirection,
-    showControllers: currentShowControllers,
-    onReactFlowInit,
+    initialDirection: currentDirection,
+    initialShowControllers: currentShowControllers,
   });
 }
 
@@ -72,7 +59,7 @@ function mount() {
     const rawConfig = readJsonScript("pipelex-config") || {};
 
     currentGraphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
-    currentDirection = (rawConfig.direction as GraphDirection) || "LR";
+    currentDirection = (rawConfig.direction as GraphDirection) || GRAPH_DIRECTION.LR;
     currentShowControllers = rawConfig.showControllers || false;
     currentConfig = {
       direction: currentDirection,
@@ -85,8 +72,6 @@ function mount() {
       paletteColors: rawConfig.paletteColors,
     };
 
-    applyDirectionIcon(currentDirection);
-
     // Apply palette colors
     if (rawConfig.paletteColors) {
       for (const [cssVar, value] of Object.entries(rawConfig.paletteColors)) {
@@ -94,36 +79,9 @@ function mount() {
       }
     }
 
-    // Controllers toggle
-    const ctrlToggle = document.getElementById("controllers-toggle") as HTMLInputElement | null;
-    if (ctrlToggle) ctrlToggle.checked = currentShowControllers;
-
     // Re-render with data (triggers GraphViewer's graphspec useEffect)
     if (renderApp) renderApp();
   }, 0);
-
-  // Wire toolbar buttons
-  document.getElementById("direction-toggle")?.addEventListener("click", () => {
-    currentDirection = currentDirection === "LR" ? "TB" : "LR";
-    applyDirectionIcon(currentDirection);
-    if (renderApp) renderApp();
-  });
-
-  (document.getElementById("controllers-toggle") as HTMLInputElement | null)?.addEventListener(
-    "change",
-    (e) => {
-      currentShowControllers = (e.target as HTMLInputElement).checked;
-      if (renderApp) renderApp();
-    },
-  );
-
-  document.getElementById("zoom-in")?.addEventListener("click", () => reactFlowInstance?.zoomIn());
-  document
-    .getElementById("zoom-out")
-    ?.addEventListener("click", () => reactFlowInstance?.zoomOut());
-  document
-    .getElementById("zoom-fit")
-    ?.addEventListener("click", () => reactFlowInstance?.fitView({ padding: 0.1 }));
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
     const current = document.body.getAttribute("data-theme") || "dark";

@@ -1,7 +1,7 @@
 import React from "react";
 import type { ConceptInfo, GraphSpecNodeIoItem } from "@graph/types";
 import { StuffViewer } from "../stuff/StuffViewer";
-import type { StuffViewerData } from "../stuff/stuffViewerTypes";
+import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import "./DetailPanel.css";
 
 // ─── Props ──────────────────────────────────────────────────────────────
@@ -12,11 +12,13 @@ export interface ConceptDetailPanelProps {
   ioData?: GraphSpecNodeIoItem | StuffViewerData;
   /** Whether this is a dry run (schema only, no real data). */
   isDryRun?: boolean;
+  /** Resolver for `pipelex-storage://` URIs when rendering media in StuffViewer. */
+  resolveStorageUrl?: ResolveStorageUrl;
 }
 
 // ─── Component ──────────────────────────────────────────────────────────
 
-export function ConceptDetailPanel({ concept, ioData, isDryRun }: ConceptDetailPanelProps) {
+export function ConceptDetailPanel({ concept, ioData, isDryRun, resolveStorageUrl }: ConceptDetailPanelProps) {
   return (
     <>
       {/* Header */}
@@ -49,7 +51,7 @@ export function ConceptDetailPanel({ concept, ioData, isDryRun }: ConceptDetailP
       {ioData && !isDryRun && (
         <div>
           <div className="detail-section-label">Data</div>
-          <StuffViewer stuff={toStuffViewerData(ioData)} />
+          <StuffViewer stuff={toStuffViewerData(ioData)} resolveStorageUrl={resolveStorageUrl} />
         </div>
       )}
     </>

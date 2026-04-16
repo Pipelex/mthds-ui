@@ -14,15 +14,15 @@ const meta: Meta<typeof GraphViewer> = {
     ),
   ],
   argTypes: {
-    direction: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
-    showControllers: { control: { type: "boolean" } },
+    initialDirection: { control: { type: "inline-radio" }, options: ["LR", "TB"] },
+    initialShowControllers: { control: { type: "boolean" } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { direction: "LR" as const, showControllers: false };
+const D = { initialDirection: "LR" as const, initialShowControllers: false };
 
 export const Completed: Story = {
   args: { graphspec: toGraphSpec(MOCK_PIPES.PipeLLM), ...D },
