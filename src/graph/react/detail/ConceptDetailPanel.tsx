@@ -18,7 +18,12 @@ export interface ConceptDetailPanelProps {
 
 // ─── Component ──────────────────────────────────────────────────────────
 
-export function ConceptDetailPanel({ concept, ioData, isDryRun, resolveStorageUrl }: ConceptDetailPanelProps) {
+export function ConceptDetailPanel({
+  concept,
+  ioData,
+  isDryRun,
+  resolveStorageUrl,
+}: ConceptDetailPanelProps) {
   return (
     <>
       {/* Header */}

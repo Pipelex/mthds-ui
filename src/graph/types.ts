@@ -226,6 +226,20 @@ export interface PipeComposeConstructBlueprint {
   fields: Record<string, PipeComposeConstructField>;
 }
 
+/**
+ * Per-field record of how each field was built at runtime, emitted by
+ * `PipeCompose._run_construct_mode` in pipelex via `execution_data.fields`.
+ *
+ * - `method`   → which composition method was used (mirrors `ConstructFieldMethod`)
+ * - `rendered` → present only for `template` fields, holds the Jinja2 output
+ *
+ * Nested fields record only their method; their sub-fields are not surfaced.
+ */
+export interface FieldResolution {
+  method: "from_var" | "fixed" | "template" | "nested";
+  rendered?: string;
+}
+
 export interface PipeComposeBlueprint extends PipeBlueprintBase {
   type: "PipeCompose";
   /** Legacy monolithic template. Null when construct_blueprint is used instead. */

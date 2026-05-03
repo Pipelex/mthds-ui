@@ -1,10 +1,5 @@
 import React from "react";
-import type {
-  GraphSpecNode,
-  PipeBlueprintUnion,
-  PipeType,
-  GraphSpec,
-} from "@graph/types";
+import type { GraphSpecNode, PipeBlueprintUnion, PipeType, GraphSpec } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -102,10 +97,14 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       <div className="detail-sticky-header">
         {/* Header: badge + pipe code */}
         <div className="detail-header">
-          <span className={`detail-badge ${isController ? "detail-badge--controller" : "detail-badge--operator"}`}>
+          <span
+            className={`detail-badge ${isController ? "detail-badge--controller" : "detail-badge--operator"}`}
+          >
             {badge}
           </span>
-          <span className={`detail-pipe-code ${isController ? "detail-pipe-code--controller" : ""}`}>
+          <span
+            className={`detail-pipe-code ${isController ? "detail-pipe-code--controller" : ""}`}
+          >
             {node.pipe_code ?? "unknown"}
           </span>
         </div>
@@ -171,9 +170,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       </div>
 
       {/* Blueprint-specific sections */}
-      {blueprint && (
-        <BlueprintSection blueprint={blueprint} executionData={node.execution_data} />
-      )}
+      {blueprint && <BlueprintSection blueprint={blueprint} executionData={node.execution_data} />}
 
       {/* Execution data (runtime-resolved values) */}
       {node.execution_data && Object.keys(node.execution_data).length > 0 && (
@@ -194,7 +191,11 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         <div>
           <div className="detail-section-label">Metrics</div>
           {Object.entries(node.metrics).map(([key, value]) => (
-            <KV key={key} label={key} value={typeof value === "number" ? value.toLocaleString() : String(value)} />
+            <KV
+              key={key}
+              label={key}
+              value={typeof value === "number" ? value.toLocaleString() : String(value)}
+            />
           ))}
         </div>
       )}

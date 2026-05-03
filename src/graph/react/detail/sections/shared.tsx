@@ -23,13 +23,7 @@ export function KV({
   );
 }
 
-export function PromptBlock({
-  label,
-  text,
-}: {
-  label: string;
-  text: string | null | undefined;
-}) {
+export function PromptBlock({ label, text }: { label: string; text: string | null | undefined }) {
   if (!text) return null;
   return (
     <div>
@@ -108,15 +102,20 @@ export function PromptToggle({
 
   function handleCopy() {
     if (!activeText || !navigator.clipboard) return;
-    navigator.clipboard.writeText(activeText).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    }).catch(() => {});
+    navigator.clipboard
+      .writeText(activeText)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      })
+      .catch(() => {});
   }
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 4 }}>
+      <div
+        style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 4 }}
+      >
         <div className="detail-section-label" style={{ marginBottom: 0 }}>
           {label}
         </div>
@@ -141,10 +140,7 @@ export function PromptToggle({
             {copied ? CHECK_ICON : COPY_ICON}
           </button>
           {canToggle && (
-            <button
-              onClick={() => setShowTemplate((prev) => !prev)}
-              style={promptActionStyle}
-            >
+            <button onClick={() => setShowTemplate((prev) => !prev)} style={promptActionStyle}>
               <span
                 style={{
                   width: 22,

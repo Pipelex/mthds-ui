@@ -69,8 +69,7 @@ const PDF_STUFF: StuffViewerData = {
     filename: "job_offer.pdf",
   },
   dataText: "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf\n",
-  dataHtml:
-    '<a href="https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf">job_offer.pdf</a>',
+  dataHtml: '<a href="https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf">job_offer.pdf</a>',
 };
 
 const IMAGE_STUFF: StuffViewerData = {
@@ -121,10 +120,22 @@ const PAGE_LIST_STUFF: StuffViewerData = {
   concept: "Page",
   data: {
     items: [
-      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
-      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
-      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
-      { text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null }, page_view: null },
+      {
+        text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
+        page_view: null,
+      },
+      {
+        text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
+        page_view: null,
+      },
+      {
+        text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
+        page_view: null,
+      },
+      {
+        text_and_images: { text: { text: "DRY RUN: OCR text" }, images: [], raw_html: null },
+        page_view: null,
+      },
     ],
   },
   dataText:
@@ -175,8 +186,7 @@ const INTERNAL_STORAGE_IMAGE_STUFF: StuffViewerData = {
     filename: null,
   },
   dataText: "pipelex-storage://anonymous/85bc58dc26cda5ab.png\n",
-  dataHtml:
-    '<img src="pipelex-storage://anonymous/85bc58dc26cda5ab.png" class="msg-img">',
+  dataHtml: '<img src="pipelex-storage://anonymous/85bc58dc26cda5ab.png" class="msg-img">',
 };
 
 const EMPTY_STUFF: StuffViewerData = {

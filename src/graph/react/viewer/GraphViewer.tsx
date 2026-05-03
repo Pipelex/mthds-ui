@@ -81,9 +81,8 @@ function StuffNodeDetail({
   graphspec: GraphSpec | null;
   resolveStorageUrl?: ResolveStorageUrl;
 }) {
-  const conceptInfo = stuffData.concept && graphspec
-    ? resolveConceptRef(graphspec, stuffData.concept)
-    : undefined;
+  const conceptInfo =
+    stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
 
   return (
     <>
@@ -166,10 +165,7 @@ export function GraphViewer(props: GraphViewerProps) {
 
   const [direction, setDirection] = React.useState<GraphDirection>(
     () =>
-      initialDirection ??
-      config.direction ??
-      DEFAULT_GRAPH_CONFIG.direction ??
-      GRAPH_DIRECTION.TB,
+      initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
   const [showControllers, setShowControllers] = React.useState<boolean>(
     () =>
@@ -376,20 +372,20 @@ export function GraphViewer(props: GraphViewerProps) {
         );
         const layouted = needsLayout
           ? await getLayoutedElements(
-            graphData.nodes,
-            graphData.edges,
-            currentDirection,
-            currentLayoutConfig,
-            graphspec,
-            analysis,
-          )
+              graphData.nodes,
+              graphData.edges,
+              currentDirection,
+              currentLayoutConfig,
+              graphspec,
+              analysis,
+            )
           : {
-            ...graphData,
-            controllerPositions: {} as Record<
-              string,
-              { x: number; y: number; width: number; height: number }
-            >,
-          };
+              ...graphData,
+              controllerPositions: {} as Record<
+                string,
+                { x: number; y: number; width: number; height: number }
+              >,
+            };
         if (cancelled) return;
         layoutCacheRef.current = {
           nodes: layouted.nodes,
@@ -487,12 +483,25 @@ export function GraphViewer(props: GraphViewerProps) {
       } else if (nodeData.isStuff && graphspec) {
         const digest = stuffDigestFromId(node.id);
         const sd = findStuffDataByDigest(graphspec, digest);
-        setDetailSelection({ kind: "stuff", nodeId: node.id, nodeData, stuffData: sd ?? undefined });
+        setDetailSelection({
+          kind: "stuff",
+          nodeId: node.id,
+          nodeData,
+          stuffData: sd ?? undefined,
+        });
       }
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
     },
-    [setNodes, onNavigateToPipe, onNodeSelect, onStuffNodeClick, graphspec, detailSelection, conceptOverride],
+    [
+      setNodes,
+      onNavigateToPipe,
+      onNodeSelect,
+      onStuffNodeClick,
+      graphspec,
+      detailSelection,
+      conceptOverride,
+    ],
   );
 
   const onInit = React.useCallback(

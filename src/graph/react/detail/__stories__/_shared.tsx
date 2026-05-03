@@ -113,7 +113,7 @@ export function makeComposeBlueprint(opts: {
 
 /** Build a minimal GraphSpecNode + GraphSpec pair wiring a PipeCompose blueprint
  *  to a node. The optional `execution_data` argument is set on the node so the
- *  detail panel renders runtime values (resolved_fields, rendered_text, etc.). */
+ *  detail panel renders runtime values (fields, rendered_text, etc.). */
 export function makeComposeStoryProps(
   blueprint: PipeBlueprintUnion,
   execution_data?: Record<string, unknown>,

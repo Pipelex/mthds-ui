@@ -22,12 +22,7 @@ type Story = StoryObj<typeof GraphViewer>;
 
 // ─── Live Status Cycling ────────────────────────────────────────────────────
 
-const PIPE_CODES = [
-  "extract_analyze_report",
-  "extract_pages",
-  "analyze_content",
-  "compose_report",
-];
+const PIPE_CODES = ["extract_analyze_report", "extract_pages", "analyze_content", "compose_report"];
 
 const STATUS_SEQUENCE: PipeStatus[] = ["scheduled", "running", "succeeded"];
 

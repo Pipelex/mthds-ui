@@ -167,12 +167,8 @@ export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewer
       <div className="stuff-viewer-local-file">
         <div className="stuff-viewer-local-file-icon">{ICON_LOCAL_FILE}</div>
         <div className="stuff-viewer-local-file-info">
-          {displayName && (
-            <div className="stuff-viewer-local-file-name">{displayName}</div>
-          )}
-          <div className="stuff-viewer-local-file-hint">
-            {mediaLabel} — no preview available
-          </div>
+          {displayName && <div className="stuff-viewer-local-file-name">{displayName}</div>}
+          <div className="stuff-viewer-local-file-hint">{mediaLabel} — no preview available</div>
         </div>
       </div>
     );

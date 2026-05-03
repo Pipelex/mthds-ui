@@ -4,9 +4,10 @@
  * `template` is the only construct method where the pipe actually computes
  * something new at runtime — it Jinja2-renders the template against working
  * memory and the rendered string becomes the field's value. The pipelex worker
- * emits the rendered text in `execution_data.resolved_fields[fieldName]`, and
- * each template field gets its own `PromptToggle` so the user can switch
- * between the template and its rendered output.
+ * emits a per-field resolution record in `execution_data.fields`, where each
+ * entry carries `{ method, rendered? }` (and `fields` for nested). Template
+ * fields get their own `PromptToggle` so the user can switch between the
+ * template source and its rendered output.
  *
  * The other 3 methods (`fixed`, `from_var`, `nested`) intentionally do NOT
  * surface runtime data on the pipe — `fixed` values live in the blueprint and
@@ -52,8 +53,10 @@ export const SingleTemplateField: Story = {
     });
     const { node, spec } = makeComposeStoryProps(blueprint, {
       compose_mode: "construct",
-      resolved_fields: {
-        body: RENDERED_LONG_COMPOSE_TEMPLATE,
+      fields: {
+        candidate_name: { method: "from_var" },
+        verdict: { method: "fixed" },
+        body: { method: "template", rendered: RENDERED_LONG_COMPOSE_TEMPLATE },
       },
     });
     return <PipeStory node={node} spec={spec} />;
@@ -83,12 +86,20 @@ Confidence: $match_assessment.evaluation.final.decision.confidence_score_zero_to
     });
     const { node, spec } = makeComposeStoryProps(blueprint, {
       compose_mode: "construct",
-      resolved_fields: {
-        subject_line: "Update on your application — John Doe",
-        header_block: `Reference: ACME-2026-Q2-04877
+      fields: {
+        candidate_name: { method: "from_var" },
+        verdict: { method: "fixed" },
+        subject_line: {
+          method: "template",
+          rendered: "Update on your application — John Doe",
+        },
+        header_block: {
+          method: "template",
+          rendered: `Reference: ACME-2026-Q2-04877
 Verdict: no_match
 Confidence: 0.07`,
-        body: RENDERED_LONG_COMPOSE_TEMPLATE,
+        },
+        body: { method: "template", rendered: RENDERED_LONG_COMPOSE_TEMPLATE },
       },
     });
     return <PipeStory node={node} spec={spec} />;
@@ -114,8 +125,10 @@ export const HugeTemplateRendered: Story = {
     });
     const { node, spec } = makeComposeStoryProps(blueprint, {
       compose_mode: "construct",
-      resolved_fields: {
-        body: RENDERED_HUGE_COMPOSE_TEMPLATE,
+      fields: {
+        candidate_name: { method: "from_var" },
+        verdict: { method: "fixed" },
+        body: { method: "template", rendered: RENDERED_HUGE_COMPOSE_TEMPLATE },
       },
     });
     return <PipeStory node={node} spec={spec} />;
