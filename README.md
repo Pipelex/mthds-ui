@@ -6,23 +6,11 @@ Core graph logic (builders, layout, analysis) is pure TypeScript with no React d
 
 ## Install
 
-Install from GitHub using a version tag:
-
 ```bash
-npm install github:Pipelex/mthds-ui#v0.2.6
+npm install @pipelex/mthds-ui
 ```
 
-Or in `package.json`:
-
-```json
-{
-  "dependencies": {
-    "@pipelex/mthds-ui": "github:Pipelex/mthds-ui#v0.2.6"
-  }
-}
-```
-
-Available tags are listed on the [releases page](https://github.com/Pipelex/mthds-ui/releases).
+Released versions are listed on the [npm page](https://www.npmjs.com/package/@pipelex/mthds-ui) and the [GitHub releases page](https://github.com/Pipelex/mthds-ui/releases).
 
 ### Peer dependencies
 
