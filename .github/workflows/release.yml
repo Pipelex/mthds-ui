@@ -36,8 +36,8 @@ jobs:
       - name: Check if version is already published
         id: check_published
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
-          if npm view @pipelex/mthds-ui@$VERSION version 2>/dev/null; then
+          VERSION="${{ steps.get_version.outputs.version }}"
+          if npm view "@pipelex/mthds-ui@$VERSION" version 2>/dev/null; then
             echo "Version $VERSION is already published to npm"
             echo "already_published=true" >> $GITHUB_OUTPUT
           else
@@ -68,15 +68,13 @@ jobs:
       - name: Publish to npm
         if: steps.check_published.outputs.already_published == 'false'
         run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create git tag
         if: steps.check_published.outputs.already_published == 'false'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION="${{ steps.get_version.outputs.version }}"
           git tag "v$VERSION"
           git push origin "v$VERSION"
 
@@ -101,7 +99,7 @@ jobs:
 
       - name: Extract changelog notes for current version
         run: |
-          VERSION=${{ needs.publish.outputs.version }}
+          VERSION="${{ needs.publish.outputs.version }}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Extracting changelog for version v$VERSION"
 
