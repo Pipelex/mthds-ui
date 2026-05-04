@@ -6,10 +6,15 @@ on:
       - main
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: write
+
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+      already_published: ${{ steps.check_published.outputs.already_published }}
 
     steps:
       - name: Checkout code
@@ -19,56 +24,86 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Extract version from package.json
         id: get_version
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Releasing version: $VERSION"
+          echo "Publishing version: $VERSION"
 
-      - name: Check if tag already exists
-        id: check_tag
+      - name: Check if version is already published
+        id: check_published
         run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
-          if git ls-remote --tags origin | grep -q "refs/tags/v$VERSION$"; then
-            echo "Tag v$VERSION already exists"
-            echo "already_released=true" >> $GITHUB_OUTPUT
+          VERSION=${{ steps.get_version.outputs.version }}
+          if npm view @pipelex/mthds-ui@$VERSION version 2>/dev/null; then
+            echo "Version $VERSION is already published to npm"
+            echo "already_published=true" >> $GITHUB_OUTPUT
           else
-            echo "Tag v$VERSION does not exist yet"
-            echo "already_released=false" >> $GITHUB_OUTPUT
+            echo "Version $VERSION is not yet published"
+            echo "already_published=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Install dependencies
-        if: steps.check_tag.outputs.already_released == 'false'
+        if: steps.check_published.outputs.already_published == 'false'
         run: npm install
 
       - name: Install Playwright browsers
-        if: steps.check_tag.outputs.already_released == 'false'
+        if: steps.check_published.outputs.already_published == 'false'
         run: npx playwright install chromium
 
-      - name: Build
-        if: steps.check_tag.outputs.already_released == 'false'
-        run: npm run build
+      - name: Run quality checks (lint + format + typecheck)
+        if: steps.check_published.outputs.already_published == 'false'
+        run: make check
 
       - name: Run tests
-        if: steps.check_tag.outputs.already_released == 'false'
-        run: npm test
+        if: steps.check_published.outputs.already_published == 'false'
+        run: make test
+
+      - name: Build
+        if: steps.check_published.outputs.already_published == 'false'
+        run: npm run build
+
+      - name: Publish to npm
+        if: steps.check_published.outputs.already_published == 'false'
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create git tag
-        if: steps.check_tag.outputs.already_released == 'false'
+        if: steps.check_published.outputs.already_published == 'false'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
+          VERSION=${{ steps.get_version.outputs.version }}
           git tag "v$VERSION"
           git push origin "v$VERSION"
 
-      - name: Extract changelog notes
-        if: steps.check_tag.outputs.already_released == 'false'
+      - name: Store the distribution packages
+        if: steps.check_published.outputs.already_published == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package-distributions
+          path: dist/
+
+  github-release:
+    name: Create GitHub Release
+    needs:
+      - publish
+    if: needs.publish.outputs.already_published == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract changelog notes for current version
         run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
+          VERSION=${{ needs.publish.outputs.version }}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracting changelog for version v$VERSION"
 
           START_LINE=$(grep -n "## \[v$VERSION\] - " CHANGELOG.md | cut -d: -f1)
 
@@ -96,8 +131,13 @@ jobs:
           echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: npm-package-distributions
+          path: dist/
+
       - name: Create GitHub Release
-        if: steps.check_tag.outputs.already_released == 'false'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |

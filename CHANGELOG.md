@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.5.0] - 2026-05-04
+
+### Added
+
+- **First publish to the npm registry as `@pipelex/mthds-ui`.** Adds `publishConfig` (`access: public`, `provenance: true`) so the scoped package publishes as public with npm provenance attestations. The `release.yml` workflow now builds, runs tests, and publishes to npm on every push to `main` when the `package.json` version isn't already on the registry, then tags the commit and creates a GitHub release with notes pulled from this changelog.
+- **`./graph/react/viewer/GraphToolbar.css` subpath export.** The toolbar stylesheet was already copied to `dist/` by `tsup` but wasn't reachable through the package's `exports` map, forcing consumers to import it via deep paths. It's now a first-class export alongside the other component stylesheets.
+
 ## [v0.4.1] - 2026-04-16
 
 ### Fixed
