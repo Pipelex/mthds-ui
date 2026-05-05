@@ -1,0 +1,62 @@
+src/graph/react/viewer/GraphViewer.tsx
+  11655e46d544cbd8 72-85,93-94,99-100,113-114,118-123,189-190,614-615
+src/graph/react/stuff/__stories__/StuffViewer.stories.tsx
+  11655e46d544cbd8 225-242
+src/graph/react/stuff/StuffViewer.css
+  11655e46d544cbd8 246-268
+src/graph/react/stuff/StuffViewer.tsx
+  11655e46d544cbd8 28-44,106-112,204-205,214-234,365-368,370
+src/graph/react/detail/ConceptDetailPanel.tsx
+  11655e46d544cbd8 17-20,30-31,65-70
+CHANGELOG.md
+  a4ecb3d4e1129e35 3,8-13
+  79142c01165c66a2 4-7,14-18
+package.json
+  a4ecb3d4e1129e35 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "45490ec49ecdb2463f92046a2bc716a393a0b25e",
+  "prompts": {
+    "11655e46d544cbd8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6c6d780-3591-4928-a822-255d8b224ac0",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 157,
+      "total_deletions": 8,
+      "accepted_lines": 136,
+      "overriden_lines": 0
+    },
+    "79142c01165c66a2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d65f6178-bbec-4709-ab39-b8a469bf2f99",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 18,
+      "total_deletions": 4,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    },
+    "a4ecb3d4e1129e35": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "198f29ae-84d7-4722-adab-53392fe2e9c8",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Louis Choquel",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 26,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    }
+  }
+}
