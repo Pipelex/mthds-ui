@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.5.1] - 2026-05-05
+
+### Added
+
+- **New exported type `FieldResolution`** (`{ method: "from_var" | "fixed" | "template" | "nested"; rendered?: string }`).
+- **`canEmbedPdf` and `onOpenExternally` props on `StuffViewer`, `ConceptDetailPanel`, and `GraphViewer`.** Hosts that can't render `<embed type="application/pdf">` (e.g. VS Code webviews, which run inside Electron without the Chromium PDFium plugin) can now set `canEmbedPdf={false}` to fall back to a clickable tile that triggers `onOpenExternally` (or `window.open` if not provided). `onOpenExternally` also overrides the default `window.open` behavior of the StuffViewer toolbar's "open externally" button — wire it to the host's external-open mechanism (e.g. `vscode.env.openExternal` via postMessage). Both props are forwarded through `GraphViewer` → `ConceptDetailPanel` → `StuffViewer` so consumers only have to pass them once at the top level.
+- **`PDFContentEmbedDisabled` Storybook story** demonstrating the embed-disabled fallback tile.
+
+### Changed
+
+- **PipeCompose `execution_data.resolved_fields` → `execution_data.fields`.** Per-field resolution record `{ method, rendered? }` keyed by field name; `rendered` is set only for `template` fields. The detail panel reads `rendered` for templates and ignores other methods (their contract lives in the blueprint).
+
+### Internal
+
+- Prettier reformat across detail panel files, `GraphToolbar`, `GraphViewer`, and `StuffViewer`.
+
 ## [v0.5.0] - 2026-05-04
 
 ### Added

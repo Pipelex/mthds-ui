@@ -222,6 +222,24 @@ export const PDFContent: Story = {
   },
 };
 
+/** Simulates an embed-incapable host (e.g. VS Code webview): no <embed>, just
+ *  a clickable tile that calls `onOpenExternally`. */
+export const PDFContentEmbedDisabled: Story = {
+  args: {
+    stuff: PDF_STUFF,
+    canEmbedPdf: false,
+    onOpenExternally: (url, filename) => {
+      // eslint-disable-next-line no-console
+      console.log("onOpenExternally", { url, filename });
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("job_offer.pdf")).toBeInTheDocument();
+    await expect(canvas.getByText("Click to open PDF externally")).toBeInTheDocument();
+  },
+};
+
 export const ImageContent: Story = {
   args: { stuff: IMAGE_STUFF },
   play: async ({ canvasElement }) => {
