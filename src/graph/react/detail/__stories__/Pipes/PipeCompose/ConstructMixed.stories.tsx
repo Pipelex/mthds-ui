@@ -111,8 +111,7 @@ export const HugeMixed: Story = {
                       schedule_in_days: { method: "fixed", fixed_value: 180 },
                       followup_role_family_canonical_id: {
                         method: "from_var",
-                        from_path:
-                          "match_assessment.routing.followup.role_family_canonical_id",
+                        from_path: "match_assessment.routing.followup.role_family_canonical_id",
                       },
                       followup_owner_team_slug: {
                         method: "from_var",

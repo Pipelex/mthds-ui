@@ -25,6 +25,23 @@ export interface StuffViewerProps {
    * internal URIs falls back to the "no preview" placeholder.
    */
   resolveStorageUrl?: ResolveStorageUrl;
+  /**
+   * Set to `false` when the host cannot render `<embed type="application/pdf">`
+   * — e.g. VS Code webviews, which run inside Electron without the Chromium
+   * PDFium plugin. The PDF view then falls back to a clickable tile that
+   * triggers `onOpenExternally` (or `window.open` if not provided).
+   *
+   * Default: `true`.
+   */
+  canEmbedPdf?: boolean;
+  /**
+   * Replaces the default `window.open(url, "_blank")` behavior for both the
+   * toolbar "open externally" button and the PDF fallback tile. Use this in
+   * environments where `window.open` is blocked or undesirable — for example,
+   * VS Code webviews should wire this to `vscode.env.openExternal` via
+   * postMessage.
+   */
+  onOpenExternally?: (url: string, filename?: string) => void;
 }
 
 // ─── SVG icon paths ──────────────────────────────────────────────────────────
@@ -86,7 +103,13 @@ function downloadUrl(url: string, filename: string) {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewerProps) {
+export function StuffViewer({
+  stuff,
+  className,
+  resolveStorageUrl,
+  canEmbedPdf,
+  onOpenExternally,
+}: StuffViewerProps) {
   const [activeTab, setActiveTab] = React.useState<StuffTab>("html");
   const [copied, setCopied] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
@@ -167,12 +190,8 @@ export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewer
       <div className="stuff-viewer-local-file">
         <div className="stuff-viewer-local-file-icon">{ICON_LOCAL_FILE}</div>
         <div className="stuff-viewer-local-file-info">
-          {displayName && (
-            <div className="stuff-viewer-local-file-name">{displayName}</div>
-          )}
-          <div className="stuff-viewer-local-file-hint">
-            {mediaLabel} — no preview available
-          </div>
+          {displayName && <div className="stuff-viewer-local-file-name">{displayName}</div>}
+          <div className="stuff-viewer-local-file-hint">{mediaLabel} — no preview available</div>
         </div>
       </div>
     );
@@ -182,13 +201,35 @@ export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewer
     if (activeTab === "html") {
       // PDF embed
       if (isPdf) {
-        if (inlineUrl) {
+        const canEmbed = canEmbedPdf !== false;
+        if (canEmbed && inlineUrl) {
           // #pagemode=none hides the sidebar/page thumbnails in the browser PDF viewer
           const pdfUrl = inlineUrl.includes("#") ? inlineUrl : `${inlineUrl}#pagemode=none`;
           return (
             <div className="stuff-viewer-pdf">
               <embed src={pdfUrl} type="application/pdf" />
             </div>
+          );
+        }
+        // Either the host can't render <embed type="application/pdf"> (Electron
+        // webviews lack PDFium) or no inline URL is available. If we still have
+        // an external URL, give the user a clickable tile to open it.
+        if (externalUrl) {
+          const displayName = filename || stuff.name;
+          return (
+            <button
+              type="button"
+              className="stuff-viewer-local-file stuff-viewer-local-file--button"
+              onClick={handleOpenExternal}
+            >
+              <div className="stuff-viewer-local-file-icon">{ICON_LOCAL_FILE}</div>
+              <div className="stuff-viewer-local-file-info">
+                {displayName && (
+                  <div className="stuff-viewer-local-file-name">{displayName}</div>
+                )}
+                <div className="stuff-viewer-local-file-hint">Click to open PDF externally</div>
+              </div>
+            </button>
           );
         }
         return renderMediaFallback("PDF");
@@ -321,9 +362,12 @@ export function StuffViewer({ stuff, className, resolveStorageUrl }: StuffViewer
   }
 
   function handleOpenExternal() {
-    if (externalUrl) {
-      window.open(externalUrl, "_blank", "noopener,noreferrer");
+    if (!externalUrl) return;
+    if (onOpenExternally) {
+      onOpenExternally(externalUrl, filename ?? undefined);
+      return;
     }
+    window.open(externalUrl, "_blank", "noopener,noreferrer");
   }
 
   // ── Render ───────────────────────────────────────────────────────────────

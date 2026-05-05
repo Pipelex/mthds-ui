@@ -1,5 +1,6 @@
 import React from "react";
 import type {
+  FieldResolution,
   PipeBlueprintUnion,
   PipeComposeConstructBlueprint,
   PipeComposeConstructField,
@@ -74,11 +75,11 @@ function FieldBlock({ label, value }: { label: string; value: string }) {
 function ConstructFieldsBlock({
   blueprint,
   depth,
-  resolvedFields,
+  fieldResolutions,
 }: {
   blueprint: PipeComposeConstructBlueprint;
   depth: number;
-  resolvedFields: Record<string, unknown> | null;
+  fieldResolutions: Record<string, FieldResolution> | null;
 }) {
   const leafFields: [string, PipeComposeConstructField][] = [];
   const nestedFields: [string, PipeComposeConstructField][] = [];
@@ -116,9 +117,7 @@ function ConstructFieldsBlock({
       })}
 
       {templateFields.map(([name, field]) => {
-        const resolvedForField = resolvedFields?.[name];
-        const renderedForField =
-          typeof resolvedForField === "string" ? resolvedForField : undefined;
+        const renderedForField = fieldResolutions?.[name]?.rendered;
         return (
           <div key={name} style={indentStyle}>
             <PromptToggle
@@ -147,15 +146,7 @@ function ConstructFieldsBlock({
             <ConstructFieldsBlock
               blueprint={field.nested}
               depth={depth + 1}
-              // For nested sub-constructs, runtime resolved values would be
-              // keyed under the parent field name in the parent map. Pipelex
-              // currently flattens by field name, so we drill in optimistically
-              // and let template fields find their rendered text if it exists.
-              resolvedFields={
-                resolvedFields && typeof resolvedFields[name] === "object" && resolvedFields[name] !== null
-                  ? (resolvedFields[name] as Record<string, unknown>)
-                  : null
-              }
+              fieldResolutions={null}
             />
           </div>
         );
@@ -173,12 +164,15 @@ export function PipeComposeSection({
 }) {
   const renderedText = executionData?.rendered_text as string | undefined;
   const composeMode = executionData?.compose_mode as string | undefined;
-  // Runtime-resolved values keyed by field name, emitted by PipeCompose._run_construct_mode.
-  // Only consumed for `template` fields — that's the only construct method where the pipe
-  // actually computed something new (Jinja2 rendering). For `from_var` the value lives in
-  // the input stuff node, and for `fixed` the value lives in the blueprint, so neither
-  // belongs in the pipe detail panel.
-  const resolvedFields = (executionData?.resolved_fields ?? null) as Record<string, unknown> | null;
+  // Per-field record of how each field was built, emitted by
+  // PipeCompose._run_construct_mode. Used to surface the rendered Jinja2 text
+  // for `template` fields (and recursively for nested constructs). The contract
+  // of `fixed` / `from_var` / `nested` fields lives in the blueprint, so the
+  // record only carries `rendered` (templates) and `fields` (nested).
+  const fieldResolutions = (executionData?.fields ?? null) as Record<
+    string,
+    FieldResolution
+  > | null;
 
   const constructBlueprint = blueprint.construct_blueprint;
   const hasConstruct =
@@ -210,7 +204,7 @@ export function PipeComposeSection({
           <ConstructFieldsBlock
             blueprint={constructBlueprint}
             depth={0}
-            resolvedFields={resolvedFields}
+            fieldResolutions={fieldResolutions}
           />
         </>
       )}

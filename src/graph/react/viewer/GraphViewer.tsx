@@ -69,6 +69,20 @@ export interface GraphViewerProps {
    * exchange internal URIs for browser-fetchable presigned URLs when rendering media.
    */
   resolveStorageUrl?: ResolveStorageUrl;
+  /**
+   * Set to `false` when the host cannot render `<embed type="application/pdf">`
+   * — e.g. VS Code webviews, which run inside Electron without the Chromium
+   * PDFium plugin. Forwarded to StuffViewer.
+   *
+   * Default: `true`.
+   */
+  canEmbedPdf?: boolean;
+  /**
+   * Replaces the default `window.open(url, "_blank")` behavior used by the
+   * StuffViewer toolbar and the PDF fallback tile. Wire this to your host's
+   * external-open mechanism (e.g. `vscode.env.openExternal` via postMessage).
+   */
+  onOpenExternally?: (url: string, filename?: string) => void;
 }
 
 /** Stuff node detail: concept structure + data viewer. */
@@ -76,14 +90,17 @@ function StuffNodeDetail({
   stuffData,
   graphspec,
   resolveStorageUrl,
+  canEmbedPdf,
+  onOpenExternally,
 }: {
   stuffData: StuffViewerData;
   graphspec: GraphSpec | null;
   resolveStorageUrl?: ResolveStorageUrl;
+  canEmbedPdf?: boolean;
+  onOpenExternally?: (url: string, filename?: string) => void;
 }) {
-  const conceptInfo = stuffData.concept && graphspec
-    ? resolveConceptRef(graphspec, stuffData.concept)
-    : undefined;
+  const conceptInfo =
+    stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
 
   return (
     <>
@@ -93,10 +110,17 @@ function StuffNodeDetail({
           concept={conceptInfo}
           ioData={stuffData}
           resolveStorageUrl={resolveStorageUrl}
+          canEmbedPdf={canEmbedPdf}
+          onOpenExternally={onOpenExternally}
         />
       ) : (
         /* Fallback: just show the StuffViewer if no concept info */
-        <StuffViewer stuff={stuffData} resolveStorageUrl={resolveStorageUrl} />
+        <StuffViewer
+          stuff={stuffData}
+          resolveStorageUrl={resolveStorageUrl}
+          canEmbedPdf={canEmbedPdf}
+          onOpenExternally={onOpenExternally}
+        />
       )}
     </>
   );
@@ -162,14 +186,13 @@ export function GraphViewer(props: GraphViewerProps) {
     onPaneClick,
     renderDetailExtra,
     resolveStorageUrl,
+    canEmbedPdf,
+    onOpenExternally,
   } = props;
 
   const [direction, setDirection] = React.useState<GraphDirection>(
     () =>
-      initialDirection ??
-      config.direction ??
-      DEFAULT_GRAPH_CONFIG.direction ??
-      GRAPH_DIRECTION.TB,
+      initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
   const [showControllers, setShowControllers] = React.useState<boolean>(
     () =>
@@ -376,20 +399,20 @@ export function GraphViewer(props: GraphViewerProps) {
         );
         const layouted = needsLayout
           ? await getLayoutedElements(
-            graphData.nodes,
-            graphData.edges,
-            currentDirection,
-            currentLayoutConfig,
-            graphspec,
-            analysis,
-          )
+              graphData.nodes,
+              graphData.edges,
+              currentDirection,
+              currentLayoutConfig,
+              graphspec,
+              analysis,
+            )
           : {
-            ...graphData,
-            controllerPositions: {} as Record<
-              string,
-              { x: number; y: number; width: number; height: number }
-            >,
-          };
+              ...graphData,
+              controllerPositions: {} as Record<
+                string,
+                { x: number; y: number; width: number; height: number }
+              >,
+            };
         if (cancelled) return;
         layoutCacheRef.current = {
           nodes: layouted.nodes,
@@ -487,12 +510,25 @@ export function GraphViewer(props: GraphViewerProps) {
       } else if (nodeData.isStuff && graphspec) {
         const digest = stuffDigestFromId(node.id);
         const sd = findStuffDataByDigest(graphspec, digest);
-        setDetailSelection({ kind: "stuff", nodeId: node.id, nodeData, stuffData: sd ?? undefined });
+        setDetailSelection({
+          kind: "stuff",
+          nodeId: node.id,
+          nodeData,
+          stuffData: sd ?? undefined,
+        });
       }
 
       setNodes((nds) => nds.map((n) => ({ ...n, selected: n.id === node.id })));
     },
-    [setNodes, onNavigateToPipe, onNodeSelect, onStuffNodeClick, graphspec, detailSelection, conceptOverride],
+    [
+      setNodes,
+      onNavigateToPipe,
+      onNodeSelect,
+      onStuffNodeClick,
+      graphspec,
+      detailSelection,
+      conceptOverride,
+    ],
   );
 
   const onInit = React.useCallback(
@@ -575,6 +611,8 @@ export function GraphViewer(props: GraphViewerProps) {
             stuffData={detailSelection.stuffData}
             graphspec={graphspec}
             resolveStorageUrl={resolveStorageUrl}
+            canEmbedPdf={canEmbedPdf}
+            onOpenExternally={onOpenExternally}
           />
         ) : null}
         {renderDetailExtra &&

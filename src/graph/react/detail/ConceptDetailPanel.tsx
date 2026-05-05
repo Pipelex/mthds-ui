@@ -14,11 +14,22 @@ export interface ConceptDetailPanelProps {
   isDryRun?: boolean;
   /** Resolver for `pipelex-storage://` URIs when rendering media in StuffViewer. */
   resolveStorageUrl?: ResolveStorageUrl;
+  /** Forwarded to {@link StuffViewer}. Set `false` when the host can't embed PDFs. */
+  canEmbedPdf?: boolean;
+  /** Forwarded to {@link StuffViewer}. Overrides default `window.open` behavior. */
+  onOpenExternally?: (url: string, filename?: string) => void;
 }
 
 // ─── Component ──────────────────────────────────────────────────────────
 
-export function ConceptDetailPanel({ concept, ioData, isDryRun, resolveStorageUrl }: ConceptDetailPanelProps) {
+export function ConceptDetailPanel({
+  concept,
+  ioData,
+  isDryRun,
+  resolveStorageUrl,
+  canEmbedPdf,
+  onOpenExternally,
+}: ConceptDetailPanelProps) {
   return (
     <>
       {/* Header */}
@@ -51,7 +62,12 @@ export function ConceptDetailPanel({ concept, ioData, isDryRun, resolveStorageUr
       {ioData && !isDryRun && (
         <div>
           <div className="detail-section-label">Data</div>
-          <StuffViewer stuff={toStuffViewerData(ioData)} resolveStorageUrl={resolveStorageUrl} />
+          <StuffViewer
+            stuff={toStuffViewerData(ioData)}
+            resolveStorageUrl={resolveStorageUrl}
+            canEmbedPdf={canEmbedPdf}
+            onOpenExternally={onOpenExternally}
+          />
         </div>
       )}
     </>

@@ -32,7 +32,10 @@ export function PipeImgGenSection({
       <KV label="Background" value={blueprint.background} />
       <KV label="Is Raw" value={blueprint.is_raw} />
       <KV label="Seed" value={blueprint.seed} />
-      <KV label="Images" value={(executionData?.nb_images as number) ?? blueprint.output_multiplicity} />
+      <KV
+        label="Images"
+        value={(executionData?.nb_images as number) ?? blueprint.output_multiplicity}
+      />
     </>
   );
 }

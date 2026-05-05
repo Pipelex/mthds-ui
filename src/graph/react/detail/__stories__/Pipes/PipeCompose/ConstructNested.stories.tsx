@@ -80,8 +80,7 @@ export const HugeNested: Story = {
                 },
                 primary_email: {
                   method: "from_var",
-                  from_path:
-                    "match_assessment.candidate.personal.contact.primary_email_address",
+                  from_path: "match_assessment.candidate.personal.contact.primary_email_address",
                 },
                 personal_summary_long_form: { method: "fixed", fixed_value: HUGE_RATIONALE },
                 contact_card: {
@@ -98,8 +97,7 @@ export const HugeNested: Story = {
                       },
                       city: {
                         method: "from_var",
-                        from_path:
-                          "match_assessment.candidate.personal.contact.location.city_name",
+                        from_path: "match_assessment.candidate.personal.contact.location.city_name",
                       },
                       country_iso_alpha_2: {
                         method: "from_var",

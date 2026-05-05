@@ -15,19 +15,22 @@ export function PipeConditionSection({
   return (
     <>
       <PromptBlock label="Expression" text={blueprint.expression} />
-      {evaluatedExpression && (
-        <KV label="Expression Result" value={evaluatedExpression} />
-      )}
+      {evaluatedExpression && <KV label="Expression Result" value={evaluatedExpression} />}
       <div>
         <div className="detail-section-label">Outcomes</div>
         {Object.entries(blueprint.outcome_map).map(([outcome, pipeCode]) => (
           <div
             key={outcome}
             className="detail-kv-row"
-            style={selectedOutcome === pipeCode ? { background: "rgba(80,250,123,0.08)" } : undefined}
+            style={
+              selectedOutcome === pipeCode ? { background: "rgba(80,250,123,0.08)" } : undefined
+            }
           >
             <span className="detail-kv-key">{outcome}</span>
-            <span className="detail-kv-value" style={selectedOutcome === pipeCode ? { color: "#50FA7B" } : undefined}>
+            <span
+              className="detail-kv-value"
+              style={selectedOutcome === pipeCode ? { color: "#50FA7B" } : undefined}
+            >
               {pipeCode}
             </span>
           </div>

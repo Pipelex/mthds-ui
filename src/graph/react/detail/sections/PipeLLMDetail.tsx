@@ -17,7 +17,8 @@ export function PipeLLMSection({
   const hasImageRefs = spec.user_image_references && spec.user_image_references.length > 0;
   const hasDocRefs = spec.user_document_references && spec.user_document_references.length > 0;
   const hasSysImageRefs = spec.system_image_references && spec.system_image_references.length > 0;
-  const hasSysDocRefs = spec.system_document_references && spec.system_document_references.length > 0;
+  const hasSysDocRefs =
+    spec.system_document_references && spec.system_document_references.length > 0;
 
   // Runtime-resolved values (from execution_data)
   const resolvedModel = executionData?.resolved_model as string | undefined;
@@ -50,13 +51,22 @@ export function PipeLLMSection({
         <KV label="User Image Refs" value={`${spec.user_image_references!.length} references`} />
       )}
       {hasDocRefs && (
-        <KV label="User Document Refs" value={`${spec.user_document_references!.length} references`} />
+        <KV
+          label="User Document Refs"
+          value={`${spec.user_document_references!.length} references`}
+        />
       )}
       {hasSysImageRefs && (
-        <KV label="System Image Refs" value={`${spec.system_image_references!.length} references`} />
+        <KV
+          label="System Image Refs"
+          value={`${spec.system_image_references!.length} references`}
+        />
       )}
       {hasSysDocRefs && (
-        <KV label="System Document Refs" value={`${spec.system_document_references!.length} references`} />
+        <KV
+          label="System Document Refs"
+          value={`${spec.system_document_references!.length} references`}
+        />
       )}
 
       {/* Prompts — last, toggle between template and rendered */}

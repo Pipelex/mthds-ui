@@ -243,6 +243,29 @@
   border: 1px solid var(--sv-border);
 }
 
+/* Clickable variant — used when an open-externally action is bound (e.g. PDF
+   fallback in hosts that can't render <embed type="application/pdf">). */
+button.stuff-viewer-local-file--button {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+button.stuff-viewer-local-file--button:hover {
+  background: var(--sv-surface-hover, var(--sv-surface));
+  border-color: var(--sv-accent, var(--sv-border));
+}
+
+button.stuff-viewer-local-file--button:focus-visible {
+  outline: 2px solid var(--sv-accent, var(--sv-border));
+  outline-offset: 2px;
+}
+
 .stuff-viewer-local-file-icon {
   flex-shrink: 0;
   width: 32px;
