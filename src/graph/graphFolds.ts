@@ -166,10 +166,29 @@ export function applyFolds(
     for (const child of children) updatedChildNodeIds.add(child);
   }
 
+  // Rewrite stuffProducers/stuffConsumers so any reference to an operator hidden
+  // by a fold is replaced with its outermost folded ancestor — mirroring the
+  // edge-endpoint rewrite below. Without this, buildChildToControllerMap's
+  // promotion loop loses the consumer/producer trail and stuff nodes get
+  // ejected to the root level when their parent controller's sibling is folded.
+  const updatedStuffProducers: Record<string, string> = {};
+  for (const [digest, producerId] of Object.entries(analysis.stuffProducers)) {
+    updatedStuffProducers[digest] = effectiveId(producerId, childToCtrl, foldedSet);
+  }
+
+  const updatedStuffConsumers: Record<string, string[]> = {};
+  for (const [digest, consumers] of Object.entries(analysis.stuffConsumers)) {
+    const seen = new Set<string>();
+    for (const consumerId of consumers) {
+      seen.add(effectiveId(consumerId, childToCtrl, foldedSet));
+    }
+    updatedStuffConsumers[digest] = [...seen];
+  }
+
   const updatedAnalysis: DataflowAnalysis = {
     stuffRegistry: analysis.stuffRegistry,
-    stuffProducers: analysis.stuffProducers,
-    stuffConsumers: analysis.stuffConsumers,
+    stuffProducers: updatedStuffProducers,
+    stuffConsumers: updatedStuffConsumers,
     controllerNodeIds: updatedControllerIds,
     childNodeIds: updatedChildNodeIds,
     containmentTree: updatedContainmentTree,

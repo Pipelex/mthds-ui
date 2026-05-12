@@ -374,7 +374,7 @@ describe("applyFolds — edge dedup", () => {
 // ─── applyFolds: _crossGroup recomputation (REGRESSION) ─────────────────
 
 describe("applyFolds — _crossGroup recomputation", () => {
-  it("an edge marked _crossGroup pre-fold is re-evaluated post-fold (REGRESSION A1)", () => {
+  it("an edge marked _crossGroup pre-fold keeps a fresh classification post-fold (REGRESSION A1)", () => {
     const spec = makeNestedSiblingSpec();
     const { analysis, graphData } = buildPipeline(spec);
 
@@ -383,18 +383,17 @@ describe("applyFolds — _crossGroup recomputation", () => {
     const preFold = graphData.edges.find((e) => e.target === "op_b" && e.source === "stuff_out_a");
     expect(preFold?._crossGroup).toBe(true);
 
-    // Fold ctrlA — the edge stays stuff_out_a -> op_b because stuff_out_a was
-    // promoted to root_seq during analysis. After folding, stuff_out_a no longer
-    // lives inside any *valid* controller (ctrlA's contains edges are filtered
-    // out for the recompute), so the edge no longer crosses between sibling
-    // controller groups: the source has no owning controller anymore.
+    // Fold ctrlA — stuff_out_a stays in root_seq because its producer (now the
+    // ctrlA pipe-card) still lives in root_seq, so the edge → op_b remains a
+    // root_seq → ctrlB hop and is still cross-group. The point of this test is
+    // that the flag is *recomputed* against post-fold containment rather than
+    // carried over stale (the recompute side is also exercised by the next test,
+    // where a cross-group edge correctly resets to non-cross-group).
     const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
 
     const postFold = result.edges.find((e) => e.source === "stuff_out_a" && e.target === "op_b");
     expect(postFold).toBeDefined();
-    // _crossGroup is now FALSE because the recomputation reflects post-fold
-    // containment, not the stale pre-fold value.
-    expect(postFold!._crossGroup).toBeFalsy();
+    expect(postFold!._crossGroup).toBe(true);
   });
 
   it("_crossGroup is FALSE on the new card-out edge when a sibling controller is folded", () => {
@@ -545,5 +544,145 @@ describe("applyFolds — edge cases", () => {
     const result = applyFolds(graphData, analysis, spec, new Set(["ctrl_batch"]));
     // No edge should reference the iter pipe anymore
     expect(result.edges.find((e) => e.source === "iter" || e.target === "iter")).toBeUndefined();
+  });
+});
+
+// ─── applyFolds: stuff-map rewriting (REGRESSION for the CV-screening bug) ──
+
+describe("applyFolds — stuff producer/consumer rewriting", () => {
+  // Mirrors the LIVE_CV_SCREENING shape from the user's screenshot:
+  //   outer_seq
+  //     ├─ producer (operator) → stuff_shared
+  //     └─ inner_ctrl (folded)
+  //         └─ inner_consumer (operator, reads stuff_shared)
+  // Before the fix, folding inner_ctrl promoted stuff_shared all the way out of
+  // outer_seq, because stuffConsumers still pointed at inner_consumer which no
+  // longer appeared in the post-fold containment tree.
+  function makeFoldedSiblingConsumerSpec(): GraphSpec {
+    return {
+      nodes: [
+        { id: "outer_seq", pipe_code: "outer_seq", pipe_type: "PipeSequence" },
+        {
+          id: "producer",
+          pipe_code: "producer",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+        { id: "inner_ctrl", pipe_code: "inner_ctrl", pipe_type: "PipeCondition" },
+        {
+          id: "inner_consumer",
+          pipe_code: "inner_consumer",
+          pipe_type: "PipeLLM",
+          io: { inputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+      ],
+      edges: [
+        { source: "outer_seq", target: "producer", kind: "contains" },
+        { source: "outer_seq", target: "inner_ctrl", kind: "contains" },
+        { source: "inner_ctrl", target: "inner_consumer", kind: "contains" },
+      ],
+    };
+  }
+
+  it("keeps a stuff inside its parent controller when its sibling controller is folded", () => {
+    const spec = makeFoldedSiblingConsumerSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    // Pre-fold sanity: stuff_shared is mapped to outer_seq.
+    const preFoldMap = buildChildToControllerMap(spec, analysis);
+    expect(preFoldMap["stuff_shared"]).toBe("outer_seq");
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
+
+    // Post-fold: stuff_shared must still live inside outer_seq, not be promoted
+    // to the root. Recomputing childToController against the updated analysis is
+    // what the layout pipeline does (elkGraphBuilder + graphControllers).
+    const postFoldMap = buildChildToControllerMap(spec, result.analysis);
+    expect(postFoldMap["stuff_shared"]).toBe("outer_seq");
+  });
+
+  it("rewrites consumer IDs in the updated analysis to the folded card", () => {
+    const spec = makeFoldedSiblingConsumerSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
+
+    // The original consumer (inner_consumer) was hidden by the fold; the updated
+    // analysis should record inner_ctrl (the folded card) as the consumer.
+    expect(result.analysis.stuffConsumers["shared"]).toEqual(["inner_ctrl"]);
+  });
+
+  it("rewrites producer IDs when an operator inside the fold produced the stuff", () => {
+    // Symmetric case: stuff produced inside the fold, consumed outside.
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "outer_seq", pipe_code: "outer_seq", pipe_type: "PipeSequence" },
+        { id: "inner_ctrl", pipe_code: "inner_ctrl", pipe_type: "PipeCondition" },
+        {
+          id: "inner_producer",
+          pipe_code: "inner_producer",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+        {
+          id: "outer_consumer",
+          pipe_code: "outer_consumer",
+          pipe_type: "PipeLLM",
+          io: { inputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+      ],
+      edges: [
+        { source: "outer_seq", target: "inner_ctrl", kind: "contains" },
+        { source: "outer_seq", target: "outer_consumer", kind: "contains" },
+        { source: "inner_ctrl", target: "inner_producer", kind: "contains" },
+      ],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
+    expect(result.analysis.stuffProducers["shared"]).toBe("inner_ctrl");
+
+    // The stuff should now belong to outer_seq (lowest controller containing
+    // both the rewritten producer and the visible consumer).
+    const postFoldMap = buildChildToControllerMap(spec, result.analysis);
+    expect(postFoldMap["stuff_shared"]).toBe("outer_seq");
+  });
+
+  it("dedups when multiple hidden consumers collapse to the same folded card", () => {
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "outer_seq", pipe_code: "outer_seq", pipe_type: "PipeSequence" },
+        {
+          id: "producer",
+          pipe_code: "producer",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+        { id: "inner_ctrl", pipe_code: "inner_ctrl", pipe_type: "PipeCondition" },
+        {
+          id: "inner_a",
+          pipe_code: "inner_a",
+          pipe_type: "PipeLLM",
+          io: { inputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+        {
+          id: "inner_b",
+          pipe_code: "inner_b",
+          pipe_type: "PipeLLM",
+          io: { inputs: [{ digest: "shared", name: "shared", concept: "Text" }] },
+        },
+      ],
+      edges: [
+        { source: "outer_seq", target: "producer", kind: "contains" },
+        { source: "outer_seq", target: "inner_ctrl", kind: "contains" },
+        { source: "inner_ctrl", target: "inner_a", kind: "contains" },
+        { source: "inner_ctrl", target: "inner_b", kind: "contains" },
+      ],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_ctrl"]));
+    // Both hidden consumers map to inner_ctrl — the rewritten list should dedup.
+    expect(result.analysis.stuffConsumers["shared"]).toEqual(["inner_ctrl"]);
   });
 });
