@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
-import { LIVE_CV_SCREENING } from "./mockGraphSpec";
+import { DRY_CV_MATCHING, LIVE_CV_SCREENING } from "./mockGraphSpec";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/FoldableControllers",
@@ -155,6 +155,83 @@ export const ToolbarDisabledStates: Story = {
         const disabledFold = canvas.getByLabelText(/Fold all controllers/);
         expect(disabledFold).toBeDisabled();
         expect(disabledFold.getAttribute("title")).toContain("nothing to fold");
+      },
+      { timeout: 5000 },
+    );
+  },
+};
+
+// ─── Cousin folding: shared pipe_code across branches ──────────────────
+
+/**
+ * DRY_CV_MATCHING contains three branches each running a `route_by_match`
+ * controller and a `process_single_cv` controller. A regular fold click on
+ * one `route_by_match` should mirror to all three; an alt-click should only
+ * affect the clicked one.
+ */
+export const CousinFold_MirrorsAcrossBranches: Story = {
+  args: { graphspec: DRY_CV_MATCHING, ...D },
+  play: async ({ canvasElement }) => {
+    await waitForRender(canvasElement);
+    const initialGroups = getControllerGroupNodes(canvasElement).length;
+    // The spec has 8 controller groups (1 root + 1 inner-batch + 3 route_by_match + 3 process_single_cv).
+    expect(initialGroups).toBeGreaterThan(3);
+
+    // Find the first route_by_match controller's fold button.
+    const firstRouteCtrl = Array.from(
+      canvasElement.querySelectorAll(".controller-group-node"),
+    ).find((el) => el.textContent?.includes("route_by_match")) as HTMLElement | undefined;
+    expect(firstRouteCtrl).toBeDefined();
+    const foldBtn = firstRouteCtrl!.querySelector(".controller-group-fold") as HTMLElement | null;
+    expect(foldBtn).not.toBeNull();
+
+    // Regular click (no alt) — fold should mirror to all cousins.
+    await userEvent.click(foldBtn!);
+
+    await waitFor(
+      () => {
+        // All three route_by_match controllers should now be folded cards.
+        const folded = Array.from(canvasElement.querySelectorAll(".pipe-card--controller")).filter(
+          (el) => el.textContent?.includes("route_by_match"),
+        );
+        expect(folded.length).toBe(3);
+      },
+      { timeout: 5000 },
+    );
+  },
+};
+
+export const CousinFold_AltKeyFoldsSoloOnly: Story = {
+  args: { graphspec: DRY_CV_MATCHING, ...D },
+  play: async ({ canvasElement }) => {
+    await waitForRender(canvasElement);
+
+    const firstRouteCtrl = Array.from(
+      canvasElement.querySelectorAll(".controller-group-node"),
+    ).find((el) => el.textContent?.includes("route_by_match")) as HTMLElement | undefined;
+    expect(firstRouteCtrl).toBeDefined();
+    const foldBtn = firstRouteCtrl!.querySelector(".controller-group-fold") as HTMLElement | null;
+    expect(foldBtn).not.toBeNull();
+
+    // Alt-click — only the clicked controller should fold. Dispatch a native
+    // MouseEvent directly so altKey survives into React's synthetic event
+    // (user-event's modifier-hold is unreliable across the storybook runner).
+    foldBtn!.dispatchEvent(
+      new MouseEvent("click", { altKey: true, bubbles: true, cancelable: true }),
+    );
+
+    await waitFor(
+      () => {
+        // Exactly one route_by_match should be folded.
+        const folded = Array.from(canvasElement.querySelectorAll(".pipe-card--controller")).filter(
+          (el) => el.textContent?.includes("route_by_match"),
+        );
+        expect(folded.length).toBe(1);
+        // And two route_by_match controller groups should still be open.
+        const openGroups = Array.from(
+          canvasElement.querySelectorAll(".controller-group-node"),
+        ).filter((el) => el.textContent?.includes("route_by_match"));
+        expect(openGroups.length).toBe(2);
       },
       { timeout: 5000 },
     );

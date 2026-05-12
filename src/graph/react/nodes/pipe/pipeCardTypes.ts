@@ -1,6 +1,6 @@
-import type { PipeOperatorType, PipeStatus, PipeType } from "@graph/types";
+import type { FoldToggleOptions, PipeOperatorType, PipeStatus, PipeType } from "@graph/types";
 
-export type { PipeOperatorType, PipeStatus, PipeType };
+export type { FoldToggleOptions, PipeOperatorType, PipeStatus, PipeType };
 
 export type PipeCardDirection = "LR" | "TB";
 
@@ -16,5 +16,5 @@ export interface PipeCardData {
   /** Layout direction — controls card orientation (narrow+tall in LR, wide+short in TB) */
   direction?: PipeCardDirection;
   /** When set, the card renders an unfold button that invokes this callback. */
-  onExpand?: () => void;
+  onExpand?: (options?: FoldToggleOptions) => void;
 }

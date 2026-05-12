@@ -85,11 +85,11 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
           <button
             type="button"
             className="pipe-card-expand"
-            title="Expand controller"
+            title="Expand controller (alt/option: only this one)"
             aria-label="Expand controller"
             onClick={(e) => {
               e.stopPropagation();
-              data.onExpand?.();
+              data.onExpand?.({ soloMode: e.altKey });
             }}
           >
             ⤢

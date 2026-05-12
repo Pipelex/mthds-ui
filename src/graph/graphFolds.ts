@@ -1,5 +1,6 @@
 import type {
   DataflowAnalysis,
+  FoldToggleOptions,
   GraphData,
   GraphEdge,
   GraphNode,
@@ -9,6 +10,35 @@ import type {
 import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
 import { buildPipeCardPayload } from "./pipeCardPayload";
+
+/**
+ * Find every controller that shares the same `pipe_code` as `controllerId` —
+ * the "cousins" of the clicked controller (other instances of the same pipe,
+ * possibly living in different branches of the graph).
+ *
+ * The result always includes `controllerId` itself. If the controller has no
+ * `pipe_code` or no cousins exist, returns a singleton set.
+ *
+ * Used by GraphViewer to mirror fold/expand actions across all instances of a
+ * pipe — the default behavior — while alt/option-click bypasses cousin lookup
+ * and toggles only the clicked controller.
+ */
+export function findCousinControllers(
+  controllerId: string,
+  graphspec: GraphSpec,
+  controllerNodeIds: ReadonlySet<string>,
+): Set<string> {
+  const result = new Set<string>([controllerId]);
+  const clicked = graphspec.nodes.find((n) => n.id === controllerId);
+  const pipeCode = clicked?.pipe_code;
+  if (!pipeCode) return result;
+  for (const node of graphspec.nodes) {
+    if (node.pipe_code !== pipeCode) continue;
+    if (!controllerNodeIds.has(node.id)) continue;
+    result.add(node.id);
+  }
+  return result;
+}
 
 /**
  * Walk the containment chain from `nodeId` upward, returning the ordered list of
@@ -78,7 +108,7 @@ export function applyFolds(
   analysis: DataflowAnalysis,
   graphspec: GraphSpec,
   foldedSet: ReadonlySet<string>,
-  onToggleFold?: (controllerId: string) => void,
+  onToggleFold?: (controllerId: string, options?: FoldToggleOptions) => void,
 ): { nodes: GraphNode[]; edges: GraphEdge[]; analysis: DataflowAnalysis } {
   if (foldedSet.size === 0) {
     return { nodes: graphData.nodes, edges: graphData.edges, analysis };
@@ -105,7 +135,7 @@ export function applyFolds(
 
     const payload = buildPipeCardPayload(specNode, graphspec, analysis);
     if (onToggleFold) {
-      payload.onExpand = () => onToggleFold(folded);
+      payload.onExpand = (options?: FoldToggleOptions) => onToggleFold(folded, options);
     }
 
     const cardNode: GraphNode = {

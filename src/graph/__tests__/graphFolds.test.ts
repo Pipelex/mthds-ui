@@ -1,7 +1,12 @@
 import { describe, it, expect, vi } from "vitest";
 import type { GraphSpec } from "@graph/types";
 import { NODE_TYPE_PIPE_CARD } from "@graph/types";
-import { applyFolds, buildContainmentChain, outermostFoldedAncestor } from "@graph/graphFolds";
+import {
+  applyFolds,
+  buildContainmentChain,
+  findCousinControllers,
+  outermostFoldedAncestor,
+} from "@graph/graphFolds";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "@graph/graphAnalysis";
 import { buildDataflowGraph } from "@graph/graphBuilders";
 
@@ -91,6 +96,106 @@ describe("outermostFoldedAncestor", () => {
     const { spec, analysis } = buildPipeline(makeNestedSiblingSpec());
     const childToCtrl = buildChildToControllerMap(spec, analysis);
     expect(outermostFoldedAncestor("op_a", childToCtrl, new Set(["ctrlA"]))).toBe("ctrlA");
+  });
+});
+
+// ─── findCousinControllers ─────────────────────────────────────────────
+
+describe("findCousinControllers", () => {
+  function makeCousinSpec(): GraphSpec {
+    // Two PipeSequence controllers with the same pipe_code "shared_seq"
+    // living in different branches of a parent parallel. A third unrelated
+    // controller "ctrl_other" exists to confirm it's excluded.
+    return {
+      nodes: [
+        { id: "root_par", pipe_code: "root", pipe_type: "PipeParallel" },
+        { id: "seq_a", pipe_code: "shared_seq", pipe_type: "PipeSequence" },
+        { id: "seq_b", pipe_code: "shared_seq", pipe_type: "PipeSequence" },
+        { id: "ctrl_other", pipe_code: "other", pipe_type: "PipeSequence" },
+        {
+          id: "op_a",
+          pipe_code: "op_a",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "out_a", name: "x", concept: "Text" }] },
+        },
+        {
+          id: "op_b",
+          pipe_code: "op_b",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "out_b", name: "y", concept: "Text" }] },
+        },
+        {
+          id: "op_c",
+          pipe_code: "op_c",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "out_c", name: "z", concept: "Text" }] },
+        },
+      ],
+      edges: [
+        { source: "root_par", target: "seq_a", kind: "contains" },
+        { source: "root_par", target: "seq_b", kind: "contains" },
+        { source: "root_par", target: "ctrl_other", kind: "contains" },
+        { source: "seq_a", target: "op_a", kind: "contains" },
+        { source: "seq_b", target: "op_b", kind: "contains" },
+        { source: "ctrl_other", target: "op_c", kind: "contains" },
+      ],
+    };
+  }
+
+  it("returns all controllers sharing the same pipe_code", () => {
+    const { spec, analysis } = buildPipeline(makeCousinSpec());
+    const cousins = findCousinControllers("seq_a", spec, analysis.controllerNodeIds);
+    expect(cousins).toEqual(new Set(["seq_a", "seq_b"]));
+  });
+
+  it("returns the cousin set regardless of which sibling is the seed", () => {
+    const { spec, analysis } = buildPipeline(makeCousinSpec());
+    const fromA = findCousinControllers("seq_a", spec, analysis.controllerNodeIds);
+    const fromB = findCousinControllers("seq_b", spec, analysis.controllerNodeIds);
+    expect(fromA).toEqual(fromB);
+  });
+
+  it("does not include controllers with a different pipe_code", () => {
+    const { spec, analysis } = buildPipeline(makeCousinSpec());
+    const cousins = findCousinControllers("seq_a", spec, analysis.controllerNodeIds);
+    expect(cousins.has("ctrl_other")).toBe(false);
+    expect(cousins.has("root_par")).toBe(false);
+  });
+
+  it("returns a singleton when the controller has no cousins", () => {
+    const { spec, analysis } = buildPipeline(makeCousinSpec());
+    const cousins = findCousinControllers("ctrl_other", spec, analysis.controllerNodeIds);
+    expect(cousins).toEqual(new Set(["ctrl_other"]));
+  });
+
+  it("returns a singleton when the controller lacks a pipe_code", () => {
+    const spec: GraphSpec = {
+      nodes: [{ id: "anon_ctrl", pipe_type: "PipeSequence" }],
+      edges: [],
+    };
+    const { analysis } = buildPipeline(spec);
+    const cousins = findCousinControllers("anon_ctrl", spec, analysis.controllerNodeIds);
+    expect(cousins).toEqual(new Set(["anon_ctrl"]));
+  });
+
+  it("excludes non-controller nodes that happen to share a pipe_code", () => {
+    // Edge case: a controller and an operator both labeled with the same
+    // pipe_code (extremely contrived but the filter must hold).
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "ctrl", pipe_code: "shared", pipe_type: "PipeSequence" },
+        {
+          id: "op",
+          pipe_code: "shared",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "d", name: "x", concept: "Text" }] },
+        },
+      ],
+      edges: [{ source: "ctrl", target: "op", kind: "contains" }],
+    };
+    const { analysis } = buildPipeline(spec);
+    const cousins = findCousinControllers("ctrl", spec, analysis.controllerNodeIds);
+    expect(cousins).toEqual(new Set(["ctrl"]));
   });
 });
 
@@ -224,7 +329,17 @@ describe("applyFolds — single fold", () => {
     const card = result.nodes.find((n) => n.id === "ctrlA")!;
     expect(card.data.pipeCardData?.onExpand).toBeDefined();
     card.data.pipeCardData!.onExpand!();
-    expect(cb).toHaveBeenCalledExactlyOnceWith("ctrlA");
+    expect(cb).toHaveBeenCalledExactlyOnceWith("ctrlA", undefined);
+  });
+
+  it("onExpand forwards FoldToggleOptions to the callback (alt-key soloMode)", () => {
+    const { spec, analysis, graphData } = buildPipeline(makeNestedSiblingSpec());
+    const cb = vi.fn();
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]), cb);
+    const card = result.nodes.find((n) => n.id === "ctrlA")!;
+    card.data.pipeCardData!.onExpand!({ soloMode: true });
+    expect(cb).toHaveBeenCalledExactlyOnceWith("ctrlA", { soloMode: true });
   });
 });
 

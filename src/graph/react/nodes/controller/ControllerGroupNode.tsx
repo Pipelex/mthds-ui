@@ -1,5 +1,5 @@
 import React from "react";
-import type { PipeControllerType } from "@graph/types";
+import type { FoldToggleOptions, PipeControllerType } from "@graph/types";
 import { MAX_VISIBLE_CONTROLLER_CHILDREN } from "@graph/graphControllers";
 
 interface ControllerGroupData {
@@ -8,7 +8,7 @@ interface ControllerGroupData {
   childCount?: number;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
-  onToggleFold?: () => void;
+  onToggleFold?: (options?: FoldToggleOptions) => void;
 }
 
 const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
@@ -49,11 +49,11 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
           <button
             type="button"
             className="controller-group-fold"
-            title="Fold controller"
+            title="Fold controller (alt/option: only this one)"
             aria-label="Fold controller"
             onClick={(e) => {
               e.stopPropagation();
-              data.onToggleFold?.();
+              data.onToggleFold?.({ soloMode: e.altKey });
             }}
           >
             ⤡

@@ -15,6 +15,7 @@ import type {
   GraphEdge,
   GraphNodeData,
   DataflowAnalysis,
+  FoldToggleOptions,
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
@@ -30,7 +31,7 @@ import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
-import { applyFolds } from "@graph/graphFolds";
+import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
 import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
@@ -279,11 +280,23 @@ export function GraphViewer(props: GraphViewerProps) {
   // Empty by default. Reset when graphspec changes.
   const [foldedControllers, setFoldedControllers] = React.useState<Set<string>>(new Set());
 
-  const toggleFold = React.useCallback((controllerId: string) => {
+  const toggleFold = React.useCallback((controllerId: string, options?: FoldToggleOptions) => {
     setFoldedControllers((prev) => {
       const next = new Set(prev);
-      if (next.has(controllerId)) next.delete(controllerId);
-      else next.add(controllerId);
+      const shouldFold = !next.has(controllerId);
+
+      // Solo mode (alt/option click) → only the clicked controller.
+      // Default → mirror to cousins (controllers sharing the same pipe_code).
+      const raw = rawGraphDataRef.current;
+      const targets =
+        !options?.soloMode && raw?.graphspec && raw.analysis
+          ? findCousinControllers(controllerId, raw.graphspec, raw.analysis.controllerNodeIds)
+          : new Set<string>([controllerId]);
+
+      for (const id of targets) {
+        if (shouldFold) next.add(id);
+        else next.delete(id);
+      }
       return next;
     });
   }, []);

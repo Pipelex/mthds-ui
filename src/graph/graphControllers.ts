@@ -1,4 +1,4 @@
-import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge } from "./types";
+import type { GraphSpec, DataflowAnalysis, FoldToggleOptions, GraphNode, GraphEdge } from "./types";
 import {
   CONTROLLER_PADDING_X,
   CONTROLLER_PADDING_TOP,
@@ -215,7 +215,7 @@ export function applyControllers(
   expandedControllers?: ReadonlySet<string>,
   onToggleCollapse?: (controllerId: string) => void,
   controllerPositions?: Record<string, ControllerRect>,
-  onToggleFold?: (controllerId: string) => void,
+  onToggleFold?: (controllerId: string, options?: FoldToggleOptions) => void,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   if (!showControllers || !analysis || !graphspec) {
     return { nodes: layoutedNodes, edges: layoutedEdges };
@@ -323,7 +323,7 @@ export function applyControllers(
     }
     if (onToggleFold) {
       const id = cn.id;
-      cn.data.onToggleFold = () => onToggleFold(id);
+      cn.data.onToggleFold = (options?: FoldToggleOptions) => onToggleFold(id, options);
     }
   }
 
