@@ -2,7 +2,6 @@
  * Auto-generated from pipelex output.
  * DO NOT EDIT.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SINGLE_PIPE: GraphSpec = {

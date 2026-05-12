@@ -84,7 +84,7 @@ export interface GraphSpecNode {
   id: string;
   kind?: NodeKind;
   pipe_code?: string;
-  pipe_type?: PipeType;
+  pipe_type: PipeType;
   description?: string;
   status?: PipeStatus;
   timing?: GraphSpecNodeTiming;
@@ -368,9 +368,21 @@ export const EDGE_TYPE = {
 
 export type EdgeType = (typeof EDGE_TYPE)[keyof typeof EDGE_TYPE];
 
+export const FOLD_MODE = {
+  /** Every pipe controller folded into a single pipe card. */
+  FOLDED: "folded",
+  /** Every pipe controller expanded as a group wrapper. */
+  EXPANDED: "expanded",
+  /** Renderer decides — reserved for future heuristics; currently behaves like EXPANDED. */
+  AUTO: "auto",
+} as const;
+
+export type FoldMode = (typeof FOLD_MODE)[keyof typeof FOLD_MODE];
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
+  foldMode?: FoldMode;
   nodesep?: number;
   ranksep?: number;
   edgeType?: EdgeType;
@@ -386,18 +398,34 @@ export type LabelDescriptor =
   | { kind: "pipe"; label: string; isFailed: boolean }
   | { kind: "stuff"; label: string; concept: string };
 
+// ─── Fold toggle options ────────────────────────────────────────────────────
+// Passed by UI click handlers so the orchestrator can decide whether the
+// toggle should propagate to "cousin" controllers (other instances of the
+// same pipe) or affect only the clicked one.
+
+export interface FoldToggleOptions {
+  /**
+   * When `true`, the toggle applies only to the clicked controller — its
+   * cousins (other controller nodes sharing the same `pipe_code`) are left
+   * untouched. Wired to the alt/option modifier key in the click handlers.
+   */
+  soloMode?: boolean;
+}
+
 // ─── Pipe card payload ──────────────────────────────────────────────────────
 // Built by graphBuilders, consumed by PipeCardNode in the React layer.
 
 export interface PipeCardPayload {
   pipeCode: string;
-  pipeType: PipeOperatorType;
+  pipeType: PipeType;
   description?: string;
   status: PipeStatus;
   inputs: { name: string; concept: string }[];
   outputs: { name: string; concept: string }[];
   /** Layout direction — injected by the layout engine */
   direction?: "LR" | "TB";
+  /** When set, the card renders an unfold button that invokes this callback. */
+  onExpand?: (options?: FoldToggleOptions) => void;
 }
 
 // ─── Graph node data ────────────────────────────────────────────────────────

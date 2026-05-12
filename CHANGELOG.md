@@ -1,5 +1,24 @@
 # Changelog
 
+## [v0.6.0] - 2026-05-12
+
+### Added
+
+- **Foldable pipe controllers.** Each `PipeSequence` / `PipeParallel` / `PipeCondition` / `PipeBatch` controller group now has a fold toggle (`⤡`) in its header bar. Folded → the group collapses to a single pipe card with the controller's badge, IO, and status; expanded (default) → renders as today. Edges into/out of the controller are reattached to the folded card; internal-only edges are dropped; batch labels collapse to `[N]`. A new pure transform `applyFolds()` (`src/graph/graphFolds.ts`) drives the rewrite; `PipeCardBase` renders an `⤢` expand button on folded cards. Per-instance state — fold/unfold independently across nodes.
+- **Cousin folding.** A normal click on a controller's fold/expand button mirrors the action to every other controller that shares the same `pipe_code` (its "cousins" — e.g. three `route_by_match` controllers in a batched pipeline fold together). Hold `alt`/`option` to fold or expand only the clicked controller. Exposed as `FoldToggleOptions { soloMode?: boolean }` and `findCousinControllers()` for downstream consumers.
+- **"Fold all" / "Expand all" toolbar buttons.** Built-in toolbar gains two buttons that fold or expand every controller in the current graph. Hidden when `showControllers` is off or no controllers exist; each button disables itself when its action would be a no-op (with a `(nothing to fold)` / `(nothing to expand)` tooltip suffix). Wired through new optional `GraphToolbar` props (`onFoldAll`, `onExpandAll`, `foldAllDisabled`, `expandAllDisabled`).
+- **`initialFoldMode` prop on `GraphViewer` + `foldMode` field on `GraphConfig`.** Hosts can now seed the controller fold state when a graph first opens, instead of always starting fully expanded. Three values are accepted via the new `FOLD_MODE` constant: `"folded"` collapses every controller into a single pipe card on the first layout pass, `"expanded"` leaves them as group wrappers (previous behavior), and `"auto"` is a pass-through reserved for renderer-defined heuristics — it currently behaves the same as `"expanded"`. The seed is applied once per graphspec; users can still fold/unfold individually via the toolbar afterwards. `DEFAULT_GRAPH_CONFIG.foldMode` defaults to `"expanded"` so existing consumers see no change.
+- **`buildPipeCardPayload()` exported helper** (`src/graph/pipeCardPayload.ts`) for building a `PipeCardPayload` from a `GraphSpecNode` + `GraphSpec` + `DataflowAnalysis`. Used internally by `buildDataflowGraph` and `applyFolds`; available for consumers that want to render pipe cards outside the standard pipeline.
+
+### Changed
+
+- **BREAKING: `GraphSpecNode.pipe_type` is now required (was optional).** The runtime always needs a pipe type to pick the right card layout, badge, and operator/controller classification; allowing it to be missing forced a silent `"PipeFunc"` fallback in `buildDataflowGraph` that masked malformed inputs. Consumers building `GraphSpec` values by hand must set `pipe_type` on every node — pipelex CLI output already does so. The operator/controller distinction inside `buildPipeCardPayload` now reads `analysis.controllerNodeIds` rather than string-matching against `pipe_type`.
+- **Keyboard focus rings on graph control buttons** (`.controller-group-fold`, `.controller-group-collapse`, `.pipe-card-expand`, `.pipe-card-io-more`). The previous `all: unset` reset removed the native `:focus-visible` outline; an explicit ring is now drawn so keyboard users can see what's focused.
+
+### Fixed
+
+- **Folded controller hiding its declared output stuff node.** When the outermost folded controller declared a stuff as one of its outputs (e.g. `match_analyses` on the `batch_analyze_cvs_for_job_offer` PipeSequence in `cv_batch_screening`), the stuff lived inside the controller via `buildChildToControllerMap`'s "stuff produced by controllers themselves → assign to parent controller" step. Folding the controller hid the stuff with the rest of the internals and collapsed its incoming `batch_aggregate` edges into self-loops, so the final output disappeared from the graph. `applyFolds` now promotes such stuff nodes out of their outermost folded declarer to that declarer's parent context, so the folded pipe-card stays connected to its external output (the surviving batch edge keeps its dashed style and is relabeled `[N]`).
+
 ## [v0.5.2] - 2026-05-12
 
 ### Fixed

@@ -10,6 +10,14 @@ export interface GraphToolbarProps {
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onFitView?: () => void;
+  /** Fold every controller to a card. Renders the fold-all section when set. */
+  onFoldAll?: () => void;
+  /** Expand every folded controller. Renders the fold-all section when set. */
+  onExpandAll?: () => void;
+  /** Disable the fold-all button (e.g. everything already folded). */
+  foldAllDisabled?: boolean;
+  /** Disable the expand-all button (e.g. nothing currently folded). */
+  expandAllDisabled?: boolean;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
 }
@@ -121,6 +129,44 @@ const BOXES_ICON = (
   </svg>
 );
 
+const FOLD_ALL_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="6" y="6" width="12" height="12" rx="2" />
+    <polyline points="2 2 6 6 2 6" />
+    <polyline points="22 2 18 6 22 6" />
+    <polyline points="2 22 6 18 2 18" />
+    <polyline points="22 22 18 18 22 18" />
+  </svg>
+);
+
+const EXPAND_ALL_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="9" y="9" width="6" height="6" rx="1" />
+    <polyline points="3 3 7 7 3 7" />
+    <polyline points="21 3 17 7 21 7" />
+    <polyline points="3 21 7 17 3 17" />
+    <polyline points="21 21 17 17 21 17" />
+  </svg>
+);
+
 export function GraphToolbar({
   direction,
   onDirectionChange,
@@ -129,6 +175,10 @@ export function GraphToolbar({
   onZoomIn,
   onZoomOut,
   onFitView,
+  onFoldAll,
+  onExpandAll,
+  foldAllDisabled = false,
+  expandAllDisabled = false,
   rightOffset = 0,
 }: GraphToolbarProps) {
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
@@ -136,6 +186,14 @@ export function GraphToolbar({
   const controllersLabel = showControllers
     ? "Hide pipe controllers"
     : "Show pipe controllers — groups pipes by their controlling pipe";
+
+  const foldAllSection = onFoldAll || onExpandAll;
+  const foldAllTitle = foldAllDisabled
+    ? "Fold all controllers (nothing to fold)"
+    : "Fold all controllers";
+  const expandAllTitle = expandAllDisabled
+    ? "Expand all controllers (nothing to expand)"
+    : "Expand all controllers";
 
   return (
     <div className="graph-toolbar" style={{ right: `${rightOffset + 8}px` }}>
@@ -158,6 +216,34 @@ export function GraphToolbar({
       >
         {BOXES_ICON}
       </button>
+
+      {foldAllSection && <div className="graph-toolbar-separator" />}
+
+      {onFoldAll && (
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={onFoldAll}
+          disabled={foldAllDisabled}
+          title={foldAllTitle}
+          aria-label={foldAllTitle}
+        >
+          {FOLD_ALL_ICON}
+        </button>
+      )}
+
+      {onExpandAll && (
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={onExpandAll}
+          disabled={expandAllDisabled}
+          title={expandAllTitle}
+          aria-label={expandAllTitle}
+        >
+          {EXPAND_ALL_ICON}
+        </button>
+      )}
 
       {(onZoomOut || onZoomIn || onFitView) && <div className="graph-toolbar-separator" />}
 

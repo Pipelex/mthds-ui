@@ -53,6 +53,20 @@
   color: #ffffff;
 }
 
+.graph-toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: rgba(17, 17, 24, 0.6);
+  color: #64748b;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.graph-toolbar-btn:disabled:hover {
+  background: rgba(17, 17, 24, 0.6);
+  color: #64748b;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
 .graph-toolbar-separator {
   width: 1px;
   height: 18px;

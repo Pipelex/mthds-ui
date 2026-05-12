@@ -1,4 +1,11 @@
-import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge } from "./types";
+import type {
+  GraphSpec,
+  DataflowAnalysis,
+  FoldToggleOptions,
+  GraphNode,
+  GraphEdge,
+  PipeType,
+} from "./types";
 import {
   CONTROLLER_PADDING_X,
   CONTROLLER_PADDING_TOP,
@@ -215,6 +222,7 @@ export function applyControllers(
   expandedControllers?: ReadonlySet<string>,
   onToggleCollapse?: (controllerId: string) => void,
   controllerPositions?: Record<string, ControllerRect>,
+  onToggleFold?: (controllerId: string, options?: FoldToggleOptions) => void,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   if (!showControllers || !analysis || !graphspec) {
     return { nodes: layoutedNodes, edges: layoutedEdges };
@@ -224,17 +232,17 @@ export function applyControllers(
   const childCounts: Record<string, number> = {};
   const collapsedSet = new Set<string>();
 
-  const controllerTypeMap: Record<string, string> = {};
+  const controllerTypeMap: Record<string, PipeType> = {};
   for (const node of graphspec.nodes) {
     if (analysis.controllerNodeIds.has(node.id)) {
-      controllerTypeMap[node.id] = node.pipe_type || "";
+      controllerTypeMap[node.id] = node.pipe_type;
     }
   }
 
   for (const ctrlId of analysis.controllerNodeIds) {
     const directChildren = analysis.containmentTree[ctrlId] || [];
     childCounts[ctrlId] = directChildren.length;
-    const pipeType = controllerTypeMap[ctrlId] || "";
+    const pipeType = controllerTypeMap[ctrlId];
     const isCollapsible = pipeType === "PipeParallel" || pipeType === "PipeBatch";
     if (
       isCollapsible &&
@@ -310,7 +318,7 @@ export function applyControllers(
     return { nodes: filteredNodes, edges: filteredEdges };
   }
 
-  // Inject collapse metadata into controller node data
+  // Inject collapse + fold metadata into controller node data
   for (const cn of controllerNodes) {
     const count = childCounts[cn.id] ?? 0;
     const isCollapsed = collapsedSet.has(cn.id);
@@ -319,6 +327,10 @@ export function applyControllers(
     if (onToggleCollapse) {
       const id = cn.id;
       cn.data.onToggleCollapse = () => onToggleCollapse(id);
+    }
+    if (onToggleFold) {
+      const id = cn.id;
+      cn.data.onToggleFold = (options?: FoldToggleOptions) => onToggleFold(id, options);
     }
   }
 

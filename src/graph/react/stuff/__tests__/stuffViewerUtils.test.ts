@@ -290,7 +290,7 @@ describe("findStuffDataByDigest", () => {
 
   it("handles nodes without io", () => {
     const spec: GraphSpec = {
-      nodes: [{ id: "n", status: "succeeded" }],
+      nodes: [{ id: "n", pipe_type: "PipeFunc", status: "succeeded" }],
       edges: [],
     };
     expect(findStuffDataByDigest(spec, "abc")).toBeNull();

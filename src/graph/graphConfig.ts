@@ -1,9 +1,10 @@
 import type { GraphConfig } from "./types";
-import { EDGE_TYPE } from "./types";
+import { EDGE_TYPE, FOLD_MODE } from "./types";
 
 export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   direction: "LR",
   showControllers: false,
+  foldMode: FOLD_MODE.EXPANDED,
   nodesep: 50,
   ranksep: 100,
   edgeType: EDGE_TYPE.DEFAULT,

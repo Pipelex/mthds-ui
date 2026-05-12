@@ -1,16 +1,33 @@
 import React, { useState } from "react";
-import type { PipeCardData, PipeOperatorType, PipeStatus } from "./pipeCardTypes";
+import type { PipeCardData, PipeControllerType, PipeStatus, PipeType } from "./pipeCardTypes";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
-const PIPE_TYPE_BADGES: Record<PipeOperatorType, string> = {
+const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeLLM: "LLM",
   PipeExtract: "Extract",
   PipeCompose: "Compose",
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeSequence: "Sequence",
+  PipeParallel: "Parallel",
+  PipeCondition: "Condition",
+  PipeBatch: "Batch",
 };
+
+// Derived from `PipeControllerType` so adding a new controller variant in
+// `types.ts` produces a compile error here until the table is updated.
+const CONTROLLER_TYPE_TABLE: Record<PipeControllerType, true> = {
+  PipeSequence: true,
+  PipeParallel: true,
+  PipeCondition: true,
+  PipeBatch: true,
+};
+
+function isControllerType(pipeType: PipeType): pipeType is PipeControllerType {
+  return pipeType in CONTROLLER_TYPE_TABLE;
+}
 
 const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
   succeeded: { color: "#50FA7B", label: "Succeeded" },
@@ -22,7 +39,7 @@ const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
 
 const MAX_VISIBLE_INPUTS = 4;
 
-function getBadge(pipeType: PipeOperatorType): string {
+function getBadge(pipeType: PipeType): string {
   return PIPE_TYPE_BADGES[pipeType];
 }
 
@@ -38,6 +55,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const badge = getBadge(data.pipeType);
   const statusConfig = STATUS_CONFIG[data.status] ?? STATUS_CONFIG.scheduled;
   const isRunning = data.status === "running";
+  const isController = isControllerType(data.pipeType);
   const [inputsExpanded, setInputsExpanded] = useState(false);
 
   const hasMany = data.inputs.length > MAX_VISIBLE_INPUTS;
@@ -46,12 +64,16 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const hiddenCount = data.inputs.length - MAX_VISIBLE_INPUTS;
 
   const dirClass = data.direction === "TB" ? "pipe-card--tb" : "pipe-card--lr";
+  const controllerClass = isController ? " pipe-card--controller" : "";
+  const badgeClass = isController
+    ? "pipe-card-badge pipe-card-badge--controller"
+    : "pipe-card-badge";
 
   return (
-    <div className={`pipe-card ${dirClass}`}>
-      {/* Header: badge + pipe code + status */}
+    <div className={`pipe-card ${dirClass}${controllerClass}`}>
+      {/* Header: badge + pipe code + status + (optional) expand */}
       <div className="pipe-card-header">
-        <span className="pipe-card-badge">{badge}</span>
+        <span className={badgeClass}>{badge}</span>
         <span className="pipe-card-code" title={data.pipeCode}>
           {data.pipeCode}
         </span>
@@ -65,6 +87,20 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
             style={{ background: statusConfig.color }}
           />
         </span>
+        {data.onExpand && (
+          <button
+            type="button"
+            className="pipe-card-expand"
+            title="Expand controller (alt/option: only this one)"
+            aria-label="Expand controller"
+            onClick={(e) => {
+              e.stopPropagation();
+              data.onExpand?.({ soloMode: e.altKey });
+            }}
+          >
+            ⤢
+          </button>
+        )}
       </div>
 
       {/* Description — clamped via CSS */}

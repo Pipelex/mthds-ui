@@ -19,7 +19,11 @@ describe("buildDataflowAnalysis", () => {
 
   it("builds containment tree from contains edges", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1" }, { id: "op2" }],
+      nodes: [
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+        { id: "op2", pipe_type: "PipeFunc" },
+      ],
       edges: [
         { source: "ctrl", target: "op1", kind: "contains" },
         { source: "ctrl", target: "op2", kind: "contains" },
@@ -34,7 +38,10 @@ describe("buildDataflowAnalysis", () => {
 
   it("detects controller nodes as those with children", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1" }],
+      nodes: [
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+      ],
       edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
     };
     const result = buildDataflowAnalysis(gs)!;
@@ -47,6 +54,7 @@ describe("buildDataflowAnalysis", () => {
       nodes: [
         {
           id: "op1",
+          pipe_type: "PipeFunc",
           io: {
             outputs: [{ digest: "d1", name: "result", concept: "Text", content_type: "text" }],
           },
@@ -68,6 +76,7 @@ describe("buildDataflowAnalysis", () => {
       nodes: [
         {
           id: "op1",
+          pipe_type: "PipeFunc",
           io: {
             inputs: [{ digest: "d1", name: "input_data", concept: "Number" }],
           },
@@ -89,12 +98,13 @@ describe("buildDataflowAnalysis", () => {
       nodes: [
         {
           id: "ctrl",
+          pipe_type: "PipeSequence",
           io: {
             outputs: [{ digest: "d1", name: "out" }],
             inputs: [{ digest: "d2", name: "in" }],
           },
         },
-        { id: "op1" },
+        { id: "op1", pipe_type: "PipeFunc" },
       ],
       edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
     };
@@ -111,10 +121,12 @@ describe("buildDataflowAnalysis", () => {
       nodes: [
         {
           id: "op1",
+          pipe_type: "PipeFunc",
           io: { outputs: [{ digest: "d1", name: "first", concept: "Text" }] },
         },
         {
           id: "op2",
+          pipe_type: "PipeFunc",
           io: { inputs: [{ digest: "d1", name: "second", concept: "Number" }] },
         },
       ],
@@ -129,9 +141,9 @@ describe("buildDataflowAnalysis", () => {
   it("tracks multiple consumers for the same digest", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", io: { inputs: [{ digest: "d1", name: "in" }] } },
-        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
-        { id: "op3", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op1", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op3", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
       ],
       edges: [],
     };
@@ -143,7 +155,11 @@ describe("buildDataflowAnalysis", () => {
 describe("buildChildToControllerMap", () => {
   it("maps direct children from containment tree", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1" }, { id: "op2" }],
+      nodes: [
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+        { id: "op2", pipe_type: "PipeFunc" },
+      ],
       edges: [
         { source: "ctrl", target: "op1", kind: "contains" },
         { source: "ctrl", target: "op2", kind: "contains" },
@@ -158,9 +174,9 @@ describe("buildChildToControllerMap", () => {
   it("assigns stuff to controller of its producer when consumed inside", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "ctrl" },
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "ctrl", target: "op1", kind: "contains" },
@@ -174,7 +190,11 @@ describe("buildChildToControllerMap", () => {
 
   it("handles nested controllers", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "root" }, { id: "inner" }, { id: "op1" }],
+      nodes: [
+        { id: "root", pipe_type: "PipeSequence" },
+        { id: "inner", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+      ],
       edges: [
         { source: "root", target: "inner", kind: "contains" },
         { source: "inner", target: "op1", kind: "contains" },
@@ -189,13 +209,14 @@ describe("buildChildToControllerMap", () => {
   it("assigns stuff produced by controllers to parent controller when consumed there", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root" },
+        { id: "root", pipe_type: "PipeSequence" },
         {
           id: "inner",
+          pipe_type: "PipeSequence",
           io: { outputs: [{ digest: "d1", name: "ctrl_out" }] },
         },
-        { id: "op1" },
-        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op1", pipe_type: "PipeFunc" },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "inner", kind: "contains" },
@@ -213,9 +234,9 @@ describe("buildChildToControllerMap", () => {
   it("assigns batch_item stuff to PipeBatch controller", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root" },
-        { id: "batch_ctrl" },
-        { id: "op1", io: { outputs: [{ digest: "d_src", name: "src" }] } },
+        { id: "root", pipe_type: "PipeSequence" },
+        { id: "batch_ctrl", pipe_type: "PipeBatch" },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d_src", name: "src" }] } },
       ],
       edges: [
         { source: "root", target: "batch_ctrl", kind: "contains" },
@@ -236,7 +257,10 @@ describe("buildChildToControllerMap", () => {
 
   it("controller with no children produces empty map for that controller", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1" }],
+      nodes: [
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+      ],
       edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -250,8 +274,8 @@ describe("buildChildToControllerMap", () => {
   it("batch_item from non-controller source does not assign stuff", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", io: { inputs: [{ digest: "d2", name: "in" }] } },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d2", name: "in" }] } },
       ],
       edges: [
         {
@@ -272,12 +296,12 @@ describe("buildChildToControllerMap", () => {
   it("stuff produced by a controller's child maps to that controller when consumed inside", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root" },
-        { id: "ctrl" },
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", io: { outputs: [{ digest: "d2", name: "other" }] } },
-        { id: "op3", io: { inputs: [{ digest: "d1", name: "in" }] } },
-        { id: "op4", io: { inputs: [{ digest: "d2", name: "in" }] } },
+        { id: "root", pipe_type: "PipeSequence" },
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d2", name: "other" }] } },
+        { id: "op3", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op4", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d2", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "ctrl", kind: "contains" },
@@ -298,8 +322,12 @@ describe("buildChildToControllerMap", () => {
   it("promotes stuff with no consumers to root level", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "ctrl" },
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "final_output" }] } },
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        {
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { outputs: [{ digest: "d1", name: "final_output" }] },
+        },
       ],
       edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
     };
@@ -312,10 +340,10 @@ describe("buildChildToControllerMap", () => {
   it("promotes stuff when all consumers are outside the producer's controller", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root" },
-        { id: "inner" },
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "root", pipe_type: "PipeSequence" },
+        { id: "inner", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "root", target: "inner", kind: "contains" },
@@ -333,9 +361,10 @@ describe("buildChildToControllerMap", () => {
   it("does not promote stuff involved in batch edges with no operator consumers", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "batch_ctrl" },
+        { id: "batch_ctrl", pipe_type: "PipeBatch" },
         {
           id: "op1",
+          pipe_type: "PipeFunc",
           io: { outputs: [{ digest: "d1", name: "result" }] },
         },
       ],
@@ -363,8 +392,8 @@ describe("buildDataflowAnalysis — edge cases", () => {
   it("ignores non-contains edges for containment tree", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
+        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
       ],
       edges: [
         { source: "op1", target: "op2", kind: "data" },
@@ -384,7 +413,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
 
   it("handles nodes with empty IO object", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "op1", io: {} }],
+      nodes: [{ id: "op1", pipe_type: "PipeFunc", io: {} }],
       edges: [],
     };
     const result = buildDataflowAnalysis(gs)!;
@@ -393,7 +422,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
 
   it("handles nodes with undefined IO", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "op1" }],
+      nodes: [{ id: "op1", pipe_type: "PipeFunc" }],
       edges: [],
     };
     const result = buildDataflowAnalysis(gs)!;
@@ -405,6 +434,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
       nodes: [
         {
           id: "op1",
+          pipe_type: "PipeFunc",
           io: {
             inputs: [{ name: "in_no_digest" }],
             outputs: [{ name: "out_no_digest" }],
@@ -421,7 +451,10 @@ describe("buildDataflowAnalysis — edge cases", () => {
 
   it("handles duplicate contains edges gracefully", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "ctrl" }, { id: "op1" }],
+      nodes: [
+        { id: "ctrl", pipe_type: "PipeSequence" },
+        { id: "op1", pipe_type: "PipeFunc" },
+      ],
       edges: [
         { source: "ctrl", target: "op1", kind: "contains" },
         { source: "ctrl", target: "op1", kind: "contains" },

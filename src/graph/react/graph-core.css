@@ -134,6 +134,31 @@
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
 }
+.controller-group-collapse:focus-visible {
+  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline-offset: 2px;
+}
+
+/* Fold-into-card toggle — sits on the right of the header bar. */
+.controller-group-fold {
+  all: unset;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--controller-header-color, #94a3b8);
+  padding: 4px 10px;
+  border-radius: 6px;
+  pointer-events: auto;
+  margin-left: auto;
+}
+.controller-group-fold:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+}
+.controller-group-fold:focus-visible {
+  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline-offset: 2px;
+}
 
 /* Sequence — solid thin border, calm flow */
 .controller-group--sequence {
@@ -251,6 +276,37 @@
 .pipe-card-status-dot--pulse {
   animation: pipe-card-pulse 1.5s ease-in-out infinite;
 }
+
+/* Expand button — appears on folded controller cards. */
+.pipe-card-expand {
+  all: unset;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--pipe-card-text-muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.pipe-card-expand:hover {
+  color: var(--pipe-card-text-bright);
+  background: rgba(255, 255, 255, 0.08);
+}
+.pipe-card-expand:focus-visible {
+  outline: 2px solid var(--pipe-card-text-bright);
+  outline-offset: 2px;
+}
+
+/* Folded-controller card variant — slightly tinted badge to differentiate
+   from operator cards. */
+.pipe-card-badge--controller {
+  background: rgba(148, 163, 184, 0.25);
+  color: var(--pipe-card-text-bright);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+.pipe-card--controller {
+  --pipe-card-accent: #94a3b8;
+}
 @keyframes pipe-card-pulse {
   0%,
   100% {
@@ -337,6 +393,10 @@
 .pipe-card-io-more:hover {
   color: var(--pipe-card-text);
   border-color: rgba(255, 255, 255, 0.25);
+}
+.pipe-card-io-more:focus-visible {
+  outline: 2px solid var(--pipe-card-text);
+  outline-offset: 2px;
 }
 
 /* ─── LR: label on top, pills stacked vertically, hard-truncated ─────── */
