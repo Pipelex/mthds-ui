@@ -243,6 +243,12 @@ export function applyFolds(
       target: newDst,
       id: edge.id,
     };
+    // Batch edges carry per-item indices like "[0]", "[1]" in their labels.
+    // Once a fold collapses many of these into a single edge (or hides the
+    // per-item target), the surviving index is misleading — generalize to "[N]".
+    if (edge._batchEdge && (newSrc !== edge.source || newDst !== edge.target)) {
+      cloned.label = "[N]";
+    }
     delete cloned._crossGroup;
     dedupMap.set(key, cloned);
   }

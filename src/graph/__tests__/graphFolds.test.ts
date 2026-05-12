@@ -660,6 +660,127 @@ describe("applyFolds — edge cases", () => {
     // No edge should reference the iter pipe anymore
     expect(result.edges.find((e) => e.source === "iter" || e.target === "iter")).toBeUndefined();
   });
+
+  it("relabels surviving batch edges as '[N]' when their endpoint is rewritten by a fold", () => {
+    // PipeBatch with two branches; each branch has its own batch_item edge
+    // carrying a per-item index in the label.
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "ctrl_batch", pipe_code: "my_batch", pipe_type: "PipeBatch" },
+        {
+          id: "source",
+          pipe_code: "source",
+          pipe_type: "PipeExtract",
+          io: { outputs: [{ digest: "list", name: "list", concept: "Doc" }] },
+        },
+        {
+          id: "iter_0",
+          pipe_code: "iter",
+          pipe_type: "PipeLLM",
+          io: {
+            inputs: [{ digest: "item_0", name: "item", concept: "T" }],
+            outputs: [{ digest: "out_0", name: "out", concept: "T" }],
+          },
+        },
+        {
+          id: "iter_1",
+          pipe_code: "iter",
+          pipe_type: "PipeLLM",
+          io: {
+            inputs: [{ digest: "item_1", name: "item", concept: "T" }],
+            outputs: [{ digest: "out_1", name: "out", concept: "T" }],
+          },
+        },
+      ],
+      edges: [
+        { source: "ctrl_batch", target: "iter_0", kind: "contains" },
+        { source: "ctrl_batch", target: "iter_1", kind: "contains" },
+        {
+          source: "ctrl_batch",
+          target: "iter_0",
+          kind: "batch_item",
+          source_stuff_digest: "list",
+          target_stuff_digest: "item_0",
+          label: "[0]",
+        },
+        {
+          source: "ctrl_batch",
+          target: "iter_1",
+          kind: "batch_item",
+          source_stuff_digest: "list",
+          target_stuff_digest: "item_1",
+          label: "[1]",
+        },
+      ],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+
+    // Pre-fold sanity: batch edges keep their per-item indices.
+    const preFoldLabels = graphData.edges
+      .filter((e) => e._batchEdge)
+      .map((e) => e.label)
+      .sort();
+    expect(preFoldLabels).toEqual(["[0]", "[1]"]);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["ctrl_batch"]));
+
+    // After fold: the two batch edges collapse into a single stuff_list → ctrl_batch
+    // edge whose label is generalized to "[N]". The dashed/colored style survives.
+    const survivingBatchEdges = result.edges.filter((e) => e._batchEdge);
+    expect(survivingBatchEdges.length).toBe(1);
+    expect(survivingBatchEdges[0].label).toBe("[N]");
+    expect(survivingBatchEdges[0].style?.strokeDasharray).toBe("5,5");
+  });
+
+  it("does not relabel batch edges whose endpoints are unchanged by the fold", () => {
+    // Folding an unrelated controller must leave batch edges' labels alone.
+    const spec: GraphSpec = {
+      nodes: [
+        { id: "root_seq", pipe_code: "root_seq", pipe_type: "PipeSequence" },
+        { id: "ctrl_batch", pipe_code: "my_batch", pipe_type: "PipeBatch" },
+        { id: "unrelated_ctrl", pipe_code: "unrelated", pipe_type: "PipeSequence" },
+        {
+          id: "source",
+          pipe_code: "source",
+          pipe_type: "PipeExtract",
+          io: { outputs: [{ digest: "list", name: "list", concept: "Doc" }] },
+        },
+        {
+          id: "iter_0",
+          pipe_code: "iter",
+          pipe_type: "PipeLLM",
+          io: {
+            inputs: [{ digest: "item_0", name: "item", concept: "T" }],
+            outputs: [{ digest: "out_0", name: "out", concept: "T" }],
+          },
+        },
+        {
+          id: "noise_op",
+          pipe_code: "noise_op",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "noise_d", name: "noise", concept: "T" }] },
+        },
+      ],
+      edges: [
+        { source: "root_seq", target: "ctrl_batch", kind: "contains" },
+        { source: "root_seq", target: "unrelated_ctrl", kind: "contains" },
+        { source: "ctrl_batch", target: "iter_0", kind: "contains" },
+        { source: "unrelated_ctrl", target: "noise_op", kind: "contains" },
+        {
+          source: "ctrl_batch",
+          target: "iter_0",
+          kind: "batch_item",
+          source_stuff_digest: "list",
+          target_stuff_digest: "item_0",
+          label: "[0]",
+        },
+      ],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+    const result = applyFolds(graphData, analysis, spec, new Set(["unrelated_ctrl"]));
+    const batchEdge = result.edges.find((e) => e._batchEdge);
+    expect(batchEdge?.label).toBe("[0]");
+  });
 });
 
 // ─── applyFolds: stuff-map rewriting (REGRESSION for the CV-screening bug) ──
