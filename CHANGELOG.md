@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.5.2] - 2026-05-12
+
+### Fixed
+
+- **Spacebar input swallowed in editors mounted next to `GraphViewer`.** ReactFlow's default `panActivationKeyCode='Space'` attaches a `window`-level keydown listener that can call `preventDefault()` on the spacebar, blocking text input in adjacent editors (e.g. Monaco). `GraphViewer` now sets `panActivationKeyCode={null}` on its `<ReactFlow>` so the space key is never intercepted at the window level.
+
 ## [v0.5.1] - 2026-05-05
 
 ### Added
