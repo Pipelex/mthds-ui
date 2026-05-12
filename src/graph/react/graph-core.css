@@ -139,11 +139,11 @@
 .controller-group-fold {
   all: unset;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 1;
   color: var(--controller-header-color, #94a3b8);
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
   pointer-events: auto;
   margin-left: auto;
 }
@@ -273,11 +273,11 @@
 .pipe-card-expand {
   all: unset;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 1;
   color: var(--pipe-card-text-muted);
-  padding: 2px 4px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
   flex-shrink: 0;
 }
 .pipe-card-expand:hover {
