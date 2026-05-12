@@ -407,9 +407,13 @@ export function GraphViewer(props: GraphViewerProps) {
 
     let cancelled = false;
 
-    // Reset expand + fold overrides when graph changes
+    // Reset expand + fold overrides when graph changes. Update the refs
+    // synchronously so the build below — and any racing in-flight reads — see
+    // the cleared state, not the previous graphspec's fold/expand sets.
     setExpandedControllers(new Set());
     setFoldedControllers(new Set());
+    expandedRef.current = new Set();
+    foldedRef.current = new Set();
 
     const { graphData, analysis } = buildGraph(graphspec, edgeType);
     rawGraphDataRef.current = {
@@ -419,11 +423,8 @@ export function GraphViewer(props: GraphViewerProps) {
       graphspec,
     };
 
-    // Apply current fold state (typically empty since we just reset it)
-    const folded =
-      analysis && foldedRef.current.size > 0
-        ? applyFolds(graphData, analysis, graphspec, foldedRef.current, toggleFoldRef.current)
-        : { nodes: graphData.nodes, edges: graphData.edges, analysis };
+    // Fold state was just reset, so the input is the unfolded graph as-is.
+    const folded = { nodes: graphData.nodes, edges: graphData.edges, analysis };
 
     initialDataRef.current = {
       nodes: folded.nodes,
@@ -507,14 +508,21 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [graphspec, edgeType]);
 
   // Re-derive folded data + re-layout when foldedControllers changes (structural change)
-  // Skips initial mount because rawGraphDataRef is populated synchronously by the graphspec
-  // effect above; if the user toggles fold before that's ready, this effect is a no-op.
+  // Skips initial mount AND graphspec-driven resets: the graphspec effect already
+  // performs the build+layout against an empty fold set and synchronously clears
+  // foldedRef. If both prev and current fold sets are empty, this is a no-op
+  // (avoids a redundant ELK layout pass after every graphspec change).
   const isFirstFoldEffect = React.useRef(true);
+  const prevFoldSizeRef = React.useRef(0);
   React.useEffect(() => {
     if (isFirstFoldEffect.current) {
       isFirstFoldEffect.current = false;
+      prevFoldSizeRef.current = foldedControllers.size;
       return;
     }
+    const prevSize = prevFoldSizeRef.current;
+    prevFoldSizeRef.current = foldedControllers.size;
+    if (prevSize === 0 && foldedControllers.size === 0) return;
     if (!rawGraphDataRef.current || !rawGraphDataRef.current.analysis) return;
     const raw = rawGraphDataRef.current;
     const currentGraphspec = raw.graphspec;

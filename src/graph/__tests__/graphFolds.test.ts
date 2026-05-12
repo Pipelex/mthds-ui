@@ -397,9 +397,14 @@ describe("applyFolds — _crossGroup recomputation", () => {
     expect(postFold!._crossGroup).toBeFalsy();
   });
 
-  it("a cross-group edge stops being cross-group when its sibling controller is folded into a card", () => {
-    // ctrl_x and ctrl_y are siblings; folding ctrl_x means the edge no longer
-    // crosses between two sibling groups — it now exits a folded card.
+  it("_crossGroup is FALSE on the new card-out edge when a sibling controller is folded", () => {
+    // Two sibling controllers; the only cross-group edge pre-fold runs from
+    // op_in_x (inside ctrl_x) → op_in_y (inside ctrl_y) via stuff_shared_data.
+    // After folding ctrl_x: the surviving edge is `ctrl_x → stuff_shared_data`
+    // (card output edge); stuff_shared_data now belongs to no controller
+    // because its producer (op_in_x) was hidden and ctrl_x's contains edges
+    // were filtered out. So the edge ctrl_x → stuff_shared_data should NOT be
+    // _crossGroup.
     const spec: GraphSpec = {
       nodes: [
         { id: "root", pipe_code: "root", pipe_type: "PipeSequence" },
@@ -426,29 +431,23 @@ describe("applyFolds — _crossGroup recomputation", () => {
       ],
     };
     const { analysis, graphData } = buildPipeline(spec);
+
+    // Pre-fold sanity: stuff_shared_data → op_in_y was originally op_in_x → ...
+    // so the stuff itself was inside ctrl_x's region. The edge is cross-group.
+    const preFoldEdges = graphData.edges.filter(
+      (e) => e._crossGroup === true && e.target === "op_in_y",
+    );
+    expect(preFoldEdges.length).toBeGreaterThan(0);
+
     const result = applyFolds(graphData, analysis, spec, new Set(["ctrl_x"]));
 
-    // After fold: ctrl_x is a card (no children). The edge stuff_shared_data -> op_in_y
-    // now goes from "ctrl_x" (card) to op_in_y. Source belongs to nothing (card has
-    // no parent except root which contains everything), target is inside ctrl_y.
-    // The classification depends on whether ctrl_x card is "in" any controller in the
-    // updated containment tree. ctrl_x is still a child of root. op_in_y is inside ctrl_y
-    // which is also a child of root. So they are NOT sibling-controlled the same — the
-    // edge crosses from ctrl_x (root child) into ctrl_y (root child). That is still
-    // cross-group by the rule. So this scenario does still mark cross-group — but the
-    // crucial difference is: the edge style is recomputed against the *post-fold*
-    // containment, not stale from pre-fold.
-
-    // Simpler regression: assert that all surviving edges have their _crossGroup flag
-    // recomputed (i.e. not stale from pre-fold).
-    for (const edge of result.edges) {
-      // _crossGroup should only be true if both endpoints currently map to different
-      // controllers in the updated containment.
-      if (edge._crossGroup) {
-        // The flag should reflect actual current cross-group status.
-        expect(edge._crossGroup).toBe(true);
-      }
-    }
+    // The output edge from the ctrl_x card to stuff_shared_data should NOT be
+    // cross-group. (The stuff was filtered out of any controller after fold.)
+    const cardOutEdge = result.edges.find(
+      (e) => e.source === "ctrl_x" && e.target === "stuff_shared_data",
+    );
+    expect(cardOutEdge).toBeDefined();
+    expect(cardOutEdge!._crossGroup).toBeFalsy();
   });
 });
 
@@ -470,6 +469,41 @@ describe("applyFolds — edge cases", () => {
     const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
     const card = result.nodes.find((n) => n.id === "ctrlA");
     expect(card?.data.pipeCardData?.onExpand).toBeUndefined();
+  });
+
+  it("folded card's pipeCardData arrays do not alias the original node's arrays", () => {
+    // Even with a controller that has its own io carrying the same digest as a
+    // child operator, the card's inputs/outputs arrays must be independent —
+    // mutating one must not affect the other.
+    const spec: GraphSpec = {
+      nodes: [
+        {
+          id: "ctrlA",
+          pipe_code: "ctrlA",
+          pipe_type: "PipeSequence",
+          io: {
+            inputs: [{ name: "doc", concept: "Document" }],
+            outputs: [{ name: "summary", concept: "Text" }],
+          },
+        },
+        {
+          id: "op_inner",
+          pipe_code: "op_inner",
+          pipe_type: "PipeLLM",
+          io: {
+            inputs: [{ digest: "doc_d", name: "doc", concept: "Document" }],
+            outputs: [{ digest: "summary_d", name: "summary", concept: "Text" }],
+          },
+        },
+      ],
+      edges: [{ source: "ctrlA", target: "op_inner", kind: "contains" }],
+    };
+    const { analysis, graphData } = buildPipeline(spec);
+    const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
+    const card = result.nodes.find((n) => n.id === "ctrlA")!;
+    // pipeCardData arrays must be fresh (not aliased to the GraphSpecNode.io arrays).
+    expect(card.data.pipeCardData!.inputs).not.toBe(spec.nodes[0].io!.inputs);
+    expect(card.data.pipeCardData!.outputs).not.toBe(spec.nodes[0].io!.outputs);
   });
 
   it("rewrites batch_item edges with the same folding rules", () => {

@@ -225,20 +225,13 @@ export function applyFolds(
         strokeWidth: 1.5,
         opacity: 0.65,
       };
-    } else {
-      // Make sure cross-group styling is reset if the edge no longer crosses.
-      if (edge.style && (edge.style.opacity === 0.65 || edge.style.strokeWidth === 1.5)) {
-        const { opacity: _o, strokeWidth: _sw, ...rest } = edge.style;
-        void _o;
-        void _sw;
-        edge.style = {
-          ...rest,
-          strokeWidth: 2,
-        };
-        // Keep markerEnd consistent
-        if (!edge.markerEnd) {
-          edge.markerEnd = { type: ARROW_CLOSED_MARKER, color: "var(--color-edge)" };
-        }
+    } else if (edge.style && (edge.style.opacity === 0.65 || edge.style.strokeWidth === 1.5)) {
+      // Edge no longer crosses sibling groups — reset the de-emphasized style.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { opacity: _opacity, strokeWidth: _strokeWidth, ...rest } = edge.style;
+      edge.style = { ...rest, strokeWidth: 2 };
+      if (!edge.markerEnd) {
+        edge.markerEnd = { type: ARROW_CLOSED_MARKER, color: "var(--color-edge)" };
       }
     }
     rewrittenEdges.push(edge);

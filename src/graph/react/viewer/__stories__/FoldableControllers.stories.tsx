@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
 import { LIVE_CV_SCREENING } from "./mockGraphSpec";
-import { buildDataflowAnalysis } from "@graph/graphAnalysis";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/FoldableControllers",
@@ -40,10 +39,6 @@ async function waitForRender(canvasElement: HTMLElement) {
 
 function getControllerGroupNodes(canvasElement: HTMLElement): HTMLElement[] {
   return Array.from(canvasElement.querySelectorAll(".controller-group-node")) as HTMLElement[];
-}
-
-function getPipeCardNodes(canvasElement: HTMLElement): HTMLElement[] {
-  return Array.from(canvasElement.querySelectorAll(".pipe-card")) as HTMLElement[];
 }
 
 // ─── Baseline: nothing folded ───────────────────────────────────────────
@@ -198,8 +193,3 @@ export const FoldAllHiddenWhenNoControllers: Story = {
     expect(canvasElement.querySelector('button[aria-label*="Expand all"]')).toBeNull();
   },
 };
-
-// ─── Sanity check: the spec has controllers ────────────────────────────
-
-void buildDataflowAnalysis(SPEC);
-void getPipeCardNodes;
