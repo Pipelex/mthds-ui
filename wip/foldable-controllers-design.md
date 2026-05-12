@@ -181,4 +181,23 @@ Fully additive:
 - Toolbar "fold all" / "expand all" buttons.
 - Persisting fold state.
 - Animations between fold and expand transitions.
+
+## Implementation notes (post-build)
+
+Deviations from this design that landed during implementation:
+
+- **Toolbar "fold all" / "expand all" buttons** moved into scope. They sit next to the existing controllers toggle and only appear when `showControllers` is on and the graph has at least one controller. Each disables individually when its action would be a no-op (everything folded vs. nothing folded). Implemented in `GraphToolbar.tsx`; wired in `GraphViewer.tsx` against the **raw** pre-fold analysis (so already-folded controllers can be re-folded by the "fold all" button without exceptions).
+- **`_crossGroup` recomputation** added to `applyFolds`. The pre-fold flag is dropped per edge and re-evaluated against the post-fold containment (with contains-edges from collapsed controllers filtered out). Tested as a regression in `graphFolds.test.ts`.
+- **Removed silent `|| "PipeFunc"` fallback** in `graphBuilders.ts` (was at L69). `buildPipeCardPayload` now throws on missing `pipe_type` — GraphSpec invariant violation. Existing test fixtures updated to include `pipe_type`.
+- **Operator/controller distinction** in the payload builder uses `analysis.controllerNodeIds.has(node.id)` (single source of truth), not string-matching against `pipe_type`. Signature: `buildPipeCardPayload(node, graphspec, analysis)`.
+- **Edge dedup key**: `${newSrc}->${newDst}|${edge._batchEdge ? "batch" : "data"}` — a batch and a regular data edge between the same pair stay distinct.
+- **API stays uncontrolled** in v1 (no `foldedControllers` / `onFoldedControllersChange` props). Matches the existing uncontrolled `expandedControllers` state. Add controlled mode in a follow-up if a real consumer surfaces.
+
+New modules:
+
+- `src/graph/pipeCardPayload.ts` — pure helper that builds a `PipeCardPayload` from a `GraphSpecNode`.
+- `src/graph/graphFolds.ts` — pure `applyFolds()` transformation: nodes, edges, analysis.
+
+Coverage on the new modules: `pipeCardPayload.ts` 100% statements / 96.66% branches; `graphFolds.ts` 96.9% statements / 90.38% branches.
+
 - Hover-revealing internal details of a folded controller without unfolding (a tooltip showing internal pipe count, e.g.).

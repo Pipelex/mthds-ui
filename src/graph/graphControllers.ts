@@ -215,6 +215,7 @@ export function applyControllers(
   expandedControllers?: ReadonlySet<string>,
   onToggleCollapse?: (controllerId: string) => void,
   controllerPositions?: Record<string, ControllerRect>,
+  onToggleFold?: (controllerId: string) => void,
 ): { nodes: GraphNode[]; edges: GraphEdge[] } {
   if (!showControllers || !analysis || !graphspec) {
     return { nodes: layoutedNodes, edges: layoutedEdges };
@@ -310,7 +311,7 @@ export function applyControllers(
     return { nodes: filteredNodes, edges: filteredEdges };
   }
 
-  // Inject collapse metadata into controller node data
+  // Inject collapse + fold metadata into controller node data
   for (const cn of controllerNodes) {
     const count = childCounts[cn.id] ?? 0;
     const isCollapsed = collapsedSet.has(cn.id);
@@ -319,6 +320,10 @@ export function applyControllers(
     if (onToggleCollapse) {
       const id = cn.id;
       cn.data.onToggleCollapse = () => onToggleCollapse(id);
+    }
+    if (onToggleFold) {
+      const id = cn.id;
+      cn.data.onToggleFold = () => onToggleFold(id);
     }
   }
 

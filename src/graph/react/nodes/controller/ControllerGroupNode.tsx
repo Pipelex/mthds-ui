@@ -8,6 +8,7 @@ interface ControllerGroupData {
   childCount?: number;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
+  onToggleFold?: () => void;
 }
 
 const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
@@ -44,6 +45,20 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
         <span className="controller-group-icon">{config.icon}</span>
         <span className="controller-group-badge">{config.badge}</span>
         {data.label && <span className="controller-group-label">{data.label}</span>}
+        {data.onToggleFold && (
+          <button
+            type="button"
+            className="controller-group-fold"
+            title="Fold controller"
+            aria-label="Fold controller"
+            onClick={(e) => {
+              e.stopPropagation();
+              data.onToggleFold?.();
+            }}
+          >
+            ⤡
+          </button>
+        )}
       </div>
       {isCollapsible && (
         <button

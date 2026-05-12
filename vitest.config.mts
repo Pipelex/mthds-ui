@@ -25,6 +25,8 @@ export default defineConfig({
         "src/graph/graphLayout.ts",
         "src/graph/graphControllers.ts",
         "src/graph/graphConfig.ts",
+        "src/graph/graphFolds.ts",
+        "src/graph/pipeCardPayload.ts",
         "src/graph/react/rfTypes.ts",
       ],
       thresholds: {

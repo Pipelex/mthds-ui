@@ -1,27 +1,7 @@
-import type {
-  GraphSpec,
-  DataflowAnalysis,
-  GraphNode,
-  GraphEdge,
-  GraphData,
-  PipeOperatorType,
-} from "./types";
+import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
 import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
-
-/** Fallback description when the GraphSpec node doesn't carry one. */
-function defaultDescription(pipeType?: string, pipeCode?: string): string {
-  const code = pipeCode || "this step";
-  const verb: Record<string, string> = {
-    PipeLLM: "Analyze and generate output using",
-    PipeExtract: "Extract content from",
-    PipeCompose: "Compose output using",
-    PipeImgGen: "Generate image for",
-    PipeSearch: "Search the web for",
-    PipeFunc: "Process data in",
-  };
-  return `${verb[pipeType || ""] || "Execute"} ${code.replace(/_/g, " ")}`;
-}
+import { buildPipeCardPayload } from "./pipeCardPayload";
 
 const STUFF_CHAR_WIDTH_PX = 7;
 const STUFF_LABEL_PADDING = 48;
@@ -56,17 +36,7 @@ export function buildDataflowGraph(
 
     const isFailed = node.status === "failed";
     const label = node.pipe_code || node.id.split(":").pop() || node.id;
-    const inputs = (node.io?.inputs ?? []).map((i) => ({
-      name: i.name ?? "",
-      concept: i.concept ?? "",
-    }));
-    const outputs = (node.io?.outputs ?? []).map((o) => ({
-      name: o.name ?? "",
-      concept: o.concept ?? "",
-    }));
-
-    // Participating pipes are operators (controllers don't produce/consume stuff directly)
-    const operatorType: PipeOperatorType = (node.pipe_type as PipeOperatorType) || "PipeFunc";
+    const pipeCardData = buildPipeCardPayload(node, graphspec, analysis);
 
     nodes.push({
       id: node.id,
@@ -77,16 +47,9 @@ export function buildDataflowGraph(
         isPipe: true,
         isStuff: false,
         labelText: label,
-        pipeCode: node.pipe_code || label,
+        pipeCode: pipeCardData.pipeCode,
         pipeType: node.pipe_type,
-        pipeCardData: {
-          pipeCode: node.pipe_code || label,
-          pipeType: operatorType,
-          description: node.description || defaultDescription(node.pipe_type, node.pipe_code),
-          status: node.status || "scheduled",
-          inputs,
-          outputs,
-        },
+        pipeCardData,
       },
       position: { x: 0, y: 0 },
     });

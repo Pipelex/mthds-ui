@@ -391,13 +391,15 @@ export type LabelDescriptor =
 
 export interface PipeCardPayload {
   pipeCode: string;
-  pipeType: PipeOperatorType;
+  pipeType: PipeType;
   description?: string;
   status: PipeStatus;
   inputs: { name: string; concept: string }[];
   outputs: { name: string; concept: string }[];
   /** Layout direction — injected by the layout engine */
   direction?: "LR" | "TB";
+  /** When set, the card renders an unfold button that invokes this callback. */
+  onExpand?: () => void;
 }
 
 // ─── Graph node data ────────────────────────────────────────────────────────
