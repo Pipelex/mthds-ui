@@ -254,18 +254,6 @@ describe("buildPipeCardPayload", () => {
     ]);
   });
 
-  it("throws when pipe_type is missing", () => {
-    const node: GraphSpecNode = {
-      id: "op_bad",
-      pipe_code: "broken",
-    };
-    const spec: GraphSpec = { nodes: [node], edges: [] };
-    const analysis = emptyAnalysis();
-
-    expect(() => buildPipeCardPayload(node, spec, analysis)).toThrow(/op_bad/);
-    expect(() => buildPipeCardPayload(node, spec, analysis)).toThrow(/missing pipe_type/);
-  });
-
   it("pipeCode falls back to node.id when pipe_code is absent", () => {
     const node: GraphSpecNode = {
       id: "raw_id",

@@ -84,7 +84,7 @@ export interface GraphSpecNode {
   id: string;
   kind?: NodeKind;
   pipe_code?: string;
-  pipe_type?: PipeType;
+  pipe_type: PipeType;
   description?: string;
   status?: PipeStatus;
   timing?: GraphSpecNodeTiming;

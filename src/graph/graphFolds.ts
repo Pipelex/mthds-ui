@@ -187,7 +187,6 @@ export function applyFolds(
     if (outermostFoldedAncestor(folded, childToCtrl, foldedSet)) continue;
     const specNode = findSpecNode(graphspec, folded);
     if (!specNode) continue; // unknown ID — silently ignore
-    if (!specNode.pipe_type) continue; // missing pipe_type — silently ignore (no payload buildable)
 
     const payload = buildPipeCardPayload(specNode, graphspec, analysis);
     if (onToggleFold) {

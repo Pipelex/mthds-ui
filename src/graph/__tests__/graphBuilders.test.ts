@@ -180,7 +180,7 @@ describe("buildDataflowGraph — additional cases", () => {
   });
 
   it("handles empty graphspec with no stuff", () => {
-    const gs: GraphSpec = { nodes: [{ id: "op1" }], edges: [] };
+    const gs: GraphSpec = { nodes: [{ id: "op1", pipe_type: "PipeFunc" }], edges: [] };
     const analysis = buildDataflowAnalysis(gs)!;
     const { nodes, edges } = buildDataflowGraph(gs, analysis, "bezier");
     expect(nodes).toHaveLength(0);
@@ -240,7 +240,7 @@ describe("buildGraph", () => {
 
   it("returns empty graph when graphspec has no stuff", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "op1" }], // no IO
+      nodes: [{ id: "op1", pipe_type: "PipeFunc" }], // no IO
       edges: [],
     };
     const { analysis } = buildGraph(gs, "bezier");
@@ -376,21 +376,6 @@ describe("buildDataflowGraph — pipeCardData population", () => {
     const pipe = nodes.find((n) => n.id === "op1")!;
     expect(pipe.data.pipeCardData?.description).toContain("Extract content from");
     expect(pipe.data.pipeCardData?.description).toContain("extract data");
-  });
-
-  it("throws when pipe_type is missing on a participating pipe", () => {
-    const gs: GraphSpec = {
-      nodes: [
-        {
-          id: "op1",
-          pipe_code: "mystery",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
-        },
-      ],
-      edges: [],
-    };
-    const analysis = buildDataflowAnalysis(gs)!;
-    expect(() => buildDataflowGraph(gs, analysis, "bezier")).toThrow(/missing pipe_type/);
   });
 
   it("defaults status to 'scheduled' when not provided", () => {

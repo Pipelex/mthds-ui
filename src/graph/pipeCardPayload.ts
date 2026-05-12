@@ -25,18 +25,12 @@ function defaultDescription(pipeType: PipeType, pipeCode: string | undefined): s
  *
  * Operator/controller distinction uses `analysis.controllerNodeIds` (single source of truth)
  * rather than string-matching against `pipe_type`.
- *
- * Throws if `node.pipe_type` is missing — GraphSpec invariant violated.
  */
 export function buildPipeCardPayload(
   node: GraphSpecNode,
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
 ): PipeCardPayload {
-  if (!node.pipe_type) {
-    throw new Error(`Node ${node.id} missing pipe_type — GraphSpec invariant violated`);
-  }
-
   const pipeType: PipeType = node.pipe_type;
   const pipeCode = node.pipe_code || node.id;
   const isController = analysis.controllerNodeIds.has(node.id);
