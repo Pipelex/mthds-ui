@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.6.1] - 2026-05-12
+
+### Fixed
+
+- **Standalone bundle: `GraphToolbar.css` was missing.** `scripts/build-standalone.mjs` concatenates CSS files into the standalone bundle via an explicit allow-list (the JS build uses `loader: { ".css": "empty" }`, so side-effect CSS imports from React components are stripped on purpose). The toolbar stylesheet `src/graph/react/viewer/GraphToolbar.css` — introduced in v0.4.0 alongside the floating `GraphToolbar` component — was never added to that list, so every consumer of the standalone IIFE bundle (`graph-viewer.{js,css}`, including mthds-ui's own `graph-standalone.html` demo) rendered the toolbar in the DOM but with no styling (no `position: absolute`, no backdrop, no button visuals) — effectively invisible. Consumers of the npm package were unaffected because their bundler (e.g. Next.js, esbuild with proper CSS loader) picks up the side-effect import from `GraphToolbar.tsx` directly. The CSS file is now in the allow-list and ships in `graph-viewer.css`.
+
 ## [v0.6.0] - 2026-05-12
 
 ### Added
