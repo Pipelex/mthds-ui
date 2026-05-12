@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.6.2] - 2026-05-12
+
+### Fixed
+
+- **Standalone bundle: `foldMode` was not forwarded to `GraphViewer`.** The `foldMode` field on `GraphConfig` and the `initialFoldMode` prop on `GraphViewer` shipped in v0.6.0, but `src/standalone/adapter.ts` picked config keys out of the embedded `pipelex-config` JSON explicitly and silently dropped `foldMode`. Hosts of the IIFE bundle (`graph-viewer.{js,css}`, including pipelex's reactflow HTML output) couldn't seed the initial fold state — controllers always started fully expanded regardless of what the embedded config said. The adapter now validates `foldMode` against the `FOLD_MODE` constants (`"folded"` / `"expanded"` / `"auto"`), falls back to `"expanded"` on missing or invalid values, and forwards it to `GraphViewer` as both `initialFoldMode` and inside `config`. Config parsing was extracted into a new pure module `src/standalone/viewerProps.ts` (with `buildViewerProps()`) so the wire-through is now unit-tested. Third standalone-bundle wire-through gap in the v0.4–v0.6 window after the v0.4.1 / v0.6.1 missing-CSS fixes — consumers of the npm package were unaffected because they pass `foldMode` to `GraphViewer` directly.
+
 ## [v0.6.1] - 2026-05-12
 
 ### Fixed
