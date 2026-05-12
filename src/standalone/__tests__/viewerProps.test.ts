@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
 import { buildViewerProps } from "../viewerProps";
 
 describe("buildViewerProps", () => {
@@ -60,6 +61,28 @@ describe("buildViewerProps", () => {
       const graphspec = { nodes: [], edges: [] };
       const props = buildViewerProps({}, graphspec);
       expect(props.graphspec).toBe(graphspec);
+    });
+  });
+
+  describe("GraphConfig key parity (regression guard)", () => {
+    // Guards against the v0.6.2-shape bug: a new field added to `GraphConfig`
+    // (and `DEFAULT_GRAPH_CONFIG`) silently fails to reach `GraphViewer`
+    // because `buildViewerProps` doesn't forward it. With the spread-and-
+    // override implementation, this passes by construction — and fails loudly
+    // if someone reverts to cherry-picking without listing every field.
+    it("forwards every GraphConfig key that DEFAULT_GRAPH_CONFIG defines", () => {
+      const { config } = buildViewerProps({ ...DEFAULT_GRAPH_CONFIG }, null);
+      const expectedKeys = Object.keys(DEFAULT_GRAPH_CONFIG).sort();
+      const actualKeys = Object.keys(config).sort();
+      expect(actualKeys).toEqual(expect.arrayContaining(expectedKeys));
+    });
+
+    it("forwards arbitrary keys that DEFAULT_GRAPH_CONFIG doesn't define", () => {
+      // Future-proofing: spread means any key in the rawConfig blob reaches
+      // GraphViewer, even one this version of mthds-ui doesn't recognize.
+      // GraphViewer ignores keys it doesn't use; the adapter doesn't filter.
+      const { config } = buildViewerProps({ unknownKey: "value" }, null);
+      expect((config as Record<string, unknown>).unknownKey).toBe("value");
     });
   });
 });

@@ -3,7 +3,7 @@
  * the wire-through from `pipelex-config` JSON to `GraphViewer` props can be
  * unit-tested without pulling React or CSS side-effects into the test.
  */
-import type { GraphSpec, GraphConfig, GraphDirection, EdgeType, FoldMode } from "@graph/types";
+import type { GraphSpec, GraphConfig, GraphDirection, FoldMode } from "@graph/types";
 import { FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
 
 export interface StandaloneViewerProps {
@@ -23,8 +23,12 @@ function parseFoldMode(raw: unknown): FoldMode {
 
 /**
  * Translate the raw `pipelex-config` JSON blob into props for `GraphViewer`.
- * `foldMode` is validated against the `FOLD_MODE` constants; any other value
- * (or a missing field) falls back to `"expanded"`.
+ *
+ * Unknown fields in `rawConfig` are forwarded verbatim (spread) so any future
+ * `GraphConfig` key reaches `GraphViewer` without a code change here —
+ * eliminating the v0.6.2-shape regression where new fields silently fail to
+ * wire through. Validated fields (currently just `foldMode`) override the
+ * spread.
  */
 export function buildViewerProps(
   rawConfig: unknown,
@@ -40,16 +44,11 @@ export function buildViewerProps(
   return {
     graphspec,
     config: {
+      ...cfg,
       direction,
       showControllers,
       foldMode,
-      nodesep: cfg.nodesep as number | undefined,
-      ranksep: cfg.ranksep as number | undefined,
-      edgeType: cfg.edgeType as EdgeType | undefined,
-      initialZoom: cfg.initialZoom as number | null | undefined,
-      panToTop: cfg.panToTop as boolean | undefined,
-      paletteColors: cfg.paletteColors as Record<string, string> | undefined,
-    },
+    } as GraphConfig,
     initialDirection: direction,
     initialShowControllers: showControllers,
     initialFoldMode: foldMode,
