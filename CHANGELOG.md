@@ -1,10 +1,14 @@
 # Changelog
 
-## [v0.5.3] - 2026-05-12
+## [v0.6.0] - 2026-05-12
 
 ### Added
 
 - **`initialFoldMode` prop on `GraphViewer` + `foldMode` field on `GraphConfig`.** Hosts can now seed the controller fold state when a graph first opens, instead of always starting fully expanded. Three values are accepted via the new `FOLD_MODE` constant: `"folded"` collapses every controller into a single pipe card on the first layout pass, `"expanded"` leaves them as group wrappers (previous behavior), and `"auto"` is a pass-through reserved for renderer-defined heuristics — it currently behaves the same as `"expanded"`. The seed is applied once per graphspec; users can still fold/unfold individually via the toolbar afterwards. `DEFAULT_GRAPH_CONFIG.foldMode` defaults to `"expanded"` so existing consumers see no change.
+
+### Fixed
+
+- **Folded controller hiding its declared output stuff node.** When the outermost folded controller declared a stuff as one of its outputs (e.g. `match_analyses` on the `batch_analyze_cvs_for_job_offer` PipeSequence in `cv_batch_screening`), the stuff lived inside the controller via `buildChildToControllerMap`'s "stuff produced by controllers themselves → assign to parent controller" step. Folding the controller hid the stuff with the rest of the internals and collapsed its incoming `batch_aggregate` edges into self-loops, so the final output disappeared from the graph. `applyFolds` now promotes such stuff nodes out of their outermost folded declarer to that declarer's parent context, so the folded pipe-card stays connected to its external output (the surviving batch edge keeps its dashed style and is relabeled `[N]`).
 
 ## [v0.5.2] - 2026-05-12
 
