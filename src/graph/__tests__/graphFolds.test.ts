@@ -922,3 +922,110 @@ describe("applyFolds — stuff producer/consumer rewriting", () => {
     expect(result.analysis.stuffConsumers["shared"]).toEqual(["inner_ctrl"]);
   });
 });
+
+// ─── applyFolds: declared-output stuffs survive their folded owner ──────
+// Mirrors the CV-batch-screening shape from the user's screenshot:
+//   outer_seq (declares `aggregated` as its output)
+//     └─ inner_batch (PipeBatch, also declares `aggregated`)
+//         └─ branch (operator, outputs `per_branch`)
+//   stuff_aggregated is the target of a batch_aggregate edge.
+// Before the fix, folding outer_seq hid stuff_aggregated because its parent
+// (outer_seq) was the outermost folded ancestor — the user lost the final
+// output node from the diagram when folding the whole pipeline.
+describe("applyFolds — declared-output stuffs survive their folded owner", () => {
+  function makeBatchAggregateSpec(): GraphSpec {
+    return {
+      nodes: [
+        {
+          id: "outer_seq",
+          pipe_code: "outer_seq",
+          pipe_type: "PipeSequence",
+          io: { outputs: [{ digest: "aggregated", name: "results", concept: "Result" }] },
+        },
+        {
+          id: "inner_batch",
+          pipe_code: "inner_batch",
+          pipe_type: "PipeBatch",
+          io: { outputs: [{ digest: "aggregated", name: "results", concept: "Result" }] },
+        },
+        {
+          id: "branch",
+          pipe_code: "branch",
+          pipe_type: "PipeLLM",
+          io: { outputs: [{ digest: "per_branch", name: "item", concept: "Result" }] },
+        },
+      ],
+      edges: [
+        { source: "outer_seq", target: "inner_batch", kind: "contains" },
+        { source: "inner_batch", target: "branch", kind: "contains" },
+        {
+          source: "branch",
+          target: "inner_batch",
+          kind: "batch_aggregate",
+          source_stuff_digest: "per_branch",
+          target_stuff_digest: "aggregated",
+          label: "[0]",
+        },
+      ],
+    };
+  }
+
+  it("keeps a controller's declared output stuff visible when the controller is folded", () => {
+    const spec = makeBatchAggregateSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["outer_seq"]));
+
+    // The output stuff_aggregated must remain in the visible nodes — it is the
+    // pipeline's final output and should connect to the folded card.
+    expect(result.nodes.find((n) => n.id === "stuff_aggregated")).toBeDefined();
+  });
+
+  it("rewrites the batch_aggregate edge to flow from the folded card to the output stuff", () => {
+    const spec = makeBatchAggregateSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["outer_seq"]));
+
+    // The original batch_aggregate (stuff_per_branch → stuff_aggregated) should
+    // become (outer_seq folded card → stuff_aggregated). The label generalizes
+    // to "[N]" because the original endpoint was rewritten by the fold.
+    const aggEdge = result.edges.find(
+      (e) => e.source === "outer_seq" && e.target === "stuff_aggregated",
+    );
+    expect(aggEdge).toBeDefined();
+    expect(aggEdge!._batchEdge).toBe(true);
+    expect(aggEdge!.label).toBe("[N]");
+  });
+
+  it("promotes the output stuff to the root when only the outer (root) controller declares it as folded", () => {
+    const spec = makeBatchAggregateSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["outer_seq"]));
+
+    // Post-fold there are no surviving controllers — buildChildToControllerMap
+    // run against the updated analysis must place stuff_aggregated at root level.
+    const postFoldMap = buildChildToControllerMap(spec, result.analysis);
+    expect(postFoldMap["stuff_aggregated"]).toBeUndefined();
+  });
+
+  it("keeps the output stuff inside the still-visible parent when only the inner declarer is folded", () => {
+    const spec = makeBatchAggregateSpec();
+    const { analysis, graphData } = buildPipeline(spec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["inner_batch"]));
+
+    // Only inner_batch is folded; outer_seq remains a real controller. The
+    // declared output stays inside outer_seq (the same place it was before the
+    // fold), since the outermost-declared-folded-ancestor is inner_batch and
+    // inner_batch's parent is outer_seq.
+    const aggEdge = result.edges.find(
+      (e) => e.source === "inner_batch" && e.target === "stuff_aggregated",
+    );
+    expect(aggEdge).toBeDefined();
+    expect(aggEdge!._batchEdge).toBe(true);
+    expect(aggEdge!.label).toBe("[N]");
+    expect(result.nodes.find((n) => n.id === "stuff_aggregated")).toBeDefined();
+  });
+});

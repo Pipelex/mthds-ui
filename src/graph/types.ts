@@ -368,9 +368,21 @@ export const EDGE_TYPE = {
 
 export type EdgeType = (typeof EDGE_TYPE)[keyof typeof EDGE_TYPE];
 
+export const FOLD_MODE = {
+  /** Every pipe controller folded into a single pipe card. */
+  FOLDED: "folded",
+  /** Every pipe controller expanded as a group wrapper. */
+  EXPANDED: "expanded",
+  /** Renderer decides — reserved for future heuristics; currently behaves like EXPANDED. */
+  AUTO: "auto",
+} as const;
+
+export type FoldMode = (typeof FOLD_MODE)[keyof typeof FOLD_MODE];
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
+  foldMode?: FoldMode;
   nodesep?: number;
   ranksep?: number;
   edgeType?: EdgeType;

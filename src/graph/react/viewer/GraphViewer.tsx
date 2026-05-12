@@ -15,11 +15,12 @@ import type {
   GraphEdge,
   GraphNodeData,
   DataflowAnalysis,
+  FoldMode,
   FoldToggleOptions,
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId, EDGE_TYPE, GRAPH_DIRECTION } from "@graph/types";
+import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -53,6 +54,14 @@ export interface GraphViewerProps {
   initialDirection?: GraphDirection;
   /** Initial controller-grouping state. Users can toggle this via the built-in toolbar. */
   initialShowControllers?: boolean;
+  /**
+   * Initial fold state applied once per graphspec. `"folded"` collapses every
+   * controller into a pipe card on first render; `"expanded"` leaves them all
+   * as group wrappers; `"auto"` is reserved for future heuristics and currently
+   * behaves like `"expanded"`. Users can still fold/unfold individually via the
+   * built-in toolbar afterwards.
+   */
+  initialFoldMode?: FoldMode;
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
@@ -128,6 +137,16 @@ function StuffNodeDetail({
   );
 }
 
+/**
+ * Translate a fold mode + the set of available controller IDs into an initial
+ * `foldedControllers` Set. `"auto"` is reserved for a future renderer-defined
+ * heuristic and currently behaves like `"expanded"`.
+ */
+function seedFoldedControllers(mode: FoldMode, controllerIds: ReadonlySet<string>): Set<string> {
+  if (mode === FOLD_MODE.FOLDED) return new Set(controllerIds);
+  return new Set();
+}
+
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   return nodes.map((n) => ({
     ...n,
@@ -179,6 +198,7 @@ export function GraphViewer(props: GraphViewerProps) {
     config = DEFAULT_GRAPH_CONFIG,
     initialDirection,
     initialShowControllers,
+    initialFoldMode,
     hideToolbar = false,
     onNavigateToPipe,
     onStuffNodeClick,
@@ -203,6 +223,11 @@ export function GraphViewer(props: GraphViewerProps) {
       DEFAULT_GRAPH_CONFIG.showControllers ??
       false,
   );
+
+  const effectiveFoldMode: FoldMode =
+    initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
+  const foldModeRef = React.useRef(effectiveFoldMode);
+  foldModeRef.current = effectiveFoldMode;
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -420,13 +445,11 @@ export function GraphViewer(props: GraphViewerProps) {
 
     let cancelled = false;
 
-    // Reset expand + fold overrides when graph changes. Update the refs
-    // synchronously so the build below — and any racing in-flight reads — see
-    // the cleared state, not the previous graphspec's fold/expand sets.
+    // Reset expand overrides when graph changes. Update the ref synchronously
+    // so any in-flight reads see the cleared state, not the previous graphspec's
+    // expand set. Fold state is seeded below after we know the controller IDs.
     setExpandedControllers(new Set());
-    setFoldedControllers(new Set());
     expandedRef.current = new Set();
-    foldedRef.current = new Set();
 
     const { graphData, analysis } = buildGraph(graphspec, edgeType);
     rawGraphDataRef.current = {
@@ -436,8 +459,32 @@ export function GraphViewer(props: GraphViewerProps) {
       graphspec,
     };
 
-    // Fold state was just reset, so the input is the unfolded graph as-is.
-    const folded = { nodes: graphData.nodes, edges: graphData.edges, analysis };
+    // Apply the host-supplied initial fold mode now that we know which
+    // controllers exist for this graph. When seedSet is empty (the
+    // expanded/auto cases) or analysis is null (degenerate spec — no
+    // controllers to fold), the input is the unfolded graph as-is.
+    const seedSet = analysis
+      ? seedFoldedControllers(foldModeRef.current, analysis.controllerNodeIds)
+      : new Set<string>();
+    setFoldedControllers(seedSet);
+    foldedRef.current = seedSet;
+    // The state update above schedules a re-render that would fire the
+    // fold-state effect, which would redundantly rebuild + re-layout the
+    // graph we are about to lay out with the same seed below. Tell that
+    // effect to skip the next run when we already covered it here.
+    skipNextFoldEffectRef.current = seedSet.size > 0;
+    prevFoldSizeRef.current = seedSet.size;
+
+    const folded =
+      seedSet.size > 0 && analysis
+        ? applyFolds(
+            { nodes: graphData.nodes, edges: graphData.edges },
+            analysis,
+            graphspec,
+            seedSet,
+            toggleFoldRef.current,
+          )
+        : { nodes: graphData.nodes, edges: graphData.edges, analysis };
 
     initialDataRef.current = {
       nodes: folded.nodes,
@@ -525,11 +572,19 @@ export function GraphViewer(props: GraphViewerProps) {
   // performs the build+layout against an empty fold set and synchronously clears
   // foldedRef. If both prev and current fold sets are empty, this is a no-op
   // (avoids a redundant ELK layout pass after every graphspec change).
+  // skipNextFoldEffectRef covers the non-empty-seed case where the graphspec
+  // effect has already laid out the folded graph and we'd otherwise re-layout.
   const isFirstFoldEffect = React.useRef(true);
   const prevFoldSizeRef = React.useRef(0);
+  const skipNextFoldEffectRef = React.useRef(false);
   React.useEffect(() => {
     if (isFirstFoldEffect.current) {
       isFirstFoldEffect.current = false;
+      prevFoldSizeRef.current = foldedControllers.size;
+      return;
+    }
+    if (skipNextFoldEffectRef.current) {
+      skipNextFoldEffectRef.current = false;
       prevFoldSizeRef.current = foldedControllers.size;
       return;
     }

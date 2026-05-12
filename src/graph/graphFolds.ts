@@ -7,7 +7,12 @@ import type {
   GraphSpec,
   GraphSpecNode,
 } from "./types";
-import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD } from "./types";
+import {
+  ARROW_CLOSED_MARKER,
+  NODE_TYPE_PIPE_CARD,
+  isStuffNodeId,
+  stuffDigestFromId,
+} from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
@@ -115,6 +120,57 @@ export function applyFolds(
   }
 
   const childToCtrl = buildChildToControllerMap(graphspec, analysis);
+
+  // ─── Promote declared-output stuffs out of folded controllers ───────────
+  // A folded controller's pipe-card represents the controller as a whole, and
+  // its declared outputs are external data flowing out of it. If a stuff node
+  // currently lives inside a folded controller that declares it as an output,
+  // moving the stuff outside lets the folded card connect to it just like
+  // before the fold. Without this, the stuff would be hidden alongside the
+  // controller's internals, and the output edge would collapse to a self-loop.
+  const outputDeclarers: Map<string, Set<string>> = new Map();
+  for (const controllerId of foldedSet) {
+    const ctrlNode = findSpecNode(graphspec, controllerId);
+    const outputs = ctrlNode?.io?.outputs;
+    if (!outputs) continue;
+    for (const output of outputs) {
+      if (!output.digest) continue;
+      let set = outputDeclarers.get(output.digest);
+      if (!set) {
+        set = new Set();
+        outputDeclarers.set(output.digest, set);
+      }
+      set.add(controllerId);
+    }
+  }
+
+  if (outputDeclarers.size > 0) {
+    for (const node of graphData.nodes) {
+      if (!isStuffNodeId(node.id)) continue;
+      const declarers = outputDeclarers.get(stuffDigestFromId(node.id));
+      if (!declarers) continue;
+
+      // Walk the chain to find the outermost folded ancestor that declares this
+      // stuff as one of its outputs. Reparenting to that ancestor's parent
+      // (which may itself be folded or root) ensures the stuff escapes the fold.
+      let current: string | undefined = childToCtrl[node.id];
+      let outermostDeclarer: string | null = null;
+      const seen = new Set<string>();
+      while (current && !seen.has(current)) {
+        seen.add(current);
+        if (declarers.has(current)) outermostDeclarer = current;
+        current = childToCtrl[current];
+      }
+      if (!outermostDeclarer) continue;
+
+      const newParent = childToCtrl[outermostDeclarer];
+      if (newParent) {
+        childToCtrl[node.id] = newParent;
+      } else {
+        delete childToCtrl[node.id];
+      }
+    }
+  }
 
   // ─── Filter visible nodes ───────────────────────────────────────────────
   // Drop any node whose outermost folded ancestor is non-null (it's hidden
