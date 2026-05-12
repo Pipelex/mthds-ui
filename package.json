@@ -88,6 +88,7 @@
     "@storybook/addon-onboarding": "^10.3.3",
     "@storybook/addon-vitest": "^10.3.3",
     "@storybook/react-vite": "^10.3.3",
+    "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19.2.3",
     "@vitest/browser-playwright": "^4.1.0",
