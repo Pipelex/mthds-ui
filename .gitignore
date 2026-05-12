@@ -12,3 +12,5 @@ coverage/
 storybook-static
 mthds-wip/
 .pipelex/storage/
+
+yarn.lock
