@@ -350,6 +350,13 @@ export function GraphViewer(props: GraphViewerProps) {
   foldedRef.current = foldedControllers;
   const toggleFoldRef = React.useRef(toggleFold);
   toggleFoldRef.current = toggleFold;
+  // Fold-effect bookkeeping refs. The graphspec effect writes to
+  // `skipNextFoldEffectRef`/`prevFoldSizeRef` before the fold-state effect
+  // reads them, so they must exist before either effect runs — declare them
+  // alongside the other fold-related refs rather than next to the consumer.
+  const isFirstFoldEffect = React.useRef(true);
+  const prevFoldSizeRef = React.useRef(0);
+  const skipNextFoldEffectRef = React.useRef(false);
   const statusMapRef = React.useRef(statusMap);
   statusMapRef.current = statusMap;
 
@@ -574,9 +581,6 @@ export function GraphViewer(props: GraphViewerProps) {
   // (avoids a redundant ELK layout pass after every graphspec change).
   // skipNextFoldEffectRef covers the non-empty-seed case where the graphspec
   // effect has already laid out the folded graph and we'd otherwise re-layout.
-  const isFirstFoldEffect = React.useRef(true);
-  const prevFoldSizeRef = React.useRef(0);
-  const skipNextFoldEffectRef = React.useRef(false);
   React.useEffect(() => {
     if (isFirstFoldEffect.current) {
       isFirstFoldEffect.current = false;

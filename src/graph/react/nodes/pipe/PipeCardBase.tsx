@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { PipeCardData, PipeStatus, PipeType } from "./pipeCardTypes";
+import type { PipeCardData, PipeControllerType, PipeStatus, PipeType } from "./pipeCardTypes";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
@@ -16,12 +16,18 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeBatch: "Batch",
 };
 
-const CONTROLLER_TYPES = new Set<PipeType>([
-  "PipeSequence",
-  "PipeParallel",
-  "PipeCondition",
-  "PipeBatch",
-]);
+// Derived from `PipeControllerType` so adding a new controller variant in
+// `types.ts` produces a compile error here until the table is updated.
+const CONTROLLER_TYPE_TABLE: Record<PipeControllerType, true> = {
+  PipeSequence: true,
+  PipeParallel: true,
+  PipeCondition: true,
+  PipeBatch: true,
+};
+
+function isControllerType(pipeType: PipeType): pipeType is PipeControllerType {
+  return pipeType in CONTROLLER_TYPE_TABLE;
+}
 
 const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
   succeeded: { color: "#50FA7B", label: "Succeeded" },
@@ -49,7 +55,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const badge = getBadge(data.pipeType);
   const statusConfig = STATUS_CONFIG[data.status] ?? STATUS_CONFIG.scheduled;
   const isRunning = data.status === "running";
-  const isController = CONTROLLER_TYPES.has(data.pipeType);
+  const isController = isControllerType(data.pipeType);
   const [inputsExpanded, setInputsExpanded] = useState(false);
 
   const hasMany = data.inputs.length > MAX_VISIBLE_INPUTS;

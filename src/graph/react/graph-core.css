@@ -134,6 +134,10 @@
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.05);
 }
+.controller-group-collapse:focus-visible {
+  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline-offset: 2px;
+}
 
 /* Fold-into-card toggle — sits on the right of the header bar. */
 .controller-group-fold {
@@ -150,6 +154,10 @@
 .controller-group-fold:hover {
   color: #e2e8f0;
   background: rgba(255, 255, 255, 0.06);
+}
+.controller-group-fold:focus-visible {
+  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline-offset: 2px;
 }
 
 /* Sequence — solid thin border, calm flow */

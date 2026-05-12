@@ -1,6 +1,12 @@
-import type { FoldToggleOptions, PipeOperatorType, PipeStatus, PipeType } from "@graph/types";
+import type {
+  FoldToggleOptions,
+  PipeControllerType,
+  PipeOperatorType,
+  PipeStatus,
+  PipeType,
+} from "@graph/types";
 
-export type { FoldToggleOptions, PipeOperatorType, PipeStatus, PipeType };
+export type { FoldToggleOptions, PipeControllerType, PipeOperatorType, PipeStatus, PipeType };
 
 export type PipeCardDirection = "LR" | "TB";
 
