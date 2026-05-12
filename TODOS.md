@@ -222,6 +222,8 @@ Goal: a dedicated story demonstrating the feature, plus play tests that exercise
     - `OneBranchFolded` — same wrapper pattern, folds an inner `PipeBatch` or nested `PipeSequence`. Demonstrates partial fold.
     - `EverythingFolded` — pre-folds every controller. Effectively equivalent to `RootFolded` (because of outermost-wins rule) but verifies that.
   - Since the API is uncontrolled (Phase 4), the pre-folded variants drive state via a small wrapper that simulates clicks in `useEffect` on mount. Add an `InteractivePanel` story that includes a floating sidebar listing the controllers — clicking a checkbox simulates clicking the corresponding fold button. (No controlled prop is exposed to consumers; the panel just drives the same affordances a user would.)
+  - `ToolbarFoldAll` story — uses the CV-screening LIVE fixture, default toolbar visible. Play test: locate the "Fold all controllers" toolbar button, click it, assert the graph now shows the root controller(s) as `pipe-card` elements and no `controller-group-node` elements. Click "Expand all controllers", assert the original `controller-group-node` elements are back.
+  - `ToolbarDisabledStates` story — verify the buttons render with the `disabled` attribute and the title-suffix copy under both edge states (nothing folded vs everything folded). Use `toBeDisabled()` from `storybook/test` for the assertion.
 - [ ] Play tests (Storybook 10 + `storybook/test`):
   - `AllExpanded.play`: assert that the root controller renders as a group node (has class `controller-group-node`).
   - `RootFolded.play`: assert that the root controller renders as a pipe card (has class `pipe-card`) and that no `controller-group-node` for it exists.
@@ -265,7 +267,6 @@ Feature ships. Design doc reflects what was actually built.
 ## Out of scope (deferred)
 
 - Per-input / per-output ports on the folded card (single in/out for v1).
-- Toolbar "fold all" / "expand all" buttons.
 - Persisting fold state across remounts.
 - Animated fold/expand transitions.
 - Hover-revealing internal pipe count on a folded card.
