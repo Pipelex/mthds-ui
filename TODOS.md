@@ -19,11 +19,11 @@ Goal: make `PipeCardData` representable for any pipe type, and extract a reusabl
 - [ ] Add controller entries to `PIPE_TYPE_BADGES` in `src/graph/react/nodes/pipe/PipeCardBase.tsx`: `PipeSequence` → "Sequence", `PipeParallel` → "Parallel", `PipeCondition` → "Condition", `PipeBatch` → "Batch".
 - [ ] Register controller types in `PIPE_CARD_REGISTRY` in `src/graph/react/nodes/pipe/pipeCardRegistry.ts`, all mapped to `PipeCardBase` for v1.
 - [ ] Update `getPipeCardComponent` to accept `PipeType` (or keep `PipeOperatorType` and broaden at the call site — pick whichever produces less churn).
-- [ ] Extract a reusable `buildPipeCardPayload(node: GraphSpecNode, graphspec: GraphSpec): PipeCardData` function. Moves the existing inline logic from `graphBuilders.ts` into a single helper. New module `src/graph/pipeCardPayload.ts` (pure TS, no React import).
-  - Pulls `inputs` / `outputs` from `node.io`.
-  - Description fallback chain: `node.description` → `graphspec.pipe_registry?.[node.pipe_code]?.description` → `undefined` for controllers; existing `defaultDescription(...)` text for operators.
+- [ ] Extract a reusable `buildPipeCardPayload(node: GraphSpecNode, graphspec: GraphSpec, analysis: DataflowAnalysis): PipeCardData` function. Moves the existing inline logic from `graphBuilders.ts` into a single helper. New module `src/graph/pipeCardPayload.ts` (pure TS, no React import).
+  - Pulls `inputs` / `outputs` from `node.io` (missing `name`/`concept` → empty string).
+  - Description fallback chain: `node.description` → `graphspec.pipe_registry?.[node.pipe_code ?? ""]?.description` → for controllers (`analysis.controllerNodeIds.has(node.id)`) leave `undefined`; for operators fall through to `defaultDescription(node.pipe_type, node.pipe_code)`. The operator/controller distinction must use `analysis.controllerNodeIds` (single source of truth), NOT string-matching against `pipe_type`.
   - Status fallback: `node.status ?? "scheduled"`.
-  - Pipe type is `node.pipe_type` (must not be undefined — assert or fall back to `PipeFunc` only for operators, never fabricate a controller type).
+  - Pipe type: read `node.pipe_type` directly. If it is `undefined`, throw `Error("Node <id> missing pipe_type — GraphSpec invariant violated")`. Do NOT silently fall back to `PipeFunc` (the current `graphBuilders.ts:69` hack is removed as part of this refactor).
 - [ ] Refactor `buildDataflowGraph` to use `buildPipeCardPayload` for operator nodes (no behavior change — just deduplication).
 
 ### Tests (`src/graph/__tests__/pipeCardPayload.test.ts`)
@@ -63,8 +63,9 @@ Create `src/graph/graphFolds.ts`:
     - `eff(id) = outermostFoldedAncestor(id) ?? id`.
     - For each edge, compute `newSrc = eff(source)`, `newDst = eff(target)`.
     - Drop if `newSrc === newDst`.
-    - Dedup by `(newSrc, newDst, kind-bucket)` where kind-bucket distinguishes batch/parallel synthetic edges from regular data edges (so a `batch_item` and a `data` edge between the same pair don't collapse into one).
-    - Preserve the first-seen edge's style and `_batchEdge` / `_crossGroup` flags.
+    - Dedup key: `${newSrc}->${newDst}|${edge._batchEdge ? "batch" : "data"}`. The bucket separator ensures a `batch_item` edge and a regular data edge between the same pair are kept as two distinct edges (visual differentiation matters).
+    - Preserve the first-seen edge's style and `_batchEdge` flag.
+    - **Recompute `_crossGroup`** against the folded containment: build a fresh `childToCtrl` from the updated analysis, then re-classify each surviving edge using the same rule as `graphBuilders.ts:248-261`. The pre-fold `_crossGroup` flag is stale after folding (an edge that was cross-group between two sibling controllers may now be a normal edge into/out of a folded card). Drop the stale flag before recomputing.
   - Update analysis:
     - `controllerNodeIds`: drop folded IDs and any controller whose outermost folded ancestor is set.
     - `containmentTree`: remove entries for dropped controllers; for surviving controllers, filter their children list to drop hidden ones.
@@ -84,7 +85,9 @@ Create `src/graph/graphFolds.ts`:
 - [ ] Nested folds (only inner): outer is still a regular expanded controller in the analysis; inner appears as a pipe-card; outer's `containmentTree` entry is updated to point at the inner controller's card instead of its descendants.
 - [ ] Edge dedup: multiple internal pipes consuming the same external producer collapse to a single edge in/out of the card.
 - [ ] Batch/parallel synthetic edges (`batch_item`, `batch_aggregate`, `parallel_combine`) are rewritten with the same rules and dropped when fully internal.
+- [ ] Edge bucketing: a `_batchEdge` edge and a regular data edge with the same `(newSrc, newDst)` survive as two distinct edges (dedup buckets differ).
 - [ ] Self-loop dropping: edges where both endpoints rewrite to the same folded controller are removed.
+- [ ] **`_crossGroup` recomputation (REGRESSION):** an edge marked `_crossGroup: true` pre-fold has its flag re-evaluated post-fold. Test scenario: two sibling controllers with a cross-group edge, fold one of them — assert the surviving edge is no longer marked `_crossGroup` (it now enters/exits a folded card, not between sibling groups).
 - [ ] Unknown IDs in the fold set are silently ignored (no error, no spurious nodes).
 - [ ] `onToggleFold` is wired into the emitted card's `pipeCardData.onExpand` and invoking it calls the supplied callback with the controller ID.
 - [ ] The original input nodes/edges/analysis are unchanged (purity check via deep-equal before/after).
@@ -113,6 +116,17 @@ Goal: surface the fold and expand affordances in the existing components. No dat
   - Optional visual differentiation for controller cards: tint the `.pipe-card-badge` background per controller type. New rules keyed on the badge text or on an additional class `.pipe-card-badge--controller` (set conditionally in `PipeCardBase`).
 - [ ] No new CSS files (rule: avoid extending `tsup.config.ts`'s CSS-external list unless necessary). All new styles live in the already-bundled `graph-core.css`.
 - [ ] Update `controllerNodeTypes` export if any signature changed (it currently maps `controllerGroup` → `ControllerGroupNode` — should be fine).
+- [ ] `src/graph/react/viewer/GraphToolbar.tsx`: add "fold all" / "expand all" buttons.
+  - Two new optional props:
+    - `onFoldAll?: () => void` and `onExpandAll?: () => void` (callback presence drives rendering, matching the existing zoom/fit pattern).
+    - `foldAllDisabled?: boolean` and `expandAllDisabled?: boolean` (toolbar applies the `disabled` HTML attribute + a CSS class for greyed styling; the parent owns the state predicate).
+  - Render both buttons in a new section right after the `showControllers` toggle, fronted by a `graph-toolbar-separator`. Only render the section when **either** callback is defined (so when `showControllers=false` and the parent passes neither, the section disappears entirely).
+  - New SVG icons defined inline in `GraphToolbar.tsx` (same pattern as the existing `BOXES_ICON`, `FIT_VIEW_ICON`):
+    - `FOLD_ALL_ICON` — arrows-into-box glyph (suggests "collapse everything into one").
+    - `EXPAND_ALL_ICON` — arrows-out-of-box glyph (suggests "expand everything back").
+    - Use the same 14×14 viewBox / stroke style as the others — don't break the visual rhythm.
+  - Accessibility: `aria-label` and `title` both set ("Fold all controllers" / "Expand all controllers"). When disabled, append " (nothing to fold)" / " (nothing to expand)" to the title so hover gives the reason.
+  - **No new CSS file** — extend `GraphToolbar.css` in place to add a disabled-state rule (`.graph-toolbar-btn:disabled { opacity: 0.4; cursor: not-allowed; }`) if one doesn't already exist. Per CLAUDE.md's CSS packaging rule, do not add a new `.css` file (avoids tsup config churn).
 
 ### Tests (`src/graph/__tests__/`)
 
@@ -120,6 +134,10 @@ Goal: surface the fold and expand affordances in the existing components. No dat
 - [ ] With `onExpand` set, the expand button renders and clicking it invokes the callback (use `vi.fn()`).
 - [ ] `ControllerGroupNode` with `onToggleFold` set renders the fold button; click invokes the callback.
 - [ ] Status dot still renders correctly for controller card payloads.
+- [ ] `GraphToolbar` with neither `onFoldAll` nor `onExpandAll` does NOT render the fold-all section (and not even the separator).
+- [ ] `GraphToolbar` with both callbacks defined renders two buttons; clicking each invokes its callback once with no args.
+- [ ] `foldAllDisabled` / `expandAllDisabled` apply the `disabled` attribute and prevent the click handler from firing (use `vi.fn()` and assert it's NOT called when disabled).
+- [ ] Disabled buttons carry the "(nothing to fold)" / "(nothing to expand)" title suffix.
 
 ### Checkpoint 3
 
@@ -136,9 +154,7 @@ Goal: wire `applyFolds` into the rendering pipeline, add fold state to `GraphVie
 - [ ] Add state to `GraphViewer`:
   - `[foldedControllers, setFoldedControllers] = useState<Set<string>>(new Set())`.
   - Reset to empty when `graphspec` changes (mirror the existing `setExpandedControllers(new Set())` reset).
-- [ ] Add controlled prop support (optional):
-  - `foldedControllers?: ReadonlySet<string>` and `onFoldedControllersChange?: (next: ReadonlySet<string>) => void`. When `foldedControllers` is provided, treat it as controlled (don't keep internal state).
-  - Convenience: if a consumer just wants to read it, expose via `onFoldedControllersChange` callback.
+- [ ] **Uncontrolled only in v1.** Do NOT add `foldedControllers` / `onFoldedControllersChange` props. The controlled/uncontrolled mixing pattern is a footgun (state coherence on prop changes, ref staleness across modes), no internal consumer is asking for it, and the existing `expandedControllers` state is also uncontrolled — keep the API symmetric. Add controlled mode in a follow-up when a real consumer surfaces.
 - [ ] Add `toggleFold` callback (mirrors `toggleCollapse`):
   ```ts
   const toggleFold = useCallback((controllerId: string) => {
@@ -164,6 +180,14 @@ Goal: wire `applyFolds` into the rendering pipeline, add fold state to `GraphVie
 - [ ] Add a new effect that re-runs the full build+layout when `foldedControllers` changes. Pattern mirrors the `graphspec` effect but reads from `initialDataRef`-pre-fold cache instead of calling `buildGraph` again. To support this, keep a _separate_ cache `rawGraphDataRef` holding the un-folded `buildGraph` output, and re-derive `initialDataRef` from `rawGraphDataRef` + current `foldedControllers` on each change.
 - [ ] `applyControllers` keeps working unchanged — the folded analysis it receives already excludes folded controllers from `controllerNodeIds`, so it just doesn't wrap them.
 - [ ] When the layout cache is reused for `expandedControllers` / `statusMap` changes, the cached nodes already include any folded controller cards, so no change needed to those effects.
+- [ ] Wire the toolbar's fold-all / expand-all into `GraphViewer`:
+  - Compute `allControllerIds = analysis?.controllerNodeIds ?? new Set<string>()` from the latest analysis (use the **raw** un-folded analysis cached in `rawGraphDataRef`, NOT the folded `_analysis` — the folded one has folded controllers pruned, and we need to be able to refold them).
+  - Pass to `GraphToolbar` only when `showControllers === true` AND `allControllerIds.size > 0` (otherwise pass `undefined` for both, so the toolbar hides the section).
+  - `onFoldAll = () => setFoldedControllers(new Set(allControllerIds))`.
+  - `onExpandAll = () => setFoldedControllers(new Set())`.
+  - `foldAllDisabled = foldedControllers.size === allControllerIds.size` (every controller already folded).
+  - `expandAllDisabled = foldedControllers.size === 0` (nothing folded — note: `> allControllerIds.size` cannot happen since fold IDs not in the controller set get silently ignored by `applyFolds`, but the disabled check uses set-equality on size for simplicity).
+  - Edge case: when `graphspec` changes and `setExpandedControllers(new Set())` resets state, also reset `setFoldedControllers(new Set())` (already in the plan). The toolbar's disabled states will follow naturally.
 
 ### Tests (`src/graph/__tests__/`)
 
@@ -175,6 +199,7 @@ Goal: wire `applyFolds` into the rendering pipeline, add fold state to `GraphVie
   - `showControllers=false` + folded set populated → folded set is silently inert.
   - `showControllers=true` + folded controller → card appears.
 - [ ] Verify `foldedControllers` resets to empty when `graphspec` changes.
+- [ ] Toolbar wiring integration: after `onFoldAll` is invoked, every controller in the spec renders as a folded pipe card (modulo outermost-wins rule — only root controllers actually appear, descendants are hidden). After `onExpandAll`, the original group wrappers are back. Verify via play test or DOM count check.
 
 ### Checkpoint 4
 
@@ -193,10 +218,10 @@ Goal: a dedicated story demonstrating the feature, plus play tests that exercise
   - Story title: `Graph/FoldableControllers`.
   - Variants (each its own named export):
     - `AllExpanded` — default state, baseline.
-    - `RootFolded` — start with the root `PipeSequence` in `foldedControllers`. Shows the maximally-zoomed-out view: pipeline inputs → one card → outputs.
-    - `OneBranchFolded` — start with one inner `PipeBatch` or nested `PipeSequence` folded. Demonstrates partial fold.
-    - `EverythingFolded` — every controller in the fixture is in the fold set. Effectively equivalent to `RootFolded` (because of outermost-wins rule) but verifies that.
-  - Each variant uses `foldedControllers` as a controlled prop. Render an interactive overlay (a small floating panel above the canvas) listing all controllers with a checkbox per controller, bound to local React state. Lets the reader toggle fold state and watch the graph rebuild.
+    - `RootFolded` — story renders with a wrapper component that pre-folds the root controller after the first render by clicking the fold button programmatically (since `foldedControllers` is uncontrolled — see Phase 4). Shows the maximally-zoomed-out view: pipeline inputs → one card → outputs.
+    - `OneBranchFolded` — same wrapper pattern, folds an inner `PipeBatch` or nested `PipeSequence`. Demonstrates partial fold.
+    - `EverythingFolded` — pre-folds every controller. Effectively equivalent to `RootFolded` (because of outermost-wins rule) but verifies that.
+  - Since the API is uncontrolled (Phase 4), the pre-folded variants drive state via a small wrapper that simulates clicks in `useEffect` on mount. Add an `InteractivePanel` story that includes a floating sidebar listing the controllers — clicking a checkbox simulates clicking the corresponding fold button. (No controlled prop is exposed to consumers; the panel just drives the same affordances a user would.)
 - [ ] Play tests (Storybook 10 + `storybook/test`):
   - `AllExpanded.play`: assert that the root controller renders as a group node (has class `controller-group-node`).
   - `RootFolded.play`: assert that the root controller renders as a pipe card (has class `pipe-card`) and that no `controller-group-node` for it exists.
@@ -244,9 +269,74 @@ Feature ships. Design doc reflects what was actually built.
 - Persisting fold state across remounts.
 - Animated fold/expand transitions.
 - Hover-revealing internal pipe count on a folded card.
+- **Controlled-prop API** for `foldedControllers` / `onFoldedControllersChange` — defer until a real consumer needs it (existing `expandedControllers` is also uncontrolled).
 
 ## Open questions to confirm during implementation
 
 - Glyph choice for the fold and expand buttons — pick during Phase 3.
 - Whether controller cards need visual differentiation from operator cards (badge tint, border color) — propose two variants and pick during Phase 3 visual review.
 - Whether `onExpand` should sit on `PipeCardData` or be passed as a separate prop to `PipeCardBase` — `PipeCardData` is simpler because the data flows through ReactFlow as a single payload; sticking with that unless something forces a refactor.
+- Fold button visibility on group headers — always-shown vs hover-only. Recommendation: always-shown, matching the existing collapse button.
+
+## Effect layering (Phase 4 reference)
+
+For maintainers reading this later — the React effect order after fold integration:
+
+1. **`graphspec` change** → fresh `buildGraph()` cached in `rawGraphDataRef`; `applyFolds(raw, foldedRef.current)` re-derives `initialDataRef`; full ELK layout; full controller wrapping.
+2. **`foldedControllers` change** → re-derive `initialDataRef` from `rawGraphDataRef` + new fold set; full ELK layout; full controller wrapping. (Structural change ⇒ re-layout required.)
+3. **`direction` / `layoutConfig` change** → re-layout from `initialDataRef` (already folded); re-wrap controllers.
+4. **`showControllers` / `expandedControllers` change** → reuse `layoutCacheRef`; re-wrap controllers only. (Folded cards are already in the cache as leaf nodes.)
+5. **`statusMap` change** → reuse `layoutCacheRef`; re-wrap; apply status overrides. (Folded cards have a `pipeCode` so statusMap can update their dot.)
+
+Race coverage: each effect inherits the existing `let cancelled = false` pattern. No new race profile compared to today's `graphspec`/`direction` interplay.
+
+---
+
+## GSTACK REVIEW REPORT
+
+| Review        | Trigger               | Why                             | Runs | Status       | Findings                                             |
+| ------------- | --------------------- | ------------------------------- | ---- | ------------ | ---------------------------------------------------- |
+| CEO Review    | `/plan-ceo-review`    | Scope & strategy                | 0    | —            | —                                                    |
+| Codex Review  | `/codex review`       | Independent 2nd opinion         | 0    | —            | —                                                    |
+| Eng Review    | `/plan-eng-review`    | Architecture & tests (required) | 1    | CLEAR (PLAN) | 7 findings, 1 regression test added, 0 critical gaps |
+| Design Review | `/plan-design-review` | UI/UX gaps                      | 0    | —            | —                                                    |
+| DX Review     | `/plan-devex-review`  | Developer experience gaps       | 0    | —            | —                                                    |
+
+- **UNRESOLVED:** 0 — all findings folded into the plan as edits.
+- **VERDICT:** ENG CLEARED — ready to implement. Plan refined inline.
+
+### Findings summary
+
+**Architecture (4)**
+
+- **A1** — `_crossGroup` flag stale after fold rewrites. Plan now requires recompute against folded containment. **REGRESSION test added.**
+- **A2** — Controlled-prop API for `foldedControllers` deferred to v2. Plan trimmed to uncontrolled-only, matching the existing `expandedControllers` pattern.
+- **A3** — Effect-layer ordering documented in a new "Effect layering" section so the asynchronous re-layout interplay is legible to future maintainers.
+- **A4** — `isController: true` on folded cards is correct. Verified against `GraphViewer.tsx:493` (click), `:506` (detail panel gate), `:562` (spec node lookup).
+
+**Code quality (3)**
+
+- **Q1** — Silent `|| "PipeFunc"` fallback in `graphBuilders.ts:69` removed by the refactor. `buildPipeCardPayload` now throws on missing `pipe_type` (GraphSpec invariant violation).
+- **Q2** — Operator/controller distinction in the payload builder uses `analysis.controllerNodeIds.has(node.id)` (single source of truth), not string-matching against `pipe_type`. Signature changed to `(node, graphspec, analysis)`.
+- **Q3** — Edge dedup key spelled out: `${newSrc}->${newDst}|${edge._batchEdge ? "batch" : "data"}`. A `batch_item` and a regular `data` edge between the same pair stay distinct.
+
+**Tests**
+
+- 100% coverage target for both new modules (`pipeCardPayload.ts`, `graphFolds.ts`). All paths enumerated in the coverage diagram above.
+- One regression test added (`_crossGroup` recomputation) per finding A1.
+- No critical silent-failure gaps.
+
+**Parallelization**
+
+- 2 parallel lanes (Phase 1+2 vs Phase 3) merge into a sequential Phase 4 → 5 → 6.
+- One coordination point: pipe-card folder. Lane A owns `pipeCardTypes.ts` + `pipeCardRegistry.ts`; Lane B owns `PipeCardBase.tsx`.
+
+### Lake Score: 7/7
+
+Every finding chose the complete option:
+
+- A1: recompute `_crossGroup` (complete) rather than accept stale flag (shortcut).
+- A2: defer cleanly with explicit OOS entry (clear shipped boundary) rather than half-build controlled mode.
+- Q1: throw on invariant violation (complete) rather than keep the silent fallback (shortcut).
+- Q2/Q3: precise spec language so the implementer can't misinterpret.
+- Tests: enumerated, with regression test for the edge style bug.
