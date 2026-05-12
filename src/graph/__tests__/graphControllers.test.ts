@@ -6,7 +6,7 @@ import {
 } from "../graphControllers";
 import { buildDataflowAnalysis } from "../graphAnalysis";
 import { CONTROLLER_PADDING_X, CONTROLLER_PADDING_TOP, CONTROLLER_PADDING_BOTTOM } from "../types";
-import type { GraphNode, GraphSpec } from "../types";
+import type { GraphNode, GraphSpec, PipeControllerType } from "../types";
 
 function makeNode(id: string, overrides?: Partial<GraphNode>): GraphNode {
   return {
@@ -214,16 +214,12 @@ describe("MAX_VISIBLE_CONTROLLER_CHILDREN", () => {
 
 /** Build a spec with a controller of the given type containing N operator children. */
 function makeControllerSpec(
-  pipeType: string,
+  pipeType: PipeControllerType,
   childCount: number,
 ): { gs: GraphSpec; layoutedNodes: GraphNode[]; layoutedEdges: GraphEdge[] } {
   const nodes: GraphSpec["nodes"] = [
     { id: "root", pipe_type: "PipeSequence" },
-    {
-      id: "ctrl",
-      pipe_code: "ctrl",
-      pipe_type: pipeType as GraphSpec["nodes"][number]["pipe_type"],
-    },
+    { id: "ctrl", pipe_code: "ctrl", pipe_type: pipeType },
   ];
   const edges: GraphSpec["edges"] = [{ source: "root", target: "ctrl", kind: "contains" }];
   const layoutedNodes: GraphNode[] = [];

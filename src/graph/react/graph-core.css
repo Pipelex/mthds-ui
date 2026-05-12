@@ -292,6 +292,10 @@
   color: var(--pipe-card-text-bright);
   background: rgba(255, 255, 255, 0.08);
 }
+.pipe-card-expand:focus-visible {
+  outline: 2px solid var(--pipe-card-text-bright);
+  outline-offset: 2px;
+}
 
 /* Folded-controller card variant — slightly tinted badge to differentiate
    from operator cards. */
@@ -389,6 +393,10 @@
 .pipe-card-io-more:hover {
   color: var(--pipe-card-text);
   border-color: rgba(255, 255, 255, 0.25);
+}
+.pipe-card-io-more:focus-visible {
+  outline: 2px solid var(--pipe-card-text);
+  outline-offset: 2px;
 }
 
 /* ─── LR: label on top, pills stacked vertically, hard-truncated ─────── */

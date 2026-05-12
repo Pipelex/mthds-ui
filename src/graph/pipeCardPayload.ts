@@ -31,7 +31,7 @@ export function buildPipeCardPayload(
   graphspec: GraphSpec,
   analysis: DataflowAnalysis,
 ): PipeCardPayload {
-  const pipeType: PipeType = node.pipe_type;
+  const pipeType = node.pipe_type;
   const pipeCode = node.pipe_code || node.id;
   const isController = analysis.controllerNodeIds.has(node.id);
 
