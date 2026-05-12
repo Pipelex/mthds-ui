@@ -738,6 +738,10 @@ export function GraphViewer(props: GraphViewerProps) {
         panOnScroll
         minZoom={0.1}
         proOptions={{ hideAttribution: true }}
+        // Disable pan-on-space: the default Space activation key attaches a
+        // window-level keydown handler that can swallow spacebar input in
+        // text editors embedded alongside the graph (e.g. Monaco).
+        panActivationKeyCode={null}
       >
         <Background
           variant={BackgroundVariant.Dots}
