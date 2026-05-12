@@ -46,6 +46,7 @@ const cssFiles = [
   "./src/graph/react/graph-core.css",
   "./src/graph/react/stuff/StuffViewer.css",
   "./src/graph/react/detail/DetailPanel.css",
+  "./src/graph/react/viewer/GraphToolbar.css",
   "./src/standalone/standalone.css",
 ];
 
