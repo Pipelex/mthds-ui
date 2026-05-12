@@ -306,6 +306,10 @@ Race coverage: each effect inherits the existing `let cancelled = false` pattern
 - **UNRESOLVED:** 0 — all findings folded into the plan as edits.
 - **VERDICT:** ENG CLEARED — ready to implement. Plan refined inline.
 
+### Scope amendments (post-review)
+
+- **Toolbar "fold all" / "expand all"** — moved from OOS into scope. Component changes land in Phase 3 (Lane B), wiring in Phase 4, story coverage in Phase 5. Design call: two explicit buttons (not a toggle), hidden when `showControllers=false` or no controllers exist, individually disabled when their action would be a no-op.
+
 ### Findings summary
 
 **Architecture (4)**
