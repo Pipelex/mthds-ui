@@ -319,6 +319,16 @@
   }
 }
 
+/* LR: stack pipe code onto its own row below the badge/status row. */
+.pipe-card--lr .pipe-card-header {
+  flex-wrap: wrap;
+}
+.pipe-card--lr .pipe-card-code {
+  flex: 0 0 100%;
+  order: 1;
+  min-width: 0;
+}
+
 /* Description — per-direction clamping. LR gets up to 3 lines (tall/narrow card),
    TB gets 1 line (wide card, horizontal layout). Both truncate with ellipsis. */
 .pipe-card-description {

@@ -23,8 +23,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Update npm to support trusted publishing
         run: npm install -g npm@latest
@@ -50,7 +50,11 @@ jobs:
 
       - name: Install dependencies
         if: steps.check_published.outputs.already_published == 'false'
-        run: npm install
+        # --ignore-scripts skips the `prepare` hook (= npm run build), so we
+        # build exactly once in the explicit Build step below. Without this,
+        # the build runs three times per release: here via prepare, in the
+        # Build step, and again in `npm publish`'s prepare hook.
+        run: npm ci --ignore-scripts
 
       - name: Install Playwright browsers
         if: steps.check_published.outputs.already_published == 'false'
@@ -68,9 +72,19 @@ jobs:
         if: steps.check_published.outputs.already_published == 'false'
         run: npm run build
 
+      - name: Verify standalone bundle is present
+        if: steps.check_published.outputs.already_published == 'false'
+        run: |
+          test -f dist/standalone/graph-viewer.js
+          test -f dist/standalone/graph-viewer.css
+
       - name: Publish to npm
         if: steps.check_published.outputs.already_published == 'false'
-        run: npm publish --access public --provenance
+        # --ignore-scripts skips publish-time lifecycle hooks (notably
+        # `prepare`, which would rebuild and clobber the artifacts the
+        # smoke check just validated). Provenance/signing is handled inside
+        # npm itself, not in user lifecycle scripts, so it's unaffected.
+        run: npm publish --ignore-scripts --access public --provenance
 
       - name: Create git tag
         if: steps.check_published.outputs.already_published == 'false'

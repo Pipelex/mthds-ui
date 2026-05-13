@@ -101,8 +101,11 @@ const PIPE_CARD_PADDING_X = 28; // padding-left + padding-right (14 + 14)
 const PIPE_CARD_PADDING_Y = 24; // padding-top + padding-bottom (12 + 12)
 const PIPE_CARD_GAP = 8; // gap between flex children (header / description / io sections)
 
-// Header: badge (~20px) + code line with status dot
-const PIPE_CARD_HEADER_HEIGHT = 22;
+// Header:
+//  - TB: single row with badge + code + status (~22px)
+//  - LR: badge/status row + pipe code on its own line below + flex gap (~50px)
+const PIPE_CARD_HEADER_HEIGHT_TB = 22;
+const PIPE_CARD_HEADER_HEIGHT_LR = 50;
 
 // Description: 11.5px font × 1.4 line-height ≈ 16.1px per line
 const PIPE_CARD_DESC_LINE_HEIGHT = 16;
@@ -212,7 +215,9 @@ export function estimateNodeDimensions(node: GraphNode, isHorizontal: boolean): 
     const description = pcd.description || nodeData.nodeData?.description || "";
 
     // Header
-    let total = PIPE_CARD_PADDING_Y + PIPE_CARD_HEADER_HEIGHT;
+    let total =
+      PIPE_CARD_PADDING_Y +
+      (isHorizontal ? PIPE_CARD_HEADER_HEIGHT_LR : PIPE_CARD_HEADER_HEIGHT_TB);
 
     // Description: actual lines needed
     const descLines = estimateDescriptionLines(description, isHorizontal, width);
