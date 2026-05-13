@@ -23,8 +23,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Update npm to support trusted publishing
         run: npm install -g npm@latest
@@ -67,6 +67,12 @@ jobs:
       - name: Build
         if: steps.check_published.outputs.already_published == 'false'
         run: npm run build
+
+      - name: Verify standalone bundle is present
+        if: steps.check_published.outputs.already_published == 'false'
+        run: |
+          test -f dist/standalone/graph-viewer.js
+          test -f dist/standalone/graph-viewer.css
 
       - name: Publish to npm
         if: steps.check_published.outputs.already_published == 'false'

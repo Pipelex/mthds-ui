@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.6.3] - 2026-05-13
+
+### Fixed
+
+- **Standalone bundle was missing from the published npm tarball.** Releases v0.4.0–v0.6.2 ran only `npm run build` (tsup) before `npm publish`, which produces `dist/index.js`, `dist/graph/`, and `dist/shiki/` but not the standalone IIFE bundle (`scripts/build-standalone.mjs` writes to `dist/standalone/`). Downstream consumers that load the bundle from a CDN (jsDelivr / unpkg) hit a 404 — the bundle existed only in maintainers' local checkouts. Coupling `build:standalone` to `build` via a `postbuild` hook (plus pointing `prepare` at `npm run build` so the `npm publish` lifecycle doesn't run a bare `tsup` and clobber `dist/standalone/`) fixes this, and a new release-workflow guard fails CI if the standalone files are missing before publish.
+
+### Changed
+
+- **LR pipe-card header now puts `pipe_code` on its own line below `pipe_type`.** In horizontal (LR) layout the narrow pipe cards previously crammed badge + code + status onto one row; long codes were cut off by ellipsis. The header now wraps onto two rows for LR (badge/status on top, code below) and stays single-row for TB. Card height estimation in `elkGraphBuilder` was split into per-direction constants (`PIPE_CARD_HEADER_HEIGHT_LR` / `_TB`) so the layout reserves the right vertical space.
+
 ## [v0.6.2] - 2026-05-12
 
 ### Fixed

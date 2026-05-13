@@ -4,7 +4,7 @@ install:
 	npm install
 
 build:
-	npx tsup
+	npm run build
 
 lint:
 	npx eslint src/
