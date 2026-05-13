@@ -21,6 +21,18 @@ function parseFoldMode(raw: unknown): FoldMode {
   return FOLD_MODE.EXPANDED;
 }
 
+function parseDirection(raw: unknown): GraphDirection {
+  if (
+    raw === GRAPH_DIRECTION.LR ||
+    raw === GRAPH_DIRECTION.RL ||
+    raw === GRAPH_DIRECTION.TB ||
+    raw === GRAPH_DIRECTION.BT
+  ) {
+    return raw;
+  }
+  return GRAPH_DIRECTION.LR;
+}
+
 /**
  * Translate the raw `pipelex-config` JSON blob into props for `GraphViewer`.
  *
@@ -38,7 +50,7 @@ export function buildViewerProps(
     string,
     unknown
   >;
-  const direction = (cfg.direction as GraphDirection) || GRAPH_DIRECTION.LR;
+  const direction = parseDirection(cfg.direction);
   const showControllers = Boolean(cfg.showControllers);
   const foldMode = parseFoldMode(cfg.foldMode);
   return {
