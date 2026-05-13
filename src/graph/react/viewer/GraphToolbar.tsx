@@ -197,28 +197,6 @@ export function GraphToolbar({
 
   return (
     <div className="graph-toolbar" style={{ right: `${rightOffset + 8}px` }}>
-      <button
-        type="button"
-        className="graph-toolbar-btn"
-        onClick={() => onDirectionChange(isVertical ? GRAPH_DIRECTION.LR : GRAPH_DIRECTION.TB)}
-        title={directionLabel}
-        aria-label={directionLabel}
-      >
-        {isVertical ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
-      </button>
-
-      <button
-        type="button"
-        className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
-        onClick={() => onShowControllersChange(!showControllers)}
-        title={controllersLabel}
-        aria-label={controllersLabel}
-      >
-        {BOXES_ICON}
-      </button>
-
-      {foldAllSection && <div className="graph-toolbar-separator" />}
-
       {onFoldAll && (
         <button
           type="button"
@@ -244,6 +222,28 @@ export function GraphToolbar({
           {EXPAND_ALL_ICON}
         </button>
       )}
+
+      {foldAllSection && <div className="graph-toolbar-separator" />}
+
+      <button
+        type="button"
+        className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
+        onClick={() => onShowControllersChange(!showControllers)}
+        title={controllersLabel}
+        aria-label={controllersLabel}
+      >
+        {BOXES_ICON}
+      </button>
+
+      <button
+        type="button"
+        className="graph-toolbar-btn"
+        onClick={() => onDirectionChange(isVertical ? GRAPH_DIRECTION.LR : GRAPH_DIRECTION.TB)}
+        title={directionLabel}
+        aria-label={directionLabel}
+      >
+        {isVertical ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
+      </button>
 
       {(onZoomOut || onZoomIn || onFitView) && <div className="graph-toolbar-separator" />}
 
