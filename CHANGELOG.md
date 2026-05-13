@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.6.4] - 2026-05-13
+
+### Fixed
+
+- **Folded fold mode now forces `showControllers` on at initialization.** When `initialFoldMode` (or `config.foldMode`) was `"folded"` but the host left `showControllers` off, the GraphViewer rendered folded controllers as pipe cards but hid the toolbar's expand-all button — the user had no global path to unfold the graph and had to click each folded card individually. `GraphViewer` now overrides `initialShowControllers` to `true` whenever the effective fold mode is `"folded"`, so the toolbar always exposes the expand-all action on a folded-on-startup graph. Hosts can still toggle `showControllers` off interactively after the initial render.
+
 ## [v0.6.3] - 2026-05-13
 
 ### Fixed
