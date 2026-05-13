@@ -1,24 +1,23 @@
 /**
  * Standalone adapter for embedding GraphViewer in a single HTML file.
  * Mirrors the VS Code extension adapter pattern (module-scoped state + manual re-render).
+ *
+ * Config parsing lives in `./viewerProps` so it can be unit-tested without a DOM.
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
-import type { GraphSpec, GraphConfig, GraphDirection } from "@graph/types";
-import { GRAPH_DIRECTION } from "@graph/types";
+import type { GraphSpec } from "@graph/types";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
+import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
-let currentGraphspec: GraphSpec | null = null;
-let currentConfig: GraphConfig = {};
-let currentDirection: GraphDirection = GRAPH_DIRECTION.LR;
-let currentShowControllers = false;
+let viewerProps: StandaloneViewerProps = buildViewerProps({}, null);
 let renderApp: (() => void) | null = null;
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
-function readJsonScript(id: string): any {
+function readJsonScript(id: string): unknown {
   const el = document.getElementById(id);
   if (!el?.textContent) return null;
   try {
@@ -31,12 +30,7 @@ function readJsonScript(id: string): any {
 // ─── React app ──────────────────────────────────────────────────────────
 
 function App() {
-  return React.createElement(GraphViewer, {
-    graphspec: currentGraphspec,
-    config: currentConfig,
-    initialDirection: currentDirection,
-    initialShowControllers: currentShowControllers,
-  });
+  return React.createElement(GraphViewer, viewerProps);
 }
 
 // ─── Mount + delayed data load (mirrors VS Code postMessage pattern) ────
@@ -56,31 +50,20 @@ function mount() {
 
   // Load data after initial mount (next tick), same as VS Code postMessage arrival
   setTimeout(() => {
-    const rawConfig = readJsonScript("pipelex-config") || {};
-
-    currentGraphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
-    currentDirection = (rawConfig.direction as GraphDirection) || GRAPH_DIRECTION.LR;
-    currentShowControllers = rawConfig.showControllers || false;
-    currentConfig = {
-      direction: currentDirection,
-      showControllers: currentShowControllers,
-      nodesep: rawConfig.nodesep,
-      ranksep: rawConfig.ranksep,
-      edgeType: rawConfig.edgeType,
-      initialZoom: rawConfig.initialZoom,
-      panToTop: rawConfig.panToTop,
-      paletteColors: rawConfig.paletteColors,
-    };
+    const rawConfig = readJsonScript("pipelex-config");
+    const graphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
+    viewerProps = buildViewerProps(rawConfig, graphspec);
 
     // Apply palette colors
-    if (rawConfig.paletteColors) {
-      for (const [cssVar, value] of Object.entries(rawConfig.paletteColors)) {
-        document.body.style.setProperty(cssVar, value as string);
+    const palette = viewerProps.config.paletteColors;
+    if (palette) {
+      for (const [cssVar, value] of Object.entries(palette)) {
+        document.body.style.setProperty(cssVar, value);
       }
     }
 
     // Re-render with data (triggers GraphViewer's graphspec useEffect)
-    if (renderApp) renderApp();
+    renderApp?.();
   }, 0);
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {

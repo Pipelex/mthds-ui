@@ -6,6 +6,7 @@ import esbuild from "esbuild";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { STANDALONE_CSS_FILES } from "./standaloneCssFiles.mjs";
 
 const require = createRequire(import.meta.url);
 
@@ -41,17 +42,7 @@ esbuild.buildSync({
 
 // 2. Concatenate all CSS into one file
 console.log("Building standalone CSS bundle...");
-const cssFiles = [
-  "./node_modules/@xyflow/react/dist/style.css",
-  "./src/graph/react/graph-core.css",
-  "./src/graph/react/stuff/StuffViewer.css",
-  "./src/graph/react/detail/DetailPanel.css",
-  "./src/graph/react/viewer/GraphToolbar.css",
-  "./src/standalone/standalone.css",
-];
-
-const css = cssFiles
-  .map((f) => readFileSync(f, "utf-8"))
+const css = STANDALONE_CSS_FILES.map((f) => readFileSync(f, "utf-8"))
   // Strip bare-module @import that can't resolve without a bundler
   .map((content) => content.replace(/@import\s+["'][^"']*["'];?\s*\n?/g, ""))
   .join("\n");
