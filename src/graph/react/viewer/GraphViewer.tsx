@@ -216,16 +216,21 @@ export function GraphViewer(props: GraphViewerProps) {
     () =>
       initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
-  const [showControllers, setShowControllers] = React.useState<boolean>(
-    () =>
-      initialShowControllers ??
-      config.showControllers ??
-      DEFAULT_GRAPH_CONFIG.showControllers ??
-      false,
-  );
 
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
+
+  // Folded mode requires showControllers — without it the toolbar's expand-all
+  // button is hidden and the user has no global path to unfold the graph.
+  const [showControllers, setShowControllers] = React.useState<boolean>(() => {
+    if (effectiveFoldMode === FOLD_MODE.FOLDED) return true;
+    return (
+      initialShowControllers ??
+      config.showControllers ??
+      DEFAULT_GRAPH_CONFIG.showControllers ??
+      false
+    );
+  });
   const foldModeRef = React.useRef(effectiveFoldMode);
   foldModeRef.current = effectiveFoldMode;
 
