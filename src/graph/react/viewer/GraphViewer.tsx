@@ -487,6 +487,15 @@ export function GraphViewer(props: GraphViewerProps) {
     skipNextFoldEffectRef.current = seedSet.size > 0;
     prevFoldSizeRef.current = seedSet.size;
 
+    // Mirror the mount-time guarantee: a folded graph must have showControllers
+    // on, otherwise the toolbar's expand-all button is hidden and the user has
+    // no global path to unfold. Needed at graphspec-swap time too — the
+    // useState initializer above only runs on the first render.
+    if (seedSet.size > 0 && !showControllersRef.current) {
+      setShowControllers(true);
+      showControllersRef.current = true;
+    }
+
     const folded =
       seedSet.size > 0 && analysis
         ? applyFolds(
