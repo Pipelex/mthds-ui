@@ -9,6 +9,7 @@ export function toGraphSpec(data: PipeCardData): GraphSpec {
   const pipeId = `edge-case:${data.pipeCode}`;
 
   const node: GraphSpecNode = {
+    kind: "operator",
     id: pipeId,
     pipe_code: data.pipeCode,
     pipe_type: data.pipeType,

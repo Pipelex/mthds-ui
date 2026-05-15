@@ -18,6 +18,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   // Root sequence
   const rootId = n(nodeIdx++);
   nodes.push({
+    kind: "controller",
     id: rootId,
     pipe_code: "document_analysis_pipeline",
     pipe_type: "PipeSequence",
@@ -31,6 +32,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   // Extract
   const extractId = n(nodeIdx++);
   nodes.push({
+    kind: "operator",
     id: extractId,
     pipe_code: "extract_document",
     pipe_type: "PipeExtract",
@@ -53,6 +55,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   }
 
   nodes.push({
+    kind: "controller",
     id: parallelId,
     pipe_code: "parallel_analyze",
     pipe_type: "PipeParallel",
@@ -106,6 +109,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
     const pipeType = pipeTypes[i % pipeTypes.length];
 
     nodes.push({
+      kind: "operator",
       id: branchId,
       pipe_code: taskName,
       pipe_type: pipeType,
@@ -121,6 +125,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   // Compose at the end
   const composeId = n(nodeIdx++);
   nodes.push({
+    kind: "operator",
     id: composeId,
     pipe_code: "compose_report",
     pipe_type: "PipeCompose",
@@ -155,6 +160,7 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   // Root sequence
   const rootId = n(nodeIdx++);
   nodes.push({
+    kind: "controller",
     id: rootId,
     pipe_code: "batch_processing_pipeline",
     pipe_type: "PipeSequence",
@@ -168,6 +174,7 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   // Extract
   const extractId = n(nodeIdx++);
   nodes.push({
+    kind: "operator",
     id: extractId,
     pipe_code: "extract_pages",
     pipe_type: "PipeExtract",
@@ -182,6 +189,7 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   // Batch controller
   const batchId = n(nodeIdx++);
   nodes.push({
+    kind: "controller",
     id: batchId,
     pipe_code: "process_each_page",
     pipe_type: "PipeBatch",
@@ -197,6 +205,7 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   for (let i = 0; i < iterationCount; i++) {
     const iterationId = n(nodeIdx++);
     nodes.push({
+      kind: "operator",
       id: iterationId,
       pipe_code: "analyze_page",
       pipe_type: "PipeLLM",
@@ -232,6 +241,7 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   // Compose at the end
   const composeId = n(nodeIdx++);
   nodes.push({
+    kind: "operator",
     id: composeId,
     pipe_code: "compose_summary",
     pipe_type: "PipeCompose",

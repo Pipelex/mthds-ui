@@ -100,6 +100,8 @@ export function makeMinimalSpec(nodeCount: number): GraphSpec {
 
   for (let i = 0; i < nodeCount; i++) {
     const node: GraphSpecNode = {
+      kind: "operator",
+      status: "scheduled",
       id: `op${i}`,
       pipe_code: `step_${i}`,
       pipe_type: "PipeFunc",
@@ -125,23 +127,39 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
   const edges: GraphSpecEdge[] = [];
 
   // Root sequence
-  nodes.push({ id: "root_seq", pipe_type: "PipeSequence" });
+  nodes.push({
+    kind: "controller",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+    id: "root_seq",
+    pipe_type: "PipeSequence",
+  });
   // Parallel controller
-  nodes.push({ id: "par", pipe_type: "PipeParallel" });
-  edges.push({ source: "root_seq", target: "par", kind: "contains" });
+  nodes.push({
+    kind: "controller",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+    id: "par",
+    pipe_type: "PipeParallel",
+  });
+  edges.push({ id: "e0", source: "root_seq", target: "par", kind: "contains" });
 
   // Source operator (produces input stuff)
   nodes.push({
+    kind: "operator",
+    status: "succeeded",
     id: "source",
     pipe_code: "extract",
     pipe_type: "PipeExtract",
-    io: { outputs: [{ digest: "input_data", name: "input", concept: "Document" }] },
+    io: { inputs: [], outputs: [{ digest: "input_data", name: "input", concept: "Document" }] },
   });
-  edges.push({ source: "root_seq", target: "source", kind: "contains" });
+  edges.push({ id: "e1", source: "root_seq", target: "source", kind: "contains" });
 
   // Branch operators inside parallel
   for (let i = 0; i < branchCount; i++) {
     nodes.push({
+      kind: "operator",
+      status: "succeeded",
       id: `branch_${i}`,
       pipe_code: `branch_${i}`,
       pipe_type: "PipeLLM",
@@ -150,7 +168,7 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
         outputs: [{ digest: `branch_out_${i}`, name: `result_${i}`, concept: "Text" }],
       },
     });
-    edges.push({ source: "par", target: `branch_${i}`, kind: "contains" });
+    edges.push({ id: `e_branch_${i}`, source: "par", target: `branch_${i}`, kind: "contains" });
   }
 
   // Compose operator (consumes all branch outputs)
@@ -160,12 +178,14 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
     concept: "Text",
   }));
   nodes.push({
+    kind: "operator",
+    status: "succeeded",
     id: "compose",
     pipe_code: "compose",
     pipe_type: "PipeCompose",
-    io: { inputs: composeInputs },
+    io: { outputs: [], inputs: composeInputs },
   });
-  edges.push({ source: "root_seq", target: "compose", kind: "contains" });
+  edges.push({ id: "e3", source: "root_seq", target: "compose", kind: "contains" });
 
   return { nodes, edges };
 }
@@ -175,22 +195,38 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
   const nodes: GraphSpecNode[] = [];
   const edges: GraphSpecEdge[] = [];
 
-  nodes.push({ id: "root_seq", pipe_type: "PipeSequence" });
-  nodes.push({ id: "batch", pipe_type: "PipeBatch" });
-  edges.push({ source: "root_seq", target: "batch", kind: "contains" });
+  nodes.push({
+    kind: "controller",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+    id: "root_seq",
+    pipe_type: "PipeSequence",
+  });
+  nodes.push({
+    kind: "controller",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+    id: "batch",
+    pipe_type: "PipeBatch",
+  });
+  edges.push({ id: "e4", source: "root_seq", target: "batch", kind: "contains" });
 
   // Source
   nodes.push({
+    kind: "operator",
+    status: "succeeded",
     id: "source",
     pipe_code: "extract",
     pipe_type: "PipeExtract",
-    io: { outputs: [{ digest: "input_data", name: "items", concept: "Document" }] },
+    io: { inputs: [], outputs: [{ digest: "input_data", name: "items", concept: "Document" }] },
   });
-  edges.push({ source: "root_seq", target: "source", kind: "contains" });
+  edges.push({ id: "e5", source: "root_seq", target: "source", kind: "contains" });
 
   // Batch iterations
   for (let i = 0; i < iterationCount; i++) {
     nodes.push({
+      kind: "operator",
+      status: "succeeded",
       id: `iter_${i}`,
       pipe_code: `process_${i}`,
       pipe_type: "PipeLLM",
@@ -199,8 +235,9 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
         outputs: [{ digest: `result_${i}`, name: "result", concept: "Text" }],
       },
     });
-    edges.push({ source: "batch", target: `iter_${i}`, kind: "contains" });
+    edges.push({ id: `e_iter_${i}`, source: "batch", target: `iter_${i}`, kind: "contains" });
     edges.push({
+      id: `e_batch_item_${i}`,
       source: "batch",
       target: `iter_${i}`,
       kind: "batch_item",
@@ -208,6 +245,7 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
       target_stuff_digest: `item_${i}`,
     });
     edges.push({
+      id: `e_batch_agg_${i}`,
       source: `iter_${i}`,
       target: "batch",
       kind: "batch_aggregate",
@@ -218,12 +256,14 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
 
   // Consume aggregate
   nodes.push({
+    kind: "operator",
+    status: "succeeded",
     id: "final",
     pipe_code: "compose",
     pipe_type: "PipeCompose",
-    io: { inputs: [{ digest: "agg_result", name: "results", concept: "Text" }] },
+    io: { outputs: [], inputs: [{ digest: "agg_result", name: "results", concept: "Text" }] },
   });
-  edges.push({ source: "root_seq", target: "final", kind: "contains" });
+  edges.push({ id: "e9", source: "root_seq", target: "final", kind: "contains" });
 
   return { nodes, edges };
 }
@@ -236,21 +276,27 @@ export function makeNestedSpec(depth: number): GraphSpec {
   let parentId = "";
   for (let i = 0; i < depth; i++) {
     const id = `seq_${i}`;
-    nodes.push({ id, pipe_type: "PipeSequence" });
-    if (parentId) edges.push({ source: parentId, target: id, kind: "contains" });
+    nodes.push({
+      kind: "controller",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      id,
+      pipe_type: "PipeSequence",
+    });
+    if (parentId) edges.push({ id: `e_nest_${i}`, source: parentId, target: id, kind: "contains" });
     parentId = id;
   }
 
   // Leaf operator
   nodes.push({
+    kind: "operator",
+    status: "succeeded",
     id: "leaf_op",
     pipe_code: "leaf",
     pipe_type: "PipeLLM",
-    io: {
-      outputs: [{ digest: "leaf_out", name: "output", concept: "Text" }],
-    },
+    io: { inputs: [], outputs: [{ digest: "leaf_out", name: "output", concept: "Text" }] },
   });
-  edges.push({ source: parentId, target: "leaf_op", kind: "contains" });
+  edges.push({ id: "e11", source: parentId, target: "leaf_op", kind: "contains" });
 
   return { nodes, edges };
 }
@@ -259,19 +305,33 @@ export function makeNestedSpec(depth: number): GraphSpec {
 export function makeCycleSpec(): GraphSpec {
   return {
     nodes: [
-      { id: "A", pipe_type: "PipeSequence" },
-      { id: "B", pipe_type: "PipeSequence" },
       {
+        kind: "controller",
+        status: "succeeded",
+        io: { inputs: [], outputs: [] },
+        id: "A",
+        pipe_type: "PipeSequence",
+      },
+      {
+        kind: "controller",
+        status: "succeeded",
+        io: { inputs: [], outputs: [] },
+        id: "B",
+        pipe_type: "PipeSequence",
+      },
+      {
+        kind: "operator",
+        status: "succeeded",
         id: "op1",
         pipe_code: "op1",
         pipe_type: "PipeFunc",
-        io: { outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
+        io: { inputs: [], outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
       },
     ],
     edges: [
-      { source: "A", target: "B", kind: "contains" },
-      { source: "B", target: "A", kind: "contains" },
-      { source: "A", target: "op1", kind: "contains" },
+      { id: "e12", source: "A", target: "B", kind: "contains" },
+      { id: "e13", source: "B", target: "A", kind: "contains" },
+      { id: "e14", source: "A", target: "op1", kind: "contains" },
     ],
   };
 }

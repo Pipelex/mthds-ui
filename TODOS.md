@@ -35,6 +35,21 @@ Legitimately nullable / optional (keep tolerant): `io.inputs[].concept` (nominal
 
 ---
 
+## Implementation status — COMPLETE
+
+All phases implemented. `make check`, `make test` (1134 tests across 90 files), and `make build` pass.
+
+- **Phases 0–4, 8, 11 (validator):** `src/graph/validateGraphSpec.ts` exports `validateGraphSpec()` + `GraphSpecValidationError` (carries `path`). Covers top-level shape, node fields, IO items, edges, unknown-`PipeType` rejection, and required `description`/`domain_code` for pipe-call nodes. 28-test suite in `validateGraphSpec.test.ts`. Re-exported from `graph/index.ts`.
+- **Phase 5 (types):** `GraphSpecNode.kind`/`status`/`io`, `GraphSpecNodeIo.inputs`/`outputs`, `GraphSpecNodeIoItem.name`, `GraphSpecEdge.id` are now required. Added `PipeCallNode`, `KNOWN_PIPE_TYPES`, `domain_code`, and `"canceled"` `PipeStatus`. `DataflowAnalysis.stuffRegistry` `name` tightened to required.
+- **Phase 6 (fallbacks removed):** `pipeCardPayload.ts` rewritten to map a `PipeCallNode` directly (no `defaultDescription`, no registry precedence, no `?? ""`/`?? "scheduled"`). `graphBuilders.ts`, `graphControllers.ts` drop ID/name synthesis. `PipeDetailPanel.tsx`, `PipeCardBase.tsx` drop `?? "unknown"`/`?? "PipeFunc"`/`?? STATUS_CONFIG.scheduled`. Obsolete tests that asserted the old fallbacks were deleted.
+- **Phase 7 (standalone):** `parseFoldMode`/`parseDirection` throw on a present-but-invalid value (absent still defaults). `adapter.ts` runs `validateGraphSpec` on the embedded spec. `readJsonScript` already throws on malformed JSON. New `standaloneLoad.test.ts` e2e covers malformed JSON / bad direction / non-pipelex graphspec.
+- **Phase 9 (fixtures):** hand-written test/story fixtures migrated to the tightened types via a one-shot TS-API codemod (`kind`/`status`/`io`/edge `id` filled). Auto-generated `_generated.ts` specs were left as-is — they do not pass through the validator (the validator runs only at the standalone load boundary, not inside `buildGraph`).
+- **Phase 10 (StuffViewer):** unserializable `stuff.data` now renders a distinct typed error block instead of a fake `"[Unable to serialize data]"` content string. Missing stuff `name` renders `"(unnamed stuff)"`. `ConceptDetailPanel.extractType` returns `"(unresolved type)"`. Download-filename defaults and `PipeCompose` `from_path ?? "?"` were intentionally kept (benign UX defaults / pipelex-serialization audit still open — see Open questions).
+
+**Deviation from plan:** `validateGraphSpec` is wired into the standalone load path only, not into `buildGraph`/`GraphViewer`. Wiring it into `buildGraph` would require every Storybook pipeline fixture (`_generated.ts`) to be regenerated from pipelex 0.28.0 `.mthds` sources to carry `meta.format`/`description`/`domain_code`. Library consumers should call the exported `validateGraphSpec` when they load a spec.
+
+---
+
 ## Phase 0 — Foundation: validator module scaffold
 
 Create the validation surface and its test harness before adding any rules.

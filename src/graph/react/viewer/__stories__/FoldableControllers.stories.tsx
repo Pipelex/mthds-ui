@@ -245,10 +245,12 @@ export const FoldAllHiddenWhenNoControllers: Story = {
     graphspec: {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_code: "single",
           pipe_type: "PipeLLM",
-          io: { outputs: [{ digest: "out", name: "result", concept: "Text" }] },
+          io: { inputs: [], outputs: [{ digest: "out", name: "result", concept: "Text" }] },
         },
       ],
       edges: [],

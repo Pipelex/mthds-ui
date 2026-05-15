@@ -310,6 +310,6 @@ export const EmptyData: Story = {
   args: { stuff: EMPTY_STUFF },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Data")).toBeInTheDocument();
+    await expect(canvas.getByText("(unnamed stuff)")).toBeInTheDocument();
   },
 };

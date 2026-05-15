@@ -35,6 +35,7 @@ const STATUS_CONFIG: Record<PipeStatus, { color: string; label: string }> = {
   running: { color: "#8BE9FD", label: "Running" },
   scheduled: { color: "#6272a4", label: "Scheduled" },
   skipped: { color: "#6272a4", label: "Skipped" },
+  canceled: { color: "#6272a4", label: "Canceled" },
 };
 
 const MAX_VISIBLE_INPUTS = 4;
@@ -53,7 +54,7 @@ export interface PipeCardBaseProps {
 
 export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const badge = getBadge(data.pipeType);
-  const statusConfig = STATUS_CONFIG[data.status] ?? STATUS_CONFIG.scheduled;
+  const statusConfig = STATUS_CONFIG[data.status];
   const isRunning = data.status === "running";
   const isController = isControllerType(data.pipeType);
   const [inputsExpanded, setInputsExpanded] = useState(false);

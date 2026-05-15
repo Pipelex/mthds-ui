@@ -3,7 +3,7 @@ import type { GraphSpec, DataflowAnalysis, PipeBlueprintUnion, ConceptInfo } fro
 export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnalysis | null {
   if (!graphspec) return null;
 
-  const stuffRegistry: Record<string, { name?: string; concept?: string; contentType?: string }> =
+  const stuffRegistry: Record<string, { name: string; concept?: string; contentType?: string }> =
     {};
   const stuffProducers: Record<string, string> = {};
   const stuffConsumers: Record<string, string[]> = {};

@@ -100,6 +100,8 @@ GraphSpec (JSON from pipelex-agent)
 - **Operators** (`PipeOperatorType`): Do work — `PipeLLM`, `PipeExtract`, `PipeCompose`, `PipeImgGen`, `PipeSearch`, `PipeFunc`
 - **Controllers** (`PipeControllerType`): Orchestrate other pipes — `PipeSequence`, `PipeParallel`, `PipeCondition`, `PipeBatch`
 
+**Adding a new pipelex pipe class requires an mthds-ui update.** pipelex sets a node's `pipe_type` from the pipe's Python class name. `validateGraphSpec` checks `pipe_type` against `KNOWN_PIPE_TYPES` (derived from the `PipeType` union in `types.ts`) and throws on an unrecognized class. When pipelex ships a new pipe class, add it to `PipeOperatorType` or `PipeControllerType` — the `Record<PipeType, true>` exhaustiveness maps in `types.ts`, `PipeCardBase.tsx`, and `PipeDetailPanel.tsx` will fail to compile until every badge/status table is updated.
+
 **Stuff** = data nodes. Produced by one pipe, consumed by one or more pipes. Identified by digest. Node IDs use `stuff_<digest>` convention (use `stuffNodeId()`, `isStuffNodeId()`, `stuffDigestFromId()` helpers).
 
 **Controllers** contain child pipes via `contains` edges in GraphSpec. They render as group nodes wrapping their children. Parallel/Batch with >5 children auto-collapse.

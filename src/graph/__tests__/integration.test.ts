@@ -340,7 +340,15 @@ describe("full pipeline — edge cases", () => {
 
   it("graphspec with no IO produces empty output", async () => {
     const result = await runFullPipeline({
-      nodes: [{ id: "op1", pipe_type: "PipeFunc" }],
+      nodes: [
+        {
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
+      ],
       edges: [],
     });
     expect(result.appNodes).toHaveLength(0);

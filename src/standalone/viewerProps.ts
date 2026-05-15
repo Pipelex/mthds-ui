@@ -14,14 +14,30 @@ export interface StandaloneViewerProps {
   initialFoldMode: FoldMode;
 }
 
+/**
+ * An absent `foldMode` key legitimately defaults to `expanded`. A *present*
+ * but unrecognized value is a malformed config — throw rather than silently
+ * coercing, so the host page sees the failure.
+ */
 function parseFoldMode(raw: unknown): FoldMode {
+  if (raw === undefined || raw === null) return FOLD_MODE.EXPANDED;
   if (raw === FOLD_MODE.FOLDED || raw === FOLD_MODE.EXPANDED || raw === FOLD_MODE.AUTO) {
     return raw;
   }
-  return FOLD_MODE.EXPANDED;
+  throw new Error(
+    `Invalid foldMode in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of "folded", "expanded", "auto".`,
+  );
 }
 
+/**
+ * An absent `direction` key legitimately defaults to `LR`. A *present* but
+ * unrecognized value is a malformed config — throw rather than silently
+ * coercing (a bad direction crashes layout when `portSides[direction]` is
+ * undefined).
+ */
 function parseDirection(raw: unknown): GraphDirection {
+  if (raw === undefined || raw === null) return GRAPH_DIRECTION.LR;
   if (
     raw === GRAPH_DIRECTION.LR ||
     raw === GRAPH_DIRECTION.RL ||
@@ -30,7 +46,10 @@ function parseDirection(raw: unknown): GraphDirection {
   ) {
     return raw;
   }
-  return GRAPH_DIRECTION.LR;
+  throw new Error(
+    `Invalid direction in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of "TB", "BT", "LR", "RL".`,
+  );
 }
 
 /**

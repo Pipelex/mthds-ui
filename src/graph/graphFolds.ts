@@ -6,6 +6,7 @@ import type {
   GraphNode,
   GraphSpec,
   GraphSpecNode,
+  PipeCallNode,
 } from "./types";
 import {
   ARROW_CLOSED_MARKER,
@@ -188,7 +189,9 @@ export function applyFolds(
     const specNode = findSpecNode(graphspec, folded);
     if (!specNode) continue; // unknown ID — silently ignore
 
-    const payload = buildPipeCardPayload(specNode, graphspec, analysis);
+    // A folded controller is a pipe-call node — validateGraphSpec guarantees
+    // its pipe_code / pipe_type / status / io.
+    const payload = buildPipeCardPayload(specNode as PipeCallNode);
     if (onToggleFold) {
       payload.onExpand = (options?: FoldToggleOptions) => onToggleFold(folded, options);
     }

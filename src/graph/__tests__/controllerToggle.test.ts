@@ -3,7 +3,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { runFullPipeline, makeParallelSpec } from "./testUtils";
-import type { GraphSpec } from "@graph/types";
+import type { GraphSpec, GraphSpecNode, GraphSpecEdge } from "@graph/types";
 import {
   DRY_SIMPLE_PARALLEL,
   DRY_ALL_CONTROLLER_TYPES,
@@ -92,46 +92,80 @@ describe("collapse/expand integration", () => {
     // should be hidden (the hiddenNodes.has(ctrlId) branch in applyControllers).
     const spec: GraphSpec = {
       nodes: [
-        { id: "root_seq", pipe_type: "PipeSequence" },
-        { id: "outer_par", pipe_type: "PipeParallel" },
-        // 6 children so outer_par auto-collapses (>5)
-        ...Array.from({ length: 5 }, (_, i) => ({
-          id: `branch_${i}`,
-          pipe_code: `branch_${i}`,
-          pipe_type: "PipeLLM" as const,
-          io: {
-            outputs: [{ digest: `br_out_${i}`, name: `out_${i}`, concept: "Text" }],
-          },
-        })),
-        // Inner parallel as the 6th child (will be sliced off → hidden)
-        { id: "inner_par", pipe_type: "PipeParallel" },
         {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root_seq",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "outer_par",
+          pipe_type: "PipeParallel",
+        },
+        // 6 children so outer_par auto-collapses (>5)
+        ...Array.from(
+          { length: 5 },
+          (_, i): GraphSpecNode => ({
+            kind: "operator",
+            status: "succeeded",
+            id: `branch_${i}`,
+            pipe_code: `branch_${i}`,
+            pipe_type: "PipeLLM" as const,
+            io: {
+              inputs: [],
+              outputs: [{ digest: `br_out_${i}`, name: `out_${i}`, concept: "Text" }],
+            },
+          }),
+        ),
+        // Inner parallel as the 6th child (will be sliced off → hidden)
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "inner_par",
+          pipe_type: "PipeParallel",
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
           id: "inner_op_a",
           pipe_code: "inner_op_a",
           pipe_type: "PipeLLM" as const,
           io: {
+            inputs: [],
             outputs: [{ digest: "inner_out", name: "inner_result", concept: "Text" }],
           },
         },
         {
+          kind: "operator",
+          status: "succeeded",
           id: "inner_op_b",
           pipe_code: "inner_op_b",
           pipe_type: "PipeCompose" as const,
           io: {
+            outputs: [],
             inputs: [{ digest: "inner_out", name: "inner_result", concept: "Text" }],
           },
         },
       ],
       edges: [
-        { source: "root_seq", target: "outer_par", kind: "contains" },
-        ...Array.from({ length: 5 }, (_, i) => ({
-          source: "outer_par",
-          target: `branch_${i}`,
-          kind: "contains" as const,
-        })),
-        { source: "outer_par", target: "inner_par", kind: "contains" },
-        { source: "inner_par", target: "inner_op_a", kind: "contains" },
-        { source: "inner_par", target: "inner_op_b", kind: "contains" },
+        { id: "e0", source: "root_seq", target: "outer_par", kind: "contains" },
+        ...Array.from(
+          { length: 5 },
+          (_, i): GraphSpecEdge => ({
+            id: `e_branch_${i}`,
+            source: "outer_par",
+            target: `branch_${i}`,
+            kind: "contains" as const,
+          }),
+        ),
+        { id: "e2", source: "outer_par", target: "inner_par", kind: "contains" },
+        { id: "e3", source: "inner_par", target: "inner_op_a", kind: "contains" },
+        { id: "e4", source: "inner_par", target: "inner_op_b", kind: "contains" },
       ],
     };
 

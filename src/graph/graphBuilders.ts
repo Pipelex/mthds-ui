@@ -1,4 +1,11 @@
-import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
+import type {
+  GraphSpec,
+  DataflowAnalysis,
+  GraphNode,
+  GraphEdge,
+  GraphData,
+  PipeCallNode,
+} from "./types";
 import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 import { buildPipeCardPayload } from "./pipeCardPayload";
@@ -33,22 +40,25 @@ export function buildDataflowGraph(
   // Create pipe nodes (only those that participate in data flow)
   for (const node of graphspec.nodes) {
     if (!participatingPipes.has(node.id)) continue;
+    // A participating pipe is always a pipe-call node — validateGraphSpec
+    // guarantees its pipe_code / pipe_type / status / io.
+    const pipeNode = node as PipeCallNode;
 
-    const isFailed = node.status === "failed";
-    const label = node.pipe_code || node.id.split(":").pop() || node.id;
-    const pipeCardData = buildPipeCardPayload(node, graphspec, analysis);
+    const isFailed = pipeNode.status === "failed";
+    const label = pipeNode.pipe_code;
+    const pipeCardData = buildPipeCardPayload(pipeNode);
 
     nodes.push({
-      id: node.id,
+      id: pipeNode.id,
       type: NODE_TYPE_PIPE_CARD,
       data: {
         labelDescriptor: { kind: "pipe", label, isFailed },
-        nodeData: node,
+        nodeData: pipeNode,
         isPipe: true,
         isStuff: false,
         labelText: label,
         pipeCode: pipeCardData.pipeCode,
-        pipeType: node.pipe_type,
+        pipeType: pipeNode.pipe_type,
         pipeCardData,
       },
       position: { x: 0, y: 0 },
@@ -58,7 +68,7 @@ export function buildDataflowGraph(
   // Create stuff (data) nodes
   for (const [digest, stuffInfo] of Object.entries(analysis.stuffRegistry)) {
     const stuffId = stuffNodeId(digest);
-    const label = stuffInfo.name || "data";
+    const label = stuffInfo.name;
     const concept = stuffInfo.concept || "";
     const textWidth =
       Math.max(label.length, concept.length) * STUFF_CHAR_WIDTH_PX + STUFF_LABEL_PADDING;
@@ -148,7 +158,7 @@ export function buildDataflowGraph(
     const targetId = stuffNodeId(edge.target_stuff_digest);
 
     edges.push({
-      id: edge.id || "edge_" + edgeId++,
+      id: edge.id,
       source: sourceId,
       target: targetId,
       type: "smoothstep",
@@ -180,7 +190,7 @@ export function buildDataflowGraph(
     const isBatchItem = edge.kind === "batch_item";
 
     edges.push({
-      id: edge.id || "edge_" + edgeId++,
+      id: edge.id,
       source: sourceId,
       target: targetId,
       type: edgeType,

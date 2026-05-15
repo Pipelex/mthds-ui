@@ -8,20 +8,20 @@ describe("buildDataflowGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_code: "my_pipe",
           pipe_type: "PipeFunc",
-          io: {
-            outputs: [{ digest: "d1", name: "result", concept: "Text" }],
-          },
+          io: { inputs: [], outputs: [{ digest: "d1", name: "result", concept: "Text" }] },
         },
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op2",
           pipe_code: "consumer_pipe",
           pipe_type: "PipeFunc",
-          io: {
-            inputs: [{ digest: "d1", name: "result", concept: "Text" }],
-          },
+          io: { outputs: [], inputs: [{ digest: "d1", name: "result", concept: "Text" }] },
         },
       ],
       edges: [],
@@ -61,13 +61,12 @@ describe("buildDataflowGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
           id: "op1",
           pipe_code: "failing",
           pipe_type: "PipeFunc",
           status: "failed",
-          io: {
-            outputs: [{ digest: "d1", name: "out" }],
-          },
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
       ],
       edges: [],
@@ -85,6 +84,8 @@ describe("buildDataflowGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
           io: {
@@ -95,6 +96,7 @@ describe("buildDataflowGraph", () => {
       ],
       edges: [
         {
+          id: "e0",
           source: "op1",
           target: "op1",
           kind: "batch_item",
@@ -118,6 +120,8 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
           io: {
@@ -128,6 +132,7 @@ describe("buildDataflowGraph — additional cases", () => {
       ],
       edges: [
         {
+          id: "e1",
           source: "op1",
           target: "op1",
           kind: "parallel_combine",
@@ -149,25 +154,47 @@ describe("buildDataflowGraph — additional cases", () => {
   it("marks cross-group edges between different controller groups", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrlA", pipe_type: "PipeSequence" },
-        { id: "ctrlB", pipe_type: "PipeSequence" },
         {
-          id: "op1",
-          pipe_type: "PipeFunc",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
         },
         {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrlA",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrlB",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
           id: "op2",
           pipe_type: "PipeFunc",
-          io: { inputs: [{ digest: "d1", name: "in" }] },
+          io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
         },
       ],
       edges: [
-        { source: "root", target: "ctrlA", kind: "contains" },
-        { source: "root", target: "ctrlB", kind: "contains" },
-        { source: "ctrlA", target: "op1", kind: "contains" },
-        { source: "ctrlB", target: "op2", kind: "contains" },
+        { id: "e2", source: "root", target: "ctrlA", kind: "contains" },
+        { id: "e3", source: "root", target: "ctrlB", kind: "contains" },
+        { id: "e4", source: "ctrlA", target: "op1", kind: "contains" },
+        { id: "e5", source: "ctrlB", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -180,7 +207,18 @@ describe("buildDataflowGraph — additional cases", () => {
   });
 
   it("handles empty graphspec with no stuff", () => {
-    const gs: GraphSpec = { nodes: [{ id: "op1", pipe_type: "PipeFunc" }], edges: [] };
+    const gs: GraphSpec = {
+      nodes: [
+        {
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
+      ],
+      edges: [],
+    };
     const analysis = buildDataflowAnalysis(gs)!;
     const { nodes, edges } = buildDataflowGraph(gs, analysis, "bezier");
     expect(nodes).toHaveLength(0);
@@ -191,14 +229,18 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
-          io: { outputs: [{ digest: "d1" }] },
+          io: { inputs: [], outputs: [{ name: "d1", digest: "d1" }] },
         },
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op2",
           pipe_type: "PipeFunc",
-          io: { inputs: [{ digest: "d1" }] },
+          io: { outputs: [], inputs: [{ name: "d1", digest: "d1" }] },
         },
       ],
       edges: [],
@@ -210,7 +252,7 @@ describe("buildDataflowGraph — additional cases", () => {
     expect(stuffNode).toBeDefined();
     expect(stuffNode!.data.labelDescriptor).toEqual({
       kind: "stuff",
-      label: "data",
+      label: "d1",
       concept: "",
     });
   });
@@ -221,9 +263,11 @@ describe("buildGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
       ],
       edges: [],
@@ -240,7 +284,15 @@ describe("buildGraph", () => {
 
   it("returns empty graph when graphspec has no stuff", () => {
     const gs: GraphSpec = {
-      nodes: [{ id: "op1", pipe_type: "PipeFunc" }], // no IO
+      nodes: [
+        {
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
+      ], // no IO
       edges: [],
     };
     const { analysis } = buildGraph(gs, "bezier");
@@ -255,10 +307,13 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_code: "op1",
           pipe_type: "PipeFunc",
           io: {
+            inputs: [],
             outputs: [
               { digest: "short", name: "x", concept: "T" },
               { digest: "long", name: "very_long_variable_name", concept: "VeryLongConceptName" },
@@ -266,10 +321,13 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
           },
         },
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op2",
           pipe_code: "op2",
           pipe_type: "PipeFunc",
           io: {
+            outputs: [],
             inputs: [
               { digest: "short", name: "x", concept: "T" },
               { digest: "long", name: "very_long_variable_name", concept: "VeryLongConceptName" },
@@ -293,8 +351,20 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
   it("stuff width has 140px minimum", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "x" }] } },
-        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "x" }] } },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "x" }] },
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op2",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "d1", name: "x" }] },
+        },
       ],
       edges: [],
     };
@@ -309,8 +379,20 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
   it("stuff nodes have pill-shaped style", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op2",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
+        },
       ],
       edges: [],
     };
@@ -331,6 +413,7 @@ describe("buildDataflowGraph — pipeCardData population", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
           id: "op1",
           pipe_code: "my_code",
           pipe_type: "PipeLLM",
@@ -358,53 +441,16 @@ describe("buildDataflowGraph — pipeCardData population", () => {
     });
   });
 
-  it("generates a default description when none provided", () => {
-    const gs: GraphSpec = {
-      nodes: [
-        {
-          id: "op1",
-          pipe_code: "extract_data",
-          pipe_type: "PipeExtract",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
-        },
-      ],
-      edges: [],
-    };
-    const analysis = buildDataflowAnalysis(gs)!;
-    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
-
-    const pipe = nodes.find((n) => n.id === "op1")!;
-    expect(pipe.data.pipeCardData?.description).toContain("Extract content from");
-    expect(pipe.data.pipeCardData?.description).toContain("extract data");
-  });
-
-  it("defaults status to 'scheduled' when not provided", () => {
-    const gs: GraphSpec = {
-      nodes: [
-        {
-          id: "op1",
-          pipe_code: "op",
-          pipe_type: "PipeFunc",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
-        },
-      ],
-      edges: [],
-    };
-    const analysis = buildDataflowAnalysis(gs)!;
-    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
-
-    const pipe = nodes.find((n) => n.id === "op1")!;
-    expect(pipe.data.pipeCardData?.status).toBe("scheduled");
-  });
-
   it("maps empty IO arrays when no inputs/outputs", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_code: "op",
           pipe_type: "PipeFunc",
-          io: { outputs: [{ digest: "d1", name: "out" }] },
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
       ],
       edges: [],
@@ -425,6 +471,8 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
           io: {
@@ -435,6 +483,7 @@ describe("buildDataflowGraph — edge styles", () => {
       ],
       edges: [
         {
+          id: "e6",
           source: "op1",
           target: "op1",
           kind: "batch_item",
@@ -455,6 +504,8 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
           io: {
@@ -465,6 +516,7 @@ describe("buildDataflowGraph — edge styles", () => {
       ],
       edges: [
         {
+          id: "e7",
           source: "op1",
           target: "op1",
           kind: "batch_aggregate",
@@ -485,6 +537,8 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          kind: "operator",
+          status: "succeeded",
           id: "op1",
           pipe_type: "PipeFunc",
           io: {
@@ -495,6 +549,7 @@ describe("buildDataflowGraph — edge styles", () => {
       ],
       edges: [
         {
+          id: "e8",
           source: "op1",
           target: "op1",
           kind: "batch_item",
@@ -513,17 +568,47 @@ describe("buildDataflowGraph — edge styles", () => {
   it("cross-group edges have de-emphasized style", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrlA", pipe_type: "PipeSequence" },
-        { id: "ctrlB", pipe_type: "PipeSequence" },
-        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrlA",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrlB",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op2",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
+        },
       ],
       edges: [
-        { source: "root", target: "ctrlA", kind: "contains" },
-        { source: "root", target: "ctrlB", kind: "contains" },
-        { source: "ctrlA", target: "op1", kind: "contains" },
-        { source: "ctrlB", target: "op2", kind: "contains" },
+        { id: "e9", source: "root", target: "ctrlA", kind: "contains" },
+        { id: "e10", source: "root", target: "ctrlB", kind: "contains" },
+        { id: "e11", source: "ctrlA", target: "op1", kind: "contains" },
+        { id: "e12", source: "ctrlB", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -538,8 +623,20 @@ describe("buildDataflowGraph — edge styles", () => {
   it("normal edges have stroke width 2 and arrow marker", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          id: "op2",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
+        },
       ],
       edges: [],
     };
