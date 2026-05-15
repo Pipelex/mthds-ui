@@ -1,6 +1,6 @@
 {
-  "graph_id": "cc059800-b6d4-4a7d-a0e5-f19baacbbea2",
-  "created_at": "2026-05-15T11:21:06.844761Z",
+  "graph_id": "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee",
+  "created_at": "2026-05-15T12:39:00.347267Z",
   "pipeline_ref": {
     "domain": "text_processing",
     "main_pipe": "summarize",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "cc059800-b6d4-4a7d-a0e5-f19baacbbea2:node_0",
+      "id": "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee:node_0",
       "kind": "operator",
       "pipe_code": "summarize",
       "pipe_type": "PipeLLM",
@@ -16,9 +16,9 @@
       "domain_code": "text_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:06.844761Z",
-        "ended_at": "2026-05-15T11:21:06.862967Z",
-        "duration": 0.018206
+        "started_at": "2026-05-15T12:39:00.347267Z",
+        "ended_at": "2026-05-15T12:39:00.357668Z",
+        "duration": 0.010401
       },
       "io": {
         "inputs": [
@@ -28,12 +28,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "byoRn",
+            "digest": "Z9PB2",
             "data": {
-              "text": "XcwsDFpqQTBNDFHydNIJ"
+              "text": "hDmpZxGDrpbvmWOMHFlh"
             },
-            "data_text": "XcwsDFpqQTBNDFHydNIJ                                                                                \n",
-            "data_html": "XcwsDFpqQTBNDFHydNIJ",
+            "data_text": "hDmpZxGDrpbvmWOMHFlh                                                                                \n",
+            "data_html": "hDmpZxGDrpbvmWOMHFlh",
             "extra": {}
           }
         ],
@@ -44,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Apead",
+            "digest": "R3tU5",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nXcwsDFpqQTBNDFHydNIJ\n</text>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>\n    "
             },
             "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nXcwsDFpqQTBNDFHydNIJ\n&lt;/text&gt;\n    ",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nhDmpZxGDrpbvmWOMHFlh\n&lt;/text&gt;\n    ",
             "extra": {}
           }
         ]
@@ -62,7 +62,7 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nXcwsDFpqQTBNDFHydNIJ\n</text>",
+        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>",
         "structuring_path": "text"
       }
     }

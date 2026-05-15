@@ -1,6 +1,6 @@
 {
-  "graph_id": "37829f47-5f17-4444-8189-6ffca8ae5b0e",
-  "created_at": "2026-05-15T11:21:11.715940Z",
+  "graph_id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c",
+  "created_at": "2026-05-15T12:39:04.363255Z",
   "pipeline_ref": {
     "domain": "document_processing",
     "main_pipe": "extract_analyze_report",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_0",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
       "kind": "controller",
       "pipe_code": "extract_analyze_report",
       "pipe_type": "PipeSequence",
@@ -16,29 +16,29 @@
       "domain_code": "document_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:11.715940Z",
-        "ended_at": "2026-05-15T11:21:11.770313Z",
-        "duration": 0.054373
+        "started_at": "2026-05-15T12:39:04.363255Z",
+        "ended_at": "2026-05-15T12:39:04.406921Z",
+        "duration": 0.043666
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "xDYGrUGooOJouPreeXIl",
+            "content_type": "HtbYocCsZJULfvsreEKF",
             "preview": null,
             "size": null,
-            "digest": "TkZVB",
+            "digest": "Nuf2W",
             "data": {
-              "url": "ExMkSVzQdnhHwHtLDpjj",
-              "public_url": "gOPpAZCKLHpGlbWRmUys",
-              "mime_type": "xDYGrUGooOJouPreeXIl",
-              "filename": "PCFESZkthFTTjQmdRjPV",
-              "title": "OrTzbGKrwLLWeBjRKCXn",
-              "snippet": "lHGktjrnHSdPscQEwTko"
+              "url": "oOOEfoxrKJfLqHZgwaST",
+              "public_url": "KOOcGRboFzsiZAUvbwLw",
+              "mime_type": "HtbYocCsZJULfvsreEKF",
+              "filename": "sJLOHkauDycabHlDamjF",
+              "title": "gQkPBcFYsSsubdlXktrP",
+              "snippet": "SXpNwcONtsygjDVAJQbB"
             },
-            "data_text": "OrTzbGKrwLLWeBjRKCXn (ExMkSVzQdnhHwHtLDpjj)\n  lHGktjrnHSdPscQEwTko\n",
-            "data_html": "<a href=\"gOPpAZCKLHpGlbWRmUys\" class=\"msg-document\">OrTzbGKrwLLWeBjRKCXn</a><br/><small>lHGktjrnHSdPscQEwTko</small>",
+            "data_text": "gQkPBcFYsSsubdlXktrP (oOOEfoxrKJfLqHZgwaST)\n  SXpNwcONtsygjDVAJQbB\n",
+            "data_html": "<a href=\"KOOcGRboFzsiZAUvbwLw\" class=\"msg-document\">gQkPBcFYsSsubdlXktrP</a><br/><small>SXpNwcONtsygjDVAJQbB</small>",
             "extra": {}
           }
         ],
@@ -49,7 +49,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jFX5x",
+            "digest": "Eb5Kh",
             "data": {
               "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
             },
@@ -67,7 +67,7 @@
       }
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_1",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
       "kind": "operator",
       "pipe_code": "extract_pages",
       "pipe_type": "PipeExtract",
@@ -75,29 +75,29 @@
       "domain_code": "document_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:11.722936Z",
-        "ended_at": "2026-05-15T11:21:11.731512Z",
-        "duration": 0.008576
+        "started_at": "2026-05-15T12:39:04.368391Z",
+        "ended_at": "2026-05-15T12:39:04.375374Z",
+        "duration": 0.006983
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "xDYGrUGooOJouPreeXIl",
+            "content_type": "HtbYocCsZJULfvsreEKF",
             "preview": null,
             "size": null,
-            "digest": "TkZVB",
+            "digest": "Nuf2W",
             "data": {
-              "url": "ExMkSVzQdnhHwHtLDpjj",
-              "public_url": "gOPpAZCKLHpGlbWRmUys",
-              "mime_type": "xDYGrUGooOJouPreeXIl",
-              "filename": "PCFESZkthFTTjQmdRjPV",
-              "title": "OrTzbGKrwLLWeBjRKCXn",
-              "snippet": "lHGktjrnHSdPscQEwTko"
+              "url": "oOOEfoxrKJfLqHZgwaST",
+              "public_url": "KOOcGRboFzsiZAUvbwLw",
+              "mime_type": "HtbYocCsZJULfvsreEKF",
+              "filename": "sJLOHkauDycabHlDamjF",
+              "title": "gQkPBcFYsSsubdlXktrP",
+              "snippet": "SXpNwcONtsygjDVAJQbB"
             },
-            "data_text": "OrTzbGKrwLLWeBjRKCXn (ExMkSVzQdnhHwHtLDpjj)\n  lHGktjrnHSdPscQEwTko\n",
-            "data_html": "<a href=\"gOPpAZCKLHpGlbWRmUys\" class=\"msg-document\">OrTzbGKrwLLWeBjRKCXn</a><br/><small>lHGktjrnHSdPscQEwTko</small>",
+            "data_text": "gQkPBcFYsSsubdlXktrP (oOOEfoxrKJfLqHZgwaST)\n  SXpNwcONtsygjDVAJQbB\n",
+            "data_html": "<a href=\"KOOcGRboFzsiZAUvbwLw\" class=\"msg-document\">gQkPBcFYsSsubdlXktrP</a><br/><small>SXpNwcONtsygjDVAJQbB</small>",
             "extra": {}
           }
         ],
@@ -108,7 +108,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "X2SbG",
+            "digest": "DJy5D",
             "data": {
               "items": [
                 {
@@ -170,7 +170,7 @@
       }
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_2",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
       "kind": "operator",
       "pipe_code": "analyze_content",
       "pipe_type": "PipeLLM",
@@ -178,9 +178,9 @@
       "domain_code": "document_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:11.737187Z",
-        "ended_at": "2026-05-15T11:21:11.749840Z",
-        "duration": 0.012653
+        "started_at": "2026-05-15T12:39:04.380340Z",
+        "ended_at": "2026-05-15T12:39:04.390846Z",
+        "duration": 0.010506
       },
       "io": {
         "inputs": [
@@ -190,7 +190,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "X2SbG",
+            "digest": "DJy5D",
             "data": {
               "items": [
                 {
@@ -247,7 +247,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7eMSt",
+            "digest": "MAgZX",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
             },
@@ -270,7 +270,7 @@
       }
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_3",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
       "kind": "operator",
       "pipe_code": "compose_report",
       "pipe_type": "PipeCompose",
@@ -278,9 +278,9 @@
       "domain_code": "document_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:11.756491Z",
-        "ended_at": "2026-05-15T11:21:11.765765Z",
-        "duration": 0.009274
+        "started_at": "2026-05-15T12:39:04.395603Z",
+        "ended_at": "2026-05-15T12:39:04.404009Z",
+        "duration": 0.008406
       },
       "io": {
         "inputs": [
@@ -290,7 +290,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7eMSt",
+            "digest": "MAgZX",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
             },
@@ -306,7 +306,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jFX5x",
+            "digest": "Eb5Kh",
             "data": {
               "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
             },
@@ -327,9 +327,9 @@
   ],
   "edges": [
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:edge_0",
-      "source": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_0",
-      "target": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_1",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_0",
+      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
+      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -337,9 +337,9 @@
       "meta": {}
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:edge_1",
-      "source": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_0",
-      "target": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_2",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_1",
+      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
+      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -347,9 +347,9 @@
       "meta": {}
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:edge_2",
-      "source": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_0",
-      "target": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_3",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_2",
+      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
+      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -357,9 +357,9 @@
       "meta": {}
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:asm_edge_0",
-      "source": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_1",
-      "target": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_2",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:asm_edge_0",
+      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
+      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -367,9 +367,9 @@
       "meta": {}
     },
     {
-      "id": "37829f47-5f17-4444-8189-6ffca8ae5b0e:asm_edge_1",
-      "source": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_2",
-      "target": "37829f47-5f17-4444-8189-6ffca8ae5b0e:node_3",
+      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:asm_edge_1",
+      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
+      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
       "kind": "data",
       "label": "analysis",
       "source_stuff_digest": null,

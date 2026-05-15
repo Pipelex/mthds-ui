@@ -1,6 +1,6 @@
 {
-  "graph_id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c",
-  "created_at": "2026-05-15T11:21:40.386772Z",
+  "graph_id": "cce415ce-3541-45e9-ab78-cbb81fa90932",
+  "created_at": "2026-05-15T12:39:31.998670Z",
   "pipeline_ref": {
     "domain": "image_catalog",
     "main_pipe": "image_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_0",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_0",
       "kind": "controller",
       "pipe_code": "image_pipeline",
       "pipe_type": "PipeSequence",
@@ -16,34 +16,34 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.386772Z",
-        "ended_at": "2026-05-15T11:21:40.456899Z",
-        "duration": 0.070127
+        "started_at": "2026-05-15T12:39:31.998670Z",
+        "ended_at": "2026-05-15T12:39:32.060825Z",
+        "duration": 0.062155
       },
       "io": {
         "inputs": [
           {
             "name": "image",
             "concept": "Image",
-            "content_type": "URBIPVwjqzhsbviFaOyf",
+            "content_type": "gmWSMYMcwwiEeiuBoZhR",
             "preview": null,
             "size": null,
-            "digest": "Dysob",
+            "digest": "SBQwa",
             "data": {
-              "url": "imyDXXNFBsQQXJmXrTSg",
-              "public_url": "gZlsZnAWZHjCHYlsMgnF",
-              "source_prompt": "PPbvlyjFTFNrEomVJqVo",
-              "source_negative_prompt": "ERxGhUOZvCmjpgRWkfNk",
-              "caption": "rLlDBDkuIlvxWLPfZDQI",
-              "mime_type": "URBIPVwjqzhsbviFaOyf",
+              "url": "CKlRmFXUSIyvVhnbmqPW",
+              "public_url": "DQpmdyEuHNJsOSgjCscX",
+              "source_prompt": "eUFqCAGrEByilcazLqIY",
+              "source_negative_prompt": "QXgDBLckXbYTWkZQeoSE",
+              "caption": "wvdrtMImOKhWJohRxFjn",
+              "mime_type": "gmWSMYMcwwiEeiuBoZhR",
               "size": {
-                "width": 154,
-                "height": 4989
+                "width": 9256,
+                "height": 9625
               },
-              "filename": "CfJFKDmZBvBAqXjKsaKz"
+              "filename": "TbqMGfwwuukjJGcVWQPj"
             },
-            "data_text": "Image:\nURL: imyDXXNFBsQQXJmXrTSg                                                                           \nPublic URL: Open Image\nCaption: rLlDBDkuIlvxWLPfZDQI\nSize: 154x4989\nMIME Type: URBIPVwjqzhsbviFaOyf\n\nSource Prompt:\nPPbvlyjFTFNrEomVJqVo\n\nSource Negative Prompt: ERxGhUOZvCmjpgRWkfNk\n",
-            "data_html": "<img src=\"gZlsZnAWZHjCHYlsMgnF\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: CKlRmFXUSIyvVhnbmqPW                                                                           \nPublic URL: Open Image\nCaption: wvdrtMImOKhWJohRxFjn\nSize: 9256x9625\nMIME Type: gmWSMYMcwwiEeiuBoZhR\n\nSource Prompt:\neUFqCAGrEByilcazLqIY\n\nSource Negative Prompt: QXgDBLckXbYTWkZQeoSE\n",
+            "data_html": "<img src=\"DQpmdyEuHNJsOSgjCscX\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -54,12 +54,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Gs9xk",
+            "digest": "iMQrS",
             "data": {
-              "text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    \n```\n\n### Tags\ntags: ```\n{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n```"
+              "text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    \n```\n\n### Tags\ntags: ```\n{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n```"
             },
-            "data_text": "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe   \nthis image in detail:                                                                               \n\nrLlDBDkuIlvxWLPfZDQI                                                                                \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {                                                                                                  \n     \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"                                                             \n }                                                                                                  \n                                                                                                    \n",
-            "data_html": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    \n```\n\n### Tags\ntags: ```\n{\n    &quot;OcmxzSTOAwrsrlUFXVNG&quot;: &quot;e9e07e03&quot;\n}\n```",
+            "data_text": "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe   \nthis image in detail:                                                                               \n\nwvdrtMImOKhWJohRxFjn                                                                                \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {                                                                                                  \n     \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"                                                            \n }                                                                                                  \n                                                                                                    \n",
+            "data_html": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    \n```\n\n### Tags\ntags: ```\n{\n    &quot;VrxjAgERWKbWOACPyVjR&quot;: &quot;d1aa55eac&quot;\n}\n```",
             "extra": {}
           }
         ]
@@ -72,7 +72,7 @@
       }
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
       "kind": "controller",
       "pipe_code": "parallel_analyze",
       "pipe_type": "PipeParallel",
@@ -80,34 +80,34 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.393111Z",
-        "ended_at": "2026-05-15T11:21:40.441049Z",
-        "duration": 0.047938
+        "started_at": "2026-05-15T12:39:32.004957Z",
+        "ended_at": "2026-05-15T12:39:32.046924Z",
+        "duration": 0.041967
       },
       "io": {
         "inputs": [
           {
             "name": "image",
             "concept": "Image",
-            "content_type": "URBIPVwjqzhsbviFaOyf",
+            "content_type": "gmWSMYMcwwiEeiuBoZhR",
             "preview": null,
             "size": null,
-            "digest": "Dysob",
+            "digest": "SBQwa",
             "data": {
-              "url": "imyDXXNFBsQQXJmXrTSg",
-              "public_url": "gZlsZnAWZHjCHYlsMgnF",
-              "source_prompt": "PPbvlyjFTFNrEomVJqVo",
-              "source_negative_prompt": "ERxGhUOZvCmjpgRWkfNk",
-              "caption": "rLlDBDkuIlvxWLPfZDQI",
-              "mime_type": "URBIPVwjqzhsbviFaOyf",
+              "url": "CKlRmFXUSIyvVhnbmqPW",
+              "public_url": "DQpmdyEuHNJsOSgjCscX",
+              "source_prompt": "eUFqCAGrEByilcazLqIY",
+              "source_negative_prompt": "QXgDBLckXbYTWkZQeoSE",
+              "caption": "wvdrtMImOKhWJohRxFjn",
+              "mime_type": "gmWSMYMcwwiEeiuBoZhR",
               "size": {
-                "width": 154,
-                "height": 4989
+                "width": 9256,
+                "height": 9625
               },
-              "filename": "CfJFKDmZBvBAqXjKsaKz"
+              "filename": "TbqMGfwwuukjJGcVWQPj"
             },
-            "data_text": "Image:\nURL: imyDXXNFBsQQXJmXrTSg                                                                           \nPublic URL: Open Image\nCaption: rLlDBDkuIlvxWLPfZDQI\nSize: 154x4989\nMIME Type: URBIPVwjqzhsbviFaOyf\n\nSource Prompt:\nPPbvlyjFTFNrEomVJqVo\n\nSource Negative Prompt: ERxGhUOZvCmjpgRWkfNk\n",
-            "data_html": "<img src=\"gZlsZnAWZHjCHYlsMgnF\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: CKlRmFXUSIyvVhnbmqPW                                                                           \nPublic URL: Open Image\nCaption: wvdrtMImOKhWJohRxFjn\nSize: 9256x9625\nMIME Type: gmWSMYMcwwiEeiuBoZhR\n\nSource Prompt:\neUFqCAGrEByilcazLqIY\n\nSource Negative Prompt: QXgDBLckXbYTWkZQeoSE\n",
+            "data_html": "<img src=\"DQpmdyEuHNJsOSgjCscX\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -118,12 +118,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Xdzsf",
+            "digest": "7sBJ7",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nrLlDBDkuIlvxWLPfZDQI                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nwvdrtMImOKhWJohRxFjn                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    ",
             "extra": {}
           },
           {
@@ -132,14 +132,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HWTM2",
+            "digest": "dpdhK",
             "data": {
               "json_obj": {
-                "OcmxzSTOAwrsrlUFXVNG": "e9e07e03"
+                "VrxjAgERWKbWOACPyVjR": "d1aa55eac"
               }
             },
-            "data_text": "{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n",
-            "data_html": "<table ><tr><th>OcmxzSTOAwrsrlUFXVNG</th><td>e9e07e03</td></tr></table>",
+            "data_text": "{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n",
+            "data_html": "<table ><tr><th>VrxjAgERWKbWOACPyVjR</th><td>d1aa55eac</td></tr></table>",
             "extra": {}
           },
           {
@@ -148,11 +148,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "T5a9k",
+            "digest": "SL6Ly",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Thumbnail preview of: rLlDBDkuIlvxWLPfZDQI",
+              "source_prompt": "Thumbnail preview of: wvdrtMImOKhWJohRxFjn",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -162,7 +162,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nThumbnail preview of: rLlDBDkuIlvxWLPfZDQI\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nThumbnail preview of: wvdrtMImOKhWJohRxFjn\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -178,7 +178,7 @@
       }
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_2",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_2",
       "kind": "operator",
       "pipe_code": "describe_image",
       "pipe_type": "PipeLLM",
@@ -186,34 +186,34 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.398517Z",
-        "ended_at": "2026-05-15T11:21:40.408037Z",
-        "duration": 0.00952
+        "started_at": "2026-05-15T12:39:32.009586Z",
+        "ended_at": "2026-05-15T12:39:32.018141Z",
+        "duration": 0.008555
       },
       "io": {
         "inputs": [
           {
             "name": "image",
             "concept": "Image",
-            "content_type": "URBIPVwjqzhsbviFaOyf",
+            "content_type": "gmWSMYMcwwiEeiuBoZhR",
             "preview": null,
             "size": null,
-            "digest": "Dysob",
+            "digest": "SBQwa",
             "data": {
-              "url": "imyDXXNFBsQQXJmXrTSg",
-              "public_url": "gZlsZnAWZHjCHYlsMgnF",
-              "source_prompt": "PPbvlyjFTFNrEomVJqVo",
-              "source_negative_prompt": "ERxGhUOZvCmjpgRWkfNk",
-              "caption": "rLlDBDkuIlvxWLPfZDQI",
-              "mime_type": "URBIPVwjqzhsbviFaOyf",
+              "url": "CKlRmFXUSIyvVhnbmqPW",
+              "public_url": "DQpmdyEuHNJsOSgjCscX",
+              "source_prompt": "eUFqCAGrEByilcazLqIY",
+              "source_negative_prompt": "QXgDBLckXbYTWkZQeoSE",
+              "caption": "wvdrtMImOKhWJohRxFjn",
+              "mime_type": "gmWSMYMcwwiEeiuBoZhR",
               "size": {
-                "width": 154,
-                "height": 4989
+                "width": 9256,
+                "height": 9625
               },
-              "filename": "CfJFKDmZBvBAqXjKsaKz"
+              "filename": "TbqMGfwwuukjJGcVWQPj"
             },
-            "data_text": "Image:\nURL: imyDXXNFBsQQXJmXrTSg                                                                           \nPublic URL: Open Image\nCaption: rLlDBDkuIlvxWLPfZDQI\nSize: 154x4989\nMIME Type: URBIPVwjqzhsbviFaOyf\n\nSource Prompt:\nPPbvlyjFTFNrEomVJqVo\n\nSource Negative Prompt: ERxGhUOZvCmjpgRWkfNk\n",
-            "data_html": "<img src=\"gZlsZnAWZHjCHYlsMgnF\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: CKlRmFXUSIyvVhnbmqPW                                                                           \nPublic URL: Open Image\nCaption: wvdrtMImOKhWJohRxFjn\nSize: 9256x9625\nMIME Type: gmWSMYMcwwiEeiuBoZhR\n\nSource Prompt:\neUFqCAGrEByilcazLqIY\n\nSource Negative Prompt: QXgDBLckXbYTWkZQeoSE\n",
+            "data_html": "<img src=\"DQpmdyEuHNJsOSgjCscX\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -224,12 +224,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Xdzsf",
+            "digest": "7sBJ7",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nrLlDBDkuIlvxWLPfZDQI                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nwvdrtMImOKhWJohRxFjn                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    ",
             "extra": {}
           }
         ]
@@ -242,12 +242,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI",
+        "rendered_user_prompt": "Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn",
         "structuring_path": "text"
       }
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_3",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_3",
       "kind": "operator",
       "pipe_code": "classify_image",
       "pipe_type": "PipeLLM",
@@ -255,34 +255,34 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.412315Z",
-        "ended_at": "2026-05-15T11:21:40.424390Z",
-        "duration": 0.012075
+        "started_at": "2026-05-15T12:39:32.021962Z",
+        "ended_at": "2026-05-15T12:39:32.032304Z",
+        "duration": 0.010342
       },
       "io": {
         "inputs": [
           {
             "name": "image",
             "concept": "Image",
-            "content_type": "URBIPVwjqzhsbviFaOyf",
+            "content_type": "gmWSMYMcwwiEeiuBoZhR",
             "preview": null,
             "size": null,
-            "digest": "Dysob",
+            "digest": "SBQwa",
             "data": {
-              "url": "imyDXXNFBsQQXJmXrTSg",
-              "public_url": "gZlsZnAWZHjCHYlsMgnF",
-              "source_prompt": "PPbvlyjFTFNrEomVJqVo",
-              "source_negative_prompt": "ERxGhUOZvCmjpgRWkfNk",
-              "caption": "rLlDBDkuIlvxWLPfZDQI",
-              "mime_type": "URBIPVwjqzhsbviFaOyf",
+              "url": "CKlRmFXUSIyvVhnbmqPW",
+              "public_url": "DQpmdyEuHNJsOSgjCscX",
+              "source_prompt": "eUFqCAGrEByilcazLqIY",
+              "source_negative_prompt": "QXgDBLckXbYTWkZQeoSE",
+              "caption": "wvdrtMImOKhWJohRxFjn",
+              "mime_type": "gmWSMYMcwwiEeiuBoZhR",
               "size": {
-                "width": 154,
-                "height": 4989
+                "width": 9256,
+                "height": 9625
               },
-              "filename": "CfJFKDmZBvBAqXjKsaKz"
+              "filename": "TbqMGfwwuukjJGcVWQPj"
             },
-            "data_text": "Image:\nURL: imyDXXNFBsQQXJmXrTSg                                                                           \nPublic URL: Open Image\nCaption: rLlDBDkuIlvxWLPfZDQI\nSize: 154x4989\nMIME Type: URBIPVwjqzhsbviFaOyf\n\nSource Prompt:\nPPbvlyjFTFNrEomVJqVo\n\nSource Negative Prompt: ERxGhUOZvCmjpgRWkfNk\n",
-            "data_html": "<img src=\"gZlsZnAWZHjCHYlsMgnF\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: CKlRmFXUSIyvVhnbmqPW                                                                           \nPublic URL: Open Image\nCaption: wvdrtMImOKhWJohRxFjn\nSize: 9256x9625\nMIME Type: gmWSMYMcwwiEeiuBoZhR\n\nSource Prompt:\neUFqCAGrEByilcazLqIY\n\nSource Negative Prompt: QXgDBLckXbYTWkZQeoSE\n",
+            "data_html": "<img src=\"DQpmdyEuHNJsOSgjCscX\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -293,14 +293,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HWTM2",
+            "digest": "dpdhK",
             "data": {
               "json_obj": {
-                "OcmxzSTOAwrsrlUFXVNG": "e9e07e03"
+                "VrxjAgERWKbWOACPyVjR": "d1aa55eac"
               }
             },
-            "data_text": "{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n",
-            "data_html": "<table ><tr><th>OcmxzSTOAwrsrlUFXVNG</th><td>e9e07e03</td></tr></table>",
+            "data_text": "{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n",
+            "data_html": "<table ><tr><th>VrxjAgERWKbWOACPyVjR</th><td>d1aa55eac</td></tr></table>",
             "extra": {}
           }
         ]
@@ -313,12 +313,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Classify this image with relevant tags:\n\nrLlDBDkuIlvxWLPfZDQI\n\n---\nThe instance we want to generate will be for the following class:\nclass image_catalog__TagList(JSONContent):\n    \"\"\"List of classification tags\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Classify this image with relevant tags:\n\nwvdrtMImOKhWJohRxFjn\n\n---\nThe instance we want to generate will be for the following class:\nclass image_catalog__TagList(JSONContent):\n    \"\"\"List of classification tags\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_4",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_4",
       "kind": "operator",
       "pipe_code": "generate_thumbnail",
       "pipe_type": "PipeImgGen",
@@ -326,34 +326,34 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.428373Z",
-        "ended_at": "2026-05-15T11:21:40.437581Z",
-        "duration": 0.009208
+        "started_at": "2026-05-15T12:39:32.035997Z",
+        "ended_at": "2026-05-15T12:39:32.044060Z",
+        "duration": 0.008063
       },
       "io": {
         "inputs": [
           {
             "name": "image",
             "concept": "Image",
-            "content_type": "URBIPVwjqzhsbviFaOyf",
+            "content_type": "gmWSMYMcwwiEeiuBoZhR",
             "preview": null,
             "size": null,
-            "digest": "Dysob",
+            "digest": "SBQwa",
             "data": {
-              "url": "imyDXXNFBsQQXJmXrTSg",
-              "public_url": "gZlsZnAWZHjCHYlsMgnF",
-              "source_prompt": "PPbvlyjFTFNrEomVJqVo",
-              "source_negative_prompt": "ERxGhUOZvCmjpgRWkfNk",
-              "caption": "rLlDBDkuIlvxWLPfZDQI",
-              "mime_type": "URBIPVwjqzhsbviFaOyf",
+              "url": "CKlRmFXUSIyvVhnbmqPW",
+              "public_url": "DQpmdyEuHNJsOSgjCscX",
+              "source_prompt": "eUFqCAGrEByilcazLqIY",
+              "source_negative_prompt": "QXgDBLckXbYTWkZQeoSE",
+              "caption": "wvdrtMImOKhWJohRxFjn",
+              "mime_type": "gmWSMYMcwwiEeiuBoZhR",
               "size": {
-                "width": 154,
-                "height": 4989
+                "width": 9256,
+                "height": 9625
               },
-              "filename": "CfJFKDmZBvBAqXjKsaKz"
+              "filename": "TbqMGfwwuukjJGcVWQPj"
             },
-            "data_text": "Image:\nURL: imyDXXNFBsQQXJmXrTSg                                                                           \nPublic URL: Open Image\nCaption: rLlDBDkuIlvxWLPfZDQI\nSize: 154x4989\nMIME Type: URBIPVwjqzhsbviFaOyf\n\nSource Prompt:\nPPbvlyjFTFNrEomVJqVo\n\nSource Negative Prompt: ERxGhUOZvCmjpgRWkfNk\n",
-            "data_html": "<img src=\"gZlsZnAWZHjCHYlsMgnF\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: CKlRmFXUSIyvVhnbmqPW                                                                           \nPublic URL: Open Image\nCaption: wvdrtMImOKhWJohRxFjn\nSize: 9256x9625\nMIME Type: gmWSMYMcwwiEeiuBoZhR\n\nSource Prompt:\neUFqCAGrEByilcazLqIY\n\nSource Negative Prompt: QXgDBLckXbYTWkZQeoSE\n",
+            "data_html": "<img src=\"DQpmdyEuHNJsOSgjCscX\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -364,11 +364,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "T5a9k",
+            "digest": "SL6Ly",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Thumbnail preview of: rLlDBDkuIlvxWLPfZDQI",
+              "source_prompt": "Thumbnail preview of: wvdrtMImOKhWJohRxFjn",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -378,7 +378,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nThumbnail preview of: rLlDBDkuIlvxWLPfZDQI\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nThumbnail preview of: wvdrtMImOKhWJohRxFjn\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -389,14 +389,14 @@
       "metrics": {},
       "execution_data": {
         "resolved_model": "@default-general",
-        "rendered_prompt": "Thumbnail preview of: rLlDBDkuIlvxWLPfZDQI",
+        "rendered_prompt": "Thumbnail preview of: wvdrtMImOKhWJohRxFjn",
         "rendered_negative_prompt": null,
         "aspect_ratio": "square",
         "nb_images": 1
       }
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_5",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_5",
       "kind": "operator",
       "pipe_code": "build_catalog",
       "pipe_type": "PipeCompose",
@@ -404,9 +404,9 @@
       "domain_code": "image_catalog",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:40.445860Z",
-        "ended_at": "2026-05-15T11:21:40.453704Z",
-        "duration": 0.007844
+        "started_at": "2026-05-15T12:39:32.051676Z",
+        "ended_at": "2026-05-15T12:39:32.058226Z",
+        "duration": 0.00655
       },
       "io": {
         "inputs": [
@@ -416,12 +416,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Xdzsf",
+            "digest": "7sBJ7",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nrLlDBDkuIlvxWLPfZDQI                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe this image in      \ndetail:                                                                                             \n\nwvdrtMImOKhWJohRxFjn                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    ",
             "extra": {}
           },
           {
@@ -430,14 +430,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HWTM2",
+            "digest": "dpdhK",
             "data": {
               "json_obj": {
-                "OcmxzSTOAwrsrlUFXVNG": "e9e07e03"
+                "VrxjAgERWKbWOACPyVjR": "d1aa55eac"
               }
             },
-            "data_text": "{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n",
-            "data_html": "<table ><tr><th>OcmxzSTOAwrsrlUFXVNG</th><td>e9e07e03</td></tr></table>",
+            "data_text": "{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n",
+            "data_html": "<table ><tr><th>VrxjAgERWKbWOACPyVjR</th><td>d1aa55eac</td></tr></table>",
             "extra": {}
           }
         ],
@@ -448,12 +448,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Gs9xk",
+            "digest": "iMQrS",
             "data": {
-              "text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    \n```\n\n### Tags\ntags: ```\n{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n```"
+              "text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    \n```\n\n### Tags\ntags: ```\n{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n```"
             },
-            "data_text": "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe   \nthis image in detail:                                                                               \n\nrLlDBDkuIlvxWLPfZDQI                                                                                \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {                                                                                                  \n     \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"                                                             \n }                                                                                                  \n                                                                                                    \n",
-            "data_html": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    \n```\n\n### Tags\ntags: ```\n{\n    &quot;OcmxzSTOAwrsrlUFXVNG&quot;: &quot;e9e07e03&quot;\n}\n```",
+            "data_text": "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,      \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Describe   \nthis image in detail:                                                                               \n\nwvdrtMImOKhWJohRxFjn                                                                                \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {                                                                                                  \n     \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"                                                            \n }                                                                                                  \n                                                                                                    \n",
+            "data_html": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    \n```\n\n### Tags\ntags: ```\n{\n    &quot;VrxjAgERWKbWOACPyVjR&quot;: &quot;d1aa55eac&quot;\n}\n```",
             "extra": {}
           }
         ]
@@ -463,15 +463,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nrLlDBDkuIlvxWLPfZDQI\n    \n```\n\n### Tags\ntags: ```\n{\n    \"OcmxzSTOAwrsrlUFXVNG\": \"e9e07e03\"\n}\n```"
+        "rendered_text": "## Catalog Entry\n\n### Description\ndescription: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Describe this image in detail:\n\nwvdrtMImOKhWJohRxFjn\n    \n```\n\n### Tags\ntags: ```\n{\n    \"VrxjAgERWKbWOACPyVjR\": \"d1aa55eac\"\n}\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:edge_0",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_0",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:edge_0",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_0",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -479,9 +479,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:edge_1",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_2",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:edge_1",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -489,9 +489,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:edge_2",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_3",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:edge_2",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -499,9 +499,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:edge_3",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_4",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:edge_3",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -509,9 +509,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:edge_4",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_0",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_5",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:edge_4",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_0",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -519,9 +519,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:asm_edge_0",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_5",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:asm_edge_0",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_5",
       "kind": "data",
       "label": "description",
       "source_stuff_digest": null,
@@ -529,9 +529,9 @@
       "meta": {}
     },
     {
-      "id": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:asm_edge_1",
-      "source": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_1",
-      "target": "e0d9d2e7-30c2-417a-89c9-80be4888ad6c:node_5",
+      "id": "cce415ce-3541-45e9-ab78-cbb81fa90932:asm_edge_1",
+      "source": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_1",
+      "target": "cce415ce-3541-45e9-ab78-cbb81fa90932:node_5",
       "kind": "data",
       "label": "tags",
       "source_stuff_digest": null,

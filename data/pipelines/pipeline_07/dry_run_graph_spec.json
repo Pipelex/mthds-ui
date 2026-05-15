@@ -1,6 +1,6 @@
 {
-  "graph_id": "8b4f1df4-690d-479f-a464-52135d4ade80",
-  "created_at": "2026-05-15T11:21:21.173200Z",
+  "graph_id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56",
+  "created_at": "2026-05-15T12:39:12.714843Z",
   "pipeline_ref": {
     "domain": "translation",
     "main_pipe": "translate_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_0",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_0",
       "kind": "controller",
       "pipe_code": "translate_pipeline",
       "pipe_type": "PipeSequence",
@@ -16,9 +16,9 @@
       "domain_code": "translation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:21.173200Z",
-        "ended_at": "2026-05-15T11:21:21.239347Z",
-        "duration": 0.066147
+        "started_at": "2026-05-15T12:39:12.714843Z",
+        "ended_at": "2026-05-15T12:39:12.772027Z",
+        "duration": 0.057184
       },
       "io": {
         "inputs": [
@@ -28,12 +28,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QAta9",
+            "digest": "QmNxU",
             "data": {
-              "text": "ZgoplOBhHOdXQOLnCflK"
+              "text": "TjYrojyVIWcAdPfRBtAi"
             },
-            "data_text": "ZgoplOBhHOdXQOLnCflK                                                                                \n",
-            "data_html": "ZgoplOBhHOdXQOLnCflK",
+            "data_text": "TjYrojyVIWcAdPfRBtAi                                                                                \n",
+            "data_html": "TjYrojyVIWcAdPfRBtAi",
             "extra": {}
           }
         ],
@@ -44,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "4bx98",
+            "digest": "LhiXz",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    "
+              "text": "INtuizPsCxsZHIMVHPfB"
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom french to English:                                                                             \n\nkRvCSwFtxwlHGqktXSMU                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    ",
+            "data_text": "INtuizPsCxsZHIMVHPfB                                                                                \n",
+            "data_html": "INtuizPsCxsZHIMVHPfB",
             "extra": {}
           }
         ]
@@ -62,7 +62,7 @@
       }
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
       "kind": "operator",
       "pipe_code": "detect_language",
       "pipe_type": "PipeLLM",
@@ -70,9 +70,9 @@
       "domain_code": "translation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:21.180088Z",
-        "ended_at": "2026-05-15T11:21:21.194795Z",
-        "duration": 0.014707
+        "started_at": "2026-05-15T12:39:12.719818Z",
+        "ended_at": "2026-05-15T12:39:12.731467Z",
+        "duration": 0.011649
       },
       "io": {
         "inputs": [
@@ -82,12 +82,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QAta9",
+            "digest": "QmNxU",
             "data": {
-              "text": "ZgoplOBhHOdXQOLnCflK"
+              "text": "TjYrojyVIWcAdPfRBtAi"
             },
-            "data_text": "ZgoplOBhHOdXQOLnCflK                                                                                \n",
-            "data_html": "ZgoplOBhHOdXQOLnCflK",
+            "data_text": "TjYrojyVIWcAdPfRBtAi                                                                                \n",
+            "data_html": "TjYrojyVIWcAdPfRBtAi",
             "extra": {}
           }
         ],
@@ -98,13 +98,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Kdt5A",
+            "digest": "jWNor",
             "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU",
+              "text": "INtuizPsCxsZHIMVHPfB",
               "language": "french"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ kRvCSwFtxwlHGqktXSMU                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
-            "data_html": "<table><tr><th>text</th><td>kRvCSwFtxwlHGqktXSMU</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ INtuizPsCxsZHIMVHPfB                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
+            "data_html": "<table><tr><th>text</th><td>INtuizPsCxsZHIMVHPfB</td></tr><tr><th>language</th><td>french</td></tr></table>",
             "extra": {}
           }
         ]
@@ -117,12 +117,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Detect the language of the following text and classify it:\n\n<text>\nZgoplOBhHOdXQOLnCflK\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass translation__ClassifiedText(StructuredContent):\n    \"\"\"Text with detected language\"\"\"\n    text: str  # The original text\n    language: Literal[\n        \"english\",\n        \"french\",\n        \"spanish\",\n        \"german\",\n        \"other\",\n    ]  # Detected language code\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Detect the language of the following text and classify it:\n\n<text>\nTjYrojyVIWcAdPfRBtAi\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass translation__ClassifiedText(StructuredContent):\n    \"\"\"Text with detected language\"\"\"\n    text: str  # The original text\n    language: Literal[\n        \"english\",\n        \"french\",\n        \"spanish\",\n        \"german\",\n        \"other\",\n    ]  # Detected language code\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
       "kind": "controller",
       "pipe_code": "route_translation",
       "pipe_type": "PipeCondition",
@@ -130,9 +130,9 @@
       "domain_code": "translation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:21.199066Z",
-        "ended_at": "2026-05-15T11:21:21.236839Z",
-        "duration": 0.037773
+        "started_at": "2026-05-15T12:39:12.735394Z",
+        "ended_at": "2026-05-15T12:39:12.769651Z",
+        "duration": 0.034257
       },
       "io": {
         "inputs": [
@@ -142,13 +142,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Kdt5A",
+            "digest": "jWNor",
             "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU",
+              "text": "INtuizPsCxsZHIMVHPfB",
               "language": "french"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ kRvCSwFtxwlHGqktXSMU                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
-            "data_html": "<table><tr><th>text</th><td>kRvCSwFtxwlHGqktXSMU</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ INtuizPsCxsZHIMVHPfB                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
+            "data_html": "<table><tr><th>text</th><td>INtuizPsCxsZHIMVHPfB</td></tr><tr><th>language</th><td>french</td></tr></table>",
             "extra": {}
           }
         ],
@@ -159,12 +159,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "4bx98",
+            "digest": "LhiXz",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    "
+              "text": "INtuizPsCxsZHIMVHPfB"
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom french to English:                                                                             \n\nkRvCSwFtxwlHGqktXSMU                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    ",
+            "data_text": "INtuizPsCxsZHIMVHPfB                                                                                \n",
+            "data_html": "INtuizPsCxsZHIMVHPfB",
             "extra": {}
           }
         ]
@@ -178,17 +178,17 @@
       }
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_3",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_3",
       "kind": "operator",
-      "pipe_code": "passthrough",
-      "pipe_type": "PipeCompose",
-      "description": "Pass English text through unchanged",
+      "pipe_code": "translate_other",
+      "pipe_type": "PipeLLM",
+      "description": "Translate any language to English",
       "domain_code": "translation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:21.202856Z",
-        "ended_at": "2026-05-15T11:21:21.208958Z",
-        "duration": 0.006102
+        "started_at": "2026-05-15T12:39:12.738774Z",
+        "ended_at": "2026-05-15T12:39:12.748053Z",
+        "duration": 0.009279
       },
       "io": {
         "inputs": [
@@ -198,13 +198,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Kdt5A",
+            "digest": "jWNor",
             "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU",
+              "text": "INtuizPsCxsZHIMVHPfB",
               "language": "french"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ kRvCSwFtxwlHGqktXSMU                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
-            "data_html": "<table><tr><th>text</th><td>kRvCSwFtxwlHGqktXSMU</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ INtuizPsCxsZHIMVHPfB                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
+            "data_html": "<table><tr><th>text</th><td>INtuizPsCxsZHIMVHPfB</td></tr><tr><th>language</th><td>french</td></tr></table>",
             "extra": {}
           }
         ],
@@ -215,12 +215,132 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "NejDy",
+            "digest": "gQnzf",
             "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU"
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nINtuizPsCxsZHIMVHPfB\n    "
             },
-            "data_text": "kRvCSwFtxwlHGqktXSMU                                                                                \n",
-            "data_html": "kRvCSwFtxwlHGqktXSMU",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom french to English:                                                                             \n\nINtuizPsCxsZHIMVHPfB                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nINtuizPsCxsZHIMVHPfB\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Translate the following text from french to English:\n\nINtuizPsCxsZHIMVHPfB",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_4",
+      "kind": "operator",
+      "pipe_code": "translate_french",
+      "pipe_type": "PipeLLM",
+      "description": "Translate French text to English",
+      "domain_code": "translation",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-05-15T12:39:12.748103Z",
+        "ended_at": "2026-05-15T12:39:12.760381Z",
+        "duration": 0.012278
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "jWNor",
+            "data": {
+              "text": "INtuizPsCxsZHIMVHPfB",
+              "language": "french"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ INtuizPsCxsZHIMVHPfB                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
+            "data_html": "<table><tr><th>text</th><td>INtuizPsCxsZHIMVHPfB</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "translated",
+            "concept": "TranslatedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LJzX2",
+            "data": {
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nINtuizPsCxsZHIMVHPfB\n    "
+            },
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following     \nFrench text to English:                                                                             \n\nINtuizPsCxsZHIMVHPfB                                                                                \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nINtuizPsCxsZHIMVHPfB\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Translate the following French text to English:\n\nINtuizPsCxsZHIMVHPfB",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_5",
+      "kind": "operator",
+      "pipe_code": "passthrough",
+      "pipe_type": "PipeCompose",
+      "description": "Pass English text through unchanged",
+      "domain_code": "translation",
+      "status": "succeeded",
+      "timing": {
+        "started_at": "2026-05-15T12:39:12.760430Z",
+        "ended_at": "2026-05-15T12:39:12.769296Z",
+        "duration": 0.008866
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "ClassifiedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "jWNor",
+            "data": {
+              "text": "INtuizPsCxsZHIMVHPfB",
+              "language": "french"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ INtuizPsCxsZHIMVHPfB                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
+            "data_html": "<table><tr><th>text</th><td>INtuizPsCxsZHIMVHPfB</td></tr><tr><th>language</th><td>french</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "translated",
+            "concept": "TranslatedText",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LhiXz",
+            "data": {
+              "text": "INtuizPsCxsZHIMVHPfB"
+            },
+            "data_text": "INtuizPsCxsZHIMVHPfB                                                                                \n",
+            "data_html": "INtuizPsCxsZHIMVHPfB",
             "extra": {}
           }
         ]
@@ -230,135 +350,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "kRvCSwFtxwlHGqktXSMU"
-      }
-    },
-    {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_4",
-      "kind": "operator",
-      "pipe_code": "translate_french",
-      "pipe_type": "PipeLLM",
-      "description": "Translate French text to English",
-      "domain_code": "translation",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T11:21:21.209008Z",
-        "ended_at": "2026-05-15T11:21:21.222951Z",
-        "duration": 0.013943
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "classified",
-            "concept": "ClassifiedText",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "Kdt5A",
-            "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU",
-              "language": "french"
-            },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ kRvCSwFtxwlHGqktXSMU                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
-            "data_html": "<table><tr><th>text</th><td>kRvCSwFtxwlHGqktXSMU</td></tr><tr><th>language</th><td>french</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "translated",
-            "concept": "TranslatedText",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "ivMdj",
-            "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nkRvCSwFtxwlHGqktXSMU\n    "
-            },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following     \nFrench text to English:                                                                             \n\nkRvCSwFtxwlHGqktXSMU                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nkRvCSwFtxwlHGqktXSMU\n    ",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "claude-4.6-sonnet",
-        "resolved_model_for_object": "claude-4.6-sonnet",
-        "is_multiple_output": false,
-        "rendered_system_prompt": null,
-        "rendered_user_prompt": "Translate the following French text to English:\n\nkRvCSwFtxwlHGqktXSMU",
-        "structuring_path": "text"
-      }
-    },
-    {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:node_5",
-      "kind": "operator",
-      "pipe_code": "translate_other",
-      "pipe_type": "PipeLLM",
-      "description": "Translate any language to English",
-      "domain_code": "translation",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T11:21:21.223021Z",
-        "ended_at": "2026-05-15T11:21:21.236330Z",
-        "duration": 0.013309
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "classified",
-            "concept": "ClassifiedText",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "Kdt5A",
-            "data": {
-              "text": "kRvCSwFtxwlHGqktXSMU",
-              "language": "french"
-            },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ kRvCSwFtxwlHGqktXSMU                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ french                                             \n",
-            "data_html": "<table><tr><th>text</th><td>kRvCSwFtxwlHGqktXSMU</td></tr><tr><th>language</th><td>french</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "translated",
-            "concept": "TranslatedText",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "4bx98",
-            "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    "
-            },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom french to English:                                                                             \n\nkRvCSwFtxwlHGqktXSMU                                                                                \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU\n    ",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "claude-4.6-sonnet",
-        "resolved_model_for_object": "claude-4.6-sonnet",
-        "is_multiple_output": false,
-        "rendered_system_prompt": null,
-        "rendered_user_prompt": "Translate the following text from french to English:\n\nkRvCSwFtxwlHGqktXSMU",
-        "structuring_path": "text"
+        "rendered_text": "INtuizPsCxsZHIMVHPfB"
       }
     }
   ],
   "edges": [
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:edge_0",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_0",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:edge_0",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_0",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -366,9 +366,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:edge_1",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_0",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:edge_1",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_0",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -376,9 +376,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:edge_2",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_3",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:edge_2",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -386,9 +386,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:edge_3",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_4",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:edge_3",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -396,9 +396,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:edge_4",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_5",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:edge_4",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -406,9 +406,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:asm_edge_0",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_2",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:asm_edge_0",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_2",
       "kind": "data",
       "label": "classified",
       "source_stuff_digest": null,
@@ -416,9 +416,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:asm_edge_1",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_3",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:asm_edge_1",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_3",
       "kind": "data",
       "label": "classified",
       "source_stuff_digest": null,
@@ -426,9 +426,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:asm_edge_2",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_4",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:asm_edge_2",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_4",
       "kind": "data",
       "label": "classified",
       "source_stuff_digest": null,
@@ -436,9 +436,9 @@
       "meta": {}
     },
     {
-      "id": "8b4f1df4-690d-479f-a464-52135d4ade80:asm_edge_3",
-      "source": "8b4f1df4-690d-479f-a464-52135d4ade80:node_1",
-      "target": "8b4f1df4-690d-479f-a464-52135d4ade80:node_5",
+      "id": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:asm_edge_3",
+      "source": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_1",
+      "target": "ccacf3f6-dac7-452f-9df2-6b6ae3b76d56:node_5",
       "kind": "data",
       "label": "classified",
       "source_stuff_digest": null,
@@ -578,12 +578,12 @@
       "default_outcome": "translate_other",
       "add_alias_from_expression_to": null
     },
-    "translation.passthrough": {
+    "translation.translate_other": {
       "pipe_category": "PipeOperator",
-      "type": "PipeCompose",
-      "code": "passthrough",
+      "type": "PipeLLM",
+      "code": "translate_other",
       "domain_code": "translation",
-      "description": "Pass English text through unchanged",
+      "description": "Translate any language to English",
       "inputs": {
         "classified": {
           "concept": {
@@ -606,11 +606,26 @@
         },
         "multiplicity": null
       },
-      "template": "{{ classified.text|format() }}",
-      "templating_style": null,
-      "category": "basic",
-      "extra_context": null,
-      "construct_blueprint": null
+      "llm_prompt_spec": {
+        "templating_style": null,
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Translate the following text from $classified.language to English:\n\n$classified.text\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "structuring_method": null,
+      "output_multiplicity": null
     },
     "translation.translate_french": {
       "pipe_category": "PipeOperator",
@@ -661,12 +676,12 @@
       "structuring_method": null,
       "output_multiplicity": null
     },
-    "translation.translate_other": {
+    "translation.passthrough": {
       "pipe_category": "PipeOperator",
-      "type": "PipeLLM",
-      "code": "translate_other",
+      "type": "PipeCompose",
+      "code": "passthrough",
       "domain_code": "translation",
-      "description": "Translate any language to English",
+      "description": "Pass English text through unchanged",
       "inputs": {
         "classified": {
           "concept": {
@@ -689,26 +704,11 @@
         },
         "multiplicity": null
       },
-      "llm_prompt_spec": {
-        "templating_style": null,
-        "system_prompt_blueprint": null,
-        "prompt_blueprint": {
-          "template": "Translate the following text from $classified.language to English:\n\n$classified.text\n",
-          "templating_style": null,
-          "category": "llm_prompt",
-          "extra_context": null
-        },
-        "user_image_references": null,
-        "user_document_references": null,
-        "system_image_references": null,
-        "system_document_references": null
-      },
-      "llm_choices": {
-        "for_text": null,
-        "for_object": null
-      },
-      "structuring_method": null,
-      "output_multiplicity": null
+      "template": "{{ classified.text|format() }}",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
     }
   },
   "concept_registry": {

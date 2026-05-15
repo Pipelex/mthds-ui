@@ -6,11 +6,14 @@
  *
  *   node scripts/generate-fixtures.mjs                   DRY specs  -> _generated.dry.ts
  *   node scripts/generate-fixtures.mjs --live            LIVE specs -> _generated.live.ts
- *   node scripts/generate-fixtures.mjs --only pipeline_09
+ *   node scripts/generate-fixtures.mjs --only p_09,p_10  restrict to a comma-separated list
+ *   node scripts/generate-fixtures.mjs --check           run + validate, write nothing
  *
  * DRY runs use --dry-run --mock-inputs (deterministic, no inference).
  * LIVE runs perform real inference and need pipelex credentials available.
  * Both resolve config from the repo-local .pipelex/ directory.
+ * --check is a smoke test: useful with --live --only to confirm the live path
+ * works before committing to a full regeneration.
  */
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync, readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
@@ -57,9 +60,10 @@ const NAME_MAP = {
 };
 
 const LIVE = process.argv.includes("--live");
+const CHECK = process.argv.includes("--check");
 const MODE = LIVE ? "LIVE" : "DRY";
 const onlyArg = process.argv.indexOf("--only");
-const ONLY = onlyArg !== -1 ? process.argv[onlyArg + 1] : null;
+const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
 
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
@@ -122,12 +126,16 @@ function assertValid(spec, pipelineDir) {
 async function main() {
   const pipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
-    .filter((p) => !ONLY || p === ONLY)
+    .filter((p) => !ONLY || ONLY.has(p))
     .sort();
 
-  if (pipelines.length === 0) die(ONLY ? `no pipeline matching --only ${ONLY}` : "no pipelines found");
+  if (pipelines.length === 0) {
+    die(ONLY ? `no pipeline matching --only ${[...ONLY].join(",")}` : "no pipelines found");
+  }
 
-  console.log(`generate-fixtures: ${MODE} run over ${pipelines.length} pipeline(s)`);
+  console.log(
+    `generate-fixtures: ${MODE} run over ${pipelines.length} pipeline(s)${CHECK ? " [check — no files written]" : ""}`,
+  );
 
   const specs = [];
   for (const pipelineDir of pipelines) {
@@ -137,12 +145,19 @@ async function main() {
     specs.push({ name: NAME_MAP[pipelineDir], spec });
 
     // Keep the data/pipelines JSON in sync with the emitted fixture.
-    const jsonName = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
-    writeFileSync(
-      path.join(PIPELINES_DIR, pipelineDir, jsonName),
-      JSON.stringify(spec, null, 2) + "\n",
-    );
+    if (!CHECK) {
+      const jsonName = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
+      writeFileSync(
+        path.join(PIPELINES_DIR, pipelineDir, jsonName),
+        JSON.stringify(spec, null, 2) + "\n",
+      );
+    }
     console.log(`ok (${spec.nodes.length} nodes)`);
+  }
+
+  if (CHECK) {
+    console.log(`\n✓ check passed — ${specs.length} ${MODE} spec(s) validated, nothing written`);
+    return;
   }
 
   const prefix = LIVE ? "LIVE" : "DRY";
@@ -167,6 +182,28 @@ async function main() {
   const outFile = path.join(SPECS_DIR, LIVE ? "_generated.live.ts" : "_generated.dry.ts");
   writeFileSync(outFile, formatted);
   console.log(`\n✓ wrote ${path.relative(REPO, outFile)} (${specs.length} specs)`);
+
+  // Bootstrap a LIVE placeholder so a plain `make fixtures` is enough to build
+  // Storybook. `make fixtures-live` writes the real file; the existence guard
+  // ensures a real _generated.live.ts is never clobbered by a DRY run.
+  if (!LIVE && !ONLY) {
+    const liveFile = path.join(SPECS_DIR, "_generated.live.ts");
+    if (!existsSync(liveFile)) {
+      const placeholderRaw =
+        `/**\n` +
+        ` * PLACEHOLDER — re-exports the DRY specs as LIVE so Storybook builds\n` +
+        ` * without a paid live run. Run \`make fixtures-live\` for real LIVE data.\n` +
+        ` */\n` +
+        `export {\n` +
+        specs.map(({ name }) => `  DRY_${name} as LIVE_${name},`).join("\n") +
+        `\n} from "./_generated.dry";\n`;
+      writeFileSync(
+        liveFile,
+        await prettier.format(placeholderRaw, { ...prettierConfig, parser: "typescript" }),
+      );
+      console.log("  wrote _generated.live.ts (DRY placeholder — run `make fixtures-live`)");
+    }
+  }
 }
 
 main();

@@ -1,6 +1,6 @@
 {
-  "graph_id": "8a7d70d0-0f7d-4079-a398-fde333b249e4",
-  "created_at": "2026-05-15T11:22:04.000808Z",
+  "graph_id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f",
+  "created_at": "2026-05-15T12:39:55.589792Z",
   "pipeline_ref": {
     "domain": "cv_batch_screening",
     "main_pipe": "batch_analyze_cvs_for_job_offer",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_0",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
       "kind": "controller",
       "pipe_code": "batch_analyze_cvs_for_job_offer",
       "pipe_type": "PipeSequence",
@@ -16,29 +16,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.000808Z",
-        "ended_at": "2026-05-15T11:22:04.236033Z",
-        "duration": 0.235225
+        "started_at": "2026-05-15T12:39:55.589792Z",
+        "ended_at": "2026-05-15T12:39:55.801488Z",
+        "duration": 0.211696
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "RoiQfsSTxWLwAfHnBWHB",
+            "content_type": "tboHjLJFCJNOTvsFUcIK",
             "preview": null,
             "size": null,
-            "digest": "j4gm6",
+            "digest": "juQjr",
             "data": {
-              "url": "MIADhQQkCAvEICEYETBS",
-              "public_url": "FaPWSBGzPEHZDyNOIVlS",
-              "mime_type": "RoiQfsSTxWLwAfHnBWHB",
-              "filename": "iQYJgHKIowqrVFjkPGik",
-              "title": "XEcYuiXpjeknLvrtvDXQ",
-              "snippet": "AsCxfafsGQPPVSFJIovn"
+              "url": "romLlQpBjTOUWAKHFqqj",
+              "public_url": "otANBGNhkMKAeOFaUZAd",
+              "mime_type": "tboHjLJFCJNOTvsFUcIK",
+              "filename": "eHoKhreGPGmwVZPSPIjT",
+              "title": "ihJDIDpeOAkegLltSukj",
+              "snippet": "AxEtGNkBVpRkYYCBkjUX"
             },
-            "data_text": "XEcYuiXpjeknLvrtvDXQ (MIADhQQkCAvEICEYETBS)\n  AsCxfafsGQPPVSFJIovn\n",
-            "data_html": "<a href=\"FaPWSBGzPEHZDyNOIVlS\" class=\"msg-document\">XEcYuiXpjeknLvrtvDXQ</a><br/><small>AsCxfafsGQPPVSFJIovn</small>",
+            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
+            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
             "extra": {}
           },
           {
@@ -47,37 +47,37 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "KEYwp",
+            "digest": "V5vae",
             "data": {
               "items": [
                 {
-                  "url": "uJwMTkpHjxToKklFpTCG",
-                  "public_url": "BmPwOpPmkpBiUnLnMWsK",
-                  "mime_type": "LIEJlrINlWZKGNzhnFwV",
-                  "filename": "nSISEWGzpKmtEqUZLzfN",
-                  "title": "MVxOwwrhcSULOtNZgUHQ",
-                  "snippet": "VYBvXtzgCDSDDElxQAvs"
+                  "url": "dXAsWBvZvBfnvVaeyULy",
+                  "public_url": "nvFGzZgwEblFGenNvLWn",
+                  "mime_type": "xgElecCTkPZgRwlnEhPw",
+                  "filename": "eAIcRFIZBeAEiDosQlyd",
+                  "title": "KyUptAsybHVCanWcOHUg",
+                  "snippet": "MqKSYginyDGNecynbURT"
                 },
                 {
-                  "url": "TbVroqkupOyQWiiuotjv",
-                  "public_url": "yLImRPWbPejAsvuALRDj",
-                  "mime_type": "TqOikPMYjoYhJxcwPaSN",
-                  "filename": "CePFAdhyENxZavylBiYN",
-                  "title": "pWCBocqLbWMGoTFlWfVe",
-                  "snippet": "FlbqqFAtohgUNVChyDgq"
+                  "url": "boOdshflPuvQVbvyIzHx",
+                  "public_url": "gfFaaKvQyerowkLicaZV",
+                  "mime_type": "jmIrWXUNNbXRLKVjxQwm",
+                  "filename": "lUBkWsCkCuwnZeVzhCad",
+                  "title": "YrqoorctKNIHkziRaFfQ",
+                  "snippet": "NNlsRKItdoAvnvVYoPyG"
                 },
                 {
-                  "url": "ISCDBkLjazXCzIdbQmnq",
-                  "public_url": "FsZfcUstHvpbFuSlqhPt",
-                  "mime_type": "jwlrFSlHQtvMykVFQffu",
-                  "filename": "SdsYWezQIcyXLpxDZrmp",
-                  "title": "vevYMKQipvWHmlFvvykk",
-                  "snippet": "qHtcTdwgIsdLuwoLzbkD"
+                  "url": "qLjWSQtReJZUEWUETJjO",
+                  "public_url": "aZDNpYUoispSfPGwwymj",
+                  "mime_type": "OuivZNaVcTkiYjlSIfjD",
+                  "filename": "qkQNwKNrDcXTnrBjipOn",
+                  "title": "kkOFQVPWsnIJkFEdlmQF",
+                  "snippet": "auAZEyQJJBxXnHBmAeOI"
                 }
               ]
             },
-            "data_text": "     1      │ MVxOwwrhcSULOtNZgUHQ (uJwMTkpHjxToKklFpTCG)                       \n            │   VYBvXtzgCDSDDElxQAvs                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ pWCBocqLbWMGoTFlWfVe (TbVroqkupOyQWiiuotjv)                       \n            │   FlbqqFAtohgUNVChyDgq                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ vevYMKQipvWHmlFvvykk (ISCDBkLjazXCzIdbQmnq)                       \n            │   qHtcTdwgIsdLuwoLzbkD                                            \n",
-            "data_html": "<ul><li><a href=\"BmPwOpPmkpBiUnLnMWsK\" class=\"msg-document\">MVxOwwrhcSULOtNZgUHQ</a><br/><small>VYBvXtzgCDSDDElxQAvs</small></li><li><a href=\"yLImRPWbPejAsvuALRDj\" class=\"msg-document\">pWCBocqLbWMGoTFlWfVe</a><br/><small>FlbqqFAtohgUNVChyDgq</small></li><li><a href=\"FsZfcUstHvpbFuSlqhPt\" class=\"msg-document\">vevYMKQipvWHmlFvvykk</a><br/><small>qHtcTdwgIsdLuwoLzbkD</small></li></ul>",
+            "data_text": "     1      │ KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)                       \n            │   MqKSYginyDGNecynbURT                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)                       \n            │   NNlsRKItdoAvnvVYoPyG                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)                       \n            │   auAZEyQJJBxXnHBmAeOI                                            \n",
+            "data_html": "<ul><li><a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small></li><li><a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small></li><li><a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small></li></ul>",
             "extra": {}
           }
         ],
@@ -88,31 +88,31 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SaY3H",
+            "digest": "LMiEK",
             "data": {
               "items": [
                 {
-                  "match_score": 7993.40155739205,
-                  "strengths": "JjbkLqoRylFDAdsjMfXx",
-                  "gaps": "bDVgWFwencGqGfberkqe",
-                  "overall_assessment": "HWpUcyhVmNnaQoOBxwqd"
+                  "match_score": 84619584924982.1,
+                  "strengths": "nqXFhJAsyKFgFkIcsfJl",
+                  "gaps": "TCHAmVmmihqVBFuxDSNc",
+                  "overall_assessment": "tIGiICgdOSibQMomXxZP"
                 },
                 {
-                  "match_score": -270052991.29424,
-                  "strengths": "cliKaZItIBJRsIWUrnnB",
-                  "gaps": "ZEpYxaDzpRSbyGbWDQXa",
-                  "overall_assessment": "qAYxmsDWxOVCRRObUeqQ"
+                  "match_score": 8200.59706829677,
+                  "strengths": "zlDtGiKvXoerMxGDTnLe",
+                  "gaps": "sQZBIVYupSYKXoftBCWd",
+                  "overall_assessment": "rhJRTOeBMppKEvupZwev"
                 },
                 {
-                  "match_score": 0.22359030564784,
-                  "strengths": "nJTjhhCPxyTjBTPHfmHT",
-                  "gaps": "PIivWKUooiGdLDrVHHLW",
-                  "overall_assessment": "zIrYvGYxDDlLLJspuldB"
+                  "match_score": 308.596122362541,
+                  "strengths": "RPGssLScWPXjQagFYgkM",
+                  "gaps": "GVnzWxRukreNgNBpUAKn",
+                  "overall_assessment": "VmltLQKrevgdJFsboaMa"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7993.40155739205                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ JjbkLqoRylFDAdsjMfXx              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ bDVgWFwencGqGfberkqe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ HWpUcyhVmNnaQoOBxwqd              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ -270052991.29424                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ cliKaZItIBJRsIWUrnnB              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ ZEpYxaDzpRSbyGbWDQXa              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ qAYxmsDWxOVCRRObUeqQ              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 0.22359030564784                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nJTjhhCPxyTjBTPHfmHT              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ PIivWKUooiGdLDrVHHLW              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ zIrYvGYxDDlLLJspuldB              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>7993.40155739205</td></tr><tr><th>strengths</th><td>JjbkLqoRylFDAdsjMfXx</td></tr><tr><th>gaps</th><td>bDVgWFwencGqGfberkqe</td></tr><tr><th>overall_assessment</th><td>HWpUcyhVmNnaQoOBxwqd</td></tr></table></li><li><table><tr><th>match_score</th><td>-270052991.29424</td></tr><tr><th>strengths</th><td>cliKaZItIBJRsIWUrnnB</td></tr><tr><th>gaps</th><td>ZEpYxaDzpRSbyGbWDQXa</td></tr><tr><th>overall_assessment</th><td>qAYxmsDWxOVCRRObUeqQ</td></tr></table></li><li><table><tr><th>match_score</th><td>0.22359030564784</td></tr><tr><th>strengths</th><td>nJTjhhCPxyTjBTPHfmHT</td></tr><tr><th>gaps</th><td>PIivWKUooiGdLDrVHHLW</td></tr><tr><th>overall_assessment</th><td>zIrYvGYxDDlLLJspuldB</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 84619584924982.1                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nqXFhJAsyKFgFkIcsfJl              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ TCHAmVmmihqVBFuxDSNc              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ tIGiICgdOSibQMomXxZP              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 8200.59706829677                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ zlDtGiKvXoerMxGDTnLe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ sQZBIVYupSYKXoftBCWd              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ rhJRTOeBMppKEvupZwev              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 308.596122362541                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ RPGssLScWPXjQagFYgkM              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ GVnzWxRukreNgNBpUAKn              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ VmltLQKrevgdJFsboaMa              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table></li><li><table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table></li><li><table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -125,7 +125,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
       "kind": "controller",
       "pipe_code": "prepare_job_offer",
       "pipe_type": "PipeSequence",
@@ -133,29 +133,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.007670Z",
-        "ended_at": "2026-05-15T11:22:04.048348Z",
-        "duration": 0.040678
+        "started_at": "2026-05-15T12:39:55.596795Z",
+        "ended_at": "2026-05-15T12:39:55.636570Z",
+        "duration": 0.039775
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "RoiQfsSTxWLwAfHnBWHB",
+            "content_type": "tboHjLJFCJNOTvsFUcIK",
             "preview": null,
             "size": null,
-            "digest": "j4gm6",
+            "digest": "juQjr",
             "data": {
-              "url": "MIADhQQkCAvEICEYETBS",
-              "public_url": "FaPWSBGzPEHZDyNOIVlS",
-              "mime_type": "RoiQfsSTxWLwAfHnBWHB",
-              "filename": "iQYJgHKIowqrVFjkPGik",
-              "title": "XEcYuiXpjeknLvrtvDXQ",
-              "snippet": "AsCxfafsGQPPVSFJIovn"
+              "url": "romLlQpBjTOUWAKHFqqj",
+              "public_url": "otANBGNhkMKAeOFaUZAd",
+              "mime_type": "tboHjLJFCJNOTvsFUcIK",
+              "filename": "eHoKhreGPGmwVZPSPIjT",
+              "title": "ihJDIDpeOAkegLltSukj",
+              "snippet": "AxEtGNkBVpRkYYCBkjUX"
             },
-            "data_text": "XEcYuiXpjeknLvrtvDXQ (MIADhQQkCAvEICEYETBS)\n  AsCxfafsGQPPVSFJIovn\n",
-            "data_html": "<a href=\"FaPWSBGzPEHZDyNOIVlS\" class=\"msg-document\">XEcYuiXpjeknLvrtvDXQ</a><br/><small>AsCxfafsGQPPVSFJIovn</small>",
+            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
+            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
             "extra": {}
           }
         ],
@@ -166,15 +166,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ]
@@ -187,7 +187,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_2",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
       "kind": "operator",
       "pipe_code": "extract_one_job_offer",
       "pipe_type": "PipeExtract",
@@ -195,29 +195,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.012920Z",
-        "ended_at": "2026-05-15T11:22:04.021115Z",
-        "duration": 0.008195
+        "started_at": "2026-05-15T12:39:55.601772Z",
+        "ended_at": "2026-05-15T12:39:55.610277Z",
+        "duration": 0.008505
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "RoiQfsSTxWLwAfHnBWHB",
+            "content_type": "tboHjLJFCJNOTvsFUcIK",
             "preview": null,
             "size": null,
-            "digest": "j4gm6",
+            "digest": "juQjr",
             "data": {
-              "url": "MIADhQQkCAvEICEYETBS",
-              "public_url": "FaPWSBGzPEHZDyNOIVlS",
-              "mime_type": "RoiQfsSTxWLwAfHnBWHB",
-              "filename": "iQYJgHKIowqrVFjkPGik",
-              "title": "XEcYuiXpjeknLvrtvDXQ",
-              "snippet": "AsCxfafsGQPPVSFJIovn"
+              "url": "romLlQpBjTOUWAKHFqqj",
+              "public_url": "otANBGNhkMKAeOFaUZAd",
+              "mime_type": "tboHjLJFCJNOTvsFUcIK",
+              "filename": "eHoKhreGPGmwVZPSPIjT",
+              "title": "ihJDIDpeOAkegLltSukj",
+              "snippet": "AxEtGNkBVpRkYYCBkjUX"
             },
-            "data_text": "XEcYuiXpjeknLvrtvDXQ (MIADhQQkCAvEICEYETBS)\n  AsCxfafsGQPPVSFJIovn\n",
-            "data_html": "<a href=\"FaPWSBGzPEHZDyNOIVlS\" class=\"msg-document\">XEcYuiXpjeknLvrtvDXQ</a><br/><small>AsCxfafsGQPPVSFJIovn</small>",
+            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
+            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
             "extra": {}
           }
         ],
@@ -228,7 +228,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FaA8v",
+            "digest": "fDE7y",
             "data": {
               "items": [
                 {
@@ -290,7 +290,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_3",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
       "kind": "operator",
       "pipe_code": "analyze_job_requirements",
       "pipe_type": "PipeLLM",
@@ -298,9 +298,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.026810Z",
-        "ended_at": "2026-05-15T11:22:04.045203Z",
-        "duration": 0.018393
+        "started_at": "2026-05-15T12:39:55.616177Z",
+        "ended_at": "2026-05-15T12:39:55.633542Z",
+        "duration": 0.017365
       },
       "io": {
         "inputs": [
@@ -310,7 +310,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FaA8v",
+            "digest": "fDE7y",
             "data": {
               "items": [
                 {
@@ -367,15 +367,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ]
@@ -393,7 +393,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
       "kind": "controller",
       "pipe_code": "process_cv_batch",
       "pipe_type": "PipeBatch",
@@ -401,9 +401,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.052593Z",
-        "ended_at": "2026-05-15T11:22:04.229787Z",
-        "duration": 0.177194
+        "started_at": "2026-05-15T12:39:55.640279Z",
+        "ended_at": "2026-05-15T12:39:55.797364Z",
+        "duration": 0.157085
       },
       "io": {
         "inputs": [
@@ -413,37 +413,37 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "KEYwp",
+            "digest": "V5vae",
             "data": {
               "items": [
                 {
-                  "url": "uJwMTkpHjxToKklFpTCG",
-                  "public_url": "BmPwOpPmkpBiUnLnMWsK",
-                  "mime_type": "LIEJlrINlWZKGNzhnFwV",
-                  "filename": "nSISEWGzpKmtEqUZLzfN",
-                  "title": "MVxOwwrhcSULOtNZgUHQ",
-                  "snippet": "VYBvXtzgCDSDDElxQAvs"
+                  "url": "dXAsWBvZvBfnvVaeyULy",
+                  "public_url": "nvFGzZgwEblFGenNvLWn",
+                  "mime_type": "xgElecCTkPZgRwlnEhPw",
+                  "filename": "eAIcRFIZBeAEiDosQlyd",
+                  "title": "KyUptAsybHVCanWcOHUg",
+                  "snippet": "MqKSYginyDGNecynbURT"
                 },
                 {
-                  "url": "TbVroqkupOyQWiiuotjv",
-                  "public_url": "yLImRPWbPejAsvuALRDj",
-                  "mime_type": "TqOikPMYjoYhJxcwPaSN",
-                  "filename": "CePFAdhyENxZavylBiYN",
-                  "title": "pWCBocqLbWMGoTFlWfVe",
-                  "snippet": "FlbqqFAtohgUNVChyDgq"
+                  "url": "boOdshflPuvQVbvyIzHx",
+                  "public_url": "gfFaaKvQyerowkLicaZV",
+                  "mime_type": "jmIrWXUNNbXRLKVjxQwm",
+                  "filename": "lUBkWsCkCuwnZeVzhCad",
+                  "title": "YrqoorctKNIHkziRaFfQ",
+                  "snippet": "NNlsRKItdoAvnvVYoPyG"
                 },
                 {
-                  "url": "ISCDBkLjazXCzIdbQmnq",
-                  "public_url": "FsZfcUstHvpbFuSlqhPt",
-                  "mime_type": "jwlrFSlHQtvMykVFQffu",
-                  "filename": "SdsYWezQIcyXLpxDZrmp",
-                  "title": "vevYMKQipvWHmlFvvykk",
-                  "snippet": "qHtcTdwgIsdLuwoLzbkD"
+                  "url": "qLjWSQtReJZUEWUETJjO",
+                  "public_url": "aZDNpYUoispSfPGwwymj",
+                  "mime_type": "OuivZNaVcTkiYjlSIfjD",
+                  "filename": "qkQNwKNrDcXTnrBjipOn",
+                  "title": "kkOFQVPWsnIJkFEdlmQF",
+                  "snippet": "auAZEyQJJBxXnHBmAeOI"
                 }
               ]
             },
-            "data_text": "     1      │ MVxOwwrhcSULOtNZgUHQ (uJwMTkpHjxToKklFpTCG)                       \n            │   VYBvXtzgCDSDDElxQAvs                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ pWCBocqLbWMGoTFlWfVe (TbVroqkupOyQWiiuotjv)                       \n            │   FlbqqFAtohgUNVChyDgq                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ vevYMKQipvWHmlFvvykk (ISCDBkLjazXCzIdbQmnq)                       \n            │   qHtcTdwgIsdLuwoLzbkD                                            \n",
-            "data_html": "<ul><li><a href=\"BmPwOpPmkpBiUnLnMWsK\" class=\"msg-document\">MVxOwwrhcSULOtNZgUHQ</a><br/><small>VYBvXtzgCDSDDElxQAvs</small></li><li><a href=\"yLImRPWbPejAsvuALRDj\" class=\"msg-document\">pWCBocqLbWMGoTFlWfVe</a><br/><small>FlbqqFAtohgUNVChyDgq</small></li><li><a href=\"FsZfcUstHvpbFuSlqhPt\" class=\"msg-document\">vevYMKQipvWHmlFvvykk</a><br/><small>qHtcTdwgIsdLuwoLzbkD</small></li></ul>",
+            "data_text": "     1      │ KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)                       \n            │   MqKSYginyDGNecynbURT                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)                       \n            │   NNlsRKItdoAvnvVYoPyG                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)                       \n            │   auAZEyQJJBxXnHBmAeOI                                            \n",
+            "data_html": "<ul><li><a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small></li><li><a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small></li><li><a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small></li></ul>",
             "extra": {}
           }
         ],
@@ -454,31 +454,31 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SaY3H",
+            "digest": "LMiEK",
             "data": {
               "items": [
                 {
-                  "match_score": 7993.40155739205,
-                  "strengths": "JjbkLqoRylFDAdsjMfXx",
-                  "gaps": "bDVgWFwencGqGfberkqe",
-                  "overall_assessment": "HWpUcyhVmNnaQoOBxwqd"
+                  "match_score": 84619584924982.1,
+                  "strengths": "nqXFhJAsyKFgFkIcsfJl",
+                  "gaps": "TCHAmVmmihqVBFuxDSNc",
+                  "overall_assessment": "tIGiICgdOSibQMomXxZP"
                 },
                 {
-                  "match_score": -270052991.29424,
-                  "strengths": "cliKaZItIBJRsIWUrnnB",
-                  "gaps": "ZEpYxaDzpRSbyGbWDQXa",
-                  "overall_assessment": "qAYxmsDWxOVCRRObUeqQ"
+                  "match_score": 8200.59706829677,
+                  "strengths": "zlDtGiKvXoerMxGDTnLe",
+                  "gaps": "sQZBIVYupSYKXoftBCWd",
+                  "overall_assessment": "rhJRTOeBMppKEvupZwev"
                 },
                 {
-                  "match_score": 0.22359030564784,
-                  "strengths": "nJTjhhCPxyTjBTPHfmHT",
-                  "gaps": "PIivWKUooiGdLDrVHHLW",
-                  "overall_assessment": "zIrYvGYxDDlLLJspuldB"
+                  "match_score": 308.596122362541,
+                  "strengths": "RPGssLScWPXjQagFYgkM",
+                  "gaps": "GVnzWxRukreNgNBpUAKn",
+                  "overall_assessment": "VmltLQKrevgdJFsboaMa"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 7993.40155739205                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ JjbkLqoRylFDAdsjMfXx              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ bDVgWFwencGqGfberkqe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ HWpUcyhVmNnaQoOBxwqd              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ -270052991.29424                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ cliKaZItIBJRsIWUrnnB              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ ZEpYxaDzpRSbyGbWDQXa              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ qAYxmsDWxOVCRRObUeqQ              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 0.22359030564784                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nJTjhhCPxyTjBTPHfmHT              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ PIivWKUooiGdLDrVHHLW              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ zIrYvGYxDDlLLJspuldB              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>7993.40155739205</td></tr><tr><th>strengths</th><td>JjbkLqoRylFDAdsjMfXx</td></tr><tr><th>gaps</th><td>bDVgWFwencGqGfberkqe</td></tr><tr><th>overall_assessment</th><td>HWpUcyhVmNnaQoOBxwqd</td></tr></table></li><li><table><tr><th>match_score</th><td>-270052991.29424</td></tr><tr><th>strengths</th><td>cliKaZItIBJRsIWUrnnB</td></tr><tr><th>gaps</th><td>ZEpYxaDzpRSbyGbWDQXa</td></tr><tr><th>overall_assessment</th><td>qAYxmsDWxOVCRRObUeqQ</td></tr></table></li><li><table><tr><th>match_score</th><td>0.22359030564784</td></tr><tr><th>strengths</th><td>nJTjhhCPxyTjBTPHfmHT</td></tr><tr><th>gaps</th><td>PIivWKUooiGdLDrVHHLW</td></tr><tr><th>overall_assessment</th><td>zIrYvGYxDDlLLJspuldB</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 84619584924982.1                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nqXFhJAsyKFgFkIcsfJl              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ TCHAmVmmihqVBFuxDSNc              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ tIGiICgdOSibQMomXxZP              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 8200.59706829677                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ zlDtGiKvXoerMxGDTnLe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ sQZBIVYupSYKXoftBCWd              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ rhJRTOeBMppKEvupZwev              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 308.596122362541                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ RPGssLScWPXjQagFYgkM              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ GVnzWxRukreNgNBpUAKn              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ VmltLQKrevgdJFsboaMa              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table></li><li><table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table></li><li><table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -492,7 +492,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
@@ -500,29 +500,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.061118Z",
-        "ended_at": "2026-05-15T11:22:04.114534Z",
-        "duration": 0.053416
+        "started_at": "2026-05-15T12:39:55.647810Z",
+        "ended_at": "2026-05-15T12:39:55.697195Z",
+        "duration": 0.049385
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "LIEJlrINlWZKGNzhnFwV",
+            "content_type": "xgElecCTkPZgRwlnEhPw",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-0",
+            "digest": "V5vae-branch-0",
             "data": {
-              "url": "uJwMTkpHjxToKklFpTCG",
-              "public_url": "BmPwOpPmkpBiUnLnMWsK",
-              "mime_type": "LIEJlrINlWZKGNzhnFwV",
-              "filename": "nSISEWGzpKmtEqUZLzfN",
-              "title": "MVxOwwrhcSULOtNZgUHQ",
-              "snippet": "VYBvXtzgCDSDDElxQAvs"
+              "url": "dXAsWBvZvBfnvVaeyULy",
+              "public_url": "nvFGzZgwEblFGenNvLWn",
+              "mime_type": "xgElecCTkPZgRwlnEhPw",
+              "filename": "eAIcRFIZBeAEiDosQlyd",
+              "title": "KyUptAsybHVCanWcOHUg",
+              "snippet": "MqKSYginyDGNecynbURT"
             },
-            "data_text": "MVxOwwrhcSULOtNZgUHQ (uJwMTkpHjxToKklFpTCG)\n  VYBvXtzgCDSDDElxQAvs\n",
-            "data_html": "<a href=\"BmPwOpPmkpBiUnLnMWsK\" class=\"msg-document\">MVxOwwrhcSULOtNZgUHQ</a><br/><small>VYBvXtzgCDSDDElxQAvs</small>",
+            "data_text": "KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)\n  MqKSYginyDGNecynbURT\n",
+            "data_html": "<a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small>",
             "extra": {}
           },
           {
@@ -531,15 +531,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -550,15 +550,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-0",
+            "digest": "XDMLj-branch-0",
             "data": {
-              "match_score": 7993.40155739205,
-              "strengths": "JjbkLqoRylFDAdsjMfXx",
-              "gaps": "bDVgWFwencGqGfberkqe",
-              "overall_assessment": "HWpUcyhVmNnaQoOBxwqd"
+              "match_score": 84619584924982.1,
+              "strengths": "nqXFhJAsyKFgFkIcsfJl",
+              "gaps": "TCHAmVmmihqVBFuxDSNc",
+              "overall_assessment": "tIGiICgdOSibQMomXxZP"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7993.40155739205                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ JjbkLqoRylFDAdsjMfXx                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ bDVgWFwencGqGfberkqe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ HWpUcyhVmNnaQoOBxwqd                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7993.40155739205</td></tr><tr><th>strengths</th><td>JjbkLqoRylFDAdsjMfXx</td></tr><tr><th>gaps</th><td>bDVgWFwencGqGfberkqe</td></tr><tr><th>overall_assessment</th><td>HWpUcyhVmNnaQoOBxwqd</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 84619584924982.1                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nqXFhJAsyKFgFkIcsfJl                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ TCHAmVmmihqVBFuxDSNc                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ tIGiICgdOSibQMomXxZP                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table>",
             "extra": {}
           }
         ]
@@ -571,7 +571,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_6",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
@@ -579,29 +579,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.065891Z",
-        "ended_at": "2026-05-15T11:22:04.072240Z",
-        "duration": 0.006349
+        "started_at": "2026-05-15T12:39:55.652347Z",
+        "ended_at": "2026-05-15T12:39:55.658605Z",
+        "duration": 0.006258
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "LIEJlrINlWZKGNzhnFwV",
+            "content_type": "xgElecCTkPZgRwlnEhPw",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-0",
+            "digest": "V5vae-branch-0",
             "data": {
-              "url": "uJwMTkpHjxToKklFpTCG",
-              "public_url": "BmPwOpPmkpBiUnLnMWsK",
-              "mime_type": "LIEJlrINlWZKGNzhnFwV",
-              "filename": "nSISEWGzpKmtEqUZLzfN",
-              "title": "MVxOwwrhcSULOtNZgUHQ",
-              "snippet": "VYBvXtzgCDSDDElxQAvs"
+              "url": "dXAsWBvZvBfnvVaeyULy",
+              "public_url": "nvFGzZgwEblFGenNvLWn",
+              "mime_type": "xgElecCTkPZgRwlnEhPw",
+              "filename": "eAIcRFIZBeAEiDosQlyd",
+              "title": "KyUptAsybHVCanWcOHUg",
+              "snippet": "MqKSYginyDGNecynbURT"
             },
-            "data_text": "MVxOwwrhcSULOtNZgUHQ (uJwMTkpHjxToKklFpTCG)\n  VYBvXtzgCDSDDElxQAvs\n",
-            "data_html": "<a href=\"BmPwOpPmkpBiUnLnMWsK\" class=\"msg-document\">MVxOwwrhcSULOtNZgUHQ</a><br/><small>VYBvXtzgCDSDDElxQAvs</small>",
+            "data_text": "KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)\n  MqKSYginyDGNecynbURT\n",
+            "data_html": "<a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small>",
             "extra": {}
           }
         ],
@@ -612,7 +612,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Dt4Fb",
+            "digest": "SRn9k",
             "data": {
               "items": [
                 {
@@ -674,7 +674,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_7",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
@@ -682,9 +682,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.076912Z",
-        "ended_at": "2026-05-15T11:22:04.092459Z",
-        "duration": 0.015547
+        "started_at": "2026-05-15T12:39:55.663226Z",
+        "ended_at": "2026-05-15T12:39:55.677377Z",
+        "duration": 0.014151
       },
       "io": {
         "inputs": [
@@ -694,7 +694,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Dt4Fb",
+            "digest": "SRn9k",
             "data": {
               "items": [
                 {
@@ -751,15 +751,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "b28GW",
+            "digest": "FU4qK",
             "data": {
-              "skills": "aHOqfzCbuXHfnPYJRUYp",
-              "experience": "eBrzEFgjwnVvmTlQHyQD",
-              "education": "ECfZpqXSXtdUYLocaMqI",
-              "achievements": "OpTUpEbJKRsNpGjnqjQp"
+              "skills": "PfjGRZbUvVxKDHnFimBC",
+              "experience": "aeuphKkidttvpbjWNKMN",
+              "education": "LysjxnEYGtjpLCJAwpXg",
+              "achievements": "pOIbwmHvzDYeLgKBBhpr"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ aHOqfzCbuXHfnPYJRUYp                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ eBrzEFgjwnVvmTlQHyQD                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ ECfZpqXSXtdUYLocaMqI                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ OpTUpEbJKRsNpGjnqjQp                           \n",
-            "data_html": "<table><tr><th>skills</th><td>aHOqfzCbuXHfnPYJRUYp</td></tr><tr><th>experience</th><td>eBrzEFgjwnVvmTlQHyQD</td></tr><tr><th>education</th><td>ECfZpqXSXtdUYLocaMqI</td></tr><tr><th>achievements</th><td>OpTUpEbJKRsNpGjnqjQp</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ PfjGRZbUvVxKDHnFimBC                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ aeuphKkidttvpbjWNKMN                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ LysjxnEYGtjpLCJAwpXg                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ pOIbwmHvzDYeLgKBBhpr                           \n",
+            "data_html": "<table><tr><th>skills</th><td>PfjGRZbUvVxKDHnFimBC</td></tr><tr><th>experience</th><td>aeuphKkidttvpbjWNKMN</td></tr><tr><th>education</th><td>LysjxnEYGtjpLCJAwpXg</td></tr><tr><th>achievements</th><td>pOIbwmHvzDYeLgKBBhpr</td></tr></table>",
             "extra": {}
           }
         ]
@@ -777,7 +777,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_8",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
@@ -785,9 +785,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.097526Z",
-        "ended_at": "2026-05-15T11:22:04.112095Z",
-        "duration": 0.014569
+        "started_at": "2026-05-15T12:39:55.681773Z",
+        "ended_at": "2026-05-15T12:39:55.694856Z",
+        "duration": 0.013083
       },
       "io": {
         "inputs": [
@@ -797,15 +797,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "b28GW",
+            "digest": "FU4qK",
             "data": {
-              "skills": "aHOqfzCbuXHfnPYJRUYp",
-              "experience": "eBrzEFgjwnVvmTlQHyQD",
-              "education": "ECfZpqXSXtdUYLocaMqI",
-              "achievements": "OpTUpEbJKRsNpGjnqjQp"
+              "skills": "PfjGRZbUvVxKDHnFimBC",
+              "experience": "aeuphKkidttvpbjWNKMN",
+              "education": "LysjxnEYGtjpLCJAwpXg",
+              "achievements": "pOIbwmHvzDYeLgKBBhpr"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ aHOqfzCbuXHfnPYJRUYp                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ eBrzEFgjwnVvmTlQHyQD                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ ECfZpqXSXtdUYLocaMqI                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ OpTUpEbJKRsNpGjnqjQp                           \n",
-            "data_html": "<table><tr><th>skills</th><td>aHOqfzCbuXHfnPYJRUYp</td></tr><tr><th>experience</th><td>eBrzEFgjwnVvmTlQHyQD</td></tr><tr><th>education</th><td>ECfZpqXSXtdUYLocaMqI</td></tr><tr><th>achievements</th><td>OpTUpEbJKRsNpGjnqjQp</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ PfjGRZbUvVxKDHnFimBC                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ aeuphKkidttvpbjWNKMN                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ LysjxnEYGtjpLCJAwpXg                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ pOIbwmHvzDYeLgKBBhpr                           \n",
+            "data_html": "<table><tr><th>skills</th><td>PfjGRZbUvVxKDHnFimBC</td></tr><tr><th>experience</th><td>aeuphKkidttvpbjWNKMN</td></tr><tr><th>education</th><td>LysjxnEYGtjpLCJAwpXg</td></tr><tr><th>achievements</th><td>pOIbwmHvzDYeLgKBBhpr</td></tr></table>",
             "extra": {}
           },
           {
@@ -814,15 +814,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -833,15 +833,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-0",
+            "digest": "XDMLj-branch-0",
             "data": {
-              "match_score": 7993.40155739205,
-              "strengths": "JjbkLqoRylFDAdsjMfXx",
-              "gaps": "bDVgWFwencGqGfberkqe",
-              "overall_assessment": "HWpUcyhVmNnaQoOBxwqd"
+              "match_score": 84619584924982.1,
+              "strengths": "nqXFhJAsyKFgFkIcsfJl",
+              "gaps": "TCHAmVmmihqVBFuxDSNc",
+              "overall_assessment": "tIGiICgdOSibQMomXxZP"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 7993.40155739205                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ JjbkLqoRylFDAdsjMfXx                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ bDVgWFwencGqGfberkqe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ HWpUcyhVmNnaQoOBxwqd                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>7993.40155739205</td></tr><tr><th>strengths</th><td>JjbkLqoRylFDAdsjMfXx</td></tr><tr><th>gaps</th><td>bDVgWFwencGqGfberkqe</td></tr><tr><th>overall_assessment</th><td>HWpUcyhVmNnaQoOBxwqd</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 84619584924982.1                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nqXFhJAsyKFgFkIcsfJl                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ TCHAmVmmihqVBFuxDSNc                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ tIGiICgdOSibQMomXxZP                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table>",
             "extra": {}
           }
         ]
@@ -854,12 +854,12 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: aHOqfzCbuXHfnPYJRUYp\n\n# experience: eBrzEFgjwnVvmTlQHyQD\n\n# education: ECfZpqXSXtdUYLocaMqI\n\n# achievements: OpTUpEbJKRsNpGjnqjQp\n</candidate_profile>\n\n<job_requirements>\n# required_skills: fBFGnthSCKkBXOXmymKt\n\n# responsibilities: cTaqXyZxFvFPFAQiTxnd\n\n# qualifications: MPdyMTOWfBZLDuCFIdfD\n\n# nice_to_haves: tpaIsaIwfztdhlPevKHY\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: PfjGRZbUvVxKDHnFimBC\n\n# experience: aeuphKkidttvpbjWNKMN\n\n# education: LysjxnEYGtjpLCJAwpXg\n\n# achievements: pOIbwmHvzDYeLgKBBhpr\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
@@ -867,29 +867,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.117095Z",
-        "ended_at": "2026-05-15T11:22:04.161659Z",
-        "duration": 0.044564
+        "started_at": "2026-05-15T12:39:55.699927Z",
+        "ended_at": "2026-05-15T12:39:55.744124Z",
+        "duration": 0.044197
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "TqOikPMYjoYhJxcwPaSN",
+            "content_type": "jmIrWXUNNbXRLKVjxQwm",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-1",
+            "digest": "V5vae-branch-1",
             "data": {
-              "url": "TbVroqkupOyQWiiuotjv",
-              "public_url": "yLImRPWbPejAsvuALRDj",
-              "mime_type": "TqOikPMYjoYhJxcwPaSN",
-              "filename": "CePFAdhyENxZavylBiYN",
-              "title": "pWCBocqLbWMGoTFlWfVe",
-              "snippet": "FlbqqFAtohgUNVChyDgq"
+              "url": "boOdshflPuvQVbvyIzHx",
+              "public_url": "gfFaaKvQyerowkLicaZV",
+              "mime_type": "jmIrWXUNNbXRLKVjxQwm",
+              "filename": "lUBkWsCkCuwnZeVzhCad",
+              "title": "YrqoorctKNIHkziRaFfQ",
+              "snippet": "NNlsRKItdoAvnvVYoPyG"
             },
-            "data_text": "pWCBocqLbWMGoTFlWfVe (TbVroqkupOyQWiiuotjv)\n  FlbqqFAtohgUNVChyDgq\n",
-            "data_html": "<a href=\"yLImRPWbPejAsvuALRDj\" class=\"msg-document\">pWCBocqLbWMGoTFlWfVe</a><br/><small>FlbqqFAtohgUNVChyDgq</small>",
+            "data_text": "YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)\n  NNlsRKItdoAvnvVYoPyG\n",
+            "data_html": "<a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small>",
             "extra": {}
           },
           {
@@ -898,15 +898,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -917,15 +917,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-1",
+            "digest": "XDMLj-branch-1",
             "data": {
-              "match_score": -270052991.29424,
-              "strengths": "cliKaZItIBJRsIWUrnnB",
-              "gaps": "ZEpYxaDzpRSbyGbWDQXa",
-              "overall_assessment": "qAYxmsDWxOVCRRObUeqQ"
+              "match_score": 8200.59706829677,
+              "strengths": "zlDtGiKvXoerMxGDTnLe",
+              "gaps": "sQZBIVYupSYKXoftBCWd",
+              "overall_assessment": "rhJRTOeBMppKEvupZwev"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ -270052991.29424                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ cliKaZItIBJRsIWUrnnB                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ ZEpYxaDzpRSbyGbWDQXa                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ qAYxmsDWxOVCRRObUeqQ                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>-270052991.29424</td></tr><tr><th>strengths</th><td>cliKaZItIBJRsIWUrnnB</td></tr><tr><th>gaps</th><td>ZEpYxaDzpRSbyGbWDQXa</td></tr><tr><th>overall_assessment</th><td>qAYxmsDWxOVCRRObUeqQ</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 8200.59706829677                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ zlDtGiKvXoerMxGDTnLe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ sQZBIVYupSYKXoftBCWd                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ rhJRTOeBMppKEvupZwev                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table>",
             "extra": {}
           }
         ]
@@ -938,7 +938,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_10",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
@@ -946,29 +946,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.121769Z",
-        "ended_at": "2026-05-15T11:22:04.128169Z",
-        "duration": 0.0064
+        "started_at": "2026-05-15T12:39:55.704430Z",
+        "ended_at": "2026-05-15T12:39:55.710722Z",
+        "duration": 0.006292
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "TqOikPMYjoYhJxcwPaSN",
+            "content_type": "jmIrWXUNNbXRLKVjxQwm",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-1",
+            "digest": "V5vae-branch-1",
             "data": {
-              "url": "TbVroqkupOyQWiiuotjv",
-              "public_url": "yLImRPWbPejAsvuALRDj",
-              "mime_type": "TqOikPMYjoYhJxcwPaSN",
-              "filename": "CePFAdhyENxZavylBiYN",
-              "title": "pWCBocqLbWMGoTFlWfVe",
-              "snippet": "FlbqqFAtohgUNVChyDgq"
+              "url": "boOdshflPuvQVbvyIzHx",
+              "public_url": "gfFaaKvQyerowkLicaZV",
+              "mime_type": "jmIrWXUNNbXRLKVjxQwm",
+              "filename": "lUBkWsCkCuwnZeVzhCad",
+              "title": "YrqoorctKNIHkziRaFfQ",
+              "snippet": "NNlsRKItdoAvnvVYoPyG"
             },
-            "data_text": "pWCBocqLbWMGoTFlWfVe (TbVroqkupOyQWiiuotjv)\n  FlbqqFAtohgUNVChyDgq\n",
-            "data_html": "<a href=\"yLImRPWbPejAsvuALRDj\" class=\"msg-document\">pWCBocqLbWMGoTFlWfVe</a><br/><small>FlbqqFAtohgUNVChyDgq</small>",
+            "data_text": "YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)\n  NNlsRKItdoAvnvVYoPyG\n",
+            "data_html": "<a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small>",
             "extra": {}
           }
         ],
@@ -979,7 +979,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7KCWH",
+            "digest": "9xUmP",
             "data": {
               "items": [
                 {
@@ -1041,7 +1041,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_11",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
@@ -1049,9 +1049,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.132818Z",
-        "ended_at": "2026-05-15T11:22:04.144211Z",
-        "duration": 0.011393
+        "started_at": "2026-05-15T12:39:55.715121Z",
+        "ended_at": "2026-05-15T12:39:55.726681Z",
+        "duration": 0.01156
       },
       "io": {
         "inputs": [
@@ -1061,7 +1061,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7KCWH",
+            "digest": "9xUmP",
             "data": {
               "items": [
                 {
@@ -1118,15 +1118,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UJyVQ",
+            "digest": "ZnwzT",
             "data": {
-              "skills": "dDuAnnbLseXRhKNjCjig",
-              "experience": "YfNVUcGshJuNZXJALNar",
-              "education": "YrpDVlbhnhKNNPDyPlwl",
-              "achievements": "uPyAoSKLyRSqfpzUMINe"
+              "skills": "ItkHInnDPtdyQfvKuKIJ",
+              "experience": "acMYvuxAaMIrszylMhWc",
+              "education": "SIuGaCCghPCKwELkZRjM",
+              "achievements": "QvvEaDOmRhAFcNZFOKVx"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ dDuAnnbLseXRhKNjCjig                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ YfNVUcGshJuNZXJALNar                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ YrpDVlbhnhKNNPDyPlwl                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ uPyAoSKLyRSqfpzUMINe                           \n",
-            "data_html": "<table><tr><th>skills</th><td>dDuAnnbLseXRhKNjCjig</td></tr><tr><th>experience</th><td>YfNVUcGshJuNZXJALNar</td></tr><tr><th>education</th><td>YrpDVlbhnhKNNPDyPlwl</td></tr><tr><th>achievements</th><td>uPyAoSKLyRSqfpzUMINe</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ItkHInnDPtdyQfvKuKIJ                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ acMYvuxAaMIrszylMhWc                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ SIuGaCCghPCKwELkZRjM                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ QvvEaDOmRhAFcNZFOKVx                           \n",
+            "data_html": "<table><tr><th>skills</th><td>ItkHInnDPtdyQfvKuKIJ</td></tr><tr><th>experience</th><td>acMYvuxAaMIrszylMhWc</td></tr><tr><th>education</th><td>SIuGaCCghPCKwELkZRjM</td></tr><tr><th>achievements</th><td>QvvEaDOmRhAFcNZFOKVx</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1144,7 +1144,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_12",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
@@ -1152,9 +1152,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.148846Z",
-        "ended_at": "2026-05-15T11:22:04.159344Z",
-        "duration": 0.010498
+        "started_at": "2026-05-15T12:39:55.731096Z",
+        "ended_at": "2026-05-15T12:39:55.741883Z",
+        "duration": 0.010787
       },
       "io": {
         "inputs": [
@@ -1164,15 +1164,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UJyVQ",
+            "digest": "ZnwzT",
             "data": {
-              "skills": "dDuAnnbLseXRhKNjCjig",
-              "experience": "YfNVUcGshJuNZXJALNar",
-              "education": "YrpDVlbhnhKNNPDyPlwl",
-              "achievements": "uPyAoSKLyRSqfpzUMINe"
+              "skills": "ItkHInnDPtdyQfvKuKIJ",
+              "experience": "acMYvuxAaMIrszylMhWc",
+              "education": "SIuGaCCghPCKwELkZRjM",
+              "achievements": "QvvEaDOmRhAFcNZFOKVx"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ dDuAnnbLseXRhKNjCjig                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ YfNVUcGshJuNZXJALNar                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ YrpDVlbhnhKNNPDyPlwl                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ uPyAoSKLyRSqfpzUMINe                           \n",
-            "data_html": "<table><tr><th>skills</th><td>dDuAnnbLseXRhKNjCjig</td></tr><tr><th>experience</th><td>YfNVUcGshJuNZXJALNar</td></tr><tr><th>education</th><td>YrpDVlbhnhKNNPDyPlwl</td></tr><tr><th>achievements</th><td>uPyAoSKLyRSqfpzUMINe</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ItkHInnDPtdyQfvKuKIJ                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ acMYvuxAaMIrszylMhWc                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ SIuGaCCghPCKwELkZRjM                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ QvvEaDOmRhAFcNZFOKVx                           \n",
+            "data_html": "<table><tr><th>skills</th><td>ItkHInnDPtdyQfvKuKIJ</td></tr><tr><th>experience</th><td>acMYvuxAaMIrszylMhWc</td></tr><tr><th>education</th><td>SIuGaCCghPCKwELkZRjM</td></tr><tr><th>achievements</th><td>QvvEaDOmRhAFcNZFOKVx</td></tr></table>",
             "extra": {}
           },
           {
@@ -1181,15 +1181,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -1200,15 +1200,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-1",
+            "digest": "XDMLj-branch-1",
             "data": {
-              "match_score": -270052991.29424,
-              "strengths": "cliKaZItIBJRsIWUrnnB",
-              "gaps": "ZEpYxaDzpRSbyGbWDQXa",
-              "overall_assessment": "qAYxmsDWxOVCRRObUeqQ"
+              "match_score": 8200.59706829677,
+              "strengths": "zlDtGiKvXoerMxGDTnLe",
+              "gaps": "sQZBIVYupSYKXoftBCWd",
+              "overall_assessment": "rhJRTOeBMppKEvupZwev"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ -270052991.29424                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ cliKaZItIBJRsIWUrnnB                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ ZEpYxaDzpRSbyGbWDQXa                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ qAYxmsDWxOVCRRObUeqQ                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>-270052991.29424</td></tr><tr><th>strengths</th><td>cliKaZItIBJRsIWUrnnB</td></tr><tr><th>gaps</th><td>ZEpYxaDzpRSbyGbWDQXa</td></tr><tr><th>overall_assessment</th><td>qAYxmsDWxOVCRRObUeqQ</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 8200.59706829677                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ zlDtGiKvXoerMxGDTnLe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ sQZBIVYupSYKXoftBCWd                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ rhJRTOeBMppKEvupZwev                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1221,12 +1221,12 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: dDuAnnbLseXRhKNjCjig\n\n# experience: YfNVUcGshJuNZXJALNar\n\n# education: YrpDVlbhnhKNNPDyPlwl\n\n# achievements: uPyAoSKLyRSqfpzUMINe\n</candidate_profile>\n\n<job_requirements>\n# required_skills: fBFGnthSCKkBXOXmymKt\n\n# responsibilities: cTaqXyZxFvFPFAQiTxnd\n\n# qualifications: MPdyMTOWfBZLDuCFIdfD\n\n# nice_to_haves: tpaIsaIwfztdhlPevKHY\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: ItkHInnDPtdyQfvKuKIJ\n\n# experience: acMYvuxAaMIrszylMhWc\n\n# education: SIuGaCCghPCKwELkZRjM\n\n# achievements: QvvEaDOmRhAFcNZFOKVx\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
@@ -1234,29 +1234,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.164259Z",
-        "ended_at": "2026-05-15T11:22:04.217961Z",
-        "duration": 0.053702
+        "started_at": "2026-05-15T12:39:55.746762Z",
+        "ended_at": "2026-05-15T12:39:55.792538Z",
+        "duration": 0.045776
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jwlrFSlHQtvMykVFQffu",
+            "content_type": "OuivZNaVcTkiYjlSIfjD",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-2",
+            "digest": "V5vae-branch-2",
             "data": {
-              "url": "ISCDBkLjazXCzIdbQmnq",
-              "public_url": "FsZfcUstHvpbFuSlqhPt",
-              "mime_type": "jwlrFSlHQtvMykVFQffu",
-              "filename": "SdsYWezQIcyXLpxDZrmp",
-              "title": "vevYMKQipvWHmlFvvykk",
-              "snippet": "qHtcTdwgIsdLuwoLzbkD"
+              "url": "qLjWSQtReJZUEWUETJjO",
+              "public_url": "aZDNpYUoispSfPGwwymj",
+              "mime_type": "OuivZNaVcTkiYjlSIfjD",
+              "filename": "qkQNwKNrDcXTnrBjipOn",
+              "title": "kkOFQVPWsnIJkFEdlmQF",
+              "snippet": "auAZEyQJJBxXnHBmAeOI"
             },
-            "data_text": "vevYMKQipvWHmlFvvykk (ISCDBkLjazXCzIdbQmnq)\n  qHtcTdwgIsdLuwoLzbkD\n",
-            "data_html": "<a href=\"FsZfcUstHvpbFuSlqhPt\" class=\"msg-document\">vevYMKQipvWHmlFvvykk</a><br/><small>qHtcTdwgIsdLuwoLzbkD</small>",
+            "data_text": "kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)\n  auAZEyQJJBxXnHBmAeOI\n",
+            "data_html": "<a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small>",
             "extra": {}
           },
           {
@@ -1265,15 +1265,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -1284,15 +1284,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-2",
+            "digest": "XDMLj-branch-2",
             "data": {
-              "match_score": 0.22359030564784,
-              "strengths": "nJTjhhCPxyTjBTPHfmHT",
-              "gaps": "PIivWKUooiGdLDrVHHLW",
-              "overall_assessment": "zIrYvGYxDDlLLJspuldB"
+              "match_score": 308.596122362541,
+              "strengths": "RPGssLScWPXjQagFYgkM",
+              "gaps": "GVnzWxRukreNgNBpUAKn",
+              "overall_assessment": "VmltLQKrevgdJFsboaMa"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 0.22359030564784                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nJTjhhCPxyTjBTPHfmHT                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ PIivWKUooiGdLDrVHHLW                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ zIrYvGYxDDlLLJspuldB                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>0.22359030564784</td></tr><tr><th>strengths</th><td>nJTjhhCPxyTjBTPHfmHT</td></tr><tr><th>gaps</th><td>PIivWKUooiGdLDrVHHLW</td></tr><tr><th>overall_assessment</th><td>zIrYvGYxDDlLLJspuldB</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 308.596122362541                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ RPGssLScWPXjQagFYgkM                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ GVnzWxRukreNgNBpUAKn                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ VmltLQKrevgdJFsboaMa                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1305,7 +1305,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_14",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
@@ -1313,29 +1313,29 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.169107Z",
-        "ended_at": "2026-05-15T11:22:04.175105Z",
-        "duration": 0.005998
+        "started_at": "2026-05-15T12:39:55.751797Z",
+        "ended_at": "2026-05-15T12:39:55.757775Z",
+        "duration": 0.005978
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jwlrFSlHQtvMykVFQffu",
+            "content_type": "OuivZNaVcTkiYjlSIfjD",
             "preview": null,
             "size": null,
-            "digest": "KEYwp-branch-2",
+            "digest": "V5vae-branch-2",
             "data": {
-              "url": "ISCDBkLjazXCzIdbQmnq",
-              "public_url": "FsZfcUstHvpbFuSlqhPt",
-              "mime_type": "jwlrFSlHQtvMykVFQffu",
-              "filename": "SdsYWezQIcyXLpxDZrmp",
-              "title": "vevYMKQipvWHmlFvvykk",
-              "snippet": "qHtcTdwgIsdLuwoLzbkD"
+              "url": "qLjWSQtReJZUEWUETJjO",
+              "public_url": "aZDNpYUoispSfPGwwymj",
+              "mime_type": "OuivZNaVcTkiYjlSIfjD",
+              "filename": "qkQNwKNrDcXTnrBjipOn",
+              "title": "kkOFQVPWsnIJkFEdlmQF",
+              "snippet": "auAZEyQJJBxXnHBmAeOI"
             },
-            "data_text": "vevYMKQipvWHmlFvvykk (ISCDBkLjazXCzIdbQmnq)\n  qHtcTdwgIsdLuwoLzbkD\n",
-            "data_html": "<a href=\"FsZfcUstHvpbFuSlqhPt\" class=\"msg-document\">vevYMKQipvWHmlFvvykk</a><br/><small>qHtcTdwgIsdLuwoLzbkD</small>",
+            "data_text": "kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)\n  auAZEyQJJBxXnHBmAeOI\n",
+            "data_html": "<a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small>",
             "extra": {}
           }
         ],
@@ -1346,7 +1346,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HfyBR",
+            "digest": "e6udi",
             "data": {
               "items": [
                 {
@@ -1408,7 +1408,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_15",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
@@ -1416,9 +1416,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.179607Z",
-        "ended_at": "2026-05-15T11:22:04.191332Z",
-        "duration": 0.011725
+        "started_at": "2026-05-15T12:39:55.762476Z",
+        "ended_at": "2026-05-15T12:39:55.774044Z",
+        "duration": 0.011568
       },
       "io": {
         "inputs": [
@@ -1428,7 +1428,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HfyBR",
+            "digest": "e6udi",
             "data": {
               "items": [
                 {
@@ -1485,15 +1485,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CYJUX",
+            "digest": "WGw2x",
             "data": {
-              "skills": "tzjRhyprtIyKuGDTEfLF",
-              "experience": "JWfUzBGMzUFpEpKWXUqd",
-              "education": "gxPTJBJkpmyvXeZFdDPr",
-              "achievements": "sjxLWjQcyRWRbPjErEQC"
+              "skills": "ejQPSvEnqKldZLUFiWJl",
+              "experience": "hlZAyzDPzZwqewCrBkFQ",
+              "education": "orvmDHGhuGjUySCVicHz",
+              "achievements": "fwgLWuGNXqOiKifwiGcP"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ tzjRhyprtIyKuGDTEfLF                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ JWfUzBGMzUFpEpKWXUqd                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ gxPTJBJkpmyvXeZFdDPr                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ sjxLWjQcyRWRbPjErEQC                           \n",
-            "data_html": "<table><tr><th>skills</th><td>tzjRhyprtIyKuGDTEfLF</td></tr><tr><th>experience</th><td>JWfUzBGMzUFpEpKWXUqd</td></tr><tr><th>education</th><td>gxPTJBJkpmyvXeZFdDPr</td></tr><tr><th>achievements</th><td>sjxLWjQcyRWRbPjErEQC</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ejQPSvEnqKldZLUFiWJl                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ hlZAyzDPzZwqewCrBkFQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ orvmDHGhuGjUySCVicHz                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ fwgLWuGNXqOiKifwiGcP                           \n",
+            "data_html": "<table><tr><th>skills</th><td>ejQPSvEnqKldZLUFiWJl</td></tr><tr><th>experience</th><td>hlZAyzDPzZwqewCrBkFQ</td></tr><tr><th>education</th><td>orvmDHGhuGjUySCVicHz</td></tr><tr><th>achievements</th><td>fwgLWuGNXqOiKifwiGcP</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1511,7 +1511,7 @@
       }
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_16",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
@@ -1519,9 +1519,9 @@
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:22:04.195988Z",
-        "ended_at": "2026-05-15T11:22:04.207998Z",
-        "duration": 0.01201
+        "started_at": "2026-05-15T12:39:55.778546Z",
+        "ended_at": "2026-05-15T12:39:55.789938Z",
+        "duration": 0.011392
       },
       "io": {
         "inputs": [
@@ -1531,15 +1531,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CYJUX",
+            "digest": "WGw2x",
             "data": {
-              "skills": "tzjRhyprtIyKuGDTEfLF",
-              "experience": "JWfUzBGMzUFpEpKWXUqd",
-              "education": "gxPTJBJkpmyvXeZFdDPr",
-              "achievements": "sjxLWjQcyRWRbPjErEQC"
+              "skills": "ejQPSvEnqKldZLUFiWJl",
+              "experience": "hlZAyzDPzZwqewCrBkFQ",
+              "education": "orvmDHGhuGjUySCVicHz",
+              "achievements": "fwgLWuGNXqOiKifwiGcP"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ tzjRhyprtIyKuGDTEfLF                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ JWfUzBGMzUFpEpKWXUqd                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ gxPTJBJkpmyvXeZFdDPr                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ sjxLWjQcyRWRbPjErEQC                           \n",
-            "data_html": "<table><tr><th>skills</th><td>tzjRhyprtIyKuGDTEfLF</td></tr><tr><th>experience</th><td>JWfUzBGMzUFpEpKWXUqd</td></tr><tr><th>education</th><td>gxPTJBJkpmyvXeZFdDPr</td></tr><tr><th>achievements</th><td>sjxLWjQcyRWRbPjErEQC</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ejQPSvEnqKldZLUFiWJl                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ hlZAyzDPzZwqewCrBkFQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ orvmDHGhuGjUySCVicHz                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ fwgLWuGNXqOiKifwiGcP                           \n",
+            "data_html": "<table><tr><th>skills</th><td>ejQPSvEnqKldZLUFiWJl</td></tr><tr><th>experience</th><td>hlZAyzDPzZwqewCrBkFQ</td></tr><tr><th>education</th><td>orvmDHGhuGjUySCVicHz</td></tr><tr><th>achievements</th><td>fwgLWuGNXqOiKifwiGcP</td></tr></table>",
             "extra": {}
           },
           {
@@ -1548,15 +1548,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5MWXP",
+            "digest": "AZaJm",
             "data": {
-              "required_skills": "fBFGnthSCKkBXOXmymKt",
-              "responsibilities": "cTaqXyZxFvFPFAQiTxnd",
-              "qualifications": "MPdyMTOWfBZLDuCFIdfD",
-              "nice_to_haves": "tpaIsaIwfztdhlPevKHY"
+              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
+              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
+              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
+              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ fBFGnthSCKkBXOXmymKt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ cTaqXyZxFvFPFAQiTxnd                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MPdyMTOWfBZLDuCFIdfD                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ tpaIsaIwfztdhlPevKHY                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>fBFGnthSCKkBXOXmymKt</td></tr><tr><th>responsibilities</th><td>cTaqXyZxFvFPFAQiTxnd</td></tr><tr><th>qualifications</th><td>MPdyMTOWfBZLDuCFIdfD</td></tr><tr><th>nice_to_haves</th><td>tpaIsaIwfztdhlPevKHY</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
             "extra": {}
           }
         ],
@@ -1567,15 +1567,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WAc5z-branch-2",
+            "digest": "XDMLj-branch-2",
             "data": {
-              "match_score": 0.22359030564784,
-              "strengths": "nJTjhhCPxyTjBTPHfmHT",
-              "gaps": "PIivWKUooiGdLDrVHHLW",
-              "overall_assessment": "zIrYvGYxDDlLLJspuldB"
+              "match_score": 308.596122362541,
+              "strengths": "RPGssLScWPXjQagFYgkM",
+              "gaps": "GVnzWxRukreNgNBpUAKn",
+              "overall_assessment": "VmltLQKrevgdJFsboaMa"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 0.22359030564784                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nJTjhhCPxyTjBTPHfmHT                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ PIivWKUooiGdLDrVHHLW                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ zIrYvGYxDDlLLJspuldB                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>0.22359030564784</td></tr><tr><th>strengths</th><td>nJTjhhCPxyTjBTPHfmHT</td></tr><tr><th>gaps</th><td>PIivWKUooiGdLDrVHHLW</td></tr><tr><th>overall_assessment</th><td>zIrYvGYxDDlLLJspuldB</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 308.596122362541                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ RPGssLScWPXjQagFYgkM                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ GVnzWxRukreNgNBpUAKn                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ VmltLQKrevgdJFsboaMa                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1588,16 +1588,16 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: tzjRhyprtIyKuGDTEfLF\n\n# experience: JWfUzBGMzUFpEpKWXUqd\n\n# education: gxPTJBJkpmyvXeZFdDPr\n\n# achievements: sjxLWjQcyRWRbPjErEQC\n</candidate_profile>\n\n<job_requirements>\n# required_skills: fBFGnthSCKkBXOXmymKt\n\n# responsibilities: cTaqXyZxFvFPFAQiTxnd\n\n# qualifications: MPdyMTOWfBZLDuCFIdfD\n\n# nice_to_haves: tpaIsaIwfztdhlPevKHY\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: ejQPSvEnqKldZLUFiWJl\n\n# experience: hlZAyzDPzZwqewCrBkFQ\n\n# education: orvmDHGhuGjUySCVicHz\n\n# achievements: fwgLWuGNXqOiKifwiGcP\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     }
   ],
   "edges": [
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_0",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_0",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_0",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1605,9 +1605,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_1",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_2",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_1",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1615,9 +1615,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_2",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_3",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_2",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1625,9 +1625,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_3",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_0",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_3",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1635,9 +1635,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_4",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_4",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1645,9 +1645,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_5",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_6",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_5",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1655,9 +1655,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_6",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_7",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_6",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1665,9 +1665,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_7",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_8",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_7",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1675,9 +1675,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_8",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_8",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1685,9 +1685,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_9",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_10",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_9",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1695,9 +1695,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_10",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_11",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_10",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1705,9 +1705,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_11",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_12",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_11",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1715,9 +1715,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_12",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_12",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1725,9 +1725,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_13",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_14",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_13",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1735,9 +1735,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_14",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_15",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_14",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1745,9 +1745,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:edge_15",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_16",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_15",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1755,9 +1755,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_0",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_2",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_3",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_0",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
       "kind": "data",
       "label": "job_offer_pages",
       "source_stuff_digest": null,
@@ -1765,9 +1765,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_1",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_1",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1775,9 +1775,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_2",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_6",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_7",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_2",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -1785,9 +1785,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_3",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_7",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_8",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_3",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
       "kind": "data",
       "label": "candidate_profile",
       "source_stuff_digest": null,
@@ -1795,9 +1795,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_4",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_8",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_4",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1805,9 +1805,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_5",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_5",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1815,9 +1815,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_6",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_10",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_11",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_6",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -1825,9 +1825,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_7",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_11",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_12",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_7",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
       "kind": "data",
       "label": "candidate_profile",
       "source_stuff_digest": null,
@@ -1835,9 +1835,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_8",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_12",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_8",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1845,9 +1845,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_9",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_9",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1855,9 +1855,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_10",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_14",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_15",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_10",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -1865,9 +1865,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_11",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_15",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_16",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_11",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
       "kind": "data",
       "label": "candidate_profile",
       "source_stuff_digest": null,
@@ -1875,9 +1875,9 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_12",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_1",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_16",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_12",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
       "kind": "data",
       "label": "job_requirements",
       "source_stuff_digest": null,
@@ -1885,93 +1885,93 @@
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_13",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_13",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
       "kind": "batch_item",
       "label": "[0]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-0",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-0",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_14",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_6",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_14",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
       "kind": "batch_item",
       "label": "[0]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-0",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-0",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_15",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_15",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
       "kind": "batch_item",
       "label": "[1]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-1",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-1",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_16",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_10",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_16",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
       "kind": "batch_item",
       "label": "[1]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-1",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-1",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_17",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_17",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
       "kind": "batch_item",
       "label": "[2]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-2",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-2",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_18",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_14",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_18",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
       "kind": "batch_item",
       "label": "[2]",
-      "source_stuff_digest": "KEYwp",
-      "target_stuff_digest": "KEYwp-branch-2",
+      "source_stuff_digest": "V5vae",
+      "target_stuff_digest": "V5vae-branch-2",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_19",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_5",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_19",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
       "kind": "batch_aggregate",
       "label": "[0]",
-      "source_stuff_digest": "WAc5z-branch-0",
-      "target_stuff_digest": "SaY3H",
+      "source_stuff_digest": "XDMLj-branch-0",
+      "target_stuff_digest": "LMiEK",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_20",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_9",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_20",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
       "kind": "batch_aggregate",
       "label": "[1]",
-      "source_stuff_digest": "WAc5z-branch-1",
-      "target_stuff_digest": "SaY3H",
+      "source_stuff_digest": "XDMLj-branch-1",
+      "target_stuff_digest": "LMiEK",
       "meta": {}
     },
     {
-      "id": "8a7d70d0-0f7d-4079-a398-fde333b249e4:asm_edge_21",
-      "source": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_13",
-      "target": "8a7d70d0-0f7d-4079-a398-fde333b249e4:node_4",
+      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_21",
+      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
+      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
       "kind": "batch_aggregate",
       "label": "[2]",
-      "source_stuff_digest": "WAc5z-branch-2",
-      "target_stuff_digest": "SaY3H",
+      "source_stuff_digest": "XDMLj-branch-2",
+      "target_stuff_digest": "LMiEK",
       "meta": {}
     }
   ],

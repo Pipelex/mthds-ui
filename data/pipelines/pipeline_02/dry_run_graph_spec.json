@@ -1,6 +1,6 @@
 {
-  "graph_id": "581ddbef-98c6-4628-87f8-39c99efbe86e",
-  "created_at": "2026-05-15T11:21:09.269457Z",
+  "graph_id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2",
+  "created_at": "2026-05-15T12:39:02.362623Z",
   "pipeline_ref": {
     "domain": "document_analysis",
     "main_pipe": "extract_and_analyze",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_0",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_0",
       "kind": "controller",
       "pipe_code": "extract_and_analyze",
       "pipe_type": "PipeSequence",
@@ -16,29 +16,29 @@
       "domain_code": "document_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:09.269457Z",
-        "ended_at": "2026-05-15T11:21:09.314146Z",
-        "duration": 0.044689
+        "started_at": "2026-05-15T12:39:02.362623Z",
+        "ended_at": "2026-05-15T12:39:02.394170Z",
+        "duration": 0.031547
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "SqvTovbACNsSErBMKHwP",
+            "content_type": "DSkSRprFXEDIRPjuSBrZ",
             "preview": null,
             "size": null,
-            "digest": "6wjXp",
+            "digest": "KBdcL",
             "data": {
-              "url": "vQPYRXkVTOOwPAleABja",
-              "public_url": "XIvOQwNpZVVzTJDEzfQZ",
-              "mime_type": "SqvTovbACNsSErBMKHwP",
-              "filename": "OGmaDXkCawmJUMHXbwJV",
-              "title": "oYtSimTnoqxkGrNGZYjI",
-              "snippet": "mKkZpkFywQAdGsvLzwgA"
+              "url": "sQkyKAJydXxRKidPhSyY",
+              "public_url": "uuRjlnNppDuQoAHJqJuf",
+              "mime_type": "DSkSRprFXEDIRPjuSBrZ",
+              "filename": "zDFKReYATbkDQMnHHqdY",
+              "title": "zWxIGofEYACEMHhfBGWI",
+              "snippet": "RskqRSmQEWMImpnJKjLC"
             },
-            "data_text": "oYtSimTnoqxkGrNGZYjI (vQPYRXkVTOOwPAleABja)\n  mKkZpkFywQAdGsvLzwgA\n",
-            "data_html": "<a href=\"XIvOQwNpZVVzTJDEzfQZ\" class=\"msg-document\">oYtSimTnoqxkGrNGZYjI</a><br/><small>mKkZpkFywQAdGsvLzwgA</small>",
+            "data_text": "zWxIGofEYACEMHhfBGWI (sQkyKAJydXxRKidPhSyY)\n  RskqRSmQEWMImpnJKjLC\n",
+            "data_html": "<a href=\"uuRjlnNppDuQoAHJqJuf\" class=\"msg-document\">zWxIGofEYACEMHhfBGWI</a><br/><small>RskqRSmQEWMImpnJKjLC</small>",
             "extra": {}
           }
         ],
@@ -49,7 +49,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TimUp",
+            "digest": "GdDAp",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "
             },
@@ -67,7 +67,7 @@
       }
     },
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_1",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_1",
       "kind": "operator",
       "pipe_code": "extract_document",
       "pipe_type": "PipeExtract",
@@ -75,29 +75,29 @@
       "domain_code": "document_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:09.279306Z",
-        "ended_at": "2026-05-15T11:21:09.290243Z",
-        "duration": 0.010937
+        "started_at": "2026-05-15T12:39:02.368577Z",
+        "ended_at": "2026-05-15T12:39:02.375890Z",
+        "duration": 0.007313
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "SqvTovbACNsSErBMKHwP",
+            "content_type": "DSkSRprFXEDIRPjuSBrZ",
             "preview": null,
             "size": null,
-            "digest": "6wjXp",
+            "digest": "KBdcL",
             "data": {
-              "url": "vQPYRXkVTOOwPAleABja",
-              "public_url": "XIvOQwNpZVVzTJDEzfQZ",
-              "mime_type": "SqvTovbACNsSErBMKHwP",
-              "filename": "OGmaDXkCawmJUMHXbwJV",
-              "title": "oYtSimTnoqxkGrNGZYjI",
-              "snippet": "mKkZpkFywQAdGsvLzwgA"
+              "url": "sQkyKAJydXxRKidPhSyY",
+              "public_url": "uuRjlnNppDuQoAHJqJuf",
+              "mime_type": "DSkSRprFXEDIRPjuSBrZ",
+              "filename": "zDFKReYATbkDQMnHHqdY",
+              "title": "zWxIGofEYACEMHhfBGWI",
+              "snippet": "RskqRSmQEWMImpnJKjLC"
             },
-            "data_text": "oYtSimTnoqxkGrNGZYjI (vQPYRXkVTOOwPAleABja)\n  mKkZpkFywQAdGsvLzwgA\n",
-            "data_html": "<a href=\"XIvOQwNpZVVzTJDEzfQZ\" class=\"msg-document\">oYtSimTnoqxkGrNGZYjI</a><br/><small>mKkZpkFywQAdGsvLzwgA</small>",
+            "data_text": "zWxIGofEYACEMHhfBGWI (sQkyKAJydXxRKidPhSyY)\n  RskqRSmQEWMImpnJKjLC\n",
+            "data_html": "<a href=\"uuRjlnNppDuQoAHJqJuf\" class=\"msg-document\">zWxIGofEYACEMHhfBGWI</a><br/><small>RskqRSmQEWMImpnJKjLC</small>",
             "extra": {}
           }
         ],
@@ -108,7 +108,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FsuTC",
+            "digest": "HhjtW",
             "data": {
               "items": [
                 {
@@ -170,7 +170,7 @@
       }
     },
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_2",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_2",
       "kind": "operator",
       "pipe_code": "analyze_pages",
       "pipe_type": "PipeLLM",
@@ -178,9 +178,9 @@
       "domain_code": "document_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:09.297947Z",
-        "ended_at": "2026-05-15T11:21:09.310750Z",
-        "duration": 0.012803
+        "started_at": "2026-05-15T12:39:02.380788Z",
+        "ended_at": "2026-05-15T12:39:02.391439Z",
+        "duration": 0.010651
       },
       "io": {
         "inputs": [
@@ -190,7 +190,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FsuTC",
+            "digest": "HhjtW",
             "data": {
               "items": [
                 {
@@ -247,7 +247,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TimUp",
+            "digest": "GdDAp",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    "
             },
@@ -272,9 +272,9 @@
   ],
   "edges": [
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:edge_0",
-      "source": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_0",
-      "target": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_1",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:edge_0",
+      "source": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_0",
+      "target": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -282,9 +282,9 @@
       "meta": {}
     },
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:edge_1",
-      "source": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_0",
-      "target": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_2",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:edge_1",
+      "source": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_0",
+      "target": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -292,9 +292,9 @@
       "meta": {}
     },
     {
-      "id": "581ddbef-98c6-4628-87f8-39c99efbe86e:asm_edge_0",
-      "source": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_1",
-      "target": "581ddbef-98c6-4628-87f8-39c99efbe86e:node_2",
+      "id": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:asm_edge_0",
+      "source": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_1",
+      "target": "b2a096fd-617b-4c29-b1a3-6a958a17cce2:node_2",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,

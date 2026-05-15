@@ -1,6 +1,6 @@
 {
-  "graph_id": "82677095-129b-454b-86f8-fc1c10b9c81e",
-  "created_at": "2026-05-15T11:21:14.456358Z",
+  "graph_id": "94428b29-684b-4de1-b89d-c894302c77f6",
+  "created_at": "2026-05-15T12:39:06.394010Z",
   "pipeline_ref": {
     "domain": "data_pipeline",
     "main_pipe": "ingest_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
       "kind": "controller",
       "pipe_code": "ingest_pipeline",
       "pipe_type": "PipeSequence",
@@ -16,29 +16,29 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.456358Z",
-        "ended_at": "2026-05-15T11:21:14.613430Z",
-        "duration": 0.157072
+        "started_at": "2026-05-15T12:39:06.394010Z",
+        "ended_at": "2026-05-15T12:39:06.492567Z",
+        "duration": 0.098557
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "rCvAjngrAdcanLVrtPwE",
+            "content_type": "biIwUBeXmzZJeItAhITN",
             "preview": null,
             "size": null,
-            "digest": "UcALC",
+            "digest": "NNuyv",
             "data": {
-              "url": "EYLBmFpICkhzUFuIoSFa",
-              "public_url": "XdiyWOSuVBCOvxRmHUQC",
-              "mime_type": "rCvAjngrAdcanLVrtPwE",
-              "filename": "iSjnBUIShLiByTSBABop",
-              "title": "JxOiZNdtvFfghFhYbAvM",
-              "snippet": "IGbRrYiwwttMaBBpqfni"
+              "url": "nCIzdmCOcYiehEuOyifm",
+              "public_url": "vJJQXUbcgncfPhgqwFhE",
+              "mime_type": "biIwUBeXmzZJeItAhITN",
+              "filename": "fPnKSoAqCKSHLjrWvXkX",
+              "title": "SFHsXbZqaQNbDzegXKwh",
+              "snippet": "ZLKsnvwiSRKmGfdbevPX"
             },
-            "data_text": "JxOiZNdtvFfghFhYbAvM (EYLBmFpICkhzUFuIoSFa)\n  IGbRrYiwwttMaBBpqfni\n",
-            "data_html": "<a href=\"XdiyWOSuVBCOvxRmHUQC\" class=\"msg-document\">JxOiZNdtvFfghFhYbAvM</a><br/><small>IGbRrYiwwttMaBBpqfni</small>",
+            "data_text": "SFHsXbZqaQNbDzegXKwh (nCIzdmCOcYiehEuOyifm)\n  ZLKsnvwiSRKmGfdbevPX\n",
+            "data_html": "<a href=\"vJJQXUbcgncfPhgqwFhE\" class=\"msg-document\">SFHsXbZqaQNbDzegXKwh</a><br/><small>ZLKsnvwiSRKmGfdbevPX</small>",
             "extra": {}
           }
         ],
@@ -49,12 +49,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hxyAg",
+            "digest": "QryJt",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"yHxMEakamMFRqCjiMphN\": \"9fcfc5f7\"\n}\n</index>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>\n    "
             },
             "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;yHxMEakamMFRqCjiMphN&quot;: &quot;9fcfc5f7&quot;\n}\n&lt;/index&gt;\n    ",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;xoMuMWizrJVPCAzUjwNM&quot;: &quot;62a5&quot;\n}\n&lt;/index&gt;\n    ",
             "extra": {}
           }
         ]
@@ -67,7 +67,7 @@
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_1",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
       "kind": "operator",
       "pipe_code": "extract_raw",
       "pipe_type": "PipeExtract",
@@ -75,29 +75,29 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.462496Z",
-        "ended_at": "2026-05-15T11:21:14.472247Z",
-        "duration": 0.009751
+        "started_at": "2026-05-15T12:39:06.399298Z",
+        "ended_at": "2026-05-15T12:39:06.406734Z",
+        "duration": 0.007436
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "rCvAjngrAdcanLVrtPwE",
+            "content_type": "biIwUBeXmzZJeItAhITN",
             "preview": null,
             "size": null,
-            "digest": "UcALC",
+            "digest": "NNuyv",
             "data": {
-              "url": "EYLBmFpICkhzUFuIoSFa",
-              "public_url": "XdiyWOSuVBCOvxRmHUQC",
-              "mime_type": "rCvAjngrAdcanLVrtPwE",
-              "filename": "iSjnBUIShLiByTSBABop",
-              "title": "JxOiZNdtvFfghFhYbAvM",
-              "snippet": "IGbRrYiwwttMaBBpqfni"
+              "url": "nCIzdmCOcYiehEuOyifm",
+              "public_url": "vJJQXUbcgncfPhgqwFhE",
+              "mime_type": "biIwUBeXmzZJeItAhITN",
+              "filename": "fPnKSoAqCKSHLjrWvXkX",
+              "title": "SFHsXbZqaQNbDzegXKwh",
+              "snippet": "ZLKsnvwiSRKmGfdbevPX"
             },
-            "data_text": "JxOiZNdtvFfghFhYbAvM (EYLBmFpICkhzUFuIoSFa)\n  IGbRrYiwwttMaBBpqfni\n",
-            "data_html": "<a href=\"XdiyWOSuVBCOvxRmHUQC\" class=\"msg-document\">JxOiZNdtvFfghFhYbAvM</a><br/><small>IGbRrYiwwttMaBBpqfni</small>",
+            "data_text": "SFHsXbZqaQNbDzegXKwh (nCIzdmCOcYiehEuOyifm)\n  ZLKsnvwiSRKmGfdbevPX\n",
+            "data_html": "<a href=\"vJJQXUbcgncfPhgqwFhE\" class=\"msg-document\">SFHsXbZqaQNbDzegXKwh</a><br/><small>ZLKsnvwiSRKmGfdbevPX</small>",
             "extra": {}
           }
         ],
@@ -108,7 +108,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7Feiq",
+            "digest": "8DoNM",
             "data": {
               "items": [
                 {
@@ -170,7 +170,7 @@
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_2",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
       "kind": "operator",
       "pipe_code": "clean_text",
       "pipe_type": "PipeLLM",
@@ -178,9 +178,9 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.478028Z",
-        "ended_at": "2026-05-15T11:21:14.499048Z",
-        "duration": 0.02102
+        "started_at": "2026-05-15T12:39:06.411950Z",
+        "ended_at": "2026-05-15T12:39:06.423158Z",
+        "duration": 0.011208
       },
       "io": {
         "inputs": [
@@ -190,7 +190,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7Feiq",
+            "digest": "8DoNM",
             "data": {
               "items": [
                 {
@@ -247,7 +247,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PZJTX",
+            "digest": "LsxWn",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
             },
@@ -270,7 +270,7 @@
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_3",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
       "kind": "operator",
       "pipe_code": "chunk_text",
       "pipe_type": "PipeLLM",
@@ -278,9 +278,9 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.512460Z",
-        "ended_at": "2026-05-15T11:21:14.530172Z",
-        "duration": 0.017712
+        "started_at": "2026-05-15T12:39:06.427851Z",
+        "ended_at": "2026-05-15T12:39:06.442164Z",
+        "duration": 0.014313
       },
       "io": {
         "inputs": [
@@ -290,7 +290,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PZJTX",
+            "digest": "LsxWn",
             "data": {
               "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
             },
@@ -306,22 +306,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mSthf",
+            "digest": "5yYVV",
             "data": {
               "items": [
                 {
-                  "text": "zcddROSyOVKktFcswJCH"
+                  "text": "IOuIyELzPNTQifeVcTsm"
                 },
                 {
-                  "text": "yCztsHVgQsBMGiXmKqvQ"
+                  "text": "EQMtDnMOlVqDNNTZXXmT"
                 },
                 {
-                  "text": "BJXONGxsqcfjdDniagwl"
+                  "text": "cIgBrwQgHjhgLBulzLov"
                 }
               ]
             },
-            "data_text": "   1    │ zcddROSyOVKktFcswJCH                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ yCztsHVgQsBMGiXmKqvQ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ BJXONGxsqcfjdDniagwl                                                  \n",
-            "data_html": "<ul><li>zcddROSyOVKktFcswJCH</li><li>yCztsHVgQsBMGiXmKqvQ</li><li>BJXONGxsqcfjdDniagwl</li></ul>",
+            "data_text": "   1    │ IOuIyELzPNTQifeVcTsm                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ EQMtDnMOlVqDNNTZXXmT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ cIgBrwQgHjhgLBulzLov                                                  \n",
+            "data_html": "<ul><li>IOuIyELzPNTQifeVcTsm</li><li>EQMtDnMOlVqDNNTZXXmT</li><li>cIgBrwQgHjhgLBulzLov</li></ul>",
             "extra": {}
           }
         ]
@@ -339,7 +339,7 @@
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_4",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
       "kind": "operator",
       "pipe_code": "embed_chunks",
       "pipe_type": "PipeLLM",
@@ -347,9 +347,9 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.537708Z",
-        "ended_at": "2026-05-15T11:21:14.558982Z",
-        "duration": 0.021274
+        "started_at": "2026-05-15T12:39:06.447033Z",
+        "ended_at": "2026-05-15T12:39:06.461722Z",
+        "duration": 0.014689
       },
       "io": {
         "inputs": [
@@ -359,22 +359,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mSthf",
+            "digest": "5yYVV",
             "data": {
               "items": [
                 {
-                  "text": "zcddROSyOVKktFcswJCH"
+                  "text": "IOuIyELzPNTQifeVcTsm"
                 },
                 {
-                  "text": "yCztsHVgQsBMGiXmKqvQ"
+                  "text": "EQMtDnMOlVqDNNTZXXmT"
                 },
                 {
-                  "text": "BJXONGxsqcfjdDniagwl"
+                  "text": "cIgBrwQgHjhgLBulzLov"
                 }
               ]
             },
-            "data_text": "   1    │ zcddROSyOVKktFcswJCH                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ yCztsHVgQsBMGiXmKqvQ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ BJXONGxsqcfjdDniagwl                                                  \n",
-            "data_html": "<ul><li>zcddROSyOVKktFcswJCH</li><li>yCztsHVgQsBMGiXmKqvQ</li><li>BJXONGxsqcfjdDniagwl</li></ul>",
+            "data_text": "   1    │ IOuIyELzPNTQifeVcTsm                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ EQMtDnMOlVqDNNTZXXmT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ cIgBrwQgHjhgLBulzLov                                                  \n",
+            "data_html": "<ul><li>IOuIyELzPNTQifeVcTsm</li><li>EQMtDnMOlVqDNNTZXXmT</li><li>cIgBrwQgHjhgLBulzLov</li></ul>",
             "extra": {}
           }
         ],
@@ -385,22 +385,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dgvdp",
+            "digest": "WDm2G",
             "data": {
               "items": [
                 {
-                  "text": "JQIRqhzRhKsNwIQIPJQJ"
+                  "text": "CHImyylRjSLZwWnqXfOT"
                 },
                 {
-                  "text": "uECKkQiFeHCcIYTOwkhD"
+                  "text": "jhIvhGZrjAuKWcEXxUZa"
                 },
                 {
-                  "text": "yizbfVTpFhAVtOpZdirg"
+                  "text": "UswAwhWTUOLnbyvWMPPr"
                 }
               ]
             },
-            "data_text": "   1    │ JQIRqhzRhKsNwIQIPJQJ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ uECKkQiFeHCcIYTOwkhD                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ yizbfVTpFhAVtOpZdirg                                                  \n",
-            "data_html": "<ul><li>JQIRqhzRhKsNwIQIPJQJ</li><li>uECKkQiFeHCcIYTOwkhD</li><li>yizbfVTpFhAVtOpZdirg</li></ul>",
+            "data_text": "   1    │ CHImyylRjSLZwWnqXfOT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ jhIvhGZrjAuKWcEXxUZa                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ UswAwhWTUOLnbyvWMPPr                                                  \n",
+            "data_html": "<ul><li>CHImyylRjSLZwWnqXfOT</li><li>jhIvhGZrjAuKWcEXxUZa</li><li>UswAwhWTUOLnbyvWMPPr</li></ul>",
             "extra": {}
           }
         ]
@@ -413,12 +413,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nzcddROSyOVKktFcswJCH\n\n • item #2:\n\nyCztsHVgQsBMGiXmKqvQ\n\n • item #3:\n\nBJXONGxsqcfjdDniagwl\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    \"\"\"Vector embedding of text\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nIOuIyELzPNTQifeVcTsm\n\n • item #2:\n\nEQMtDnMOlVqDNNTZXXmT\n\n • item #3:\n\ncIgBrwQgHjhgLBulzLov\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    \"\"\"Vector embedding of text\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_5",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
       "kind": "operator",
       "pipe_code": "build_index",
       "pipe_type": "PipeLLM",
@@ -426,9 +426,9 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.568291Z",
-        "ended_at": "2026-05-15T11:21:14.585814Z",
-        "duration": 0.017523
+        "started_at": "2026-05-15T12:39:06.466589Z",
+        "ended_at": "2026-05-15T12:39:06.477929Z",
+        "duration": 0.01134
       },
       "io": {
         "inputs": [
@@ -438,22 +438,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dgvdp",
+            "digest": "WDm2G",
             "data": {
               "items": [
                 {
-                  "text": "JQIRqhzRhKsNwIQIPJQJ"
+                  "text": "CHImyylRjSLZwWnqXfOT"
                 },
                 {
-                  "text": "uECKkQiFeHCcIYTOwkhD"
+                  "text": "jhIvhGZrjAuKWcEXxUZa"
                 },
                 {
-                  "text": "yizbfVTpFhAVtOpZdirg"
+                  "text": "UswAwhWTUOLnbyvWMPPr"
                 }
               ]
             },
-            "data_text": "   1    │ JQIRqhzRhKsNwIQIPJQJ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ uECKkQiFeHCcIYTOwkhD                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ yizbfVTpFhAVtOpZdirg                                                  \n",
-            "data_html": "<ul><li>JQIRqhzRhKsNwIQIPJQJ</li><li>uECKkQiFeHCcIYTOwkhD</li><li>yizbfVTpFhAVtOpZdirg</li></ul>",
+            "data_text": "   1    │ CHImyylRjSLZwWnqXfOT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ jhIvhGZrjAuKWcEXxUZa                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ UswAwhWTUOLnbyvWMPPr                                                  \n",
+            "data_html": "<ul><li>CHImyylRjSLZwWnqXfOT</li><li>jhIvhGZrjAuKWcEXxUZa</li><li>UswAwhWTUOLnbyvWMPPr</li></ul>",
             "extra": {}
           }
         ],
@@ -464,14 +464,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bGGCG",
+            "digest": "CiGGc",
             "data": {
               "json_obj": {
-                "yHxMEakamMFRqCjiMphN": "9fcfc5f7"
+                "xoMuMWizrJVPCAzUjwNM": "62a5"
               }
             },
-            "data_text": "{\n    \"yHxMEakamMFRqCjiMphN\": \"9fcfc5f7\"\n}\n",
-            "data_html": "<table ><tr><th>yHxMEakamMFRqCjiMphN</th><td>9fcfc5f7</td></tr></table>",
+            "data_text": "{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n",
+            "data_html": "<table ><tr><th>xoMuMWizrJVPCAzUjwNM</th><td>62a5</td></tr></table>",
             "extra": {}
           }
         ]
@@ -484,12 +484,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nJQIRqhzRhKsNwIQIPJQJ\n\n • item #2:\n\nuECKkQiFeHCcIYTOwkhD\n\n • item #3:\n\nyizbfVTpFhAVtOpZdirg\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    \"\"\"An indexed collection of vectors\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nCHImyylRjSLZwWnqXfOT\n\n • item #2:\n\njhIvhGZrjAuKWcEXxUZa\n\n • item #3:\n\nUswAwhWTUOLnbyvWMPPr\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    \"\"\"An indexed collection of vectors\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:node_6",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
       "kind": "operator",
       "pipe_code": "validate_index",
       "pipe_type": "PipeLLM",
@@ -497,9 +497,9 @@
       "domain_code": "data_pipeline",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-05-15T11:21:14.598277Z",
-        "ended_at": "2026-05-15T11:21:14.608385Z",
-        "duration": 0.010108
+        "started_at": "2026-05-15T12:39:06.482379Z",
+        "ended_at": "2026-05-15T12:39:06.490278Z",
+        "duration": 0.007899
       },
       "io": {
         "inputs": [
@@ -509,14 +509,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bGGCG",
+            "digest": "CiGGc",
             "data": {
               "json_obj": {
-                "yHxMEakamMFRqCjiMphN": "9fcfc5f7"
+                "xoMuMWizrJVPCAzUjwNM": "62a5"
               }
             },
-            "data_text": "{\n    \"yHxMEakamMFRqCjiMphN\": \"9fcfc5f7\"\n}\n",
-            "data_html": "<table ><tr><th>yHxMEakamMFRqCjiMphN</th><td>9fcfc5f7</td></tr></table>",
+            "data_text": "{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n",
+            "data_html": "<table ><tr><th>xoMuMWizrJVPCAzUjwNM</th><td>62a5</td></tr></table>",
             "extra": {}
           }
         ],
@@ -527,12 +527,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hxyAg",
+            "digest": "QryJt",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"yHxMEakamMFRqCjiMphN\": \"9fcfc5f7\"\n}\n</index>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>\n    "
             },
             "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;yHxMEakamMFRqCjiMphN&quot;: &quot;9fcfc5f7&quot;\n}\n&lt;/index&gt;\n    ",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;xoMuMWizrJVPCAzUjwNM&quot;: &quot;62a5&quot;\n}\n&lt;/index&gt;\n    ",
             "extra": {}
           }
         ]
@@ -545,16 +545,16 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"yHxMEakamMFRqCjiMphN\": \"9fcfc5f7\"\n}\n</index>",
+        "rendered_user_prompt": "Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_0",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_1",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_0",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -562,9 +562,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_1",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_2",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_1",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -572,9 +572,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_2",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_3",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_2",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -582,9 +582,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_3",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_4",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_3",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -592,9 +592,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_4",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_5",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_4",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -602,9 +602,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:edge_5",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_0",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_6",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_5",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -612,9 +612,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:asm_edge_0",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_1",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_2",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_0",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -622,9 +622,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:asm_edge_1",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_2",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_3",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_1",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
       "kind": "data",
       "label": "clean_text",
       "source_stuff_digest": null,
@@ -632,9 +632,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:asm_edge_2",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_3",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_4",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_2",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
       "kind": "data",
       "label": "chunks",
       "source_stuff_digest": null,
@@ -642,9 +642,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:asm_edge_3",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_4",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_5",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_3",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
       "kind": "data",
       "label": "embeddings",
       "source_stuff_digest": null,
@@ -652,9 +652,9 @@
       "meta": {}
     },
     {
-      "id": "82677095-129b-454b-86f8-fc1c10b9c81e:asm_edge_4",
-      "source": "82677095-129b-454b-86f8-fc1c10b9c81e:node_5",
-      "target": "82677095-129b-454b-86f8-fc1c10b9c81e:node_6",
+      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_4",
+      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
+      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
       "kind": "data",
       "label": "index",
       "source_stuff_digest": null,

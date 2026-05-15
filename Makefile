@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test
 
 install:
 	npm install
@@ -41,6 +41,10 @@ fixtures:
 
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live
+
+# Smoke-test the live path on 3 small bundles — runs real inference, writes nothing.
+fixtures-live-test:
+	node scripts/generate-fixtures.mjs --live --check --only pipeline_01,pipeline_02,pipeline_03
 
 clean:
 	rm -rf dist node_modules
