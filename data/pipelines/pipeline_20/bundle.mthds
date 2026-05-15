@@ -77,8 +77,12 @@ output = "CollectedResults"
 template = """
 # Collected Results
 
-## Technical: @alpha
-## Market: @beta
-## Risk: @delta
-## Compliance: @epsilon
+## Technical:
+@alpha
+## Market:
+@beta
+## Risk:
+@delta
+## Compliance:
+@epsilon
 """

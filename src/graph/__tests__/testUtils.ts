@@ -93,6 +93,15 @@ export function makeGraphEdge(
 
 // ─── GraphSpec factories ────────────────────────────────────────────────────
 
+/** Stamp the fields a real pipelex spec always carries onto a factory spec. */
+function finalizeSpec(nodes: GraphSpecNode[], edges: GraphSpecEdge[]): GraphSpec {
+  for (const node of nodes) {
+    node.description ??= `Test pipe ${node.pipe_code}`;
+    node.domain_code ??= "test";
+  }
+  return { nodes, edges, meta: { format: "mthds" } };
+}
+
 /** Linear chain of N operators sharing stuff between them. */
 export function makeMinimalSpec(nodeCount: number): GraphSpec {
   const nodes: GraphSpecNode[] = [];
@@ -118,7 +127,7 @@ export function makeMinimalSpec(nodeCount: number): GraphSpec {
     nodes.push(node);
   }
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }
 
 /** Seq > Parallel(N branches) > Compose pattern. */
@@ -189,7 +198,7 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
   });
   edges.push({ id: "e3", source: "root_seq", target: "compose", kind: "contains" });
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }
 
 /** Seq > Batch(N iterations) > Compose pattern. */
@@ -269,7 +278,7 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
   });
   edges.push({ id: "e9", source: "root_seq", target: "final", kind: "contains" });
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }
 
 /** N levels of nesting: Seq > Seq > ... > operator. */
@@ -303,44 +312,43 @@ export function makeNestedSpec(depth: number): GraphSpec {
   });
   edges.push({ id: "e11", source: parentId, target: "leaf_op", kind: "contains" });
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }
 
 /** Malformed spec with circular containment: A contains B, B contains A. */
 export function makeCycleSpec(): GraphSpec {
-  return {
-    nodes: [
-      {
-        pipe_code: "A",
-        kind: "controller",
-        status: "succeeded",
-        io: { inputs: [], outputs: [] },
-        id: "A",
-        pipe_type: "PipeSequence",
-      },
-      {
-        pipe_code: "B",
-        kind: "controller",
-        status: "succeeded",
-        io: { inputs: [], outputs: [] },
-        id: "B",
-        pipe_type: "PipeSequence",
-      },
-      {
-        kind: "operator",
-        status: "succeeded",
-        id: "op1",
-        pipe_code: "op1",
-        pipe_type: "PipeFunc",
-        io: { inputs: [], outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
-      },
-    ],
-    edges: [
-      { id: "e12", source: "A", target: "B", kind: "contains" },
-      { id: "e13", source: "B", target: "A", kind: "contains" },
-      { id: "e14", source: "A", target: "op1", kind: "contains" },
-    ],
-  };
+  const nodes: GraphSpecNode[] = [
+    {
+      pipe_code: "A",
+      kind: "controller",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      id: "A",
+      pipe_type: "PipeSequence",
+    },
+    {
+      pipe_code: "B",
+      kind: "controller",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      id: "B",
+      pipe_type: "PipeSequence",
+    },
+    {
+      kind: "operator",
+      status: "succeeded",
+      id: "op1",
+      pipe_code: "op1",
+      pipe_type: "PipeFunc",
+      io: { inputs: [], outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
+    },
+  ];
+  const edges: GraphSpecEdge[] = [
+    { id: "e12", source: "A", target: "B", kind: "contains" },
+    { id: "e13", source: "B", target: "A", kind: "contains" },
+    { id: "e14", source: "A", target: "op1", kind: "contains" },
+  ];
+  return finalizeSpec(nodes, edges);
 }
 
 // ─── Full pipeline runner ───────────────────────────────────────────────────

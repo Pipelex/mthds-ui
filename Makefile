@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live
 
 install:
 	npm install
@@ -35,6 +35,12 @@ all: check test build
 
 storybook:
 	npx storybook dev -p 6006
+
+fixtures:
+	node scripts/generate-fixtures.mjs
+
+fixtures-live:
+	node scripts/generate-fixtures.mjs --live
 
 clean:
 	rm -rf dist node_modules

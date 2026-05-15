@@ -12,5 +12,8 @@ coverage/
 storybook-static
 mthds-wip/
 .pipelex/storage/
+.pipelex/traces/
+.pipelex/cache/
+.pipelex/.env
 
 yarn.lock

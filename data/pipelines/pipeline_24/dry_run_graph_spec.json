@@ -1,6 +1,6 @@
 {
-  "graph_id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c",
-  "created_at": "2026-04-06T10:16:04.188261Z",
+  "graph_id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413",
+  "created_at": "2026-05-15T11:21:57.605153Z",
   "pipeline_ref": {
     "domain": "deep_processing",
     "main_pipe": "deep_nested_pipeline",
@@ -8,35 +8,37 @@
   },
   "nodes": [
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_0",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_0",
       "kind": "controller",
       "pipe_code": "deep_nested_pipeline",
       "pipe_type": "PipeSequence",
+      "description": "Entry, deep parallel processing, then exit",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.193825Z",
-        "ended_at": "2026-04-06T10:16:04.281071Z",
-        "duration": 0.087246
+        "started_at": "2026-05-15T11:21:57.605153Z",
+        "ended_at": "2026-05-15T11:21:57.758637Z",
+        "duration": 0.153484
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "fFeOisoctClJhddJjlOq",
+            "content_type": "OGfRZEcfJibDCNnhglcz",
             "preview": null,
             "size": null,
-            "digest": "nHTuE",
+            "digest": "9z2bT",
             "data": {
-              "url": "KSdTQVhXjDyuTnUvcImw",
-              "public_url": "JXDBWvwBUiffywmPLYBE",
-              "mime_type": "fFeOisoctClJhddJjlOq",
-              "filename": "TYljqtkOPdzxkZtmTDap",
-              "title": "zejaXGcPaAztsJtRcrTD",
-              "snippet": "EsSNyOkGrXQzFXliCBJA"
+              "url": "IJiyyXeGYHxGjyfVXPsB",
+              "public_url": "FFyTeaqJMpCufDqZiiGX",
+              "mime_type": "OGfRZEcfJibDCNnhglcz",
+              "filename": "oiCOOUcoDfuoqcXTzAOb",
+              "title": "sQNTueXSpWjwBrUJkPJZ",
+              "snippet": "HPmXtasfnvoSszFtDxzi"
             },
-            "data_text": "zejaXGcPaAztsJtRcrTD (KSdTQVhXjDyuTnUvcImw)\n  EsSNyOkGrXQzFXliCBJA\n",
-            "data_html": "<a href=\"JXDBWvwBUiffywmPLYBE\" class=\"msg-document\">zejaXGcPaAztsJtRcrTD</a><br/><small>EsSNyOkGrXQzFXliCBJA</small>",
+            "data_text": "sQNTueXSpWjwBrUJkPJZ (IJiyyXeGYHxGjyfVXPsB)\n  HPmXtasfnvoSszFtDxzi\n",
+            "data_html": "<a href=\"FFyTeaqJMpCufDqZiiGX\" class=\"msg-document\">sQNTueXSpWjwBrUJkPJZ</a><br/><small>HPmXtasfnvoSszFtDxzi</small>",
             "extra": {}
           }
         ],
@@ -47,12 +49,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kUjRi",
+            "digest": "dNyMX",
             "data": {
-              "text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    \n```"
+              "text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    \n```"
             },
-            "data_text": "                                      Deep Processing Results                                       \n\nBatch Results                                                                                       \n\nbatch_result: ```                                                                                   \n\n• item #1:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #2:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #3:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #4:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n                                                                                                    \n                                                                                                    \n ## Search Summary                                                                                  \n search_summary: ```                                                                                \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Summarize these search findings:                                                               \n                                                                                                    \n <search_result>                                                                                    \n CcNeXUINpgtScgpXOyxJ                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk                                                       \n   PxBaQUhVaEWtbKQgKgwW                                                                             \n - LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD                                                       \n   UIbshOKpaYodNWskNShh                                                                             \n - MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n                                                                                                    \n",
-            "data_html": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    \n```",
+            "data_text": "                                      Deep Processing Results                                       \n\nBatch Results                                                                                       \n\nbatch_result: ```                                                                                   \n\n• item #1:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #2:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #3:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #4:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n                                                                                                    \n                                                                                                    \n ## Search Summary                                                                                  \n search_summary: ```                                                                                \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Summarize these search findings:                                                               \n                                                                                                    \n <search_result>                                                                                    \n MvWdqmcEtyhufuDxYPsZ                                                                               \n                                                                                                    \n Sources:                                                                                           \n - BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN                                                       \n   cSHmmlGQrHjRqqGAncLE                                                                             \n - OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF                                                       \n   uSaNaNsRiqtpmQSbKGif                                                                             \n - LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n                                                                                                    \n",
+            "data_html": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    \n```",
             "extra": {}
           }
         ]
@@ -65,35 +67,37 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
       "kind": "operator",
       "pipe_code": "extract_input",
       "pipe_type": "PipeExtract",
+      "description": "Extract content from input document",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.196673Z",
-        "ended_at": "2026-04-06T10:16:04.203775Z",
-        "duration": 0.007102
+        "started_at": "2026-05-15T11:21:57.610587Z",
+        "ended_at": "2026-05-15T11:21:57.618362Z",
+        "duration": 0.007775
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "fFeOisoctClJhddJjlOq",
+            "content_type": "OGfRZEcfJibDCNnhglcz",
             "preview": null,
             "size": null,
-            "digest": "nHTuE",
+            "digest": "9z2bT",
             "data": {
-              "url": "KSdTQVhXjDyuTnUvcImw",
-              "public_url": "JXDBWvwBUiffywmPLYBE",
-              "mime_type": "fFeOisoctClJhddJjlOq",
-              "filename": "TYljqtkOPdzxkZtmTDap",
-              "title": "zejaXGcPaAztsJtRcrTD",
-              "snippet": "EsSNyOkGrXQzFXliCBJA"
+              "url": "IJiyyXeGYHxGjyfVXPsB",
+              "public_url": "FFyTeaqJMpCufDqZiiGX",
+              "mime_type": "OGfRZEcfJibDCNnhglcz",
+              "filename": "oiCOOUcoDfuoqcXTzAOb",
+              "title": "sQNTueXSpWjwBrUJkPJZ",
+              "snippet": "HPmXtasfnvoSszFtDxzi"
             },
-            "data_text": "zejaXGcPaAztsJtRcrTD (KSdTQVhXjDyuTnUvcImw)\n  EsSNyOkGrXQzFXliCBJA\n",
-            "data_html": "<a href=\"JXDBWvwBUiffywmPLYBE\" class=\"msg-document\">zejaXGcPaAztsJtRcrTD</a><br/><small>EsSNyOkGrXQzFXliCBJA</small>",
+            "data_text": "sQNTueXSpWjwBrUJkPJZ (IJiyyXeGYHxGjyfVXPsB)\n  HPmXtasfnvoSszFtDxzi\n",
+            "data_html": "<a href=\"FFyTeaqJMpCufDqZiiGX\" class=\"msg-document\">sQNTueXSpWjwBrUJkPJZ</a><br/><small>HPmXtasfnvoSszFtDxzi</small>",
             "extra": {}
           }
         ],
@@ -104,7 +108,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF",
+            "digest": "EkGh9",
             "data": {
               "items": [
                 {
@@ -166,15 +170,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
       "kind": "controller",
       "pipe_code": "level_2_parallel",
       "pipe_type": "PipeParallel",
+      "description": "Level 2: batch branch and sequence branch in parallel",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.204450Z",
-        "ended_at": "2026-04-06T10:16:04.266478Z",
-        "duration": 0.062028
+        "started_at": "2026-05-15T11:21:57.623015Z",
+        "ended_at": "2026-05-15T11:21:57.729717Z",
+        "duration": 0.106702
       },
       "io": {
         "inputs": [
@@ -184,7 +190,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF",
+            "digest": "EkGh9",
             "data": {
               "items": [
                 {
@@ -241,25 +247,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hMjMd",
+            "digest": "YpDPo",
             "data": {
               "items": [
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
-            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
+            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
+            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
             "extra": {}
           },
           {
@@ -268,12 +274,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "L3yKC",
+            "digest": "mmf7U",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> CcNeXUINpgtScgpXOyxJ                                                                \n\nSources:                                                                                            \n\n • wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk PxBaQUhVaEWtbKQgKgwW                                  \n • LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD UIbshOKpaYodNWskNShh                                  \n • MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> MvWdqmcEtyhufuDxYPsZ                                                                \n\nSources:                                                                                            \n\n • BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN cSHmmlGQrHjRqqGAncLE                                  \n • OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF uSaNaNsRiqtpmQSbKGif                                  \n • LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    ",
             "extra": {}
           }
         ]
@@ -288,15 +294,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "controller",
       "pipe_code": "batch_branch",
       "pipe_type": "PipeBatch",
+      "description": "Level 3: batch-process each page",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.208042Z",
-        "ended_at": "2026-04-06T10:16:04.259323Z",
-        "duration": 0.051281
+        "started_at": "2026-05-15T11:21:57.628509Z",
+        "ended_at": "2026-05-15T11:21:57.720850Z",
+        "duration": 0.092341
       },
       "io": {
         "inputs": [
@@ -306,7 +314,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF",
+            "digest": "EkGh9",
             "data": {
               "items": [
                 {
@@ -363,25 +371,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hMjMd",
+            "digest": "YpDPo",
             "data": {
               "items": [
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
-            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
+            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
+            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
             "extra": {}
           }
         ]
@@ -395,15 +403,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_4",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_4",
       "kind": "controller",
       "pipe_code": "search_branch",
       "pipe_type": "PipeSequence",
+      "description": "Level 3: search and summarize",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.213708Z",
-        "ended_at": "2026-04-06T10:16:04.234024Z",
-        "duration": 0.020316
+        "started_at": "2026-05-15T11:21:57.640546Z",
+        "ended_at": "2026-05-15T11:21:57.676548Z",
+        "duration": 0.036002
       },
       "io": {
         "inputs": [
@@ -413,7 +423,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF",
+            "digest": "EkGh9",
             "data": {
               "items": [
                 {
@@ -470,12 +480,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "L3yKC",
+            "digest": "mmf7U",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> CcNeXUINpgtScgpXOyxJ                                                                \n\nSources:                                                                                            \n\n • wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk PxBaQUhVaEWtbKQgKgwW                                  \n • LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD UIbshOKpaYodNWskNShh                                  \n • MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> MvWdqmcEtyhufuDxYPsZ                                                                \n\nSources:                                                                                            \n\n • BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN cSHmmlGQrHjRqqGAncLE                                  \n • OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF uSaNaNsRiqtpmQSbKGif                                  \n • LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    ",
             "extra": {}
           }
         ]
@@ -488,15 +498,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_5",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_5",
       "kind": "operator",
       "pipe_code": "search_context",
       "pipe_type": "PipeSearch",
+      "description": "Search for related context",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.216827Z",
-        "ended_at": "2026-04-06T10:16:04.224240Z",
-        "duration": 0.007413
+        "started_at": "2026-05-15T11:21:57.646727Z",
+        "ended_at": "2026-05-15T11:21:57.656196Z",
+        "duration": 0.009469
       },
       "io": {
         "inputs": [
@@ -506,7 +518,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF",
+            "digest": "EkGh9",
             "data": {
               "items": [
                 {
@@ -563,38 +575,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mS3CN",
+            "digest": "XkFoq",
             "data": {
-              "answer": "CcNeXUINpgtScgpXOyxJ",
+              "answer": "MvWdqmcEtyhufuDxYPsZ",
               "sources": [
                 {
-                  "url": "koBwfzkXEdiNnPrfOohk",
-                  "public_url": "IQfbeqYhrIKYYZJigTAD",
-                  "mime_type": "zsxPzaQnwkkIaCoQzlVh",
-                  "filename": "KcjrBsnILscNIvuWZlAw",
-                  "title": "wmaLgqhDHwkZMyhBkhOp",
-                  "snippet": "PxBaQUhVaEWtbKQgKgwW"
+                  "url": "TgNLScitnQcbSfyIEkWN",
+                  "public_url": "phTlFlrdgqXyhyYpRHzg",
+                  "mime_type": "EudwHmrshsrnnGvoilqb",
+                  "filename": "qLRMmHEioReZnuiDUhai",
+                  "title": "BOYcHiHNAzriqubSSgrM",
+                  "snippet": "cSHmmlGQrHjRqqGAncLE"
                 },
                 {
-                  "url": "WEmUNJkiqvsKumVZCOVD",
-                  "public_url": "kTaJwOrPLsMDwpbCXMIN",
-                  "mime_type": "LZGanrlnhPsbkgmKqgAB",
-                  "filename": "IKCpPuPzGGqdxLkAUjUv",
-                  "title": "LqtwIDWeagGSYziyytge",
-                  "snippet": "UIbshOKpaYodNWskNShh"
+                  "url": "VyxjkKeyKfHPaCoHLviF",
+                  "public_url": "WrvLMeHbYYOEgrChhDPG",
+                  "mime_type": "AMtPSNLYbikpXtJfOLob",
+                  "filename": "rlmlIvXSDAubtXGJqkbt",
+                  "title": "OSSHiKYBxqGKRdbLOWNA",
+                  "snippet": "uSaNaNsRiqtpmQSbKGif"
                 },
                 {
-                  "url": "FppeojbGWLzuFfFAAkZB",
-                  "public_url": "VEVEjayFsVvOTwFHQocR",
-                  "mime_type": "mXHkfZkmVEqXsyRppsWe",
-                  "filename": "PwQdRTZXWlAcmOvZVAmh",
-                  "title": "MXvbNQajehXabLfOUxgQ",
-                  "snippet": "CASFLJqVelRDqARQgqIB"
+                  "url": "DdnUyKxyqWmtsDLJulrP",
+                  "public_url": "quxggILbjKouALUJMxZL",
+                  "mime_type": "mnsAqYsHPWviyLcpMqVN",
+                  "filename": "xfVWwhfuNfmnggsojWvb",
+                  "title": "LAFzFsWDxbjtALHylvUv",
+                  "snippet": "AyrwrzKpXIXFBpedIERS"
                 }
               ]
             },
-            "data_text": "Search Result:\nCcNeXUINpgtScgpXOyxJ                                                                                \n\nSources (3):\nwmaLgqhDHwkZMyhBkhOp (koBwfzkXEdiNnPrfOohk)\n  PxBaQUhVaEWtbKQgKgwW\n\nLqtwIDWeagGSYziyytge (WEmUNJkiqvsKumVZCOVD)\n  UIbshOKpaYodNWskNShh\n\nMXvbNQajehXabLfOUxgQ (FppeojbGWLzuFfFAAkZB)\n  CASFLJqVelRDqARQgqIB\n",
-            "data_html": "<div><p>CcNeXUINpgtScgpXOyxJ</p><h4>Sources</h4><ul><li><a href=\"IQfbeqYhrIKYYZJigTAD\" class=\"msg-document\">wmaLgqhDHwkZMyhBkhOp</a><br/><small>PxBaQUhVaEWtbKQgKgwW</small></li><li><a href=\"kTaJwOrPLsMDwpbCXMIN\" class=\"msg-document\">LqtwIDWeagGSYziyytge</a><br/><small>UIbshOKpaYodNWskNShh</small></li><li><a href=\"VEVEjayFsVvOTwFHQocR\" class=\"msg-document\">MXvbNQajehXabLfOUxgQ</a><br/><small>CASFLJqVelRDqARQgqIB</small></li></ul></div>",
+            "data_text": "Search Result:\nMvWdqmcEtyhufuDxYPsZ                                                                                \n\nSources (3):\nBOYcHiHNAzriqubSSgrM (TgNLScitnQcbSfyIEkWN)\n  cSHmmlGQrHjRqqGAncLE\n\nOSSHiKYBxqGKRdbLOWNA (VyxjkKeyKfHPaCoHLviF)\n  uSaNaNsRiqtpmQSbKGif\n\nLAFzFsWDxbjtALHylvUv (DdnUyKxyqWmtsDLJulrP)\n  AyrwrzKpXIXFBpedIERS\n",
+            "data_html": "<div><p>MvWdqmcEtyhufuDxYPsZ</p><h4>Sources</h4><ul><li><a href=\"phTlFlrdgqXyhyYpRHzg\" class=\"msg-document\">BOYcHiHNAzriqubSSgrM</a><br/><small>cSHmmlGQrHjRqqGAncLE</small></li><li><a href=\"WrvLMeHbYYOEgrChhDPG\" class=\"msg-document\">OSSHiKYBxqGKRdbLOWNA</a><br/><small>uSaNaNsRiqtpmQSbKGif</small></li><li><a href=\"quxggILbjKouALUJMxZL\" class=\"msg-document\">LAFzFsWDxbjtALHylvUv</a><br/><small>AyrwrzKpXIXFBpedIERS</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -609,15 +621,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_6",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_6",
       "kind": "operator",
       "pipe_code": "summarize_search",
       "pipe_type": "PipeLLM",
+      "description": "Summarize search findings",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.225025Z",
-        "ended_at": "2026-04-06T10:16:04.233372Z",
-        "duration": 0.008347
+        "started_at": "2026-05-15T11:21:57.661917Z",
+        "ended_at": "2026-05-15T11:21:57.673693Z",
+        "duration": 0.011776
       },
       "io": {
         "inputs": [
@@ -627,38 +641,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mS3CN",
+            "digest": "XkFoq",
             "data": {
-              "answer": "CcNeXUINpgtScgpXOyxJ",
+              "answer": "MvWdqmcEtyhufuDxYPsZ",
               "sources": [
                 {
-                  "url": "koBwfzkXEdiNnPrfOohk",
-                  "public_url": "IQfbeqYhrIKYYZJigTAD",
-                  "mime_type": "zsxPzaQnwkkIaCoQzlVh",
-                  "filename": "KcjrBsnILscNIvuWZlAw",
-                  "title": "wmaLgqhDHwkZMyhBkhOp",
-                  "snippet": "PxBaQUhVaEWtbKQgKgwW"
+                  "url": "TgNLScitnQcbSfyIEkWN",
+                  "public_url": "phTlFlrdgqXyhyYpRHzg",
+                  "mime_type": "EudwHmrshsrnnGvoilqb",
+                  "filename": "qLRMmHEioReZnuiDUhai",
+                  "title": "BOYcHiHNAzriqubSSgrM",
+                  "snippet": "cSHmmlGQrHjRqqGAncLE"
                 },
                 {
-                  "url": "WEmUNJkiqvsKumVZCOVD",
-                  "public_url": "kTaJwOrPLsMDwpbCXMIN",
-                  "mime_type": "LZGanrlnhPsbkgmKqgAB",
-                  "filename": "IKCpPuPzGGqdxLkAUjUv",
-                  "title": "LqtwIDWeagGSYziyytge",
-                  "snippet": "UIbshOKpaYodNWskNShh"
+                  "url": "VyxjkKeyKfHPaCoHLviF",
+                  "public_url": "WrvLMeHbYYOEgrChhDPG",
+                  "mime_type": "AMtPSNLYbikpXtJfOLob",
+                  "filename": "rlmlIvXSDAubtXGJqkbt",
+                  "title": "OSSHiKYBxqGKRdbLOWNA",
+                  "snippet": "uSaNaNsRiqtpmQSbKGif"
                 },
                 {
-                  "url": "FppeojbGWLzuFfFAAkZB",
-                  "public_url": "VEVEjayFsVvOTwFHQocR",
-                  "mime_type": "mXHkfZkmVEqXsyRppsWe",
-                  "filename": "PwQdRTZXWlAcmOvZVAmh",
-                  "title": "MXvbNQajehXabLfOUxgQ",
-                  "snippet": "CASFLJqVelRDqARQgqIB"
+                  "url": "DdnUyKxyqWmtsDLJulrP",
+                  "public_url": "quxggILbjKouALUJMxZL",
+                  "mime_type": "mnsAqYsHPWviyLcpMqVN",
+                  "filename": "xfVWwhfuNfmnggsojWvb",
+                  "title": "LAFzFsWDxbjtALHylvUv",
+                  "snippet": "AyrwrzKpXIXFBpedIERS"
                 }
               ]
             },
-            "data_text": "Search Result:\nCcNeXUINpgtScgpXOyxJ                                                                                \n\nSources (3):\nwmaLgqhDHwkZMyhBkhOp (koBwfzkXEdiNnPrfOohk)\n  PxBaQUhVaEWtbKQgKgwW\n\nLqtwIDWeagGSYziyytge (WEmUNJkiqvsKumVZCOVD)\n  UIbshOKpaYodNWskNShh\n\nMXvbNQajehXabLfOUxgQ (FppeojbGWLzuFfFAAkZB)\n  CASFLJqVelRDqARQgqIB\n",
-            "data_html": "<div><p>CcNeXUINpgtScgpXOyxJ</p><h4>Sources</h4><ul><li><a href=\"IQfbeqYhrIKYYZJigTAD\" class=\"msg-document\">wmaLgqhDHwkZMyhBkhOp</a><br/><small>PxBaQUhVaEWtbKQgKgwW</small></li><li><a href=\"kTaJwOrPLsMDwpbCXMIN\" class=\"msg-document\">LqtwIDWeagGSYziyytge</a><br/><small>UIbshOKpaYodNWskNShh</small></li><li><a href=\"VEVEjayFsVvOTwFHQocR\" class=\"msg-document\">MXvbNQajehXabLfOUxgQ</a><br/><small>CASFLJqVelRDqARQgqIB</small></li></ul></div>",
+            "data_text": "Search Result:\nMvWdqmcEtyhufuDxYPsZ                                                                                \n\nSources (3):\nBOYcHiHNAzriqubSSgrM (TgNLScitnQcbSfyIEkWN)\n  cSHmmlGQrHjRqqGAncLE\n\nOSSHiKYBxqGKRdbLOWNA (VyxjkKeyKfHPaCoHLviF)\n  uSaNaNsRiqtpmQSbKGif\n\nLAFzFsWDxbjtALHylvUv (DdnUyKxyqWmtsDLJulrP)\n  AyrwrzKpXIXFBpedIERS\n",
+            "data_html": "<div><p>MvWdqmcEtyhufuDxYPsZ</p><h4>Sources</h4><ul><li><a href=\"phTlFlrdgqXyhyYpRHzg\" class=\"msg-document\">BOYcHiHNAzriqubSSgrM</a><br/><small>cSHmmlGQrHjRqqGAncLE</small></li><li><a href=\"WrvLMeHbYYOEgrChhDPG\" class=\"msg-document\">OSSHiKYBxqGKRdbLOWNA</a><br/><small>uSaNaNsRiqtpmQSbKGif</small></li><li><a href=\"quxggILbjKouALUJMxZL\" class=\"msg-document\">LAFzFsWDxbjtALHylvUv</a><br/><small>AyrwrzKpXIXFBpedIERS</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -669,12 +683,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "L3yKC",
+            "digest": "mmf7U",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> CcNeXUINpgtScgpXOyxJ                                                                \n\nSources:                                                                                            \n\n • wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk PxBaQUhVaEWtbKQgKgwW                                  \n • LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD UIbshOKpaYodNWskNShh                                  \n • MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> MvWdqmcEtyhufuDxYPsZ                                                                \n\nSources:                                                                                            \n\n • BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN cSHmmlGQrHjRqqGAncLE                                  \n • OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF uSaNaNsRiqtpmQSbKGif                                  \n • LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    ",
             "extra": {}
           }
         ]
@@ -683,24 +697,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfFAAkZB\n  CASFLJqVelRDqARQgqIB\n</search_result>",
+        "rendered_user_prompt": "Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDLJulrP\n  AyrwrzKpXIXFBpedIERS\n</search_result>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_7",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_7",
       "kind": "operator",
       "pipe_code": "process_single_page",
       "pipe_type": "PipeLLM",
+      "description": "Process a single page",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.234066Z",
-        "ended_at": "2026-04-06T10:16:04.240013Z",
-        "duration": 0.005947
+        "started_at": "2026-05-15T11:21:57.679384Z",
+        "ended_at": "2026-05-15T11:21:57.687034Z",
+        "duration": 0.00765
       },
       "io": {
         "inputs": [
@@ -710,7 +726,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF-branch-0",
+            "digest": "EkGh9-branch-0",
             "data": {
               "text_and_images": {
                 "text": {
@@ -733,12 +749,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9iYM-branch-0",
+            "digest": "GBWnQ-branch-0",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
             "extra": {}
           }
         ]
@@ -747,8 +763,8 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
         "rendered_user_prompt": "Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>",
@@ -756,15 +772,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_8",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_8",
       "kind": "operator",
       "pipe_code": "process_single_page",
       "pipe_type": "PipeLLM",
+      "description": "Process a single page",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.240026Z",
-        "ended_at": "2026-04-06T10:16:04.244988Z",
-        "duration": 0.004962
+        "started_at": "2026-05-15T11:21:57.689664Z",
+        "ended_at": "2026-05-15T11:21:57.696472Z",
+        "duration": 0.006808
       },
       "io": {
         "inputs": [
@@ -774,7 +792,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF-branch-1",
+            "digest": "EkGh9-branch-1",
             "data": {
               "text_and_images": {
                 "text": {
@@ -797,12 +815,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9iYM-branch-1",
+            "digest": "GBWnQ-branch-1",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
             "extra": {}
           }
         ]
@@ -811,8 +829,8 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
         "rendered_user_prompt": "Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>",
@@ -820,15 +838,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_9",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_9",
       "kind": "operator",
       "pipe_code": "process_single_page",
       "pipe_type": "PipeLLM",
+      "description": "Process a single page",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.245000Z",
-        "ended_at": "2026-04-06T10:16:04.250093Z",
-        "duration": 0.005093
+        "started_at": "2026-05-15T11:21:57.699094Z",
+        "ended_at": "2026-05-15T11:21:57.705891Z",
+        "duration": 0.006797
       },
       "io": {
         "inputs": [
@@ -838,7 +858,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF-branch-2",
+            "digest": "EkGh9-branch-2",
             "data": {
               "text_and_images": {
                 "text": {
@@ -861,12 +881,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9iYM-branch-2",
+            "digest": "GBWnQ-branch-2",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
             "extra": {}
           }
         ]
@@ -875,8 +895,8 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
         "rendered_user_prompt": "Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>",
@@ -884,15 +904,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_10",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_10",
       "kind": "operator",
       "pipe_code": "process_single_page",
       "pipe_type": "PipeLLM",
+      "description": "Process a single page",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.250124Z",
-        "ended_at": "2026-04-06T10:16:04.255971Z",
-        "duration": 0.005847
+        "started_at": "2026-05-15T11:21:57.708524Z",
+        "ended_at": "2026-05-15T11:21:57.715754Z",
+        "duration": 0.00723
       },
       "io": {
         "inputs": [
@@ -902,7 +924,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7PovF-branch-3",
+            "digest": "EkGh9-branch-3",
             "data": {
               "text_and_images": {
                 "text": {
@@ -925,12 +947,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9iYM-branch-3",
+            "digest": "GBWnQ-branch-3",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    ",
             "extra": {}
           }
         ]
@@ -939,8 +961,8 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
         "rendered_user_prompt": "Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>",
@@ -948,15 +970,17 @@
       }
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_11",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_11",
       "kind": "operator",
       "pipe_code": "exit_combine",
       "pipe_type": "PipeCompose",
+      "description": "Combine batch and search results",
+      "domain_code": "deep_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:04.267777Z",
-        "ended_at": "2026-04-06T10:16:04.278750Z",
-        "duration": 0.010973
+        "started_at": "2026-05-15T11:21:57.735202Z",
+        "ended_at": "2026-05-15T11:21:57.753223Z",
+        "duration": 0.018021
       },
       "io": {
         "inputs": [
@@ -966,25 +990,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hMjMd",
+            "digest": "YpDPo",
             "data": {
               "items": [
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 },
                 {
-                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
+                  "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    "
                 }
               ]
             },
-            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
-            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
+            "data_text": "   1    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: make_llm_text •                                              \n        │ llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, \n        │ max_tokens=None, prompting_target=None) • prompt=LLM Prompt:          \n        │ user_text: Summarize this page:                                       \n        │                                                                       \n        │                                                                       \n        │ text: ### text: DRY RUN: OCR text                                     \n        │                                                                       \n        │ images:                                                               \n        │                                                                       \n        │ raw_html: None                                                        \n        │                                                                       \n        │                            page_view: None                            \n        │                                                                       \n",
+            "data_html": "<ul><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li><li>DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    </li></ul>",
             "extra": {}
           },
           {
@@ -993,12 +1017,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "L3yKC",
+            "digest": "mmf7U",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> CcNeXUINpgtScgpXOyxJ                                                                \n\nSources:                                                                                            \n\n • wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk PxBaQUhVaEWtbKQgKgwW                                  \n • LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD UIbshOKpaYodNWskNShh                                  \n • MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize these search      \nfindings:                                                                                           \n\n<search_result> MvWdqmcEtyhufuDxYPsZ                                                                \n\nSources:                                                                                            \n\n • BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN cSHmmlGQrHjRqqGAncLE                                  \n • OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF uSaNaNsRiqtpmQSbKGif                                  \n • LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    ",
             "extra": {}
           }
         ],
@@ -1009,12 +1033,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kUjRi",
+            "digest": "dNyMX",
             "data": {
-              "text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    \n```"
+              "text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    \n```"
             },
-            "data_text": "                                      Deep Processing Results                                       \n\nBatch Results                                                                                       \n\nbatch_result: ```                                                                                   \n\n• item #1:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #2:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #3:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #4:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n                                                                                                    \n                                                                                                    \n ## Search Summary                                                                                  \n search_summary: ```                                                                                \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Summarize these search findings:                                                               \n                                                                                                    \n <search_result>                                                                                    \n CcNeXUINpgtScgpXOyxJ                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk                                                       \n   PxBaQUhVaEWtbKQgKgwW                                                                             \n - LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD                                                       \n   UIbshOKpaYodNWskNShh                                                                             \n - MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF                                                            \n                                                                                                    \n",
-            "data_html": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    \n```",
+            "data_text": "                                      Deep Processing Results                                       \n\nBatch Results                                                                                       \n\nbatch_result: ```                                                                                   \n\n• item #1:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #2:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #3:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n• item #4:                                                                                          \n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize this page:        \n\n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n\n                                                                                                    \n                                                                                                    \n ## Search Summary                                                                                  \n search_summary: ```                                                                                \n DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,     \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Summarize these search findings:                                                               \n                                                                                                    \n <search_result>                                                                                    \n MvWdqmcEtyhufuDxYPsZ                                                                               \n                                                                                                    \n Sources:                                                                                           \n - BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN                                                       \n   cSHmmlGQrHjRqqGAncLE                                                                             \n - OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF                                                       \n   uSaNaNsRiqtpmQSbKGif                                                                             \n - LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL                                                            \n                                                                                                    \n",
+            "data_html": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n&lt;page&gt;\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n&lt;/page&gt;\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n&lt;search_result&gt;\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    \n```",
             "extra": {}
           }
         ]
@@ -1024,15 +1048,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nCcNeXUINpgtScgpXOyxJ\n\nSources:\n- wmaLgqhDHwkZMyhBkhOp: koBwfzkXEdiNnPrfOohk\n  PxBaQUhVaEWtbKQgKgwW\n- LqtwIDWeagGSYziyytge: WEmUNJkiqvsKumVZCOVD\n  UIbshOKpaYodNWskNShh\n- MXvbNQajehXabLfOUxgQ: FppeojbGWLzuFfF\n    \n```"
+        "rendered_text": "# Deep Processing Results\n\n## Batch Results\nbatch_result: ```\n\n • item #1:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #2:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #3:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n • item #4:\n\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize this page:\n\n<page>\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n</page>\n    \n\n```\n\n## Search Summary\nsearch_summary: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize these search findings:\n\n<search_result>\nMvWdqmcEtyhufuDxYPsZ\n\nSources:\n- BOYcHiHNAzriqubSSgrM: TgNLScitnQcbSfyIEkWN\n  cSHmmlGQrHjRqqGAncLE\n- OSSHiKYBxqGKRdbLOWNA: VyxjkKeyKfHPaCoHLviF\n  uSaNaNsRiqtpmQSbKGif\n- LAFzFsWDxbjtALHylvUv: DdnUyKxyqWmtsDL\n    \n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_0",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_0",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_0",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_0",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1040,9 +1064,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_1",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_0",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_1",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_0",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1050,9 +1074,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_2",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_2",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1060,9 +1084,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_3",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_4",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_3",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1070,9 +1094,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_4",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_4",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_5",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_4",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_4",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1080,9 +1104,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_5",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_4",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_6",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_5",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_4",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1090,9 +1114,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_6",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_7",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_6",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_7",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1100,9 +1124,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_7",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_8",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_7",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_8",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1110,9 +1134,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_8",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_9",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_8",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_9",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1120,9 +1144,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_9",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_10",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_9",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_10",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1130,9 +1154,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_10",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_0",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_11",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:edge_10",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_0",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_11",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -1140,9 +1164,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_11",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_0",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -1150,9 +1174,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_12",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_1",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -1160,9 +1184,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_13",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_4",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_2",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_4",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -1170,9 +1194,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_14",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_1",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_5",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_3",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_1",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_5",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -1180,9 +1204,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_15",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_5",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_6",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_4",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_5",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_6",
       "kind": "data",
       "label": "search_result",
       "source_stuff_digest": null,
@@ -1190,9 +1214,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_16",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_11",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_5",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_11",
       "kind": "data",
       "label": "batch_result",
       "source_stuff_digest": null,
@@ -1200,9 +1224,9 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_17",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_2",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_11",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_6",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_2",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_11",
       "kind": "data",
       "label": "search_summary",
       "source_stuff_digest": null,
@@ -1210,87 +1234,89 @@
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_18",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_7",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_7",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_7",
       "kind": "batch_item",
       "label": "[0]",
-      "source_stuff_digest": "7PovF",
-      "target_stuff_digest": "7PovF-branch-0",
+      "source_stuff_digest": "EkGh9",
+      "target_stuff_digest": "EkGh9-branch-0",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_19",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_8",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_8",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_8",
       "kind": "batch_item",
       "label": "[1]",
-      "source_stuff_digest": "7PovF",
-      "target_stuff_digest": "7PovF-branch-1",
+      "source_stuff_digest": "EkGh9",
+      "target_stuff_digest": "EkGh9-branch-1",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_20",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_9",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_9",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_9",
       "kind": "batch_item",
       "label": "[2]",
-      "source_stuff_digest": "7PovF",
-      "target_stuff_digest": "7PovF-branch-2",
+      "source_stuff_digest": "EkGh9",
+      "target_stuff_digest": "EkGh9-branch-2",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_21",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_10",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_10",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_10",
       "kind": "batch_item",
       "label": "[3]",
-      "source_stuff_digest": "7PovF",
-      "target_stuff_digest": "7PovF-branch-3",
+      "source_stuff_digest": "EkGh9",
+      "target_stuff_digest": "EkGh9-branch-3",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_22",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_7",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_11",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_7",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "batch_aggregate",
       "label": "[0]",
-      "source_stuff_digest": "A9iYM-branch-0",
-      "target_stuff_digest": "hMjMd",
+      "source_stuff_digest": "GBWnQ-branch-0",
+      "target_stuff_digest": "YpDPo",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_23",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_8",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_12",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_8",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "batch_aggregate",
       "label": "[1]",
-      "source_stuff_digest": "A9iYM-branch-1",
-      "target_stuff_digest": "hMjMd",
+      "source_stuff_digest": "GBWnQ-branch-1",
+      "target_stuff_digest": "YpDPo",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_24",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_9",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_13",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_9",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "batch_aggregate",
       "label": "[2]",
-      "source_stuff_digest": "A9iYM-branch-2",
-      "target_stuff_digest": "hMjMd",
+      "source_stuff_digest": "GBWnQ-branch-2",
+      "target_stuff_digest": "YpDPo",
       "meta": {}
     },
     {
-      "id": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:edge_25",
-      "source": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_10",
-      "target": "c6a7b54f-02d1-4ebc-8a36-92d14d45c69c:node_3",
+      "id": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:asm_edge_14",
+      "source": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_10",
+      "target": "cc430ea8-a10c-4d1f-a0c6-4ffdb485a413:node_3",
       "kind": "batch_aggregate",
       "label": "[3]",
-      "source_stuff_digest": "A9iYM-branch-3",
-      "target_stuff_digest": "hMjMd",
+      "source_stuff_digest": "GBWnQ-branch-3",
+      "target_stuff_digest": "YpDPo",
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "deep_processing.deep_nested_pipeline": {
       "pipe_category": "PipeController",
@@ -1315,7 +1341,7 @@
           "code": "FinalOutput",
           "domain_code": "deep_processing",
           "description": "Final combined output",
-          "structure_class_name": "FinalOutput",
+          "structure_class_name": "deep_processing__FinalOutput",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1402,7 +1428,7 @@
           "code": "BatchResult",
           "domain_code": "deep_processing",
           "description": "Result from batch processing",
-          "structure_class_name": "BatchResult",
+          "structure_class_name": "deep_processing__BatchResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1447,7 +1473,7 @@
           "code": "BatchResult",
           "domain_code": "deep_processing",
           "description": "Result from batch processing",
-          "structure_class_name": "BatchResult",
+          "structure_class_name": "deep_processing__BatchResult",
           "refines": "native.Text"
         },
         "multiplicity": true
@@ -1481,7 +1507,7 @@
           "code": "SearchSummary",
           "domain_code": "deep_processing",
           "description": "Summary from search results",
-          "structure_class_name": "SearchSummary",
+          "structure_class_name": "deep_processing__SearchSummary",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1567,7 +1593,7 @@
           "code": "SearchSummary",
           "domain_code": "deep_processing",
           "description": "Summary from search results",
-          "structure_class_name": "SearchSummary",
+          "structure_class_name": "deep_processing__SearchSummary",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1616,7 +1642,7 @@
           "code": "BatchResult",
           "domain_code": "deep_processing",
           "description": "Result from batch processing",
-          "structure_class_name": "BatchResult",
+          "structure_class_name": "deep_processing__BatchResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1654,7 +1680,7 @@
             "code": "BatchResult",
             "domain_code": "deep_processing",
             "description": "Result from batch processing",
-            "structure_class_name": "BatchResult",
+            "structure_class_name": "deep_processing__BatchResult",
             "refines": "native.Text"
           },
           "multiplicity": true
@@ -1664,7 +1690,7 @@
             "code": "SearchSummary",
             "domain_code": "deep_processing",
             "description": "Summary from search results",
-            "structure_class_name": "SearchSummary",
+            "structure_class_name": "deep_processing__SearchSummary",
             "refines": "native.Text"
           },
           "multiplicity": null
@@ -1675,7 +1701,7 @@
           "code": "FinalOutput",
           "domain_code": "deep_processing",
           "description": "Final combined output",
-          "structure_class_name": "FinalOutput",
+          "structure_class_name": "deep_processing__FinalOutput",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1692,7 +1718,7 @@
       "code": "FinalOutput",
       "domain_code": "deep_processing",
       "description": "Final combined output",
-      "structure_class_name": "FinalOutput",
+      "structure_class_name": "deep_processing__FinalOutput",
       "refines": "native.Text",
       "json_schema": {
         "description": "Final combined output",
@@ -1705,7 +1731,7 @@
         "required": [
           "text"
         ],
-        "title": "FinalOutput",
+        "title": "deep_processing__FinalOutput",
         "type": "object"
       }
     },
@@ -2015,7 +2041,7 @@
       "code": "BatchResult",
       "domain_code": "deep_processing",
       "description": "Result from batch processing",
-      "structure_class_name": "BatchResult",
+      "structure_class_name": "deep_processing__BatchResult",
       "refines": "native.Text",
       "json_schema": {
         "description": "Result from batch processing",
@@ -2028,7 +2054,7 @@
         "required": [
           "text"
         ],
-        "title": "BatchResult",
+        "title": "deep_processing__BatchResult",
         "type": "object"
       }
     },
@@ -2036,7 +2062,7 @@
       "code": "SearchSummary",
       "domain_code": "deep_processing",
       "description": "Summary from search results",
-      "structure_class_name": "SearchSummary",
+      "structure_class_name": "deep_processing__SearchSummary",
       "refines": "native.Text",
       "json_schema": {
         "description": "Summary from search results",
@@ -2049,7 +2075,7 @@
         "required": [
           "text"
         ],
-        "title": "SearchSummary",
+        "title": "deep_processing__SearchSummary",
         "type": "object"
       }
     },

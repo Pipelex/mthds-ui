@@ -2,6 +2,15 @@ import type { GraphSpec, GraphSpecNode, GraphSpecEdge, PipeType } from "@graph/t
 
 const UUID = "extreme-test";
 
+/** Stamp the validator-required fields onto synthetic stress-test nodes. */
+function finalizeSpec(nodes: GraphSpecNode[], edges: GraphSpecEdge[]): GraphSpec {
+  for (const node of nodes) {
+    node.description = `${node.pipe_type} stress-test node`;
+    node.domain_code = "stress_test";
+  }
+  return { nodes, edges, meta: { format: "mthds" } };
+}
+
 /**
  * Generate a wide-parallel pipeline: Seq > Extract > Parallel(N branches) > Compose
  * Each branch is a PipeLLM with its own input/output.
@@ -141,7 +150,7 @@ export function makeWideParallel(branchCount: number): GraphSpec {
   });
   edges.push({ source: rootId, target: composeId, kind: "contains", id: e(edgeIdx++) });
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }
 
 /**
@@ -253,5 +262,5 @@ export function makeWideBatch(iterationCount: number): GraphSpec {
   });
   edges.push({ source: rootId, target: composeId, kind: "contains", id: e(edgeIdx++) });
 
-  return { nodes, edges };
+  return finalizeSpec(nodes, edges);
 }

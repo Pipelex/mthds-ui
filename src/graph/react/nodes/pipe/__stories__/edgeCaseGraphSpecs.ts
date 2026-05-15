@@ -14,6 +14,7 @@ export function toGraphSpec(data: PipeCardData): GraphSpec {
     pipe_code: data.pipeCode,
     pipe_type: data.pipeType,
     description: data.description,
+    domain_code: "edge_cases",
     status: data.status,
     io: {
       inputs: data.inputs.map((inp, i) => ({
@@ -29,5 +30,5 @@ export function toGraphSpec(data: PipeCardData): GraphSpec {
     },
   };
 
-  return { nodes: [node], edges: [] };
+  return { nodes: [node], edges: [], meta: { format: "mthds" } };
 }
