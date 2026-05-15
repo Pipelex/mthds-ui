@@ -342,6 +342,7 @@ describe("full pipeline — edge cases", () => {
     const result = await runFullPipeline({
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },

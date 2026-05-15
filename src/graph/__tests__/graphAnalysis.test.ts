@@ -21,6 +21,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -28,6 +29,7 @@ describe("buildDataflowAnalysis", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -35,6 +37,7 @@ describe("buildDataflowAnalysis", () => {
           pipe_type: "PipeFunc",
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -58,6 +61,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -65,6 +69,7 @@ describe("buildDataflowAnalysis", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -83,6 +88,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -108,6 +114,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -130,6 +137,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           id: "ctrl",
@@ -140,6 +148,7 @@ describe("buildDataflowAnalysis", () => {
           },
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -161,6 +170,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -168,6 +178,7 @@ describe("buildDataflowAnalysis", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "first", concept: "Text" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -187,6 +198,7 @@ describe("buildDataflowAnalysis", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -194,6 +206,7 @@ describe("buildDataflowAnalysis", () => {
           io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -201,6 +214,7 @@ describe("buildDataflowAnalysis", () => {
           io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
         },
         {
+          pipe_code: "op3",
           kind: "operator",
           status: "succeeded",
           id: "op3",
@@ -220,6 +234,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -227,6 +242,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -234,6 +250,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeFunc",
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -256,6 +273,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -263,6 +281,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -270,6 +289,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -291,6 +311,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -298,6 +319,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "inner",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -305,6 +327,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -327,6 +350,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -334,6 +358,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "inner",
           kind: "controller",
           status: "succeeded",
           id: "inner",
@@ -341,6 +366,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "ctrl_out" }] },
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -348,6 +374,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeFunc",
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -372,6 +399,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -379,6 +407,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "batch_ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -386,6 +415,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeBatch",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -415,6 +445,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -422,6 +453,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -443,6 +475,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -450,6 +483,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -478,6 +512,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -485,6 +520,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -492,6 +528,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -499,6 +536,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -506,6 +544,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d2", name: "other" }] },
         },
         {
+          pipe_code: "op3",
           kind: "operator",
           status: "succeeded",
           id: "op3",
@@ -513,6 +552,7 @@ describe("buildChildToControllerMap", () => {
           io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
         },
         {
+          pipe_code: "op4",
           kind: "operator",
           status: "succeeded",
           id: "op4",
@@ -540,6 +580,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -547,6 +588,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -566,6 +608,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -573,6 +616,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "inner",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -580,6 +624,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -587,6 +632,7 @@ describe("buildChildToControllerMap", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -611,6 +657,7 @@ describe("buildChildToControllerMap", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "batch_ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -618,6 +665,7 @@ describe("buildChildToControllerMap", () => {
           pipe_type: "PipeBatch",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -651,6 +699,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -658,6 +707,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -686,6 +736,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -703,6 +754,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -720,6 +772,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -742,6 +795,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -749,6 +803,7 @@ describe("buildDataflowAnalysis — edge cases", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },

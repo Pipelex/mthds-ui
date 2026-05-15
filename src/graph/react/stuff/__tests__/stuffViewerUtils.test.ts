@@ -212,6 +212,7 @@ describe("findStuffDataByDigest", () => {
   const mockSpec: GraphSpec = {
     nodes: [
       {
+        pipe_code: "node_0",
         kind: "controller",
         id: "node_0",
         pipe_type: "PipeSequence",
@@ -241,6 +242,7 @@ describe("findStuffDataByDigest", () => {
         },
       },
       {
+        pipe_code: "node_1",
         kind: "operator",
         id: "node_1",
         pipe_type: "PipeLLM",
@@ -294,6 +296,7 @@ describe("findStuffDataByDigest", () => {
     const spec: GraphSpec = {
       nodes: [
         {
+          pipe_code: "n",
           kind: "operator",
           io: { inputs: [], outputs: [] },
           id: "n",

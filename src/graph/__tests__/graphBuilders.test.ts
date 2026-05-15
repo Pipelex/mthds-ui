@@ -84,6 +84,7 @@ describe("buildDataflowGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -120,6 +121,7 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -155,6 +157,7 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -162,6 +165,7 @@ describe("buildDataflowGraph — additional cases", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrlA",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -169,6 +173,7 @@ describe("buildDataflowGraph — additional cases", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrlB",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -176,6 +181,7 @@ describe("buildDataflowGraph — additional cases", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -183,6 +189,7 @@ describe("buildDataflowGraph — additional cases", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -210,6 +217,7 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -229,6 +237,7 @@ describe("buildDataflowGraph — additional cases", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -236,6 +245,7 @@ describe("buildDataflowGraph — additional cases", () => {
           io: { inputs: [], outputs: [{ name: "d1", digest: "d1" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -263,6 +273,7 @@ describe("buildGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -286,6 +297,7 @@ describe("buildGraph", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -352,6 +364,7 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -359,6 +372,7 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "x" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -380,6 +394,7 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -387,6 +402,7 @@ describe("buildDataflowGraph — stuff node dimensions", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -471,6 +487,7 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -504,6 +521,7 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -537,6 +555,7 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -569,6 +588,7 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -576,6 +596,7 @@ describe("buildDataflowGraph — edge styles", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrlA",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -583,6 +604,7 @@ describe("buildDataflowGraph — edge styles", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrlB",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -590,6 +612,7 @@ describe("buildDataflowGraph — edge styles", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -597,6 +620,7 @@ describe("buildDataflowGraph — edge styles", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",
@@ -624,6 +648,7 @@ describe("buildDataflowGraph — edge styles", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -631,6 +656,7 @@ describe("buildDataflowGraph — edge styles", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",

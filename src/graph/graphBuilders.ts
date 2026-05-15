@@ -1,13 +1,7 @@
-import type {
-  GraphSpec,
-  DataflowAnalysis,
-  GraphNode,
-  GraphEdge,
-  GraphData,
-  PipeCallNode,
-} from "./types";
+import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
 import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
+import { asPipeCallNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
 const STUFF_CHAR_WIDTH_PX = 7;
@@ -40,9 +34,9 @@ export function buildDataflowGraph(
   // Create pipe nodes (only those that participate in data flow)
   for (const node of graphspec.nodes) {
     if (!participatingPipes.has(node.id)) continue;
-    // A participating pipe is always a pipe-call node — validateGraphSpec
-    // guarantees its pipe_code / pipe_type / status / io.
-    const pipeNode = node as PipeCallNode;
+    // A participating pipe is always a pipe-call node; this guard turns a
+    // malformed spec into a loud, greppable error rather than a bare TypeError.
+    const pipeNode = asPipeCallNode(node, `nodes[${node.id}]`);
 
     const isFailed = pipeNode.status === "failed";
     const label = pipeNode.pipe_code;

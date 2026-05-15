@@ -24,11 +24,11 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
 
   // Register stuffs from all nodes; track producers/consumers from operators only
   for (const node of graphspec.nodes) {
-    const nodeIo = node.io || {};
+    const nodeIo = node.io;
     const isController = controllerNodeIds.has(node.id);
 
     // Register outputs
-    for (const output of nodeIo.outputs || []) {
+    for (const output of nodeIo.outputs) {
       if (output.digest && !stuffRegistry[output.digest]) {
         stuffRegistry[output.digest] = {
           name: output.name,
@@ -42,7 +42,7 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
     }
 
     // Register inputs
-    for (const input of nodeIo.inputs || []) {
+    for (const input of nodeIo.inputs) {
       if (input.digest && !stuffRegistry[input.digest]) {
         stuffRegistry[input.digest] = {
           name: input.name,
@@ -102,7 +102,7 @@ export function buildChildToControllerMap(
     if (!analysis.controllerNodeIds.has(node.id)) continue;
     const parentCtrlId = childToController[node.id];
     if (!parentCtrlId) continue;
-    for (const output of node.io?.outputs || []) {
+    for (const output of node.io.outputs) {
       if (!output.digest) continue;
       const stuffId = "stuff_" + output.digest;
       if (!childToController[stuffId]) {

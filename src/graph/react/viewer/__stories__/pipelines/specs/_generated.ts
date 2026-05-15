@@ -41029,6 +41029,7 @@ export const DRY_IMAGE_PIPELINE: GraphSpec = {
 export const LIVE_IMAGE_PIPELINE: GraphSpec = {
   nodes: [
     {
+      kind: "controller",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_0",
       pipe_code: "image_pipeline",
       pipe_type: "PipeSequence",
@@ -41052,6 +41053,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
       },
     },
     {
+      kind: "controller",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_1",
       pipe_code: "parallel_analyze",
       pipe_type: "PipeParallel",
@@ -41086,6 +41088,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
       },
     },
     {
+      kind: "operator",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_2",
       pipe_code: "describe_image",
       pipe_type: "PipeLLM",
@@ -41109,6 +41112,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
       },
     },
     {
+      kind: "operator",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_3",
       pipe_code: "classify_image",
       pipe_type: "PipeLLM",
@@ -41132,6 +41136,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
       },
     },
     {
+      kind: "operator",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_4",
       pipe_code: "generate_thumbnail",
       pipe_type: "PipeImgGen",
@@ -41156,6 +41161,7 @@ export const LIVE_IMAGE_PIPELINE: GraphSpec = {
       },
     },
     {
+      kind: "operator",
       id: "89b750b7-9aa9-4ddc-9f71-d6f1f98825ee:node_5",
       pipe_code: "build_catalog",
       pipe_type: "PipeCompose",

@@ -128,6 +128,7 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
 
   // Root sequence
   nodes.push({
+    pipe_code: "root_seq",
     kind: "controller",
     status: "succeeded",
     io: { inputs: [], outputs: [] },
@@ -136,6 +137,7 @@ export function makeParallelSpec(branchCount: number): GraphSpec {
   });
   // Parallel controller
   nodes.push({
+    pipe_code: "par",
     kind: "controller",
     status: "succeeded",
     io: { inputs: [], outputs: [] },
@@ -196,6 +198,7 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
   const edges: GraphSpecEdge[] = [];
 
   nodes.push({
+    pipe_code: "root_seq",
     kind: "controller",
     status: "succeeded",
     io: { inputs: [], outputs: [] },
@@ -203,6 +206,7 @@ export function makeBatchSpec(iterationCount: number): GraphSpec {
     pipe_type: "PipeSequence",
   });
   nodes.push({
+    pipe_code: "batch",
     kind: "controller",
     status: "succeeded",
     io: { inputs: [], outputs: [] },
@@ -277,6 +281,7 @@ export function makeNestedSpec(depth: number): GraphSpec {
   for (let i = 0; i < depth; i++) {
     const id = `seq_${i}`;
     nodes.push({
+      pipe_code: id,
       kind: "controller",
       status: "succeeded",
       io: { inputs: [], outputs: [] },
@@ -306,6 +311,7 @@ export function makeCycleSpec(): GraphSpec {
   return {
     nodes: [
       {
+        pipe_code: "A",
         kind: "controller",
         status: "succeeded",
         io: { inputs: [], outputs: [] },
@@ -313,6 +319,7 @@ export function makeCycleSpec(): GraphSpec {
         pipe_type: "PipeSequence",
       },
       {
+        pipe_code: "B",
         kind: "controller",
         status: "succeeded",
         io: { inputs: [], outputs: [] },

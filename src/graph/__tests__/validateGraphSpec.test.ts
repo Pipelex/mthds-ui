@@ -3,7 +3,12 @@
  * "Tighten mthds-ui GraphSpec interpretation" plan.
  */
 import { describe, it, expect } from "vitest";
-import { validateGraphSpec, GraphSpecValidationError } from "@graph/validateGraphSpec";
+import {
+  validateGraphSpec,
+  asPipeCallNode,
+  GraphSpecValidationError,
+} from "@graph/validateGraphSpec";
+import type { GraphSpecNode } from "@graph/types";
 
 /** A minimal, fully valid raw spec — every guaranteed field present. */
 function makeValidSpec(): Record<string, unknown> {
@@ -128,6 +133,36 @@ describe("validateGraphSpec — node fields", () => {
     const spec = makeValidSpec();
     (spec.nodes as Record<string, unknown>[])[0].kind = "wat";
     expectInvalid(spec, "nodes[0].kind");
+  });
+
+  it("accepts a controller-kind node and runs the pipe-call field checks on it", () => {
+    const spec = makeValidSpec();
+    const node = (spec.nodes as Record<string, unknown>[])[0];
+    node.kind = "controller";
+    node.pipe_type = "PipeSequence";
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+    // The pipe-call branch still runs for controllers — a missing pipe_code throws.
+    delete node.pipe_code;
+    expectInvalid(spec, "nodes[0].pipe_code");
+  });
+
+  it("rejects non-pipe-call NodeKind values (never serialized by a real run)", () => {
+    for (const kind of ["pipe_call", "input", "output", "artifact", "error"]) {
+      const spec = makeValidSpec();
+      (spec.nodes as Record<string, unknown>[])[0].kind = kind;
+      expectInvalid(spec, "nodes[0].kind");
+    }
+  });
+
+  it("throws when a nodes[] element is not an object", () => {
+    expectInvalid({ ...makeValidSpec(), nodes: ["not an object"] }, "nodes[0]");
+  });
+
+  it("throws when an io item is not an object", () => {
+    const spec = makeValidSpec();
+    const io = (spec.nodes as Record<string, unknown>[])[0].io as Record<string, unknown>;
+    io.inputs = ["just a string"];
+    expectInvalid(spec, "nodes[0].io.inputs[0]");
   });
 
   it("throws when node status is missing or unknown", () => {
@@ -277,5 +312,47 @@ describe("validateGraphSpec — unknown PipeType", () => {
       (spec.nodes as Record<string, unknown>[])[0].pipe_type = pt;
       expect(() => validateGraphSpec(spec)).not.toThrow();
     }
+  });
+});
+
+// ─── asPipeCallNode — checked narrowing at internal trust boundaries ──────
+
+describe("asPipeCallNode", () => {
+  const operatorNode: GraphSpecNode = {
+    id: "op1",
+    kind: "operator",
+    pipe_code: "summarize",
+    pipe_type: "PipeLLM",
+    status: "succeeded",
+    io: { inputs: [], outputs: [] },
+  };
+
+  it("returns a controller/operator node narrowed to PipeCallNode", () => {
+    expect(asPipeCallNode(operatorNode)).toBe(operatorNode);
+    expect(asPipeCallNode({ ...operatorNode, kind: "controller" }).pipe_code).toBe("summarize");
+  });
+
+  it("throws GraphSpecValidationError on a non-pipe-call kind", () => {
+    const node = { ...operatorNode, kind: "artifact" } as unknown as GraphSpecNode;
+    let caught: unknown;
+    try {
+      asPipeCallNode(node, "nodes[op1]");
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[op1].kind");
+  });
+
+  it("throws GraphSpecValidationError when pipe_code is missing", () => {
+    const node = { ...operatorNode, pipe_code: undefined } as unknown as GraphSpecNode;
+    let caught: unknown;
+    try {
+      asPipeCallNode(node, "nodes[op1]");
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[op1].pipe_code");
   });
 });

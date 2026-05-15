@@ -9,8 +9,17 @@
  * The pipelex runtime guarantees specific fields are always present and
  * non-null. This validator enforces those guarantees and fails loudly when
  * they are violated, instead of hiding upstream bugs behind fabricated values.
+ *
+ * Note: `validateGraphSpec` normalizes the input **in place** — see its doc
+ * comment.
  */
-import type { GraphSpec, GraphSpecEdgeKind, NodeKind, PipeStatus } from "./types";
+import type {
+  GraphSpec,
+  GraphSpecEdgeKind,
+  GraphSpecNode,
+  PipeCallNode,
+  PipeStatus,
+} from "./types";
 import { KNOWN_PIPE_TYPES } from "./types";
 
 /**
@@ -29,16 +38,6 @@ export class GraphSpecValidationError extends Error {
     this.path = path;
   }
 }
-
-const NODE_KINDS: ReadonlySet<string> = new Set<NodeKind>([
-  "pipe_call",
-  "controller",
-  "operator",
-  "input",
-  "output",
-  "artifact",
-  "error",
-]);
 
 const PIPE_STATUSES: ReadonlySet<string> = new Set<PipeStatus>([
   "succeeded",
@@ -96,10 +95,15 @@ function validateNode(node: unknown, path: string): void {
 
   requireNonEmptyString(node.id, `${path}.id`);
 
-  if (typeof node.kind !== "string" || !NODE_KINDS.has(node.kind)) {
+  // Every node a real pipelex run serializes is a pipe-call node
+  // (`kind` is "controller" or "operator"). The other `NodeKind` values exist
+  // in the enum only for the mermaid renderer and never reach a graphspec.json
+  // — a spec carrying one is malformed or wrong-version, so reject it.
+  if (node.kind !== "controller" && node.kind !== "operator") {
     fail(
       `${path}.kind`,
-      `expected one of ${[...NODE_KINDS].join(", ")}, got ${JSON.stringify(node.kind)}`,
+      `expected "controller" or "operator" — a real pipelex run emits only ` +
+        `pipe-call nodes, got ${JSON.stringify(node.kind)}`,
     );
   }
 
@@ -110,22 +114,17 @@ function validateNode(node: unknown, path: string): void {
     );
   }
 
-  // In practice every node a real run emits is a pipe-call node
-  // (kind controller | operator). Those carry the full required field set.
-  const isPipeCall = node.kind === "controller" || node.kind === "operator";
-  if (isPipeCall) {
-    requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
-    const pipeType = requireNonEmptyString(node.pipe_type, `${path}.pipe_type`);
-    if (!KNOWN_PIPE_TYPES.has(pipeType)) {
-      fail(
-        `${path}.pipe_type`,
-        `unrecognized pipe class "${pipeType}" — add it to PipeOperatorType ` +
-          `or PipeControllerType in types.ts`,
-      );
-    }
-    requireNonEmptyString(node.description, `${path}.description`);
-    requireNonEmptyString(node.domain_code, `${path}.domain_code`);
+  requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
+  const pipeType = requireNonEmptyString(node.pipe_type, `${path}.pipe_type`);
+  if (!KNOWN_PIPE_TYPES.has(pipeType)) {
+    fail(
+      `${path}.pipe_type`,
+      `unrecognized pipe class "${pipeType}" — add it to PipeOperatorType ` +
+        `or PipeControllerType in types.ts`,
+    );
   }
+  requireNonEmptyString(node.description, `${path}.description`);
+  requireNonEmptyString(node.domain_code, `${path}.domain_code`);
 
   // `io` is always emitted by pipelex; tolerate an absent key (the pipelex
   // model defaults it) by normalizing to an empty shape.
@@ -168,9 +167,14 @@ function validateEdge(edge: unknown, path: string): void {
 
 /**
  * Validate a raw, untyped value as a `GraphSpec`. Throws
- * `GraphSpecValidationError` on the first violation; on success returns the
- * same object typed as `GraphSpec`, with any absent `io` shapes normalized to
- * `{ inputs: [], outputs: [] }`.
+ * `GraphSpecValidationError` on the first violation.
+ *
+ * **Mutates the input in place:** on success it returns the *same* object
+ * (typed as `GraphSpec`), and where a node has no `io` key it writes
+ * `io = { inputs: [], outputs: [] }` (and fills absent `io.inputs` /
+ * `io.outputs` arrays) directly onto the passed-in object. Pass a fresh
+ * parse result (e.g. straight from `JSON.parse`) — do not pass a frozen or
+ * externally shared object.
  */
 export function validateGraphSpec(raw: unknown): GraphSpec {
   if (!isPlainObject(raw)) {
@@ -211,4 +215,27 @@ export function validateGraphSpec(raw: unknown): GraphSpec {
   raw.edges.forEach((edge, i) => validateEdge(edge, `edges[${i}]`));
 
   return raw as unknown as GraphSpec;
+}
+
+/**
+ * Narrow a `GraphSpecNode` to a `PipeCallNode` at an internal trust boundary,
+ * throwing `GraphSpecValidationError` when the node is not a well-formed
+ * pipe-call node.
+ *
+ * Graph-topology analysis (`buildGraph` and friends) identifies a node as a
+ * pipe by its edges, not by re-checking `kind`/`pipe_code`. When the spec has
+ * been through `validateGraphSpec` this always holds — but library consumers
+ * may call `buildGraph` directly. This guard turns that gap into a loud,
+ * greppable failure instead of a bare `TypeError` on a missing `pipe_code`.
+ */
+export function asPipeCallNode(node: GraphSpecNode, path = "node"): PipeCallNode {
+  if (node.kind !== "controller" && node.kind !== "operator") {
+    fail(
+      `${path}.kind`,
+      `expected a pipe-call node ("controller" or "operator"), ` +
+        `got ${JSON.stringify(node.kind)}`,
+    );
+  }
+  requireNonEmptyString(node.pipe_code, `${path}.pipe_code`);
+  return node as PipeCallNode;
 }

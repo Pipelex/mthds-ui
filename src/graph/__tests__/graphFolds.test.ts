@@ -231,6 +231,7 @@ describe("findCousinControllers", () => {
     const spec: GraphSpec = {
       nodes: [
         {
+          pipe_code: "anon_ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },

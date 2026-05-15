@@ -24,6 +24,7 @@ describe("buildControllerNodes", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -68,6 +69,7 @@ describe("buildControllerNodes", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -75,6 +77,7 @@ describe("buildControllerNodes", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -97,6 +100,7 @@ describe("buildControllerNodes", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -120,6 +124,7 @@ describe("buildControllerNodes", () => {
           pipe_code: "inner_ctrl",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -149,6 +154,7 @@ describe("buildControllerNodes", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -164,6 +170,7 @@ describe("buildControllerNodes", () => {
           pipe_type: "PipeBatch",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -192,6 +199,7 @@ describe("buildControllerNodes", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -199,6 +207,7 @@ describe("buildControllerNodes", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "ctrl",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -206,6 +215,7 @@ describe("buildControllerNodes", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -253,6 +263,7 @@ describe("applyControllers", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -268,6 +279,7 @@ describe("applyControllers", () => {
           pipe_code: "ctrl",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -294,6 +306,7 @@ describe("applyControllers", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -317,6 +330,7 @@ describe("applyControllers", () => {
           pipe_code: "inner",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -359,6 +373,7 @@ function makeControllerSpec(
 ): { gs: GraphSpec; layoutedNodes: GraphNode[]; layoutedEdges: GraphEdge[] } {
   const nodes: GraphSpec["nodes"] = [
     {
+      pipe_code: "root",
       kind: "controller",
       status: "succeeded",
       io: { inputs: [], outputs: [] },
@@ -557,6 +572,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
           pipe_code: "ctrl",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -592,6 +608,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -615,6 +632,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
           pipe_code: "inner",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -652,6 +670,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
     const gs: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -667,6 +686,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
           pipe_code: "ctrl",
         },
         {
+          pipe_code: "op1",
           kind: "operator",
           status: "succeeded",
           id: "op1",
@@ -674,6 +694,7 @@ describe("buildControllerNodes — bounding box and padding", () => {
           io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
         },
         {
+          pipe_code: "op2",
           kind: "operator",
           status: "succeeded",
           id: "op2",

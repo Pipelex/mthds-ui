@@ -93,6 +93,7 @@ describe("collapse/expand integration", () => {
     const spec: GraphSpec = {
       nodes: [
         {
+          pipe_code: "root_seq",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -100,6 +101,7 @@ describe("collapse/expand integration", () => {
           pipe_type: "PipeSequence",
         },
         {
+          pipe_code: "outer_par",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },
@@ -123,6 +125,7 @@ describe("collapse/expand integration", () => {
         ),
         // Inner parallel as the 6th child (will be sliced off → hidden)
         {
+          pipe_code: "inner_par",
           kind: "controller",
           status: "succeeded",
           io: { inputs: [], outputs: [] },

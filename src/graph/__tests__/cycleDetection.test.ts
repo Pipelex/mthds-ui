@@ -8,6 +8,7 @@ function makeDirectCycle(): GraphSpec {
   return {
     nodes: [
       {
+        pipe_code: "A",
         kind: "controller",
         status: "succeeded",
         io: { inputs: [], outputs: [] },
@@ -15,6 +16,7 @@ function makeDirectCycle(): GraphSpec {
         pipe_type: "PipeSequence",
       },
       {
+        pipe_code: "B",
         kind: "controller",
         status: "succeeded",
         io: { inputs: [], outputs: [] },
