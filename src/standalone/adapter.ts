@@ -22,8 +22,9 @@ function readJsonScript(id: string): unknown {
   if (!el?.textContent) return null;
   try {
     return JSON.parse(el.textContent);
-  } catch {
-    return null;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    throw new Error(`Failed to parse JSON from <script id="${id}">: ${message}`);
   }
 }
 
