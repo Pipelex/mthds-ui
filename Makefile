@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing
 
 install:
 	npm install
@@ -36,11 +36,21 @@ all: check test build
 storybook:
 	npx storybook dev -p 6006
 
+# Pass ONLY=pipeline_04 (or a comma-separated list) to regenerate just those
+# pipelines — the rest are reused from disk so the fixture file stays complete.
 fixtures:
-	node scripts/generate-fixtures.mjs
+	node scripts/generate-fixtures.mjs $(if $(ONLY),--only $(ONLY))
 
 fixtures-live:
-	node scripts/generate-fixtures.mjs --live
+	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
+
+# Regenerate only the pipelines missing an on-disk spec — fills gaps after a
+# partial or failed run without redoing (or paying for) the ones already done.
+fixtures-missing:
+	node scripts/generate-fixtures.mjs --missing
+
+fixtures-live-missing:
+	node scripts/generate-fixtures.mjs --live --missing
 
 # Smoke-test the live path on 3 small bundles — runs real inference, writes nothing.
 fixtures-live-test:

@@ -4,16 +4,23 @@
  * resulting graphspec.json is emitted as a typed fixture consumed by
  * mockGraphSpec.ts.
  *
- *   node scripts/generate-fixtures.mjs                   DRY specs  -> _generated.dry.ts
- *   node scripts/generate-fixtures.mjs --live            LIVE specs -> _generated.live.ts
- *   node scripts/generate-fixtures.mjs --only p_09,p_10  restrict to a comma-separated list
- *   node scripts/generate-fixtures.mjs --check           run + validate, write nothing
+ *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
+ *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
+ *   node scripts/generate-fixtures.mjs --only pipeline_04,...     restrict to a comma-separated list
+ *   node scripts/generate-fixtures.mjs --missing                  only pipelines lacking an on-disk spec
+ *   node scripts/generate-fixtures.mjs --check                    run + validate, write nothing
  *
  * DRY runs use --dry-run --mock-inputs (deterministic, no inference).
  * LIVE runs perform real inference and need pipelex credentials available.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
  * works before committing to a full regeneration.
+ *
+ * --only and --missing are partial runs: they regenerate just the selected
+ * pipelines and reuse every other pipeline's existing *_run_graph_spec.json
+ * from disk, so the emitted _generated.<mode>.ts always stays complete.
+ * --missing selects the pipelines whose <mode>_run_graph_spec.json is absent —
+ * the way to fill in just the gaps after a partial or failed run.
  */
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync, readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
@@ -61,9 +68,14 @@ const NAME_MAP = {
 
 const LIVE = process.argv.includes("--live");
 const CHECK = process.argv.includes("--check");
+const MISSING = process.argv.includes("--missing");
 const MODE = LIVE ? "LIVE" : "DRY";
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
+
+/** Per-pipeline graphspec JSON written alongside the bundle (mode-specific). */
+const SPEC_JSON_NAME = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
+const specJsonPath = (pipelineDir) => path.join(PIPELINES_DIR, pipelineDir, SPEC_JSON_NAME);
 
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
@@ -124,41 +136,81 @@ function assertValid(spec, pipelineDir) {
 }
 
 async function main() {
-  const pipelines = Object.keys(NAME_MAP)
+  const allPipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
-    .filter((p) => !ONLY || ONLY.has(p))
     .sort();
 
-  if (pipelines.length === 0) {
-    die(ONLY ? `no pipeline matching --only ${[...ONLY].join(",")}` : "no pipelines found");
+  if (allPipelines.length === 0) die("no pipelines found");
+
+  // toProcess: pipelines actually run through pipelex this invocation.
+  let toProcess;
+  if (MISSING) {
+    toProcess = allPipelines.filter((p) => !existsSync(specJsonPath(p)));
+  } else if (ONLY) {
+    toProcess = allPipelines.filter((p) => ONLY.has(p));
+    if (toProcess.length === 0) die(`no pipeline matching --only ${[...ONLY].join(",")}`);
+  } else {
+    toProcess = allPipelines;
+  }
+  const PARTIAL = Boolean(MISSING || ONLY);
+
+  if (toProcess.length === 0) {
+    // Only reachable via --missing when every spec is already present.
+    console.log(`generate-fixtures: ${MODE} — nothing missing, all ${SPEC_JSON_NAME} present`);
+    return;
   }
 
   console.log(
-    `generate-fixtures: ${MODE} run over ${pipelines.length} pipeline(s)${CHECK ? " [check — no files written]" : ""}`,
+    `generate-fixtures: ${MODE} run over ${toProcess.length}` +
+      `${PARTIAL ? `/${allPipelines.length}` : ""} pipeline(s)` +
+      `${CHECK ? " [check — no files written]" : ""}`,
   );
 
-  const specs = [];
-  for (const pipelineDir of pipelines) {
+  // name -> spec, assembled in allPipelines order for a stable output file.
+  const specByName = new Map();
+  for (const pipelineDir of toProcess) {
     process.stdout.write(`  ${pipelineDir} ... `);
     const spec = generateSpec(pipelineDir);
     assertValid(spec, pipelineDir);
-    specs.push({ name: NAME_MAP[pipelineDir], spec });
+    specByName.set(NAME_MAP[pipelineDir], spec);
 
     // Keep the data/pipelines JSON in sync with the emitted fixture.
     if (!CHECK) {
-      const jsonName = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
-      writeFileSync(
-        path.join(PIPELINES_DIR, pipelineDir, jsonName),
-        JSON.stringify(spec, null, 2) + "\n",
-      );
+      writeFileSync(specJsonPath(pipelineDir), JSON.stringify(spec, null, 2) + "\n");
     }
     console.log(`ok (${spec.nodes.length} nodes)`);
   }
 
   if (CHECK) {
-    console.log(`\n✓ check passed — ${specs.length} ${MODE} spec(s) validated, nothing written`);
+    console.log(`\n✓ check passed — ${specByName.size} ${MODE} spec(s) validated, nothing written`);
     return;
   }
+
+  // A partial run only regenerated a subset; reuse every other pipeline's
+  // on-disk spec so the emitted _generated.<mode>.ts stays complete.
+  if (PARTIAL) {
+    const reused = [];
+    const omitted = [];
+    for (const p of allPipelines) {
+      if (specByName.has(NAME_MAP[p])) continue;
+      if (existsSync(specJsonPath(p))) {
+        specByName.set(NAME_MAP[p], JSON.parse(readFileSync(specJsonPath(p), "utf-8")));
+        reused.push(p);
+      } else {
+        omitted.push(p);
+      }
+    }
+    console.log(`  (reused ${reused.length} existing ${MODE} spec(s) from disk)`);
+    if (omitted.length > 0) {
+      console.warn(
+        `  ⚠ omitted ${omitted.length} pipeline(s) with no ${SPEC_JSON_NAME}: ${omitted.join(", ")}`,
+      );
+    }
+  }
+
+  const specs = allPipelines
+    .filter((p) => specByName.has(NAME_MAP[p]))
+    .map((p) => ({ name: NAME_MAP[p], spec: specByName.get(NAME_MAP[p]) }));
 
   const prefix = LIVE ? "LIVE" : "DRY";
   const body = specs
@@ -186,7 +238,7 @@ async function main() {
   // Bootstrap a LIVE placeholder so a plain `make fixtures` is enough to build
   // Storybook. `make fixtures-live` writes the real file; the existence guard
   // ensures a real _generated.live.ts is never clobbered by a DRY run.
-  if (!LIVE && !ONLY) {
+  if (!LIVE && !PARTIAL) {
     const liveFile = path.join(SPECS_DIR, "_generated.live.ts");
     if (!existsSync(liveFile)) {
       const placeholderRaw =
