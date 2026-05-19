@@ -7,13 +7,100 @@
  * active theme (dark / light). Component CSS only references those tokens —
  * never raw hex/rgba — so a new theme is just a new set of values.
  *
- * Fallback hints below are dark-theme values; the live values come from
- * `graphConfig.ts` (`DARK_PALETTE_COLORS` / `LIGHT_PALETTE_COLORS`).
+ * The block below provides STATIC dark-palette defaults so that any of these
+ * cases still render with valid colors / fonts / shadows:
+ *   - first paint before the React inline-palette effect runs
+ *   - SSR / hydration mismatches
+ *   - a consumer rendering a graph subcomponent outside `GraphViewer`
+ *   - JS disabled / failed
+ * Values mirror `DARK_PALETTE_COLORS` in `graphConfig.ts`. The runtime
+ * palette (dark or light) is applied as higher-specificity inline styles
+ * and wins automatically.
  */
 .react-flow-container {
+  /* Surfaces */
+  --surface-page: #0a0a0a;
+  --surface-panel: #111118;
+  --surface-overlay: rgba(17, 17, 24, 0.8);
+  --surface-overlay-hover: rgba(30, 30, 40, 0.9);
+  --surface-overlay-disabled: rgba(17, 17, 24, 0.6);
+  --surface-elevated: rgba(255, 255, 255, 0.06);
+  --surface-elevated-hover: rgba(255, 255, 255, 0.1);
+  --surface-sunken: rgba(255, 255, 255, 0.03);
+  --surface-pill: rgba(255, 255, 255, 0.06);
+  --surface-pill-border: rgba(255, 255, 255, 0.08);
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-dashed: rgba(255, 255, 255, 0.15);
+
+  /* Text */
+  --text-primary: #f8fafc;
+  --text-default: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --text-on-accent: #0e0e0e;
+
+  /* Effects */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --focus-ring: rgba(59, 130, 246, 0.6);
+
+  /* Domain-semantic colors */
+  --color-pipe: #ff6b6b;
+  --color-pipe-bg: rgba(224, 108, 117, 0.18);
+  --color-pipe-text: #ffffff;
+  --color-stuff: #4ecdc4;
+  --color-stuff-bg: rgba(78, 205, 196, 0.12);
+  --color-stuff-border: #9ddcfd;
+  --color-stuff-text: #98fb98;
+  --color-stuff-text-dim: #9ddcfd;
+  --color-edge: #fffacd;
+  --color-batch-item: #bd93f9;
+  --color-batch-aggregate: #50fa7b;
+  --color-parallel-combine: #d6a4ff;
+  --color-success: #50fa7b;
+  --color-success-bg: rgba(80, 250, 123, 0.15);
+  --color-error: #ff5555;
+  --color-error-bg: rgba(255, 85, 85, 0.15);
+  --color-error-border: rgba(255, 85, 85, 0.2);
+  --color-accent: #8be9fd;
+  --color-accent-strong: #3b82f6;
+  --color-warning: #ffb86c;
+
+  /* Controller-group palette */
+  --ctrl-sequence-border: rgba(148, 163, 184, 0.25);
+  --ctrl-sequence-bg: rgba(148, 163, 184, 0.03);
+  --ctrl-sequence-text: #94a3b8;
+  --ctrl-parallel-border: rgba(139, 233, 253, 0.35);
+  --ctrl-parallel-bg: rgba(139, 233, 253, 0.03);
+  --ctrl-parallel-text: #8be9fd;
+  --ctrl-condition-border: rgba(251, 191, 36, 0.35);
+  --ctrl-condition-bg: rgba(251, 191, 36, 0.03);
+  --ctrl-condition-text: #fbbf24;
+  --ctrl-batch-border: rgba(167, 139, 250, 0.35);
+  --ctrl-batch-bg: rgba(167, 139, 250, 0.03);
+  --ctrl-batch-text: #a78bfa;
+  --ctrl-folded-bg: rgba(148, 163, 184, 0.25);
+  --ctrl-folded-border: rgba(148, 163, 184, 0.4);
+
+  /* Legacy aliases — still consumed by some inline styles in graph builders */
+  --color-bg: #0a0a0a;
+  --color-bg-dots: rgba(255, 255, 255, 0.35);
+  --color-text-muted: #94a3b8;
+  --color-controller-text: #94a3b8;
+
+  /* Fonts */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Monaco", "Menlo", monospace;
+
   position: absolute;
   inset: 0;
-  background: var(--color-bg, #0a0a0a);
+  background: var(--color-bg);
 }
 .react-flow__node {
   font-family: var(--font-sans);

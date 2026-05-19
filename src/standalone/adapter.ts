@@ -10,6 +10,7 @@ import type { GraphSpec, GraphTheme } from "@graph/types";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
+import { type PageTheme, nextPageTheme, resolvePageThemeToGraphTheme } from "./pageTheme";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
@@ -84,13 +85,42 @@ function mount() {
     renderApp?.();
   }, 0);
 
-  document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    const current = document.body.getAttribute("data-theme") || "dark";
-    const next = current === "dark" ? "light" : current === "light" ? "system" : "dark";
+  const prefersDark = (): boolean =>
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  // Sync the GraphViewer + body palette + page chrome to a page-level theme
+  // state. Replaces the prior toggle which only updated body[data-theme] and
+  // the label — the graph kept its initial theme, so the page and chart
+  // could drift out of sync (PR-41 greptile P1: "Standalone toggle desyncs").
+  const applyPageTheme = (next: PageTheme): void => {
     document.body.setAttribute("data-theme", next);
     const label = document.getElementById("theme-toggle")?.querySelector(".theme-label");
     if (label) label.textContent = next;
+
+    const graphTheme = resolvePageThemeToGraphTheme(next, prefersDark);
+    viewerProps = { ...viewerProps, theme: graphTheme };
+    applyBodyPalette(graphTheme, viewerProps.config.paletteColors);
+    renderApp?.();
+  };
+
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    applyPageTheme(nextPageTheme(document.body.getAttribute("data-theme")));
   });
+
+  // Track system preference changes so a "system" selection stays live.
+  if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      if (document.body.getAttribute("data-theme") === "system") {
+        applyPageTheme("system");
+      }
+    };
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", handler);
+    }
+  }
 }
 
 // ─── Run ────────────────────────────────────────────────────────────────
