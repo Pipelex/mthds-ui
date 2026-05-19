@@ -1,6 +1,6 @@
 {
   "name": "@pipelex/mthds-ui",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Shared graph rendering logic for MTHDS method visualization",
   "license": "MIT",
   "repository": {
@@ -47,6 +47,8 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsup",
+    "fixtures": "node scripts/generate-fixtures.mjs",
+    "fixtures:live": "node scripts/generate-fixtures.mjs --live",
     "postbuild": "node scripts/build-standalone.mjs",
     "build:standalone": "node scripts/build-standalone.mjs",
     "lint": "eslint src/",

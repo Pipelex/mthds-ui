@@ -55,9 +55,12 @@ description = "Combine and synthesize data from all sources"
 inputs = { api_data = "SearchResult", web_data = "SearchResult", academic_data = "SearchResult", query = "Text" }
 output = "CombinedData"
 prompt = """
-Synthesize information from these three sources to answer: @query
+Synthesize information from these three sources to answer: $query
 
-API Data: @api_data
-Web Data: @web_data
-Academic Data: @academic_data
+API Data:
+@api_data
+Web Data:
+@web_data
+Academic Data:
+@academic_data
 """

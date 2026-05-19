@@ -32,6 +32,7 @@ import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
@@ -194,7 +195,7 @@ interface DetailSelection {
 
 export function GraphViewer(props: GraphViewerProps) {
   const {
-    graphspec,
+    graphspec: graphspecProp,
     config = DEFAULT_GRAPH_CONFIG,
     initialDirection,
     initialShowControllers,
@@ -211,6 +212,14 @@ export function GraphViewer(props: GraphViewerProps) {
     canEmbedPdf,
     onOpenExternally,
   } = props;
+
+  // Single boundary validator for the React render path — mirrors the standalone
+  // adapter (src/standalone/adapter.ts). Memoized on prop identity so it runs
+  // once per spec; validateGraphSpec normalizes io in place and is idempotent.
+  const graphspec = React.useMemo(
+    () => (graphspecProp === null ? null : validateGraphSpec(graphspecProp)),
+    [graphspecProp],
+  );
 
   const [direction, setDirection] = React.useState<GraphDirection>(
     () =>

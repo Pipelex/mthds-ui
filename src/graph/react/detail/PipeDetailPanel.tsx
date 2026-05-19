@@ -53,6 +53,7 @@ const STATUS_COLORS: Record<string, string> = {
   running: "#8BE9FD",
   scheduled: "#6272a4",
   skipped: "#6272a4",
+  canceled: "#6272a4",
 };
 
 // ─── Props ──────────────────────────────────────────────────────────────
@@ -66,10 +67,10 @@ export interface PipeDetailPanelProps {
 // ─── Component ──────────────────────────────────────────────────────────
 
 export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelProps) {
-  const pipeType = node.pipe_type ?? "PipeFunc";
+  const pipeType = node.pipe_type;
   const isController = CONTROLLER_TYPES.has(pipeType);
-  const badge = PIPE_TYPE_BADGES[pipeType as PipeType] ?? pipeType;
-  const status = node.status ?? "scheduled";
+  const badge = PIPE_TYPE_BADGES[pipeType];
+  const status = node.status;
   const statusColor = STATUS_COLORS[status] ?? "#6272a4";
 
   // Look up the full blueprint from registry — search by pipe_code suffix since
@@ -105,7 +106,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
           <span
             className={`detail-pipe-code ${isController ? "detail-pipe-code--controller" : ""}`}
           >
-            {node.pipe_code ?? "unknown"}
+            {node.pipe_code}
           </span>
         </div>
 
@@ -135,7 +136,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
                   style={{ cursor: input.concept && onConceptClick ? "pointer" : undefined }}
                   onClick={() => input.concept && onConceptClick?.(input.concept)}
                 >
-                  <span className="detail-io-name">{input.name ?? "unnamed"}</span>
+                  <span className="detail-io-name">{input.name}</span>
                   {input.concept && <span className="detail-io-concept">{input.concept}</span>}
                 </div>
               ))}
@@ -155,7 +156,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
                   style={{ cursor: output.concept && onConceptClick ? "pointer" : undefined }}
                   onClick={() => output.concept && onConceptClick?.(output.concept)}
                 >
-                  <span className="detail-io-name">{output.name ?? "unnamed"}</span>
+                  <span className="detail-io-name">{output.name}</span>
                   {output.concept && <span className="detail-io-concept">{output.concept}</span>}
                 </div>
               ))}

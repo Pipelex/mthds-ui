@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./validateGraphSpec";
 export * from "./graphAnalysis";
 export * from "./graphBuilders";
 export * from "./pipeCardPayload";

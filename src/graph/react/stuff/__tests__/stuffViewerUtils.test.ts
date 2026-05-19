@@ -212,6 +212,8 @@ describe("findStuffDataByDigest", () => {
   const mockSpec: GraphSpec = {
     nodes: [
       {
+        pipe_code: "node_0",
+        kind: "controller",
         id: "node_0",
         pipe_type: "PipeSequence",
         status: "succeeded",
@@ -240,6 +242,8 @@ describe("findStuffDataByDigest", () => {
         },
       },
       {
+        pipe_code: "node_1",
+        kind: "operator",
         id: "node_1",
         pipe_type: "PipeLLM",
         status: "succeeded",
@@ -290,7 +294,16 @@ describe("findStuffDataByDigest", () => {
 
   it("handles nodes without io", () => {
     const spec: GraphSpec = {
-      nodes: [{ id: "n", pipe_type: "PipeFunc", status: "succeeded" }],
+      nodes: [
+        {
+          pipe_code: "n",
+          kind: "operator",
+          io: { inputs: [], outputs: [] },
+          id: "n",
+          pipe_type: "PipeFunc",
+          status: "succeeded",
+        },
+      ],
       edges: [],
     };
     expect(findStuffDataByDigest(spec, "abc")).toBeNull();

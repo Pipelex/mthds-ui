@@ -112,6 +112,7 @@ export function toGraphNodeData(pipe: PipeCardData): GraphNodeData {
 
 export function toGraphSpecNode(pipe: PipeCardData): GraphSpecNode {
   return {
+    kind: "operator",
     id: `mock:${pipe.pipeCode}`,
     pipe_code: pipe.pipeCode,
     pipe_type: pipe.pipeType,

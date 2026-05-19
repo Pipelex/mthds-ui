@@ -35,10 +35,8 @@ describe("buildViewerProps", () => {
       expect(props.config.foldMode).toBe(FOLD_MODE.AUTO);
     });
 
-    it('rejects invalid foldMode values and falls back to "expanded"', () => {
-      const props = buildViewerProps({ foldMode: "bogus" }, null);
-      expect(props.initialFoldMode).toBe(FOLD_MODE.EXPANDED);
-      expect(props.config.foldMode).toBe(FOLD_MODE.EXPANDED);
+    it("throws on a present but invalid foldMode instead of silently coercing", () => {
+      expect(() => buildViewerProps({ foldMode: "bogus" }, null)).toThrow(/Invalid foldMode/);
     });
   });
 
@@ -66,13 +64,12 @@ describe("buildViewerProps", () => {
       },
     );
 
-    it("rejects invalid direction values and falls back to LR", () => {
-      // Guards against a truthy invalid direction (e.g. "horizontal", "diagonal")
-      // sneaking past the `||` fallback and crashing layout when portSides[direction]
-      // is undefined. Mirrors the foldMode allowlist guarantee.
-      const props = buildViewerProps({ direction: "horizontal" }, null);
-      expect(props.initialDirection).toBe(GRAPH_DIRECTION.LR);
-      expect(props.config.direction).toBe(GRAPH_DIRECTION.LR);
+    it("throws on a present but invalid direction instead of silently coercing", () => {
+      // A truthy invalid direction (e.g. "horizontal") would crash layout when
+      // portSides[direction] is undefined — fail loudly at the config boundary.
+      expect(() => buildViewerProps({ direction: "horizontal" }, null)).toThrow(
+        /Invalid direction/,
+      );
     });
 
     it("threads the provided graphspec through unchanged", () => {
