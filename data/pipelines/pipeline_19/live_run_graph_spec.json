@@ -1,6 +1,6 @@
 {
-  "graph_id": "d2bedf30-4c42-4381-a735-3ac3090afbea",
-  "created_at": "2026-04-06T10:24:29.963587Z",
+  "graph_id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e",
+  "created_at": "2026-05-15T19:12:53.634576Z",
   "pipeline_ref": {
     "domain": "content_moderation",
     "main_pipe": "moderation_pipeline",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_0",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
       "kind": "controller",
       "pipe_code": "moderation_pipeline",
       "pipe_type": "PipeSequence",
+      "description": "Moderate content through parallel checks then route decision",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:29.968919Z",
-        "ended_at": "2026-04-06T10:24:36.273343Z",
-        "duration": 6.304424
+        "started_at": "2026-05-15T19:12:53.634576Z",
+        "ended_at": "2026-05-15T19:12:58.711910Z",
+        "duration": 5.077334
       },
       "io": {
         "inputs": [
@@ -26,7 +28,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bN2bX",
+            "digest": "Waqak",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -42,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kp5NW",
+            "digest": "mdNtg",
             "data": {
-              "text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected"
+              "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
-            "data_text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged    \ncategories detected                                                                                 \n",
-            "data_html": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+            "data_text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95,     \nimage: 1.0). No categories were flagged for either text or image.                                   \n",
+            "data_html": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
             "extra": {}
           }
         ]
@@ -60,15 +62,17 @@
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
       "kind": "controller",
       "pipe_code": "parallel_checks",
       "pipe_type": "PipeParallel",
+      "description": "Check text and image safety in parallel",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:29.973779Z",
-        "ended_at": "2026-04-06T10:24:33.681100Z",
-        "duration": 3.707321
+        "started_at": "2026-05-15T19:12:53.641119Z",
+        "ended_at": "2026-05-15T19:12:56.327424Z",
+        "duration": 2.686305
       },
       "io": {
         "inputs": [
@@ -78,7 +82,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bN2bX",
+            "digest": "Waqak",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -94,7 +98,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "RrvDC",
+            "digest": "oQJvA",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -110,14 +114,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "cJNbU",
+            "digest": "diwpE",
             "data": {
-              "score": 0.95,
+              "score": 1,
               "flagged_categories": null,
               "safe": true
             },
-            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
-            "data_html": "<table><tr><th>score</th><td>0.95</td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 1.0                          \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
+            "data_html": "<table><tr><th>score</th><td>1.0</td></tr><tr><th>safe</th><td>True</td></tr></table>",
             "extra": {}
           }
         ]
@@ -132,15 +136,17 @@
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_2",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_2",
       "kind": "operator",
       "pipe_code": "check_text_safety",
       "pipe_type": "PipeLLM",
+      "description": "Assess text content safety",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:29.977534Z",
-        "ended_at": "2026-04-06T10:24:33.624327Z",
-        "duration": 3.646793
+        "started_at": "2026-05-15T19:12:53.645890Z",
+        "ended_at": "2026-05-15T19:12:56.142805Z",
+        "duration": 2.496915
       },
       "io": {
         "inputs": [
@@ -150,7 +156,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bN2bX",
+            "digest": "Waqak",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -166,7 +172,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "RrvDC",
+            "digest": "oQJvA",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -182,24 +188,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nThis product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nThis product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_3",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_3",
       "kind": "operator",
       "pipe_code": "check_image_safety",
       "pipe_type": "PipeLLM",
+      "description": "Assess image content safety",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:31.193176Z",
-        "ended_at": "2026-04-06T10:24:33.677703Z",
-        "duration": 2.484527
+        "started_at": "2026-05-15T19:12:54.411215Z",
+        "ended_at": "2026-05-15T19:12:56.321267Z",
+        "duration": 1.910052
       },
       "io": {
         "inputs": [
@@ -209,7 +217,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bN2bX",
+            "digest": "Waqak",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -225,14 +233,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "cJNbU",
+            "digest": "diwpE",
             "data": {
-              "score": 0.95,
+              "score": 1,
               "flagged_categories": null,
               "safe": true
             },
-            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
-            "data_html": "<table><tr><th>score</th><td>0.95</td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 1.0                          \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
+            "data_html": "<table><tr><th>score</th><td>1.0</td></tr><tr><th>safe</th><td>True</td></tr></table>",
             "extra": {}
           }
         ]
@@ -241,24 +249,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Assess the safety of any images referenced in this content:\n\n<content>\nThis product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Assess the safety of any images referenced in this content:\n\n<content>\nThis product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
       "kind": "operator",
       "pipe_code": "make_decision",
       "pipe_type": "PipeLLM",
+      "description": "Make moderation decision based on safety scores",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:33.682181Z",
-        "ended_at": "2026-04-06T10:24:36.253730Z",
-        "duration": 2.571549
+        "started_at": "2026-05-15T19:12:56.333340Z",
+        "ended_at": "2026-05-15T19:12:58.676119Z",
+        "duration": 2.342779
       },
       "io": {
         "inputs": [
@@ -268,7 +278,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "RrvDC",
+            "digest": "oQJvA",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -284,14 +294,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "cJNbU",
+            "digest": "diwpE",
             "data": {
-              "score": 0.95,
+              "score": 1,
               "flagged_categories": null,
               "safe": true
             },
-            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
-            "data_html": "<table><tr><th>score</th><td>0.95</td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 1.0                          \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
+            "data_html": "<table><tr><th>score</th><td>1.0</td></tr><tr><th>safe</th><td>True</td></tr></table>",
             "extra": {}
           }
         ],
@@ -302,14 +312,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZFACG",
+            "digest": "8NVfU",
             "data": {
               "approved": true,
-              "reason": "Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+              "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
               "action": "approve"
             },
-            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image safety scores are high (0.95) with safe=True   \n           │ status and no flagged categories detected                          \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected</td></tr><tr><th>action</th><td>approve</td></tr></table>",
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image content passed safety checks with high safety  \n           │ scores (text: 0.95, image: 1.0). No categories were flagged for    \n           │ either text or image.                                              \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.</td></tr><tr><th>action</th><td>approve</td></tr></table>",
             "extra": {}
           }
         ]
@@ -318,24 +328,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=0.95, safe=True\nImage safety: score=0.95, safe=True\n\nFlagged categories:\nText: <text_score.flagged_categories>\nNone\n</text_score.flagged_categories>\nImage: <image_score.flagged_categories>\nNone\n</image_score.flagged_categories>\n\n---\nThe instance we want to generate will be for the following class:\nclass Decision(StructuredContent):\n    \"\"\"Moderation decision\"\"\"\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        \"approve\",\n        \"reject\",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=0.95, safe=True\nImage safety: score=1.0, safe=True\n\nFlagged categories:\nText: None\nImage: None\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__Decision(StructuredContent):\n    \"\"\"Moderation decision\"\"\"\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        \"approve\",\n        \"reject\",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_5",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
       "kind": "controller",
       "pipe_code": "route_action",
       "pipe_type": "PipeCondition",
+      "description": "Route to approve or reject action",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:36.253770Z",
-        "ended_at": "2026-04-06T10:24:36.272381Z",
-        "duration": 0.018611
+        "started_at": "2026-05-15T19:12:58.681174Z",
+        "ended_at": "2026-05-15T19:12:58.708204Z",
+        "duration": 0.02703
       },
       "io": {
         "inputs": [
@@ -345,14 +357,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZFACG",
+            "digest": "8NVfU",
             "data": {
               "approved": true,
-              "reason": "Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+              "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
               "action": "approve"
             },
-            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image safety scores are high (0.95) with safe=True   \n           │ status and no flagged categories detected                          \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected</td></tr><tr><th>action</th><td>approve</td></tr></table>",
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image content passed safety checks with high safety  \n           │ scores (text: 0.95, image: 1.0). No categories were flagged for    \n           │ either text or image.                                              \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.</td></tr><tr><th>action</th><td>approve</td></tr></table>",
             "extra": {}
           }
         ],
@@ -363,12 +375,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kp5NW",
+            "digest": "mdNtg",
             "data": {
-              "text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected"
+              "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
-            "data_text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged    \ncategories detected                                                                                 \n",
-            "data_html": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+            "data_text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95,     \nimage: 1.0). No categories were flagged for either text or image.                                   \n",
+            "data_html": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
             "extra": {}
           }
         ]
@@ -382,15 +394,17 @@
       }
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_6",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
       "kind": "operator",
       "pipe_code": "approve_content",
       "pipe_type": "PipeCompose",
+      "description": "Approve content for publication",
+      "domain_code": "content_moderation",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:24:36.261552Z",
-        "ended_at": "2026-04-06T10:24:36.269255Z",
-        "duration": 0.007703
+        "started_at": "2026-05-15T19:12:58.692735Z",
+        "ended_at": "2026-05-15T19:12:58.703965Z",
+        "duration": 0.01123
       },
       "io": {
         "inputs": [
@@ -400,14 +414,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZFACG",
+            "digest": "8NVfU",
             "data": {
               "approved": true,
-              "reason": "Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+              "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
               "action": "approve"
             },
-            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image safety scores are high (0.95) with safe=True   \n           │ status and no flagged categories detected                          \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected</td></tr><tr><th>action</th><td>approve</td></tr></table>",
+            "data_text": " Attribute ┃ Value                                                              \n━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved  │ True                                                               \n───────────┼────────────────────────────────────────────────────────────────────\n reason    │ Both text and image content passed safety checks with high safety  \n           │ scores (text: 0.95, image: 1.0). No categories were flagged for    \n           │ either text or image.                                              \n───────────┼────────────────────────────────────────────────────────────────────\n action    │ approve                                                            \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.</td></tr><tr><th>action</th><td>approve</td></tr></table>",
             "extra": {}
           }
         ],
@@ -418,12 +432,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kp5NW",
+            "digest": "mdNtg",
             "data": {
-              "text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected"
+              "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
-            "data_text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged    \ncategories detected                                                                                 \n",
-            "data_html": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected",
+            "data_text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95,     \nimage: 1.0). No categories were flagged for either text or image.                                   \n",
+            "data_html": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
             "extra": {}
           }
         ]
@@ -433,15 +447,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "APPROVED: Both text and image safety scores are high (0.95) with safe=True status and no flagged categories detected"
+        "rendered_text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
       }
     }
   ],
   "edges": [
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_0",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_0",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_0",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -449,9 +463,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_1",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_2",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_1",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -459,9 +473,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_2",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_3",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_2",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -469,9 +483,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_3",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_0",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_3",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -479,9 +493,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_4",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_0",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_5",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_4",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -489,9 +503,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_5",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_5",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_6",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_5",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -499,9 +513,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_6",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_0",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
       "kind": "data",
       "label": "text_score",
       "source_stuff_digest": null,
@@ -509,9 +523,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_7",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_1",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_1",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
       "kind": "data",
       "label": "image_score",
       "source_stuff_digest": null,
@@ -519,9 +533,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_8",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_5",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_2",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
       "kind": "data",
       "label": "decision",
       "source_stuff_digest": null,
@@ -529,9 +543,9 @@
       "meta": {}
     },
     {
-      "id": "d2bedf30-4c42-4381-a735-3ac3090afbea:edge_9",
-      "source": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_4",
-      "target": "d2bedf30-4c42-4381-a735-3ac3090afbea:node_6",
+      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_3",
+      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
       "kind": "data",
       "label": "decision",
       "source_stuff_digest": null,
@@ -539,7 +553,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "content_moderation.moderation_pipeline": {
       "pipe_category": "PipeController",
@@ -564,7 +580,7 @@
           "code": "ModerationResult",
           "domain_code": "content_moderation",
           "description": "Final moderation result",
-          "structure_class_name": "ModerationResult",
+          "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -613,7 +629,7 @@
           "code": "SafetyScore",
           "domain_code": "content_moderation",
           "description": "Content safety assessment score",
-          "structure_class_name": "SafetyScore",
+          "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
         "multiplicity": null
@@ -658,7 +674,7 @@
           "code": "SafetyScore",
           "domain_code": "content_moderation",
           "description": "Content safety assessment score",
-          "structure_class_name": "SafetyScore",
+          "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
         "multiplicity": null
@@ -707,7 +723,7 @@
           "code": "SafetyScore",
           "domain_code": "content_moderation",
           "description": "Content safety assessment score",
-          "structure_class_name": "SafetyScore",
+          "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
         "multiplicity": null
@@ -745,7 +761,7 @@
             "code": "SafetyScore",
             "domain_code": "content_moderation",
             "description": "Content safety assessment score",
-            "structure_class_name": "SafetyScore",
+            "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
           "multiplicity": null
@@ -755,7 +771,7 @@
             "code": "SafetyScore",
             "domain_code": "content_moderation",
             "description": "Content safety assessment score",
-            "structure_class_name": "SafetyScore",
+            "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
           "multiplicity": null
@@ -766,7 +782,7 @@
           "code": "Decision",
           "domain_code": "content_moderation",
           "description": "Moderation decision",
-          "structure_class_name": "Decision",
+          "structure_class_name": "content_moderation__Decision",
           "refines": null
         },
         "multiplicity": null
@@ -775,7 +791,7 @@
         "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
-          "template": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=$text_score.score, safe=$text_score.safe\nImage safety: score=$image_score.score, safe=$image_score.safe\n\nFlagged categories:\nText: @text_score.flagged_categories\nImage: @image_score.flagged_categories\n",
+          "template": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=$text_score.score, safe=$text_score.safe\nImage safety: score=$image_score.score, safe=$image_score.safe\n\nFlagged categories:\nText: $text_score.flagged_categories\nImage: $image_score.flagged_categories\n",
           "templating_style": null,
           "category": "llm_prompt",
           "extra_context": null
@@ -804,7 +820,7 @@
             "code": "Decision",
             "domain_code": "content_moderation",
             "description": "Moderation decision",
-            "structure_class_name": "Decision",
+            "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
           "multiplicity": null
@@ -815,7 +831,7 @@
           "code": "ModerationResult",
           "domain_code": "content_moderation",
           "description": "Final moderation result",
-          "structure_class_name": "ModerationResult",
+          "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -840,7 +856,7 @@
             "code": "Decision",
             "domain_code": "content_moderation",
             "description": "Moderation decision",
-            "structure_class_name": "Decision",
+            "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
           "multiplicity": null
@@ -851,7 +867,7 @@
           "code": "ModerationResult",
           "domain_code": "content_moderation",
           "description": "Final moderation result",
-          "structure_class_name": "ModerationResult",
+          "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -868,7 +884,7 @@
       "code": "ModerationResult",
       "domain_code": "content_moderation",
       "description": "Final moderation result",
-      "structure_class_name": "ModerationResult",
+      "structure_class_name": "content_moderation__ModerationResult",
       "refines": "native.Text",
       "json_schema": {
         "description": "Final moderation result",
@@ -881,7 +897,7 @@
         "required": [
           "text"
         ],
-        "title": "ModerationResult",
+        "title": "content_moderation__ModerationResult",
         "type": "object"
       }
     },
@@ -909,7 +925,7 @@
       "code": "SafetyScore",
       "domain_code": "content_moderation",
       "description": "Content safety assessment score",
-      "structure_class_name": "SafetyScore",
+      "structure_class_name": "content_moderation__SafetyScore",
       "refines": null,
       "json_schema": {
         "description": "Content safety assessment score",
@@ -943,7 +959,7 @@
           "score",
           "safe"
         ],
-        "title": "SafetyScore",
+        "title": "content_moderation__SafetyScore",
         "type": "object"
       }
     },
@@ -951,7 +967,7 @@
       "code": "Decision",
       "domain_code": "content_moderation",
       "description": "Moderation decision",
-      "structure_class_name": "Decision",
+      "structure_class_name": "content_moderation__Decision",
       "refines": null,
       "json_schema": {
         "description": "Moderation decision",
@@ -981,7 +997,7 @@
           "reason",
           "action"
         ],
-        "title": "Decision",
+        "title": "content_moderation__Decision",
         "type": "object"
       }
     }

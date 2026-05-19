@@ -65,8 +65,10 @@ output = "GatheredData"
 prompt = """
 Synthesize and analyze these data sources:
 
-Source A: @source_a
-Source B: @source_b
+Source A:
+@source_a
+Source B:
+@source_b
 """
 
 [pipe.transform_y]

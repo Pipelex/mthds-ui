@@ -68,7 +68,7 @@ description = "Rerank and filter search results"
 inputs = { vector_results = "SearchResult", keyword_results = "SearchResult", question = "Text" }
 output = "RankedContext"
 prompt = """
-Given this question: @question
+Given this question: $question
 
 Rerank these search results by relevance, removing duplicates:
 
@@ -87,7 +87,7 @@ output = "Answer"
 prompt = """
 Answer this question using the provided context. Cite your sources.
 
-Question: @question
+Question: $question
 
 Context:
 @context

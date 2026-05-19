@@ -13,7 +13,27 @@ export type PipeControllerType = "PipeSequence" | "PipeParallel" | "PipeConditio
 
 export type PipeType = PipeOperatorType | PipeControllerType;
 
-export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped";
+// Presence map over the full `PipeType` union — typed as `Record<PipeType, true>`
+// so adding a pipe class to the union without listing it here is a compile
+// error. `KNOWN_PIPE_TYPES` derives its keys from this map, keeping the runtime
+// check the validator performs in sync with the type.
+const PIPE_TYPE_PRESENCE: Record<PipeType, true> = {
+  PipeLLM: true,
+  PipeExtract: true,
+  PipeCompose: true,
+  PipeImgGen: true,
+  PipeSearch: true,
+  PipeFunc: true,
+  PipeSequence: true,
+  PipeParallel: true,
+  PipeCondition: true,
+  PipeBatch: true,
+};
+
+/** Every pipe class name pipelex emits as `pipe_type`. Used by validateGraphSpec. */
+export const KNOWN_PIPE_TYPES: ReadonlySet<string> = new Set(Object.keys(PIPE_TYPE_PRESENCE));
+
+export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped" | "canceled";
 
 // ─── Node type constants ────────────────────────────────────────────────────
 // Used by graphBuilders and consumed by ReactFlow custom node registration.
@@ -42,7 +62,7 @@ export function stuffDigestFromId(id: string): string {
 // ─── GraphSpec types (from pipelex-agent --view output) ─────────────────────
 
 export interface GraphSpecNodeIoItem {
-  name?: string;
+  name: string;
   digest?: string;
   concept?: string;
   content_type?: string;
@@ -55,8 +75,8 @@ export interface GraphSpecNodeIoItem {
 }
 
 export interface GraphSpecNodeIo {
-  inputs?: GraphSpecNodeIoItem[];
-  outputs?: GraphSpecNodeIoItem[];
+  inputs: GraphSpecNodeIoItem[];
+  outputs: GraphSpecNodeIoItem[];
 }
 
 export type NodeKind =
@@ -82,18 +102,30 @@ export interface GraphSpecNodeError {
 
 export interface GraphSpecNode {
   id: string;
-  kind?: NodeKind;
+  kind: NodeKind;
   pipe_code?: string;
   pipe_type: PipeType;
   description?: string;
-  status?: PipeStatus;
+  domain_code?: string;
+  status: PipeStatus;
   timing?: GraphSpecNodeTiming;
-  io?: GraphSpecNodeIo;
+  io: GraphSpecNodeIo;
   error?: GraphSpecNodeError;
   tags?: Record<string, string>;
   metrics?: Record<string, number>;
   execution_data?: Record<string, unknown>;
 }
+
+/**
+ * A pipe-call node — the only node kind a real pipelex run emits. Narrowed
+ * from `GraphSpecNode` for code paths that only ever render pipe-call nodes,
+ * where `pipe_code` is guaranteed (validateGraphSpec enforces this).
+ */
+export type PipeCallNode = GraphSpecNode & {
+  kind: "controller" | "operator";
+  pipe_code: string;
+  pipe_type: PipeType;
+};
 
 export type GraphSpecEdgeKind =
   | "contains"
@@ -105,7 +137,7 @@ export type GraphSpecEdgeKind =
   | "parallel_combine";
 
 export interface GraphSpecEdge {
-  id?: string;
+  id: string;
   source: string;
   target: string;
   kind: GraphSpecEdgeKind;
@@ -338,7 +370,7 @@ export interface GraphSpec {
 
 export interface DataflowAnalysis {
   readonly stuffRegistry: Readonly<
-    Record<string, { name?: string; concept?: string; contentType?: string }>
+    Record<string, { name: string; concept?: string; contentType?: string }>
   >;
   readonly stuffProducers: Readonly<Record<string, string>>;
   readonly stuffConsumers: Readonly<Record<string, readonly string[]>>;

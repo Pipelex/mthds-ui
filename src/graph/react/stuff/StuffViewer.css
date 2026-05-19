@@ -310,3 +310,25 @@ button.stuff-viewer-local-file--button:focus-visible {
   font-style: italic;
   font-size: 13px;
 }
+
+.stuff-viewer-error {
+  border: 1px solid var(--color-status-failed, #ff5555);
+  border-radius: 6px;
+  padding: 12px;
+  background: rgba(255, 85, 85, 0.08);
+}
+
+.stuff-viewer-error-title {
+  color: var(--color-status-failed, #ff5555);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.stuff-viewer-error-detail {
+  color: var(--sv-text-muted);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

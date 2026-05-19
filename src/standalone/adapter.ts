@@ -6,7 +6,8 @@
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
-import type { GraphSpec, GraphTheme } from "@graph/types";
+import type { GraphTheme } from "@graph/types";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
@@ -24,8 +25,9 @@ function readJsonScript(id: string): unknown {
   if (!el?.textContent) return null;
   try {
     return JSON.parse(el.textContent);
-  } catch {
-    return null;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    throw new Error(`Failed to parse JSON from <script id="${id}">: ${message}`);
   }
 }
 
@@ -76,7 +78,10 @@ function mount() {
   // Load data after initial mount (next tick), same as VS Code postMessage arrival
   setTimeout(() => {
     const rawConfig = readJsonScript("pipelex-config");
-    const graphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
+    const rawGraphspec = readJsonScript("pipelex-graphspec");
+    // Validate the embedded spec at the boundary — fail loudly on malformed
+    // input rather than rendering fabricated content downstream.
+    const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
     viewerProps = buildViewerProps(rawConfig, graphspec);
 
     applyBodyPalette(viewerProps.theme, viewerProps.config.paletteColors);

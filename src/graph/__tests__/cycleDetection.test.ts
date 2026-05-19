@@ -7,19 +7,35 @@ import type { GraphSpec } from "../types";
 function makeDirectCycle(): GraphSpec {
   return {
     nodes: [
-      { id: "A", pipe_type: "PipeSequence" },
-      { id: "B", pipe_type: "PipeSequence" },
       {
+        pipe_code: "A",
+        kind: "controller",
+        status: "succeeded",
+        io: { inputs: [], outputs: [] },
+        id: "A",
+        pipe_type: "PipeSequence",
+      },
+      {
+        pipe_code: "B",
+        kind: "controller",
+        status: "succeeded",
+        io: { inputs: [], outputs: [] },
+        id: "B",
+        pipe_type: "PipeSequence",
+      },
+      {
+        kind: "operator",
+        status: "succeeded",
         id: "op1",
         pipe_code: "op1",
         pipe_type: "PipeFunc",
-        io: { outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
+        io: { inputs: [], outputs: [{ digest: "d1", name: "out", concept: "Text" }] },
       },
     ],
     edges: [
-      { source: "A", target: "B", kind: "contains" },
-      { source: "B", target: "A", kind: "contains" },
-      { source: "A", target: "op1", kind: "contains" },
+      { id: "e0", source: "A", target: "B", kind: "contains" },
+      { id: "e1", source: "B", target: "A", kind: "contains" },
+      { id: "e2", source: "A", target: "op1", kind: "contains" },
     ],
   };
 }

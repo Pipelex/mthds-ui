@@ -126,9 +126,9 @@ function extractType(schema: Record<string, unknown>): string {
   if (schema.allOf) return "all";
   if (schema.$ref) {
     const ref = String(schema.$ref);
-    return ref.split("/").pop() ?? "ref";
+    return ref.split("/").pop() ?? "(unresolved type)";
   }
-  return "unknown";
+  return "(unresolved type)";
 }
 
 function toStuffViewerData(ioData: GraphSpecNodeIoItem | StuffViewerData): StuffViewerData {
