@@ -411,10 +411,18 @@ export const FOLD_MODE = {
 
 export type FoldMode = (typeof FOLD_MODE)[keyof typeof FOLD_MODE];
 
+export const GRAPH_THEME = {
+  DARK: "dark",
+  LIGHT: "light",
+} as const;
+
+export type GraphTheme = (typeof GRAPH_THEME)[keyof typeof GRAPH_THEME];
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
   foldMode?: FoldMode;
+  theme?: GraphTheme;
   nodesep?: number;
   ranksep?: number;
   edgeType?: EdgeType;

@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Light theme.** `GraphViewer` now supports a `"light"` theme alongside the existing `"dark"` default. New props on `GraphViewer`: `theme`, `showThemeToggle`, `onThemeChange`. A theme toggle button is shown in the floating toolbar by default.
+
 ## [v0.6.5] - 2026-05-15
 
 ### Fixed

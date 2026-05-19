@@ -1,6 +1,6 @@
 import React from "react";
 import "./GraphToolbar.css";
-import { GRAPH_DIRECTION, type GraphDirection } from "@graph/types";
+import { GRAPH_DIRECTION, GRAPH_THEME, type GraphDirection, type GraphTheme } from "@graph/types";
 
 export interface GraphToolbarProps {
   direction: GraphDirection;
@@ -18,6 +18,10 @@ export interface GraphToolbarProps {
   foldAllDisabled?: boolean;
   /** Disable the expand-all button (e.g. nothing currently folded). */
   expandAllDisabled?: boolean;
+  /** Current theme. Renders the theme toggle button when both this and `onThemeChange` are set. */
+  theme?: GraphTheme;
+  /** Theme change handler. Renders the theme toggle button when both this and `theme` are set. */
+  onThemeChange?: (theme: GraphTheme) => void;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
 }
@@ -167,6 +171,44 @@ const EXPAND_ALL_ICON = (
   </svg>
 );
 
+const SUN_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <line x1="12" y1="2" x2="12" y2="4" />
+    <line x1="12" y1="20" x2="12" y2="22" />
+    <line x1="4.93" y1="4.93" x2="6.34" y2="6.34" />
+    <line x1="17.66" y1="17.66" x2="19.07" y2="19.07" />
+    <line x1="2" y1="12" x2="4" y2="12" />
+    <line x1="20" y1="12" x2="22" y2="12" />
+    <line x1="4.93" y1="19.07" x2="6.34" y2="17.66" />
+    <line x1="17.66" y1="6.34" x2="19.07" y2="4.93" />
+  </svg>
+);
+
+const MOON_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
 export function GraphToolbar({
   direction,
   onDirectionChange,
@@ -179,8 +221,13 @@ export function GraphToolbar({
   onExpandAll,
   foldAllDisabled = false,
   expandAllDisabled = false,
+  theme,
+  onThemeChange,
   rightOffset = 0,
 }: GraphToolbarProps) {
+  const themeToggleEnabled = theme !== undefined && onThemeChange !== undefined;
+  const themeLabel =
+    theme === GRAPH_THEME.LIGHT ? "Switch to dark theme" : "Switch to light theme";
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
   const directionLabel = isVertical ? "Switch to horizontal layout" : "Switch to vertical layout";
   const controllersLabel = showControllers
@@ -281,6 +328,23 @@ export function GraphToolbar({
         >
           {FIT_VIEW_ICON}
         </button>
+      )}
+
+      {themeToggleEnabled && (
+        <>
+          <div className="graph-toolbar-separator" />
+          <button
+            type="button"
+            className="graph-toolbar-btn"
+            onClick={() =>
+              onThemeChange(theme === GRAPH_THEME.LIGHT ? GRAPH_THEME.DARK : GRAPH_THEME.LIGHT)
+            }
+            title={themeLabel}
+            aria-label={themeLabel}
+          >
+            {theme === GRAPH_THEME.LIGHT ? MOON_ICON : SUN_ICON}
+          </button>
+        </>
       )}
     </div>
   );
