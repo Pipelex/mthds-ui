@@ -8,6 +8,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import type { GraphSpec } from "@graph/types";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
+import { getPaletteForTheme } from "@graph/graphConfig";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
@@ -54,12 +55,14 @@ function mount() {
     const graphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
     viewerProps = buildViewerProps(rawConfig, graphspec);
 
-    // Apply palette colors
-    const palette = viewerProps.config.paletteColors;
-    if (palette) {
-      for (const [cssVar, value] of Object.entries(palette)) {
-        document.body.style.setProperty(cssVar, value);
-      }
+    // Apply palette colors at the body scope (so anything above the
+    // GraphViewer container — page chrome — picks up the theme too).
+    // Sparse `paletteColors` overrides win per-key.
+    const themePalette = getPaletteForTheme(viewerProps.theme);
+    const overrides = viewerProps.config.paletteColors;
+    const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
+    for (const [cssVar, value] of Object.entries(palette)) {
+      document.body.style.setProperty(cssVar, value);
     }
 
     // Re-render with data (triggers GraphViewer's graphspec useEffect)

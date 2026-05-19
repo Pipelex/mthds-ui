@@ -1,37 +1,36 @@
 /* ReactFlow base styles — resolved by the consumer's bundler */
 @import "@xyflow/react/dist/style.css";
 
-/* Default theme — consumers can override any var on an ancestor element */
-.react-flow-container {
-  --color-bg: #0a0a0a;
-  --color-bg-dots: rgba(255, 255, 255, 0.35);
-  --color-text-muted: #94a3b8;
-  --color-controller-text: #94a3b8;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "Monaco", "Menlo", monospace;
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
+/**
+ * Tokens (--surface-*, --text-*, --border-*, --shadow-*, --color-*) are
+ * applied to `.react-flow-container` inline by `GraphViewer` based on the
+ * active theme (dark / light). Component CSS only references those tokens —
+ * never raw hex/rgba — so a new theme is just a new set of values.
+ *
+ * Fallback hints below are dark-theme values; the live values come from
+ * `graphConfig.ts` (`DARK_PALETTE_COLORS` / `LIGHT_PALETTE_COLORS`).
+ */
 .react-flow-container {
   position: absolute;
   inset: 0;
-  background: var(--color-bg);
+  background: var(--color-bg, #0a0a0a);
 }
 .react-flow__node {
   font-family: var(--font-sans);
   cursor: pointer;
 }
 .react-flow__background {
-  background: var(--color-bg) !important;
+  background: var(--color-bg, #0a0a0a) !important;
 }
 .react-flow__edge-path {
   stroke-width: 2;
 }
 .react-flow__edge-text {
   font-size: 11px;
-  fill: var(--color-text-muted);
+  fill: var(--text-muted);
 }
 .react-flow__edge-textbg {
-  fill: var(--color-bg);
+  fill: var(--color-bg, #0a0a0a);
 }
 /* Selected node highlight */
 .react-flow__node.selected {
@@ -54,8 +53,8 @@
 }
 .react-flow__node-pipeCard.selected .pipe-card {
   box-shadow:
-    0 0 0 2px var(--color-accent, #3b82f6),
-    0 4px 16px rgba(0, 0, 0, 0.6);
+    0 0 0 2px var(--color-accent),
+    var(--shadow-md);
 }
 .react-flow__node-controllerGroup.selected {
   box-shadow:
@@ -67,9 +66,9 @@
 }
 /* ─── Controller Group Node ──────────────────────────────────────────── */
 .controller-group-node {
-  --controller-border: 2px dashed rgba(148, 163, 184, 0.3);
-  --controller-bg: rgba(148, 163, 184, 0.04);
-  --controller-header-color: #64748b;
+  --controller-border: 2px dashed var(--ctrl-sequence-border);
+  --controller-bg: var(--ctrl-sequence-bg);
+  --controller-header-color: var(--ctrl-sequence-text);
 
   width: 100%;
   height: 100%;
@@ -101,13 +100,13 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--controller-header-color);
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-family: var(--font-mono);
 }
 .controller-group-label {
   font-size: 11px;
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-family: var(--font-mono);
   font-weight: 500;
-  color: var(--color-controller-text, #94a3b8);
+  color: var(--color-controller-text);
   white-space: nowrap;
   margin-left: auto;
 }
@@ -119,23 +118,23 @@
   bottom: 4px;
   right: 8px;
   font-size: 10px;
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
-  color: var(--controller-header-color, #94a3b8);
+  font-family: var(--font-mono);
+  color: var(--controller-header-color);
   cursor: pointer;
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border: 1px dashed var(--border-dashed);
   pointer-events: auto;
   z-index: 10;
   white-space: nowrap;
 }
 .controller-group-collapse:hover {
-  color: #e2e8f0;
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--surface-elevated);
 }
 .controller-group-collapse:focus-visible {
-  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline: 2px solid var(--controller-header-color);
   outline-offset: 2px;
 }
 
@@ -145,73 +144,64 @@
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
-  color: var(--controller-header-color, #94a3b8);
+  color: var(--controller-header-color);
   padding: 4px 10px;
   border-radius: 6px;
   pointer-events: auto;
   margin-left: auto;
 }
 .controller-group-fold:hover {
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  background: var(--surface-elevated);
 }
 .controller-group-fold:focus-visible {
-  outline: 2px solid var(--controller-header-color, #94a3b8);
+  outline: 2px solid var(--controller-header-color);
   outline-offset: 2px;
 }
 
 /* Sequence — solid thin border, calm flow */
 .controller-group--sequence {
-  --controller-border: 1.5px solid rgba(148, 163, 184, 0.25);
-  --controller-bg: rgba(148, 163, 184, 0.03);
-  --controller-header-color: #94a3b8;
+  --controller-border: 1.5px solid var(--ctrl-sequence-border);
+  --controller-bg: var(--ctrl-sequence-bg);
+  --controller-header-color: var(--ctrl-sequence-text);
 }
 
 /* Parallel — double border, forking lanes */
 .controller-group--parallel {
-  --controller-border: 3px double rgba(139, 233, 253, 0.35);
-  --controller-bg: rgba(139, 233, 253, 0.03);
-  --controller-header-color: #8be9fd;
+  --controller-border: 3px double var(--ctrl-parallel-border);
+  --controller-bg: var(--ctrl-parallel-bg);
+  --controller-header-color: var(--ctrl-parallel-text);
 }
 
 /* Condition — dashed with diamond accent */
 .controller-group--condition {
-  --controller-border: 2px dashed rgba(251, 191, 36, 0.35);
-  --controller-bg: rgba(251, 191, 36, 0.03);
-  --controller-header-color: #fbbf24;
+  --controller-border: 2px dashed var(--ctrl-condition-border);
+  --controller-bg: var(--ctrl-condition-bg);
+  --controller-header-color: var(--ctrl-condition-text);
 }
 
 /* Batch — dotted border, loop/repeat */
 .controller-group--batch {
-  --controller-border: 2px dotted rgba(167, 139, 250, 0.35);
-  --controller-bg: rgba(167, 139, 250, 0.03);
-  --controller-header-color: #a78bfa;
+  --controller-border: 2px dotted var(--ctrl-batch-border);
+  --controller-bg: var(--ctrl-batch-bg);
+  --controller-header-color: var(--ctrl-batch-text);
 }
 
 /* ─── Pipe Card Node ─────────────────────────────────────────────────── */
-/* All tokens overridable via CSS custom properties on an ancestor.      */
 .pipe-card {
-  --pipe-card-accent: #ff6b6b;
-  --pipe-card-bg: rgba(148, 163, 184, 0.08);
-  --pipe-card-text: #e2e8f0;
-  --pipe-card-text-bright: #f8fafc;
-  --pipe-card-text-muted: #94a3b8;
-  --pipe-card-text-dim: #64748b;
-  --pipe-card-pill-bg: rgba(255, 255, 255, 0.06);
-  --pipe-card-pill-border: rgba(255, 255, 255, 0.08);
-  --pipe-card-pill-text: #cbd5e1;
+  --pipe-card-accent: var(--color-pipe);
   --pipe-card-radius: 8px;
 
   border-left: 4px solid var(--pipe-card-accent);
   border-radius: var(--pipe-card-radius);
   padding: 12px 14px;
-  background: var(--pipe-card-bg);
-  font-family: var(--font-sans, "Inter", -apple-system, sans-serif);
-  color: var(--pipe-card-text);
+  background: var(--surface-elevated);
+  font-family: var(--font-sans);
+  color: var(--text-default);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-sm);
   transition: box-shadow 0.2s;
   /* Fill the ReactFlow wrapper whose size is locked to ELK's layout dimensions */
   width: 100%;
@@ -220,7 +210,7 @@
   overflow: hidden;
 }
 .pipe-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-md);
 }
 
 /* Direction-aware sizing: LR = narrow + tall, TB = wide + short */
@@ -249,10 +239,10 @@
   white-space: nowrap;
   line-height: 1.4;
   background: var(--pipe-card-accent);
-  color: #0e0e0e;
+  color: var(--text-on-accent);
 }
 .pipe-card-code {
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 600;
   color: var(--pipe-card-accent);
@@ -283,29 +273,29 @@
   cursor: pointer;
   font-size: 20px;
   line-height: 1;
-  color: var(--pipe-card-text-muted);
+  color: var(--text-muted);
   padding: 4px 8px;
   border-radius: 6px;
   flex-shrink: 0;
 }
 .pipe-card-expand:hover {
-  color: var(--pipe-card-text-bright);
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  background: var(--surface-elevated-hover);
 }
 .pipe-card-expand:focus-visible {
-  outline: 2px solid var(--pipe-card-text-bright);
+  outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
 
 /* Folded-controller card variant — slightly tinted badge to differentiate
    from operator cards. */
 .pipe-card-badge--controller {
-  background: rgba(148, 163, 184, 0.25);
-  color: var(--pipe-card-text-bright);
-  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: var(--ctrl-folded-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--ctrl-folded-border);
 }
 .pipe-card--controller {
-  --pipe-card-accent: #94a3b8;
+  --pipe-card-accent: var(--text-muted);
 }
 @keyframes pipe-card-pulse {
   0%,
@@ -333,7 +323,7 @@
    TB gets 1 line (wide card, horizontal layout). Both truncate with ellipsis. */
 .pipe-card-description {
   font-size: 11.5px;
-  color: var(--pipe-card-text-muted);
+  color: var(--text-muted);
   line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -354,7 +344,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--pipe-card-text-dim);
+  color: var(--text-dim);
   flex-shrink: 0;
 }
 .pipe-card-io-pills {
@@ -367,22 +357,22 @@
   align-items: center;
   gap: 3px;
   font-size: 10px;
-  background: var(--pipe-card-pill-bg);
-  border: 1px solid var(--pipe-card-pill-border);
+  background: var(--surface-pill);
+  border: 1px solid var(--surface-pill-border);
   border-radius: 4px;
   padding: 1px 5px;
   line-height: 1.4;
   min-width: 0;
 }
 .pipe-card-io-pill-name {
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
-  color: var(--pipe-card-pill-text);
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .pipe-card-io-pill-concept {
-  color: var(--pipe-card-text-dim);
+  color: var(--text-dim);
   font-size: 9px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -391,21 +381,21 @@
 .pipe-card-io-more {
   all: unset;
   font-size: 10px;
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
-  color: var(--pipe-card-text-muted);
+  font-family: var(--font-mono);
+  color: var(--text-muted);
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border: 1px dashed var(--border-default);
   white-space: nowrap;
   line-height: 1.4;
 }
 .pipe-card-io-more:hover {
-  color: var(--pipe-card-text);
-  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--text-default);
+  border-color: var(--border-strong);
 }
 .pipe-card-io-more:focus-visible {
-  outline: 2px solid var(--pipe-card-text);
+  outline: 2px solid var(--text-default);
   outline-offset: 2px;
 }
 

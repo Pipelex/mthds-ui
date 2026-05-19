@@ -2,25 +2,18 @@
 /* Uses CSS custom properties for consumer theming. Defaults match graph-core.css. */
 
 .stuff-viewer {
-  --sv-bg: var(--color-bg, #0a0a0a);
-  --sv-surface: var(--color-surface, #16213e);
-  --sv-surface-hover: var(--color-surface-hover, #1f2b47);
-  --sv-border: var(--color-border, #2a3a5a);
-  --sv-text: var(--color-text, #e2e8f0);
-  --sv-text-muted: var(--color-text-muted, #94a3b8);
-  --sv-accent: var(--color-accent, #3b82f6);
-  --sv-success: #10b981;
-  --sv-success-bg: rgba(16, 185, 129, 0.2);
+  --sv-bg: var(--surface-page);
+  --sv-surface: var(--surface-panel);
+  --sv-surface-hover: var(--surface-elevated);
+  --sv-border: var(--border-default);
+  --sv-text: var(--text-default);
+  --sv-text-muted: var(--text-muted);
+  --sv-accent: var(--color-accent);
+  --sv-success: var(--color-success);
+  --sv-success-bg: var(--color-success-bg);
   --sv-radius: 4px;
-  --sv-font-sans: var(
-    --font-sans,
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif
-  );
-  --sv-font-mono: var(--font-mono, "JetBrains Mono", "Monaco", "Menlo", monospace);
+  --sv-font-sans: var(--font-sans);
+  --sv-font-mono: var(--font-mono);
 
   font-family: var(--sv-font-sans);
   color: var(--sv-text);
@@ -90,7 +83,7 @@
 
 .stuff-viewer-tab--active {
   background: var(--sv-accent);
-  color: #fff;
+  color: var(--text-on-accent);
 }
 
 /* ─── Action buttons ─────────────────────────────────────────────────────── */

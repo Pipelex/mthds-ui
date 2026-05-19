@@ -17,10 +17,11 @@ import type {
   DataflowAnalysis,
   FoldMode,
   FoldToggleOptions,
+  GraphTheme,
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -35,7 +36,7 @@ import { buildGraph } from "@graph/graphBuilders";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
-import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
+import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
 import { hydrateLabels } from "./renderLabel";
 import { GraphToolbar } from "./GraphToolbar";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
@@ -64,6 +65,17 @@ export interface GraphViewerProps {
   initialFoldMode?: FoldMode;
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
+  /**
+   * Initial color theme. Users can toggle this via the built-in toolbar's theme
+   * button (unless `showThemeToggle` is `false`). Defaults to `"dark"`.
+   */
+  theme?: GraphTheme;
+  /**
+   * Whether to render the theme toggle button in the built-in toolbar.
+   * Defaults to `true`. Set to `false` to hide it (useful when the host app
+   * fully controls `theme` from the outside).
+   */
+  showThemeToggle?: boolean;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
@@ -200,6 +212,8 @@ export function GraphViewer(props: GraphViewerProps) {
     initialShowControllers,
     initialFoldMode,
     hideToolbar = false,
+    theme: themeProp,
+    showThemeToggle = true,
     onNavigateToPipe,
     onStuffNodeClick,
     onReactFlowInit,
@@ -216,6 +230,18 @@ export function GraphViewer(props: GraphViewerProps) {
     () =>
       initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
+
+  const [theme, setTheme] = React.useState<GraphTheme>(
+    () => themeProp ?? config.theme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME.DARK,
+  );
+  // Track the most recent `theme` prop so an external update overrides internal state.
+  const prevThemePropRef = React.useRef<GraphTheme | undefined>(themeProp);
+  React.useEffect(() => {
+    if (themeProp !== undefined && themeProp !== prevThemePropRef.current) {
+      prevThemePropRef.current = themeProp;
+      setTheme(themeProp);
+    }
+  }, [themeProp]);
 
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
@@ -253,12 +279,14 @@ export function GraphViewer(props: GraphViewerProps) {
     setConceptOverride(null);
   }, [graphspec]);
 
-  // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount)
+  // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount).
+  // Theme-derived palette is the base; explicit `config.paletteColors` wins per-key.
   React.useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const palette = config.paletteColors ?? DEFAULT_GRAPH_CONFIG.paletteColors;
-    if (!palette) return;
+    const themePalette = getPaletteForTheme(theme);
+    const overrides = config.paletteColors;
+    const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
 
     for (const [cssVar, value] of Object.entries(palette)) {
       el.style.setProperty(cssVar, value);
@@ -269,7 +297,7 @@ export function GraphViewer(props: GraphViewerProps) {
         el.style.removeProperty(cssVar);
       }
     };
-  }, [config.paletteColors]);
+  }, [config.paletteColors, theme]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
@@ -808,7 +836,10 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [showControllers, allControllerIds, foldedControllers]);
 
   return (
-    <div ref={containerRef} className="react-flow-container">
+    <div
+      ref={containerRef}
+      className={`react-flow-container react-flow-container--theme-${theme}`}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -878,6 +909,8 @@ export function GraphViewer(props: GraphViewerProps) {
           onExpandAll={foldAllProps.onExpandAll}
           foldAllDisabled={foldAllProps.foldAllDisabled}
           expandAllDisabled={foldAllProps.expandAllDisabled}
+          theme={showThemeToggle ? theme : undefined}
+          onThemeChange={showThemeToggle ? setTheme : undefined}
           rightOffset={detailOpen ? panelWidth : 0}
         />
       )}

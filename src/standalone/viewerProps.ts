@@ -3,8 +3,8 @@
  * the wire-through from `pipelex-config` JSON to `GraphViewer` props can be
  * unit-tested without pulling React or CSS side-effects into the test.
  */
-import type { GraphSpec, GraphConfig, GraphDirection, FoldMode } from "@graph/types";
-import { FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import type { GraphSpec, GraphConfig, GraphDirection, FoldMode, GraphTheme } from "@graph/types";
+import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
 
 export interface StandaloneViewerProps {
   graphspec: GraphSpec | null;
@@ -12,6 +12,7 @@ export interface StandaloneViewerProps {
   initialDirection: GraphDirection;
   initialShowControllers: boolean;
   initialFoldMode: FoldMode;
+  theme: GraphTheme;
 }
 
 function parseFoldMode(raw: unknown): FoldMode {
@@ -19,6 +20,13 @@ function parseFoldMode(raw: unknown): FoldMode {
     return raw;
   }
   return FOLD_MODE.EXPANDED;
+}
+
+function parseTheme(raw: unknown): GraphTheme {
+  if (raw === GRAPH_THEME.LIGHT || raw === GRAPH_THEME.DARK) {
+    return raw;
+  }
+  return GRAPH_THEME.DARK;
 }
 
 function parseDirection(raw: unknown): GraphDirection {
@@ -53,6 +61,7 @@ export function buildViewerProps(
   const direction = parseDirection(cfg.direction);
   const showControllers = Boolean(cfg.showControllers);
   const foldMode = parseFoldMode(cfg.foldMode);
+  const theme = parseTheme(cfg.theme);
   return {
     graphspec,
     config: {
@@ -60,9 +69,11 @@ export function buildViewerProps(
       direction,
       showControllers,
       foldMode,
+      theme,
     } as GraphConfig,
     initialDirection: direction,
     initialShowControllers: showControllers,
     initialFoldMode: foldMode,
+    theme,
   };
 }
