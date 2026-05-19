@@ -4,6 +4,7 @@ import type {
   FoldToggleOptions,
   GraphNode,
   GraphEdge,
+  PipeCallNode,
   PipeType,
 } from "./types";
 import {
@@ -16,6 +17,7 @@ import {
   isStuffNodeId,
 } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
+import { asPipeCallNode, GraphSpecValidationError } from "./validateGraphSpec";
 
 /** Max visible children before a parallel/batch controller auto-collapses. */
 export const MAX_VISIBLE_CONTROLLER_CHILDREN = 5;
@@ -69,10 +71,12 @@ export function buildControllerNodes(
     nodeById[n.id] = n;
   }
 
-  const controllerInfo: Record<string, GraphSpec["nodes"][number]> = {};
+  // A controller node is a pipe-call node; the guard makes a malformed spec
+  // fail loudly here rather than surfacing later as an undefined pipe_code.
+  const controllerInfo: Record<string, PipeCallNode> = {};
   for (const node of graphspec.nodes) {
     if (analysis.controllerNodeIds.has(node.id)) {
-      controllerInfo[node.id] = node;
+      controllerInfo[node.id] = asPipeCallNode(node, `nodes[${node.id}]`);
     }
   }
 
@@ -160,8 +164,16 @@ export function buildControllerNodes(
       groupH = maxY - minY + padTop + padBottom;
     }
 
-    const info = controllerInfo[controllerId] || {};
-    const pipeCode = info.pipe_code || controllerId.split(":").pop() || controllerId;
+    const info = controllerInfo[controllerId];
+    if (!info) {
+      // controllerId comes from a `contains` edge source with no matching node.
+      throw new GraphSpecValidationError(
+        `nodes[${controllerId}]`,
+        `controller "${controllerId}" is referenced by a "contains" edge but ` +
+          `has no corresponding node in graphspec.nodes`,
+      );
+    }
+    const pipeCode = info.pipe_code;
     const groupNode: GraphNode = {
       id: controllerId,
       type: NODE_TYPE_CONTROLLER,

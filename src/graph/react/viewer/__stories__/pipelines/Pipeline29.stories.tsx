@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_CV_MATCHING_26, LIVE_CV_MATCHING_26 } from "../mockGraphSpec";
+import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "../mockGraphSpec";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/29 CV Screening (Condition + Compose)",
+  title: "Graph/GraphViewer/29 CV Matching (Condition + Compose)",
   component: GraphViewer,
   decorators: [
     (Story) => (
@@ -24,9 +24,9 @@ type Story = StoryObj<typeof GraphViewer>;
 const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 export const DryRun: Story = {
-  args: { graphspec: DRY_CV_MATCHING_26, ...D },
+  args: { graphspec: DRY_CV_MATCHING, ...D },
 };
 
 export const LiveRun: Story = {
-  args: { graphspec: LIVE_CV_MATCHING_26, ...D },
+  args: { graphspec: LIVE_CV_MATCHING, ...D },
 };

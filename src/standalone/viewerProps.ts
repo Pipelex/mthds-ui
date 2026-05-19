@@ -3,8 +3,8 @@
  * the wire-through from `pipelex-config` JSON to `GraphViewer` props can be
  * unit-tested without pulling React or CSS side-effects into the test.
  */
-import type { GraphSpec, GraphConfig, GraphDirection, FoldMode } from "@graph/types";
-import { FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import type { GraphSpec, GraphConfig, GraphDirection, FoldMode, GraphTheme } from "@graph/types";
+import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
 
 export interface StandaloneViewerProps {
   graphspec: GraphSpec | null;
@@ -12,16 +12,34 @@ export interface StandaloneViewerProps {
   initialDirection: GraphDirection;
   initialShowControllers: boolean;
   initialFoldMode: FoldMode;
+  theme: GraphTheme;
 }
 
+/**
+ * An absent `foldMode` key legitimately defaults to `expanded`. A *present*
+ * but unrecognized value is a malformed config — throw rather than silently
+ * coercing, so the host page sees the failure.
+ */
 function parseFoldMode(raw: unknown): FoldMode {
+  if (raw === undefined || raw === null) return FOLD_MODE.EXPANDED;
   if (raw === FOLD_MODE.FOLDED || raw === FOLD_MODE.EXPANDED || raw === FOLD_MODE.AUTO) {
     return raw;
   }
-  return FOLD_MODE.EXPANDED;
+  throw new Error(
+    `Invalid foldMode in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of "folded", "expanded", "auto".`,
+  );
+}
+
+function parseTheme(raw: unknown): GraphTheme {
+  if (raw === GRAPH_THEME.LIGHT || raw === GRAPH_THEME.DARK) {
+    return raw;
+  }
+  return GRAPH_THEME.DARK;
 }
 
 function parseDirection(raw: unknown): GraphDirection {
+  if (raw === undefined || raw === null) return GRAPH_DIRECTION.LR;
   if (
     raw === GRAPH_DIRECTION.LR ||
     raw === GRAPH_DIRECTION.RL ||
@@ -30,7 +48,10 @@ function parseDirection(raw: unknown): GraphDirection {
   ) {
     return raw;
   }
-  return GRAPH_DIRECTION.LR;
+  throw new Error(
+    `Invalid direction in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of "TB", "BT", "LR", "RL".`,
+  );
 }
 
 /**
@@ -53,6 +74,7 @@ export function buildViewerProps(
   const direction = parseDirection(cfg.direction);
   const showControllers = Boolean(cfg.showControllers);
   const foldMode = parseFoldMode(cfg.foldMode);
+  const theme = parseTheme(cfg.theme);
   return {
     graphspec,
     config: {
@@ -60,9 +82,11 @@ export function buildViewerProps(
       direction,
       showControllers,
       foldMode,
+      theme,
     } as GraphConfig,
     initialDirection: direction,
     initialShowControllers: showControllers,
     initialFoldMode: foldMode,
+    theme,
   };
 }

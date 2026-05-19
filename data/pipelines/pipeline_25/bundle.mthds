@@ -79,8 +79,10 @@ output = "ClassifiedItem"
 prompt = """
 Classify this content as either 'text' or 'data':
 
-Analysis: @analysis
-Context: @search_result
+Analysis:
+@analysis
+Context:
+@search_result
 """
 
 [pipe.route_processing]

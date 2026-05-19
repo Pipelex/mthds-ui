@@ -1,6 +1,6 @@
 {
-  "graph_id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25",
-  "created_at": "2026-04-09T09:46:17.959546Z",
+  "graph_id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015",
+  "created_at": "2026-05-15T19:17:48.078496Z",
   "pipeline_ref": {
     "domain": "candidate_screening",
     "main_pipe": "screen_candidate",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_0",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_0",
       "kind": "controller",
       "pipe_code": "screen_candidate",
       "pipe_type": "PipeSequence",
+      "description": "Main pipeline orchestrator for end-to-end candidate screening: extract the CV, analyze the match against the job offer, then conditionally generate either a refusal email or interview questions.\n",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:17.965339Z",
-        "ended_at": "2026-04-09T09:46:58.417141Z",
-        "duration": 40.451802
+        "started_at": "2026-05-15T19:17:48.078496Z",
+        "ended_at": "2026-05-15T19:18:26.737681Z",
+        "duration": 38.659185
       },
       "io": {
         "inputs": [
@@ -26,7 +28,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mt3E4",
+            "digest": "Ewdxu",
             "data": {
               "url": "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf",
               "public_url": null,
@@ -45,7 +47,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kLdt2",
+            "digest": "3SQbZ",
             "data": {
               "url": "https://pipelex-web.s3.amazonaws.com/demo/Job-Offer.pdf",
               "public_url": null,
@@ -66,12 +68,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "maPGM",
+            "digest": "TF7Uu",
             "data": {
-              "text": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME"
+              "text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team"
             },
-            "data_text": "Subject: Your Application for Vice President, Enterprise Sales – ACME                               \n\nDear John,                                                                                          \n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We\nsincerely appreciate your interest in our company and the effort you put into submitting your       \napplication.                                                                                        \n\nAfter carefully reviewing your profile against the requirements of this role, we have determined    \nthat we are unable to move forward with your candidacy at this time. I want to share some specific  \nfeedback so this is as helpful as possible:                                                         \n\nThis position requires a minimum of 12+ years of progressive B2B sales experience, including at     \nleast 5 years in VP-level leadership roles, along with a demonstrated track record of managing      \n$100M+ in annual recurring revenue and building and scaling enterprise sales teams of 50+ people.   \nThe role also demands deep expertise in complex SaaS and enterprise software sales to Fortune 500   \norganizations, with strong executive-level stakeholder engagement.                                  \n\nYour background reflects valuable experience in retail sales and customer service, and your         \nachievements — such as earning Employee of the Month recognition and contributing to visual         \nmerchandising and team training — speak to your strong work ethic and interpersonal skills. However,\nyour experience is currently oriented toward entry-level retail and consumer-facing roles, and the  \nposition requires extensive enterprise technology sales leadership, B2B revenue accountability, and \norganizational management at a senior executive level. These are fundamental differences in         \nindustry, seniority, and skill set that we were unable to bridge for this particular opportunity.   \n\nThat said, your customer-facing strengths and design background are genuine assets. I would         \nencourage you to explore roles that align more closely with your graphic design education and your  \nstated passion for apparel and retail, where your unique combination of creative and sales skills   \ncould truly shine. Building experience in B2B environments over time could also open doors to       \nprogressively senior commercial roles in the future.                                                \n\nWe wish you every success in your career journey, and we encourage you to keep an eye on            \nopportunities at ACME that may be a stronger fit as your career evolves.                            \n\nWarm regards,                                                                                       \n\n[Your Name] [Your Title] Talent Acquisition, ACME                                                   \n",
-            "data_html": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME",
+            "data_text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME                                \n\nDear John,                                                                                          \n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking \nthe time to share your background with us. We genuinely appreciate the opportunity to review your   \napplication.                                                                                        \n\nAfter careful consideration, we have decided not to move forward with your candidacy for this       \nparticular role. This position requires 12+ years of progressive B2B sales experience, including at \nleast 5 years in VP-level leadership, a proven track record of building and managing enterprise     \nsales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS    \nsolutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily\nin retail sales and customer-facing roles, alongside your background in graphic design—does not     \nalign with the executive-level enterprise SaaS sales leadership requirements of this opportunity.   \n\nThat said, your creative training and clearly stated passion for apparel and retail design are real \nstrengths. We would encourage you to pursue roles that more closely match your graphic design       \nexpertise and your stated objective of designing apparel prints for an innovative retail company,   \nwhere your talents are likely to shine.                                                             \n\nWe wish you tremendous success in your career and thank you again for considering ACME.             \n\nWarm regards,                                                                                       \n\nThe ACME Talent Acquisition Team                                                                    \n",
+            "data_html": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team",
             "extra": {}
           }
         ]
@@ -84,15 +86,17 @@
       }
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_1",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_1",
       "kind": "operator",
       "pipe_code": "extract_cv",
       "pipe_type": "PipeExtract",
+      "description": "Extract text content from the candidate's CV document into pages.",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:19.095872Z",
-        "ended_at": "2026-04-09T09:46:27.578604Z",
-        "duration": 8.482732
+        "started_at": "2026-05-15T19:17:49.165162Z",
+        "ended_at": "2026-05-15T19:17:56.803985Z",
+        "duration": 7.638823
       },
       "io": {
         "inputs": [
@@ -102,7 +106,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mt3E4",
+            "digest": "Ewdxu",
             "data": {
               "url": "https://pipelex-web.s3.amazonaws.com/demo/John-Doe-CV.pdf",
               "public_url": null,
@@ -123,7 +127,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CA7dF",
+            "digest": "Fa4qL",
             "data": {
               "items": [
                 {
@@ -155,15 +159,17 @@
       }
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_2",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_2",
       "kind": "operator",
       "pipe_code": "extract_job_offer",
       "pipe_type": "PipeExtract",
+      "description": "Extract text content from the job offer document into pages.",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:27.580840Z",
-        "ended_at": "2026-04-09T09:46:36.424728Z",
-        "duration": 8.843888
+        "started_at": "2026-05-15T19:17:56.811385Z",
+        "ended_at": "2026-05-15T19:18:05.434322Z",
+        "duration": 8.622937
       },
       "io": {
         "inputs": [
@@ -173,7 +179,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kLdt2",
+            "digest": "3SQbZ",
             "data": {
               "url": "https://pipelex-web.s3.amazonaws.com/demo/Job-Offer.pdf",
               "public_url": null,
@@ -194,7 +200,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "38mwf",
+            "digest": "eowDL",
             "data": {
               "items": [
                 {
@@ -236,15 +242,17 @@
       }
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
+      "description": "Analyze the match between the candidate's CV and the job offer. Determine if the candidate is a good fit and provide structured reasoning including an is_match boolean.\n",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:36.427204Z",
-        "ended_at": "2026-04-09T09:46:45.339880Z",
-        "duration": 8.912676
+        "started_at": "2026-05-15T19:18:05.440997Z",
+        "ended_at": "2026-05-15T19:18:16.680586Z",
+        "duration": 11.239589
       },
       "io": {
         "inputs": [
@@ -254,7 +262,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CA7dF",
+            "digest": "Fa4qL",
             "data": {
               "items": [
                 {
@@ -279,7 +287,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "38mwf",
+            "digest": "eowDL",
             "data": {
               "items": [
                 {
@@ -316,13 +324,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hPX5j",
+            "digest": "W42Mg",
             "data": {
               "is_match": false,
-              "match_analysis": "This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria's Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate's profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience."
+              "match_analysis": "The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role."
             },
-            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ This candidate is a very poor match for the Vice President of \n                │ Enterprise Sales position. The job requires 12+ years of      \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of managing $100M+ \n                │ ARR quotas, experience building and scaling enterprise sales  \n                │ teams of 50+ people, and deep expertise in complex            \n                │ SaaS/enterprise software sales to Fortune 500 companies. The  \n                │ candidate, John Doe, holds a Bachelor of Science in Graphic   \n                │ Design (graduated 2011) with a stated objective of designing  \n                │ apparel print for a retail company. Their work experience     \n                │ consists entirely of entry-level retail and spa positions     \n                │ (Sales Associate at American Eagle, Spa Consultant at Planet  \n                │ Beach, Sales Associate at Heartbreaker, Fashion               \n                │ Representative at Victoria's Secret, and a volunteer Brand    \n                │ Ambassador role at Target). There is no B2B sales experience, \n                │ no enterprise software or SaaS experience, no leadership or   \n                │ management experience at any level, no evidence of revenue    \n                │ accountability or quota management, and no executive-level    \n                │ competencies demonstrated. The candidate's profile is         \n                │ oriented toward entry-level retail/fashion roles, which is    \n                │ fundamentally misaligned with this executive-level enterprise \n                │ technology sales leadership position in every dimension:      \n                │ industry, seniority, skills, and experience.                  \n",
-            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria&#x27;s Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate&#x27;s profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience.</td></tr></table>",
+            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ The candidate is a significant mismatch for this VP of        \n                │ Enterprise Sales role. The job requires 12+ years of          \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of building        \n                │ enterprise sales teams of 50+ people, managing $100M+ ARR     \n                │ quotas, and selling SaaS solutions to Fortune 500             \n                │ enterprises. The candidate is a recent Graphic Design         \n                │ graduate (BS, May 2011) from the University of Minnesota      \n                │ whose objective is to design apparel prints for a retail      \n                │ company. Their experience consists exclusively of entry-level \n                │ retail sales associate and spa consultant roles (American     \n                │ Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with   \n                │ no B2B sales, SaaS, enterprise leadership, or team management \n                │ experience. There is no overlap with the required             \n                │ executive-level qualifications, industry expertise, or        \n                │ leadership competencies for this role.                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role.</td></tr></table>",
             "extra": {}
           }
         ]
@@ -335,20 +343,22 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an experienced HR expert specializing in candidate screening and recruitment. Your task is to analyze a candidate's CV against a job offer and produce a detailed structured assessment including per-skill scoring, culture fit, and growth areas.",
-        "rendered_user_prompt": "Analyze the following candidate CV pages and job offer to determine if the candidate is a good match for the position.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# JOHN DOE\n\n\n## Full Address . City, State, ZIP . Phone Number . E-mail\n\nOBJECTIVE: Design apparel print for an innovative retail company\n\nEDUCATION:\n\nUNIVERSITY OF MINNESOTA\nCollege of Design\n\" Bachelor of Science in Graphic Design\n\n\" Cumulative GPA 3.93, Dean's List\n\n\" Twin cities Iron Range Scholarship\n\nCity, State\nMay 2011\n\nWORK EXPERIENCE:\n\nAMERICAN EAGLE\nSales Associate\n\nCity, State\nJuly 2009 - present\n\n· Collaborated with the store merchandiser creating displays to attract clientele\n\n\" Use my trend awareness to assist customers in their shopping experience\n\n\" Thoroughly scan every piece of merchandise for inventory control\n\n\" Process shipment to increase my product knowledge\n\nPLANET BEACH\nSpa Consultant\nCity, State\nAug. 2008 - present\n\n\" Sell retail and memberships to meet company sales goals\n\n\" Build organizational skills by single handedly running all operating procedures\n\n\" Communicate with clients to fulfill their wants and needs\n\n\" Attend promotional events to market our services\n\n\" Handle cash and deposits during opening and closing\n\n\" Received employee of the month award twice\n\nHEARTBREAKER\nSales Associate\nCity, State\nMay 2008 - Aug. 2008\n\n· Stocked sales floor with fast fashion inventory\n\n· Marked down items allowing me to see unsuccessful merchandise in a retail market\n\n\" Offered advice and assistance to each guest\n\nVICTORIA'S SECRET\nFashion Representative\nCity, State\nJan. 2006 - Feb. 2009\n\n\" Applied my leadership skills by assisting in the training of coworkers\n\n\" Set up mannequins and displays in order to entice future customers\n\n· Provided superior customer service by helping with consumer decisions\n\n\" Took seasonal inventory\n\nVOLUNTEER EXPERIENCE:\n\nTARGET CORPORATION\nBrand Ambassador\n\nCity, State\nAugust 2009\n\n\" Represented Periscope Marketing and Target Inc. at a college event\n\n\" Engaged University of Minnesota freshman in the Target brand experience\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Vice President, Enterprise Sales\n\nACME · San Francisco, CA (Hybrid)\nFull-time . Executive Level\n\n\n## About ACME\n\nACME is the global leader in CRM, empowering companies to connect with their customers in entirely new ways.\nBuilt on our core values of Trust, Customer Success, Innovation, and Equality, we're transforming how businesses\nengage with their customers across sales, service, marketing, and more.\n\n\n## The Opportunity\n\nWe're seeking an exceptional Vice President of Enterprise Sales to lead our North American Enterprise\nsegment and drive the next phase of our growth. This is a high-impact role where you'll build and scale a world-\nclass sales organization, own significant revenue accountability, and work directly with C-suite executives at\nFortune 500 companies.\n\nAs VP of Enterprise Sales, you'll lead 60+ enterprise account executives, own $180M+ in ARR quota, and play a\ncritical role in shaping our go-to-market strategy. This is an opportunity to make your mark at one of the world's\nmost innovative technology companies.\n\n\n## What You'll Do\n\n· Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple\nregions\n\n· Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning\nresponsibility\n\n· Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase\nwin rates\n\n· Customer Relationships: Build and maintain executive relationships with C-level stakeholders at our largest\naccounts\n\n· Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven\ndecision making\n\n· Talent Development: Coach, mentor, and develop the next generation of sales leaders\n\n· Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to\ndeliver integrated solutions\n\n· Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n\n## What You Bring\n\n\n### Required Qualifications\n\n· 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n\n· Proven track record of building and scaling enterprise sales teams of 50+ people\n\n· Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n\n· Deep expertise in complex, consultative sales with 6-12 month sales cycles\n\n<!-- PageBreak -->\n\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text\n\n### text\n\n· Experience selling SaaS solutions to Fortune 500 enterprises\n\n· Strong executive presence with ability to engage C-suite buyers\n\n· Bachelor's degree required; MBA preferred\n\n\n### What Sets You Apart\n\n· Experience in CRM, cloud infrastructure, or enterprise software markets\n\n· Track record of building sales teams from early stage through scale\n\n· Expertise in account-based selling and strategic account management\n\n· Strong analytical skills with proficiency in ACME, sales analytics tools\n\n· History of developing talent - multiple direct reports promoted to leadership roles\n\n· Experience with channel/partner sales models\n\n· Passion for coaching and developing high-performing teams\n\n\n### Leadership Competencies\n\n· Strategic thinking and business acumen\n\n· Exceptional communication and executive presence\n\n· Data-driven decision making\n\n· Change management and organizational development\n\n· Cross-functional collaboration\n\n· Diversity, equity, and inclusion advocacy\n\n\n### Compensation & Benefits\n\n\n#### Total Target Compensation: $975,000\n\n· Base Salary: $325,000\n\n· Variable Compensation: $650,000 (at 100% quota attainment)\n\n· Equity: RSU grant valued at $500,000 (4-year vesting)\n\n· Sign-on Bonus: $100,000\n\n\n#### Comprehensive Benefits Package\n\n\n<table>\n<tr>\n<td>· Premium medical, dental, and vision coverage</td>\n<td>· 401(k) with 6% company match</td>\n</tr>\n<tr>\n<td>· Flexible PTO policy</td>\n<td>· $5,000 annual professional development budget</td>\n</tr>\n<tr>\n<td>· Executive coaching program</td>\n<td>· Wellness reimbursement ($1,200/year)</td>\n</tr>\n<tr>\n<td>· 8 paid volunteer days (VTO)</td>\n<td>· Paid parental leave (26 weeks primary caregiver)</td>\n</tr>\n<tr>\n<td>· Employee stock purchase plan (15% discount)</td>\n<td>· Relocation assistance available</td>\n</tr>\n</table>\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass DetailedMatchResult(MatchResult):\n    \"\"\"An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.\"\"\"\n    # No additional fields\n\nclass MatchResult(StructuredContent):\n    \"\"\"A structured assessment of whether a candidate's CV matches a job offer.\"\"\"\n    is_match: bool  # Whether the candidate's profile is a good match for the job offer\n    match_analysis: str  # Brief explanation of the reasoning behind the match or mismatch determination\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze the following candidate CV pages and job offer to determine if the candidate is a good match for the position.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# JOHN DOE\n\n\n## Full Address . City, State, ZIP . Phone Number . E-mail\n\nOBJECTIVE: Design apparel print for an innovative retail company\n\nEDUCATION:\n\nUNIVERSITY OF MINNESOTA\nCollege of Design\n\" Bachelor of Science in Graphic Design\n\n\" Cumulative GPA 3.93, Dean's List\n\n\" Twin cities Iron Range Scholarship\n\nCity, State\nMay 2011\n\nWORK EXPERIENCE:\n\nAMERICAN EAGLE\nSales Associate\n\nCity, State\nJuly 2009 - present\n\n· Collaborated with the store merchandiser creating displays to attract clientele\n\n\" Use my trend awareness to assist customers in their shopping experience\n\n\" Thoroughly scan every piece of merchandise for inventory control\n\n\" Process shipment to increase my product knowledge\n\nPLANET BEACH\nSpa Consultant\nCity, State\nAug. 2008 - present\n\n\" Sell retail and memberships to meet company sales goals\n\n\" Build organizational skills by single handedly running all operating procedures\n\n\" Communicate with clients to fulfill their wants and needs\n\n\" Attend promotional events to market our services\n\n\" Handle cash and deposits during opening and closing\n\n\" Received employee of the month award twice\n\nHEARTBREAKER\nSales Associate\nCity, State\nMay 2008 - Aug. 2008\n\n· Stocked sales floor with fast fashion inventory\n\n· Marked down items allowing me to see unsuccessful merchandise in a retail market\n\n\" Offered advice and assistance to each guest\n\nVICTORIA'S SECRET\nFashion Representative\nCity, State\nJan. 2006 - Feb. 2009\n\n\" Applied my leadership skills by assisting in the training of coworkers\n\n\" Set up mannequins and displays in order to entice future customers\n\n· Provided superior customer service by helping with consumer decisions\n\n\" Took seasonal inventory\n\nVOLUNTEER EXPERIENCE:\n\nTARGET CORPORATION\nBrand Ambassador\n\nCity, State\nAugust 2009\n\n\" Represented Periscope Marketing and Target Inc. at a college event\n\n\" Engaged University of Minnesota freshman in the Target brand experience\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Vice President, Enterprise Sales\n\nACME · San Francisco, CA (Hybrid)\nFull-time . Executive Level\n\n\n## About ACME\n\nACME is the global leader in CRM, empowering companies to connect with their customers in entirely new ways.\nBuilt on our core values of Trust, Customer Success, Innovation, and Equality, we're transforming how businesses\nengage with their customers across sales, service, marketing, and more.\n\n\n## The Opportunity\n\nWe're seeking an exceptional Vice President of Enterprise Sales to lead our North American Enterprise\nsegment and drive the next phase of our growth. This is a high-impact role where you'll build and scale a world-\nclass sales organization, own significant revenue accountability, and work directly with C-suite executives at\nFortune 500 companies.\n\nAs VP of Enterprise Sales, you'll lead 60+ enterprise account executives, own $180M+ in ARR quota, and play a\ncritical role in shaping our go-to-market strategy. This is an opportunity to make your mark at one of the world's\nmost innovative technology companies.\n\n\n## What You'll Do\n\n· Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple\nregions\n\n· Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning\nresponsibility\n\n· Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase\nwin rates\n\n· Customer Relationships: Build and maintain executive relationships with C-level stakeholders at our largest\naccounts\n\n· Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven\ndecision making\n\n· Talent Development: Coach, mentor, and develop the next generation of sales leaders\n\n· Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to\ndeliver integrated solutions\n\n· Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n\n## What You Bring\n\n\n### Required Qualifications\n\n· 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n\n· Proven track record of building and scaling enterprise sales teams of 50+ people\n\n· Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n\n· Deep expertise in complex, consultative sales with 6-12 month sales cycles\n\n<!-- PageBreak -->\n\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text\n\n### text\n\n· Experience selling SaaS solutions to Fortune 500 enterprises\n\n· Strong executive presence with ability to engage C-suite buyers\n\n· Bachelor's degree required; MBA preferred\n\n\n### What Sets You Apart\n\n· Experience in CRM, cloud infrastructure, or enterprise software markets\n\n· Track record of building sales teams from early stage through scale\n\n· Expertise in account-based selling and strategic account management\n\n· Strong analytical skills with proficiency in ACME, sales analytics tools\n\n· History of developing talent - multiple direct reports promoted to leadership roles\n\n· Experience with channel/partner sales models\n\n· Passion for coaching and developing high-performing teams\n\n\n### Leadership Competencies\n\n· Strategic thinking and business acumen\n\n· Exceptional communication and executive presence\n\n· Data-driven decision making\n\n· Change management and organizational development\n\n· Cross-functional collaboration\n\n· Diversity, equity, and inclusion advocacy\n\n\n### Compensation & Benefits\n\n\n#### Total Target Compensation: $975,000\n\n· Base Salary: $325,000\n\n· Variable Compensation: $650,000 (at 100% quota attainment)\n\n· Equity: RSU grant valued at $500,000 (4-year vesting)\n\n· Sign-on Bonus: $100,000\n\n\n#### Comprehensive Benefits Package\n\n\n<table>\n<tr>\n<td>· Premium medical, dental, and vision coverage</td>\n<td>· 401(k) with 6% company match</td>\n</tr>\n<tr>\n<td>· Flexible PTO policy</td>\n<td>· $5,000 annual professional development budget</td>\n</tr>\n<tr>\n<td>· Executive coaching program</td>\n<td>· Wellness reimbursement ($1,200/year)</td>\n</tr>\n<tr>\n<td>· 8 paid volunteer days (VTO)</td>\n<td>· Paid parental leave (26 weeks primary caregiver)</td>\n</tr>\n<tr>\n<td>· Employee stock purchase plan (15% discount)</td>\n<td>· Relocation assistance available</td>\n</tr>\n</table>\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass candidate_screening__DetailedMatchResult(candidate_screening__MatchResult):\n    \"\"\"An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower\n\n    semantics for skill-level analysis.\n    \"\"\"\n\nclass candidate_screening__MatchResult(StructuredContent):\n    \"\"\"A structured assessment of whether a candidate's CV matches a job offer.\"\"\"\n    is_match: bool  # Whether the candidate's profile is a good match for the job offer\n    match_analysis: str  # Brief explanation of the reasoning behind the match or mismatch determination\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
       "kind": "controller",
       "pipe_code": "route_on_match",
       "pipe_type": "PipeCondition",
+      "description": "Route to refusal email generation if the candidate does not match the job offer, or to interview question generation if they do match.\n",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:45.340025Z",
-        "ended_at": "2026-04-09T09:46:58.414096Z",
-        "duration": 13.074071
+        "started_at": "2026-05-15T19:18:16.684514Z",
+        "ended_at": "2026-05-15T19:18:26.732802Z",
+        "duration": 10.048288
       },
       "io": {
         "inputs": [
@@ -358,13 +368,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hPX5j",
+            "digest": "W42Mg",
             "data": {
               "is_match": false,
-              "match_analysis": "This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria's Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate's profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience."
+              "match_analysis": "The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role."
             },
-            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ This candidate is a very poor match for the Vice President of \n                │ Enterprise Sales position. The job requires 12+ years of      \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of managing $100M+ \n                │ ARR quotas, experience building and scaling enterprise sales  \n                │ teams of 50+ people, and deep expertise in complex            \n                │ SaaS/enterprise software sales to Fortune 500 companies. The  \n                │ candidate, John Doe, holds a Bachelor of Science in Graphic   \n                │ Design (graduated 2011) with a stated objective of designing  \n                │ apparel print for a retail company. Their work experience     \n                │ consists entirely of entry-level retail and spa positions     \n                │ (Sales Associate at American Eagle, Spa Consultant at Planet  \n                │ Beach, Sales Associate at Heartbreaker, Fashion               \n                │ Representative at Victoria's Secret, and a volunteer Brand    \n                │ Ambassador role at Target). There is no B2B sales experience, \n                │ no enterprise software or SaaS experience, no leadership or   \n                │ management experience at any level, no evidence of revenue    \n                │ accountability or quota management, and no executive-level    \n                │ competencies demonstrated. The candidate's profile is         \n                │ oriented toward entry-level retail/fashion roles, which is    \n                │ fundamentally misaligned with this executive-level enterprise \n                │ technology sales leadership position in every dimension:      \n                │ industry, seniority, skills, and experience.                  \n",
-            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria&#x27;s Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate&#x27;s profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience.</td></tr></table>",
+            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ The candidate is a significant mismatch for this VP of        \n                │ Enterprise Sales role. The job requires 12+ years of          \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of building        \n                │ enterprise sales teams of 50+ people, managing $100M+ ARR     \n                │ quotas, and selling SaaS solutions to Fortune 500             \n                │ enterprises. The candidate is a recent Graphic Design         \n                │ graduate (BS, May 2011) from the University of Minnesota      \n                │ whose objective is to design apparel prints for a retail      \n                │ company. Their experience consists exclusively of entry-level \n                │ retail sales associate and spa consultant roles (American     \n                │ Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with   \n                │ no B2B sales, SaaS, enterprise leadership, or team management \n                │ experience. There is no overlap with the required             \n                │ executive-level qualifications, industry expertise, or        \n                │ leadership competencies for this role.                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role.</td></tr></table>",
             "extra": {}
           },
           {
@@ -373,7 +383,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CA7dF",
+            "digest": "Fa4qL",
             "data": {
               "items": [
                 {
@@ -398,7 +408,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "38mwf",
+            "digest": "eowDL",
             "data": {
               "items": [
                 {
@@ -435,12 +445,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "maPGM",
+            "digest": "TF7Uu",
             "data": {
-              "text": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME"
+              "text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team"
             },
-            "data_text": "Subject: Your Application for Vice President, Enterprise Sales – ACME                               \n\nDear John,                                                                                          \n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We\nsincerely appreciate your interest in our company and the effort you put into submitting your       \napplication.                                                                                        \n\nAfter carefully reviewing your profile against the requirements of this role, we have determined    \nthat we are unable to move forward with your candidacy at this time. I want to share some specific  \nfeedback so this is as helpful as possible:                                                         \n\nThis position requires a minimum of 12+ years of progressive B2B sales experience, including at     \nleast 5 years in VP-level leadership roles, along with a demonstrated track record of managing      \n$100M+ in annual recurring revenue and building and scaling enterprise sales teams of 50+ people.   \nThe role also demands deep expertise in complex SaaS and enterprise software sales to Fortune 500   \norganizations, with strong executive-level stakeholder engagement.                                  \n\nYour background reflects valuable experience in retail sales and customer service, and your         \nachievements — such as earning Employee of the Month recognition and contributing to visual         \nmerchandising and team training — speak to your strong work ethic and interpersonal skills. However,\nyour experience is currently oriented toward entry-level retail and consumer-facing roles, and the  \nposition requires extensive enterprise technology sales leadership, B2B revenue accountability, and \norganizational management at a senior executive level. These are fundamental differences in         \nindustry, seniority, and skill set that we were unable to bridge for this particular opportunity.   \n\nThat said, your customer-facing strengths and design background are genuine assets. I would         \nencourage you to explore roles that align more closely with your graphic design education and your  \nstated passion for apparel and retail, where your unique combination of creative and sales skills   \ncould truly shine. Building experience in B2B environments over time could also open doors to       \nprogressively senior commercial roles in the future.                                                \n\nWe wish you every success in your career journey, and we encourage you to keep an eye on            \nopportunities at ACME that may be a stronger fit as your career evolves.                            \n\nWarm regards,                                                                                       \n\n[Your Name] [Your Title] Talent Acquisition, ACME                                                   \n",
-            "data_html": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME",
+            "data_text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME                                \n\nDear John,                                                                                          \n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking \nthe time to share your background with us. We genuinely appreciate the opportunity to review your   \napplication.                                                                                        \n\nAfter careful consideration, we have decided not to move forward with your candidacy for this       \nparticular role. This position requires 12+ years of progressive B2B sales experience, including at \nleast 5 years in VP-level leadership, a proven track record of building and managing enterprise     \nsales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS    \nsolutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily\nin retail sales and customer-facing roles, alongside your background in graphic design—does not     \nalign with the executive-level enterprise SaaS sales leadership requirements of this opportunity.   \n\nThat said, your creative training and clearly stated passion for apparel and retail design are real \nstrengths. We would encourage you to pursue roles that more closely match your graphic design       \nexpertise and your stated objective of designing apparel prints for an innovative retail company,   \nwhere your talents are likely to shine.                                                             \n\nWe wish you tremendous success in your career and thank you again for considering ACME.             \n\nWarm regards,                                                                                       \n\nThe ACME Talent Acquisition Team                                                                    \n",
+            "data_html": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team",
             "extra": {}
           }
         ]
@@ -454,15 +464,17 @@
       }
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_5",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_5",
       "kind": "operator",
       "pipe_code": "write_refusal_email",
       "pipe_type": "PipeLLM",
+      "description": "Write a professional, courteous refusal email to the candidate. Reference specific reasons from the match analysis explaining why their profile does not fit the role. Keep the tone respectful and encouraging.\n",
+      "domain_code": "candidate_screening",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-09T09:46:45.361161Z",
-        "ended_at": "2026-04-09T09:46:58.406513Z",
-        "duration": 13.045352
+        "started_at": "2026-05-15T19:18:16.699144Z",
+        "ended_at": "2026-05-15T19:18:26.726655Z",
+        "duration": 10.027511
       },
       "io": {
         "inputs": [
@@ -472,7 +484,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CA7dF",
+            "digest": "Fa4qL",
             "data": {
               "items": [
                 {
@@ -497,7 +509,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "38mwf",
+            "digest": "eowDL",
             "data": {
               "items": [
                 {
@@ -532,13 +544,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hPX5j",
+            "digest": "W42Mg",
             "data": {
               "is_match": false,
-              "match_analysis": "This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria's Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate's profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience."
+              "match_analysis": "The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role."
             },
-            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ This candidate is a very poor match for the Vice President of \n                │ Enterprise Sales position. The job requires 12+ years of      \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of managing $100M+ \n                │ ARR quotas, experience building and scaling enterprise sales  \n                │ teams of 50+ people, and deep expertise in complex            \n                │ SaaS/enterprise software sales to Fortune 500 companies. The  \n                │ candidate, John Doe, holds a Bachelor of Science in Graphic   \n                │ Design (graduated 2011) with a stated objective of designing  \n                │ apparel print for a retail company. Their work experience     \n                │ consists entirely of entry-level retail and spa positions     \n                │ (Sales Associate at American Eagle, Spa Consultant at Planet  \n                │ Beach, Sales Associate at Heartbreaker, Fashion               \n                │ Representative at Victoria's Secret, and a volunteer Brand    \n                │ Ambassador role at Target). There is no B2B sales experience, \n                │ no enterprise software or SaaS experience, no leadership or   \n                │ management experience at any level, no evidence of revenue    \n                │ accountability or quota management, and no executive-level    \n                │ competencies demonstrated. The candidate's profile is         \n                │ oriented toward entry-level retail/fashion roles, which is    \n                │ fundamentally misaligned with this executive-level enterprise \n                │ technology sales leadership position in every dimension:      \n                │ industry, seniority, skills, and experience.                  \n",
-            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria&#x27;s Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate&#x27;s profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience.</td></tr></table>",
+            "data_text": " Attribute      ┃ Value                                                         \n━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match       │ False                                                         \n────────────────┼───────────────────────────────────────────────────────────────\n match_analysis │ The candidate is a significant mismatch for this VP of        \n                │ Enterprise Sales role. The job requires 12+ years of          \n                │ progressive B2B sales experience with at least 5 years in     \n                │ VP-level leadership, a proven track record of building        \n                │ enterprise sales teams of 50+ people, managing $100M+ ARR     \n                │ quotas, and selling SaaS solutions to Fortune 500             \n                │ enterprises. The candidate is a recent Graphic Design         \n                │ graduate (BS, May 2011) from the University of Minnesota      \n                │ whose objective is to design apparel prints for a retail      \n                │ company. Their experience consists exclusively of entry-level \n                │ retail sales associate and spa consultant roles (American     \n                │ Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with   \n                │ no B2B sales, SaaS, enterprise leadership, or team management \n                │ experience. There is no overlap with the required             \n                │ executive-level qualifications, industry expertise, or        \n                │ leadership competencies for this role.                        \n",
+            "data_html": "<table><tr><th>is_match</th><td>False</td></tr><tr><th>match_analysis</th><td>The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role.</td></tr></table>",
             "extra": {}
           }
         ],
@@ -549,12 +561,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "maPGM",
+            "digest": "TF7Uu",
             "data": {
-              "text": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME"
+              "text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team"
             },
-            "data_text": "Subject: Your Application for Vice President, Enterprise Sales – ACME                               \n\nDear John,                                                                                          \n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We\nsincerely appreciate your interest in our company and the effort you put into submitting your       \napplication.                                                                                        \n\nAfter carefully reviewing your profile against the requirements of this role, we have determined    \nthat we are unable to move forward with your candidacy at this time. I want to share some specific  \nfeedback so this is as helpful as possible:                                                         \n\nThis position requires a minimum of 12+ years of progressive B2B sales experience, including at     \nleast 5 years in VP-level leadership roles, along with a demonstrated track record of managing      \n$100M+ in annual recurring revenue and building and scaling enterprise sales teams of 50+ people.   \nThe role also demands deep expertise in complex SaaS and enterprise software sales to Fortune 500   \norganizations, with strong executive-level stakeholder engagement.                                  \n\nYour background reflects valuable experience in retail sales and customer service, and your         \nachievements — such as earning Employee of the Month recognition and contributing to visual         \nmerchandising and team training — speak to your strong work ethic and interpersonal skills. However,\nyour experience is currently oriented toward entry-level retail and consumer-facing roles, and the  \nposition requires extensive enterprise technology sales leadership, B2B revenue accountability, and \norganizational management at a senior executive level. These are fundamental differences in         \nindustry, seniority, and skill set that we were unable to bridge for this particular opportunity.   \n\nThat said, your customer-facing strengths and design background are genuine assets. I would         \nencourage you to explore roles that align more closely with your graphic design education and your  \nstated passion for apparel and retail, where your unique combination of creative and sales skills   \ncould truly shine. Building experience in B2B environments over time could also open doors to       \nprogressively senior commercial roles in the future.                                                \n\nWe wish you every success in your career journey, and we encourage you to keep an eye on            \nopportunities at ACME that may be a stronger fit as your career evolves.                            \n\nWarm regards,                                                                                       \n\n[Your Name] [Your Title] Talent Acquisition, ACME                                                   \n",
-            "data_html": "Subject: Your Application for Vice President, Enterprise Sales – ACME\n\nDear John,\n\nThank you for taking the time to apply for the Vice President, Enterprise Sales position at ACME. We sincerely appreciate your interest in our company and the effort you put into submitting your application.\n\nAfter carefully reviewing your profile against the requirements of this role, we have determined that we are unable to move forward with your candidacy at this time. I want to share some specific feedback so this is as helpful as possible:\n\nThis position requires a minimum of **12+ years of progressive B2B sales experience**, including at least **5 years in VP-level leadership roles**, along with a demonstrated track record of **managing $100M+ in annual recurring revenue** and **building and scaling enterprise sales teams of 50+ people**. The role also demands deep expertise in **complex SaaS and enterprise software sales** to Fortune 500 organizations, with strong executive-level stakeholder engagement.\n\nYour background reflects valuable experience in **retail sales and customer service**, and your achievements — such as earning Employee of the Month recognition and contributing to visual merchandising and team training — speak to your strong work ethic and interpersonal skills. However, your experience is currently oriented toward entry-level retail and consumer-facing roles, and the position requires extensive enterprise technology sales leadership, B2B revenue accountability, and organizational management at a senior executive level. These are fundamental differences in industry, seniority, and skill set that we were unable to bridge for this particular opportunity.\n\nThat said, your customer-facing strengths and design background are genuine assets. I would encourage you to explore roles that align more closely with your **graphic design education** and your stated passion for **apparel and retail**, where your unique combination of creative and sales skills could truly shine. Building experience in B2B environments over time could also open doors to progressively senior commercial roles in the future.\n\nWe wish you every success in your career journey, and we encourage you to keep an eye on opportunities at ACME that may be a stronger fit as your career evolves.\n\nWarm regards,\n\n[Your Name]\n[Your Title]\nTalent Acquisition, ACME",
+            "data_text": "Subject: Update on Your Application for VP, Enterprise Sales at ACME                                \n\nDear John,                                                                                          \n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking \nthe time to share your background with us. We genuinely appreciate the opportunity to review your   \napplication.                                                                                        \n\nAfter careful consideration, we have decided not to move forward with your candidacy for this       \nparticular role. This position requires 12+ years of progressive B2B sales experience, including at \nleast 5 years in VP-level leadership, a proven track record of building and managing enterprise     \nsales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS    \nsolutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily\nin retail sales and customer-facing roles, alongside your background in graphic design—does not     \nalign with the executive-level enterprise SaaS sales leadership requirements of this opportunity.   \n\nThat said, your creative training and clearly stated passion for apparel and retail design are real \nstrengths. We would encourage you to pursue roles that more closely match your graphic design       \nexpertise and your stated objective of designing apparel prints for an innovative retail company,   \nwhere your talents are likely to shine.                                                             \n\nWe wish you tremendous success in your career and thank you again for considering ACME.             \n\nWarm regards,                                                                                       \n\nThe ACME Talent Acquisition Team                                                                    \n",
+            "data_html": "Subject: Update on Your Application for VP, Enterprise Sales at ACME\n\nDear John,\n\nThank you for your interest in the Vice President, Enterprise Sales position at ACME and for taking the time to share your background with us. We genuinely appreciate the opportunity to review your application.\n\nAfter careful consideration, we have decided not to move forward with your candidacy for this particular role. This position requires 12+ years of progressive B2B sales experience, including at least 5 years in VP-level leadership, a proven track record of building and managing enterprise sales teams of 50+ professionals, and demonstrated success owning $100M+ ARR quotas selling SaaS solutions to Fortune 500 companies. After reviewing your CV, we found that your experience—primarily in retail sales and customer-facing roles, alongside your background in graphic design—does not align with the executive-level enterprise SaaS sales leadership requirements of this opportunity.\n\nThat said, your creative training and clearly stated passion for apparel and retail design are real strengths. We would encourage you to pursue roles that more closely match your graphic design expertise and your stated objective of designing apparel prints for an innovative retail company, where your talents are likely to shine.\n\nWe wish you tremendous success in your career and thank you again for considering ACME.\n\nWarm regards,\n\nThe ACME Talent Acquisition Team",
             "extra": {}
           }
         ]
@@ -567,16 +579,16 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while referencing specific reasons from the match analysis to explain the decision. Be concise.",
-        "rendered_user_prompt": "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# JOHN DOE\n\n\n## Full Address . City, State, ZIP . Phone Number . E-mail\n\nOBJECTIVE: Design apparel print for an innovative retail company\n\nEDUCATION:\n\nUNIVERSITY OF MINNESOTA\nCollege of Design\n\" Bachelor of Science in Graphic Design\n\n\" Cumulative GPA 3.93, Dean's List\n\n\" Twin cities Iron Range Scholarship\n\nCity, State\nMay 2011\n\nWORK EXPERIENCE:\n\nAMERICAN EAGLE\nSales Associate\n\nCity, State\nJuly 2009 - present\n\n· Collaborated with the store merchandiser creating displays to attract clientele\n\n\" Use my trend awareness to assist customers in their shopping experience\n\n\" Thoroughly scan every piece of merchandise for inventory control\n\n\" Process shipment to increase my product knowledge\n\nPLANET BEACH\nSpa Consultant\nCity, State\nAug. 2008 - present\n\n\" Sell retail and memberships to meet company sales goals\n\n\" Build organizational skills by single handedly running all operating procedures\n\n\" Communicate with clients to fulfill their wants and needs\n\n\" Attend promotional events to market our services\n\n\" Handle cash and deposits during opening and closing\n\n\" Received employee of the month award twice\n\nHEARTBREAKER\nSales Associate\nCity, State\nMay 2008 - Aug. 2008\n\n· Stocked sales floor with fast fashion inventory\n\n· Marked down items allowing me to see unsuccessful merchandise in a retail market\n\n\" Offered advice and assistance to each guest\n\nVICTORIA'S SECRET\nFashion Representative\nCity, State\nJan. 2006 - Feb. 2009\n\n\" Applied my leadership skills by assisting in the training of coworkers\n\n\" Set up mannequins and displays in order to entice future customers\n\n· Provided superior customer service by helping with consumer decisions\n\n\" Took seasonal inventory\n\nVOLUNTEER EXPERIENCE:\n\nTARGET CORPORATION\nBrand Ambassador\n\nCity, State\nAugust 2009\n\n\" Represented Periscope Marketing and Target Inc. at a college event\n\n\" Engaged University of Minnesota freshman in the Target brand experience\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Vice President, Enterprise Sales\n\nACME · San Francisco, CA (Hybrid)\nFull-time . Executive Level\n\n\n## About ACME\n\nACME is the global leader in CRM, empowering companies to connect with their customers in entirely new ways.\nBuilt on our core values of Trust, Customer Success, Innovation, and Equality, we're transforming how businesses\nengage with their customers across sales, service, marketing, and more.\n\n\n## The Opportunity\n\nWe're seeking an exceptional Vice President of Enterprise Sales to lead our North American Enterprise\nsegment and drive the next phase of our growth. This is a high-impact role where you'll build and scale a world-\nclass sales organization, own significant revenue accountability, and work directly with C-suite executives at\nFortune 500 companies.\n\nAs VP of Enterprise Sales, you'll lead 60+ enterprise account executives, own $180M+ in ARR quota, and play a\ncritical role in shaping our go-to-market strategy. This is an opportunity to make your mark at one of the world's\nmost innovative technology companies.\n\n\n## What You'll Do\n\n· Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple\nregions\n\n· Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning\nresponsibility\n\n· Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase\nwin rates\n\n· Customer Relationships: Build and maintain executive relationships with C-level stakeholders at our largest\naccounts\n\n· Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven\ndecision making\n\n· Talent Development: Coach, mentor, and develop the next generation of sales leaders\n\n· Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to\ndeliver integrated solutions\n\n· Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n\n## What You Bring\n\n\n### Required Qualifications\n\n· 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n\n· Proven track record of building and scaling enterprise sales teams of 50+ people\n\n· Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n\n· Deep expertise in complex, consultative sales with 6-12 month sales cycles\n\n<!-- PageBreak -->\n\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text\n\n### text\n\n· Experience selling SaaS solutions to Fortune 500 enterprises\n\n· Strong executive presence with ability to engage C-suite buyers\n\n· Bachelor's degree required; MBA preferred\n\n\n### What Sets You Apart\n\n· Experience in CRM, cloud infrastructure, or enterprise software markets\n\n· Track record of building sales teams from early stage through scale\n\n· Expertise in account-based selling and strategic account management\n\n· Strong analytical skills with proficiency in ACME, sales analytics tools\n\n· History of developing talent - multiple direct reports promoted to leadership roles\n\n· Experience with channel/partner sales models\n\n· Passion for coaching and developing high-performing teams\n\n\n### Leadership Competencies\n\n· Strategic thinking and business acumen\n\n· Exceptional communication and executive presence\n\n· Data-driven decision making\n\n· Change management and organizational development\n\n· Cross-functional collaboration\n\n· Diversity, equity, and inclusion advocacy\n\n\n### Compensation & Benefits\n\n\n#### Total Target Compensation: $975,000\n\n· Base Salary: $325,000\n\n· Variable Compensation: $650,000 (at 100% quota attainment)\n\n· Equity: RSU grant valued at $500,000 (4-year vesting)\n\n· Sign-on Bonus: $100,000\n\n\n#### Comprehensive Benefits Package\n\n\n<table>\n<tr>\n<td>· Premium medical, dental, and vision coverage</td>\n<td>· 401(k) with 6% company match</td>\n</tr>\n<tr>\n<td>· Flexible PTO policy</td>\n<td>· $5,000 annual professional development budget</td>\n</tr>\n<tr>\n<td>· Executive coaching program</td>\n<td>· Wellness reimbursement ($1,200/year)</td>\n</tr>\n<tr>\n<td>· 8 paid volunteer days (VTO)</td>\n<td>· Paid parental leave (26 weeks primary caregiver)</td>\n</tr>\n<tr>\n<td>· Employee stock purchase plan (15% discount)</td>\n<td>· Relocation assistance available</td>\n</tr>\n</table>\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: False\n\n# match_analysis: This candidate is a very poor match for the Vice President of Enterprise Sales position. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of managing $100M+ ARR quotas, experience building and scaling enterprise sales teams of 50+ people, and deep expertise in complex SaaS/enterprise software sales to Fortune 500 companies. The candidate, John Doe, holds a Bachelor of Science in Graphic Design (graduated 2011) with a stated objective of designing apparel print for a retail company. Their work experience consists entirely of entry-level retail and spa positions (Sales Associate at American Eagle, Spa Consultant at Planet Beach, Sales Associate at Heartbreaker, Fashion Representative at Victoria's Secret, and a volunteer Brand Ambassador role at Target). There is no B2B sales experience, no enterprise software or SaaS experience, no leadership or management experience at any level, no evidence of revenue accountability or quota management, and no executive-level competencies demonstrated. The candidate's profile is oriented toward entry-level retail/fashion roles, which is fundamentally misaligned with this executive-level enterprise technology sales leadership position in every dimension: industry, seniority, skills, and experience.\n</match_result>",
+        "rendered_user_prompt": "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# JOHN DOE\n\n\n## Full Address . City, State, ZIP . Phone Number . E-mail\n\nOBJECTIVE: Design apparel print for an innovative retail company\n\nEDUCATION:\n\nUNIVERSITY OF MINNESOTA\nCollege of Design\n\" Bachelor of Science in Graphic Design\n\n\" Cumulative GPA 3.93, Dean's List\n\n\" Twin cities Iron Range Scholarship\n\nCity, State\nMay 2011\n\nWORK EXPERIENCE:\n\nAMERICAN EAGLE\nSales Associate\n\nCity, State\nJuly 2009 - present\n\n· Collaborated with the store merchandiser creating displays to attract clientele\n\n\" Use my trend awareness to assist customers in their shopping experience\n\n\" Thoroughly scan every piece of merchandise for inventory control\n\n\" Process shipment to increase my product knowledge\n\nPLANET BEACH\nSpa Consultant\nCity, State\nAug. 2008 - present\n\n\" Sell retail and memberships to meet company sales goals\n\n\" Build organizational skills by single handedly running all operating procedures\n\n\" Communicate with clients to fulfill their wants and needs\n\n\" Attend promotional events to market our services\n\n\" Handle cash and deposits during opening and closing\n\n\" Received employee of the month award twice\n\nHEARTBREAKER\nSales Associate\nCity, State\nMay 2008 - Aug. 2008\n\n· Stocked sales floor with fast fashion inventory\n\n· Marked down items allowing me to see unsuccessful merchandise in a retail market\n\n\" Offered advice and assistance to each guest\n\nVICTORIA'S SECRET\nFashion Representative\nCity, State\nJan. 2006 - Feb. 2009\n\n\" Applied my leadership skills by assisting in the training of coworkers\n\n\" Set up mannequins and displays in order to entice future customers\n\n· Provided superior customer service by helping with consumer decisions\n\n\" Took seasonal inventory\n\nVOLUNTEER EXPERIENCE:\n\nTARGET CORPORATION\nBrand Ambassador\n\nCity, State\nAugust 2009\n\n\" Represented Periscope Marketing and Target Inc. at a college event\n\n\" Engaged University of Minnesota freshman in the Target brand experience\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# Vice President, Enterprise Sales\n\nACME · San Francisco, CA (Hybrid)\nFull-time . Executive Level\n\n\n## About ACME\n\nACME is the global leader in CRM, empowering companies to connect with their customers in entirely new ways.\nBuilt on our core values of Trust, Customer Success, Innovation, and Equality, we're transforming how businesses\nengage with their customers across sales, service, marketing, and more.\n\n\n## The Opportunity\n\nWe're seeking an exceptional Vice President of Enterprise Sales to lead our North American Enterprise\nsegment and drive the next phase of our growth. This is a high-impact role where you'll build and scale a world-\nclass sales organization, own significant revenue accountability, and work directly with C-suite executives at\nFortune 500 companies.\n\nAs VP of Enterprise Sales, you'll lead 60+ enterprise account executives, own $180M+ in ARR quota, and play a\ncritical role in shaping our go-to-market strategy. This is an opportunity to make your mark at one of the world's\nmost innovative technology companies.\n\n\n## What You'll Do\n\n· Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple\nregions\n\n· Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning\nresponsibility\n\n· Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase\nwin rates\n\n· Customer Relationships: Build and maintain executive relationships with C-level stakeholders at our largest\naccounts\n\n· Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven\ndecision making\n\n· Talent Development: Coach, mentor, and develop the next generation of sales leaders\n\n· Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to\ndeliver integrated solutions\n\n· Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n\n## What You Bring\n\n\n### Required Qualifications\n\n· 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n\n· Proven track record of building and scaling enterprise sales teams of 50+ people\n\n· Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n\n· Deep expertise in complex, consultative sales with 6-12 month sales cycles\n\n<!-- PageBreak -->\n\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text\n\n### text\n\n· Experience selling SaaS solutions to Fortune 500 enterprises\n\n· Strong executive presence with ability to engage C-suite buyers\n\n· Bachelor's degree required; MBA preferred\n\n\n### What Sets You Apart\n\n· Experience in CRM, cloud infrastructure, or enterprise software markets\n\n· Track record of building sales teams from early stage through scale\n\n· Expertise in account-based selling and strategic account management\n\n· Strong analytical skills with proficiency in ACME, sales analytics tools\n\n· History of developing talent - multiple direct reports promoted to leadership roles\n\n· Experience with channel/partner sales models\n\n· Passion for coaching and developing high-performing teams\n\n\n### Leadership Competencies\n\n· Strategic thinking and business acumen\n\n· Exceptional communication and executive presence\n\n· Data-driven decision making\n\n· Change management and organizational development\n\n· Cross-functional collaboration\n\n· Diversity, equity, and inclusion advocacy\n\n\n### Compensation & Benefits\n\n\n#### Total Target Compensation: $975,000\n\n· Base Salary: $325,000\n\n· Variable Compensation: $650,000 (at 100% quota attainment)\n\n· Equity: RSU grant valued at $500,000 (4-year vesting)\n\n· Sign-on Bonus: $100,000\n\n\n#### Comprehensive Benefits Package\n\n\n<table>\n<tr>\n<td>· Premium medical, dental, and vision coverage</td>\n<td>· 401(k) with 6% company match</td>\n</tr>\n<tr>\n<td>· Flexible PTO policy</td>\n<td>· $5,000 annual professional development budget</td>\n</tr>\n<tr>\n<td>· Executive coaching program</td>\n<td>· Wellness reimbursement ($1,200/year)</td>\n</tr>\n<tr>\n<td>· 8 paid volunteer days (VTO)</td>\n<td>· Paid parental leave (26 weeks primary caregiver)</td>\n</tr>\n<tr>\n<td>· Employee stock purchase plan (15% discount)</td>\n<td>· Relocation assistance available</td>\n</tr>\n</table>\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: False\n\n# match_analysis: The candidate is a significant mismatch for this VP of Enterprise Sales role. The job requires 12+ years of progressive B2B sales experience with at least 5 years in VP-level leadership, a proven track record of building enterprise sales teams of 50+ people, managing $100M+ ARR quotas, and selling SaaS solutions to Fortune 500 enterprises. The candidate is a recent Graphic Design graduate (BS, May 2011) from the University of Minnesota whose objective is to design apparel prints for a retail company. Their experience consists exclusively of entry-level retail sales associate and spa consultant roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret), with no B2B sales, SaaS, enterprise leadership, or team management experience. There is no overlap with the required executive-level qualifications, industry expertise, or leadership competencies for this role.\n</match_result>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_0",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_0",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_1",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:edge_0",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_0",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -584,9 +596,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_1",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_0",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_2",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:edge_1",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_0",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -594,9 +606,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_2",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_0",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:edge_2",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_0",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -604,9 +616,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_3",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_0",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:edge_3",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_0",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -614,9 +626,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_4",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_5",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:edge_4",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -624,9 +636,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_5",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_1",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_0",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_1",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -634,9 +646,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_6",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_2",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_1",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_2",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
       "kind": "data",
       "label": "job_offer_pages",
       "source_stuff_digest": null,
@@ -644,9 +656,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_7",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_2",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
       "kind": "data",
       "label": "match_result",
       "source_stuff_digest": null,
@@ -654,9 +666,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_8",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_1",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_3",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_1",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -664,9 +676,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_9",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_2",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_4",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_4",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_2",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_4",
       "kind": "data",
       "label": "job_offer_pages",
       "source_stuff_digest": null,
@@ -674,9 +686,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_10",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_1",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_5",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_5",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_1",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_5",
       "kind": "data",
       "label": "cv_pages",
       "source_stuff_digest": null,
@@ -684,9 +696,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_11",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_2",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_5",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_6",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_2",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_5",
       "kind": "data",
       "label": "job_offer_pages",
       "source_stuff_digest": null,
@@ -694,9 +706,9 @@
       "meta": {}
     },
     {
-      "id": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:edge_12",
-      "source": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_3",
-      "target": "40dddc8c-1357-4ad7-9d3c-b5c43eee5f25:node_5",
+      "id": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:asm_edge_7",
+      "source": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_3",
+      "target": "58f29b90-25c1-4cda-8f79-ffb60b7a7015:node_5",
       "kind": "data",
       "label": "match_result",
       "source_stuff_digest": null,
@@ -704,7 +716,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "candidate_screening.screen_candidate": {
       "pipe_category": "PipeController",
@@ -880,7 +894,7 @@
           "code": "DetailedMatchResult",
           "domain_code": "candidate_screening",
           "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
-          "structure_class_name": "DetailedMatchResult",
+          "structure_class_name": "candidate_screening__DetailedMatchResult",
           "refines": "candidate_screening.MatchResult"
         },
         "multiplicity": null
@@ -923,7 +937,7 @@
             "code": "DetailedMatchResult",
             "domain_code": "candidate_screening",
             "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
-            "structure_class_name": "DetailedMatchResult",
+            "structure_class_name": "candidate_screening__DetailedMatchResult",
             "refines": "candidate_screening.MatchResult"
           },
           "multiplicity": null
@@ -999,7 +1013,7 @@
             "code": "DetailedMatchResult",
             "domain_code": "candidate_screening",
             "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
-            "structure_class_name": "DetailedMatchResult",
+            "structure_class_name": "candidate_screening__DetailedMatchResult",
             "refines": "candidate_screening.MatchResult"
           },
           "multiplicity": null
@@ -1010,7 +1024,7 @@
           "code": "Email",
           "domain_code": "candidate_screening",
           "description": "A professional email message.",
-          "structure_class_name": "Email",
+          "structure_class_name": "candidate_screening__Email",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1357,10 +1371,10 @@
       "code": "DetailedMatchResult",
       "domain_code": "candidate_screening",
       "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
-      "structure_class_name": "DetailedMatchResult",
+      "structure_class_name": "candidate_screening__DetailedMatchResult",
       "refines": "candidate_screening.MatchResult",
       "json_schema": {
-        "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower semantics for skill-level analysis.",
+        "description": "An enriched match assessment specifically for technical roles, inheriting the base match structure with narrower\nsemantics for skill-level analysis.",
         "properties": {
           "is_match": {
             "description": "Whether the candidate's profile is a good match for the job offer",
@@ -1377,7 +1391,7 @@
           "is_match",
           "match_analysis"
         ],
-        "title": "DetailedMatchResult",
+        "title": "candidate_screening__DetailedMatchResult",
         "type": "object"
       }
     },
@@ -1385,7 +1399,7 @@
       "code": "Email",
       "domain_code": "candidate_screening",
       "description": "A professional email message.",
-      "structure_class_name": "Email",
+      "structure_class_name": "candidate_screening__Email",
       "refines": "native.Text",
       "json_schema": {
         "description": "A professional email message.",
@@ -1398,7 +1412,7 @@
         "required": [
           "text"
         ],
-        "title": "Email",
+        "title": "candidate_screening__Email",
         "type": "object"
       }
     }

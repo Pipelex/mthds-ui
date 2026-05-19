@@ -14,6 +14,7 @@ import {
   stuffDigestFromId,
 } from "./types";
 import { buildChildToControllerMap } from "./graphAnalysis";
+import { asPipeCallNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
 
 /**
@@ -188,7 +189,9 @@ export function applyFolds(
     const specNode = findSpecNode(graphspec, folded);
     if (!specNode) continue; // unknown ID — silently ignore
 
-    const payload = buildPipeCardPayload(specNode, graphspec, analysis);
+    // A folded controller is a pipe-call node; guard the narrowing so a
+    // malformed spec fails loudly instead of producing an undefined pipeCode.
+    const payload = buildPipeCardPayload(asPipeCallNode(specNode, folded));
     if (onToggleFold) {
       payload.onExpand = (options?: FoldToggleOptions) => onToggleFold(folded, options);
     }

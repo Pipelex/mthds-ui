@@ -2,6 +2,10 @@
 
 ## [v0.6.5] - 2026-05-15
 
+### Added
+
+- **Light theme.** `GraphViewer` now supports a `"light"` theme alongside the existing `"dark"` default (still dark unless `theme="light"` is passed). New props: `theme` (`"dark" | "light"`), `showThemeToggle` (defaults to `true` — renders a sun/moon button in the floating toolbar; set to `false` to hide it), and `onThemeChange` (fired on every theme change).
+
 ### Fixed
 
 - **Standalone adapter silently swallowed malformed embedded JSON.** `readJsonScript()` in `src/standalone/adapter.ts` parses the `pipelex-graphspec` and `pipelex-config` `<script type="application/json">` tags that pipelex emits into the standalone HTML viewer. Its `catch` block returned `null` on any `JSON.parse` failure, making a malformed tag indistinguishable from a legitimately absent one — so if the upstream HTML generator ever emitted broken JSON, the viewer rendered an empty graph with no error reported anywhere. The catch now re-throws an `Error` naming the offending `<script>` tag and the underlying parse message; the throw lands in the post-mount data-load tick, so it surfaces in DevTools / `window.onerror` without white-screening the already-mounted viewer. The legitimate "tag absent or empty → `null`" path is unchanged.

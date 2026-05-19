@@ -1,6 +1,6 @@
 {
-  "graph_id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a",
-  "created_at": "2026-04-06T10:15:24.725219Z",
+  "graph_id": "43c784a9-9375-48bf-9cff-857834eb32d6",
+  "created_at": "2026-05-15T12:39:16.821055Z",
   "pipeline_ref": {
     "domain": "recruitment",
     "main_pipe": "cv_screening",
@@ -8,35 +8,37 @@
   },
   "nodes": [
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
       "kind": "controller",
       "pipe_code": "cv_screening",
       "pipe_type": "PipeSequence",
+      "description": "Full CV screening pipeline",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.732948Z",
-        "ended_at": "2026-04-06T10:15:24.807831Z",
-        "duration": 0.074883
+        "started_at": "2026-05-15T12:39:16.821055Z",
+        "ended_at": "2026-05-15T12:39:16.922044Z",
+        "duration": 0.100989
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "fGGRfCUXVoUUpKtRARoW",
+            "content_type": "RmgKcDzNRwlamPAhxEqI",
             "preview": null,
             "size": null,
-            "digest": "DCVhd",
+            "digest": "NjJVd",
             "data": {
-              "url": "DbnbhTQOlNVJgkCNqaFE",
-              "public_url": "BXDQpfwmQUCaFxkGHHIz",
-              "mime_type": "fGGRfCUXVoUUpKtRARoW",
-              "filename": "qxCLTfXoCgijAuzvVlFM",
-              "title": "OsTTHlAfHTUniSJTMPDs",
-              "snippet": "mOgXdqvxpESbfDxVBuXZ"
+              "url": "vFQLrlkrdjYUCyfugxHS",
+              "public_url": "wICHwBniiFWAxgaAKZLn",
+              "mime_type": "RmgKcDzNRwlamPAhxEqI",
+              "filename": "spaHNmRrveYXvDDuUZbY",
+              "title": "ymmdENQygEXxajkxxvAH",
+              "snippet": "bsmTIfUbWTPBUXlnFSwI"
             },
-            "data_text": "OsTTHlAfHTUniSJTMPDs (DbnbhTQOlNVJgkCNqaFE)\n  mOgXdqvxpESbfDxVBuXZ\n",
-            "data_html": "<a href=\"BXDQpfwmQUCaFxkGHHIz\" class=\"msg-document\">OsTTHlAfHTUniSJTMPDs</a><br/><small>mOgXdqvxpESbfDxVBuXZ</small>",
+            "data_text": "ymmdENQygEXxajkxxvAH (vFQLrlkrdjYUCyfugxHS)\n  bsmTIfUbWTPBUXlnFSwI\n",
+            "data_html": "<a href=\"wICHwBniiFWAxgaAKZLn\" class=\"msg-document\">ymmdENQygEXxajkxxvAH</a><br/><small>bsmTIfUbWTPBUXlnFSwI</small>",
             "extra": {}
           }
         ],
@@ -47,12 +49,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "nKhkV",
+            "digest": "fKyUP",
             "data": {
-              "text": "# Candidate Screening Report\n\n## Candidate: wmRjjiKQnNCbAZcjYqJm\nQEtjokxMTANxuRQYeMUv\n\n## Match Score: -3787725.57595142/100\nKvQcsxtaggLEYscOSuBh\n\n## Strengths\nmatch.strengths: ```\n['eb5333519']\n```\n\n## Gaps\nmatch.gaps: ```\n['92238435']\n```"
+              "text": "# Candidate Screening Report\n\n## Candidate: ZFCrvRJLSFiwLuFEUZmN\njhKjdNxthbkpffVBOhHJ\n\n## Match Score: 7851.55480945048/100\nGWQwuUZjqkFTxBxOZpdU\n\n## Strengths\nmatch.strengths: ```\n['aa91']\n```\n\n## Gaps\nmatch.gaps: ```\n['d470b7aa']\n```"
             },
-            "data_text": "                                     Candidate Screening Report                                     \n\nCandidate: wmRjjiKQnNCbAZcjYqJm                                                                     \n\nQEtjokxMTANxuRQYeMUv                                                                                \n\nMatch Score: -3787725.57595142/100                                                                  \n\nKvQcsxtaggLEYscOSuBh                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['eb5333519']                                                                  \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['92238435']                                                                                       \n                                                                                                    \n",
-            "data_html": "# Candidate Screening Report\n\n## Candidate: wmRjjiKQnNCbAZcjYqJm\nQEtjokxMTANxuRQYeMUv\n\n## Match Score: -3787725.57595142/100\nKvQcsxtaggLEYscOSuBh\n\n## Strengths\nmatch.strengths: ```\n[&#x27;eb5333519&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;92238435&#x27;]\n```",
+            "data_text": "                                     Candidate Screening Report                                     \n\nCandidate: ZFCrvRJLSFiwLuFEUZmN                                                                     \n\njhKjdNxthbkpffVBOhHJ                                                                                \n\nMatch Score: 7851.55480945048/100                                                                   \n\nGWQwuUZjqkFTxBxOZpdU                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['aa91']                                                                       \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['d470b7aa']                                                                                       \n                                                                                                    \n",
+            "data_html": "# Candidate Screening Report\n\n## Candidate: ZFCrvRJLSFiwLuFEUZmN\njhKjdNxthbkpffVBOhHJ\n\n## Match Score: 7851.55480945048/100\nGWQwuUZjqkFTxBxOZpdU\n\n## Strengths\nmatch.strengths: ```\n[&#x27;aa91&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;d470b7aa&#x27;]\n```",
             "extra": {}
           }
         ]
@@ -65,35 +67,37 @@
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_1",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_1",
       "kind": "operator",
       "pipe_code": "extract_cv",
       "pipe_type": "PipeExtract",
+      "description": "Extract pages from CV document",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.737394Z",
-        "ended_at": "2026-04-06T10:15:24.745161Z",
-        "duration": 0.007767
+        "started_at": "2026-05-15T12:39:16.826221Z",
+        "ended_at": "2026-05-15T12:39:16.833195Z",
+        "duration": 0.006974
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "fGGRfCUXVoUUpKtRARoW",
+            "content_type": "RmgKcDzNRwlamPAhxEqI",
             "preview": null,
             "size": null,
-            "digest": "DCVhd",
+            "digest": "NjJVd",
             "data": {
-              "url": "DbnbhTQOlNVJgkCNqaFE",
-              "public_url": "BXDQpfwmQUCaFxkGHHIz",
-              "mime_type": "fGGRfCUXVoUUpKtRARoW",
-              "filename": "qxCLTfXoCgijAuzvVlFM",
-              "title": "OsTTHlAfHTUniSJTMPDs",
-              "snippet": "mOgXdqvxpESbfDxVBuXZ"
+              "url": "vFQLrlkrdjYUCyfugxHS",
+              "public_url": "wICHwBniiFWAxgaAKZLn",
+              "mime_type": "RmgKcDzNRwlamPAhxEqI",
+              "filename": "spaHNmRrveYXvDDuUZbY",
+              "title": "ymmdENQygEXxajkxxvAH",
+              "snippet": "bsmTIfUbWTPBUXlnFSwI"
             },
-            "data_text": "OsTTHlAfHTUniSJTMPDs (DbnbhTQOlNVJgkCNqaFE)\n  mOgXdqvxpESbfDxVBuXZ\n",
-            "data_html": "<a href=\"BXDQpfwmQUCaFxkGHHIz\" class=\"msg-document\">OsTTHlAfHTUniSJTMPDs</a><br/><small>mOgXdqvxpESbfDxVBuXZ</small>",
+            "data_text": "ymmdENQygEXxajkxxvAH (vFQLrlkrdjYUCyfugxHS)\n  bsmTIfUbWTPBUXlnFSwI\n",
+            "data_html": "<a href=\"wICHwBniiFWAxgaAKZLn\" class=\"msg-document\">ymmdENQygEXxajkxxvAH</a><br/><small>bsmTIfUbWTPBUXlnFSwI</small>",
             "extra": {}
           }
         ],
@@ -104,7 +108,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e5kXS",
+            "digest": "jZK6n",
             "data": {
               "items": [
                 {
@@ -166,15 +170,17 @@
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
       "kind": "operator",
       "pipe_code": "analyze_candidate",
       "pipe_type": "PipeLLM",
+      "description": "Analyze CV to build candidate profile",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.746143Z",
-        "ended_at": "2026-04-06T10:15:24.758790Z",
-        "duration": 0.012647
+        "started_at": "2026-05-15T12:39:16.838121Z",
+        "ended_at": "2026-05-15T12:39:16.851789Z",
+        "duration": 0.013668
       },
       "io": {
         "inputs": [
@@ -184,7 +190,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e5kXS",
+            "digest": "jZK6n",
             "data": {
               "items": [
                 {
@@ -241,17 +247,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           }
         ]
@@ -260,24 +266,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Analyze this CV and extract a structured candidate profile:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass CandidateProfile(StructuredContent):\n    \"\"\"Structured profile of a job candidate\"\"\"\n    name: str  # Full name\n    skills: List[Any] | None = None  # Key skills\n    experience_years: int | None = None  # Years of experience\n    summary: str  # Brief profile summary\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze this CV and extract a structured candidate profile:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass recruitment__CandidateProfile(StructuredContent):\n    \"\"\"Structured profile of a job candidate\"\"\"\n    name: str  # Full name\n    skills: List[Any] | None = None  # Key skills\n    experience_years: int | None = None  # Years of experience\n    summary: str  # Brief profile summary\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
       "kind": "controller",
       "pipe_code": "enrich_candidate",
       "pipe_type": "PipeParallel",
+      "description": "Search online and generate profile card in parallel",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.759811Z",
-        "ended_at": "2026-04-06T10:15:24.782965Z",
-        "duration": 0.023154
+        "started_at": "2026-05-15T12:39:16.856237Z",
+        "ended_at": "2026-05-15T12:39:16.885744Z",
+        "duration": 0.029507
       },
       "io": {
         "inputs": [
@@ -287,17 +295,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           }
         ],
@@ -308,38 +316,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tvjf6",
+            "digest": "bdXWA",
             "data": {
-              "answer": "mYGWiTuspTQXwVHiRmIS",
+              "answer": "CIkSuwRpDqnPNmmzSytf",
               "sources": [
                 {
-                  "url": "XhbCzRJtNEInNvQeuGYl",
-                  "public_url": "zxpVxopofSNlpYjtekWU",
-                  "mime_type": "kQJfAVYdXComTmnBKaQE",
-                  "filename": "dUjrWmVXvIaqNAtvizij",
-                  "title": "WzhyPaeuTfWHjnRKiZFw",
-                  "snippet": "rApJnKkvvhRLHPCvbhIz"
+                  "url": "NsLMNalsYTwhDsmnJKoa",
+                  "public_url": "oZFyDBXDdrMLGIyzSbsT",
+                  "mime_type": "GHjQPDfTjKySrMwWzgBX",
+                  "filename": "vYSgziWZWgGlVdHtpccs",
+                  "title": "mumJaHxJPFtTqAoHfUuB",
+                  "snippet": "OTBAFbrpfJCfRCWKIOWq"
                 },
                 {
-                  "url": "fquiLRTBnwxempGsTlin",
-                  "public_url": "mTgsmzoYsGhdXnqVNjPX",
-                  "mime_type": "pzCBhiAOuoMYmqtjNRdN",
-                  "filename": "tBxUocDymmuWGxDdUUZJ",
-                  "title": "RoZKPYTWuuSuIzTAdqBs",
-                  "snippet": "OglCnQzCwwrELiksjzVH"
+                  "url": "gSahQixyBOgzsENhXUdV",
+                  "public_url": "SynFwgNYzyVWEAogVkyv",
+                  "mime_type": "edKUPQrYTcAuMedFVHUM",
+                  "filename": "hvFggkeimAXLhXKflKWg",
+                  "title": "KKaEdXlbPHMInIKlpJEO",
+                  "snippet": "ovOpSLjmwdrNkxAItUNo"
                 },
                 {
-                  "url": "eTzzIPTyAmgxrvGiOOdl",
-                  "public_url": "RAdSgDSNGVXpEwSBHOcg",
-                  "mime_type": "KZSrExCfqMXjYKDRHhzk",
-                  "filename": "uPrtGfkoqaizofFfNNPK",
-                  "title": "jshzcSeUUZplbPAtGiJq",
-                  "snippet": "zkbjKKiIRLVaCBQnLvxN"
+                  "url": "PSBOvyHSTFnfJbXvMNyt",
+                  "public_url": "GZExtVHRLbEYonKFAZIh",
+                  "mime_type": "tNtLqBErJxlpXNxKEQiK",
+                  "filename": "NIxMcrIwSVDwKAlrUFnB",
+                  "title": "SDHUCarevITrRkfwrQTz",
+                  "snippet": "ltmEiwjqiNFazpLfaVGX"
                 }
               ]
             },
-            "data_text": "Search Result:\nmYGWiTuspTQXwVHiRmIS                                                                                \n\nSources (3):\nWzhyPaeuTfWHjnRKiZFw (XhbCzRJtNEInNvQeuGYl)\n  rApJnKkvvhRLHPCvbhIz\n\nRoZKPYTWuuSuIzTAdqBs (fquiLRTBnwxempGsTlin)\n  OglCnQzCwwrELiksjzVH\n\njshzcSeUUZplbPAtGiJq (eTzzIPTyAmgxrvGiOOdl)\n  zkbjKKiIRLVaCBQnLvxN\n",
-            "data_html": "<div><p>mYGWiTuspTQXwVHiRmIS</p><h4>Sources</h4><ul><li><a href=\"zxpVxopofSNlpYjtekWU\" class=\"msg-document\">WzhyPaeuTfWHjnRKiZFw</a><br/><small>rApJnKkvvhRLHPCvbhIz</small></li><li><a href=\"mTgsmzoYsGhdXnqVNjPX\" class=\"msg-document\">RoZKPYTWuuSuIzTAdqBs</a><br/><small>OglCnQzCwwrELiksjzVH</small></li><li><a href=\"RAdSgDSNGVXpEwSBHOcg\" class=\"msg-document\">jshzcSeUUZplbPAtGiJq</a><br/><small>zkbjKKiIRLVaCBQnLvxN</small></li></ul></div>",
+            "data_text": "Search Result:\nCIkSuwRpDqnPNmmzSytf                                                                                \n\nSources (3):\nmumJaHxJPFtTqAoHfUuB (NsLMNalsYTwhDsmnJKoa)\n  OTBAFbrpfJCfRCWKIOWq\n\nKKaEdXlbPHMInIKlpJEO (gSahQixyBOgzsENhXUdV)\n  ovOpSLjmwdrNkxAItUNo\n\nSDHUCarevITrRkfwrQTz (PSBOvyHSTFnfJbXvMNyt)\n  ltmEiwjqiNFazpLfaVGX\n",
+            "data_html": "<div><p>CIkSuwRpDqnPNmmzSytf</p><h4>Sources</h4><ul><li><a href=\"oZFyDBXDdrMLGIyzSbsT\" class=\"msg-document\">mumJaHxJPFtTqAoHfUuB</a><br/><small>OTBAFbrpfJCfRCWKIOWq</small></li><li><a href=\"SynFwgNYzyVWEAogVkyv\" class=\"msg-document\">KKaEdXlbPHMInIKlpJEO</a><br/><small>ovOpSLjmwdrNkxAItUNo</small></li><li><a href=\"GZExtVHRLbEYonKFAZIh\" class=\"msg-document\">SDHUCarevITrRkfwrQTz</a><br/><small>ltmEiwjqiNFazpLfaVGX</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -348,11 +356,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "VQCrV",
+            "digest": "GRq2w",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Professional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv",
+              "source_prompt": "Professional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -362,7 +370,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -378,15 +386,17 @@
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_4",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_4",
       "kind": "operator",
       "pipe_code": "search_candidate",
       "pipe_type": "PipeSearch",
+      "description": "Search for candidate online presence",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.762986Z",
-        "ended_at": "2026-04-06T10:15:24.769512Z",
-        "duration": 0.006526
+        "started_at": "2026-05-15T12:39:16.860743Z",
+        "ended_at": "2026-05-15T12:39:16.868109Z",
+        "duration": 0.007366
       },
       "io": {
         "inputs": [
@@ -396,17 +406,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           }
         ],
@@ -417,38 +427,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tvjf6",
+            "digest": "bdXWA",
             "data": {
-              "answer": "mYGWiTuspTQXwVHiRmIS",
+              "answer": "CIkSuwRpDqnPNmmzSytf",
               "sources": [
                 {
-                  "url": "XhbCzRJtNEInNvQeuGYl",
-                  "public_url": "zxpVxopofSNlpYjtekWU",
-                  "mime_type": "kQJfAVYdXComTmnBKaQE",
-                  "filename": "dUjrWmVXvIaqNAtvizij",
-                  "title": "WzhyPaeuTfWHjnRKiZFw",
-                  "snippet": "rApJnKkvvhRLHPCvbhIz"
+                  "url": "NsLMNalsYTwhDsmnJKoa",
+                  "public_url": "oZFyDBXDdrMLGIyzSbsT",
+                  "mime_type": "GHjQPDfTjKySrMwWzgBX",
+                  "filename": "vYSgziWZWgGlVdHtpccs",
+                  "title": "mumJaHxJPFtTqAoHfUuB",
+                  "snippet": "OTBAFbrpfJCfRCWKIOWq"
                 },
                 {
-                  "url": "fquiLRTBnwxempGsTlin",
-                  "public_url": "mTgsmzoYsGhdXnqVNjPX",
-                  "mime_type": "pzCBhiAOuoMYmqtjNRdN",
-                  "filename": "tBxUocDymmuWGxDdUUZJ",
-                  "title": "RoZKPYTWuuSuIzTAdqBs",
-                  "snippet": "OglCnQzCwwrELiksjzVH"
+                  "url": "gSahQixyBOgzsENhXUdV",
+                  "public_url": "SynFwgNYzyVWEAogVkyv",
+                  "mime_type": "edKUPQrYTcAuMedFVHUM",
+                  "filename": "hvFggkeimAXLhXKflKWg",
+                  "title": "KKaEdXlbPHMInIKlpJEO",
+                  "snippet": "ovOpSLjmwdrNkxAItUNo"
                 },
                 {
-                  "url": "eTzzIPTyAmgxrvGiOOdl",
-                  "public_url": "RAdSgDSNGVXpEwSBHOcg",
-                  "mime_type": "KZSrExCfqMXjYKDRHhzk",
-                  "filename": "uPrtGfkoqaizofFfNNPK",
-                  "title": "jshzcSeUUZplbPAtGiJq",
-                  "snippet": "zkbjKKiIRLVaCBQnLvxN"
+                  "url": "PSBOvyHSTFnfJbXvMNyt",
+                  "public_url": "GZExtVHRLbEYonKFAZIh",
+                  "mime_type": "tNtLqBErJxlpXNxKEQiK",
+                  "filename": "NIxMcrIwSVDwKAlrUFnB",
+                  "title": "SDHUCarevITrRkfwrQTz",
+                  "snippet": "ltmEiwjqiNFazpLfaVGX"
                 }
               ]
             },
-            "data_text": "Search Result:\nmYGWiTuspTQXwVHiRmIS                                                                                \n\nSources (3):\nWzhyPaeuTfWHjnRKiZFw (XhbCzRJtNEInNvQeuGYl)\n  rApJnKkvvhRLHPCvbhIz\n\nRoZKPYTWuuSuIzTAdqBs (fquiLRTBnwxempGsTlin)\n  OglCnQzCwwrELiksjzVH\n\njshzcSeUUZplbPAtGiJq (eTzzIPTyAmgxrvGiOOdl)\n  zkbjKKiIRLVaCBQnLvxN\n",
-            "data_html": "<div><p>mYGWiTuspTQXwVHiRmIS</p><h4>Sources</h4><ul><li><a href=\"zxpVxopofSNlpYjtekWU\" class=\"msg-document\">WzhyPaeuTfWHjnRKiZFw</a><br/><small>rApJnKkvvhRLHPCvbhIz</small></li><li><a href=\"mTgsmzoYsGhdXnqVNjPX\" class=\"msg-document\">RoZKPYTWuuSuIzTAdqBs</a><br/><small>OglCnQzCwwrELiksjzVH</small></li><li><a href=\"RAdSgDSNGVXpEwSBHOcg\" class=\"msg-document\">jshzcSeUUZplbPAtGiJq</a><br/><small>zkbjKKiIRLVaCBQnLvxN</small></li></ul></div>",
+            "data_text": "Search Result:\nCIkSuwRpDqnPNmmzSytf                                                                                \n\nSources (3):\nmumJaHxJPFtTqAoHfUuB (NsLMNalsYTwhDsmnJKoa)\n  OTBAFbrpfJCfRCWKIOWq\n\nKKaEdXlbPHMInIKlpJEO (gSahQixyBOgzsENhXUdV)\n  ovOpSLjmwdrNkxAItUNo\n\nSDHUCarevITrRkfwrQTz (PSBOvyHSTFnfJbXvMNyt)\n  ltmEiwjqiNFazpLfaVGX\n",
+            "data_html": "<div><p>CIkSuwRpDqnPNmmzSytf</p><h4>Sources</h4><ul><li><a href=\"oZFyDBXDdrMLGIyzSbsT\" class=\"msg-document\">mumJaHxJPFtTqAoHfUuB</a><br/><small>OTBAFbrpfJCfRCWKIOWq</small></li><li><a href=\"SynFwgNYzyVWEAogVkyv\" class=\"msg-document\">KKaEdXlbPHMInIKlpJEO</a><br/><small>ovOpSLjmwdrNkxAItUNo</small></li><li><a href=\"GZExtVHRLbEYonKFAZIh\" class=\"msg-document\">SDHUCarevITrRkfwrQTz</a><br/><small>ltmEiwjqiNFazpLfaVGX</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -463,15 +473,17 @@
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_5",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_5",
       "kind": "operator",
       "pipe_code": "generate_card",
       "pipe_type": "PipeImgGen",
+      "description": "Generate candidate profile card image",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.770183Z",
-        "ended_at": "2026-04-06T10:15:24.779807Z",
-        "duration": 0.009624
+        "started_at": "2026-05-15T12:39:16.871821Z",
+        "ended_at": "2026-05-15T12:39:16.880930Z",
+        "duration": 0.009109
       },
       "io": {
         "inputs": [
@@ -481,17 +493,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           }
         ],
@@ -502,11 +514,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "VQCrV",
+            "digest": "GRq2w",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Professional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv",
+              "source_prompt": "Professional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -516,7 +528,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -527,22 +539,24 @@
       "metrics": {},
       "execution_data": {
         "resolved_model": "@default-general",
-        "rendered_prompt": "Professional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv",
+        "rendered_prompt": "Professional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ",
         "rendered_negative_prompt": null,
         "aspect_ratio": "square",
         "nb_images": 1
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_6",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_6",
       "kind": "operator",
       "pipe_code": "score_match",
       "pipe_type": "PipeLLM",
+      "description": "Score candidate-role match",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.784080Z",
-        "ended_at": "2026-04-06T10:15:24.797552Z",
-        "duration": 0.013472
+        "started_at": "2026-05-15T12:39:16.890784Z",
+        "ended_at": "2026-05-15T12:39:16.904807Z",
+        "duration": 0.014023
       },
       "io": {
         "inputs": [
@@ -552,17 +566,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           },
           {
@@ -571,38 +585,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tvjf6",
+            "digest": "bdXWA",
             "data": {
-              "answer": "mYGWiTuspTQXwVHiRmIS",
+              "answer": "CIkSuwRpDqnPNmmzSytf",
               "sources": [
                 {
-                  "url": "XhbCzRJtNEInNvQeuGYl",
-                  "public_url": "zxpVxopofSNlpYjtekWU",
-                  "mime_type": "kQJfAVYdXComTmnBKaQE",
-                  "filename": "dUjrWmVXvIaqNAtvizij",
-                  "title": "WzhyPaeuTfWHjnRKiZFw",
-                  "snippet": "rApJnKkvvhRLHPCvbhIz"
+                  "url": "NsLMNalsYTwhDsmnJKoa",
+                  "public_url": "oZFyDBXDdrMLGIyzSbsT",
+                  "mime_type": "GHjQPDfTjKySrMwWzgBX",
+                  "filename": "vYSgziWZWgGlVdHtpccs",
+                  "title": "mumJaHxJPFtTqAoHfUuB",
+                  "snippet": "OTBAFbrpfJCfRCWKIOWq"
                 },
                 {
-                  "url": "fquiLRTBnwxempGsTlin",
-                  "public_url": "mTgsmzoYsGhdXnqVNjPX",
-                  "mime_type": "pzCBhiAOuoMYmqtjNRdN",
-                  "filename": "tBxUocDymmuWGxDdUUZJ",
-                  "title": "RoZKPYTWuuSuIzTAdqBs",
-                  "snippet": "OglCnQzCwwrELiksjzVH"
+                  "url": "gSahQixyBOgzsENhXUdV",
+                  "public_url": "SynFwgNYzyVWEAogVkyv",
+                  "mime_type": "edKUPQrYTcAuMedFVHUM",
+                  "filename": "hvFggkeimAXLhXKflKWg",
+                  "title": "KKaEdXlbPHMInIKlpJEO",
+                  "snippet": "ovOpSLjmwdrNkxAItUNo"
                 },
                 {
-                  "url": "eTzzIPTyAmgxrvGiOOdl",
-                  "public_url": "RAdSgDSNGVXpEwSBHOcg",
-                  "mime_type": "KZSrExCfqMXjYKDRHhzk",
-                  "filename": "uPrtGfkoqaizofFfNNPK",
-                  "title": "jshzcSeUUZplbPAtGiJq",
-                  "snippet": "zkbjKKiIRLVaCBQnLvxN"
+                  "url": "PSBOvyHSTFnfJbXvMNyt",
+                  "public_url": "GZExtVHRLbEYonKFAZIh",
+                  "mime_type": "tNtLqBErJxlpXNxKEQiK",
+                  "filename": "NIxMcrIwSVDwKAlrUFnB",
+                  "title": "SDHUCarevITrRkfwrQTz",
+                  "snippet": "ltmEiwjqiNFazpLfaVGX"
                 }
               ]
             },
-            "data_text": "Search Result:\nmYGWiTuspTQXwVHiRmIS                                                                                \n\nSources (3):\nWzhyPaeuTfWHjnRKiZFw (XhbCzRJtNEInNvQeuGYl)\n  rApJnKkvvhRLHPCvbhIz\n\nRoZKPYTWuuSuIzTAdqBs (fquiLRTBnwxempGsTlin)\n  OglCnQzCwwrELiksjzVH\n\njshzcSeUUZplbPAtGiJq (eTzzIPTyAmgxrvGiOOdl)\n  zkbjKKiIRLVaCBQnLvxN\n",
-            "data_html": "<div><p>mYGWiTuspTQXwVHiRmIS</p><h4>Sources</h4><ul><li><a href=\"zxpVxopofSNlpYjtekWU\" class=\"msg-document\">WzhyPaeuTfWHjnRKiZFw</a><br/><small>rApJnKkvvhRLHPCvbhIz</small></li><li><a href=\"mTgsmzoYsGhdXnqVNjPX\" class=\"msg-document\">RoZKPYTWuuSuIzTAdqBs</a><br/><small>OglCnQzCwwrELiksjzVH</small></li><li><a href=\"RAdSgDSNGVXpEwSBHOcg\" class=\"msg-document\">jshzcSeUUZplbPAtGiJq</a><br/><small>zkbjKKiIRLVaCBQnLvxN</small></li></ul></div>",
+            "data_text": "Search Result:\nCIkSuwRpDqnPNmmzSytf                                                                                \n\nSources (3):\nmumJaHxJPFtTqAoHfUuB (NsLMNalsYTwhDsmnJKoa)\n  OTBAFbrpfJCfRCWKIOWq\n\nKKaEdXlbPHMInIKlpJEO (gSahQixyBOgzsENhXUdV)\n  ovOpSLjmwdrNkxAItUNo\n\nSDHUCarevITrRkfwrQTz (PSBOvyHSTFnfJbXvMNyt)\n  ltmEiwjqiNFazpLfaVGX\n",
+            "data_html": "<div><p>CIkSuwRpDqnPNmmzSytf</p><h4>Sources</h4><ul><li><a href=\"oZFyDBXDdrMLGIyzSbsT\" class=\"msg-document\">mumJaHxJPFtTqAoHfUuB</a><br/><small>OTBAFbrpfJCfRCWKIOWq</small></li><li><a href=\"SynFwgNYzyVWEAogVkyv\" class=\"msg-document\">KKaEdXlbPHMInIKlpJEO</a><br/><small>ovOpSLjmwdrNkxAItUNo</small></li><li><a href=\"GZExtVHRLbEYonKFAZIh\" class=\"msg-document\">SDHUCarevITrRkfwrQTz</a><br/><small>ltmEiwjqiNFazpLfaVGX</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -613,19 +627,19 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PKRp7",
+            "digest": "jAaaW",
             "data": {
-              "score": -3787725.57595142,
+              "score": 7851.55480945048,
               "strengths": [
-                "eb5333519"
+                "aa91"
               ],
               "gaps": [
-                "92238435"
+                "d470b7aa"
               ],
-              "recommendation": "KvQcsxtaggLEYscOSuBh"
+              "recommendation": "GWQwuUZjqkFTxBxOZpdU"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ -3787725.57595142                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ eb5333519                           \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 92238435                            \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ KvQcsxtaggLEYscOSuBh                        \n",
-            "data_html": "<table><tr><th>score</th><td>-3787725.57595142</td></tr><tr><th>strengths</th><td><ul><li>eb5333519</li></ul></td></tr><tr><th>gaps</th><td><ul><li>92238435</li></ul></td></tr><tr><th>recommendation</th><td>KvQcsxtaggLEYscOSuBh</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ 7851.55480945048                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ aa91                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ d470b7aa                            \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ GWQwuUZjqkFTxBxOZpdU                        \n",
+            "data_html": "<table><tr><th>score</th><td>7851.55480945048</td></tr><tr><th>strengths</th><td><ul><li>aa91</li></ul></td></tr><tr><th>gaps</th><td><ul><li>d470b7aa</li></ul></td></tr><tr><th>recommendation</th><td>GWQwuUZjqkFTxBxOZpdU</td></tr></table>",
             "extra": {}
           }
         ]
@@ -634,24 +648,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on this candidate profile and online research, score how well they match our open role:\n\nProfile:\n<profile>\n# name: wmRjjiKQnNCbAZcjYqJm\n\n# skills: - 9d16ce66d\n\n# experience_years: 707\n\n# summary: QEtjokxMTANxuRQYeMUv\n</profile>\n\nOnline research:\n<search_result>\nmYGWiTuspTQXwVHiRmIS\n\nSources:\n- WzhyPaeuTfWHjnRKiZFw: XhbCzRJtNEInNvQeuGYl\n  rApJnKkvvhRLHPCvbhIz\n- RoZKPYTWuuSuIzTAdqBs: fquiLRTBnwxempGsTlin\n  OglCnQzCwwrELiksjzVH\n- jshzcSeUUZplbPAtGiJq: eTzzIPTyAmgxrvGiOOdl\n  zkbjKKiIRLVaCBQnLvxN\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass MatchScore(StructuredContent):\n    \"\"\"Score for how well a candidate matches a role\"\"\"\n    score: float  # Match score 0-100\n    strengths: List[Any] | None = None  # Key strengths\n    gaps: List[Any] | None = None  # Skill gaps\n    recommendation: str  # Hiring recommendation\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Based on this candidate profile and online research, score how well they match our open role:\n\nProfile:\n<profile>\n# name: ZFCrvRJLSFiwLuFEUZmN\n\n# skills: - 6987554\n\n# experience_years: 3476\n\n# summary: jhKjdNxthbkpffVBOhHJ\n</profile>\n\nOnline research:\n<search_result>\nCIkSuwRpDqnPNmmzSytf\n\nSources:\n- mumJaHxJPFtTqAoHfUuB: NsLMNalsYTwhDsmnJKoa\n  OTBAFbrpfJCfRCWKIOWq\n- KKaEdXlbPHMInIKlpJEO: gSahQixyBOgzsENhXUdV\n  ovOpSLjmwdrNkxAItUNo\n- SDHUCarevITrRkfwrQTz: PSBOvyHSTFnfJbXvMNyt\n  ltmEiwjqiNFazpLfaVGX\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass recruitment__MatchScore(StructuredContent):\n    \"\"\"Score for how well a candidate matches a role\"\"\"\n    score: float  # Match score 0-100\n    strengths: List[Any] | None = None  # Key strengths\n    gaps: List[Any] | None = None  # Skill gaps\n    recommendation: str  # Hiring recommendation\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_7",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:node_7",
       "kind": "operator",
       "pipe_code": "compose_report",
       "pipe_type": "PipeCompose",
+      "description": "Compose final screening report",
+      "domain_code": "recruitment",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:24.798659Z",
-        "ended_at": "2026-04-06T10:15:24.807059Z",
-        "duration": 0.0084
+        "started_at": "2026-05-15T12:39:16.909863Z",
+        "ended_at": "2026-05-15T12:39:16.918766Z",
+        "duration": 0.008903
       },
       "io": {
         "inputs": [
@@ -661,17 +677,17 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MNoRM",
+            "digest": "KYE8D",
             "data": {
-              "name": "wmRjjiKQnNCbAZcjYqJm",
+              "name": "ZFCrvRJLSFiwLuFEUZmN",
               "skills": [
-                "9d16ce66d"
+                "6987554"
               ],
-              "experience_years": 707,
-              "summary": "QEtjokxMTANxuRQYeMUv"
+              "experience_years": 3476,
+              "summary": "jhKjdNxthbkpffVBOhHJ"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ wmRjjiKQnNCbAZcjYqJm                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 9d16ce66d                         \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 707                                       \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ QEtjokxMTANxuRQYeMUv                      \n",
-            "data_html": "<table><tr><th>name</th><td>wmRjjiKQnNCbAZcjYqJm</td></tr><tr><th>skills</th><td><ul><li>9d16ce66d</li></ul></td></tr><tr><th>experience_years</th><td>707</td></tr><tr><th>summary</th><td>QEtjokxMTANxuRQYeMUv</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n name                               │ ZFCrvRJLSFiwLuFEUZmN                      \n────────────────────────────────────┼───────────────────────────────────────────\n skills                             │   1   │ 6987554                           \n────────────────────────────────────┼───────────────────────────────────────────\n experience_years                   │ 3476                                      \n────────────────────────────────────┼───────────────────────────────────────────\n summary                            │ jhKjdNxthbkpffVBOhHJ                      \n",
+            "data_html": "<table><tr><th>name</th><td>ZFCrvRJLSFiwLuFEUZmN</td></tr><tr><th>skills</th><td><ul><li>6987554</li></ul></td></tr><tr><th>experience_years</th><td>3476</td></tr><tr><th>summary</th><td>jhKjdNxthbkpffVBOhHJ</td></tr></table>",
             "extra": {}
           },
           {
@@ -680,19 +696,19 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PKRp7",
+            "digest": "jAaaW",
             "data": {
-              "score": -3787725.57595142,
+              "score": 7851.55480945048,
               "strengths": [
-                "eb5333519"
+                "aa91"
               ],
               "gaps": [
-                "92238435"
+                "d470b7aa"
               ],
-              "recommendation": "KvQcsxtaggLEYscOSuBh"
+              "recommendation": "GWQwuUZjqkFTxBxOZpdU"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ -3787725.57595142                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ eb5333519                           \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 92238435                            \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ KvQcsxtaggLEYscOSuBh                        \n",
-            "data_html": "<table><tr><th>score</th><td>-3787725.57595142</td></tr><tr><th>strengths</th><td><ul><li>eb5333519</li></ul></td></tr><tr><th>gaps</th><td><ul><li>92238435</li></ul></td></tr><tr><th>recommendation</th><td>KvQcsxtaggLEYscOSuBh</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                            │ 7851.55480945048                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ aa91                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ d470b7aa                            \n──────────────────────────────────┼─────────────────────────────────────────────\n recommendation                   │ GWQwuUZjqkFTxBxOZpdU                        \n",
+            "data_html": "<table><tr><th>score</th><td>7851.55480945048</td></tr><tr><th>strengths</th><td><ul><li>aa91</li></ul></td></tr><tr><th>gaps</th><td><ul><li>d470b7aa</li></ul></td></tr><tr><th>recommendation</th><td>GWQwuUZjqkFTxBxOZpdU</td></tr></table>",
             "extra": {}
           },
           {
@@ -701,11 +717,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "VQCrV",
+            "digest": "GRq2w",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Professional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv",
+              "source_prompt": "Professional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -715,7 +731,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for wmRjjiKQnNCbAZcjYqJm, QEtjokxMTANxuRQYeMUv\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nProfessional profile card for ZFCrvRJLSFiwLuFEUZmN, jhKjdNxthbkpffVBOhHJ\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -727,12 +743,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "nKhkV",
+            "digest": "fKyUP",
             "data": {
-              "text": "# Candidate Screening Report\n\n## Candidate: wmRjjiKQnNCbAZcjYqJm\nQEtjokxMTANxuRQYeMUv\n\n## Match Score: -3787725.57595142/100\nKvQcsxtaggLEYscOSuBh\n\n## Strengths\nmatch.strengths: ```\n['eb5333519']\n```\n\n## Gaps\nmatch.gaps: ```\n['92238435']\n```"
+              "text": "# Candidate Screening Report\n\n## Candidate: ZFCrvRJLSFiwLuFEUZmN\njhKjdNxthbkpffVBOhHJ\n\n## Match Score: 7851.55480945048/100\nGWQwuUZjqkFTxBxOZpdU\n\n## Strengths\nmatch.strengths: ```\n['aa91']\n```\n\n## Gaps\nmatch.gaps: ```\n['d470b7aa']\n```"
             },
-            "data_text": "                                     Candidate Screening Report                                     \n\nCandidate: wmRjjiKQnNCbAZcjYqJm                                                                     \n\nQEtjokxMTANxuRQYeMUv                                                                                \n\nMatch Score: -3787725.57595142/100                                                                  \n\nKvQcsxtaggLEYscOSuBh                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['eb5333519']                                                                  \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['92238435']                                                                                       \n                                                                                                    \n",
-            "data_html": "# Candidate Screening Report\n\n## Candidate: wmRjjiKQnNCbAZcjYqJm\nQEtjokxMTANxuRQYeMUv\n\n## Match Score: -3787725.57595142/100\nKvQcsxtaggLEYscOSuBh\n\n## Strengths\nmatch.strengths: ```\n[&#x27;eb5333519&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;92238435&#x27;]\n```",
+            "data_text": "                                     Candidate Screening Report                                     \n\nCandidate: ZFCrvRJLSFiwLuFEUZmN                                                                     \n\njhKjdNxthbkpffVBOhHJ                                                                                \n\nMatch Score: 7851.55480945048/100                                                                   \n\nGWQwuUZjqkFTxBxOZpdU                                                                                \n\nStrengths                                                                                           \n\nmatch.strengths: ``` ['aa91']                                                                       \n\n                                                                                                    \n                                                                                                    \n ## Gaps                                                                                            \n match.gaps: ```                                                                                    \n ['d470b7aa']                                                                                       \n                                                                                                    \n",
+            "data_html": "# Candidate Screening Report\n\n## Candidate: ZFCrvRJLSFiwLuFEUZmN\njhKjdNxthbkpffVBOhHJ\n\n## Match Score: 7851.55480945048/100\nGWQwuUZjqkFTxBxOZpdU\n\n## Strengths\nmatch.strengths: ```\n[&#x27;aa91&#x27;]\n```\n\n## Gaps\nmatch.gaps: ```\n[&#x27;d470b7aa&#x27;]\n```",
             "extra": {}
           }
         ]
@@ -742,15 +758,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Candidate Screening Report\n\n## Candidate: wmRjjiKQnNCbAZcjYqJm\nQEtjokxMTANxuRQYeMUv\n\n## Match Score: -3787725.57595142/100\nKvQcsxtaggLEYscOSuBh\n\n## Strengths\nmatch.strengths: ```\n['eb5333519']\n```\n\n## Gaps\nmatch.gaps: ```\n['92238435']\n```"
+        "rendered_text": "# Candidate Screening Report\n\n## Candidate: ZFCrvRJLSFiwLuFEUZmN\njhKjdNxthbkpffVBOhHJ\n\n## Match Score: 7851.55480945048/100\nGWQwuUZjqkFTxBxOZpdU\n\n## Strengths\nmatch.strengths: ```\n['aa91']\n```\n\n## Gaps\nmatch.gaps: ```\n['d470b7aa']\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_0",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_1",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_0",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -758,9 +774,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_1",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_1",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -768,9 +784,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_2",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_2",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -778,9 +794,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_3",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_4",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_3",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -788,9 +804,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_4",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_5",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_4",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -798,9 +814,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_5",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_6",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_5",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -808,9 +824,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_6",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_0",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_7",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:edge_6",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_0",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_7",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -818,9 +834,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_7",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_1",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_0",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_1",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
       "kind": "data",
       "label": "pages",
       "source_stuff_digest": null,
@@ -828,9 +844,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_8",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_1",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
       "kind": "data",
       "label": "profile",
       "source_stuff_digest": null,
@@ -838,9 +854,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_9",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_4",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_2",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_4",
       "kind": "data",
       "label": "profile",
       "source_stuff_digest": null,
@@ -848,9 +864,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_10",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_5",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_3",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_5",
       "kind": "data",
       "label": "profile",
       "source_stuff_digest": null,
@@ -858,9 +874,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_11",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_6",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_4",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_6",
       "kind": "data",
       "label": "profile",
       "source_stuff_digest": null,
@@ -868,9 +884,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_12",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_6",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_5",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_6",
       "kind": "data",
       "label": "search_result",
       "source_stuff_digest": null,
@@ -878,9 +894,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_13",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_2",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_7",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_6",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_2",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_7",
       "kind": "data",
       "label": "profile",
       "source_stuff_digest": null,
@@ -888,9 +904,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_14",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_6",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_7",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_7",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_6",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_7",
       "kind": "data",
       "label": "match",
       "source_stuff_digest": null,
@@ -898,9 +914,9 @@
       "meta": {}
     },
     {
-      "id": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:edge_15",
-      "source": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_3",
-      "target": "69dbf8eb-2efa-41bb-a019-5ce08dc20a8a:node_7",
+      "id": "43c784a9-9375-48bf-9cff-857834eb32d6:asm_edge_8",
+      "source": "43c784a9-9375-48bf-9cff-857834eb32d6:node_3",
+      "target": "43c784a9-9375-48bf-9cff-857834eb32d6:node_7",
       "kind": "data",
       "label": "card_image",
       "source_stuff_digest": null,
@@ -908,7 +924,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "recruitment.cv_screening": {
       "pipe_category": "PipeController",
@@ -933,7 +951,7 @@
           "code": "Report",
           "domain_code": "recruitment",
           "description": "Formatted screening report",
-          "structure_class_name": "Report",
+          "structure_class_name": "recruitment__Report",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1032,7 +1050,7 @@
           "code": "CandidateProfile",
           "domain_code": "recruitment",
           "description": "Structured profile of a job candidate",
-          "structure_class_name": "CandidateProfile",
+          "structure_class_name": "recruitment__CandidateProfile",
           "refines": null
         },
         "multiplicity": null
@@ -1070,7 +1088,7 @@
             "code": "CandidateProfile",
             "domain_code": "recruitment",
             "description": "Structured profile of a job candidate",
-            "structure_class_name": "CandidateProfile",
+            "structure_class_name": "recruitment__CandidateProfile",
             "refines": null
           },
           "multiplicity": null
@@ -1115,7 +1133,7 @@
             "code": "CandidateProfile",
             "domain_code": "recruitment",
             "description": "Structured profile of a job candidate",
-            "structure_class_name": "CandidateProfile",
+            "structure_class_name": "recruitment__CandidateProfile",
             "refines": null
           },
           "multiplicity": null
@@ -1158,7 +1176,7 @@
             "code": "CandidateProfile",
             "domain_code": "recruitment",
             "description": "Structured profile of a job candidate",
-            "structure_class_name": "CandidateProfile",
+            "structure_class_name": "recruitment__CandidateProfile",
             "refines": null
           },
           "multiplicity": null
@@ -1204,7 +1222,7 @@
             "code": "CandidateProfile",
             "domain_code": "recruitment",
             "description": "Structured profile of a job candidate",
-            "structure_class_name": "CandidateProfile",
+            "structure_class_name": "recruitment__CandidateProfile",
             "refines": null
           },
           "multiplicity": null
@@ -1225,7 +1243,7 @@
           "code": "MatchScore",
           "domain_code": "recruitment",
           "description": "Score for how well a candidate matches a role",
-          "structure_class_name": "MatchScore",
+          "structure_class_name": "recruitment__MatchScore",
           "refines": null
         },
         "multiplicity": null
@@ -1263,7 +1281,7 @@
             "code": "CandidateProfile",
             "domain_code": "recruitment",
             "description": "Structured profile of a job candidate",
-            "structure_class_name": "CandidateProfile",
+            "structure_class_name": "recruitment__CandidateProfile",
             "refines": null
           },
           "multiplicity": null
@@ -1273,7 +1291,7 @@
             "code": "MatchScore",
             "domain_code": "recruitment",
             "description": "Score for how well a candidate matches a role",
-            "structure_class_name": "MatchScore",
+            "structure_class_name": "recruitment__MatchScore",
             "refines": null
           },
           "multiplicity": null
@@ -1294,7 +1312,7 @@
           "code": "Report",
           "domain_code": "recruitment",
           "description": "Formatted screening report",
-          "structure_class_name": "Report",
+          "structure_class_name": "recruitment__Report",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1311,7 +1329,7 @@
       "code": "Report",
       "domain_code": "recruitment",
       "description": "Formatted screening report",
-      "structure_class_name": "Report",
+      "structure_class_name": "recruitment__Report",
       "refines": "native.Text",
       "json_schema": {
         "description": "Formatted screening report",
@@ -1324,7 +1342,7 @@
         "required": [
           "text"
         ],
-        "title": "Report",
+        "title": "recruitment__Report",
         "type": "object"
       }
     },
@@ -1634,7 +1652,7 @@
       "code": "CandidateProfile",
       "domain_code": "recruitment",
       "description": "Structured profile of a job candidate",
-      "structure_class_name": "CandidateProfile",
+      "structure_class_name": "recruitment__CandidateProfile",
       "refines": null,
       "json_schema": {
         "description": "Structured profile of a job candidate",
@@ -1681,7 +1699,7 @@
           "name",
           "summary"
         ],
-        "title": "CandidateProfile",
+        "title": "recruitment__CandidateProfile",
         "type": "object"
       }
     },
@@ -1929,7 +1947,7 @@
       "code": "MatchScore",
       "domain_code": "recruitment",
       "description": "Score for how well a candidate matches a role",
-      "structure_class_name": "MatchScore",
+      "structure_class_name": "recruitment__MatchScore",
       "refines": null,
       "json_schema": {
         "description": "Score for how well a candidate matches a role",
@@ -1977,7 +1995,7 @@
           "score",
           "recommendation"
         ],
-        "title": "MatchScore",
+        "title": "recruitment__MatchScore",
         "type": "object"
       }
     }

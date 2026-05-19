@@ -81,8 +81,8 @@ Text safety: score=$text_score.score, safe=$text_score.safe
 Image safety: score=$image_score.score, safe=$image_score.safe
 
 Flagged categories:
-Text: @text_score.flagged_categories
-Image: @image_score.flagged_categories
+Text: $text_score.flagged_categories
+Image: $image_score.flagged_categories
 """
 
 [pipe.route_action]

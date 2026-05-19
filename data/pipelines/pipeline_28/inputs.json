@@ -1,0 +1,26 @@
+{
+  "cvs": {
+    "concept": "Document",
+    "content": [
+      {
+        "url": "inputs/Bobby-Jenkins-CV.pdf",
+        "mime_type": "application/pdf"
+      },
+      {
+        "url": "inputs/CV-Sarah-Vaugier.pdf",
+        "mime_type": "application/pdf"
+      },
+      {
+        "url": "inputs/John-Doe-CV.pdf",
+        "mime_type": "application/pdf"
+      }
+    ]
+  },
+  "job_offer_pdf": {
+    "concept": "Document",
+    "content": {
+      "url": "inputs/job_offer.pdf",
+      "mime_type": "application/pdf"
+    }
+  }
+}

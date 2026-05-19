@@ -47,6 +47,8 @@
   "scripts": {
     "prepare": "npm run build",
     "build": "tsup",
+    "fixtures": "node scripts/generate-fixtures.mjs",
+    "fixtures:live": "node scripts/generate-fixtures.mjs --live",
     "postbuild": "node scripts/build-standalone.mjs",
     "build:standalone": "node scripts/build-standalone.mjs",
     "lint": "eslint src/",

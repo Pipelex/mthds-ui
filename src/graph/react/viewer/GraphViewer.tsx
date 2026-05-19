@@ -17,10 +17,11 @@ import type {
   DataflowAnalysis,
   FoldMode,
   FoldToggleOptions,
+  GraphTheme,
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -32,10 +33,11 @@ import { ConceptDetailPanel } from "../detail/ConceptDetailPanel";
 import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
-import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
+import { DEFAULT_GRAPH_CONFIG, getPaletteForTheme } from "@graph/graphConfig";
 import { hydrateLabels } from "./renderLabel";
 import { GraphToolbar } from "./GraphToolbar";
 import { controllerNodeTypes } from "../nodes/controller/ControllerGroupNode";
@@ -64,6 +66,27 @@ export interface GraphViewerProps {
   initialFoldMode?: FoldMode;
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
+  /**
+   * Color theme. Reactive: passing it as a prop drives the active theme, and
+   * clearing it back to `undefined` hands control back to `config.theme` (or
+   * the default). Users can also toggle via the built-in toolbar button
+   * (unless `showThemeToggle` is `false`).
+   *
+   * Defaults to `config.theme` or `"dark"`.
+   */
+  theme?: GraphTheme;
+  /**
+   * Whether to render the theme toggle button in the built-in toolbar.
+   * Defaults to `true`. Set to `false` to hide it (useful when the host app
+   * fully controls `theme` from the outside).
+   */
+  showThemeToggle?: boolean;
+  /**
+   * Called whenever the active theme changes — both from the built-in toggle
+   * and from external prop / config updates. Use this to keep page chrome
+   * outside the GraphViewer container in sync with the graph's theme.
+   */
+  onThemeChange?: (theme: GraphTheme) => void;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
@@ -147,6 +170,27 @@ function seedFoldedControllers(mode: FoldMode, controllerIds: ReadonlySet<string
   return new Set();
 }
 
+/**
+ * Resolve the externally-driven theme from `(themeProp, config.theme, default)`.
+ * Pure function so the reactivity contract is unit-testable without React.
+ *
+ * Contract — must hold for every transition (regression-tested in
+ * `__tests__/themeResolution.test.ts`):
+ * - `themeProp` wins when set
+ * - falls back to `config.theme` when `themeProp` is undefined (so a host can
+ *   hand theme control back to config after passing it as a prop)
+ * - falls back to the library default when neither is set
+ * - a `themeProp` transition controlled→undefined→same-prior-value still
+ *   round-trips through the config fallback rather than silently re-using
+ *   the previous prop value
+ */
+export function resolveExternalTheme(
+  themeProp: GraphTheme | undefined,
+  configTheme: GraphTheme | undefined,
+): GraphTheme {
+  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME.DARK;
+}
+
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   return nodes.map((n) => ({
     ...n,
@@ -194,12 +238,15 @@ interface DetailSelection {
 
 export function GraphViewer(props: GraphViewerProps) {
   const {
-    graphspec,
+    graphspec: graphspecProp,
     config = DEFAULT_GRAPH_CONFIG,
     initialDirection,
     initialShowControllers,
     initialFoldMode,
     hideToolbar = false,
+    theme: themeProp,
+    showThemeToggle = true,
+    onThemeChange,
     onNavigateToPipe,
     onStuffNodeClick,
     onReactFlowInit,
@@ -212,10 +259,44 @@ export function GraphViewer(props: GraphViewerProps) {
     onOpenExternally,
   } = props;
 
+  // Single boundary validator for the React render path — mirrors the standalone
+  // adapter (src/standalone/adapter.ts). Memoized on prop identity so it runs
+  // once per spec; validateGraphSpec normalizes io in place and is idempotent.
+  const graphspec = React.useMemo(
+    () => (graphspecProp === null ? null : validateGraphSpec(graphspecProp)),
+    [graphspecProp],
+  );
+
   const [direction, setDirection] = React.useState<GraphDirection>(
     () =>
       initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
+
+  // Resolve the externally-driven theme on every render so prop AND config
+  // changes both propagate (regression for PR-41 review comments: prop
+  // clearing must fall back through config, and config.theme changes must
+  // not stay stale). `resolveExternalTheme` is exported + unit-tested.
+  const externalTheme = resolveExternalTheme(themeProp, config.theme);
+  const [theme, setTheme] = React.useState<GraphTheme>(externalTheme);
+  const prevExternalThemeRef = React.useRef<GraphTheme>(externalTheme);
+  React.useEffect(() => {
+    if (externalTheme !== prevExternalThemeRef.current) {
+      prevExternalThemeRef.current = externalTheme;
+      setTheme(externalTheme);
+    }
+  }, [externalTheme]);
+  // Notify the host whenever the resolved theme changes. Covers both
+  // internal toggle clicks and external prop/config updates from one place,
+  // and stays correct even if the host re-renders for unrelated reasons.
+  const onThemeChangeRef = React.useRef(onThemeChange);
+  onThemeChangeRef.current = onThemeChange;
+  const prevReportedThemeRef = React.useRef<GraphTheme>(theme);
+  React.useEffect(() => {
+    if (theme !== prevReportedThemeRef.current) {
+      prevReportedThemeRef.current = theme;
+      onThemeChangeRef.current?.(theme);
+    }
+  }, [theme]);
 
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
@@ -253,12 +334,14 @@ export function GraphViewer(props: GraphViewerProps) {
     setConceptOverride(null);
   }, [graphspec]);
 
-  // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount)
+  // Apply palette CSS vars to the container (scoped, auto-cleaned on unmount).
+  // Theme-derived palette is the base; explicit `config.paletteColors` wins per-key.
   React.useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const palette = config.paletteColors ?? DEFAULT_GRAPH_CONFIG.paletteColors;
-    if (!palette) return;
+    const themePalette = getPaletteForTheme(theme);
+    const overrides = config.paletteColors;
+    const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
 
     for (const [cssVar, value] of Object.entries(palette)) {
       el.style.setProperty(cssVar, value);
@@ -269,7 +352,7 @@ export function GraphViewer(props: GraphViewerProps) {
         el.style.removeProperty(cssVar);
       }
     };
-  }, [config.paletteColors]);
+  }, [config.paletteColors, theme]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
@@ -808,7 +891,10 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [showControllers, allControllerIds, foldedControllers]);
 
   return (
-    <div ref={containerRef} className="react-flow-container">
+    <div
+      ref={containerRef}
+      className={`react-flow-container react-flow-container--theme-${theme}`}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -878,6 +964,8 @@ export function GraphViewer(props: GraphViewerProps) {
           onExpandAll={foldAllProps.onExpandAll}
           foldAllDisabled={foldAllProps.foldAllDisabled}
           expandAllDisabled={foldAllProps.expandAllDisabled}
+          theme={showThemeToggle ? theme : undefined}
+          onThemeChange={showThemeToggle ? setTheme : undefined}
           rightOffset={detailOpen ? panelWidth : 0}
         />
       )}
