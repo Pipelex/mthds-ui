@@ -66,8 +66,12 @@ export interface GraphViewerProps {
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
   /**
-   * Initial color theme. Users can toggle this via the built-in toolbar's theme
-   * button (unless `showThemeToggle` is `false`). Defaults to `"dark"`.
+   * Color theme. Reactive: passing it as a prop drives the active theme, and
+   * clearing it back to `undefined` hands control back to `config.theme` (or
+   * the default). Users can also toggle via the built-in toolbar button
+   * (unless `showThemeToggle` is `false`).
+   *
+   * Defaults to `config.theme` or `"dark"`.
    */
   theme?: GraphTheme;
   /**
@@ -76,6 +80,12 @@ export interface GraphViewerProps {
    * fully controls `theme` from the outside).
    */
   showThemeToggle?: boolean;
+  /**
+   * Called whenever the active theme changes — both from the built-in toggle
+   * and from external prop / config updates. Use this to keep page chrome
+   * outside the GraphViewer container in sync with the graph's theme.
+   */
+  onThemeChange?: (theme: GraphTheme) => void;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
@@ -159,6 +169,27 @@ function seedFoldedControllers(mode: FoldMode, controllerIds: ReadonlySet<string
   return new Set();
 }
 
+/**
+ * Resolve the externally-driven theme from `(themeProp, config.theme, default)`.
+ * Pure function so the reactivity contract is unit-testable without React.
+ *
+ * Contract — must hold for every transition (regression-tested in
+ * `__tests__/themeResolution.test.ts`):
+ * - `themeProp` wins when set
+ * - falls back to `config.theme` when `themeProp` is undefined (so a host can
+ *   hand theme control back to config after passing it as a prop)
+ * - falls back to the library default when neither is set
+ * - a `themeProp` transition controlled→undefined→same-prior-value still
+ *   round-trips through the config fallback rather than silently re-using
+ *   the previous prop value
+ */
+export function resolveExternalTheme(
+  themeProp: GraphTheme | undefined,
+  configTheme: GraphTheme | undefined,
+): GraphTheme {
+  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME.DARK;
+}
+
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   return nodes.map((n) => ({
     ...n,
@@ -214,6 +245,7 @@ export function GraphViewer(props: GraphViewerProps) {
     hideToolbar = false,
     theme: themeProp,
     showThemeToggle = true,
+    onThemeChange,
     onNavigateToPipe,
     onStuffNodeClick,
     onReactFlowInit,
@@ -231,17 +263,31 @@ export function GraphViewer(props: GraphViewerProps) {
       initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
 
-  const [theme, setTheme] = React.useState<GraphTheme>(
-    () => themeProp ?? config.theme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME.DARK,
-  );
-  // Track the most recent `theme` prop so an external update overrides internal state.
-  const prevThemePropRef = React.useRef<GraphTheme | undefined>(themeProp);
+  // Resolve the externally-driven theme on every render so prop AND config
+  // changes both propagate (regression for PR-41 review comments: prop
+  // clearing must fall back through config, and config.theme changes must
+  // not stay stale). `resolveExternalTheme` is exported + unit-tested.
+  const externalTheme = resolveExternalTheme(themeProp, config.theme);
+  const [theme, setTheme] = React.useState<GraphTheme>(externalTheme);
+  const prevExternalThemeRef = React.useRef<GraphTheme>(externalTheme);
   React.useEffect(() => {
-    if (themeProp !== undefined && themeProp !== prevThemePropRef.current) {
-      prevThemePropRef.current = themeProp;
-      setTheme(themeProp);
+    if (externalTheme !== prevExternalThemeRef.current) {
+      prevExternalThemeRef.current = externalTheme;
+      setTheme(externalTheme);
     }
-  }, [themeProp]);
+  }, [externalTheme]);
+  // Notify the host whenever the resolved theme changes. Covers both
+  // internal toggle clicks and external prop/config updates from one place,
+  // and stays correct even if the host re-renders for unrelated reasons.
+  const onThemeChangeRef = React.useRef(onThemeChange);
+  onThemeChangeRef.current = onThemeChange;
+  const prevReportedThemeRef = React.useRef<GraphTheme>(theme);
+  React.useEffect(() => {
+    if (theme !== prevReportedThemeRef.current) {
+      prevReportedThemeRef.current = theme;
+      onThemeChangeRef.current?.(theme);
+    }
+  }, [theme]);
 
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;

@@ -6,7 +6,7 @@
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
-import type { GraphSpec } from "@graph/types";
+import type { GraphSpec, GraphTheme } from "@graph/types";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
@@ -28,10 +28,33 @@ function readJsonScript(id: string): unknown {
   }
 }
 
+/**
+ * Apply the theme palette to `document.body` so page chrome rendered outside
+ * the GraphViewer container (e.g. the standalone HTML wrapper) themes with
+ * the graph. Sparse `paletteColors` overrides win per-key.
+ *
+ * Called both at initial mount AND on every theme change emitted by
+ * GraphViewer (via `onThemeChange`) — otherwise toggling the toolbar's theme
+ * button would only re-skin the chart container while leaving body chrome
+ * stuck on the initial palette.
+ */
+function applyBodyPalette(theme: GraphTheme, overrides?: Record<string, string>): void {
+  const themePalette = getPaletteForTheme(theme);
+  const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
+  for (const [cssVar, value] of Object.entries(palette)) {
+    document.body.style.setProperty(cssVar, value);
+  }
+}
+
 // ─── React app ──────────────────────────────────────────────────────────
 
 function App() {
-  return React.createElement(GraphViewer, viewerProps);
+  return React.createElement(GraphViewer, {
+    ...viewerProps,
+    onThemeChange: (nextTheme) => {
+      applyBodyPalette(nextTheme, viewerProps.config.paletteColors);
+    },
+  });
 }
 
 // ─── Mount + delayed data load (mirrors VS Code postMessage pattern) ────
@@ -55,15 +78,7 @@ function mount() {
     const graphspec = readJsonScript("pipelex-graphspec") as GraphSpec | null;
     viewerProps = buildViewerProps(rawConfig, graphspec);
 
-    // Apply palette colors at the body scope (so anything above the
-    // GraphViewer container — page chrome — picks up the theme too).
-    // Sparse `paletteColors` overrides win per-key.
-    const themePalette = getPaletteForTheme(viewerProps.theme);
-    const overrides = viewerProps.config.paletteColors;
-    const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
-    for (const [cssVar, value] of Object.entries(palette)) {
-      document.body.style.setProperty(cssVar, value);
-    }
+    applyBodyPalette(viewerProps.theme, viewerProps.config.paletteColors);
 
     // Re-render with data (triggers GraphViewer's graphspec useEffect)
     renderApp?.();

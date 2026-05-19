@@ -1,19 +1,31 @@
 /* ─── StuffViewer component styles ────────────────────────────────────────── */
-/* Uses CSS custom properties for consumer theming. Defaults match graph-core.css. */
+/* StuffViewer is also exported standalone (used outside GraphViewer — e.g.
+ * docs pages, embedded previews). The theme tokens are normally applied to
+ * the GraphViewer container, but when this component is rendered on its own
+ * those tokens may not be set. The fallbacks below match the dark palette
+ * from `graphConfig.ts` (DARK_PALETTE_COLORS) so the component always
+ * renders with valid colors and fonts. */
 
 .stuff-viewer {
-  --sv-bg: var(--surface-page);
-  --sv-surface: var(--surface-panel);
-  --sv-surface-hover: var(--surface-elevated);
-  --sv-border: var(--border-default);
-  --sv-text: var(--text-default);
-  --sv-text-muted: var(--text-muted);
-  --sv-accent: var(--color-accent);
-  --sv-success: var(--color-success);
-  --sv-success-bg: var(--color-success-bg);
+  --sv-bg: var(--surface-page, #0a0a0a);
+  --sv-surface: var(--surface-panel, #111118);
+  --sv-surface-hover: var(--surface-elevated, rgba(255, 255, 255, 0.06));
+  --sv-border: var(--border-default, rgba(255, 255, 255, 0.1));
+  --sv-text: var(--text-default, #e2e8f0);
+  --sv-text-muted: var(--text-muted, #94a3b8);
+  --sv-accent: var(--color-accent, #8be9fd);
+  --sv-success: var(--color-success, #50fa7b);
+  --sv-success-bg: var(--color-success-bg, rgba(80, 250, 123, 0.15));
   --sv-radius: 4px;
-  --sv-font-sans: var(--font-sans);
-  --sv-font-mono: var(--font-mono);
+  --sv-font-sans: var(
+    --font-sans,
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif
+  );
+  --sv-font-mono: var(--font-mono, "JetBrains Mono", "Monaco", "Menlo", monospace);
 
   font-family: var(--sv-font-sans);
   color: var(--sv-text);
@@ -83,7 +95,7 @@
 
 .stuff-viewer-tab--active {
   background: var(--sv-accent);
-  color: var(--text-on-accent);
+  color: var(--text-on-accent, #0e0e0e);
 }
 
 /* ─── Action buttons ─────────────────────────────────────────────────────── */
