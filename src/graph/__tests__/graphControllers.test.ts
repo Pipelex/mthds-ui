@@ -23,13 +23,34 @@ describe("buildControllerNodes", () => {
   it("creates controller group nodes wrapping children", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrl", pipe_code: "my_ctrl", pipe_type: "PipeSequence" },
-        { id: "op1", pipe_type: "PipeFunc", pipe_code: "op1" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_code: "my_ctrl",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+          pipe_code: "op1",
+        },
       ],
       edges: [
-        { source: "root", target: "ctrl", kind: "contains" },
-        { source: "ctrl", target: "op1", kind: "contains" },
+        { id: "e0", source: "root", target: "ctrl", kind: "contains" },
+        { id: "e1", source: "ctrl", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -47,10 +68,24 @@ describe("buildControllerNodes", () => {
   it("includes root controller", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
-      edges: [{ source: "root", target: "op1", kind: "contains" }],
+      edges: [{ id: "e2", source: "root", target: "op1", kind: "contains" }],
     };
     const analysis = buildDataflowAnalysis(gs)!;
     const layoutedNodes = [makeNode("op1")];
@@ -64,15 +99,43 @@ describe("buildControllerNodes", () => {
   it("handles nested controllers", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "outer", pipe_type: "PipeSequence", pipe_code: "outer_ctrl" },
-        { id: "inner", pipe_type: "PipeSequence", pipe_code: "inner_ctrl" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "outer",
+          pipe_type: "PipeSequence",
+          pipe_code: "outer_ctrl",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "inner",
+          pipe_type: "PipeSequence",
+          pipe_code: "inner_ctrl",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "outer", kind: "contains" },
-        { source: "outer", target: "inner", kind: "contains" },
-        { source: "inner", target: "op1", kind: "contains" },
+        { id: "e3", source: "root", target: "outer", kind: "contains" },
+        { id: "e4", source: "outer", target: "inner", kind: "contains" },
+        { id: "e5", source: "inner", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -90,13 +153,34 @@ describe("buildControllerNodes", () => {
   it("names batch controllers without implicit distinction", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrl", pipe_code: "my_pipe_batch", pipe_type: "PipeBatch" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_code: "my_pipe_batch",
+          pipe_type: "PipeBatch",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "ctrl", kind: "contains" },
-        { source: "ctrl", target: "op1", kind: "contains" },
+        { id: "e6", source: "root", target: "ctrl", kind: "contains" },
+        { id: "e7", source: "ctrl", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -114,13 +198,34 @@ describe("buildControllerNodes", () => {
   it("sets parentId on children after building", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrl", pipe_type: "PipeSequence" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          pipe_code: "ctrl",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_type: "PipeSequence",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "ctrl", kind: "contains" },
-        { source: "ctrl", target: "op1", kind: "contains" },
+        { id: "e8", source: "root", target: "ctrl", kind: "contains" },
+        { id: "e9", source: "ctrl", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -157,13 +262,34 @@ describe("applyControllers", () => {
   it("prepends controller nodes before children", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrl", pipe_type: "PipeSequence", pipe_code: "ctrl" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_type: "PipeSequence",
+          pipe_code: "ctrl",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "ctrl", kind: "contains" },
-        { source: "ctrl", target: "op1", kind: "contains" },
+        { id: "e10", source: "root", target: "ctrl", kind: "contains" },
+        { id: "e11", source: "ctrl", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -179,15 +305,43 @@ describe("applyControllers", () => {
   it("sorts parent nodes before children for ReactFlow", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "outer", pipe_type: "PipeSequence", pipe_code: "outer" },
-        { id: "inner", pipe_type: "PipeSequence", pipe_code: "inner" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "outer",
+          pipe_type: "PipeSequence",
+          pipe_code: "outer",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "inner",
+          pipe_type: "PipeSequence",
+          pipe_code: "inner",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "outer", kind: "contains" },
-        { source: "outer", target: "inner", kind: "contains" },
-        { source: "inner", target: "op1", kind: "contains" },
+        { id: "e12", source: "root", target: "outer", kind: "contains" },
+        { id: "e13", source: "outer", target: "inner", kind: "contains" },
+        { id: "e14", source: "inner", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -218,25 +372,44 @@ function makeControllerSpec(
   childCount: number,
 ): { gs: GraphSpec; layoutedNodes: GraphNode[]; layoutedEdges: GraphEdge[] } {
   const nodes: GraphSpec["nodes"] = [
-    { id: "root", pipe_type: "PipeSequence" },
-    { id: "ctrl", pipe_code: "ctrl", pipe_type: pipeType },
+    {
+      pipe_code: "root",
+      kind: "controller",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      id: "root",
+      pipe_type: "PipeSequence",
+    },
+    {
+      kind: "operator",
+      status: "succeeded",
+      io: { inputs: [], outputs: [] },
+      id: "ctrl",
+      pipe_code: "ctrl",
+      pipe_type: pipeType,
+    },
   ];
-  const edges: GraphSpec["edges"] = [{ source: "root", target: "ctrl", kind: "contains" }];
+  const edges: GraphSpec["edges"] = [
+    { id: "e15", source: "root", target: "ctrl", kind: "contains" },
+  ];
   const layoutedNodes: GraphNode[] = [];
   const layoutedEdges: GraphEdge[] = [];
 
   for (let i = 0; i < childCount; i++) {
     const opId = `op${i}`;
     nodes.push({
+      kind: "operator",
+      status: "succeeded",
       id: opId,
       pipe_code: opId,
       pipe_type: "PipeFunc",
       io: {
+        inputs: [],
         outputs: [{ digest: `d_out_${i}`, name: `out_${i}` }],
         ...(i > 0 ? { inputs: [{ digest: `d_out_${i - 1}`, name: `in_${i}` }] } : {}),
       },
     });
-    edges.push({ source: "ctrl", target: opId, kind: "contains" });
+    edges.push({ id: `e16_${i}`, source: "ctrl", target: opId, kind: "contains" });
     layoutedNodes.push(
       makeNode(opId, {
         type: "pipeCard",
@@ -390,10 +563,24 @@ describe("buildControllerNodes — bounding box and padding", () => {
     // Single controller with one child — no parent controller, so no position conversion
     const gs: GraphSpec = {
       nodes: [
-        { id: "ctrl", pipe_type: "PipeSequence", pipe_code: "ctrl" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_type: "PipeSequence",
+          pipe_code: "ctrl",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
-      edges: [{ source: "ctrl", target: "op1", kind: "contains" }],
+      edges: [{ id: "e17", source: "ctrl", target: "op1", kind: "contains" }],
     };
     const analysis = buildDataflowAnalysis(gs)!;
     const layoutedNodes = [
@@ -420,15 +607,43 @@ describe("buildControllerNodes — bounding box and padding", () => {
   it("padding scales +15% per nesting level", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "outer", pipe_type: "PipeSequence", pipe_code: "outer" },
-        { id: "inner", pipe_type: "PipeSequence", pipe_code: "inner" },
-        { id: "op1", pipe_type: "PipeFunc" },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "outer",
+          pipe_type: "PipeSequence",
+          pipe_code: "outer",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "inner",
+          pipe_type: "PipeSequence",
+          pipe_code: "inner",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "op1",
+          pipe_type: "PipeFunc",
+        },
       ],
       edges: [
-        { source: "root", target: "outer", kind: "contains" },
-        { source: "outer", target: "inner", kind: "contains" },
-        { source: "inner", target: "op1", kind: "contains" },
+        { id: "e18", source: "root", target: "outer", kind: "contains" },
+        { id: "e19", source: "outer", target: "inner", kind: "contains" },
+        { id: "e20", source: "inner", target: "op1", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;
@@ -454,15 +669,43 @@ describe("buildControllerNodes — bounding box and padding", () => {
   it("includes stuff children in bounding box", () => {
     const gs: GraphSpec = {
       nodes: [
-        { id: "root", pipe_type: "PipeSequence" },
-        { id: "ctrl", pipe_type: "PipeSequence", pipe_code: "ctrl" },
-        { id: "op1", pipe_type: "PipeFunc", io: { outputs: [{ digest: "d1", name: "out" }] } },
-        { id: "op2", pipe_type: "PipeFunc", io: { inputs: [{ digest: "d1", name: "in" }] } },
+        {
+          pipe_code: "root",
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "root",
+          pipe_type: "PipeSequence",
+        },
+        {
+          kind: "controller",
+          status: "succeeded",
+          io: { inputs: [], outputs: [] },
+          id: "ctrl",
+          pipe_type: "PipeSequence",
+          pipe_code: "ctrl",
+        },
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "succeeded",
+          id: "op1",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "out" }] },
+        },
+        {
+          pipe_code: "op2",
+          kind: "operator",
+          status: "succeeded",
+          id: "op2",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "d1", name: "in" }] },
+        },
       ],
       edges: [
-        { source: "root", target: "ctrl", kind: "contains" },
-        { source: "ctrl", target: "op1", kind: "contains" },
-        { source: "ctrl", target: "op2", kind: "contains" },
+        { id: "e21", source: "root", target: "ctrl", kind: "contains" },
+        { id: "e22", source: "ctrl", target: "op1", kind: "contains" },
+        { id: "e23", source: "ctrl", target: "op2", kind: "contains" },
       ],
     };
     const analysis = buildDataflowAnalysis(gs)!;

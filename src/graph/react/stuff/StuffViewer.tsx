@@ -162,12 +162,18 @@ export function StuffViewer({
   const isPdf = effectiveMime === "application/pdf";
   const isImage = effectiveMime?.startsWith("image/") ?? false;
   const htmlTabLabel = getHtmlTabLabel(effectiveMime ?? stuff.contentType);
-  const jsonString = React.useMemo(() => {
-    if (stuff.data == null) return null;
+  // Serialization can fail (circular refs, BigInt). On failure we surface a
+  // typed error rather than returning a fake "[Unable to serialize]" string
+  // that would render as if it were the data itself.
+  const { jsonString, jsonError } = React.useMemo<{
+    jsonString: string | null;
+    jsonError: string | null;
+  }>(() => {
+    if (stuff.data == null) return { jsonString: null, jsonError: null };
     try {
-      return JSON.stringify(stuff.data, null, 2);
-    } catch {
-      return "[Unable to serialize data]";
+      return { jsonString: JSON.stringify(stuff.data, null, 2), jsonError: null };
+    } catch (err) {
+      return { jsonString: null, jsonError: err instanceof Error ? err.message : String(err) };
     }
   }, [stuff.data]);
 
@@ -193,6 +199,17 @@ export function StuffViewer({
           {displayName && <div className="stuff-viewer-local-file-name">{displayName}</div>}
           <div className="stuff-viewer-local-file-hint">{mediaLabel} — no preview available</div>
         </div>
+      </div>
+    );
+  }
+
+  /** Distinct error block for an unserializable `stuff.data` — rendered as an
+   *  explicit failure, never as if it were content. */
+  function renderJsonError(detail: string) {
+    return (
+      <div className="stuff-viewer-error" role="alert">
+        <div className="stuff-viewer-error-title">Unable to serialize data</div>
+        <div className="stuff-viewer-error-detail">{detail}</div>
       </div>
     );
   }
@@ -224,9 +241,7 @@ export function StuffViewer({
             >
               <div className="stuff-viewer-local-file-icon">{ICON_LOCAL_FILE}</div>
               <div className="stuff-viewer-local-file-info">
-                {displayName && (
-                  <div className="stuff-viewer-local-file-name">{displayName}</div>
-                )}
+                {displayName && <div className="stuff-viewer-local-file-name">{displayName}</div>}
                 <div className="stuff-viewer-local-file-hint">Click to open PDF externally</div>
               </div>
             </button>
@@ -240,7 +255,7 @@ export function StuffViewer({
         if (inlineUrl) {
           return (
             <div className="stuff-viewer-image">
-              <img src={inlineUrl} alt={stuff.name || "Image content"} />
+              <img src={inlineUrl} alt={stuff.name ?? "(unnamed stuff)"} />
             </div>
           );
         }
@@ -267,6 +282,7 @@ export function StuffViewer({
         );
       }
 
+      if (jsonError) return renderJsonError(jsonError);
       return <div className="stuff-viewer-placeholder">No content available</div>;
     }
 
@@ -279,6 +295,7 @@ export function StuffViewer({
           />
         );
       }
+      if (jsonError) return renderJsonError(jsonError);
       return <div className="stuff-viewer-placeholder">No JSON data available</div>;
     }
 
@@ -300,6 +317,7 @@ export function StuffViewer({
         />
       );
     }
+    if (jsonError) return renderJsonError(jsonError);
     return <div className="stuff-viewer-placeholder">No text data available</div>;
   }
 
@@ -377,7 +395,7 @@ export function StuffViewer({
   return (
     <div className={rootClass}>
       <div className="stuff-viewer-header">
-        <h3 className="stuff-viewer-title">{stuff.name || "Data"}</h3>
+        <h3 className="stuff-viewer-title">{stuff.name ?? "(unnamed stuff)"}</h3>
         {stuff.concept && <p className="stuff-viewer-subtitle">{stuff.concept}</p>}
       </div>
 

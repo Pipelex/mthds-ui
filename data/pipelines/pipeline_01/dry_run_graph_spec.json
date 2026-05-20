@@ -1,6 +1,6 @@
 {
-  "graph_id": "c7ee9f06-0c4d-4fe7-b363-0c8bf6cf1e2c",
-  "created_at": "2026-04-06T10:15:03.039791Z",
+  "graph_id": "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee",
+  "created_at": "2026-05-15T12:39:00.347267Z",
   "pipeline_ref": {
     "domain": "text_processing",
     "main_pipe": "summarize",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "c7ee9f06-0c4d-4fe7-b363-0c8bf6cf1e2c:node_0",
+      "id": "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee:node_0",
       "kind": "operator",
       "pipe_code": "summarize",
       "pipe_type": "PipeLLM",
+      "description": "Summarize input text",
+      "domain_code": "text_processing",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:03.045386Z",
-        "ended_at": "2026-04-06T10:15:03.054454Z",
-        "duration": 0.009068
+        "started_at": "2026-05-15T12:39:00.347267Z",
+        "ended_at": "2026-05-15T12:39:00.357668Z",
+        "duration": 0.010401
       },
       "io": {
         "inputs": [
@@ -26,12 +28,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dyAZV",
+            "digest": "Z9PB2",
             "data": {
-              "text": "IjPBLRLbyIXWJAyaBizm"
+              "text": "hDmpZxGDrpbvmWOMHFlh"
             },
-            "data_text": "IjPBLRLbyIXWJAyaBizm                                                                                \n",
-            "data_html": "IjPBLRLbyIXWJAyaBizm",
+            "data_text": "hDmpZxGDrpbvmWOMHFlh                                                                                \n",
+            "data_html": "hDmpZxGDrpbvmWOMHFlh",
             "extra": {}
           }
         ],
@@ -42,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "38zwA",
+            "digest": "R3tU5",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nIjPBLRLbyIXWJAyaBizm\n</text>\n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nIjPBLRLbyIXWJAyaBizm\n&lt;/text&gt;\n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nhDmpZxGDrpbvmWOMHFlh\n&lt;/text&gt;\n    ",
             "extra": {}
           }
         ]
@@ -56,17 +58,19 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nIjPBLRLbyIXWJAyaBizm\n</text>",
+        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "text_processing.summarize": {
       "pipe_category": "PipeOperator",
@@ -91,7 +95,7 @@
           "code": "Summary",
           "domain_code": "text_processing",
           "description": "A text summary of content",
-          "structure_class_name": "Summary",
+          "structure_class_name": "text_processing__Summary",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -123,7 +127,7 @@
       "code": "Summary",
       "domain_code": "text_processing",
       "description": "A text summary of content",
-      "structure_class_name": "Summary",
+      "structure_class_name": "text_processing__Summary",
       "refines": "native.Text",
       "json_schema": {
         "description": "A text summary of content",
@@ -136,7 +140,7 @@
         "required": [
           "text"
         ],
-        "title": "Summary",
+        "title": "text_processing__Summary",
         "type": "object"
       }
     },

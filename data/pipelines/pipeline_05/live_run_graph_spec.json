@@ -1,6 +1,6 @@
 {
-  "graph_id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3",
-  "created_at": "2026-04-06T10:19:15.520038Z",
+  "graph_id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2",
+  "created_at": "2026-05-15T19:07:44.865884Z",
   "pipeline_ref": {
     "domain": "text_analysis",
     "main_pipe": "dual_analysis_pipeline",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_0",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_0",
       "kind": "controller",
       "pipe_code": "dual_analysis_pipeline",
       "pipe_type": "PipeSequence",
+      "description": "Analyze text for sentiment and keywords then merge",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:19:15.525125Z",
-        "ended_at": "2026-04-06T10:19:21.837113Z",
-        "duration": 6.311988
+        "started_at": "2026-05-15T19:07:44.865884Z",
+        "ended_at": "2026-05-15T19:07:49.548749Z",
+        "duration": 4.682865
       },
       "io": {
         "inputs": [
@@ -26,7 +28,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "afDda",
+            "digest": "VgyyU",
             "data": {
               "text": "The new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD."
             },
@@ -42,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Fp3Mk",
+            "digest": "YEMmq",
             "data": {
-              "text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 0.75)\nThe text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.9\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.75\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.85\n\n • item #5:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #6:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #7:\n\n# keyword: quality control\n\n# relevance: 0.65\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.6\n\n • item #9:\n\n# keyword: BYD\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
+              "text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: 0.75\n\n# explanation: The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other..sentiment (confidence: 0.75)\nThe text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.93\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.82\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.88\n\n • item #5:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #6:\n\n# keyword: quality control\n\n# relevance: 0.72\n\n • item #7:\n\n# keyword: BYD\n\n# relevance: 0.78\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.74\n\n • item #9:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
             },
-            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\nneutral (confidence: 0.75) The text contains both positive elements (record-breaking deliveries of  \n500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality  \ncontrol issues, competition concerns). These contrasting aspects balance each other out, making the \noverall sentiment neutral rather than clearly positive or negative.                                 \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                           keyword: Tesla                                           \n\n                                          relevance: 0.95                                           \n\n• item #2:                                                                                          \n\n                                     keyword: electric vehicle                                      \n\n                                           relevance: 0.9                                           \n\n• item #3:                                                                                          \n\n                                        keyword: deliveries                                         \n\n                                          relevance: 0.75                                           \n\n• item #4:                                                                                          \n\n                                    keyword: battery technology                                     \n\n                                          relevance: 0.85                                           \n\n• item #5:                                                                                          \n\n                                      keyword: cost reduction                                       \n\n                                           relevance: 0.7                                           \n\n• item #6:                                                                                          \n\n                                           keyword: range                                           \n\n                                          relevance: 0.75                                           \n\n• item #7:                                                                                          \n\n                                      keyword: quality control                                      \n\n                                          relevance: 0.65                                           \n\n• item #8:                                                                                          \n\n                                   keyword: Chinese manufacturers                                   \n\n                                           relevance: 0.6                                           \n\n• item #9:                                                                                          \n\n                                            keyword: BYD                                            \n\n                                           relevance: 0.7                                           \n\n• item #10:                                                                                         \n\n                                        keyword: competition                                        \n\n                                          relevance: 0.65                                           \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 0.75)\nThe text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.9\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.75\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.85\n\n • item #5:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #6:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #7:\n\n# keyword: quality control\n\n# relevance: 0.65\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.6\n\n • item #9:\n\n# keyword: BYD\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```",
+            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                         sentiment: neutral                                         \n\n                                          confidence: 0.75                                          \n\nexplanation: The text presents a balanced mix of positive and negative information. On the positive \nside, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), \n and an impressive range improvement (400 miles). On the negative side, it mentions quality control \n   issues and growing competition from Chinese manufacturers like BYD. The combination of strong    \n  achievements and notable concerns results in an overall neutral sentiment, with neither clearly   \n                        outweighing the other..sentiment (confidence: 0.75)                         \n\nThe text presents a balanced mix of positive and negative information. On the positive side, it     \nhighlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an   \nimpressive range improvement (400 miles). On the negative side, it mentions quality control issues  \nand growing competition from Chinese manufacturers like BYD. The combination of strong achievements \nand notable concerns results in an overall neutral sentiment, with neither clearly outweighing the  \nother.                                                                                              \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                           keyword: Tesla                                           \n\n                                          relevance: 0.95                                           \n\n• item #2:                                                                                          \n\n                                     keyword: electric vehicle                                      \n\n                                          relevance: 0.93                                           \n\n• item #3:                                                                                          \n\n                                        keyword: deliveries                                         \n\n                                          relevance: 0.82                                           \n\n• item #4:                                                                                          \n\n                                    keyword: battery technology                                     \n\n                                          relevance: 0.88                                           \n\n• item #5:                                                                                          \n\n                                           keyword: range                                           \n\n                                          relevance: 0.75                                           \n\n• item #6:                                                                                          \n\n                                      keyword: quality control                                      \n\n                                          relevance: 0.72                                           \n\n• item #7:                                                                                          \n\n                                            keyword: BYD                                            \n\n                                          relevance: 0.78                                           \n\n• item #8:                                                                                          \n\n                                   keyword: Chinese manufacturers                                   \n\n                                          relevance: 0.74                                           \n\n• item #9:                                                                                          \n\n                                      keyword: cost reduction                                       \n\n                                           relevance: 0.7                                           \n\n• item #10:                                                                                         \n\n                                        keyword: competition                                        \n\n                                          relevance: 0.65                                           \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: 0.75\n\n# explanation: The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other..sentiment (confidence: 0.75)\nThe text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.93\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.82\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.88\n\n • item #5:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #6:\n\n# keyword: quality control\n\n# relevance: 0.72\n\n • item #7:\n\n# keyword: BYD\n\n# relevance: 0.78\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.74\n\n • item #9:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```",
             "extra": {}
           }
         ]
@@ -60,15 +62,17 @@
       }
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
       "kind": "controller",
       "pipe_code": "parallel_analyze",
       "pipe_type": "PipeParallel",
+      "description": "Run sentiment and keyword extraction in parallel",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:19:15.530827Z",
-        "ended_at": "2026-04-06T10:19:21.813191Z",
-        "duration": 6.282364
+        "started_at": "2026-05-15T19:07:44.872863Z",
+        "ended_at": "2026-05-15T19:07:49.524588Z",
+        "duration": 4.651725
       },
       "io": {
         "inputs": [
@@ -78,7 +82,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "afDda",
+            "digest": "VgyyU",
             "data": {
               "text": "The new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD."
             },
@@ -94,14 +98,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kaHtH",
+            "digest": "4QyTL",
             "data": {
               "sentiment": "neutral",
               "confidence": 0.75,
-              "explanation": "The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative."
+              "explanation": "The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other."
             },
-            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text contains both positive elements (record-breaking        \n             │ deliveries of 500,000 vehicles, 30% cost reduction, increased    \n             │ range to 400 miles) and negative elements (quality control       \n             │ issues, competition concerns). These contrasting aspects balance \n             │ each other out, making the overall sentiment neutral rather than \n             │ clearly positive or negative.                                    \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.</td></tr></table>",
+            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text presents a balanced mix of positive and negative        \n             │ information. On the positive side, it highlights record-breaking \n             │ deliveries (500,000 units), a significant cost reduction (30%),  \n             │ and an impressive range improvement (400 miles). On the negative \n             │ side, it mentions quality control issues and growing competition \n             │ from Chinese manufacturers like BYD. The combination of strong   \n             │ achievements and notable concerns results in an overall neutral  \n             │ sentiment, with neither clearly outweighing the other.           \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.</td></tr></table>",
             "extra": {}
           },
           {
@@ -110,7 +114,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tjp7Z",
+            "digest": "58gSz",
             "data": {
               "items": [
                 {
@@ -119,19 +123,15 @@
                 },
                 {
                   "keyword": "electric vehicle",
-                  "relevance": 0.9
+                  "relevance": 0.93
                 },
                 {
                   "keyword": "deliveries",
-                  "relevance": 0.75
+                  "relevance": 0.82
                 },
                 {
                   "keyword": "battery technology",
-                  "relevance": 0.85
-                },
-                {
-                  "keyword": "cost reduction",
-                  "relevance": 0.7
+                  "relevance": 0.88
                 },
                 {
                   "keyword": "range",
@@ -139,14 +139,18 @@
                 },
                 {
                   "keyword": "quality control",
-                  "relevance": 0.65
-                },
-                {
-                  "keyword": "Chinese manufacturers",
-                  "relevance": 0.6
+                  "relevance": 0.72
                 },
                 {
                   "keyword": "BYD",
+                  "relevance": 0.78
+                },
+                {
+                  "keyword": "Chinese manufacturers",
+                  "relevance": 0.74
+                },
+                {
+                  "keyword": "cost reduction",
                   "relevance": 0.7
                 },
                 {
@@ -155,8 +159,8 @@
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.9                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.75                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.85                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.65                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.6                                          \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.7                     \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.9</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.85</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.6</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.93                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.82                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.88                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.72                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.78                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.74                                         \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.93</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.82</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.88</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.72</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.78</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.74</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -171,15 +175,17 @@
       }
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_2",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_2",
       "kind": "operator",
       "pipe_code": "analyze_sentiment",
       "pipe_type": "PipeLLM",
+      "description": "Analyze sentiment of text",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:19:15.534398Z",
-        "ended_at": "2026-04-06T10:19:21.801853Z",
-        "duration": 6.267455
+        "started_at": "2026-05-15T19:07:44.877902Z",
+        "ended_at": "2026-05-15T19:07:49.515291Z",
+        "duration": 4.637389
       },
       "io": {
         "inputs": [
@@ -189,7 +195,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "afDda",
+            "digest": "VgyyU",
             "data": {
               "text": "The new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD."
             },
@@ -205,14 +211,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kaHtH",
+            "digest": "4QyTL",
             "data": {
               "sentiment": "neutral",
               "confidence": 0.75,
-              "explanation": "The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative."
+              "explanation": "The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other."
             },
-            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text contains both positive elements (record-breaking        \n             │ deliveries of 500,000 vehicles, 30% cost reduction, increased    \n             │ range to 400 miles) and negative elements (quality control       \n             │ issues, competition concerns). These contrasting aspects balance \n             │ each other out, making the overall sentiment neutral rather than \n             │ clearly positive or negative.                                    \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.</td></tr></table>",
+            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text presents a balanced mix of positive and negative        \n             │ information. On the positive side, it highlights record-breaking \n             │ deliveries (500,000 units), a significant cost reduction (30%),  \n             │ and an impressive range improvement (400 miles). On the negative \n             │ side, it mentions quality control issues and growing competition \n             │ from Chinese manufacturers like BYD. The combination of strong   \n             │ achievements and notable concerns results in an overall neutral  \n             │ sentiment, with neither clearly outweighing the other.           \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.</td></tr></table>",
             "extra": {}
           }
         ]
@@ -221,24 +227,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nThe new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD.\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass Sentiment(StructuredContent):\n    \"\"\"Sentiment analysis result\"\"\"\n    sentiment: Literal[\n        \"positive\",\n        \"negative\",\n        \"neutral\",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nThe new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD.\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Sentiment(StructuredContent):\n    \"\"\"Sentiment analysis result\"\"\"\n    sentiment: Literal[\n        \"positive\",\n        \"negative\",\n        \"neutral\",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_3",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_3",
       "kind": "operator",
       "pipe_code": "extract_keywords",
       "pipe_type": "PipeLLM",
+      "description": "Extract keywords from text",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:19:17.094045Z",
-        "ended_at": "2026-04-06T10:19:21.101041Z",
-        "duration": 4.006996
+        "started_at": "2026-05-15T19:07:45.841632Z",
+        "ended_at": "2026-05-15T19:07:49.186293Z",
+        "duration": 3.344661
       },
       "io": {
         "inputs": [
@@ -248,7 +256,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "afDda",
+            "digest": "VgyyU",
             "data": {
               "text": "The new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD."
             },
@@ -264,7 +272,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tjp7Z",
+            "digest": "58gSz",
             "data": {
               "items": [
                 {
@@ -273,19 +281,15 @@
                 },
                 {
                   "keyword": "electric vehicle",
-                  "relevance": 0.9
+                  "relevance": 0.93
                 },
                 {
                   "keyword": "deliveries",
-                  "relevance": 0.75
+                  "relevance": 0.82
                 },
                 {
                   "keyword": "battery technology",
-                  "relevance": 0.85
-                },
-                {
-                  "keyword": "cost reduction",
-                  "relevance": 0.7
+                  "relevance": 0.88
                 },
                 {
                   "keyword": "range",
@@ -293,14 +297,18 @@
                 },
                 {
                   "keyword": "quality control",
-                  "relevance": 0.65
-                },
-                {
-                  "keyword": "Chinese manufacturers",
-                  "relevance": 0.6
+                  "relevance": 0.72
                 },
                 {
                   "keyword": "BYD",
+                  "relevance": 0.78
+                },
+                {
+                  "keyword": "Chinese manufacturers",
+                  "relevance": 0.74
+                },
+                {
+                  "keyword": "cost reduction",
                   "relevance": 0.7
                 },
                 {
@@ -309,8 +317,8 @@
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.9                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.75                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.85                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.65                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.6                                          \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.7                     \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.9</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.85</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.6</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.93                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.82                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.88                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.72                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.78                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.74                                         \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.93</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.82</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.88</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.72</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.78</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.74</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -319,24 +327,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Extract the most relevant keywords from the following text:\n\n<text>\nThe new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD.\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass Keyword(StructuredContent):\n    \"\"\"An extracted keyword with relevance score\"\"\"\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Extract the most relevant keywords from the following text:\n\n<text>\nThe new electric vehicle from Tesla set records this quarter with 500,000 deliveries worldwide. Battery technology improvements reduced costs by 30% while increasing range to 400 miles. Critics point to quality control issues and competition from Chinese manufacturers like BYD.\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Keyword(StructuredContent):\n    \"\"\"An extracted keyword with relevance score\"\"\"\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_4",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_4",
       "kind": "operator",
       "pipe_code": "merge_results",
       "pipe_type": "PipeCompose",
+      "description": "Merge sentiment and keyword results",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:19:21.814523Z",
-        "ended_at": "2026-04-06T10:19:21.833957Z",
-        "duration": 0.019434
+        "started_at": "2026-05-15T19:07:49.528980Z",
+        "ended_at": "2026-05-15T19:07:49.544682Z",
+        "duration": 0.015702
       },
       "io": {
         "inputs": [
@@ -346,14 +356,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kaHtH",
+            "digest": "4QyTL",
             "data": {
               "sentiment": "neutral",
               "confidence": 0.75,
-              "explanation": "The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative."
+              "explanation": "The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other."
             },
-            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text contains both positive elements (record-breaking        \n             │ deliveries of 500,000 vehicles, 30% cost reduction, increased    \n             │ range to 400 miles) and negative elements (quality control       \n             │ issues, competition concerns). These contrasting aspects balance \n             │ each other out, making the overall sentiment neutral rather than \n             │ clearly positive or negative.                                    \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.</td></tr></table>",
+            "data_text": " Attribute   ┃ Value                                                            \n━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment   │ neutral                                                          \n─────────────┼──────────────────────────────────────────────────────────────────\n confidence  │ 0.75                                                             \n─────────────┼──────────────────────────────────────────────────────────────────\n explanation │ The text presents a balanced mix of positive and negative        \n             │ information. On the positive side, it highlights record-breaking \n             │ deliveries (500,000 units), a significant cost reduction (30%),  \n             │ and an impressive range improvement (400 miles). On the negative \n             │ side, it mentions quality control issues and growing competition \n             │ from Chinese manufacturers like BYD. The combination of strong   \n             │ achievements and notable concerns results in an overall neutral  \n             │ sentiment, with neither clearly outweighing the other.           \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>0.75</td></tr><tr><th>explanation</th><td>The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.</td></tr></table>",
             "extra": {}
           },
           {
@@ -362,7 +372,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Tjp7Z",
+            "digest": "58gSz",
             "data": {
               "items": [
                 {
@@ -371,19 +381,15 @@
                 },
                 {
                   "keyword": "electric vehicle",
-                  "relevance": 0.9
+                  "relevance": 0.93
                 },
                 {
                   "keyword": "deliveries",
-                  "relevance": 0.75
+                  "relevance": 0.82
                 },
                 {
                   "keyword": "battery technology",
-                  "relevance": 0.85
-                },
-                {
-                  "keyword": "cost reduction",
-                  "relevance": 0.7
+                  "relevance": 0.88
                 },
                 {
                   "keyword": "range",
@@ -391,14 +397,18 @@
                 },
                 {
                   "keyword": "quality control",
-                  "relevance": 0.65
-                },
-                {
-                  "keyword": "Chinese manufacturers",
-                  "relevance": 0.6
+                  "relevance": 0.72
                 },
                 {
                   "keyword": "BYD",
+                  "relevance": 0.78
+                },
+                {
+                  "keyword": "Chinese manufacturers",
+                  "relevance": 0.74
+                },
+                {
+                  "keyword": "cost reduction",
                   "relevance": 0.7
                 },
                 {
@@ -407,8 +417,8 @@
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.9                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.75                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.85                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.65                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.6                                          \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.7                     \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.9</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.85</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.6</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ Tesla                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.95                    \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                   │ electric vehicle                         \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  relevance                 │ 0.93                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                          │ deliveries                        \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  relevance                        │ 0.82                              \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │  Attribute                ┃ Value                                     \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                  │ battery technology                        \n        │ ──────────────────────────┼────────────────────────────────────────── \n        │  relevance                │ 0.88                                      \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ range                   \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.75                    \n────────┼───────────────────────────────────────────────────────────────────────\n   6    │  Attribute                  ┃ Value                                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                    │ quality control                         \n        │ ────────────────────────────┼──────────────────────────────────────── \n        │  relevance                  │ 0.72                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   7    │  Attribute                                  ┃ Value                   \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                                    │ BYD                     \n        │ ────────────────────────────────────────────┼──────────────────────── \n        │  relevance                                  │ 0.78                    \n────────┼───────────────────────────────────────────────────────────────────────\n   8    │  Attribute             ┃ Value                                        \n        │ ━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword               │ Chinese manufacturers                        \n        │ ───────────────────────┼───────────────────────────────────────────── \n        │  relevance             │ 0.74                                         \n────────┼───────────────────────────────────────────────────────────────────────\n   9    │  Attribute                   ┃ Value                                  \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                     │ cost reduction                         \n        │ ─────────────────────────────┼─────────────────────────────────────── \n        │  relevance                   │ 0.7                                    \n────────┼───────────────────────────────────────────────────────────────────────\n   10   │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                         │ competition                        \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  relevance                       │ 0.65                               \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>Tesla</td></tr><tr><th>relevance</th><td>0.95</td></tr></table></li><li><table><tr><th>keyword</th><td>electric vehicle</td></tr><tr><th>relevance</th><td>0.93</td></tr></table></li><li><table><tr><th>keyword</th><td>deliveries</td></tr><tr><th>relevance</th><td>0.82</td></tr></table></li><li><table><tr><th>keyword</th><td>battery technology</td></tr><tr><th>relevance</th><td>0.88</td></tr></table></li><li><table><tr><th>keyword</th><td>range</td></tr><tr><th>relevance</th><td>0.75</td></tr></table></li><li><table><tr><th>keyword</th><td>quality control</td></tr><tr><th>relevance</th><td>0.72</td></tr></table></li><li><table><tr><th>keyword</th><td>BYD</td></tr><tr><th>relevance</th><td>0.78</td></tr></table></li><li><table><tr><th>keyword</th><td>Chinese manufacturers</td></tr><tr><th>relevance</th><td>0.74</td></tr></table></li><li><table><tr><th>keyword</th><td>cost reduction</td></tr><tr><th>relevance</th><td>0.7</td></tr></table></li><li><table><tr><th>keyword</th><td>competition</td></tr><tr><th>relevance</th><td>0.65</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -419,12 +429,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Fp3Mk",
+            "digest": "YEMmq",
             "data": {
-              "text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 0.75)\nThe text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.9\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.75\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.85\n\n • item #5:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #6:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #7:\n\n# keyword: quality control\n\n# relevance: 0.65\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.6\n\n • item #9:\n\n# keyword: BYD\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
+              "text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: 0.75\n\n# explanation: The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other..sentiment (confidence: 0.75)\nThe text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.93\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.82\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.88\n\n • item #5:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #6:\n\n# keyword: quality control\n\n# relevance: 0.72\n\n • item #7:\n\n# keyword: BYD\n\n# relevance: 0.78\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.74\n\n • item #9:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
             },
-            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\nneutral (confidence: 0.75) The text contains both positive elements (record-breaking deliveries of  \n500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality  \ncontrol issues, competition concerns). These contrasting aspects balance each other out, making the \noverall sentiment neutral rather than clearly positive or negative.                                 \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                           keyword: Tesla                                           \n\n                                          relevance: 0.95                                           \n\n• item #2:                                                                                          \n\n                                     keyword: electric vehicle                                      \n\n                                           relevance: 0.9                                           \n\n• item #3:                                                                                          \n\n                                        keyword: deliveries                                         \n\n                                          relevance: 0.75                                           \n\n• item #4:                                                                                          \n\n                                    keyword: battery technology                                     \n\n                                          relevance: 0.85                                           \n\n• item #5:                                                                                          \n\n                                      keyword: cost reduction                                       \n\n                                           relevance: 0.7                                           \n\n• item #6:                                                                                          \n\n                                           keyword: range                                           \n\n                                          relevance: 0.75                                           \n\n• item #7:                                                                                          \n\n                                      keyword: quality control                                      \n\n                                          relevance: 0.65                                           \n\n• item #8:                                                                                          \n\n                                   keyword: Chinese manufacturers                                   \n\n                                           relevance: 0.6                                           \n\n• item #9:                                                                                          \n\n                                            keyword: BYD                                            \n\n                                           relevance: 0.7                                           \n\n• item #10:                                                                                         \n\n                                        keyword: competition                                        \n\n                                          relevance: 0.65                                           \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 0.75)\nThe text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.9\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.75\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.85\n\n • item #5:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #6:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #7:\n\n# keyword: quality control\n\n# relevance: 0.65\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.6\n\n • item #9:\n\n# keyword: BYD\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```",
+            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                         sentiment: neutral                                         \n\n                                          confidence: 0.75                                          \n\nexplanation: The text presents a balanced mix of positive and negative information. On the positive \nside, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), \n and an impressive range improvement (400 miles). On the negative side, it mentions quality control \n   issues and growing competition from Chinese manufacturers like BYD. The combination of strong    \n  achievements and notable concerns results in an overall neutral sentiment, with neither clearly   \n                        outweighing the other..sentiment (confidence: 0.75)                         \n\nThe text presents a balanced mix of positive and negative information. On the positive side, it     \nhighlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an   \nimpressive range improvement (400 miles). On the negative side, it mentions quality control issues  \nand growing competition from Chinese manufacturers like BYD. The combination of strong achievements \nand notable concerns results in an overall neutral sentiment, with neither clearly outweighing the  \nother.                                                                                              \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                           keyword: Tesla                                           \n\n                                          relevance: 0.95                                           \n\n• item #2:                                                                                          \n\n                                     keyword: electric vehicle                                      \n\n                                          relevance: 0.93                                           \n\n• item #3:                                                                                          \n\n                                        keyword: deliveries                                         \n\n                                          relevance: 0.82                                           \n\n• item #4:                                                                                          \n\n                                    keyword: battery technology                                     \n\n                                          relevance: 0.88                                           \n\n• item #5:                                                                                          \n\n                                           keyword: range                                           \n\n                                          relevance: 0.75                                           \n\n• item #6:                                                                                          \n\n                                      keyword: quality control                                      \n\n                                          relevance: 0.72                                           \n\n• item #7:                                                                                          \n\n                                            keyword: BYD                                            \n\n                                          relevance: 0.78                                           \n\n• item #8:                                                                                          \n\n                                   keyword: Chinese manufacturers                                   \n\n                                          relevance: 0.74                                           \n\n• item #9:                                                                                          \n\n                                      keyword: cost reduction                                       \n\n                                           relevance: 0.7                                           \n\n• item #10:                                                                                         \n\n                                        keyword: competition                                        \n\n                                          relevance: 0.65                                           \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: 0.75\n\n# explanation: The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other..sentiment (confidence: 0.75)\nThe text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.93\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.82\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.88\n\n • item #5:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #6:\n\n# keyword: quality control\n\n# relevance: 0.72\n\n • item #7:\n\n# keyword: BYD\n\n# relevance: 0.78\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.74\n\n • item #9:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```",
             "extra": {}
           }
         ]
@@ -434,15 +444,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 0.75)\nThe text contains both positive elements (record-breaking deliveries of 500,000 vehicles, 30% cost reduction, increased range to 400 miles) and negative elements (quality control issues, competition concerns). These contrasting aspects balance each other out, making the overall sentiment neutral rather than clearly positive or negative.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.9\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.75\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.85\n\n • item #5:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #6:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #7:\n\n# keyword: quality control\n\n# relevance: 0.65\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.6\n\n • item #9:\n\n# keyword: BYD\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
+        "rendered_text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: 0.75\n\n# explanation: The text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other..sentiment (confidence: 0.75)\nThe text presents a balanced mix of positive and negative information. On the positive side, it highlights record-breaking deliveries (500,000 units), a significant cost reduction (30%), and an impressive range improvement (400 miles). On the negative side, it mentions quality control issues and growing competition from Chinese manufacturers like BYD. The combination of strong achievements and notable concerns results in an overall neutral sentiment, with neither clearly outweighing the other.\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: Tesla\n\n# relevance: 0.95\n\n • item #2:\n\n# keyword: electric vehicle\n\n# relevance: 0.93\n\n • item #3:\n\n# keyword: deliveries\n\n# relevance: 0.82\n\n • item #4:\n\n# keyword: battery technology\n\n# relevance: 0.88\n\n • item #5:\n\n# keyword: range\n\n# relevance: 0.75\n\n • item #6:\n\n# keyword: quality control\n\n# relevance: 0.72\n\n • item #7:\n\n# keyword: BYD\n\n# relevance: 0.78\n\n • item #8:\n\n# keyword: Chinese manufacturers\n\n# relevance: 0.74\n\n • item #9:\n\n# keyword: cost reduction\n\n# relevance: 0.7\n\n • item #10:\n\n# keyword: competition\n\n# relevance: 0.65\n\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_0",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_0",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:edge_0",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_0",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -450,9 +460,9 @@
       "meta": {}
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_1",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_2",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:edge_1",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -460,9 +470,9 @@
       "meta": {}
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_2",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_3",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:edge_2",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -470,9 +480,9 @@
       "meta": {}
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_3",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_0",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_4",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:edge_3",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_0",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -480,9 +490,9 @@
       "meta": {}
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_4",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_4",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:asm_edge_0",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_4",
       "kind": "data",
       "label": "sentiment",
       "source_stuff_digest": null,
@@ -490,9 +500,9 @@
       "meta": {}
     },
     {
-      "id": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:edge_5",
-      "source": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_1",
-      "target": "cd45d136-79f8-4513-ad39-f1cf04bfe9d3:node_4",
+      "id": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:asm_edge_1",
+      "source": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_1",
+      "target": "e4e2e073-0874-4fca-bd75-b7cc3cc976b2:node_4",
       "kind": "data",
       "label": "keywords",
       "source_stuff_digest": null,
@@ -500,7 +510,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "text_analysis.dual_analysis_pipeline": {
       "pipe_category": "PipeController",
@@ -525,7 +537,7 @@
           "code": "AnalysisReport",
           "domain_code": "text_analysis",
           "description": "Combined analysis report",
-          "structure_class_name": "AnalysisReport",
+          "structure_class_name": "text_analysis__AnalysisReport",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -568,7 +580,7 @@
           "code": "Sentiment",
           "domain_code": "text_analysis",
           "description": "Sentiment analysis result",
-          "structure_class_name": "Sentiment",
+          "structure_class_name": "text_analysis__Sentiment",
           "refines": null
         },
         "multiplicity": null
@@ -613,7 +625,7 @@
           "code": "Sentiment",
           "domain_code": "text_analysis",
           "description": "Sentiment analysis result",
-          "structure_class_name": "Sentiment",
+          "structure_class_name": "text_analysis__Sentiment",
           "refines": null
         },
         "multiplicity": null
@@ -662,7 +674,7 @@
           "code": "Keyword",
           "domain_code": "text_analysis",
           "description": "An extracted keyword with relevance score",
-          "structure_class_name": "Keyword",
+          "structure_class_name": "text_analysis__Keyword",
           "refines": null
         },
         "multiplicity": true
@@ -700,7 +712,7 @@
             "code": "Sentiment",
             "domain_code": "text_analysis",
             "description": "Sentiment analysis result",
-            "structure_class_name": "Sentiment",
+            "structure_class_name": "text_analysis__Sentiment",
             "refines": null
           },
           "multiplicity": null
@@ -710,7 +722,7 @@
             "code": "Keyword",
             "domain_code": "text_analysis",
             "description": "An extracted keyword with relevance score",
-            "structure_class_name": "Keyword",
+            "structure_class_name": "text_analysis__Keyword",
             "refines": null
           },
           "multiplicity": true
@@ -721,12 +733,12 @@
           "code": "AnalysisReport",
           "domain_code": "text_analysis",
           "description": "Combined analysis report",
-          "structure_class_name": "AnalysisReport",
+          "structure_class_name": "text_analysis__AnalysisReport",
           "refines": "native.Text"
         },
         "multiplicity": null
       },
-      "template": "# Text Analysis Report\n\n## Sentiment\n{{ sentiment.sentiment|format() }} (confidence: {{ sentiment.confidence|format() }})\n{{ sentiment.explanation|format() }}\n\n## Keywords\n{{ keywords|tag(\"keywords\") }}\n",
+      "template": "# Text Analysis Report\n\n## Sentiment\n{{ sentiment|format() }}.sentiment (confidence: {{ sentiment.confidence|format() }})\n{{ sentiment.explanation|format() }}\n\n## Keywords\n{{ keywords|tag(\"keywords\") }}\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -738,7 +750,7 @@
       "code": "AnalysisReport",
       "domain_code": "text_analysis",
       "description": "Combined analysis report",
-      "structure_class_name": "AnalysisReport",
+      "structure_class_name": "text_analysis__AnalysisReport",
       "refines": "native.Text",
       "json_schema": {
         "description": "Combined analysis report",
@@ -751,7 +763,7 @@
         "required": [
           "text"
         ],
-        "title": "AnalysisReport",
+        "title": "text_analysis__AnalysisReport",
         "type": "object"
       }
     },
@@ -779,7 +791,7 @@
       "code": "Sentiment",
       "domain_code": "text_analysis",
       "description": "Sentiment analysis result",
-      "structure_class_name": "Sentiment",
+      "structure_class_name": "text_analysis__Sentiment",
       "refines": null,
       "json_schema": {
         "description": "Sentiment analysis result",
@@ -810,7 +822,7 @@
           "confidence",
           "explanation"
         ],
-        "title": "Sentiment",
+        "title": "text_analysis__Sentiment",
         "type": "object"
       }
     },
@@ -818,7 +830,7 @@
       "code": "Keyword",
       "domain_code": "text_analysis",
       "description": "An extracted keyword with relevance score",
-      "structure_class_name": "Keyword",
+      "structure_class_name": "text_analysis__Keyword",
       "refines": null,
       "json_schema": {
         "description": "An extracted keyword with relevance score",
@@ -838,7 +850,7 @@
           "keyword",
           "relevance"
         ],
-        "title": "Keyword",
+        "title": "text_analysis__Keyword",
         "type": "object"
       }
     }

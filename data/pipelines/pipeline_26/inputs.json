@@ -3,11 +3,11 @@
     "concept": "native.Document",
     "content": [
       {
-        "url": "inputs/cv_marie_dupont.pdf",
+        "url": "inputs/cv_john_doe.pdf",
         "mime_type": "application/pdf"
       },
       {
-        "url": "inputs/cv_jean_martin.pdf",
+        "url": "inputs/cv_sarah_vaugier.pdf",
         "mime_type": "application/pdf"
       }
     ]

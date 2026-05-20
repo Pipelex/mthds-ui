@@ -1,6 +1,6 @@
 {
-  "graph_id": "6abbddc2-a59c-4e9b-9c56-79876425935d",
-  "created_at": "2026-04-06T10:15:12.796285Z",
+  "graph_id": "14d7d07c-061e-4af1-a572-4c6d189b557d",
+  "created_at": "2026-05-15T12:39:08.389818Z",
   "pipeline_ref": {
     "domain": "text_analysis",
     "main_pipe": "dual_analysis_pipeline",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_0",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_0",
       "kind": "controller",
       "pipe_code": "dual_analysis_pipeline",
       "pipe_type": "PipeSequence",
+      "description": "Analyze text for sentiment and keywords then merge",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:12.801277Z",
-        "ended_at": "2026-04-06T10:15:12.837485Z",
-        "duration": 0.036208
+        "started_at": "2026-05-15T12:39:08.389818Z",
+        "ended_at": "2026-05-15T12:39:08.446026Z",
+        "duration": 0.056208
       },
       "io": {
         "inputs": [
@@ -26,12 +28,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6UWso",
+            "digest": "TUh5B",
             "data": {
-              "text": "bknvzrkUGbudIGwkISRu"
+              "text": "WlagEZdPvwYKeFDkPTJY"
             },
-            "data_text": "bknvzrkUGbudIGwkISRu                                                                                \n",
-            "data_html": "bknvzrkUGbudIGwkISRu",
+            "data_text": "WlagEZdPvwYKeFDkPTJY                                                                                \n",
+            "data_html": "WlagEZdPvwYKeFDkPTJY",
             "extra": {}
           }
         ],
@@ -42,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kuF7F",
+            "digest": "ZwKJW",
             "data": {
-              "text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 374.911271981512)\nfSIUheqTCWniwPspJkMQ\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: hpdGDXTaBwNCDecGDekF\n\n# relevance: 21521460857.7894\n\n • item #2:\n\n# keyword: sqHeRvncPDMAdIIxSJiy\n\n# relevance: -21460026815.872\n\n • item #3:\n\n# keyword: SWeyDztsRXnSwfSQFGWU\n\n# relevance: 4147276997.39415\n\n```"
+              "text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: -2220370.13253793\n\n# explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)\nbsEkNPVIWEhdpObwZmln\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: dUSYdqtSbxOviKLBprhJ\n\n# relevance: 9959547.21012613\n\n • item #2:\n\n# keyword: EOnpORkvQAbFhhikwQQk\n\n# relevance: 6268698.22384322\n\n • item #3:\n\n# keyword: uEyDompdxBqkHtgOTpyz\n\n# relevance: -894528806416.983\n\n```"
             },
-            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\nneutral (confidence: 374.911271981512) fSIUheqTCWniwPspJkMQ                                         \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: hpdGDXTaBwNCDecGDekF                                    \n\n                                    relevance: 21521460857.7894                                     \n\n• item #2:                                                                                          \n\n                                   keyword: sqHeRvncPDMAdIIxSJiy                                    \n\n                                    relevance: -21460026815.872                                     \n\n• item #3:                                                                                          \n\n                                   keyword: SWeyDztsRXnSwfSQFGWU                                    \n\n                                    relevance: 4147276997.39415                                     \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 374.911271981512)\nfSIUheqTCWniwPspJkMQ\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: hpdGDXTaBwNCDecGDekF\n\n# relevance: 21521460857.7894\n\n • item #2:\n\n# keyword: sqHeRvncPDMAdIIxSJiy\n\n# relevance: -21460026815.872\n\n • item #3:\n\n# keyword: SWeyDztsRXnSwfSQFGWU\n\n# relevance: 4147276997.39415\n\n```",
+            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                         sentiment: neutral                                         \n\n                                   confidence: -2220370.13253793                                    \n\n            explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)             \n\nbsEkNPVIWEhdpObwZmln                                                                                \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: dUSYdqtSbxOviKLBprhJ                                    \n\n                                    relevance: 9959547.21012613                                     \n\n• item #2:                                                                                          \n\n                                   keyword: EOnpORkvQAbFhhikwQQk                                    \n\n                                    relevance: 6268698.22384322                                     \n\n• item #3:                                                                                          \n\n                                   keyword: uEyDompdxBqkHtgOTpyz                                    \n\n                                    relevance: -894528806416.983                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: -2220370.13253793\n\n# explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)\nbsEkNPVIWEhdpObwZmln\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: dUSYdqtSbxOviKLBprhJ\n\n# relevance: 9959547.21012613\n\n • item #2:\n\n# keyword: EOnpORkvQAbFhhikwQQk\n\n# relevance: 6268698.22384322\n\n • item #3:\n\n# keyword: uEyDompdxBqkHtgOTpyz\n\n# relevance: -894528806416.983\n\n```",
             "extra": {}
           }
         ]
@@ -60,15 +62,17 @@
       }
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
       "kind": "controller",
       "pipe_code": "parallel_analyze",
       "pipe_type": "PipeParallel",
+      "description": "Run sentiment and keyword extraction in parallel",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:12.803839Z",
-        "ended_at": "2026-04-06T10:15:12.828015Z",
-        "duration": 0.024176
+        "started_at": "2026-05-15T12:39:08.394458Z",
+        "ended_at": "2026-05-15T12:39:08.430010Z",
+        "duration": 0.035552
       },
       "io": {
         "inputs": [
@@ -78,12 +82,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6UWso",
+            "digest": "TUh5B",
             "data": {
-              "text": "bknvzrkUGbudIGwkISRu"
+              "text": "WlagEZdPvwYKeFDkPTJY"
             },
-            "data_text": "bknvzrkUGbudIGwkISRu                                                                                \n",
-            "data_html": "bknvzrkUGbudIGwkISRu",
+            "data_text": "WlagEZdPvwYKeFDkPTJY                                                                                \n",
+            "data_html": "WlagEZdPvwYKeFDkPTJY",
             "extra": {}
           }
         ],
@@ -94,14 +98,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TYoV7",
+            "digest": "bHM5j",
             "data": {
               "sentiment": "neutral",
-              "confidence": 374.911271981512,
-              "explanation": "fSIUheqTCWniwPspJkMQ"
+              "confidence": -2220370.13253793,
+              "explanation": "bsEkNPVIWEhdpObwZmln"
             },
-            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ 374.911271981512                                \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ fSIUheqTCWniwPspJkMQ                            \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>374.911271981512</td></tr><tr><th>explanation</th><td>fSIUheqTCWniwPspJkMQ</td></tr></table>",
+            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -2220370.13253793                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ bsEkNPVIWEhdpObwZmln                            \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>-2220370.13253793</td></tr><tr><th>explanation</th><td>bsEkNPVIWEhdpObwZmln</td></tr></table>",
             "extra": {}
           },
           {
@@ -110,25 +114,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HLEXq",
+            "digest": "XJ9HS",
             "data": {
               "items": [
                 {
-                  "keyword": "hpdGDXTaBwNCDecGDekF",
-                  "relevance": 21521460857.7894
+                  "keyword": "dUSYdqtSbxOviKLBprhJ",
+                  "relevance": 9959547.21012613
                 },
                 {
-                  "keyword": "sqHeRvncPDMAdIIxSJiy",
-                  "relevance": -21460026815.872
+                  "keyword": "EOnpORkvQAbFhhikwQQk",
+                  "relevance": 6268698.22384322
                 },
                 {
-                  "keyword": "SWeyDztsRXnSwfSQFGWU",
-                  "relevance": 4147276997.39415
+                  "keyword": "uEyDompdxBqkHtgOTpyz",
+                  "relevance": -894528806416.983
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ hpdGDXTaBwNCDecGDekF                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 21521460857.7894                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ sqHeRvncPDMAdIIxSJiy                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -21460026815.872                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ SWeyDztsRXnSwfSQFGWU                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 4147276997.39415                            \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>hpdGDXTaBwNCDecGDekF</td></tr><tr><th>relevance</th><td>21521460857.7894</td></tr></table></li><li><table><tr><th>keyword</th><td>sqHeRvncPDMAdIIxSJiy</td></tr><tr><th>relevance</th><td>-21460026815.872</td></tr></table></li><li><table><tr><th>keyword</th><td>SWeyDztsRXnSwfSQFGWU</td></tr><tr><th>relevance</th><td>4147276997.39415</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ dUSYdqtSbxOviKLBprhJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 9959547.21012613                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ EOnpORkvQAbFhhikwQQk                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 6268698.22384322                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ uEyDompdxBqkHtgOTpyz                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -894528806416.983                           \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>dUSYdqtSbxOviKLBprhJ</td></tr><tr><th>relevance</th><td>9959547.21012613</td></tr></table></li><li><table><tr><th>keyword</th><td>EOnpORkvQAbFhhikwQQk</td></tr><tr><th>relevance</th><td>6268698.22384322</td></tr></table></li><li><table><tr><th>keyword</th><td>uEyDompdxBqkHtgOTpyz</td></tr><tr><th>relevance</th><td>-894528806416.983</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -143,15 +147,17 @@
       }
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_2",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_2",
       "kind": "operator",
       "pipe_code": "analyze_sentiment",
       "pipe_type": "PipeLLM",
+      "description": "Analyze sentiment of text",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:12.805892Z",
-        "ended_at": "2026-04-06T10:15:12.814859Z",
-        "duration": 0.008967
+        "started_at": "2026-05-15T12:39:08.398553Z",
+        "ended_at": "2026-05-15T12:39:08.409212Z",
+        "duration": 0.010659
       },
       "io": {
         "inputs": [
@@ -161,12 +167,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6UWso",
+            "digest": "TUh5B",
             "data": {
-              "text": "bknvzrkUGbudIGwkISRu"
+              "text": "WlagEZdPvwYKeFDkPTJY"
             },
-            "data_text": "bknvzrkUGbudIGwkISRu                                                                                \n",
-            "data_html": "bknvzrkUGbudIGwkISRu",
+            "data_text": "WlagEZdPvwYKeFDkPTJY                                                                                \n",
+            "data_html": "WlagEZdPvwYKeFDkPTJY",
             "extra": {}
           }
         ],
@@ -177,14 +183,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TYoV7",
+            "digest": "bHM5j",
             "data": {
               "sentiment": "neutral",
-              "confidence": 374.911271981512,
-              "explanation": "fSIUheqTCWniwPspJkMQ"
+              "confidence": -2220370.13253793,
+              "explanation": "bsEkNPVIWEhdpObwZmln"
             },
-            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ 374.911271981512                                \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ fSIUheqTCWniwPspJkMQ                            \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>374.911271981512</td></tr><tr><th>explanation</th><td>fSIUheqTCWniwPspJkMQ</td></tr></table>",
+            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -2220370.13253793                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ bsEkNPVIWEhdpObwZmln                            \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>-2220370.13253793</td></tr><tr><th>explanation</th><td>bsEkNPVIWEhdpObwZmln</td></tr></table>",
             "extra": {}
           }
         ]
@@ -193,24 +199,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nbknvzrkUGbudIGwkISRu\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass Sentiment(StructuredContent):\n    \"\"\"Sentiment analysis result\"\"\"\n    sentiment: Literal[\n        \"positive\",\n        \"negative\",\n        \"neutral\",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze the sentiment of the following text. Determine if it is positive, negative, or neutral:\n\n<text>\nWlagEZdPvwYKeFDkPTJY\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Sentiment(StructuredContent):\n    \"\"\"Sentiment analysis result\"\"\"\n    sentiment: Literal[\n        \"positive\",\n        \"negative\",\n        \"neutral\",\n    ]  # The detected sentiment\n    confidence: float  # Confidence score 0-1\n    explanation: str  # Why this sentiment was detected\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_3",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_3",
       "kind": "operator",
       "pipe_code": "extract_keywords",
       "pipe_type": "PipeLLM",
+      "description": "Extract keywords from text",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:12.815656Z",
-        "ended_at": "2026-04-06T10:15:12.826055Z",
-        "duration": 0.010399
+        "started_at": "2026-05-15T12:39:08.413010Z",
+        "ended_at": "2026-05-15T12:39:08.426425Z",
+        "duration": 0.013415
       },
       "io": {
         "inputs": [
@@ -220,12 +228,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6UWso",
+            "digest": "TUh5B",
             "data": {
-              "text": "bknvzrkUGbudIGwkISRu"
+              "text": "WlagEZdPvwYKeFDkPTJY"
             },
-            "data_text": "bknvzrkUGbudIGwkISRu                                                                                \n",
-            "data_html": "bknvzrkUGbudIGwkISRu",
+            "data_text": "WlagEZdPvwYKeFDkPTJY                                                                                \n",
+            "data_html": "WlagEZdPvwYKeFDkPTJY",
             "extra": {}
           }
         ],
@@ -236,25 +244,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HLEXq",
+            "digest": "XJ9HS",
             "data": {
               "items": [
                 {
-                  "keyword": "hpdGDXTaBwNCDecGDekF",
-                  "relevance": 21521460857.7894
+                  "keyword": "dUSYdqtSbxOviKLBprhJ",
+                  "relevance": 9959547.21012613
                 },
                 {
-                  "keyword": "sqHeRvncPDMAdIIxSJiy",
-                  "relevance": -21460026815.872
+                  "keyword": "EOnpORkvQAbFhhikwQQk",
+                  "relevance": 6268698.22384322
                 },
                 {
-                  "keyword": "SWeyDztsRXnSwfSQFGWU",
-                  "relevance": 4147276997.39415
+                  "keyword": "uEyDompdxBqkHtgOTpyz",
+                  "relevance": -894528806416.983
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ hpdGDXTaBwNCDecGDekF                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 21521460857.7894                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ sqHeRvncPDMAdIIxSJiy                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -21460026815.872                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ SWeyDztsRXnSwfSQFGWU                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 4147276997.39415                            \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>hpdGDXTaBwNCDecGDekF</td></tr><tr><th>relevance</th><td>21521460857.7894</td></tr></table></li><li><table><tr><th>keyword</th><td>sqHeRvncPDMAdIIxSJiy</td></tr><tr><th>relevance</th><td>-21460026815.872</td></tr></table></li><li><table><tr><th>keyword</th><td>SWeyDztsRXnSwfSQFGWU</td></tr><tr><th>relevance</th><td>4147276997.39415</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ dUSYdqtSbxOviKLBprhJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 9959547.21012613                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ EOnpORkvQAbFhhikwQQk                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 6268698.22384322                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ uEyDompdxBqkHtgOTpyz                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -894528806416.983                           \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>dUSYdqtSbxOviKLBprhJ</td></tr><tr><th>relevance</th><td>9959547.21012613</td></tr></table></li><li><table><tr><th>keyword</th><td>EOnpORkvQAbFhhikwQQk</td></tr><tr><th>relevance</th><td>6268698.22384322</td></tr></table></li><li><table><tr><th>keyword</th><td>uEyDompdxBqkHtgOTpyz</td></tr><tr><th>relevance</th><td>-894528806416.983</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -263,24 +271,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Extract the most relevant keywords from the following text:\n\n<text>\nbknvzrkUGbudIGwkISRu\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass Keyword(StructuredContent):\n    \"\"\"An extracted keyword with relevance score\"\"\"\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Extract the most relevant keywords from the following text:\n\n<text>\nWlagEZdPvwYKeFDkPTJY\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass text_analysis__Keyword(StructuredContent):\n    \"\"\"An extracted keyword with relevance score\"\"\"\n    keyword: str  # The keyword text\n    relevance: float  # Relevance score 0-1\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_4",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_4",
       "kind": "operator",
       "pipe_code": "merge_results",
       "pipe_type": "PipeCompose",
+      "description": "Merge sentiment and keyword results",
+      "domain_code": "text_analysis",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:15:12.828965Z",
-        "ended_at": "2026-04-06T10:15:12.836335Z",
-        "duration": 0.00737
+        "started_at": "2026-05-15T12:39:08.434662Z",
+        "ended_at": "2026-05-15T12:39:08.443037Z",
+        "duration": 0.008375
       },
       "io": {
         "inputs": [
@@ -290,14 +300,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TYoV7",
+            "digest": "bHM5j",
             "data": {
               "sentiment": "neutral",
-              "confidence": 374.911271981512,
-              "explanation": "fSIUheqTCWniwPspJkMQ"
+              "confidence": -2220370.13253793,
+              "explanation": "bsEkNPVIWEhdpObwZmln"
             },
-            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ 374.911271981512                                \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ fSIUheqTCWniwPspJkMQ                            \n",
-            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>374.911271981512</td></tr><tr><th>explanation</th><td>fSIUheqTCWniwPspJkMQ</td></tr></table>",
+            "data_text": " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n sentiment                    │ neutral                                         \n──────────────────────────────┼─────────────────────────────────────────────────\n confidence                   │ -2220370.13253793                               \n──────────────────────────────┼─────────────────────────────────────────────────\n explanation                  │ bsEkNPVIWEhdpObwZmln                            \n",
+            "data_html": "<table><tr><th>sentiment</th><td>neutral</td></tr><tr><th>confidence</th><td>-2220370.13253793</td></tr><tr><th>explanation</th><td>bsEkNPVIWEhdpObwZmln</td></tr></table>",
             "extra": {}
           },
           {
@@ -306,25 +316,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HLEXq",
+            "digest": "XJ9HS",
             "data": {
               "items": [
                 {
-                  "keyword": "hpdGDXTaBwNCDecGDekF",
-                  "relevance": 21521460857.7894
+                  "keyword": "dUSYdqtSbxOviKLBprhJ",
+                  "relevance": 9959547.21012613
                 },
                 {
-                  "keyword": "sqHeRvncPDMAdIIxSJiy",
-                  "relevance": -21460026815.872
+                  "keyword": "EOnpORkvQAbFhhikwQQk",
+                  "relevance": 6268698.22384322
                 },
                 {
-                  "keyword": "SWeyDztsRXnSwfSQFGWU",
-                  "relevance": 4147276997.39415
+                  "keyword": "uEyDompdxBqkHtgOTpyz",
+                  "relevance": -894528806416.983
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ hpdGDXTaBwNCDecGDekF                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 21521460857.7894                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ sqHeRvncPDMAdIIxSJiy                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -21460026815.872                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ SWeyDztsRXnSwfSQFGWU                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 4147276997.39415                            \n",
-            "data_html": "<ul><li><table><tr><th>keyword</th><td>hpdGDXTaBwNCDecGDekF</td></tr><tr><th>relevance</th><td>21521460857.7894</td></tr></table></li><li><table><tr><th>keyword</th><td>sqHeRvncPDMAdIIxSJiy</td></tr><tr><th>relevance</th><td>-21460026815.872</td></tr></table></li><li><table><tr><th>keyword</th><td>SWeyDztsRXnSwfSQFGWU</td></tr><tr><th>relevance</th><td>4147276997.39415</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ dUSYdqtSbxOviKLBprhJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 9959547.21012613                            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ EOnpORkvQAbFhhikwQQk                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ 6268698.22384322                            \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  keyword                │ uEyDompdxBqkHtgOTpyz                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  relevance              │ -894528806416.983                           \n",
+            "data_html": "<ul><li><table><tr><th>keyword</th><td>dUSYdqtSbxOviKLBprhJ</td></tr><tr><th>relevance</th><td>9959547.21012613</td></tr></table></li><li><table><tr><th>keyword</th><td>EOnpORkvQAbFhhikwQQk</td></tr><tr><th>relevance</th><td>6268698.22384322</td></tr></table></li><li><table><tr><th>keyword</th><td>uEyDompdxBqkHtgOTpyz</td></tr><tr><th>relevance</th><td>-894528806416.983</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -335,12 +345,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kuF7F",
+            "digest": "ZwKJW",
             "data": {
-              "text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 374.911271981512)\nfSIUheqTCWniwPspJkMQ\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: hpdGDXTaBwNCDecGDekF\n\n# relevance: 21521460857.7894\n\n • item #2:\n\n# keyword: sqHeRvncPDMAdIIxSJiy\n\n# relevance: -21460026815.872\n\n • item #3:\n\n# keyword: SWeyDztsRXnSwfSQFGWU\n\n# relevance: 4147276997.39415\n\n```"
+              "text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: -2220370.13253793\n\n# explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)\nbsEkNPVIWEhdpObwZmln\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: dUSYdqtSbxOviKLBprhJ\n\n# relevance: 9959547.21012613\n\n • item #2:\n\n# keyword: EOnpORkvQAbFhhikwQQk\n\n# relevance: 6268698.22384322\n\n • item #3:\n\n# keyword: uEyDompdxBqkHtgOTpyz\n\n# relevance: -894528806416.983\n\n```"
             },
-            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\nneutral (confidence: 374.911271981512) fSIUheqTCWniwPspJkMQ                                         \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: hpdGDXTaBwNCDecGDekF                                    \n\n                                    relevance: 21521460857.7894                                     \n\n• item #2:                                                                                          \n\n                                   keyword: sqHeRvncPDMAdIIxSJiy                                    \n\n                                    relevance: -21460026815.872                                     \n\n• item #3:                                                                                          \n\n                                   keyword: SWeyDztsRXnSwfSQFGWU                                    \n\n                                    relevance: 4147276997.39415                                     \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 374.911271981512)\nfSIUheqTCWniwPspJkMQ\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: hpdGDXTaBwNCDecGDekF\n\n# relevance: 21521460857.7894\n\n • item #2:\n\n# keyword: sqHeRvncPDMAdIIxSJiy\n\n# relevance: -21460026815.872\n\n • item #3:\n\n# keyword: SWeyDztsRXnSwfSQFGWU\n\n# relevance: 4147276997.39415\n\n```",
+            "data_text": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                         sentiment: neutral                                         \n\n                                   confidence: -2220370.13253793                                    \n\n            explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)             \n\nbsEkNPVIWEhdpObwZmln                                                                                \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n• item #1:                                                                                          \n\n                                   keyword: dUSYdqtSbxOviKLBprhJ                                    \n\n                                    relevance: 9959547.21012613                                     \n\n• item #2:                                                                                          \n\n                                   keyword: EOnpORkvQAbFhhikwQQk                                    \n\n                                    relevance: 6268698.22384322                                     \n\n• item #3:                                                                                          \n\n                                   keyword: uEyDompdxBqkHtgOTpyz                                    \n\n                                    relevance: -894528806416.983                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: -2220370.13253793\n\n# explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)\nbsEkNPVIWEhdpObwZmln\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: dUSYdqtSbxOviKLBprhJ\n\n# relevance: 9959547.21012613\n\n • item #2:\n\n# keyword: EOnpORkvQAbFhhikwQQk\n\n# relevance: 6268698.22384322\n\n • item #3:\n\n# keyword: uEyDompdxBqkHtgOTpyz\n\n# relevance: -894528806416.983\n\n```",
             "extra": {}
           }
         ]
@@ -350,15 +360,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Text Analysis Report\n\n## Sentiment\nneutral (confidence: 374.911271981512)\nfSIUheqTCWniwPspJkMQ\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: hpdGDXTaBwNCDecGDekF\n\n# relevance: 21521460857.7894\n\n • item #2:\n\n# keyword: sqHeRvncPDMAdIIxSJiy\n\n# relevance: -21460026815.872\n\n • item #3:\n\n# keyword: SWeyDztsRXnSwfSQFGWU\n\n# relevance: 4147276997.39415\n\n```"
+        "rendered_text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: neutral\n\n# confidence: -2220370.13253793\n\n# explanation: bsEkNPVIWEhdpObwZmln.sentiment (confidence: -2220370.13253793)\nbsEkNPVIWEhdpObwZmln\n\n## Keywords\nkeywords: ```\n\n • item #1:\n\n# keyword: dUSYdqtSbxOviKLBprhJ\n\n# relevance: 9959547.21012613\n\n • item #2:\n\n# keyword: EOnpORkvQAbFhhikwQQk\n\n# relevance: 6268698.22384322\n\n • item #3:\n\n# keyword: uEyDompdxBqkHtgOTpyz\n\n# relevance: -894528806416.983\n\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_0",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_0",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:edge_0",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_0",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -366,9 +376,9 @@
       "meta": {}
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_1",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_2",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:edge_1",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -376,9 +386,9 @@
       "meta": {}
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_2",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_3",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:edge_2",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -386,9 +396,9 @@
       "meta": {}
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_3",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_0",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_4",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:edge_3",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_0",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -396,9 +406,9 @@
       "meta": {}
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_4",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_4",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:asm_edge_0",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_4",
       "kind": "data",
       "label": "sentiment",
       "source_stuff_digest": null,
@@ -406,9 +416,9 @@
       "meta": {}
     },
     {
-      "id": "6abbddc2-a59c-4e9b-9c56-79876425935d:edge_5",
-      "source": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_1",
-      "target": "6abbddc2-a59c-4e9b-9c56-79876425935d:node_4",
+      "id": "14d7d07c-061e-4af1-a572-4c6d189b557d:asm_edge_1",
+      "source": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_1",
+      "target": "14d7d07c-061e-4af1-a572-4c6d189b557d:node_4",
       "kind": "data",
       "label": "keywords",
       "source_stuff_digest": null,
@@ -416,7 +426,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "text_analysis.dual_analysis_pipeline": {
       "pipe_category": "PipeController",
@@ -441,7 +453,7 @@
           "code": "AnalysisReport",
           "domain_code": "text_analysis",
           "description": "Combined analysis report",
-          "structure_class_name": "AnalysisReport",
+          "structure_class_name": "text_analysis__AnalysisReport",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -484,7 +496,7 @@
           "code": "Sentiment",
           "domain_code": "text_analysis",
           "description": "Sentiment analysis result",
-          "structure_class_name": "Sentiment",
+          "structure_class_name": "text_analysis__Sentiment",
           "refines": null
         },
         "multiplicity": null
@@ -529,7 +541,7 @@
           "code": "Sentiment",
           "domain_code": "text_analysis",
           "description": "Sentiment analysis result",
-          "structure_class_name": "Sentiment",
+          "structure_class_name": "text_analysis__Sentiment",
           "refines": null
         },
         "multiplicity": null
@@ -578,7 +590,7 @@
           "code": "Keyword",
           "domain_code": "text_analysis",
           "description": "An extracted keyword with relevance score",
-          "structure_class_name": "Keyword",
+          "structure_class_name": "text_analysis__Keyword",
           "refines": null
         },
         "multiplicity": true
@@ -616,7 +628,7 @@
             "code": "Sentiment",
             "domain_code": "text_analysis",
             "description": "Sentiment analysis result",
-            "structure_class_name": "Sentiment",
+            "structure_class_name": "text_analysis__Sentiment",
             "refines": null
           },
           "multiplicity": null
@@ -626,7 +638,7 @@
             "code": "Keyword",
             "domain_code": "text_analysis",
             "description": "An extracted keyword with relevance score",
-            "structure_class_name": "Keyword",
+            "structure_class_name": "text_analysis__Keyword",
             "refines": null
           },
           "multiplicity": true
@@ -637,12 +649,12 @@
           "code": "AnalysisReport",
           "domain_code": "text_analysis",
           "description": "Combined analysis report",
-          "structure_class_name": "AnalysisReport",
+          "structure_class_name": "text_analysis__AnalysisReport",
           "refines": "native.Text"
         },
         "multiplicity": null
       },
-      "template": "# Text Analysis Report\n\n## Sentiment\n{{ sentiment.sentiment|format() }} (confidence: {{ sentiment.confidence|format() }})\n{{ sentiment.explanation|format() }}\n\n## Keywords\n{{ keywords|tag(\"keywords\") }}\n",
+      "template": "# Text Analysis Report\n\n## Sentiment\n{{ sentiment|format() }}.sentiment (confidence: {{ sentiment.confidence|format() }})\n{{ sentiment.explanation|format() }}\n\n## Keywords\n{{ keywords|tag(\"keywords\") }}\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -654,7 +666,7 @@
       "code": "AnalysisReport",
       "domain_code": "text_analysis",
       "description": "Combined analysis report",
-      "structure_class_name": "AnalysisReport",
+      "structure_class_name": "text_analysis__AnalysisReport",
       "refines": "native.Text",
       "json_schema": {
         "description": "Combined analysis report",
@@ -667,7 +679,7 @@
         "required": [
           "text"
         ],
-        "title": "AnalysisReport",
+        "title": "text_analysis__AnalysisReport",
         "type": "object"
       }
     },
@@ -695,7 +707,7 @@
       "code": "Sentiment",
       "domain_code": "text_analysis",
       "description": "Sentiment analysis result",
-      "structure_class_name": "Sentiment",
+      "structure_class_name": "text_analysis__Sentiment",
       "refines": null,
       "json_schema": {
         "description": "Sentiment analysis result",
@@ -726,7 +738,7 @@
           "confidence",
           "explanation"
         ],
-        "title": "Sentiment",
+        "title": "text_analysis__Sentiment",
         "type": "object"
       }
     },
@@ -734,7 +746,7 @@
       "code": "Keyword",
       "domain_code": "text_analysis",
       "description": "An extracted keyword with relevance score",
-      "structure_class_name": "Keyword",
+      "structure_class_name": "text_analysis__Keyword",
       "refines": null,
       "json_schema": {
         "description": "An extracted keyword with relevance score",
@@ -754,7 +766,7 @@
           "keyword",
           "relevance"
         ],
-        "title": "Keyword",
+        "title": "text_analysis__Keyword",
         "type": "object"
       }
     }

@@ -1,6 +1,6 @@
 {
-  "graph_id": "1d1f10e3-e174-4a98-941f-90c31b8a6327",
-  "created_at": "2026-04-06T10:16:01.871996Z",
+  "graph_id": "221edbdc-f964-4b27-8d87-9ef52a4b4000",
+  "created_at": "2026-05-15T12:39:46.863158Z",
   "pipeline_ref": {
     "domain": "dual_phase",
     "main_pipe": "double_parallel_pipeline",
@@ -8,15 +8,17 @@
   },
   "nodes": [
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_0",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_0",
       "kind": "controller",
       "pipe_code": "double_parallel_pipeline",
       "pipe_type": "PipeSequence",
+      "description": "Gather phase (parallel), then process phase (parallel)",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.876890Z",
-        "ended_at": "2026-04-06T10:16:01.931950Z",
-        "duration": 0.05506
+        "started_at": "2026-05-15T12:39:46.863158Z",
+        "ended_at": "2026-05-15T12:39:46.945125Z",
+        "duration": 0.081967
       },
       "io": {
         "inputs": [
@@ -26,12 +28,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U8HBn",
+            "digest": "chtXq",
             "data": {
-              "text": "DrEZoJjZiCjJtPrgvCod"
+              "text": "REDsVumWSDSxShFLTKac"
             },
-            "data_text": "DrEZoJjZiCjJtPrgvCod                                                                                \n",
-            "data_html": "DrEZoJjZiCjJtPrgvCod",
+            "data_text": "REDsVumWSDSxShFLTKac                                                                                \n",
+            "data_html": "REDsVumWSDSxShFLTKac",
             "extra": {}
           }
         ],
@@ -42,12 +44,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LrcVw",
+            "digest": "DDwZo",
             "data": {
-              "text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    \n```"
+              "text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    \n```"
             },
-            "data_text": "                                           Final Results                                            \n\nAnalysis                                                                                            \n\nresult_x: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize \nand analyze these data sources:                                                                     \n\nSource A: <source_a> ZqUMxdljglFtuldZjKBf                                                           \n\nSources:                                                                                            \n\n • YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS ZDRBDMWfMTOYZtEzZkVS                                  \n • QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy ZUkctCHwymRExTWjQkEZ                                  \n • mWkXyTVEjCmuPmXvdpzS:                                                                            \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: &lt;source_a&gt;\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    \n```",
+            "data_text": "                                           Final Results                                            \n\nAnalysis                                                                                            \n\nresult_x: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize \nand analyze these data sources:                                                                     \n\nSource A: <source_a> jowqYdOerhFZWHipBMIo                                                           \n\nSources:                                                                                            \n\n • ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw mEENnUypbGlBWSPAsIhR                                  \n • WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA SZunMrsyNEaKEVctGVXV                                  \n • VMfkRgVEGKRdqFtIwnGq:                                                                            \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n&lt;source_a&gt;\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    \n```",
             "extra": {}
           }
         ]
@@ -60,15 +62,17 @@
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
       "kind": "controller",
       "pipe_code": "gather_phase",
       "pipe_type": "PipeParallel",
+      "description": "Gather data from two sources in parallel",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.879621Z",
-        "ended_at": "2026-04-06T10:16:01.896520Z",
-        "duration": 0.016899
+        "started_at": "2026-05-15T12:39:46.867839Z",
+        "ended_at": "2026-05-15T12:39:46.892833Z",
+        "duration": 0.024994
       },
       "io": {
         "inputs": [
@@ -78,12 +82,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U8HBn",
+            "digest": "chtXq",
             "data": {
-              "text": "DrEZoJjZiCjJtPrgvCod"
+              "text": "REDsVumWSDSxShFLTKac"
             },
-            "data_text": "DrEZoJjZiCjJtPrgvCod                                                                                \n",
-            "data_html": "DrEZoJjZiCjJtPrgvCod",
+            "data_text": "REDsVumWSDSxShFLTKac                                                                                \n",
+            "data_html": "REDsVumWSDSxShFLTKac",
             "extra": {}
           }
         ],
@@ -94,38 +98,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SDCVy",
+            "digest": "WeVdj",
             "data": {
-              "answer": "ZqUMxdljglFtuldZjKBf",
+              "answer": "jowqYdOerhFZWHipBMIo",
               "sources": [
                 {
-                  "url": "BHWTIcBFwFObfbPBIWwS",
-                  "public_url": "mnKfnhFAjeaPnSmvNfwC",
-                  "mime_type": "HQxuErHAxKrBLAWzxPoW",
-                  "filename": "jZCgPBPDVCslzAWXcQSi",
-                  "title": "YjgWAvtVveIpnYRPsHxM",
-                  "snippet": "ZDRBDMWfMTOYZtEzZkVS"
+                  "url": "wlZjTbiRuuDPGknAscOw",
+                  "public_url": "MTlnITkjNjYtAoVbqHME",
+                  "mime_type": "ktKDSKlkxvkQVkiRMfrC",
+                  "filename": "txYxXkXdKZsvEQtxFudv",
+                  "title": "ZvLwioElcudXMcgnXGRO",
+                  "snippet": "mEENnUypbGlBWSPAsIhR"
                 },
                 {
-                  "url": "ycuBxAJYfKLcVMSlUayy",
-                  "public_url": "QKvTmWbHiPnLxCCONFgH",
-                  "mime_type": "rPCMKXqyKOaZzOEZhriT",
-                  "filename": "PWozgwLyIcpjShuSQZmC",
-                  "title": "QRcjHkuEJOmjCeVsXqeo",
-                  "snippet": "ZUkctCHwymRExTWjQkEZ"
+                  "url": "OmRmNSghccXTxRSLJjvA",
+                  "public_url": "pNeRRIuZBjyVAxrIfzbk",
+                  "mime_type": "aAADgRqWQkhysxyZljXw",
+                  "filename": "AWIswEAPZZtmwHMjbMPH",
+                  "title": "WCmPLdIPUBUZWsphhmxs",
+                  "snippet": "SZunMrsyNEaKEVctGVXV"
                 },
                 {
-                  "url": "tWEhEGOzBItQgGEdPfwi",
-                  "public_url": "SCuhrqFkakkVFYvZrutF",
-                  "mime_type": "uezlHsfEHHilHuspvRAI",
-                  "filename": "fnMzmqYNsfCAzfRZAZNS",
-                  "title": "mWkXyTVEjCmuPmXvdpzS",
-                  "snippet": "vFPeMZAUVDLOzlNzvTpa"
+                  "url": "KkpqjcGWxJxQrPAFmyrw",
+                  "public_url": "YNsSLyPDeWpOwLsCkahG",
+                  "mime_type": "HLzfNEGQtKugrPzXWUar",
+                  "filename": "qGMKotVBMMsuDKQKENVR",
+                  "title": "VMfkRgVEGKRdqFtIwnGq",
+                  "snippet": "kvgfDDWvQCqfPrxiFvXp"
                 }
               ]
             },
-            "data_text": "Search Result:\nZqUMxdljglFtuldZjKBf                                                                                \n\nSources (3):\nYjgWAvtVveIpnYRPsHxM (BHWTIcBFwFObfbPBIWwS)\n  ZDRBDMWfMTOYZtEzZkVS\n\nQRcjHkuEJOmjCeVsXqeo (ycuBxAJYfKLcVMSlUayy)\n  ZUkctCHwymRExTWjQkEZ\n\nmWkXyTVEjCmuPmXvdpzS (tWEhEGOzBItQgGEdPfwi)\n  vFPeMZAUVDLOzlNzvTpa\n",
-            "data_html": "<div><p>ZqUMxdljglFtuldZjKBf</p><h4>Sources</h4><ul><li><a href=\"mnKfnhFAjeaPnSmvNfwC\" class=\"msg-document\">YjgWAvtVveIpnYRPsHxM</a><br/><small>ZDRBDMWfMTOYZtEzZkVS</small></li><li><a href=\"QKvTmWbHiPnLxCCONFgH\" class=\"msg-document\">QRcjHkuEJOmjCeVsXqeo</a><br/><small>ZUkctCHwymRExTWjQkEZ</small></li><li><a href=\"SCuhrqFkakkVFYvZrutF\" class=\"msg-document\">mWkXyTVEjCmuPmXvdpzS</a><br/><small>vFPeMZAUVDLOzlNzvTpa</small></li></ul></div>",
+            "data_text": "Search Result:\njowqYdOerhFZWHipBMIo                                                                                \n\nSources (3):\nZvLwioElcudXMcgnXGRO (wlZjTbiRuuDPGknAscOw)\n  mEENnUypbGlBWSPAsIhR\n\nWCmPLdIPUBUZWsphhmxs (OmRmNSghccXTxRSLJjvA)\n  SZunMrsyNEaKEVctGVXV\n\nVMfkRgVEGKRdqFtIwnGq (KkpqjcGWxJxQrPAFmyrw)\n  kvgfDDWvQCqfPrxiFvXp\n",
+            "data_html": "<div><p>jowqYdOerhFZWHipBMIo</p><h4>Sources</h4><ul><li><a href=\"MTlnITkjNjYtAoVbqHME\" class=\"msg-document\">ZvLwioElcudXMcgnXGRO</a><br/><small>mEENnUypbGlBWSPAsIhR</small></li><li><a href=\"pNeRRIuZBjyVAxrIfzbk\" class=\"msg-document\">WCmPLdIPUBUZWsphhmxs</a><br/><small>SZunMrsyNEaKEVctGVXV</small></li><li><a href=\"YNsSLyPDeWpOwLsCkahG\" class=\"msg-document\">VMfkRgVEGKRdqFtIwnGq</a><br/><small>kvgfDDWvQCqfPrxiFvXp</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -134,38 +138,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MHTmM",
+            "digest": "URXyr",
             "data": {
-              "answer": "AvkIYgtjIhtbnfLPKJnW",
+              "answer": "IsBHHFHseqaOcSfaNrHM",
               "sources": [
                 {
-                  "url": "gRzLyTAaubHlTiBNdwpl",
-                  "public_url": "ztwEpwADyHLkTUcqXfiz",
-                  "mime_type": "EmtThJgQADmTXwMCAcPi",
-                  "filename": "TOmxffFYqJLKlEOvoSnc",
-                  "title": "ALLzbcSDFbXwMZCasNGq",
-                  "snippet": "AGHhwnBqVtpQlvoVmRFQ"
+                  "url": "ktagFIfkqeXpdNauFnfI",
+                  "public_url": "tzTyVUPwJbTOeqUpVEjs",
+                  "mime_type": "gVpHXvpldagBgaEvchIj",
+                  "filename": "SisDZNYbSgscBQtEEnRz",
+                  "title": "GEbPRdSDrxpMvqZZfnuU",
+                  "snippet": "LrTUSvnlLjFHDltnnuaa"
                 },
                 {
-                  "url": "vpbfLlJDSTYdMzFpCvhg",
-                  "public_url": "SXCGYQTbOacGYtBUFiiF",
-                  "mime_type": "jkTBJdhymmdAlZDadHTP",
-                  "filename": "hyvVLVKvXUWllyBMPRQR",
-                  "title": "ucirxmzMGRecKwoteTgH",
-                  "snippet": "WxQwZrMgpZVJfqbVezec"
+                  "url": "nDldJfIxBTDbCmvykBZy",
+                  "public_url": "FaUExTEXaxEAjtcoILHX",
+                  "mime_type": "VFUkjEyvBFGkBYConaiz",
+                  "filename": "JhfeDcqwjXatRQgySDaf",
+                  "title": "NnekpMBDncVlsFNnlOrr",
+                  "snippet": "DBcmOGCLmfIMTVeHYGVv"
                 },
                 {
-                  "url": "IlOawfcQfQElOTzAfWVl",
-                  "public_url": "iWWzqWtrYeigEeJQBLKH",
-                  "mime_type": "hfnWEQixxxTEBQXNThNz",
-                  "filename": "JQIXNeZYmgHMQFEsFPvf",
-                  "title": "ZxomskjUfaIhyXtbIOvF",
-                  "snippet": "DwexQNArkPStDzcEwDPd"
+                  "url": "HyZIGDJCLwUyKkxBSemS",
+                  "public_url": "HwCaaxQgjsHKRnKJNcmX",
+                  "mime_type": "blqVcbeUYPlVniawWsan",
+                  "filename": "uooQahhZwQCCJjOvckji",
+                  "title": "IePVYuUgbotGzEzScyzQ",
+                  "snippet": "tyGQTArcpPBkUqQWNsdf"
                 }
               ]
             },
-            "data_text": "Search Result:\nAvkIYgtjIhtbnfLPKJnW                                                                                \n\nSources (3):\nALLzbcSDFbXwMZCasNGq (gRzLyTAaubHlTiBNdwpl)\n  AGHhwnBqVtpQlvoVmRFQ\n\nucirxmzMGRecKwoteTgH (vpbfLlJDSTYdMzFpCvhg)\n  WxQwZrMgpZVJfqbVezec\n\nZxomskjUfaIhyXtbIOvF (IlOawfcQfQElOTzAfWVl)\n  DwexQNArkPStDzcEwDPd\n",
-            "data_html": "<div><p>AvkIYgtjIhtbnfLPKJnW</p><h4>Sources</h4><ul><li><a href=\"ztwEpwADyHLkTUcqXfiz\" class=\"msg-document\">ALLzbcSDFbXwMZCasNGq</a><br/><small>AGHhwnBqVtpQlvoVmRFQ</small></li><li><a href=\"SXCGYQTbOacGYtBUFiiF\" class=\"msg-document\">ucirxmzMGRecKwoteTgH</a><br/><small>WxQwZrMgpZVJfqbVezec</small></li><li><a href=\"iWWzqWtrYeigEeJQBLKH\" class=\"msg-document\">ZxomskjUfaIhyXtbIOvF</a><br/><small>DwexQNArkPStDzcEwDPd</small></li></ul></div>",
+            "data_text": "Search Result:\nIsBHHFHseqaOcSfaNrHM                                                                                \n\nSources (3):\nGEbPRdSDrxpMvqZZfnuU (ktagFIfkqeXpdNauFnfI)\n  LrTUSvnlLjFHDltnnuaa\n\nNnekpMBDncVlsFNnlOrr (nDldJfIxBTDbCmvykBZy)\n  DBcmOGCLmfIMTVeHYGVv\n\nIePVYuUgbotGzEzScyzQ (HyZIGDJCLwUyKkxBSemS)\n  tyGQTArcpPBkUqQWNsdf\n",
+            "data_html": "<div><p>IsBHHFHseqaOcSfaNrHM</p><h4>Sources</h4><ul><li><a href=\"tzTyVUPwJbTOeqUpVEjs\" class=\"msg-document\">GEbPRdSDrxpMvqZZfnuU</a><br/><small>LrTUSvnlLjFHDltnnuaa</small></li><li><a href=\"FaUExTEXaxEAjtcoILHX\" class=\"msg-document\">NnekpMBDncVlsFNnlOrr</a><br/><small>DBcmOGCLmfIMTVeHYGVv</small></li><li><a href=\"HwCaaxQgjsHKRnKJNcmX\" class=\"msg-document\">IePVYuUgbotGzEzScyzQ</a><br/><small>tyGQTArcpPBkUqQWNsdf</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -180,15 +184,17 @@
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_2",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_2",
       "kind": "operator",
       "pipe_code": "gather_source_a",
       "pipe_type": "PipeSearch",
+      "description": "Gather from primary source",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.882434Z",
-        "ended_at": "2026-04-06T10:16:01.888272Z",
-        "duration": 0.005838
+        "started_at": "2026-05-15T12:39:46.871707Z",
+        "ended_at": "2026-05-15T12:39:46.878690Z",
+        "duration": 0.006983
       },
       "io": {
         "inputs": [
@@ -198,12 +204,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U8HBn",
+            "digest": "chtXq",
             "data": {
-              "text": "DrEZoJjZiCjJtPrgvCod"
+              "text": "REDsVumWSDSxShFLTKac"
             },
-            "data_text": "DrEZoJjZiCjJtPrgvCod                                                                                \n",
-            "data_html": "DrEZoJjZiCjJtPrgvCod",
+            "data_text": "REDsVumWSDSxShFLTKac                                                                                \n",
+            "data_html": "REDsVumWSDSxShFLTKac",
             "extra": {}
           }
         ],
@@ -214,38 +220,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SDCVy",
+            "digest": "WeVdj",
             "data": {
-              "answer": "ZqUMxdljglFtuldZjKBf",
+              "answer": "jowqYdOerhFZWHipBMIo",
               "sources": [
                 {
-                  "url": "BHWTIcBFwFObfbPBIWwS",
-                  "public_url": "mnKfnhFAjeaPnSmvNfwC",
-                  "mime_type": "HQxuErHAxKrBLAWzxPoW",
-                  "filename": "jZCgPBPDVCslzAWXcQSi",
-                  "title": "YjgWAvtVveIpnYRPsHxM",
-                  "snippet": "ZDRBDMWfMTOYZtEzZkVS"
+                  "url": "wlZjTbiRuuDPGknAscOw",
+                  "public_url": "MTlnITkjNjYtAoVbqHME",
+                  "mime_type": "ktKDSKlkxvkQVkiRMfrC",
+                  "filename": "txYxXkXdKZsvEQtxFudv",
+                  "title": "ZvLwioElcudXMcgnXGRO",
+                  "snippet": "mEENnUypbGlBWSPAsIhR"
                 },
                 {
-                  "url": "ycuBxAJYfKLcVMSlUayy",
-                  "public_url": "QKvTmWbHiPnLxCCONFgH",
-                  "mime_type": "rPCMKXqyKOaZzOEZhriT",
-                  "filename": "PWozgwLyIcpjShuSQZmC",
-                  "title": "QRcjHkuEJOmjCeVsXqeo",
-                  "snippet": "ZUkctCHwymRExTWjQkEZ"
+                  "url": "OmRmNSghccXTxRSLJjvA",
+                  "public_url": "pNeRRIuZBjyVAxrIfzbk",
+                  "mime_type": "aAADgRqWQkhysxyZljXw",
+                  "filename": "AWIswEAPZZtmwHMjbMPH",
+                  "title": "WCmPLdIPUBUZWsphhmxs",
+                  "snippet": "SZunMrsyNEaKEVctGVXV"
                 },
                 {
-                  "url": "tWEhEGOzBItQgGEdPfwi",
-                  "public_url": "SCuhrqFkakkVFYvZrutF",
-                  "mime_type": "uezlHsfEHHilHuspvRAI",
-                  "filename": "fnMzmqYNsfCAzfRZAZNS",
-                  "title": "mWkXyTVEjCmuPmXvdpzS",
-                  "snippet": "vFPeMZAUVDLOzlNzvTpa"
+                  "url": "KkpqjcGWxJxQrPAFmyrw",
+                  "public_url": "YNsSLyPDeWpOwLsCkahG",
+                  "mime_type": "HLzfNEGQtKugrPzXWUar",
+                  "filename": "qGMKotVBMMsuDKQKENVR",
+                  "title": "VMfkRgVEGKRdqFtIwnGq",
+                  "snippet": "kvgfDDWvQCqfPrxiFvXp"
                 }
               ]
             },
-            "data_text": "Search Result:\nZqUMxdljglFtuldZjKBf                                                                                \n\nSources (3):\nYjgWAvtVveIpnYRPsHxM (BHWTIcBFwFObfbPBIWwS)\n  ZDRBDMWfMTOYZtEzZkVS\n\nQRcjHkuEJOmjCeVsXqeo (ycuBxAJYfKLcVMSlUayy)\n  ZUkctCHwymRExTWjQkEZ\n\nmWkXyTVEjCmuPmXvdpzS (tWEhEGOzBItQgGEdPfwi)\n  vFPeMZAUVDLOzlNzvTpa\n",
-            "data_html": "<div><p>ZqUMxdljglFtuldZjKBf</p><h4>Sources</h4><ul><li><a href=\"mnKfnhFAjeaPnSmvNfwC\" class=\"msg-document\">YjgWAvtVveIpnYRPsHxM</a><br/><small>ZDRBDMWfMTOYZtEzZkVS</small></li><li><a href=\"QKvTmWbHiPnLxCCONFgH\" class=\"msg-document\">QRcjHkuEJOmjCeVsXqeo</a><br/><small>ZUkctCHwymRExTWjQkEZ</small></li><li><a href=\"SCuhrqFkakkVFYvZrutF\" class=\"msg-document\">mWkXyTVEjCmuPmXvdpzS</a><br/><small>vFPeMZAUVDLOzlNzvTpa</small></li></ul></div>",
+            "data_text": "Search Result:\njowqYdOerhFZWHipBMIo                                                                                \n\nSources (3):\nZvLwioElcudXMcgnXGRO (wlZjTbiRuuDPGknAscOw)\n  mEENnUypbGlBWSPAsIhR\n\nWCmPLdIPUBUZWsphhmxs (OmRmNSghccXTxRSLJjvA)\n  SZunMrsyNEaKEVctGVXV\n\nVMfkRgVEGKRdqFtIwnGq (KkpqjcGWxJxQrPAFmyrw)\n  kvgfDDWvQCqfPrxiFvXp\n",
+            "data_html": "<div><p>jowqYdOerhFZWHipBMIo</p><h4>Sources</h4><ul><li><a href=\"MTlnITkjNjYtAoVbqHME\" class=\"msg-document\">ZvLwioElcudXMcgnXGRO</a><br/><small>mEENnUypbGlBWSPAsIhR</small></li><li><a href=\"pNeRRIuZBjyVAxrIfzbk\" class=\"msg-document\">WCmPLdIPUBUZWsphhmxs</a><br/><small>SZunMrsyNEaKEVctGVXV</small></li><li><a href=\"YNsSLyPDeWpOwLsCkahG\" class=\"msg-document\">VMfkRgVEGKRdqFtIwnGq</a><br/><small>kvgfDDWvQCqfPrxiFvXp</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -260,15 +266,17 @@
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_3",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_3",
       "kind": "operator",
       "pipe_code": "gather_source_b",
       "pipe_type": "PipeSearch",
+      "description": "Gather from secondary source",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.888902Z",
-        "ended_at": "2026-04-06T10:16:01.893816Z",
-        "duration": 0.004914
+        "started_at": "2026-05-15T12:39:46.882561Z",
+        "ended_at": "2026-05-15T12:39:46.888316Z",
+        "duration": 0.005755
       },
       "io": {
         "inputs": [
@@ -278,12 +286,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U8HBn",
+            "digest": "chtXq",
             "data": {
-              "text": "DrEZoJjZiCjJtPrgvCod"
+              "text": "REDsVumWSDSxShFLTKac"
             },
-            "data_text": "DrEZoJjZiCjJtPrgvCod                                                                                \n",
-            "data_html": "DrEZoJjZiCjJtPrgvCod",
+            "data_text": "REDsVumWSDSxShFLTKac                                                                                \n",
+            "data_html": "REDsVumWSDSxShFLTKac",
             "extra": {}
           }
         ],
@@ -294,38 +302,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MHTmM",
+            "digest": "URXyr",
             "data": {
-              "answer": "AvkIYgtjIhtbnfLPKJnW",
+              "answer": "IsBHHFHseqaOcSfaNrHM",
               "sources": [
                 {
-                  "url": "gRzLyTAaubHlTiBNdwpl",
-                  "public_url": "ztwEpwADyHLkTUcqXfiz",
-                  "mime_type": "EmtThJgQADmTXwMCAcPi",
-                  "filename": "TOmxffFYqJLKlEOvoSnc",
-                  "title": "ALLzbcSDFbXwMZCasNGq",
-                  "snippet": "AGHhwnBqVtpQlvoVmRFQ"
+                  "url": "ktagFIfkqeXpdNauFnfI",
+                  "public_url": "tzTyVUPwJbTOeqUpVEjs",
+                  "mime_type": "gVpHXvpldagBgaEvchIj",
+                  "filename": "SisDZNYbSgscBQtEEnRz",
+                  "title": "GEbPRdSDrxpMvqZZfnuU",
+                  "snippet": "LrTUSvnlLjFHDltnnuaa"
                 },
                 {
-                  "url": "vpbfLlJDSTYdMzFpCvhg",
-                  "public_url": "SXCGYQTbOacGYtBUFiiF",
-                  "mime_type": "jkTBJdhymmdAlZDadHTP",
-                  "filename": "hyvVLVKvXUWllyBMPRQR",
-                  "title": "ucirxmzMGRecKwoteTgH",
-                  "snippet": "WxQwZrMgpZVJfqbVezec"
+                  "url": "nDldJfIxBTDbCmvykBZy",
+                  "public_url": "FaUExTEXaxEAjtcoILHX",
+                  "mime_type": "VFUkjEyvBFGkBYConaiz",
+                  "filename": "JhfeDcqwjXatRQgySDaf",
+                  "title": "NnekpMBDncVlsFNnlOrr",
+                  "snippet": "DBcmOGCLmfIMTVeHYGVv"
                 },
                 {
-                  "url": "IlOawfcQfQElOTzAfWVl",
-                  "public_url": "iWWzqWtrYeigEeJQBLKH",
-                  "mime_type": "hfnWEQixxxTEBQXNThNz",
-                  "filename": "JQIXNeZYmgHMQFEsFPvf",
-                  "title": "ZxomskjUfaIhyXtbIOvF",
-                  "snippet": "DwexQNArkPStDzcEwDPd"
+                  "url": "HyZIGDJCLwUyKkxBSemS",
+                  "public_url": "HwCaaxQgjsHKRnKJNcmX",
+                  "mime_type": "blqVcbeUYPlVniawWsan",
+                  "filename": "uooQahhZwQCCJjOvckji",
+                  "title": "IePVYuUgbotGzEzScyzQ",
+                  "snippet": "tyGQTArcpPBkUqQWNsdf"
                 }
               ]
             },
-            "data_text": "Search Result:\nAvkIYgtjIhtbnfLPKJnW                                                                                \n\nSources (3):\nALLzbcSDFbXwMZCasNGq (gRzLyTAaubHlTiBNdwpl)\n  AGHhwnBqVtpQlvoVmRFQ\n\nucirxmzMGRecKwoteTgH (vpbfLlJDSTYdMzFpCvhg)\n  WxQwZrMgpZVJfqbVezec\n\nZxomskjUfaIhyXtbIOvF (IlOawfcQfQElOTzAfWVl)\n  DwexQNArkPStDzcEwDPd\n",
-            "data_html": "<div><p>AvkIYgtjIhtbnfLPKJnW</p><h4>Sources</h4><ul><li><a href=\"ztwEpwADyHLkTUcqXfiz\" class=\"msg-document\">ALLzbcSDFbXwMZCasNGq</a><br/><small>AGHhwnBqVtpQlvoVmRFQ</small></li><li><a href=\"SXCGYQTbOacGYtBUFiiF\" class=\"msg-document\">ucirxmzMGRecKwoteTgH</a><br/><small>WxQwZrMgpZVJfqbVezec</small></li><li><a href=\"iWWzqWtrYeigEeJQBLKH\" class=\"msg-document\">ZxomskjUfaIhyXtbIOvF</a><br/><small>DwexQNArkPStDzcEwDPd</small></li></ul></div>",
+            "data_text": "Search Result:\nIsBHHFHseqaOcSfaNrHM                                                                                \n\nSources (3):\nGEbPRdSDrxpMvqZZfnuU (ktagFIfkqeXpdNauFnfI)\n  LrTUSvnlLjFHDltnnuaa\n\nNnekpMBDncVlsFNnlOrr (nDldJfIxBTDbCmvykBZy)\n  DBcmOGCLmfIMTVeHYGVv\n\nIePVYuUgbotGzEzScyzQ (HyZIGDJCLwUyKkxBSemS)\n  tyGQTArcpPBkUqQWNsdf\n",
+            "data_html": "<div><p>IsBHHFHseqaOcSfaNrHM</p><h4>Sources</h4><ul><li><a href=\"tzTyVUPwJbTOeqUpVEjs\" class=\"msg-document\">GEbPRdSDrxpMvqZZfnuU</a><br/><small>LrTUSvnlLjFHDltnnuaa</small></li><li><a href=\"FaUExTEXaxEAjtcoILHX\" class=\"msg-document\">NnekpMBDncVlsFNnlOrr</a><br/><small>DBcmOGCLmfIMTVeHYGVv</small></li><li><a href=\"HwCaaxQgjsHKRnKJNcmX\" class=\"msg-document\">IePVYuUgbotGzEzScyzQ</a><br/><small>tyGQTArcpPBkUqQWNsdf</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -340,15 +348,17 @@
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
       "kind": "controller",
       "pipe_code": "process_phase",
       "pipe_type": "PipeParallel",
+      "description": "Process gathered data two ways in parallel",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.897259Z",
-        "ended_at": "2026-04-06T10:16:01.923015Z",
-        "duration": 0.025756
+        "started_at": "2026-05-15T12:39:46.897230Z",
+        "ended_at": "2026-05-15T12:39:46.929908Z",
+        "duration": 0.032678
       },
       "io": {
         "inputs": [
@@ -358,38 +368,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SDCVy",
+            "digest": "WeVdj",
             "data": {
-              "answer": "ZqUMxdljglFtuldZjKBf",
+              "answer": "jowqYdOerhFZWHipBMIo",
               "sources": [
                 {
-                  "url": "BHWTIcBFwFObfbPBIWwS",
-                  "public_url": "mnKfnhFAjeaPnSmvNfwC",
-                  "mime_type": "HQxuErHAxKrBLAWzxPoW",
-                  "filename": "jZCgPBPDVCslzAWXcQSi",
-                  "title": "YjgWAvtVveIpnYRPsHxM",
-                  "snippet": "ZDRBDMWfMTOYZtEzZkVS"
+                  "url": "wlZjTbiRuuDPGknAscOw",
+                  "public_url": "MTlnITkjNjYtAoVbqHME",
+                  "mime_type": "ktKDSKlkxvkQVkiRMfrC",
+                  "filename": "txYxXkXdKZsvEQtxFudv",
+                  "title": "ZvLwioElcudXMcgnXGRO",
+                  "snippet": "mEENnUypbGlBWSPAsIhR"
                 },
                 {
-                  "url": "ycuBxAJYfKLcVMSlUayy",
-                  "public_url": "QKvTmWbHiPnLxCCONFgH",
-                  "mime_type": "rPCMKXqyKOaZzOEZhriT",
-                  "filename": "PWozgwLyIcpjShuSQZmC",
-                  "title": "QRcjHkuEJOmjCeVsXqeo",
-                  "snippet": "ZUkctCHwymRExTWjQkEZ"
+                  "url": "OmRmNSghccXTxRSLJjvA",
+                  "public_url": "pNeRRIuZBjyVAxrIfzbk",
+                  "mime_type": "aAADgRqWQkhysxyZljXw",
+                  "filename": "AWIswEAPZZtmwHMjbMPH",
+                  "title": "WCmPLdIPUBUZWsphhmxs",
+                  "snippet": "SZunMrsyNEaKEVctGVXV"
                 },
                 {
-                  "url": "tWEhEGOzBItQgGEdPfwi",
-                  "public_url": "SCuhrqFkakkVFYvZrutF",
-                  "mime_type": "uezlHsfEHHilHuspvRAI",
-                  "filename": "fnMzmqYNsfCAzfRZAZNS",
-                  "title": "mWkXyTVEjCmuPmXvdpzS",
-                  "snippet": "vFPeMZAUVDLOzlNzvTpa"
+                  "url": "KkpqjcGWxJxQrPAFmyrw",
+                  "public_url": "YNsSLyPDeWpOwLsCkahG",
+                  "mime_type": "HLzfNEGQtKugrPzXWUar",
+                  "filename": "qGMKotVBMMsuDKQKENVR",
+                  "title": "VMfkRgVEGKRdqFtIwnGq",
+                  "snippet": "kvgfDDWvQCqfPrxiFvXp"
                 }
               ]
             },
-            "data_text": "Search Result:\nZqUMxdljglFtuldZjKBf                                                                                \n\nSources (3):\nYjgWAvtVveIpnYRPsHxM (BHWTIcBFwFObfbPBIWwS)\n  ZDRBDMWfMTOYZtEzZkVS\n\nQRcjHkuEJOmjCeVsXqeo (ycuBxAJYfKLcVMSlUayy)\n  ZUkctCHwymRExTWjQkEZ\n\nmWkXyTVEjCmuPmXvdpzS (tWEhEGOzBItQgGEdPfwi)\n  vFPeMZAUVDLOzlNzvTpa\n",
-            "data_html": "<div><p>ZqUMxdljglFtuldZjKBf</p><h4>Sources</h4><ul><li><a href=\"mnKfnhFAjeaPnSmvNfwC\" class=\"msg-document\">YjgWAvtVveIpnYRPsHxM</a><br/><small>ZDRBDMWfMTOYZtEzZkVS</small></li><li><a href=\"QKvTmWbHiPnLxCCONFgH\" class=\"msg-document\">QRcjHkuEJOmjCeVsXqeo</a><br/><small>ZUkctCHwymRExTWjQkEZ</small></li><li><a href=\"SCuhrqFkakkVFYvZrutF\" class=\"msg-document\">mWkXyTVEjCmuPmXvdpzS</a><br/><small>vFPeMZAUVDLOzlNzvTpa</small></li></ul></div>",
+            "data_text": "Search Result:\njowqYdOerhFZWHipBMIo                                                                                \n\nSources (3):\nZvLwioElcudXMcgnXGRO (wlZjTbiRuuDPGknAscOw)\n  mEENnUypbGlBWSPAsIhR\n\nWCmPLdIPUBUZWsphhmxs (OmRmNSghccXTxRSLJjvA)\n  SZunMrsyNEaKEVctGVXV\n\nVMfkRgVEGKRdqFtIwnGq (KkpqjcGWxJxQrPAFmyrw)\n  kvgfDDWvQCqfPrxiFvXp\n",
+            "data_html": "<div><p>jowqYdOerhFZWHipBMIo</p><h4>Sources</h4><ul><li><a href=\"MTlnITkjNjYtAoVbqHME\" class=\"msg-document\">ZvLwioElcudXMcgnXGRO</a><br/><small>mEENnUypbGlBWSPAsIhR</small></li><li><a href=\"pNeRRIuZBjyVAxrIfzbk\" class=\"msg-document\">WCmPLdIPUBUZWsphhmxs</a><br/><small>SZunMrsyNEaKEVctGVXV</small></li><li><a href=\"YNsSLyPDeWpOwLsCkahG\" class=\"msg-document\">VMfkRgVEGKRdqFtIwnGq</a><br/><small>kvgfDDWvQCqfPrxiFvXp</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -398,38 +408,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MHTmM",
+            "digest": "URXyr",
             "data": {
-              "answer": "AvkIYgtjIhtbnfLPKJnW",
+              "answer": "IsBHHFHseqaOcSfaNrHM",
               "sources": [
                 {
-                  "url": "gRzLyTAaubHlTiBNdwpl",
-                  "public_url": "ztwEpwADyHLkTUcqXfiz",
-                  "mime_type": "EmtThJgQADmTXwMCAcPi",
-                  "filename": "TOmxffFYqJLKlEOvoSnc",
-                  "title": "ALLzbcSDFbXwMZCasNGq",
-                  "snippet": "AGHhwnBqVtpQlvoVmRFQ"
+                  "url": "ktagFIfkqeXpdNauFnfI",
+                  "public_url": "tzTyVUPwJbTOeqUpVEjs",
+                  "mime_type": "gVpHXvpldagBgaEvchIj",
+                  "filename": "SisDZNYbSgscBQtEEnRz",
+                  "title": "GEbPRdSDrxpMvqZZfnuU",
+                  "snippet": "LrTUSvnlLjFHDltnnuaa"
                 },
                 {
-                  "url": "vpbfLlJDSTYdMzFpCvhg",
-                  "public_url": "SXCGYQTbOacGYtBUFiiF",
-                  "mime_type": "jkTBJdhymmdAlZDadHTP",
-                  "filename": "hyvVLVKvXUWllyBMPRQR",
-                  "title": "ucirxmzMGRecKwoteTgH",
-                  "snippet": "WxQwZrMgpZVJfqbVezec"
+                  "url": "nDldJfIxBTDbCmvykBZy",
+                  "public_url": "FaUExTEXaxEAjtcoILHX",
+                  "mime_type": "VFUkjEyvBFGkBYConaiz",
+                  "filename": "JhfeDcqwjXatRQgySDaf",
+                  "title": "NnekpMBDncVlsFNnlOrr",
+                  "snippet": "DBcmOGCLmfIMTVeHYGVv"
                 },
                 {
-                  "url": "IlOawfcQfQElOTzAfWVl",
-                  "public_url": "iWWzqWtrYeigEeJQBLKH",
-                  "mime_type": "hfnWEQixxxTEBQXNThNz",
-                  "filename": "JQIXNeZYmgHMQFEsFPvf",
-                  "title": "ZxomskjUfaIhyXtbIOvF",
-                  "snippet": "DwexQNArkPStDzcEwDPd"
+                  "url": "HyZIGDJCLwUyKkxBSemS",
+                  "public_url": "HwCaaxQgjsHKRnKJNcmX",
+                  "mime_type": "blqVcbeUYPlVniawWsan",
+                  "filename": "uooQahhZwQCCJjOvckji",
+                  "title": "IePVYuUgbotGzEzScyzQ",
+                  "snippet": "tyGQTArcpPBkUqQWNsdf"
                 }
               ]
             },
-            "data_text": "Search Result:\nAvkIYgtjIhtbnfLPKJnW                                                                                \n\nSources (3):\nALLzbcSDFbXwMZCasNGq (gRzLyTAaubHlTiBNdwpl)\n  AGHhwnBqVtpQlvoVmRFQ\n\nucirxmzMGRecKwoteTgH (vpbfLlJDSTYdMzFpCvhg)\n  WxQwZrMgpZVJfqbVezec\n\nZxomskjUfaIhyXtbIOvF (IlOawfcQfQElOTzAfWVl)\n  DwexQNArkPStDzcEwDPd\n",
-            "data_html": "<div><p>AvkIYgtjIhtbnfLPKJnW</p><h4>Sources</h4><ul><li><a href=\"ztwEpwADyHLkTUcqXfiz\" class=\"msg-document\">ALLzbcSDFbXwMZCasNGq</a><br/><small>AGHhwnBqVtpQlvoVmRFQ</small></li><li><a href=\"SXCGYQTbOacGYtBUFiiF\" class=\"msg-document\">ucirxmzMGRecKwoteTgH</a><br/><small>WxQwZrMgpZVJfqbVezec</small></li><li><a href=\"iWWzqWtrYeigEeJQBLKH\" class=\"msg-document\">ZxomskjUfaIhyXtbIOvF</a><br/><small>DwexQNArkPStDzcEwDPd</small></li></ul></div>",
+            "data_text": "Search Result:\nIsBHHFHseqaOcSfaNrHM                                                                                \n\nSources (3):\nGEbPRdSDrxpMvqZZfnuU (ktagFIfkqeXpdNauFnfI)\n  LrTUSvnlLjFHDltnnuaa\n\nNnekpMBDncVlsFNnlOrr (nDldJfIxBTDbCmvykBZy)\n  DBcmOGCLmfIMTVeHYGVv\n\nIePVYuUgbotGzEzScyzQ (HyZIGDJCLwUyKkxBSemS)\n  tyGQTArcpPBkUqQWNsdf\n",
+            "data_html": "<div><p>IsBHHFHseqaOcSfaNrHM</p><h4>Sources</h4><ul><li><a href=\"tzTyVUPwJbTOeqUpVEjs\" class=\"msg-document\">GEbPRdSDrxpMvqZZfnuU</a><br/><small>LrTUSvnlLjFHDltnnuaa</small></li><li><a href=\"FaUExTEXaxEAjtcoILHX\" class=\"msg-document\">NnekpMBDncVlsFNnlOrr</a><br/><small>DBcmOGCLmfIMTVeHYGVv</small></li><li><a href=\"HwCaaxQgjsHKRnKJNcmX\" class=\"msg-document\">IePVYuUgbotGzEzScyzQ</a><br/><small>tyGQTArcpPBkUqQWNsdf</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -440,12 +450,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mF84m",
+            "digest": "aVBv3",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> ZqUMxdljglFtuldZjKBf                                                           \n\nSources:                                                                                            \n\n • YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS ZDRBDMWfMTOYZtEzZkVS                                  \n • QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy ZUkctCHwymRExTWjQkEZ                                  \n • mWkXyTVEjCmuPmXvdpzS:                                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: &lt;source_a&gt;\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> jowqYdOerhFZWHipBMIo                                                           \n\nSources:                                                                                            \n\n • ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw mEENnUypbGlBWSPAsIhR                                  \n • WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA SZunMrsyNEaKEVctGVXV                                  \n • VMfkRgVEGKRdqFtIwnGq:                                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n&lt;source_a&gt;\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    ",
             "extra": {}
           },
           {
@@ -454,11 +464,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "PG5Aq",
+            "digest": "6zzy4",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Data visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa",
+              "source_prompt": "Data visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -468,7 +478,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -484,15 +494,17 @@
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_5",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_5",
       "kind": "operator",
       "pipe_code": "transform_x",
       "pipe_type": "PipeLLM",
+      "description": "Transform data for analysis",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.902857Z",
-        "ended_at": "2026-04-06T10:16:01.912095Z",
-        "duration": 0.009238
+        "started_at": "2026-05-15T12:39:46.903967Z",
+        "ended_at": "2026-05-15T12:39:46.914476Z",
+        "duration": 0.010509
       },
       "io": {
         "inputs": [
@@ -502,38 +514,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SDCVy",
+            "digest": "WeVdj",
             "data": {
-              "answer": "ZqUMxdljglFtuldZjKBf",
+              "answer": "jowqYdOerhFZWHipBMIo",
               "sources": [
                 {
-                  "url": "BHWTIcBFwFObfbPBIWwS",
-                  "public_url": "mnKfnhFAjeaPnSmvNfwC",
-                  "mime_type": "HQxuErHAxKrBLAWzxPoW",
-                  "filename": "jZCgPBPDVCslzAWXcQSi",
-                  "title": "YjgWAvtVveIpnYRPsHxM",
-                  "snippet": "ZDRBDMWfMTOYZtEzZkVS"
+                  "url": "wlZjTbiRuuDPGknAscOw",
+                  "public_url": "MTlnITkjNjYtAoVbqHME",
+                  "mime_type": "ktKDSKlkxvkQVkiRMfrC",
+                  "filename": "txYxXkXdKZsvEQtxFudv",
+                  "title": "ZvLwioElcudXMcgnXGRO",
+                  "snippet": "mEENnUypbGlBWSPAsIhR"
                 },
                 {
-                  "url": "ycuBxAJYfKLcVMSlUayy",
-                  "public_url": "QKvTmWbHiPnLxCCONFgH",
-                  "mime_type": "rPCMKXqyKOaZzOEZhriT",
-                  "filename": "PWozgwLyIcpjShuSQZmC",
-                  "title": "QRcjHkuEJOmjCeVsXqeo",
-                  "snippet": "ZUkctCHwymRExTWjQkEZ"
+                  "url": "OmRmNSghccXTxRSLJjvA",
+                  "public_url": "pNeRRIuZBjyVAxrIfzbk",
+                  "mime_type": "aAADgRqWQkhysxyZljXw",
+                  "filename": "AWIswEAPZZtmwHMjbMPH",
+                  "title": "WCmPLdIPUBUZWsphhmxs",
+                  "snippet": "SZunMrsyNEaKEVctGVXV"
                 },
                 {
-                  "url": "tWEhEGOzBItQgGEdPfwi",
-                  "public_url": "SCuhrqFkakkVFYvZrutF",
-                  "mime_type": "uezlHsfEHHilHuspvRAI",
-                  "filename": "fnMzmqYNsfCAzfRZAZNS",
-                  "title": "mWkXyTVEjCmuPmXvdpzS",
-                  "snippet": "vFPeMZAUVDLOzlNzvTpa"
+                  "url": "KkpqjcGWxJxQrPAFmyrw",
+                  "public_url": "YNsSLyPDeWpOwLsCkahG",
+                  "mime_type": "HLzfNEGQtKugrPzXWUar",
+                  "filename": "qGMKotVBMMsuDKQKENVR",
+                  "title": "VMfkRgVEGKRdqFtIwnGq",
+                  "snippet": "kvgfDDWvQCqfPrxiFvXp"
                 }
               ]
             },
-            "data_text": "Search Result:\nZqUMxdljglFtuldZjKBf                                                                                \n\nSources (3):\nYjgWAvtVveIpnYRPsHxM (BHWTIcBFwFObfbPBIWwS)\n  ZDRBDMWfMTOYZtEzZkVS\n\nQRcjHkuEJOmjCeVsXqeo (ycuBxAJYfKLcVMSlUayy)\n  ZUkctCHwymRExTWjQkEZ\n\nmWkXyTVEjCmuPmXvdpzS (tWEhEGOzBItQgGEdPfwi)\n  vFPeMZAUVDLOzlNzvTpa\n",
-            "data_html": "<div><p>ZqUMxdljglFtuldZjKBf</p><h4>Sources</h4><ul><li><a href=\"mnKfnhFAjeaPnSmvNfwC\" class=\"msg-document\">YjgWAvtVveIpnYRPsHxM</a><br/><small>ZDRBDMWfMTOYZtEzZkVS</small></li><li><a href=\"QKvTmWbHiPnLxCCONFgH\" class=\"msg-document\">QRcjHkuEJOmjCeVsXqeo</a><br/><small>ZUkctCHwymRExTWjQkEZ</small></li><li><a href=\"SCuhrqFkakkVFYvZrutF\" class=\"msg-document\">mWkXyTVEjCmuPmXvdpzS</a><br/><small>vFPeMZAUVDLOzlNzvTpa</small></li></ul></div>",
+            "data_text": "Search Result:\njowqYdOerhFZWHipBMIo                                                                                \n\nSources (3):\nZvLwioElcudXMcgnXGRO (wlZjTbiRuuDPGknAscOw)\n  mEENnUypbGlBWSPAsIhR\n\nWCmPLdIPUBUZWsphhmxs (OmRmNSghccXTxRSLJjvA)\n  SZunMrsyNEaKEVctGVXV\n\nVMfkRgVEGKRdqFtIwnGq (KkpqjcGWxJxQrPAFmyrw)\n  kvgfDDWvQCqfPrxiFvXp\n",
+            "data_html": "<div><p>jowqYdOerhFZWHipBMIo</p><h4>Sources</h4><ul><li><a href=\"MTlnITkjNjYtAoVbqHME\" class=\"msg-document\">ZvLwioElcudXMcgnXGRO</a><br/><small>mEENnUypbGlBWSPAsIhR</small></li><li><a href=\"pNeRRIuZBjyVAxrIfzbk\" class=\"msg-document\">WCmPLdIPUBUZWsphhmxs</a><br/><small>SZunMrsyNEaKEVctGVXV</small></li><li><a href=\"YNsSLyPDeWpOwLsCkahG\" class=\"msg-document\">VMfkRgVEGKRdqFtIwnGq</a><br/><small>kvgfDDWvQCqfPrxiFvXp</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -542,38 +554,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MHTmM",
+            "digest": "URXyr",
             "data": {
-              "answer": "AvkIYgtjIhtbnfLPKJnW",
+              "answer": "IsBHHFHseqaOcSfaNrHM",
               "sources": [
                 {
-                  "url": "gRzLyTAaubHlTiBNdwpl",
-                  "public_url": "ztwEpwADyHLkTUcqXfiz",
-                  "mime_type": "EmtThJgQADmTXwMCAcPi",
-                  "filename": "TOmxffFYqJLKlEOvoSnc",
-                  "title": "ALLzbcSDFbXwMZCasNGq",
-                  "snippet": "AGHhwnBqVtpQlvoVmRFQ"
+                  "url": "ktagFIfkqeXpdNauFnfI",
+                  "public_url": "tzTyVUPwJbTOeqUpVEjs",
+                  "mime_type": "gVpHXvpldagBgaEvchIj",
+                  "filename": "SisDZNYbSgscBQtEEnRz",
+                  "title": "GEbPRdSDrxpMvqZZfnuU",
+                  "snippet": "LrTUSvnlLjFHDltnnuaa"
                 },
                 {
-                  "url": "vpbfLlJDSTYdMzFpCvhg",
-                  "public_url": "SXCGYQTbOacGYtBUFiiF",
-                  "mime_type": "jkTBJdhymmdAlZDadHTP",
-                  "filename": "hyvVLVKvXUWllyBMPRQR",
-                  "title": "ucirxmzMGRecKwoteTgH",
-                  "snippet": "WxQwZrMgpZVJfqbVezec"
+                  "url": "nDldJfIxBTDbCmvykBZy",
+                  "public_url": "FaUExTEXaxEAjtcoILHX",
+                  "mime_type": "VFUkjEyvBFGkBYConaiz",
+                  "filename": "JhfeDcqwjXatRQgySDaf",
+                  "title": "NnekpMBDncVlsFNnlOrr",
+                  "snippet": "DBcmOGCLmfIMTVeHYGVv"
                 },
                 {
-                  "url": "IlOawfcQfQElOTzAfWVl",
-                  "public_url": "iWWzqWtrYeigEeJQBLKH",
-                  "mime_type": "hfnWEQixxxTEBQXNThNz",
-                  "filename": "JQIXNeZYmgHMQFEsFPvf",
-                  "title": "ZxomskjUfaIhyXtbIOvF",
-                  "snippet": "DwexQNArkPStDzcEwDPd"
+                  "url": "HyZIGDJCLwUyKkxBSemS",
+                  "public_url": "HwCaaxQgjsHKRnKJNcmX",
+                  "mime_type": "blqVcbeUYPlVniawWsan",
+                  "filename": "uooQahhZwQCCJjOvckji",
+                  "title": "IePVYuUgbotGzEzScyzQ",
+                  "snippet": "tyGQTArcpPBkUqQWNsdf"
                 }
               ]
             },
-            "data_text": "Search Result:\nAvkIYgtjIhtbnfLPKJnW                                                                                \n\nSources (3):\nALLzbcSDFbXwMZCasNGq (gRzLyTAaubHlTiBNdwpl)\n  AGHhwnBqVtpQlvoVmRFQ\n\nucirxmzMGRecKwoteTgH (vpbfLlJDSTYdMzFpCvhg)\n  WxQwZrMgpZVJfqbVezec\n\nZxomskjUfaIhyXtbIOvF (IlOawfcQfQElOTzAfWVl)\n  DwexQNArkPStDzcEwDPd\n",
-            "data_html": "<div><p>AvkIYgtjIhtbnfLPKJnW</p><h4>Sources</h4><ul><li><a href=\"ztwEpwADyHLkTUcqXfiz\" class=\"msg-document\">ALLzbcSDFbXwMZCasNGq</a><br/><small>AGHhwnBqVtpQlvoVmRFQ</small></li><li><a href=\"SXCGYQTbOacGYtBUFiiF\" class=\"msg-document\">ucirxmzMGRecKwoteTgH</a><br/><small>WxQwZrMgpZVJfqbVezec</small></li><li><a href=\"iWWzqWtrYeigEeJQBLKH\" class=\"msg-document\">ZxomskjUfaIhyXtbIOvF</a><br/><small>DwexQNArkPStDzcEwDPd</small></li></ul></div>",
+            "data_text": "Search Result:\nIsBHHFHseqaOcSfaNrHM                                                                                \n\nSources (3):\nGEbPRdSDrxpMvqZZfnuU (ktagFIfkqeXpdNauFnfI)\n  LrTUSvnlLjFHDltnnuaa\n\nNnekpMBDncVlsFNnlOrr (nDldJfIxBTDbCmvykBZy)\n  DBcmOGCLmfIMTVeHYGVv\n\nIePVYuUgbotGzEzScyzQ (HyZIGDJCLwUyKkxBSemS)\n  tyGQTArcpPBkUqQWNsdf\n",
+            "data_html": "<div><p>IsBHHFHseqaOcSfaNrHM</p><h4>Sources</h4><ul><li><a href=\"tzTyVUPwJbTOeqUpVEjs\" class=\"msg-document\">GEbPRdSDrxpMvqZZfnuU</a><br/><small>LrTUSvnlLjFHDltnnuaa</small></li><li><a href=\"FaUExTEXaxEAjtcoILHX\" class=\"msg-document\">NnekpMBDncVlsFNnlOrr</a><br/><small>DBcmOGCLmfIMTVeHYGVv</small></li><li><a href=\"HwCaaxQgjsHKRnKJNcmX\" class=\"msg-document\">IePVYuUgbotGzEzScyzQ</a><br/><small>tyGQTArcpPBkUqQWNsdf</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -584,12 +596,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mF84m",
+            "digest": "aVBv3",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> ZqUMxdljglFtuldZjKBf                                                           \n\nSources:                                                                                            \n\n • YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS ZDRBDMWfMTOYZtEzZkVS                                  \n • QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy ZUkctCHwymRExTWjQkEZ                                  \n • mWkXyTVEjCmuPmXvdpzS:                                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: &lt;source_a&gt;\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> jowqYdOerhFZWHipBMIo                                                           \n\nSources:                                                                                            \n\n • ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw mEENnUypbGlBWSPAsIhR                                  \n • WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA SZunMrsyNEaKEVctGVXV                                  \n • VMfkRgVEGKRdqFtIwnGq:                                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n&lt;source_a&gt;\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    ",
             "extra": {}
           }
         ]
@@ -598,24 +610,26 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "resolved_model": "claude-4.5-sonnet",
-        "resolved_model_for_object": "claude-4.5-sonnet",
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa\n</source_a>\nSource B: <source_b>\nAvkIYgtjIhtbnfLPKJnW\n\nSources:\n- ALLzbcSDFbXwMZCasNGq: gRzLyTAaubHlTiBNdwpl\n  AGHhwnBqVtpQlvoVmRFQ\n- ucirxmzMGRecKwoteTgH: vpbfLlJDSTYdMzFpCvhg\n  WxQwZrMgpZVJfqbVezec\n- ZxomskjUfaIhyXtbIOvF: IlOawfcQfQElOTzAfWVl\n  DwexQNArkPStDzcEwDPd\n</source_b>",
+        "rendered_user_prompt": "Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp\n</source_a>\nSource B:\n<source_b>\nIsBHHFHseqaOcSfaNrHM\n\nSources:\n- GEbPRdSDrxpMvqZZfnuU: ktagFIfkqeXpdNauFnfI\n  LrTUSvnlLjFHDltnnuaa\n- NnekpMBDncVlsFNnlOrr: nDldJfIxBTDbCmvykBZy\n  DBcmOGCLmfIMTVeHYGVv\n- IePVYuUgbotGzEzScyzQ: HyZIGDJCLwUyKkxBSemS\n  tyGQTArcpPBkUqQWNsdf\n</source_b>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_6",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_6",
       "kind": "operator",
       "pipe_code": "transform_y",
       "pipe_type": "PipeImgGen",
+      "description": "Generate visual from gathered data",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.912774Z",
-        "ended_at": "2026-04-06T10:16:01.921483Z",
-        "duration": 0.008709
+        "started_at": "2026-05-15T12:39:46.918125Z",
+        "ended_at": "2026-05-15T12:39:46.927017Z",
+        "duration": 0.008892
       },
       "io": {
         "inputs": [
@@ -625,38 +639,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SDCVy",
+            "digest": "WeVdj",
             "data": {
-              "answer": "ZqUMxdljglFtuldZjKBf",
+              "answer": "jowqYdOerhFZWHipBMIo",
               "sources": [
                 {
-                  "url": "BHWTIcBFwFObfbPBIWwS",
-                  "public_url": "mnKfnhFAjeaPnSmvNfwC",
-                  "mime_type": "HQxuErHAxKrBLAWzxPoW",
-                  "filename": "jZCgPBPDVCslzAWXcQSi",
-                  "title": "YjgWAvtVveIpnYRPsHxM",
-                  "snippet": "ZDRBDMWfMTOYZtEzZkVS"
+                  "url": "wlZjTbiRuuDPGknAscOw",
+                  "public_url": "MTlnITkjNjYtAoVbqHME",
+                  "mime_type": "ktKDSKlkxvkQVkiRMfrC",
+                  "filename": "txYxXkXdKZsvEQtxFudv",
+                  "title": "ZvLwioElcudXMcgnXGRO",
+                  "snippet": "mEENnUypbGlBWSPAsIhR"
                 },
                 {
-                  "url": "ycuBxAJYfKLcVMSlUayy",
-                  "public_url": "QKvTmWbHiPnLxCCONFgH",
-                  "mime_type": "rPCMKXqyKOaZzOEZhriT",
-                  "filename": "PWozgwLyIcpjShuSQZmC",
-                  "title": "QRcjHkuEJOmjCeVsXqeo",
-                  "snippet": "ZUkctCHwymRExTWjQkEZ"
+                  "url": "OmRmNSghccXTxRSLJjvA",
+                  "public_url": "pNeRRIuZBjyVAxrIfzbk",
+                  "mime_type": "aAADgRqWQkhysxyZljXw",
+                  "filename": "AWIswEAPZZtmwHMjbMPH",
+                  "title": "WCmPLdIPUBUZWsphhmxs",
+                  "snippet": "SZunMrsyNEaKEVctGVXV"
                 },
                 {
-                  "url": "tWEhEGOzBItQgGEdPfwi",
-                  "public_url": "SCuhrqFkakkVFYvZrutF",
-                  "mime_type": "uezlHsfEHHilHuspvRAI",
-                  "filename": "fnMzmqYNsfCAzfRZAZNS",
-                  "title": "mWkXyTVEjCmuPmXvdpzS",
-                  "snippet": "vFPeMZAUVDLOzlNzvTpa"
+                  "url": "KkpqjcGWxJxQrPAFmyrw",
+                  "public_url": "YNsSLyPDeWpOwLsCkahG",
+                  "mime_type": "HLzfNEGQtKugrPzXWUar",
+                  "filename": "qGMKotVBMMsuDKQKENVR",
+                  "title": "VMfkRgVEGKRdqFtIwnGq",
+                  "snippet": "kvgfDDWvQCqfPrxiFvXp"
                 }
               ]
             },
-            "data_text": "Search Result:\nZqUMxdljglFtuldZjKBf                                                                                \n\nSources (3):\nYjgWAvtVveIpnYRPsHxM (BHWTIcBFwFObfbPBIWwS)\n  ZDRBDMWfMTOYZtEzZkVS\n\nQRcjHkuEJOmjCeVsXqeo (ycuBxAJYfKLcVMSlUayy)\n  ZUkctCHwymRExTWjQkEZ\n\nmWkXyTVEjCmuPmXvdpzS (tWEhEGOzBItQgGEdPfwi)\n  vFPeMZAUVDLOzlNzvTpa\n",
-            "data_html": "<div><p>ZqUMxdljglFtuldZjKBf</p><h4>Sources</h4><ul><li><a href=\"mnKfnhFAjeaPnSmvNfwC\" class=\"msg-document\">YjgWAvtVveIpnYRPsHxM</a><br/><small>ZDRBDMWfMTOYZtEzZkVS</small></li><li><a href=\"QKvTmWbHiPnLxCCONFgH\" class=\"msg-document\">QRcjHkuEJOmjCeVsXqeo</a><br/><small>ZUkctCHwymRExTWjQkEZ</small></li><li><a href=\"SCuhrqFkakkVFYvZrutF\" class=\"msg-document\">mWkXyTVEjCmuPmXvdpzS</a><br/><small>vFPeMZAUVDLOzlNzvTpa</small></li></ul></div>",
+            "data_text": "Search Result:\njowqYdOerhFZWHipBMIo                                                                                \n\nSources (3):\nZvLwioElcudXMcgnXGRO (wlZjTbiRuuDPGknAscOw)\n  mEENnUypbGlBWSPAsIhR\n\nWCmPLdIPUBUZWsphhmxs (OmRmNSghccXTxRSLJjvA)\n  SZunMrsyNEaKEVctGVXV\n\nVMfkRgVEGKRdqFtIwnGq (KkpqjcGWxJxQrPAFmyrw)\n  kvgfDDWvQCqfPrxiFvXp\n",
+            "data_html": "<div><p>jowqYdOerhFZWHipBMIo</p><h4>Sources</h4><ul><li><a href=\"MTlnITkjNjYtAoVbqHME\" class=\"msg-document\">ZvLwioElcudXMcgnXGRO</a><br/><small>mEENnUypbGlBWSPAsIhR</small></li><li><a href=\"pNeRRIuZBjyVAxrIfzbk\" class=\"msg-document\">WCmPLdIPUBUZWsphhmxs</a><br/><small>SZunMrsyNEaKEVctGVXV</small></li><li><a href=\"YNsSLyPDeWpOwLsCkahG\" class=\"msg-document\">VMfkRgVEGKRdqFtIwnGq</a><br/><small>kvgfDDWvQCqfPrxiFvXp</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -667,11 +681,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "PG5Aq",
+            "digest": "6zzy4",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Data visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa",
+              "source_prompt": "Data visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -681,7 +695,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -692,22 +706,24 @@
       "metrics": {},
       "execution_data": {
         "resolved_model": "@default-general",
-        "rendered_prompt": "Data visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa",
+        "rendered_prompt": "Data visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp",
         "rendered_negative_prompt": null,
         "aspect_ratio": "square",
         "nb_images": 1
       }
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_7",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_7",
       "kind": "operator",
       "pipe_code": "finalize",
       "pipe_type": "PipeCompose",
+      "description": "Finalize combined results",
+      "domain_code": "dual_phase",
       "status": "succeeded",
       "timing": {
-        "started_at": "2026-04-06T10:16:01.923863Z",
-        "ended_at": "2026-04-06T10:16:01.931072Z",
-        "duration": 0.007209
+        "started_at": "2026-05-15T12:39:46.934729Z",
+        "ended_at": "2026-05-15T12:39:46.942434Z",
+        "duration": 0.007705
       },
       "io": {
         "inputs": [
@@ -717,12 +733,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mF84m",
+            "digest": "aVBv3",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    "
+              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> ZqUMxdljglFtuldZjKBf                                                           \n\nSources:                                                                                            \n\n • YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS ZDRBDMWfMTOYZtEzZkVS                                  \n • QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy ZUkctCHwymRExTWjQkEZ                                  \n • mWkXyTVEjCmuPmXvdpzS:                                                                            \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: &lt;source_a&gt;\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    ",
+            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize and analyze these\ndata sources:                                                                                       \n\nSource A: <source_a> jowqYdOerhFZWHipBMIo                                                           \n\nSources:                                                                                            \n\n • ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw mEENnUypbGlBWSPAsIhR                                  \n • WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA SZunMrsyNEaKEVctGVXV                                  \n • VMfkRgVEGKRdqFtIwnGq:                                                                            \n",
+            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n&lt;source_a&gt;\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    ",
             "extra": {}
           },
           {
@@ -731,11 +747,11 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "PG5Aq",
+            "digest": "6zzy4",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Data visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa",
+              "source_prompt": "Data visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
@@ -745,7 +761,7 @@
               },
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: ZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: tWEhEGOzBItQgGEdPfwi\n  vFPeMZAUVDLOzlNzvTpa\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nData visualization based on: jowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: KkpqjcGWxJxQrPAFmyrw\n  kvgfDDWvQCqfPrxiFvXp\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -757,12 +773,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LrcVw",
+            "digest": "DDwZo",
             "data": {
-              "text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    \n```"
+              "text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    \n```"
             },
-            "data_text": "                                           Final Results                                            \n\nAnalysis                                                                                            \n\nresult_x: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize \nand analyze these data sources:                                                                     \n\nSource A: <source_a> ZqUMxdljglFtuldZjKBf                                                           \n\nSources:                                                                                            \n\n • YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS ZDRBDMWfMTOYZtEzZkVS                                  \n • QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy ZUkctCHwymRExTWjQkEZ                                  \n • mWkXyTVEjCmuPmXvdpzS:                                                                            \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: &lt;source_a&gt;\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    \n```",
+            "data_text": "                                           Final Results                                            \n\nAnalysis                                                                                            \n\nresult_x: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Synthesize \nand analyze these data sources:                                                                     \n\nSource A: <source_a> jowqYdOerhFZWHipBMIo                                                           \n\nSources:                                                                                            \n\n • ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw mEENnUypbGlBWSPAsIhR                                  \n • WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA SZunMrsyNEaKEVctGVXV                                  \n • VMfkRgVEGKRdqFtIwnGq:                                                                            \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n&lt;source_a&gt;\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    \n```",
             "extra": {}
           }
         ]
@@ -772,15 +788,15 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.5-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A: <source_a>\nZqUMxdljglFtuldZjKBf\n\nSources:\n- YjgWAvtVveIpnYRPsHxM: BHWTIcBFwFObfbPBIWwS\n  ZDRBDMWfMTOYZtEzZkVS\n- QRcjHkuEJOmjCeVsXqeo: ycuBxAJYfKLcVMSlUayy\n  ZUkctCHwymRExTWjQkEZ\n- mWkXyTVEjCmuPmXvdpzS: \n    \n```"
+        "rendered_text": "# Final Results\n\n## Analysis\nresult_x: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Synthesize and analyze these data sources:\n\nSource A:\n<source_a>\njowqYdOerhFZWHipBMIo\n\nSources:\n- ZvLwioElcudXMcgnXGRO: wlZjTbiRuuDPGknAscOw\n  mEENnUypbGlBWSPAsIhR\n- WCmPLdIPUBUZWsphhmxs: OmRmNSghccXTxRSLJjvA\n  SZunMrsyNEaKEVctGVXV\n- VMfkRgVEGKRdqFtIwnGq: \n    \n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_0",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_0",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_0",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_0",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -788,9 +804,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_1",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_2",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_1",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_2",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -798,9 +814,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_2",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_3",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_2",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_3",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -808,9 +824,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_3",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_0",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_3",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_0",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -818,9 +834,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_4",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_5",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_4",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_5",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -828,9 +844,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_5",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_6",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_5",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_6",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -838,9 +854,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_6",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_0",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_7",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:edge_6",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_0",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_7",
       "kind": "contains",
       "label": null,
       "source_stuff_digest": null,
@@ -848,9 +864,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_7",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_0",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
       "kind": "data",
       "label": "source_a",
       "source_stuff_digest": null,
@@ -858,9 +874,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_8",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_1",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
       "kind": "data",
       "label": "source_b",
       "source_stuff_digest": null,
@@ -868,9 +884,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_9",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_5",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_2",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_5",
       "kind": "data",
       "label": "source_a",
       "source_stuff_digest": null,
@@ -878,9 +894,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_10",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_5",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_3",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_5",
       "kind": "data",
       "label": "source_b",
       "source_stuff_digest": null,
@@ -888,9 +904,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_11",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_1",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_6",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_4",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_1",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_6",
       "kind": "data",
       "label": "source_a",
       "source_stuff_digest": null,
@@ -898,9 +914,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_12",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_7",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_5",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_7",
       "kind": "data",
       "label": "result_x",
       "source_stuff_digest": null,
@@ -908,9 +924,9 @@
       "meta": {}
     },
     {
-      "id": "1d1f10e3-e174-4a98-941f-90c31b8a6327:edge_13",
-      "source": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_4",
-      "target": "1d1f10e3-e174-4a98-941f-90c31b8a6327:node_7",
+      "id": "221edbdc-f964-4b27-8d87-9ef52a4b4000:asm_edge_6",
+      "source": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_4",
+      "target": "221edbdc-f964-4b27-8d87-9ef52a4b4000:node_7",
       "kind": "data",
       "label": "result_y",
       "source_stuff_digest": null,
@@ -918,7 +934,9 @@
       "meta": {}
     }
   ],
-  "meta": {},
+  "meta": {
+    "format": "mthds"
+  },
   "pipe_registry": {
     "dual_phase.double_parallel_pipeline": {
       "pipe_category": "PipeController",
@@ -943,7 +961,7 @@
           "code": "ProcessedResult",
           "domain_code": "dual_phase",
           "description": "Final processed result",
-          "structure_class_name": "ProcessedResult",
+          "structure_class_name": "dual_phase__ProcessedResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1133,7 +1151,7 @@
           "code": "GatheredData",
           "domain_code": "dual_phase",
           "description": "Data gathered from sources",
-          "structure_class_name": "GatheredData",
+          "structure_class_name": "dual_phase__GatheredData",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1188,7 +1206,7 @@
           "code": "GatheredData",
           "domain_code": "dual_phase",
           "description": "Data gathered from sources",
-          "structure_class_name": "GatheredData",
+          "structure_class_name": "dual_phase__GatheredData",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1197,7 +1215,7 @@
         "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
-          "template": "Synthesize and analyze these data sources:\n\nSource A: @source_a\nSource B: @source_b\n",
+          "template": "Synthesize and analyze these data sources:\n\nSource A:\n@source_a\nSource B:\n@source_b\n",
           "templating_style": null,
           "category": "llm_prompt",
           "extra_context": null
@@ -1272,7 +1290,7 @@
             "code": "GatheredData",
             "domain_code": "dual_phase",
             "description": "Data gathered from sources",
-            "structure_class_name": "GatheredData",
+            "structure_class_name": "dual_phase__GatheredData",
             "refines": "native.Text"
           },
           "multiplicity": null
@@ -1293,7 +1311,7 @@
           "code": "ProcessedResult",
           "domain_code": "dual_phase",
           "description": "Final processed result",
-          "structure_class_name": "ProcessedResult",
+          "structure_class_name": "dual_phase__ProcessedResult",
           "refines": "native.Text"
         },
         "multiplicity": null
@@ -1310,7 +1328,7 @@
       "code": "ProcessedResult",
       "domain_code": "dual_phase",
       "description": "Final processed result",
-      "structure_class_name": "ProcessedResult",
+      "structure_class_name": "dual_phase__ProcessedResult",
       "refines": "native.Text",
       "json_schema": {
         "description": "Final processed result",
@@ -1323,7 +1341,7 @@
         "required": [
           "text"
         ],
-        "title": "ProcessedResult",
+        "title": "dual_phase__ProcessedResult",
         "type": "object"
       }
     },
@@ -1460,7 +1478,7 @@
       "code": "GatheredData",
       "domain_code": "dual_phase",
       "description": "Data gathered from sources",
-      "structure_class_name": "GatheredData",
+      "structure_class_name": "dual_phase__GatheredData",
       "refines": "native.Text",
       "json_schema": {
         "description": "Data gathered from sources",
@@ -1473,7 +1491,7 @@
         "required": [
           "text"
         ],
-        "title": "GatheredData",
+        "title": "dual_phase__GatheredData",
         "type": "object"
       }
     },
