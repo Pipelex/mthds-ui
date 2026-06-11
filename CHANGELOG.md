@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Detail panel close button scrolls with the content.** The "x" was an absolutely-positioned overlay pinned to the panel, floating over whatever scrolled beneath it; it now lives in a flow row at the top of the scrollable content, so it scrolls out of view with the content (close = scroll back up). It passes under the sticky pipe header on scroll.
+- **Concept detail panel: structure behind a tab.** When a stuff node has instance data, the panel shows "Data" / "Structure" tabs with Data selected by default — the schema table no longer pushes the data viewer below the fold. Without data (dry run / unexecuted), the structure renders directly as before. Tab state resets when selecting a different node.
+
+### Added
+
+- **`pipelex-light` shiki theme.** Light counterpart of `pipelex-dark` — same scopes one-for-one, VS Code Light+ values for generic tokens, darkened brand accents (coral/teal/green/magenta/orange) for contrast on white. New exports: `pipelexLightTheme`, `getMthdsThemes()` (both themes, for editors like Monaco that register every theme up front); `getMthdsTheme(name?)` now takes an optional theme name (defaults to `pipelex-dark`).
+- **Storybook stories for the shiki module** (`Shiki/Themes`): pipelex-dark, pipelex-light, and a side-by-side comparison.
+
+### Removed
+
+- **BREAKING: stock shiki themes dropped.** `dark-plus`, `monokai`, `dracula`, and `one-dark-pro` are no longer bundled or accepted by `highlightMthds` — `MthdsThemeName` is now `"pipelex-dark" | "pipelex-light"`. Consumers passing a removed theme name must switch to a pipelex theme (the playroom highlight API was updated in the same change).
+
 ## [v0.6.5] - 2026-05-15
 
 ### Added

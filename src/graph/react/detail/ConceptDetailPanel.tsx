@@ -48,27 +48,80 @@ export function ConceptDetailPanel({
         </div>
       )}
 
-      {/* Structure schema */}
-      {concept.json_schema ? (
-        <div>
-          <div className="detail-section-label">Structure</div>
-          <SchemaTable schema={concept.json_schema} isDryRun={isDryRun} />
-        </div>
-      ) : (
-        <div className="detail-not-available">Schema not available</div>
-      )}
+      <ConceptBody
+        key={`${concept.code}:${ioData && "digest" in ioData ? ioData.digest : (ioData?.name ?? "")}`}
+        concept={concept}
+        ioData={ioData}
+        isDryRun={isDryRun}
+        resolveStorageUrl={resolveStorageUrl}
+        canEmbedPdf={canEmbedPdf}
+        onOpenExternally={onOpenExternally}
+      />
+    </>
+  );
+}
 
-      {/* Instance data (live runs only) */}
-      {ioData && !isDryRun && (
-        <div>
-          <div className="detail-section-label">Data</div>
-          <StuffViewer
-            stuff={toStuffViewerData(ioData)}
-            resolveStorageUrl={resolveStorageUrl}
-            canEmbedPdf={canEmbedPdf}
-            onOpenExternally={onOpenExternally}
-          />
-        </div>
+/**
+ * Structure + data sections. When instance data exists, the two are split
+ * into "Data" / "Structure" tabs with Data shown by default — the schema
+ * table is reference material, not something to scroll past on every click.
+ * Without data (dry run / unexecuted), the structure renders directly.
+ */
+function ConceptBody({
+  concept,
+  ioData,
+  isDryRun,
+  resolveStorageUrl,
+  canEmbedPdf,
+  onOpenExternally,
+}: ConceptDetailPanelProps) {
+  const hasData = Boolean(ioData) && !isDryRun;
+  const [activeTab, setActiveTab] = React.useState<"data" | "structure">(
+    hasData ? "data" : "structure",
+  );
+
+  const structure = concept.json_schema ? (
+    <div>
+      <div className="detail-section-label">Structure</div>
+      <SchemaTable schema={concept.json_schema} isDryRun={isDryRun} />
+    </div>
+  ) : (
+    <div className="detail-not-available">Schema not available</div>
+  );
+
+  if (!hasData) return structure;
+
+  return (
+    <>
+      <div className="detail-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "data"}
+          className={`detail-tab ${activeTab === "data" ? "detail-tab--active" : ""}`}
+          onClick={() => setActiveTab("data")}
+        >
+          Data
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "structure"}
+          className={`detail-tab ${activeTab === "structure" ? "detail-tab--active" : ""}`}
+          onClick={() => setActiveTab("structure")}
+        >
+          Structure
+        </button>
+      </div>
+      {activeTab === "data" ? (
+        <StuffViewer
+          stuff={toStuffViewerData(ioData!)}
+          resolveStorageUrl={resolveStorageUrl}
+          canEmbedPdf={canEmbedPdf}
+          onOpenExternally={onOpenExternally}
+        />
+      ) : (
+        structure
       )}
     </>
   );

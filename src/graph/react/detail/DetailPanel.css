@@ -83,12 +83,24 @@
   pointer-events: none;
 }
 
+/* ─── Close row — scrolls away with the content (intentionally NOT pinned) ─ */
+/* The close button is part of the content's top, not panel chrome: it
+ * scrolls out of view with the content, and closing the panel means
+ * scrolling back up. The negative margin tucks the following section up
+ * beside it so the row doesn't cost a full line of vertical space. */
+
+.detail-panel-close-row {
+  display: flex;
+  justify-content: flex-end;
+  /* Pull the next section up by exactly this row's height + the column
+   * gap, so the close button sits ON the first content line (concept /
+   * pipe header), right-aligned — not on its own line above it. */
+  margin-bottom: -40px;
+}
+
 .detail-panel-close {
   all: unset;
   cursor: pointer;
-  position: absolute;
-  top: 12px;
-  right: 12px;
   width: 24px;
   height: 24px;
   display: flex;
@@ -98,7 +110,10 @@
   color: var(--text-dim);
   font-size: 18px;
   line-height: 1;
-  z-index: 3;
+  /* Above the sticky pipe header (z 1) so the X is visible at rest while
+   * sharing its line; on scroll it briefly slides over the stuck header's
+   * empty right side before leaving the viewport. */
+  z-index: 2;
 }
 
 .detail-panel-close:hover {
@@ -109,7 +124,7 @@
 .detail-panel-content {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 16px;
+  padding: 12px 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -119,11 +134,11 @@
 
 .detail-sticky-header {
   position: sticky;
-  top: -20px;
+  top: -12px; /* must mirror .detail-panel-content's top padding */
   z-index: 1;
   background: var(--surface-panel);
-  padding-top: 20px;
-  margin-top: -20px;
+  padding-top: 12px;
+  margin-top: -12px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -492,6 +507,38 @@
 .detail-tag-value {
   color: var(--text-default);
   font-family: var(--font-mono);
+}
+
+/* ─── Detail tabs (Data / Structure) ────────────────────────────────────── */
+
+.detail-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.detail-tab {
+  all: unset;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 5px 10px;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.detail-tab:hover {
+  color: var(--text-muted);
+}
+
+.detail-tab--active {
+  color: var(--text-default);
+  border-bottom-color: var(--color-accent);
 }
 
 /* ─── Concept panel header ──────────────────────────────────────────────── */
