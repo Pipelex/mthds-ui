@@ -11,8 +11,9 @@ Exactly two themes, both hand-authored here (no stock shiki themes are bundled):
 
 ## API (`@pipelex/mthds-ui/shiki`)
 
-- `highlightMthds(code, theme?)` — code → shiki HTML, defaults to `pipelex-dark`.
+- `highlightMthds(code, theme?)` — **async**, resolves to shiki HTML (`Promise<string>`); theme defaults to `pipelex-dark`. The first call also initializes the shared highlighter, so always `await` it.
 - `getMthdsTheme(name?)` / `getMthdsThemes()` — raw theme registrations; `getMthdsThemes()` returns both for editors that register every theme up front (e.g. Monaco via `shikiToMonaco`).
+- `pipelexDarkTheme` / `pipelexLightTheme` — the raw `ThemeRegistrationRaw` objects themselves, for consumers that build their own highlighter.
 - `getMthdsGrammar()`, `getAvailableThemes()`, `MthdsThemeName` (`"pipelex-dark" | "pipelex-light"`).
 
 ## Visual testing

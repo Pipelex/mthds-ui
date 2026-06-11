@@ -78,11 +78,12 @@ export const PipelexLight: Story = {
 };
 
 export const SideBySide: Story = {
+  // `theme` is the LEFT pane; the right pane shows the other theme.
   args: { theme: "pipelex-dark" },
-  render: () => (
+  render: (args) => (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-      <HighlightedSample theme="pipelex-dark" />
-      <HighlightedSample theme="pipelex-light" />
+      <HighlightedSample theme={args.theme} />
+      <HighlightedSample theme={args.theme === "pipelex-dark" ? "pipelex-light" : "pipelex-dark"} />
     </div>
   ),
 };

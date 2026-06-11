@@ -541,6 +541,15 @@
   border-bottom-color: var(--color-accent);
 }
 
+/* `all: unset` strips the UA focus ring — restore a visible indicator for
+ * keyboard users (WCAG 2.4.7) on every unset button in the panel. */
+.detail-tab:focus-visible,
+.detail-panel-close:focus-visible,
+.detail-prompt-expand-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 /* ─── Concept panel header ──────────────────────────────────────────────── */
 
 .detail-concept-code {

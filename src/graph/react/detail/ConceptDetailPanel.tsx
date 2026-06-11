@@ -18,6 +18,14 @@ export interface ConceptDetailPanelProps {
   canEmbedPdf?: boolean;
   /** Forwarded to {@link StuffViewer}. Overrides default `window.open` behavior. */
   onOpenExternally?: (url: string, filename?: string) => void;
+  /**
+   * Identity of the selected node/instance (e.g. the graph node id). Drives
+   * the Data/Structure tab reset: a new `instanceKey` remounts the body so
+   * the Data tab is selected again. Without it, two nodes sharing the same
+   * concept AND the same stuff name/digest (typical for batch branches) would
+   * keep the previous node's tab selection.
+   */
+  instanceKey?: string;
 }
 
 // ─── Component ──────────────────────────────────────────────────────────
@@ -29,6 +37,7 @@ export function ConceptDetailPanel({
   resolveStorageUrl,
   canEmbedPdf,
   onOpenExternally,
+  instanceKey,
 }: ConceptDetailPanelProps) {
   return (
     <>
@@ -49,7 +58,10 @@ export function ConceptDetailPanel({
       )}
 
       <ConceptBody
-        key={`${concept.code}:${ioData && "digest" in ioData ? ioData.digest : (ioData?.name ?? "")}`}
+        key={
+          instanceKey ??
+          `${concept.code}:${ioData && "digest" in ioData ? ioData.digest : (ioData?.name ?? "")}`
+        }
         concept={concept}
         ioData={ioData}
         isDryRun={isDryRun}
@@ -76,9 +88,10 @@ function ConceptBody({
   onOpenExternally,
 }: ConceptDetailPanelProps) {
   const hasData = Boolean(ioData) && !isDryRun;
-  const [activeTab, setActiveTab] = React.useState<"data" | "structure">(
-    hasData ? "data" : "structure",
-  );
+  const [activeTab, setActiveTab] = React.useState<TabId>(hasData ? "data" : "structure");
+  const baseId = React.useId();
+  const tabId = (tab: TabId) => `${baseId}-tab-${tab}`;
+  const panelId = (tab: TabId) => `${baseId}-tabpanel-${tab}`;
 
   const structure = concept.json_schema ? (
     <div>
@@ -91,41 +104,68 @@ function ConceptBody({
 
   if (!hasData) return structure;
 
+  // ARIA tabs keyboard pattern: arrows move between the two tabs (and
+  // activate, per "selection follows focus"), Home/End jump to first/last.
+  const onTabKeyDown = (event: React.KeyboardEvent) => {
+    let next: TabId;
+    switch (event.key) {
+      case "ArrowLeft":
+      case "ArrowRight":
+        next = activeTab === "data" ? "structure" : "data";
+        break;
+      case "Home":
+        next = "data";
+        break;
+      case "End":
+        next = "structure";
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    setActiveTab(next);
+    document.getElementById(tabId(next))?.focus();
+  };
+
+  const renderTab = (tab: TabId, label: string) => (
+    <button
+      type="button"
+      role="tab"
+      id={tabId(tab)}
+      aria-selected={activeTab === tab}
+      aria-controls={panelId(tab)}
+      tabIndex={activeTab === tab ? 0 : -1}
+      className={`detail-tab ${activeTab === tab ? "detail-tab--active" : ""}`}
+      onClick={() => setActiveTab(tab)}
+      onKeyDown={onTabKeyDown}
+    >
+      {label}
+    </button>
+  );
+
   return (
     <>
-      <div className="detail-tabs" role="tablist">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "data"}
-          className={`detail-tab ${activeTab === "data" ? "detail-tab--active" : ""}`}
-          onClick={() => setActiveTab("data")}
-        >
-          Data
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "structure"}
-          className={`detail-tab ${activeTab === "structure" ? "detail-tab--active" : ""}`}
-          onClick={() => setActiveTab("structure")}
-        >
-          Structure
-        </button>
+      <div className="detail-tabs" role="tablist" aria-label="Concept views">
+        {renderTab("data", "Data")}
+        {renderTab("structure", "Structure")}
       </div>
-      {activeTab === "data" ? (
-        <StuffViewer
-          stuff={toStuffViewerData(ioData!)}
-          resolveStorageUrl={resolveStorageUrl}
-          canEmbedPdf={canEmbedPdf}
-          onOpenExternally={onOpenExternally}
-        />
-      ) : (
-        structure
-      )}
+      <div role="tabpanel" id={panelId(activeTab)} aria-labelledby={tabId(activeTab)}>
+        {activeTab === "data" ? (
+          <StuffViewer
+            stuff={toStuffViewerData(ioData!)}
+            resolveStorageUrl={resolveStorageUrl}
+            canEmbedPdf={canEmbedPdf}
+            onOpenExternally={onOpenExternally}
+          />
+        ) : (
+          structure
+        )}
+      </div>
     </>
   );
 }
+
+type TabId = "data" | "structure";
 
 // ─── Schema table renderer ──────────────────────────────────────────────
 
