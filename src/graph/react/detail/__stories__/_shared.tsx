@@ -12,6 +12,7 @@
 
 import React from "react";
 import type { Decorator } from "@storybook/react-vite";
+import { DARK_PALETTE_COLORS } from "../../../graphConfig";
 import { DetailPanel } from "../DetailPanel";
 import { PipeDetailPanel } from "../PipeDetailPanel";
 import type {
@@ -24,9 +25,21 @@ import type {
 // ─── Story decorator ───────────────────────────────────────────────────────
 
 /** Fixed-size panel surface, dark background, centered layout. Use for every
- *  story under "Graph/Detail Panel/...". */
+ *  story under "Graph/Detail Panel/...".
+ *
+ *  Applies the dark theme palette as CSS variables — in the app the
+ *  GraphViewer container provides these tokens; standalone stories must set
+ *  them too or every `var(--text-*)` falls back to black-on-black. */
 export const detailPanelDecorator: Decorator = (Story) => (
-  <div style={{ width: 380, height: 700, position: "relative", background: "#0a0a0f" }}>
+  <div
+    style={{
+      width: 380,
+      height: 700,
+      position: "relative",
+      background: "#0a0a0f",
+      ...(DARK_PALETTE_COLORS as React.CSSProperties),
+    }}
+  >
     <Story />
   </div>
 );

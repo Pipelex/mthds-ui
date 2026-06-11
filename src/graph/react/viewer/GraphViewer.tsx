@@ -121,12 +121,15 @@ export interface GraphViewerProps {
 
 /** Stuff node detail: concept structure + data viewer. */
 function StuffNodeDetail({
+  nodeId,
   stuffData,
   graphspec,
   resolveStorageUrl,
   canEmbedPdf,
   onOpenExternally,
 }: {
+  /** Selected graph node id — identity for per-node panel state (tab reset). */
+  nodeId: string;
   stuffData: StuffViewerData;
   graphspec: GraphSpec | null;
   resolveStorageUrl?: ResolveStorageUrl;
@@ -143,6 +146,7 @@ function StuffNodeDetail({
         <ConceptDetailPanel
           concept={conceptInfo}
           ioData={stuffData}
+          instanceKey={nodeId}
           resolveStorageUrl={resolveStorageUrl}
           canEmbedPdf={canEmbedPdf}
           onOpenExternally={onOpenExternally}
@@ -939,6 +943,7 @@ export function GraphViewer(props: GraphViewerProps) {
           />
         ) : detailSelection?.stuffData ? (
           <StuffNodeDetail
+            nodeId={detailSelection.nodeId}
             stuffData={detailSelection.stuffData}
             graphspec={graphspec}
             resolveStorageUrl={resolveStorageUrl}
