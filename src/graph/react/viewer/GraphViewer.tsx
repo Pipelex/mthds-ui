@@ -21,7 +21,13 @@ import type {
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
-import { stuffDigestFromId, EDGE_TYPE, FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
+import {
+  stuffDigestFromId,
+  EDGE_TYPE,
+  FOLD_MODE,
+  GRAPH_DIRECTION,
+  GRAPH_THEME,
+} from "@graph/types";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -895,10 +901,7 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [showControllers, allControllerIds, foldedControllers]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`react-flow-container react-flow-container--theme-${theme}`}
-    >
+    <div ref={containerRef} className={`react-flow-container react-flow-container--theme-${theme}`}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
