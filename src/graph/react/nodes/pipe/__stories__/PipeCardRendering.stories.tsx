@@ -77,6 +77,23 @@ export const BadgeImgGen: Story = {
   },
 };
 
+// ─── Signature stub — distinct dashed/muted card + badge ────────────────────
+// Regression guard: a "PipeSignature" node (emitted under --allow-signatures)
+// must validate and render the stub style instead of crashing the viewer.
+
+export const BadgeSignature: Story = {
+  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSignature), ...D },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = await canvas.findByText("Signature");
+    await expect(badge).toBeInTheDocument();
+    await expect(badge.classList.contains("pipe-card-badge--signature")).toBe(true);
+    // The card itself carries the distinct stub modifier.
+    const card = badge.closest(".pipe-card");
+    await expect(card?.classList.contains("pipe-card--signature")).toBe(true);
+  },
+};
+
 // ─── Pipe code is displayed ────────────────────────────────────────────────
 
 export const PipeCodeDisplayed: Story = {

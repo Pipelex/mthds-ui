@@ -10,6 +10,7 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeSignature: "Signature",
   PipeSequence: "Sequence",
   PipeParallel: "Parallel",
   PipeCondition: "Condition",
@@ -57,6 +58,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const statusConfig = STATUS_CONFIG[data.status];
   const isRunning = data.status === "running";
   const isController = isControllerType(data.pipeType);
+  const isSignature = data.pipeType === "PipeSignature";
   const [inputsExpanded, setInputsExpanded] = useState(false);
 
   const hasMany = data.inputs.length > MAX_VISIBLE_INPUTS;
@@ -66,12 +68,15 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
 
   const dirClass = data.direction === "TB" ? "pipe-card--tb" : "pipe-card--lr";
   const controllerClass = isController ? " pipe-card--controller" : "";
+  const signatureClass = isSignature ? " pipe-card--signature" : "";
   const badgeClass = isController
     ? "pipe-card-badge pipe-card-badge--controller"
-    : "pipe-card-badge";
+    : isSignature
+      ? "pipe-card-badge pipe-card-badge--signature"
+      : "pipe-card-badge";
 
   return (
-    <div className={`pipe-card ${dirClass}${controllerClass}`}>
+    <div className={`pipe-card ${dirClass}${controllerClass}${signatureClass}`}>
       {/* Header: badge + pipe code + status + (optional) expand */}
       <div className="pipe-card-header">
         <span className={badgeClass}>{badge}</span>

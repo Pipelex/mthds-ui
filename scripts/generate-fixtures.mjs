@@ -110,9 +110,15 @@ function generateSpec(pipelineDir) {
       die(`${pipelineDir}: pipelex run failed`);
     }
 
-    const outputDir = readdirSync(tmp).find((d) => d.includes("_output_"));
-    if (!outputDir) die(`${pipelineDir}: pipelex produced no *_output_* directory`);
-    const specPath = path.join(tmp, outputDir, "graphspec.json");
+    const outputDirs = readdirSync(tmp).filter((d) => d.includes("_output_"));
+    if (outputDirs.length === 0) die(`${pipelineDir}: pipelex produced no *_output_* directory`);
+    if (outputDirs.length > 1) {
+      die(
+        `${pipelineDir}: pipelex produced multiple *_output_* directories ` +
+          `(${outputDirs.join(", ")}) — cannot pick the graphspec unambiguously`,
+      );
+    }
+    const specPath = path.join(tmp, outputDirs[0], "graphspec.json");
     if (!existsSync(specPath)) die(`${pipelineDir}: no graphspec.json at ${specPath}`);
 
     return JSON.parse(readFileSync(specPath, "utf-8"));
@@ -147,8 +153,9 @@ async function main() {
   if (MISSING) {
     toProcess = allPipelines.filter((p) => !existsSync(specJsonPath(p)));
   } else if (ONLY) {
+    const unknown = [...ONLY].filter((p) => !allPipelines.includes(p));
+    if (unknown.length > 0) die(`unknown pipeline(s) in --only: ${unknown.join(",")}`);
     toProcess = allPipelines.filter((p) => ONLY.has(p));
-    if (toProcess.length === 0) die(`no pipeline matching --only ${[...ONLY].join(",")}`);
   } else {
     toProcess = allPipelines;
   }

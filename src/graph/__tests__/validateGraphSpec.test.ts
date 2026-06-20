@@ -8,7 +8,7 @@ import {
   asPipeCallNode,
   GraphSpecValidationError,
 } from "@graph/validateGraphSpec";
-import type { GraphSpecNode } from "@graph/types";
+import type { GraphSpec, GraphSpecNode } from "@graph/types";
 
 /** A minimal, fully valid raw spec — every guaranteed field present. */
 function makeValidSpec(): Record<string, unknown> {
@@ -69,6 +69,48 @@ describe("validateGraphSpec — happy path", () => {
     expect(err instanceof Error).toBe(true);
     expect(err.path).toBe("nodes[3].io.inputs[0].name");
     expect(err.message).toContain("nodes[3].io.inputs[0].name");
+  });
+});
+
+// ─── GraphSpec type — PipeSignature registry blueprint ───────────────────
+// A PipeSignature is outside the executable taxonomy, so pipelex serializes its
+// `pipe_registry` entry with `pipe_category: null` (present, not omitted) — the
+// runtime PipeSignature has `pipe_category: None = None` with no `exclude`, and
+// the registry dump uses `model_dump(mode="json")` (no `exclude_none`). The
+// exported `GraphSpec` type must accept that shape. The `: GraphSpec` annotation
+// below is the real guard: tsc checks the entry against `PipeBlueprintUnion`, so
+// this fails to compile if `PipeSignatureBlueprint` reverts to requiring a
+// non-null `pipe_category`.
+
+describe("GraphSpec — PipeSignature registry blueprint", () => {
+  it("represents a signature blueprint serialized with pipe_category: null", () => {
+    const spec: GraphSpec = {
+      meta: { format: "mthds" },
+      nodes: [],
+      edges: [],
+      pipe_registry: {
+        "demo.build_scorecard": {
+          type: "PipeSignature",
+          pipe_category: null,
+          code: "build_scorecard",
+          domain_code: "demo",
+          description: "Build a scorecard (signature — not yet implemented).",
+          inputs: {},
+          output: {
+            concept: {
+              code: "Scorecard",
+              domain_code: "demo",
+              description: "A scorecard",
+              structure_class_name: "Scorecard",
+              refines: null,
+            },
+            multiplicity: null,
+          },
+          signature_for: null,
+        },
+      },
+    };
+    expect(() => validateGraphSpec(spec)).not.toThrow();
   });
 });
 
@@ -303,6 +345,7 @@ describe("validateGraphSpec — unknown PipeType", () => {
       "PipeImgGen",
       "PipeSearch",
       "PipeFunc",
+      "PipeSignature",
       "PipeSequence",
       "PipeParallel",
       "PipeCondition",
@@ -312,6 +355,12 @@ describe("validateGraphSpec — unknown PipeType", () => {
       (spec.nodes as Record<string, unknown>[])[0].pipe_type = pt;
       expect(() => validateGraphSpec(spec)).not.toThrow();
     }
+  });
+
+  it("accepts a PipeSignature node (unimplemented stub emitted under --allow-signatures)", () => {
+    const spec = makeValidSpec();
+    (spec.nodes as Record<string, unknown>[])[0].pipe_type = "PipeSignature";
+    expect(() => validateGraphSpec(spec)).not.toThrow();
   });
 });
 
