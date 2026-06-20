@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`validateGraphSpec` — structural validation for GraphSpec JSON.** New exported function (`src/graph/validateGraphSpec.ts`) that enforces the GraphSpec contract before anything renders it: `meta.format` must be `"mthds"`, the spec must have nodes, every node needs a `description` and `domain_code`, and controller/operator nodes need a `pipe_code`. `GraphViewer` runs it at its input boundary, so a malformed or incomplete spec now fails fast with a descriptive error naming the offending node instead of silently rendering a broken or empty graph downstream.
+- **`pipe_code` on graph nodes.** Controller and operator nodes now carry a `pipe_code` — the code of the pipe definition the node instantiates, distinct from the per-node `id`. It is used for node identification and to group cousin controllers (multiple instances of the same pipe). `validateGraphSpec` requires it on every controller and operator node.
+- **`canceled` pipe status.** `PipeStatus` gains a `canceled` value, rendered across pipe cards, the pipe detail panel, and status badges alongside the existing `succeeded` / `failed` / `running` / `scheduled` / `skipped` states.
+
+### Changed
+
+- **GraphSpec JSON must now include `pipe_code` on controller and operator nodes, and a `status` on every node.** Breaking change for consumers feeding hand-built or pre-existing GraphSpecs: `validateGraphSpec` (invoked by `GraphViewer`) throws on a node missing `pipe_code`, and the node `status` field is no longer optional. GraphSpecs emitted by current pipelex already satisfy both. `buildPipeCardPayload` was refactored to consume the now-guaranteed `PipeCallNode` shape directly.
+- **`StuffViewer` surfaces content serialization failures** instead of rendering empty on error, and ships its own `StuffViewer.css`.
+
+### Internal
+
+- **Pipeline fixtures are now generated from `.mthds` bundles instead of hand-maintained.** Removed the checked-in per-pipeline GraphSpec `.ts` files (`cvScreening.ts`, `rfpQualifier.ts`, …) and replaced them with `scripts/generate-fixtures.mjs`, which runs each bundle under `data/pipelines/` through the pipelex CLI and emits typed `_generated.dry.ts` (mock inputs, no inference) and `_generated.live.ts` (real inference) consumed by the Storybook stories. New Makefile targets: `make fixtures` / `make fixtures-live`, plus `ONLY=pipeline_NN` to regenerate specific pipelines and `make fixtures-live-missing` to fill only the gaps — partial runs merge into the complete fixture file rather than overwriting it.
+
 ## [v0.7.0] - 2026-06-11
 
 ### Changed

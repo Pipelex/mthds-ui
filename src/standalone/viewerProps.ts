@@ -38,6 +38,12 @@ function parseTheme(raw: unknown): GraphTheme {
   return GRAPH_THEME.DARK;
 }
 
+/**
+ * An absent `direction` key legitimately defaults to `LR`. A *present* but
+ * unrecognized value is a malformed config — throw rather than silently
+ * coercing (a bad direction crashes layout when `portSides[direction]` is
+ * undefined).
+ */
 function parseDirection(raw: unknown): GraphDirection {
   if (raw === undefined || raw === null) return GRAPH_DIRECTION.LR;
   if (
