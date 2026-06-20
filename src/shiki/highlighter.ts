@@ -5,12 +5,9 @@ import {
   type ThemeRegistrationRaw,
 } from "@shikijs/core";
 import { createOnigurumaEngine } from "@shikijs/engine-oniguruma";
-import darkPlus from "@shikijs/themes/dark-plus";
-import dracula from "@shikijs/themes/dracula";
-import monokai from "@shikijs/themes/monokai";
-import oneDarkPro from "@shikijs/themes/one-dark-pro";
 import mthdsGrammar from "./mthds.tmLanguage.json";
 import { pipelexDarkTheme } from "./pipelexDarkTheme";
+import { pipelexLightTheme } from "./pipelexLightTheme";
 import { type MthdsThemeName, MTHDS_THEMES } from "./themes";
 
 const mthdsLang = {
@@ -24,7 +21,7 @@ function getHighlighter(): Promise<HighlighterCore> {
   if (!highlighterPromise) {
     highlighterPromise = createHighlighterCore({
       engine: createOnigurumaEngine(import("@shikijs/engine-oniguruma/wasm-inlined")),
-      themes: [pipelexDarkTheme, darkPlus, monokai, dracula, oneDarkPro],
+      themes: [pipelexDarkTheme, pipelexLightTheme],
       langs: [mthdsLang],
     }).catch((err) => {
       highlighterPromise = null;
@@ -53,6 +50,11 @@ export function getMthdsGrammar(): LanguageRegistration {
   return mthdsLang;
 }
 
-export function getMthdsTheme(): ThemeRegistrationRaw {
-  return pipelexDarkTheme;
+export function getMthdsTheme(name: MthdsThemeName = "pipelex-dark"): ThemeRegistrationRaw {
+  return name === "pipelex-light" ? pipelexLightTheme : pipelexDarkTheme;
+}
+
+/** Both pipelex themes, for editors that register every theme up front (e.g. Monaco). */
+export function getMthdsThemes(): ThemeRegistrationRaw[] {
+  return [pipelexDarkTheme, pipelexLightTheme];
 }

@@ -1,4 +1,6 @@
 /* ─── Detail Panel — sliding side panel for node inspection ─────────────── */
+/* Token-only — all colors come from the active theme palette on the         */
+/* container. See `graphConfig.ts` for token definitions.                    */
 
 .detail-panel {
   position: absolute;
@@ -6,13 +8,13 @@
   right: 0;
   width: 380px;
   height: 100%;
-  background: #111118;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-panel);
+  border-left: 1px solid var(--border-default);
   z-index: 10;
   display: flex;
   flex-direction: column;
-  font-family: "Inter", -apple-system, sans-serif;
-  color: #e2e8f0;
+  font-family: var(--font-sans);
+  color: var(--text-default);
   overflow: hidden;
   transition: transform 0.2s ease;
 }
@@ -49,7 +51,8 @@
 
 .detail-panel-resize-handle:hover::before,
 .detail-panel--dragging .detail-panel-resize-handle::before {
-  background: rgba(59, 130, 246, 0.5);
+  background: var(--color-accent);
+  opacity: 0.6;
 }
 
 /* Grip indicator — visible on hover */
@@ -68,7 +71,7 @@
 
 .detail-panel-resize-handle:hover::after,
 .detail-panel--dragging .detail-panel-resize-handle::after {
-  background: rgba(59, 130, 246, 0.8);
+  background: var(--color-accent);
 }
 
 /* Disable transition during drag for smooth resizing */
@@ -80,33 +83,48 @@
   pointer-events: none;
 }
 
+/* ─── Close row — scrolls away with the content (intentionally NOT pinned) ─ */
+/* The close button is part of the content's top, not panel chrome: it
+ * scrolls out of view with the content, and closing the panel means
+ * scrolling back up. The negative margin tucks the following section up
+ * beside it so the row doesn't cost a full line of vertical space. */
+
+.detail-panel-close-row {
+  display: flex;
+  justify-content: flex-end;
+  /* Pull the next section up by exactly this row's height + the column
+   * gap, so the close button sits ON the first content line (concept /
+   * pipe header), right-aligned — not on its own line above it. */
+  margin-bottom: -40px;
+}
+
 .detail-panel-close {
   all: unset;
   cursor: pointer;
-  position: absolute;
-  top: 12px;
-  right: 12px;
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 18px;
   line-height: 1;
-  z-index: 3;
+  /* Above the sticky pipe header (z 1) so the X is visible at rest while
+   * sharing its line; on scroll it briefly slides over the stuck header's
+   * empty right side before leaving the viewport. */
+  z-index: 2;
 }
 
 .detail-panel-close:hover {
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  background: var(--surface-elevated);
 }
 
 .detail-panel-content {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 16px;
+  padding: 12px 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -116,11 +134,11 @@
 
 .detail-sticky-header {
   position: sticky;
-  top: -20px;
+  top: -12px; /* must mirror .detail-panel-content's top padding */
   z-index: 1;
-  background: #111118;
-  padding-top: 20px;
-  margin-top: -20px;
+  background: var(--surface-panel);
+  padding-top: 12px;
+  margin-top: -12px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -133,7 +151,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #64748b;
+  color: var(--text-dim);
   margin-bottom: 6px;
 }
 
@@ -154,24 +172,24 @@
 }
 
 .detail-badge--operator {
-  background: #ff6b6b;
-  color: #0e0e0e;
+  background: var(--color-pipe);
+  color: var(--text-on-accent);
 }
 
 .detail-badge--controller {
-  background: #bd93f9;
-  color: #0e0e0e;
+  background: var(--color-batch-item);
+  color: var(--text-on-accent);
 }
 
 .detail-pipe-code {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
-  color: #ff6b6b;
+  color: var(--color-pipe);
 }
 
 .detail-pipe-code--controller {
-  color: #bd93f9;
+  color: var(--color-batch-item);
 }
 
 .detail-status {
@@ -195,13 +213,13 @@
 
 .detail-duration {
   font-size: 11px;
-  color: #64748b;
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
 }
 
 .detail-description {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
@@ -214,17 +232,17 @@
   font-size: 11px;
   padding: 3px 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
 }
 
 .detail-io-name {
-  font-family: "JetBrains Mono", "Monaco", monospace;
-  color: #e2e8f0;
+  font-family: var(--font-mono);
+  color: var(--text-default);
 }
 
 .detail-io-concept {
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 10px;
 }
 
@@ -237,11 +255,11 @@
 /* ─── Blueprint-specific sections ───────────────────────────────────────── */
 
 .detail-prompt-block {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
   border-radius: 6px;
   padding: 10px 12px;
   white-space: pre-wrap;
@@ -266,16 +284,16 @@
   align-items: center;
   gap: 4px;
   font-size: 9px;
-  color: #64748b;
+  color: var(--text-dim);
   padding: 2px 6px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
   transition: color 0.15s;
 }
 
 .detail-prompt-expand-btn:hover {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .detail-kv-row {
@@ -288,13 +306,13 @@
 }
 
 .detail-kv-key {
-  color: #64748b;
+  color: var(--text-dim);
   flex-shrink: 0; /* label stays at its natural width */
 }
 
 .detail-kv-value {
-  font-family: "JetBrains Mono", "Monaco", monospace;
-  color: #e2e8f0;
+  font-family: var(--font-mono);
+  color: var(--text-default);
   flex: 1 1 0;
   min-width: 0;
   text-align: right;
@@ -311,17 +329,17 @@
 }
 
 .detail-field-block-label {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
-  color: #64748b;
+  color: var(--text-dim);
 }
 
 .detail-field-block-value {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-default);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
   border-radius: 6px;
   padding: 8px 10px;
   white-space: pre-wrap;
@@ -345,20 +363,20 @@
   margin-top: 6px;
   margin-bottom: 4px;
   padding: 4px 0 4px 8px;
-  border-left: 2px solid rgba(80, 250, 123, 0.35);
+  border-left: 2px solid var(--color-success);
 }
 
 .detail-nested-header-name {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--text-default);
 }
 
 .detail-nested-header-meta {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
-  color: #64748b;
+  color: var(--text-dim);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -374,39 +392,39 @@
 .detail-schema-table th {
   text-align: left;
   font-weight: 700;
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 4px 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .detail-schema-table td {
   padding: 4px 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
 }
 
 .detail-schema-field {
-  font-family: "JetBrains Mono", "Monaco", monospace;
-  color: #e2e8f0;
+  font-family: var(--font-mono);
+  color: var(--text-default);
 }
 
 .detail-schema-type {
-  color: #8be9fd;
+  color: var(--color-accent);
 }
 
 .detail-schema-required {
-  color: #ff6b6b;
+  color: var(--color-pipe);
   font-size: 9px;
 }
 
 /* ─── Error section ─────────────────────────────────────────────────────── */
 
 .detail-error {
-  background: rgba(255, 85, 85, 0.08);
-  border: 1px solid rgba(255, 85, 85, 0.2);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
   border-radius: 6px;
   padding: 10px 12px;
 }
@@ -414,20 +432,20 @@
 .detail-error-type {
   font-size: 12px;
   font-weight: 600;
-  color: #ff5555;
+  color: var(--color-error);
   margin-bottom: 4px;
 }
 
 .detail-error-message {
   font-size: 11px;
-  color: #94a3b8;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
 .detail-error-stack {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
-  color: #64748b;
+  color: var(--text-dim);
   margin-top: 8px;
   max-height: 150px;
   overflow-y: auto;
@@ -450,20 +468,20 @@
   font-size: 11px;
   padding: 4px 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
 }
 
 .detail-step-index {
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 10px;
   font-weight: 700;
   min-width: 16px;
 }
 
 .detail-step-code {
-  font-family: "JetBrains Mono", "Monaco", monospace;
-  color: #e2e8f0;
+  font-family: var(--font-mono);
+  color: var(--text-default);
 }
 
 /* ─── Tags/Metrics ──────────────────────────────────────────────────────── */
@@ -478,48 +496,89 @@
   font-size: 10px;
   padding: 2px 6px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
 }
 
 .detail-tag-key {
-  color: #64748b;
+  color: var(--text-dim);
 }
 
 .detail-tag-value {
-  color: #e2e8f0;
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  color: var(--text-default);
+  font-family: var(--font-mono);
+}
+
+/* ─── Detail tabs (Data / Structure) ────────────────────────────────────── */
+
+.detail-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.detail-tab {
+  all: unset;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 5px 10px;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.detail-tab:hover {
+  color: var(--text-muted);
+}
+
+.detail-tab--active {
+  color: var(--text-default);
+  border-bottom-color: var(--color-accent);
+}
+
+/* `all: unset` strips the UA focus ring — restore a visible indicator for
+ * keyboard users (WCAG 2.4.7) on every unset button in the panel. */
+.detail-tab:focus-visible,
+.detail-panel-close:focus-visible,
+.detail-prompt-expand-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 /* ─── Concept panel header ──────────────────────────────────────────────── */
 
 .detail-concept-code {
-  font-family: "JetBrains Mono", "Monaco", monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 600;
-  color: #50fa7b;
+  color: var(--color-success);
 }
 
 .detail-concept-domain {
   font-size: 11px;
-  color: #64748b;
+  color: var(--text-dim);
 }
 
 .detail-refines {
   font-size: 11px;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .detail-refines-code {
-  font-family: "JetBrains Mono", "Monaco", monospace;
-  color: #8be9fd;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
 }
 
 /* ─── Not available fallback ────────────────────────────────────────────── */
 
 .detail-not-available {
   font-size: 12px;
-  color: #64748b;
+  color: var(--text-dim);
   font-style: italic;
   padding: 8px 0;
 }

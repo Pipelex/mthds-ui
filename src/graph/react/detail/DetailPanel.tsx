@@ -52,10 +52,17 @@ export function DetailPanel({
           aria-label="Resize panel"
         />
       )}
-      <button className="detail-panel-close" onClick={onClose} aria-label="Close panel">
-        x
-      </button>
-      <div className="detail-panel-content">{children}</div>
+      <div className="detail-panel-content">
+        {/* Inside the scroll flow ON PURPOSE: the close button belongs to the
+            top of the content and scrolls away with it — closing the panel
+            means going back up. Do not pin it to the panel. */}
+        <div className="detail-panel-close-row">
+          <button className="detail-panel-close" onClick={onClose} aria-label="Close panel">
+            x
+          </button>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }

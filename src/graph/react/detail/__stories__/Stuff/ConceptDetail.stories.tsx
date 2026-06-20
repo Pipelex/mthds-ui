@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { DetailPanel } from "../../DetailPanel";
 import { ConceptDetailPanel } from "../../ConceptDetailPanel";
 import {
@@ -76,6 +77,57 @@ export const WithLiveData: Story = {
       />
     </DetailPanel>
   ),
+};
+
+/** Regression harness: two graph nodes share the same concept AND the same
+ *  stuff name/digest (typical for batch branches). Switching nodes must reset
+ *  the Data/Structure tab to Data — only `instanceKey` (the node id) can
+ *  distinguish the two. */
+const TAB_RESET_IO_DATA = {
+  name: "match_score",
+  concept: "MatchScore",
+  digest: "score_001",
+  data: { score: 85, reasoning: "Same stuff on two branch nodes." },
+} as const;
+
+function TabResetHarness() {
+  const [nodeId, setNodeId] = React.useState("run_001:node_a");
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, height: "100%" }}>
+      <button type="button" onClick={() => setNodeId("run_001:node_b")}>
+        Select node B
+      </button>
+      <div style={{ position: "relative", flex: 1 }}>
+        <DetailPanel isOpen={true} onClose={() => {}}>
+          <ConceptDetailPanel
+            concept={CONCEPT_MATCHSCORE}
+            ioData={TAB_RESET_IO_DATA}
+            instanceKey={nodeId}
+          />
+        </DetailPanel>
+      </div>
+    </div>
+  );
+}
+
+export const TabResetOnNodeSwitch: Story = {
+  name: "Tab Resets On Node Switch (regression)",
+  render: () => <TabResetHarness />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Open the Structure tab on node A
+    await userEvent.click(await canvas.findByRole("tab", { name: "Structure" }));
+    await expect(canvas.getByRole("tab", { name: "Structure" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    // Switch to node B (same concept, same stuff name + digest, different node)
+    await userEvent.click(canvas.getByRole("button", { name: "Select node B" }));
+    // The tab must reset to Data
+    await waitFor(() =>
+      expect(canvas.getByRole("tab", { name: "Data" })).toHaveAttribute("aria-selected", "true"),
+    );
+  },
 };
 
 export const ParentConcept: Story = {

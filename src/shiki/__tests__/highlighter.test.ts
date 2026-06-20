@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { highlightMthds, getAvailableThemes } from "../highlighter";
+import { highlightMthds, getAvailableThemes, getMthdsTheme, getMthdsThemes } from "../highlighter";
+import { pipelexDarkTheme } from "../pipelexDarkTheme";
+import { pipelexLightTheme } from "../pipelexLightTheme";
 
 describe("highlightMthds", () => {
   it("returns HTML with Shiki wrapper structure", async () => {
@@ -35,25 +37,28 @@ describe("highlightMthds", () => {
     expect(html).toContain("<code>");
   });
 
-  it("highlights with dark-plus theme and produces valid HTML", async () => {
-    const html = await highlightMthds("[pipe.my_pipe]", "dark-plus");
+  it("highlights with pipelex-light theme and produces valid HTML", async () => {
+    const html = await highlightMthds("[pipe.my_pipe]", "pipelex-light");
     expect(html).toContain("<pre");
-    expect(html).toMatch(/class="[^"]*shiki[^"]*dark-plus[^"]*"/);
+    expect(html).toMatch(/class="[^"]*shiki[^"]*pipelex-light[^"]*"/);
     expect(html).toContain("<code>");
   });
 
-  it("highlights with monokai theme and produces valid HTML", async () => {
-    const html = await highlightMthds("[concept.MyType]", "monokai");
-    expect(html).toContain("<pre");
-    expect(html).toMatch(/class="[^"]*shiki[^"]*monokai[^"]*"/);
-    expect(html).toContain("<code>");
+  it("uses the light brand palette for pipe sections in pipelex-light", async () => {
+    const html = await highlightMthds("[pipe.my_pipe]", "pipelex-light");
+    expect(html).toMatch(/color:#D32F2F/i);
+  });
+
+  it("uses the app's warm cream background in pipelex-light", async () => {
+    const html = await highlightMthds("x = 1", "pipelex-light");
+    expect(html).toMatch(/background-color:#F6F3EF/i);
   });
 });
 
 describe("getAvailableThemes", () => {
-  it("returns all themes without requiring initialization", () => {
+  it("returns only the pipelex themes", () => {
     const themes = getAvailableThemes();
-    expect(themes).toEqual(["pipelex-dark", "dark-plus", "monokai", "dracula", "one-dark-pro"]);
+    expect(themes).toEqual(["pipelex-dark", "pipelex-light"]);
   });
 
   it("returns a new array on each call", () => {
@@ -61,5 +66,25 @@ describe("getAvailableThemes", () => {
     const b = getAvailableThemes();
     expect(a).not.toBe(b);
     expect(a).toEqual(b);
+  });
+});
+
+describe("getMthdsTheme / getMthdsThemes", () => {
+  it("defaults to pipelex-dark", () => {
+    expect(getMthdsTheme().name).toBe("pipelex-dark");
+  });
+
+  it("returns the light theme by name", () => {
+    expect(getMthdsTheme("pipelex-light").name).toBe("pipelex-light");
+  });
+
+  it("returns both themes for editor registration", () => {
+    expect(getMthdsThemes().map((t) => t.name)).toEqual(["pipelex-dark", "pipelex-light"]);
+  });
+
+  it("light theme mirrors every dark theme scope", () => {
+    const scopesOf = (theme: typeof pipelexDarkTheme) =>
+      (theme.settings ?? []).flatMap((s) => s.scope ?? []).sort();
+    expect(scopesOf(pipelexLightTheme)).toEqual(scopesOf(pipelexDarkTheme));
   });
 });
