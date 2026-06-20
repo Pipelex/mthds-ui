@@ -320,8 +320,14 @@ export interface PipeFuncBlueprint extends PipeBlueprintBase {
  * Emitted under `--allow-signatures` so an in-progress bundle still validates
  * (dry-run mocks the declared output) before every referenced pipe is built.
  */
-export interface PipeSignatureBlueprint extends PipeBlueprintBase {
+export interface PipeSignatureBlueprint extends Omit<PipeBlueprintBase, "pipe_category"> {
   type: "PipeSignature";
+  /**
+   * Signatures sit outside the executable taxonomy, so pipelex serializes
+   * `pipe_category: null` (present, not omitted) — unlike operator/controller
+   * blueprints which carry "PipeOperator" / "PipeController".
+   */
+  pipe_category: null;
   /** Intended downstream pipe type once implemented — an optional hint. */
   signature_for?: PipeType | null;
 }
