@@ -34,6 +34,7 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeSignature: "Signature",
   PipeSequence: "Seq",
   PipeParallel: "Par",
   PipeCondition: "Cond",
@@ -251,6 +252,16 @@ function BlueprintSection({
     case "PipeBatch":
       return <PipeBatchSection blueprint={blueprint} executionData={executionData} />;
     case "PipeFunc":
+      return null;
+    case "PipeSignature":
+      return (
+        <div className="detail-not-available">
+          Signature stub — declared but not yet implemented.
+        </div>
+      );
+    default:
+      // Defensive: a blueprint whose `type` the renderer doesn't know yet
+      // (runtime ahead of this library) degrades to no extra section.
       return null;
   }
 }

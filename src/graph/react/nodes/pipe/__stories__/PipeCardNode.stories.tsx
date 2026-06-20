@@ -47,3 +47,7 @@ export const Search: Story = {
 export const Func: Story = {
   args: { graphspec: toGraphSpec(MOCK_PIPES.PipeFunc), ...D },
 };
+
+export const Signature: Story = {
+  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeSignature), ...D },
+};

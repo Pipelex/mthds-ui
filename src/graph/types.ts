@@ -7,7 +7,8 @@ export type PipeOperatorType =
   | "PipeCompose"
   | "PipeImgGen"
   | "PipeSearch"
-  | "PipeFunc";
+  | "PipeFunc"
+  | "PipeSignature"; // contract-only stub — emitted under `--allow-signatures`
 
 export type PipeControllerType = "PipeSequence" | "PipeParallel" | "PipeCondition" | "PipeBatch";
 
@@ -24,6 +25,7 @@ const PIPE_TYPE_PRESENCE: Record<PipeType, true> = {
   PipeImgGen: true,
   PipeSearch: true,
   PipeFunc: true,
+  PipeSignature: true,
   PipeSequence: true,
   PipeParallel: true,
   PipeCondition: true,
@@ -313,6 +315,23 @@ export interface PipeFuncBlueprint extends PipeBlueprintBase {
   type: "PipeFunc";
 }
 
+/**
+ * A contract-only pipe: declares inputs + output but has no implementation.
+ * Emitted under `--allow-signatures` so an in-progress bundle still validates
+ * (dry-run mocks the declared output) before every referenced pipe is built.
+ */
+export interface PipeSignatureBlueprint extends Omit<PipeBlueprintBase, "pipe_category"> {
+  type: "PipeSignature";
+  /**
+   * Signatures sit outside the executable taxonomy, so pipelex serializes
+   * `pipe_category: null` (present, not omitted) — unlike operator/controller
+   * blueprints which carry "PipeOperator" / "PipeController".
+   */
+  pipe_category: null;
+  /** Intended downstream pipe type once implemented — an optional hint. */
+  signature_for?: PipeType | null;
+}
+
 // ─── Controller blueprints ─────────────────────────────────────────────
 
 export interface PipeSequenceBlueprint extends PipeBlueprintBase {
@@ -348,6 +367,7 @@ export type PipeBlueprintUnion =
   | PipeExtractBlueprint
   | PipeSearchBlueprint
   | PipeFuncBlueprint
+  | PipeSignatureBlueprint
   | PipeSequenceBlueprint
   | PipeParallelBlueprint
   | PipeConditionBlueprint

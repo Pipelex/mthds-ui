@@ -384,6 +384,19 @@
 .pipe-card--controller {
   --pipe-card-accent: var(--text-muted);
 }
+
+/* Signature (unimplemented stub) — dashed + muted so it reads as "declared,
+   not built yet", distinct from operator (solid accent) and controller (tinted). */
+.pipe-card--signature {
+  --pipe-card-accent: var(--text-muted);
+  border-left-style: dashed;
+  opacity: 0.85;
+}
+.pipe-card-badge--signature {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px dashed var(--text-muted);
+}
 @keyframes pipe-card-pulse {
   0%,
   100% {

@@ -226,8 +226,7 @@ export function GraphToolbar({
   rightOffset = 0,
 }: GraphToolbarProps) {
   const themeToggleEnabled = theme !== undefined && onThemeChange !== undefined;
-  const themeLabel =
-    theme === GRAPH_THEME.LIGHT ? "Switch to dark theme" : "Switch to light theme";
+  const themeLabel = theme === GRAPH_THEME.LIGHT ? "Switch to dark theme" : "Switch to light theme";
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
   const directionLabel = isVertical ? "Switch to horizontal layout" : "Switch to vertical layout";
   const controllersLabel = showControllers
