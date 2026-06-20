@@ -90,6 +90,15 @@ export const MOCK_PIPES: Record<PipeOperatorType, PipeCardData> = {
       function_name: "normalize_match_scores",
     },
   },
+
+  PipeSignature: {
+    pipeCode: "build_scorecard",
+    pipeType: "PipeSignature",
+    description: "Build a scorecard from the job offer (signature — not yet implemented).",
+    status: "succeeded",
+    inputs: [{ name: "job_offer", concept: "JobOffer" }],
+    outputs: [{ name: "scorecard", concept: "Scorecard" }],
+  },
 };
 
 // ─── Helpers to build GraphNodeData from PipeCardData ────────────────────

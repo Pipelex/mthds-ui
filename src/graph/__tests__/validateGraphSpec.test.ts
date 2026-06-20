@@ -303,6 +303,7 @@ describe("validateGraphSpec — unknown PipeType", () => {
       "PipeImgGen",
       "PipeSearch",
       "PipeFunc",
+      "PipeSignature",
       "PipeSequence",
       "PipeParallel",
       "PipeCondition",
@@ -312,6 +313,12 @@ describe("validateGraphSpec — unknown PipeType", () => {
       (spec.nodes as Record<string, unknown>[])[0].pipe_type = pt;
       expect(() => validateGraphSpec(spec)).not.toThrow();
     }
+  });
+
+  it("accepts a PipeSignature node (unimplemented stub emitted under --allow-signatures)", () => {
+    const spec = makeValidSpec();
+    (spec.nodes as Record<string, unknown>[])[0].pipe_type = "PipeSignature";
+    expect(() => validateGraphSpec(spec)).not.toThrow();
   });
 });
 
