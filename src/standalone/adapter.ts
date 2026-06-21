@@ -17,6 +17,7 @@ import { GraphViewer, resolveActiveTheme } from "@graph/react/viewer/GraphViewer
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { detectSystemTheme } from "@graph/react/viewer/useSystemTheme";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
+import { parseJsonScriptText } from "./readJsonScript";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
@@ -26,14 +27,7 @@ let renderApp: (() => void) | null = null;
 // ─── Helpers ────────────────────────────────────────────────────────────
 
 function readJsonScript(id: string): unknown {
-  const el = document.getElementById(id);
-  if (!el?.textContent) return null;
-  try {
-    return JSON.parse(el.textContent);
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    throw new Error(`Failed to parse JSON from <script id="${id}">: ${message}`);
-  }
+  return parseJsonScriptText(document.getElementById(id)?.textContent, id);
 }
 
 /**
