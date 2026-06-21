@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { GRAPH_THEME } from "../types";
+import { GRAPH_THEME, GRAPH_THEME_MODE } from "../types";
 import {
   DARK_PALETTE_COLORS,
   DEFAULT_GRAPH_CONFIG,
@@ -26,8 +26,8 @@ describe("DEFAULT_GRAPH_CONFIG", () => {
     expect(DEFAULT_GRAPH_CONFIG.ranksep).toBeGreaterThan(0);
   });
 
-  it("defaults to the dark theme", () => {
-    expect(DEFAULT_GRAPH_CONFIG.theme).toBe(GRAPH_THEME.DARK);
+  it("defaults to the system theme mode (follows the environment)", () => {
+    expect(DEFAULT_GRAPH_CONFIG.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
   });
 
   it("omits paletteColors so the viewer derives it from `theme`", () => {

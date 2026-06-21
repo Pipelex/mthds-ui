@@ -1,6 +1,11 @@
 import React from "react";
 import "./GraphToolbar.css";
-import { GRAPH_DIRECTION, GRAPH_THEME, type GraphDirection, type GraphTheme } from "@graph/types";
+import {
+  GRAPH_DIRECTION,
+  GRAPH_THEME_MODE,
+  type GraphDirection,
+  type GraphThemeMode,
+} from "@graph/types";
 
 export interface GraphToolbarProps {
   direction: GraphDirection;
@@ -18,10 +23,10 @@ export interface GraphToolbarProps {
   foldAllDisabled?: boolean;
   /** Disable the expand-all button (e.g. nothing currently folded). */
   expandAllDisabled?: boolean;
-  /** Current theme. Renders the theme toggle button when both this and `onThemeChange` are set. */
-  theme?: GraphTheme;
-  /** Theme change handler. Renders the theme toggle button when both this and `theme` are set. */
-  onThemeChange?: (theme: GraphTheme) => void;
+  /** Current theme mode. Renders the theme toggle when both this and `onThemeModeChange` are set. */
+  themeMode?: GraphThemeMode;
+  /** Theme mode change handler. Renders the theme toggle when both this and `themeMode` are set. */
+  onThemeModeChange?: (mode: GraphThemeMode) => void;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
 }
@@ -209,6 +214,58 @@ const MOON_ICON = (
   </svg>
 );
 
+/** `system` mode — a monitor glyph reading as "follow the system". */
+const MONITOR_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="2" y="3" width="20" height="14" rx="2" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <line x1="12" y1="17" x2="12" y2="21" />
+  </svg>
+);
+
+// ─── Theme-mode toggle: pure cycle + presentation helpers ───────────────────
+// Exported so the cycle order and per-state labels/icons are unit-testable
+// without rendering. Order: system → light → dark → system.
+
+const THEME_MODE_CYCLE: readonly GraphThemeMode[] = [
+  GRAPH_THEME_MODE.SYSTEM,
+  GRAPH_THEME_MODE.LIGHT,
+  GRAPH_THEME_MODE.DARK,
+];
+
+/** Next mode in the system → light → dark → system cycle. */
+export function nextThemeMode(current: GraphThemeMode): GraphThemeMode {
+  const idx = THEME_MODE_CYCLE.indexOf(current);
+  return THEME_MODE_CYCLE[(idx + 1) % THEME_MODE_CYCLE.length];
+}
+
+/** The icon shown for the current mode (represents the state, not the next action). */
+export function themeModeIcon(mode: GraphThemeMode): React.ReactElement {
+  if (mode === GRAPH_THEME_MODE.LIGHT) return SUN_ICON;
+  if (mode === GRAPH_THEME_MODE.DARK) return MOON_ICON;
+  return MONITOR_ICON;
+}
+
+/** Accessible label naming the current mode and the one a click switches to. */
+export function themeModeLabel(mode: GraphThemeMode): string {
+  const names: Record<GraphThemeMode, string> = {
+    [GRAPH_THEME_MODE.SYSTEM]: "system",
+    [GRAPH_THEME_MODE.LIGHT]: "light",
+    [GRAPH_THEME_MODE.DARK]: "dark",
+  };
+  const next = nextThemeMode(mode);
+  return `Theme: ${names[mode]} — switch to ${names[next]}`;
+}
+
 export function GraphToolbar({
   direction,
   onDirectionChange,
@@ -221,12 +278,11 @@ export function GraphToolbar({
   onExpandAll,
   foldAllDisabled = false,
   expandAllDisabled = false,
-  theme,
-  onThemeChange,
+  themeMode,
+  onThemeModeChange,
   rightOffset = 0,
 }: GraphToolbarProps) {
-  const themeToggleEnabled = theme !== undefined && onThemeChange !== undefined;
-  const themeLabel = theme === GRAPH_THEME.LIGHT ? "Switch to dark theme" : "Switch to light theme";
+  const themeToggleEnabled = themeMode !== undefined && onThemeModeChange !== undefined;
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
   const directionLabel = isVertical ? "Switch to horizontal layout" : "Switch to vertical layout";
   const controllersLabel = showControllers
@@ -335,13 +391,11 @@ export function GraphToolbar({
           <button
             type="button"
             className="graph-toolbar-btn"
-            onClick={() =>
-              onThemeChange(theme === GRAPH_THEME.LIGHT ? GRAPH_THEME.DARK : GRAPH_THEME.LIGHT)
-            }
-            title={themeLabel}
-            aria-label={themeLabel}
+            onClick={() => onThemeModeChange(nextThemeMode(themeMode))}
+            title={themeModeLabel(themeMode)}
+            aria-label={themeModeLabel(themeMode)}
           >
-            {theme === GRAPH_THEME.LIGHT ? MOON_ICON : SUN_ICON}
+            {themeModeIcon(themeMode)}
           </button>
         </>
       )}

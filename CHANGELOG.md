@@ -1,5 +1,29 @@
 # Changelog
 
+## [v0.9.0] - 2026-06-21
+
+### Added
+
+- **`system` theme mode:** The graph supports a tri-state theme mode (`system` → `light` → `dark`). In `system` mode it live-syncs with the host's `prefers-color-scheme` without a reload. New `GraphThemeMode` (`dark | light | system`) type and `GRAPH_THEME_MODE` constant; `GraphTheme` stays the resolved binary (`dark | light`) the palette consumes. The `system` value matches what pipelex emits (`ReactFlowTheme.SYSTEM`) and the React ecosystem convention (`next-themes` / shadcn).
+- **`systemTheme` prop:** A new `GraphViewer` prop lets non-browser hosts (e.g. VS Code webviews) inject and authoritatively drive `system` theme detection. Omit it and `system` follows the browser.
+- **Theme detection helpers:** Exported `useSystemTheme` and `detectSystemTheme` for external React and non-React consumers to read the environment's color scheme.
+- **Standalone error screen:** The standalone HTML wrapper now renders a visible error screen for malformed embedded configs or specs (e.g. invalid JSON, bad `theme`/`direction`/`foldMode` tokens, a failed GraphSpec check) instead of failing silently to a blank page.
+- **Documentation:** Added a `docs/theming.md` guide covering mode vs. resolved themes, SSR handling, and migration steps, plus design docs in `wip/` for theme auto-mode and `PipeSignature` node rendering.
+
+### Changed
+
+- **BREAKING:** The default theme is now `system` (previously `dark`). Consumers that don't set a `theme` will follow the OS/browser color scheme; pass `theme: "dark"` or `theme: "light"` to lock the appearance.
+- **BREAKING:** `GraphViewer`'s `theme` prop and `config.theme` now accept `GraphThemeMode` (`dark | light | system`) instead of just `dark | light`.
+- **BREAKING:** The `onThemeChange` callback signature changed from `(theme) => void` to `(mode, resolvedTheme) => void`. It now fires on toggle clicks, external prop updates, and live system changes, reporting both the selected `mode` (for persistence) and the `resolvedTheme` (for chrome sync). Handlers wired to the old single `theme` arg must handle the new `"system"` value (see `docs/theming.md` → "Migrating from the old `onThemeChange`").
+- **Centralized theme management:** The library-owned in-graph toolbar is now the single source of truth for theme state. The standalone wrapper no longer manages page-level theme or its own toggle; page chrome stays in sync via `onThemeChange`.
+- **Strict theme parsing:** The standalone config parser now throws on present-but-unrecognized theme values instead of silently coercing them to `dark`.
+
+### Fixed
+
+- **Standalone FOUC:** Added a static CSS fallback for `<body data-theme="system">` so page chrome is themed correctly on first paint, even before JS loads or if JS is disabled.
+- **Legacy environment support:** Avoided a crash where `window.matchMedia` lacks the modern `addEventListener` API (e.g. older WebKit, some Electron/VS Code webviews) by falling back to the legacy `addListener`.
+- **SSR hydration:** `useSystemTheme` now safely defaults to `dark` on the server to prevent crashes when `window` is undefined.
+
 ## [v0.8.0] - 2026-06-20
 
 ### Added
