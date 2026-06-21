@@ -1,19 +1,28 @@
 /* ─── Standalone GraphViewer chrome (toolbar, theme, layout) ─────────── */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
-  font-family: "Inter", -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    sans-serif;
 }
 
 /* ─── Theme system ──────────────────────────────────────────────────── */
 
-body[data-theme="dark"], body:not([data-theme]) {
+body[data-theme="dark"],
+body:not([data-theme]) {
   --chrome-bg: #0d1117;
   --chrome-surface: #161b22;
-  --chrome-border: rgba(255,255,255,0.08);
+  --chrome-border: rgba(255, 255, 255, 0.08);
   --chrome-text: #e2e8f0;
   --chrome-text-muted: #8b949e;
   background: #0a0a0f;
@@ -23,7 +32,7 @@ body[data-theme="dark"], body:not([data-theme]) {
 body[data-theme="light"] {
   --chrome-bg: #ffffff;
   --chrome-surface: #f6f8fa;
-  --chrome-border: rgba(0,0,0,0.1);
+  --chrome-border: rgba(0, 0, 0, 0.1);
   --chrome-text: #1f2328;
   --chrome-text-muted: #656d76;
   background: #ffffff;
@@ -31,10 +40,10 @@ body[data-theme="light"] {
 }
 
 @media (prefers-color-scheme: light) {
-  body[data-theme="system"] {
+  body[data-theme="auto"] {
     --chrome-bg: #ffffff;
     --chrome-surface: #f6f8fa;
-    --chrome-border: rgba(0,0,0,0.1);
+    --chrome-border: rgba(0, 0, 0, 0.1);
     --chrome-text: #1f2328;
     --chrome-text-muted: #656d76;
     background: #ffffff;
@@ -43,10 +52,10 @@ body[data-theme="light"] {
 }
 
 @media (prefers-color-scheme: dark) {
-  body[data-theme="system"] {
+  body[data-theme="auto"] {
     --chrome-bg: #0d1117;
     --chrome-surface: #161b22;
-    --chrome-border: rgba(255,255,255,0.08);
+    --chrome-border: rgba(255, 255, 255, 0.08);
     --chrome-text: #e2e8f0;
     --chrome-text-muted: #8b949e;
     background: #0a0a0f;
@@ -81,7 +90,9 @@ body[data-theme="light"] {
   z-index: 20;
 }
 
-.toolbar-spacer { flex: 1; }
+.toolbar-spacer {
+  flex: 1;
+}
 
 .toolbar-btn {
   all: unset;
@@ -93,7 +104,9 @@ body[data-theme="light"] {
   height: 28px;
   border-radius: 4px;
   color: var(--chrome-text-muted);
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .toolbar-btn:hover {
@@ -107,8 +120,12 @@ body[data-theme="light"] {
 }
 
 /* Direction toggle */
-.direction-icon { display: none; }
-.direction-icon.active { display: inline-flex; }
+.direction-icon {
+  display: none;
+}
+.direction-icon.active {
+  display: inline-flex;
+}
 
 /* Controllers toggle */
 .toggle-switch {
@@ -121,7 +138,9 @@ body[data-theme="light"] {
   user-select: none;
 }
 
-.toggle-switch input { display: none; }
+.toggle-switch input {
+  display: none;
+}
 
 .toggle-track {
   width: 28px;
@@ -133,7 +152,7 @@ body[data-theme="light"] {
 }
 
 .toggle-switch input:checked + .toggle-track {
-  background: #50FA7B44;
+  background: #50fa7b44;
 }
 
 .toggle-knob {
@@ -144,39 +163,22 @@ body[data-theme="light"] {
   height: 12px;
   border-radius: 50%;
   background: var(--chrome-text-muted);
-  transition: left 0.15s, background 0.15s;
+  transition:
+    left 0.15s,
+    background 0.15s;
 }
 
 .toggle-switch input:checked + .toggle-track .toggle-knob {
   left: 14px;
-  background: #50FA7B;
+  background: #50fa7b;
 }
 
 .toggle-label {
   font-size: 11px;
 }
 
-/* Theme toggle */
-.theme-btn {
-  all: unset;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  color: var(--chrome-text-muted);
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background 0.15s;
-}
-
-.theme-btn:hover {
-  background: var(--chrome-border);
-}
-
-.theme-label {
-  text-transform: capitalize;
-}
+/* The theme toggle lives in the in-graph toolbar (library-owned tri-state);
+   the standalone page no longer renders its own theme button. */
 
 /* ─── Header branding ───────────────────────────────────────────────── */
 
@@ -205,16 +207,16 @@ body[data-theme="light"] .header-logo.light-logo {
 }
 
 @media (prefers-color-scheme: light) {
-  body[data-theme="system"] .header-logo.dark-logo {
+  body[data-theme="auto"] .header-logo.dark-logo {
     display: none;
   }
-  body[data-theme="system"] .header-logo.light-logo {
+  body[data-theme="auto"] .header-logo.light-logo {
     display: inline;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  body[data-theme="system"] .header-logo.light-logo {
+  body[data-theme="auto"] .header-logo.light-logo {
     display: none;
   }
 }

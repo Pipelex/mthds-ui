@@ -3,15 +3,21 @@
  * Mirrors the VS Code extension adapter pattern (module-scoped state + manual re-render).
  *
  * Config parsing lives in `./viewerProps` so it can be unit-tested without a DOM.
+ *
+ * Theming: the in-graph toolbar is the single theme toggle. The library owns
+ * the tri-state (`dark | light | auto`) and the `prefers-color-scheme`
+ * subscription; this adapter only mirrors the resolved theme onto page chrome
+ * (`<body>` palette + `data-theme` for the CSS chrome/logo rules).
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
-import type { GraphTheme } from "@graph/types";
+import type { GraphTheme, GraphThemeMode } from "@graph/types";
+import { GRAPH_THEME_MODE } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
+import { detectSystemTheme } from "@graph/react/viewer/useSystemTheme";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
-import { type PageTheme, nextPageTheme, resolvePageThemeToGraphTheme } from "./pageTheme";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
@@ -34,12 +40,8 @@ function readJsonScript(id: string): unknown {
 /**
  * Apply the theme palette to `document.body` so page chrome rendered outside
  * the GraphViewer container (e.g. the standalone HTML wrapper) themes with
- * the graph. Sparse `paletteColors` overrides win per-key.
- *
- * Called both at initial mount AND on every theme change emitted by
- * GraphViewer (via `onThemeChange`) — otherwise toggling the toolbar's theme
- * button would only re-skin the chart container while leaving body chrome
- * stuck on the initial palette.
+ * the graph. Sparse `paletteColors` overrides win per-key. Takes the resolved
+ * binary theme (not the mode).
  */
 function applyBodyPalette(theme: GraphTheme, overrides?: Record<string, string>): void {
   const themePalette = getPaletteForTheme(theme);
@@ -49,13 +51,33 @@ function applyBodyPalette(theme: GraphTheme, overrides?: Record<string, string>)
   }
 }
 
+/**
+ * Mirror a (mode, resolvedTheme) onto page chrome:
+ * - `body[data-theme]` carries the *mode* so the standalone CSS chrome/logo
+ *   rules (including the `auto` `prefers-color-scheme` media queries) react.
+ * - the body graph palette is set from the *resolved* theme.
+ *
+ * Called at mount and on every `onThemeChange` from the GraphViewer (toolbar
+ * clicks and `auto` re-resolving on a system change), keeping body chrome in
+ * sync with the chart in all three states.
+ */
+function applyPageChrome(mode: GraphThemeMode, resolvedTheme: GraphTheme): void {
+  document.body.setAttribute("data-theme", mode);
+  applyBodyPalette(resolvedTheme, viewerProps.config.paletteColors);
+}
+
+/** Resolve a mode to a binary theme the same way the library does (for mount). */
+function resolveMode(mode: GraphThemeMode): GraphTheme {
+  return mode === GRAPH_THEME_MODE.AUTO ? detectSystemTheme() : mode;
+}
+
 // ─── React app ──────────────────────────────────────────────────────────
 
 function App() {
   return React.createElement(GraphViewer, {
     ...viewerProps,
-    onThemeChange: (nextTheme) => {
-      applyBodyPalette(nextTheme, viewerProps.config.paletteColors);
+    onThemeChange: (mode: GraphThemeMode, resolvedTheme: GraphTheme) => {
+      applyPageChrome(mode, resolvedTheme);
     },
   });
 }
@@ -84,48 +106,13 @@ function mount() {
     const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
     viewerProps = buildViewerProps(rawConfig, graphspec);
 
-    applyBodyPalette(viewerProps.theme, viewerProps.config.paletteColors);
+    // Paint initial page chrome from the parsed mode. `onThemeChange` does not
+    // fire on mount, so resolve `auto` here the same way the library will.
+    applyPageChrome(viewerProps.theme, resolveMode(viewerProps.theme));
 
     // Re-render with data (triggers GraphViewer's graphspec useEffect)
     renderApp?.();
   }, 0);
-
-  const prefersDark = (): boolean =>
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-  // Sync the GraphViewer + body palette + page chrome to a page-level theme
-  // state. Replaces the prior toggle which only updated body[data-theme] and
-  // the label — the graph kept its initial theme, so the page and chart
-  // could drift out of sync (PR-41 greptile P1: "Standalone toggle desyncs").
-  const applyPageTheme = (next: PageTheme): void => {
-    document.body.setAttribute("data-theme", next);
-    const label = document.getElementById("theme-toggle")?.querySelector(".theme-label");
-    if (label) label.textContent = next;
-
-    const graphTheme = resolvePageThemeToGraphTheme(next, prefersDark);
-    viewerProps = { ...viewerProps, theme: graphTheme };
-    applyBodyPalette(graphTheme, viewerProps.config.paletteColors);
-    renderApp?.();
-  };
-
-  document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    applyPageTheme(nextPageTheme(document.body.getAttribute("data-theme")));
-  });
-
-  // Track system preference changes so a "system" selection stays live.
-  if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = () => {
-      if (document.body.getAttribute("data-theme") === "system") {
-        applyPageTheme("system");
-      }
-    };
-    if (typeof mq.addEventListener === "function") {
-      mq.addEventListener("change", handler);
-    }
-  }
 }
 
 // ─── Run ────────────────────────────────────────────────────────────────

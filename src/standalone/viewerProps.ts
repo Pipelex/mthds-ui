@@ -3,8 +3,14 @@
  * the wire-through from `pipelex-config` JSON to `GraphViewer` props can be
  * unit-tested without pulling React or CSS side-effects into the test.
  */
-import type { GraphSpec, GraphConfig, GraphDirection, FoldMode, GraphTheme } from "@graph/types";
-import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME } from "@graph/types";
+import type {
+  GraphSpec,
+  GraphConfig,
+  GraphDirection,
+  FoldMode,
+  GraphThemeMode,
+} from "@graph/types";
+import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME_MODE } from "@graph/types";
 
 export interface StandaloneViewerProps {
   graphspec: GraphSpec | null;
@@ -12,7 +18,7 @@ export interface StandaloneViewerProps {
   initialDirection: GraphDirection;
   initialShowControllers: boolean;
   initialFoldMode: FoldMode;
-  theme: GraphTheme;
+  theme: GraphThemeMode;
 }
 
 /**
@@ -31,11 +37,21 @@ function parseFoldMode(raw: unknown): FoldMode {
   );
 }
 
-function parseTheme(raw: unknown): GraphTheme {
-  if (raw === GRAPH_THEME.LIGHT || raw === GRAPH_THEME.DARK) {
+/**
+ * Theme *mode*. The standalone no longer resolves `auto` itself — it passes the
+ * mode straight through and lets `GraphViewer` (via `useSystemTheme`) resolve it
+ * against `prefers-color-scheme`. An absent/unrecognized value defaults to
+ * `auto`, matching `DEFAULT_GRAPH_CONFIG`.
+ */
+function parseTheme(raw: unknown): GraphThemeMode {
+  if (
+    raw === GRAPH_THEME_MODE.LIGHT ||
+    raw === GRAPH_THEME_MODE.DARK ||
+    raw === GRAPH_THEME_MODE.AUTO
+  ) {
     return raw;
   }
-  return GRAPH_THEME.DARK;
+  return GRAPH_THEME_MODE.AUTO;
 }
 
 /**

@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **`auto` theme mode — the graph follows the host environment.** The in-graph theme toggle is now tri-state: it cycles `auto → light → dark → auto`, each with a distinct icon (monitor / sun / moon) and an accessible label naming the current state and the next. In `auto`, the graph follows the browser's `prefers-color-scheme` **live** (updating on OS theme changes with no reload), or an injected `systemTheme` when the host provides one. New `GraphThemeMode` (`dark | light | auto`) type and `GRAPH_THEME_MODE` constant; `GraphTheme` stays the resolved binary (`dark | light`) the palette consumes.
+- **`GraphViewer` `systemTheme` prop.** Host-injected environment theme, authoritative when set — for non-browser hosts (e.g. VS Code webviews, where `prefers-color-scheme` is unreliable) to drive `auto` from their own detection. Omit it and `auto` follows the browser. New exported `useSystemTheme` / `detectSystemTheme` helpers back this.
+
+### Changed
+
+- **BREAKING: the default theme is now `auto` (was effectively `dark`).** `DEFAULT_GRAPH_CONFIG.theme = "auto"`. Any consumer that never set `theme` will now follow the OS/editor color scheme instead of always rendering dark. To keep a fixed appearance, pass `theme: "dark"` (or `"light"`) explicitly.
+- **BREAKING: `GraphViewer`'s `theme` prop and `config.theme` now accept `dark | light | auto`** (the `GraphThemeMode` domain) instead of only `dark | light`.
+- **BREAKING: `onThemeChange` signature is now `(mode, resolvedTheme) => void`** (was `(theme) => void`). It fires on toggle clicks, on external prop/config updates, and when `auto` re-resolves on an environment change — reporting both the selected `mode` (for persistence) and the `resolvedTheme` (for chrome sync).
+- The standalone HTML wrapper drops its own page-level theme button and `prefers-color-scheme` machinery; the library-owned in-graph toolbar is now the single theme toggle, and page chrome stays in sync via `onThemeChange`.
+
 ## [v0.8.0] - 2026-06-20
 
 ### Added

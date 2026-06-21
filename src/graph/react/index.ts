@@ -9,6 +9,9 @@ import "./viewer/GraphToolbar.css";
 export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";
 export type { GraphViewerProps } from "./viewer/GraphViewer";
 export { renderLabel, hydrateLabels } from "./viewer/renderLabel";
+// System-theme detection — for hosts that drive `auto` from their own
+// environment signal (e.g. a VS Code webview) or need the browser default.
+export { useSystemTheme, detectSystemTheme } from "./viewer/useSystemTheme";
 
 // ReactFlow type bridge
 export type { AppNode, AppEdge, AppRFInstance } from "./rfTypes";

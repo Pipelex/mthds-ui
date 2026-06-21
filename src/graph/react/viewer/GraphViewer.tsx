@@ -18,6 +18,7 @@ import type {
   FoldMode,
   FoldToggleOptions,
   GraphTheme,
+  GraphThemeMode,
   PipeStatus,
   ConceptInfo,
 } from "@graph/types";
@@ -26,8 +27,9 @@ import {
   EDGE_TYPE,
   FOLD_MODE,
   GRAPH_DIRECTION,
-  GRAPH_THEME,
+  GRAPH_THEME_MODE,
 } from "@graph/types";
+import { useSystemTheme } from "./useSystemTheme";
 import { resolveConceptRef } from "@graph/graphAnalysis";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
@@ -73,14 +75,24 @@ export interface GraphViewerProps {
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
   /**
-   * Color theme. Reactive: passing it as a prop drives the active theme, and
-   * clearing it back to `undefined` hands control back to `config.theme` (or
-   * the default). Users can also toggle via the built-in toolbar button
-   * (unless `showThemeToggle` is `false`).
+   * Theme *mode*: `dark | light | auto`. Reactive: passing it as a prop drives
+   * the active mode, and clearing it back to `undefined` hands control back to
+   * `config.theme` (or the default `auto`). Users can also cycle it via the
+   * built-in toolbar button (unless `showThemeToggle` is `false`).
    *
-   * Defaults to `config.theme` or `"dark"`.
+   * `auto` resolves to the environment theme — the browser's
+   * `prefers-color-scheme`, or `systemTheme` when injected.
+   *
+   * Defaults to `config.theme` or `"auto"`.
    */
-  theme?: GraphTheme;
+  theme?: GraphThemeMode;
+  /**
+   * Host-injected environment theme, authoritative when set. Forwarded to the
+   * `auto` resolver so non-browser hosts (e.g. VS Code webviews, where
+   * `prefers-color-scheme` is unreliable) can drive `auto` from their own
+   * detection. When omitted, `auto` follows the browser's `prefers-color-scheme`.
+   */
+  systemTheme?: GraphTheme;
   /**
    * Whether to render the theme toggle button in the built-in toolbar.
    * Defaults to `true`. Set to `false` to hide it (useful when the host app
@@ -88,11 +100,12 @@ export interface GraphViewerProps {
    */
   showThemeToggle?: boolean;
   /**
-   * Called whenever the active theme changes — both from the built-in toggle
-   * and from external prop / config updates. Use this to keep page chrome
-   * outside the GraphViewer container in sync with the graph's theme.
+   * Called whenever the theme changes — from the built-in toggle, from external
+   * prop / config updates, or when `auto` re-resolves because the environment
+   * changed. Receives both the selected `mode` (for persistence) and the
+   * `resolvedTheme` (for keeping page chrome outside the container in sync).
    */
-  onThemeChange?: (theme: GraphTheme) => void;
+  onThemeChange?: (mode: GraphThemeMode, resolvedTheme: GraphTheme) => void;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
   onStuffNodeClick?: (stuffData: StuffViewerData) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
@@ -181,24 +194,34 @@ function seedFoldedControllers(mode: FoldMode, controllerIds: ReadonlySet<string
 }
 
 /**
- * Resolve the externally-driven theme from `(themeProp, config.theme, default)`.
- * Pure function so the reactivity contract is unit-testable without React.
+ * Resolve the externally-driven theme *mode* from `(themeProp, config.theme,
+ * default)`. Pure function so the reactivity contract is unit-testable without
+ * React.
  *
  * Contract — must hold for every transition (regression-tested in
  * `__tests__/themeResolution.test.ts`):
  * - `themeProp` wins when set
  * - falls back to `config.theme` when `themeProp` is undefined (so a host can
  *   hand theme control back to config after passing it as a prop)
- * - falls back to the library default when neither is set
+ * - falls back to the library default (`auto`) when neither is set
  * - a `themeProp` transition controlled→undefined→same-prior-value still
  *   round-trips through the config fallback rather than silently re-using
  *   the previous prop value
  */
-export function resolveExternalTheme(
-  themeProp: GraphTheme | undefined,
-  configTheme: GraphTheme | undefined,
-): GraphTheme {
-  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME.DARK;
+export function resolveExternalThemeMode(
+  themeProp: GraphThemeMode | undefined,
+  configTheme: GraphThemeMode | undefined,
+): GraphThemeMode {
+  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME_MODE.AUTO;
+}
+
+/**
+ * Collapse a theme mode + the detected environment theme into the binary
+ * `GraphTheme` that drives the palette and container class. `auto` follows the
+ * environment; `dark`/`light` are returned as-is. Pure + exported for testing.
+ */
+export function resolveActiveTheme(mode: GraphThemeMode, systemTheme: GraphTheme): GraphTheme {
+  return mode === GRAPH_THEME_MODE.AUTO ? systemTheme : mode;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -255,6 +278,7 @@ export function GraphViewer(props: GraphViewerProps) {
     initialFoldMode,
     hideToolbar = false,
     theme: themeProp,
+    systemTheme: systemThemeProp,
     showThemeToggle = true,
     onThemeChange,
     onNavigateToPipe,
@@ -282,31 +306,44 @@ export function GraphViewer(props: GraphViewerProps) {
       initialDirection ?? config.direction ?? DEFAULT_GRAPH_CONFIG.direction ?? GRAPH_DIRECTION.TB,
   );
 
-  // Resolve the externally-driven theme on every render so prop AND config
+  // Resolve the externally-driven mode on every render so prop AND config
   // changes both propagate (regression for PR-41 review comments: prop
   // clearing must fall back through config, and config.theme changes must
-  // not stay stale). `resolveExternalTheme` is exported + unit-tested.
-  const externalTheme = resolveExternalTheme(themeProp, config.theme);
-  const [theme, setTheme] = React.useState<GraphTheme>(externalTheme);
-  const prevExternalThemeRef = React.useRef<GraphTheme>(externalTheme);
+  // not stay stale). `resolveExternalThemeMode` is exported + unit-tested.
+  const externalMode = resolveExternalThemeMode(themeProp, config.theme);
+  const [mode, setMode] = React.useState<GraphThemeMode>(externalMode);
+  const prevExternalModeRef = React.useRef<GraphThemeMode>(externalMode);
   React.useEffect(() => {
-    if (externalTheme !== prevExternalThemeRef.current) {
-      prevExternalThemeRef.current = externalTheme;
-      setTheme(externalTheme);
+    if (externalMode !== prevExternalModeRef.current) {
+      prevExternalModeRef.current = externalMode;
+      setMode(externalMode);
     }
-  }, [externalTheme]);
-  // Notify the host whenever the resolved theme changes. Covers both
-  // internal toggle clicks and external prop/config updates from one place,
-  // and stays correct even if the host re-renders for unrelated reasons.
+  }, [externalMode]);
+
+  // Resolve `auto` to a binary theme via the environment. `systemThemeProp`,
+  // when set, is authoritative (host owns detection); otherwise this follows
+  // the browser's `prefers-color-scheme` live.
+  const systemTheme = useSystemTheme(systemThemeProp);
+  const resolvedTheme = resolveActiveTheme(mode, systemTheme);
+
+  // Notify the host whenever the mode OR the resolved theme changes. Covers
+  // internal toggle clicks, external prop/config updates, and `auto`
+  // re-resolving on an environment change — all from one place — and stays
+  // correct even if the host re-renders for unrelated reasons. Reports both so
+  // chrome-sync uses `resolvedTheme` while persistence uses `mode`.
   const onThemeChangeRef = React.useRef(onThemeChange);
   onThemeChangeRef.current = onThemeChange;
-  const prevReportedThemeRef = React.useRef<GraphTheme>(theme);
+  const prevReportedRef = React.useRef<{ mode: GraphThemeMode; resolvedTheme: GraphTheme }>({
+    mode,
+    resolvedTheme,
+  });
   React.useEffect(() => {
-    if (theme !== prevReportedThemeRef.current) {
-      prevReportedThemeRef.current = theme;
-      onThemeChangeRef.current?.(theme);
+    const prev = prevReportedRef.current;
+    if (prev.mode !== mode || prev.resolvedTheme !== resolvedTheme) {
+      prevReportedRef.current = { mode, resolvedTheme };
+      onThemeChangeRef.current?.(mode, resolvedTheme);
     }
-  }, [theme]);
+  }, [mode, resolvedTheme]);
 
   const effectiveFoldMode: FoldMode =
     initialFoldMode ?? config.foldMode ?? DEFAULT_GRAPH_CONFIG.foldMode ?? FOLD_MODE.EXPANDED;
@@ -349,7 +386,7 @@ export function GraphViewer(props: GraphViewerProps) {
   React.useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const themePalette = getPaletteForTheme(theme);
+    const themePalette = getPaletteForTheme(resolvedTheme);
     const overrides = config.paletteColors;
     const palette = overrides ? { ...themePalette, ...overrides } : themePalette;
 
@@ -362,7 +399,7 @@ export function GraphViewer(props: GraphViewerProps) {
         el.style.removeProperty(cssVar);
       }
     };
-  }, [config.paletteColors, theme]);
+  }, [config.paletteColors, resolvedTheme]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<AppEdge>([]);
@@ -901,7 +938,10 @@ export function GraphViewer(props: GraphViewerProps) {
   }, [showControllers, allControllerIds, foldedControllers]);
 
   return (
-    <div ref={containerRef} className={`react-flow-container react-flow-container--theme-${theme}`}>
+    <div
+      ref={containerRef}
+      className={`react-flow-container react-flow-container--theme-${resolvedTheme} react-flow-container--mode-${mode}`}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -972,8 +1012,8 @@ export function GraphViewer(props: GraphViewerProps) {
           onExpandAll={foldAllProps.onExpandAll}
           foldAllDisabled={foldAllProps.foldAllDisabled}
           expandAllDisabled={foldAllProps.expandAllDisabled}
-          theme={showThemeToggle ? theme : undefined}
-          onThemeChange={showThemeToggle ? setTheme : undefined}
+          themeMode={showThemeToggle ? mode : undefined}
+          onThemeModeChange={showThemeToggle ? setMode : undefined}
           rightOffset={detailOpen ? panelWidth : 0}
         />
       )}
