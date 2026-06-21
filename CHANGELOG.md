@@ -4,17 +4,25 @@
 
 ### Added
 
-- **`system` theme mode — the graph follows the host environment.** The in-graph theme toggle is now tri-state: it cycles `system → light → dark → system`, each with a distinct icon (monitor / sun / moon) and an accessible label naming the current state and the next. In `system`, the graph follows the browser's `prefers-color-scheme` **live** (updating on OS theme changes with no reload), or an injected `systemTheme` when the host provides one. New `GraphThemeMode` (`dark | light | system`) type and `GRAPH_THEME_MODE` constant; `GraphTheme` stays the resolved binary (`dark | light`) the palette consumes. The `system` value matches what pipelex emits (`ReactFlowTheme.SYSTEM`) and the React ecosystem convention (`next-themes` / shadcn).
-- **`GraphViewer` `systemTheme` prop.** Host-injected environment theme, authoritative when set — for non-browser hosts (e.g. VS Code webviews, where `prefers-color-scheme` is unreliable) to drive `system` from their own detection. Omit it and `system` follows the browser. New exported `useSystemTheme` / `detectSystemTheme` helpers back this.
+- **`system` theme mode:** The graph supports a tri-state theme mode (`system` → `light` → `dark`). In `system` mode it live-syncs with the host's `prefers-color-scheme` without a reload. New `GraphThemeMode` (`dark | light | system`) type and `GRAPH_THEME_MODE` constant; `GraphTheme` stays the resolved binary (`dark | light`) the palette consumes. The `system` value matches what pipelex emits (`ReactFlowTheme.SYSTEM`) and the React ecosystem convention (`next-themes` / shadcn).
+- **`systemTheme` prop:** A new `GraphViewer` prop lets non-browser hosts (e.g. VS Code webviews) inject and authoritatively drive `system` theme detection. Omit it and `system` follows the browser.
+- **Theme detection helpers:** Exported `useSystemTheme` and `detectSystemTheme` for external React and non-React consumers to read the environment's color scheme.
+- **Standalone error screen:** The standalone HTML wrapper now renders a visible error screen for malformed embedded configs or specs (e.g. invalid JSON, bad `theme`/`direction`/`foldMode` tokens, a failed GraphSpec check) instead of failing silently to a blank page.
+- **Documentation:** Added a `docs/theming.md` guide covering mode vs. resolved themes, SSR handling, and migration steps, plus design docs in `wip/` for theme auto-mode and `PipeSignature` node rendering.
 
 ### Changed
 
-- **BREAKING: the default theme is now `system` (was effectively `dark`).** `DEFAULT_GRAPH_CONFIG.theme = "system"`. Any consumer that never set `theme` will now follow the OS/editor color scheme instead of always rendering dark. To keep a fixed appearance, pass `theme: "dark"` (or `"light"`) explicitly.
-- **BREAKING: `GraphViewer`'s `theme` prop and `config.theme` now accept `dark | light | system`** (the `GraphThemeMode` domain) instead of only `dark | light`.
-- **BREAKING: `onThemeChange` signature is now `(mode, resolvedTheme) => void`** (was `(theme) => void`). It fires on toggle clicks, on external prop/config updates, and when `system` re-resolves on an environment change — reporting both the selected `mode` (for persistence) and the `resolvedTheme` (for chrome sync). The first arg's value domain widened: it can now be the string `"system"`, so handlers wired to the old single `theme` arg must handle it (see `docs/theming.md` → "Migrating from the old `onThemeChange`").
-- The standalone HTML wrapper drops its own page-level theme button and `prefers-color-scheme` machinery; the library-owned in-graph toolbar is now the single theme toggle, and page chrome stays in sync via `onThemeChange`.
-- The standalone wrapper renders a visible error screen when its embedded config or spec is malformed (a bad `theme`/`direction`/`foldMode` token, invalid JSON, or a failed GraphSpec check) instead of leaving a blank page. The config parsers throw on a present-but-unrecognized value by design; the data-load callback now catches that and surfaces the message rather than aborting silently on a timer.
-- The standalone `data-theme="system"` page chrome now has a base (non-media) fallback to the dark palette, so a host engine without `prefers-color-scheme` support still paints themed chrome and the correct logo on first load instead of rendering unstyled.
+- **BREAKING:** The default theme is now `system` (previously `dark`). Consumers that don't set a `theme` will follow the OS/browser color scheme; pass `theme: "dark"` or `theme: "light"` to lock the appearance.
+- **BREAKING:** `GraphViewer`'s `theme` prop and `config.theme` now accept `GraphThemeMode` (`dark | light | system`) instead of just `dark | light`.
+- **BREAKING:** The `onThemeChange` callback signature changed from `(theme) => void` to `(mode, resolvedTheme) => void`. It now fires on toggle clicks, external prop updates, and live system changes, reporting both the selected `mode` (for persistence) and the `resolvedTheme` (for chrome sync). Handlers wired to the old single `theme` arg must handle the new `"system"` value (see `docs/theming.md` → "Migrating from the old `onThemeChange`").
+- **Centralized theme management:** The library-owned in-graph toolbar is now the single source of truth for theme state. The standalone wrapper no longer manages page-level theme or its own toggle; page chrome stays in sync via `onThemeChange`.
+- **Strict theme parsing:** The standalone config parser now throws on present-but-unrecognized theme values instead of silently coercing them to `dark`.
+
+### Fixed
+
+- **Standalone FOUC:** Added a static CSS fallback for `<body data-theme="system">` so page chrome is themed correctly on first paint, even before JS loads or if JS is disabled.
+- **Legacy environment support:** Avoided a crash where `window.matchMedia` lacks the modern `addEventListener` API (e.g. older WebKit, some Electron/VS Code webviews) by falling back to the legacy `addListener`.
+- **SSR hydration:** `useSystemTheme` now safely defaults to `dark` on the server to prevent crashes when `window` is undefined.
 
 ## [v0.8.0] - 2026-06-20
 
