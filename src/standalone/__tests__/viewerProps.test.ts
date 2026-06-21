@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { FOLD_MODE, GRAPH_DIRECTION } from "@graph/types";
+import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME_MODE } from "@graph/types";
 import { DEFAULT_GRAPH_CONFIG } from "@graph/graphConfig";
 import { buildViewerProps } from "../viewerProps";
 
@@ -37,6 +37,44 @@ describe("buildViewerProps", () => {
 
     it("throws on a present but invalid foldMode instead of silently coercing", () => {
       expect(() => buildViewerProps({ foldMode: "bogus" }, null)).toThrow(/Invalid foldMode/);
+    });
+  });
+
+  describe("theme", () => {
+    it("defaults to system when theme is missing from rawConfig", () => {
+      const props = buildViewerProps({}, null);
+      expect(props.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
+      expect(props.config.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
+    });
+
+    it("defaults to system when rawConfig itself is null", () => {
+      const props = buildViewerProps(null, null);
+      expect(props.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
+      expect(props.config.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
+    });
+
+    it.each([GRAPH_THEME_MODE.DARK, GRAPH_THEME_MODE.LIGHT, GRAPH_THEME_MODE.SYSTEM])(
+      "propagates valid theme mode %s verbatim",
+      (theme) => {
+        const props = buildViewerProps({ theme }, null);
+        expect(props.theme).toBe(theme);
+        expect(props.config.theme).toBe(theme);
+      },
+    );
+
+    it("accepts the legacy `system` value (not coerced) — closes the cross-repo break", () => {
+      // pipelex emits `data-theme="system"` / `config.theme = "system"`; the
+      // standalone must accept it, not silently coerce it (which previously hid
+      // both the producer mismatch and any genuine typo).
+      const props = buildViewerProps({ theme: "system" }, null);
+      expect(props.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
+    });
+
+    it("throws on a present but invalid theme instead of silently coercing", () => {
+      // Matches parseFoldMode / parseDirection: a malformed value (`drak` typo,
+      // a stale token) must surface, not render as the default.
+      expect(() => buildViewerProps({ theme: "drak" }, null)).toThrow(/Invalid theme/);
+      expect(() => buildViewerProps({ theme: "midnight" }, null)).toThrow(/Invalid theme/);
     });
   });
 

@@ -1,35 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><!--PIPELEX_TITLE--></title>
-<style nonce="PIPELEX_CSP_NONCE">
-<!--PIPELEX_CSS-->
-</style>
-</head>
-<body data-theme="<!--PIPELEX_THEME-->">
-<div id="app-container">
-  <div class="toolbar">
-    <div class="header-brand">
-      <img src="<!--PIPELEX_LOGO_DARK-->" alt="Pipelex" class="header-logo dark-logo">
-      <img src="<!--PIPELEX_LOGO_LIGHT-->" alt="Pipelex" class="header-logo light-logo">
-      <span class="header-title"><!--PIPELEX_TITLE--></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><!--PIPELEX_TITLE--></title>
+    <style nonce="PIPELEX_CSP_NONCE">
+      <!--PIPELEX_CSS-->
+    </style>
+  </head>
+  <body data-theme="<!--PIPELEX_THEME-->">
+    <div id="app-container">
+      <div class="toolbar">
+        <div class="header-brand">
+          <img src="<!--PIPELEX_LOGO_DARK-->" alt="Pipelex" class="header-logo dark-logo" />
+          <img src="<!--PIPELEX_LOGO_LIGHT-->" alt="Pipelex" class="header-logo light-logo" />
+          <span class="header-title"><!--PIPELEX_TITLE--></span>
+        </div>
+        <div class="toolbar-spacer"></div>
+        <!-- Theme toggle lives in the in-graph toolbar (the library owns the
+         tri-state dark/light/system). The page no longer renders its own. -->
+      </div>
+      <div id="root"></div>
     </div>
-    <div class="toolbar-spacer"></div>
-    <button id="theme-toggle" class="theme-btn" title="Toggle theme">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      <span class="theme-label"><!--PIPELEX_THEME--></span>
-    </button>
-  </div>
-  <div id="root"></div>
-</div>
 
-<script type="application/json" id="pipelex-graphspec"><!--PIPELEX_GRAPHSPEC--></script>
-<script type="application/json" id="pipelex-config"><!--PIPELEX_CONFIG--></script>
+    <script type="application/json" id="pipelex-graphspec">
+      <!--PIPELEX_GRAPHSPEC-->
+    </script>
+    <script type="application/json" id="pipelex-config">
+      <!--PIPELEX_CONFIG-->
+    </script>
 
-<script nonce="PIPELEX_CSP_NONCE">
-<!--PIPELEX_JS-->
-</script>
-</body>
+    <script nonce="PIPELEX_CSP_NONCE">
+      <!--PIPELEX_JS-->
+    </script>
+  </body>
 </html>

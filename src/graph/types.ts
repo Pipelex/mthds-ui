@@ -431,6 +431,11 @@ export const FOLD_MODE = {
 
 export type FoldMode = (typeof FOLD_MODE)[keyof typeof FOLD_MODE];
 
+/**
+ * The *resolved* binary theme — the value that actually drives the palette and
+ * the container class. `getPaletteForTheme` takes this. `system` is never a
+ * resolved theme; it resolves to one of these via the environment.
+ */
 export const GRAPH_THEME = {
   DARK: "dark",
   LIGHT: "light",
@@ -438,11 +443,31 @@ export const GRAPH_THEME = {
 
 export type GraphTheme = (typeof GRAPH_THEME)[keyof typeof GRAPH_THEME];
 
+/**
+ * The user's theme *selection* — what the toolbar cycles, what gets persisted
+ * and reported. `system` follows the host environment (browser `prefers-color-scheme`
+ * or an injected `systemTheme`) and resolves to a binary `GraphTheme` at render
+ * time. The `dark`/`light` overlap with `GraphTheme` is intentional: a resolved
+ * theme is also a valid mode.
+ */
+export const GRAPH_THEME_MODE = {
+  DARK: "dark",
+  LIGHT: "light",
+  SYSTEM: "system",
+} as const;
+
+export type GraphThemeMode = (typeof GRAPH_THEME_MODE)[keyof typeof GRAPH_THEME_MODE];
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
   foldMode?: FoldMode;
-  theme?: GraphTheme;
+  /**
+   * Theme *mode*: `dark | light | system`. `system` follows the host environment.
+   * Defaults to `system` (see `DEFAULT_GRAPH_CONFIG`). Pass `dark`/`light` to pin
+   * a fixed appearance.
+   */
+  theme?: GraphThemeMode;
   nodesep?: number;
   ranksep?: number;
   edgeType?: EdgeType;

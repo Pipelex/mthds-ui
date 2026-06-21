@@ -1,5 +1,5 @@
 import type { GraphConfig, GraphTheme } from "./types";
-import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME } from "./types";
+import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME, GRAPH_THEME_MODE } from "./types";
 
 /**
  * Semantic design tokens consumed by every component CSS file.
@@ -192,7 +192,10 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   direction: "LR",
   showControllers: false,
   foldMode: FOLD_MODE.EXPANDED,
-  theme: GRAPH_THEME.DARK,
+  // `system` follows the host environment (OS/browser, or editor theme) out of
+  // the box — the least-surprising default for an embedded component. Hosts
+  // that want a fixed appearance pass `theme: "dark"` / `"light"` explicitly.
+  theme: GRAPH_THEME_MODE.SYSTEM,
   nodesep: 50,
   ranksep: 100,
   edgeType: EDGE_TYPE.DEFAULT,
