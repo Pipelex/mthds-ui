@@ -18,7 +18,15 @@ body {
 
 /* ─── Theme system ──────────────────────────────────────────────────── */
 
+/* `data-theme="system"` defaults to the dark palette so a host with no
+   `prefers-color-scheme` support (legacy WebKit / older Electron / some
+   webviews) still gets themed chrome on first paint, before — and even if —
+   the JS bundle loads. This mirrors the JS side, where `detectSystemTheme()`
+   also falls back to dark. The `prefers-color-scheme: light` query below flips
+   it to light when the engine supports it; `prefers-color-scheme: dark` needs
+   no block because it already matches this default. */
 body[data-theme="dark"],
+body[data-theme="system"],
 body:not([data-theme]) {
   --chrome-bg: #0d1117;
   --chrome-surface: #161b22;
@@ -48,18 +56,6 @@ body[data-theme="light"] {
     --chrome-text-muted: #656d76;
     background: #ffffff;
     color: #1f2328;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  body[data-theme="system"] {
-    --chrome-bg: #0d1117;
-    --chrome-surface: #161b22;
-    --chrome-border: rgba(255, 255, 255, 0.08);
-    --chrome-text: #e2e8f0;
-    --chrome-text-muted: #8b949e;
-    background: #0a0a0f;
-    color: #e2e8f0;
   }
 }
 
@@ -193,7 +189,10 @@ body[data-theme="light"] {
   opacity: 0.7;
 }
 
+/* `system` defaults to the dark logo (hide the light variant), matching the
+   chrome default above; the `prefers-color-scheme: light` query flips it. */
 body[data-theme="dark"] .header-logo.light-logo,
+body[data-theme="system"] .header-logo.light-logo,
 body:not([data-theme]) .header-logo.light-logo {
   display: none;
 }
@@ -215,14 +214,40 @@ body[data-theme="light"] .header-logo.light-logo {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  body[data-theme="system"] .header-logo.light-logo {
-    display: none;
-  }
-}
-
 .header-title {
   font-size: 12px;
   font-weight: 600;
   color: var(--chrome-text-muted);
+}
+
+/* ─── Error screen ──────────────────────────────────────────────────── */
+
+/* Shown when the embedded config or spec is malformed. Uses explicit colors
+   rather than the `--chrome-*` vars so it stays legible even when the theme
+   parse is the thing that failed. */
+.standalone-error {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 24px;
+  overflow: auto;
+  background: #0a0a0f;
+  color: #e2e8f0;
+}
+
+.standalone-error-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+.standalone-error-message {
+  margin: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #8b949e;
 }

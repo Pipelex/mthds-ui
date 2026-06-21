@@ -76,6 +76,27 @@ function App() {
   });
 }
 
+/**
+ * Visible fallback for a malformed embedded config or spec. The parse/validate
+ * helpers throw by design so the failure surfaces — but the data load runs in a
+ * detached `setTimeout` callback, where an uncaught throw would silently abort
+ * and leave the placeholder first render blank. Styled with explicit colors
+ * (not the `--chrome-*` vars) so it stays legible even when the failure is the
+ * theme parse itself.
+ */
+function ErrorScreen({ message }: { message: string }) {
+  return React.createElement(
+    "div",
+    { className: "standalone-error", role: "alert" },
+    React.createElement(
+      "strong",
+      { className: "standalone-error-title" },
+      "Failed to render method graph",
+    ),
+    React.createElement("pre", { className: "standalone-error-message" }, message),
+  );
+}
+
 // ─── Mount + delayed data load (mirrors VS Code postMessage pattern) ────
 
 function mount() {
@@ -93,20 +114,33 @@ function mount() {
 
   // Load data after initial mount (next tick), same as VS Code postMessage arrival
   setTimeout(() => {
-    const rawConfig = readJsonScript("pipelex-config");
-    const rawGraphspec = readJsonScript("pipelex-graphspec");
-    // Validate the embedded spec at the boundary — fail loudly on malformed
-    // input rather than rendering fabricated content downstream.
-    const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
-    viewerProps = buildViewerProps(rawConfig, graphspec);
+    try {
+      const rawConfig = readJsonScript("pipelex-config");
+      const rawGraphspec = readJsonScript("pipelex-graphspec");
+      // Validate the embedded spec at the boundary — fail loudly on malformed
+      // input rather than rendering fabricated content downstream.
+      const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
+      viewerProps = buildViewerProps(rawConfig, graphspec);
 
-    // Paint initial page chrome from the parsed mode. `onThemeChange` does not
-    // fire on mount, so resolve `system` here through the same library helper
-    // the GraphViewer uses (single source of truth — no parallel copy to drift).
-    applyPageChrome(viewerProps.theme, resolveActiveTheme(viewerProps.theme, detectSystemTheme()));
+      // Paint initial page chrome from the parsed mode. `onThemeChange` does not
+      // fire on mount, so resolve `system` here through the same library helper
+      // the GraphViewer uses (single source of truth — no parallel copy to drift).
+      applyPageChrome(
+        viewerProps.theme,
+        resolveActiveTheme(viewerProps.theme, detectSystemTheme()),
+      );
 
-    // Re-render with data (triggers GraphViewer's graphspec useEffect)
-    renderApp?.();
+      // Re-render with data (triggers GraphViewer's graphspec useEffect)
+      renderApp?.();
+    } catch (err) {
+      // The parse/validate helpers throw on malformed embedded input (a bad
+      // theme/direction/foldMode token, invalid JSON, a failed GraphSpec check).
+      // That is intentional — but this callback is detached on a timer, so an
+      // uncaught throw aborts here and leaves the placeholder first render blank
+      // with no signal. Surface the failure in the UI instead.
+      const message = err instanceof Error ? err.message : String(err);
+      root.render(React.createElement(ErrorScreen, { message }));
+    }
   }, 0);
 }
 

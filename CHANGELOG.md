@@ -13,6 +13,8 @@
 - **BREAKING: `GraphViewer`'s `theme` prop and `config.theme` now accept `dark | light | system`** (the `GraphThemeMode` domain) instead of only `dark | light`.
 - **BREAKING: `onThemeChange` signature is now `(mode, resolvedTheme) => void`** (was `(theme) => void`). It fires on toggle clicks, on external prop/config updates, and when `system` re-resolves on an environment change — reporting both the selected `mode` (for persistence) and the `resolvedTheme` (for chrome sync). The first arg's value domain widened: it can now be the string `"system"`, so handlers wired to the old single `theme` arg must handle it (see `docs/theming.md` → "Migrating from the old `onThemeChange`").
 - The standalone HTML wrapper drops its own page-level theme button and `prefers-color-scheme` machinery; the library-owned in-graph toolbar is now the single theme toggle, and page chrome stays in sync via `onThemeChange`.
+- The standalone wrapper renders a visible error screen when its embedded config or spec is malformed (a bad `theme`/`direction`/`foldMode` token, invalid JSON, or a failed GraphSpec check) instead of leaving a blank page. The config parsers throw on a present-but-unrecognized value by design; the data-load callback now catches that and surfaces the message rather than aborting silently on a timer.
+- The standalone `data-theme="system"` page chrome now has a base (non-media) fallback to the dark palette, so a host engine without `prefers-color-scheme` support still paints themed chrome and the correct logo on first load instead of rendering unstyled.
 
 ## [v0.8.0] - 2026-06-20
 
