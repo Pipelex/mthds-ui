@@ -38,20 +38,27 @@ function parseFoldMode(raw: unknown): FoldMode {
 }
 
 /**
- * Theme *mode*. The standalone no longer resolves `auto` itself — it passes the
- * mode straight through and lets `GraphViewer` (via `useSystemTheme`) resolve it
- * against `prefers-color-scheme`. An absent/unrecognized value defaults to
- * `auto`, matching `DEFAULT_GRAPH_CONFIG`.
+ * Theme *mode*. The standalone no longer resolves `system` itself — it passes
+ * the mode straight through and lets `GraphViewer` (via `useSystemTheme`)
+ * resolve it against `prefers-color-scheme`. An absent/null value defaults to
+ * `system`, matching `DEFAULT_GRAPH_CONFIG`. A *present* but unrecognized value
+ * is a malformed config — throw rather than silently coercing, so the host page
+ * sees the failure (the same pattern as `parseFoldMode` / `parseDirection`,
+ * which previously `parseTheme` broke by swallowing bad values).
  */
 function parseTheme(raw: unknown): GraphThemeMode {
+  if (raw === undefined || raw === null) return GRAPH_THEME_MODE.SYSTEM;
   if (
     raw === GRAPH_THEME_MODE.LIGHT ||
     raw === GRAPH_THEME_MODE.DARK ||
-    raw === GRAPH_THEME_MODE.AUTO
+    raw === GRAPH_THEME_MODE.SYSTEM
   ) {
     return raw;
   }
-  return GRAPH_THEME_MODE.AUTO;
+  throw new Error(
+    `Invalid theme in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of "dark", "light", "system".`,
+  );
 }
 
 /**

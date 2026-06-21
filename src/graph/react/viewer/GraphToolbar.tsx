@@ -214,7 +214,7 @@ const MOON_ICON = (
   </svg>
 );
 
-/** `auto` mode — a monitor glyph reading as "follow the system". */
+/** `system` mode — a monitor glyph reading as "follow the system". */
 const MONITOR_ICON = (
   <svg
     viewBox="0 0 24 24"
@@ -234,15 +234,15 @@ const MONITOR_ICON = (
 
 // ─── Theme-mode toggle: pure cycle + presentation helpers ───────────────────
 // Exported so the cycle order and per-state labels/icons are unit-testable
-// without rendering. Order: auto → light → dark → auto.
+// without rendering. Order: system → light → dark → system.
 
 const THEME_MODE_CYCLE: readonly GraphThemeMode[] = [
-  GRAPH_THEME_MODE.AUTO,
+  GRAPH_THEME_MODE.SYSTEM,
   GRAPH_THEME_MODE.LIGHT,
   GRAPH_THEME_MODE.DARK,
 ];
 
-/** Next mode in the auto → light → dark → auto cycle. */
+/** Next mode in the system → light → dark → system cycle. */
 export function nextThemeMode(current: GraphThemeMode): GraphThemeMode {
   const idx = THEME_MODE_CYCLE.indexOf(current);
   return THEME_MODE_CYCLE[(idx + 1) % THEME_MODE_CYCLE.length];
@@ -258,13 +258,12 @@ export function themeModeIcon(mode: GraphThemeMode): React.ReactElement {
 /** Accessible label naming the current mode and the one a click switches to. */
 export function themeModeLabel(mode: GraphThemeMode): string {
   const names: Record<GraphThemeMode, string> = {
-    [GRAPH_THEME_MODE.AUTO]: "auto (follows system)",
+    [GRAPH_THEME_MODE.SYSTEM]: "system",
     [GRAPH_THEME_MODE.LIGHT]: "light",
     [GRAPH_THEME_MODE.DARK]: "dark",
   };
   const next = nextThemeMode(mode);
-  const nextName = next === GRAPH_THEME_MODE.AUTO ? "auto" : next;
-  return `Theme: ${names[mode]} — switch to ${nextName}`;
+  return `Theme: ${names[mode]} — switch to ${names[next]}`;
 }
 
 export function GraphToolbar({

@@ -192,10 +192,10 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   direction: "LR",
   showControllers: false,
   foldMode: FOLD_MODE.EXPANDED,
-  // `auto` follows the host environment (OS/browser, or editor theme) out of
+  // `system` follows the host environment (OS/browser, or editor theme) out of
   // the box — the least-surprising default for an embedded component. Hosts
   // that want a fixed appearance pass `theme: "dark"` / `"light"` explicitly.
-  theme: GRAPH_THEME_MODE.AUTO,
+  theme: GRAPH_THEME_MODE.SYSTEM,
   nodesep: 50,
   ranksep: 100,
   edgeType: EDGE_TYPE.DEFAULT,

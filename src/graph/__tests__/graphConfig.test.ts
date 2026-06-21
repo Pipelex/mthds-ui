@@ -26,8 +26,8 @@ describe("DEFAULT_GRAPH_CONFIG", () => {
     expect(DEFAULT_GRAPH_CONFIG.ranksep).toBeGreaterThan(0);
   });
 
-  it("defaults to the auto theme mode (follows the environment)", () => {
-    expect(DEFAULT_GRAPH_CONFIG.theme).toBe(GRAPH_THEME_MODE.AUTO);
+  it("defaults to the system theme mode (follows the environment)", () => {
+    expect(DEFAULT_GRAPH_CONFIG.theme).toBe(GRAPH_THEME_MODE.SYSTEM);
   });
 
   it("omits paletteColors so the viewer derives it from `theme`", () => {

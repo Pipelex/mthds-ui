@@ -5,7 +5,7 @@ import { resolveExternalThemeMode, resolveActiveTheme } from "../GraphViewer";
 /**
  * Regression tests for the theme-resolution rules called out by the PR-41
  * review agents (greptile P1 + cubic P2), now over the tri-state mode domain
- * (`dark | light | auto`):
+ * (`dark | light | system`):
  *
  * - "Theme clearing sticks": `themeProp` going from a concrete value back to
  *   `undefined` must NOT keep the previous explicit value — the resolved
@@ -24,8 +24,8 @@ describe("resolveExternalThemeMode", () => {
     expect(resolveExternalThemeMode(GRAPH_THEME_MODE.DARK, GRAPH_THEME_MODE.LIGHT)).toBe(
       GRAPH_THEME_MODE.DARK,
     );
-    expect(resolveExternalThemeMode(GRAPH_THEME_MODE.AUTO, GRAPH_THEME_MODE.DARK)).toBe(
-      GRAPH_THEME_MODE.AUTO,
+    expect(resolveExternalThemeMode(GRAPH_THEME_MODE.SYSTEM, GRAPH_THEME_MODE.DARK)).toBe(
+      GRAPH_THEME_MODE.SYSTEM,
     );
   });
 
@@ -34,11 +34,13 @@ describe("resolveExternalThemeMode", () => {
       GRAPH_THEME_MODE.LIGHT,
     );
     expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.DARK)).toBe(GRAPH_THEME_MODE.DARK);
-    expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.AUTO)).toBe(GRAPH_THEME_MODE.AUTO);
+    expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.SYSTEM)).toBe(
+      GRAPH_THEME_MODE.SYSTEM,
+    );
   });
 
-  it("falls back to auto when both inputs are undefined", () => {
-    expect(resolveExternalThemeMode(undefined, undefined)).toBe(GRAPH_THEME_MODE.AUTO);
+  it("falls back to system when both inputs are undefined", () => {
+    expect(resolveExternalThemeMode(undefined, undefined)).toBe(GRAPH_THEME_MODE.SYSTEM);
   });
 
   it("treats themeProp clearing as an external change (no prev-value stickiness)", () => {
@@ -58,7 +60,9 @@ describe("resolveExternalThemeMode", () => {
     expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.LIGHT)).toBe(
       GRAPH_THEME_MODE.LIGHT,
     );
-    expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.AUTO)).toBe(GRAPH_THEME_MODE.AUTO);
+    expect(resolveExternalThemeMode(undefined, GRAPH_THEME_MODE.SYSTEM)).toBe(
+      GRAPH_THEME_MODE.SYSTEM,
+    );
   });
 
   it("round-trips controlled→uncontrolled→controlled through the config fallback", () => {
@@ -89,8 +93,8 @@ describe("resolveActiveTheme", () => {
     expect(resolveActiveTheme(GRAPH_THEME_MODE.LIGHT, GRAPH_THEME.DARK)).toBe(GRAPH_THEME.LIGHT);
   });
 
-  it("follows systemTheme when the mode is auto", () => {
-    expect(resolveActiveTheme(GRAPH_THEME_MODE.AUTO, GRAPH_THEME.DARK)).toBe(GRAPH_THEME.DARK);
-    expect(resolveActiveTheme(GRAPH_THEME_MODE.AUTO, GRAPH_THEME.LIGHT)).toBe(GRAPH_THEME.LIGHT);
+  it("follows systemTheme when the mode is system", () => {
+    expect(resolveActiveTheme(GRAPH_THEME_MODE.SYSTEM, GRAPH_THEME.DARK)).toBe(GRAPH_THEME.DARK);
+    expect(resolveActiveTheme(GRAPH_THEME_MODE.SYSTEM, GRAPH_THEME.LIGHT)).toBe(GRAPH_THEME.LIGHT);
   });
 });

@@ -50,12 +50,12 @@ export const CycleThroughModes: Story = {
     const container = await waitForRender(canvasElement);
     const canvas = within(canvasElement);
 
-    // Default mode is `auto`.
-    expect(container.classList.contains("react-flow-container--mode-auto")).toBe(true);
+    // Default mode is `system`.
+    expect(container.classList.contains("react-flow-container--mode-system")).toBe(true);
 
     const toggle = canvas.getByLabelText(/^Theme:/);
 
-    // auto → light
+    // system → light
     await userEvent.click(toggle);
     await waitFor(() =>
       expect(container.classList.contains("react-flow-container--mode-light")).toBe(true),
@@ -74,15 +74,15 @@ export const CycleThroughModes: Story = {
     // The resolved palette — not just the background — switches with the theme.
     expect(darkColor).not.toBe(lightColor);
 
-    // dark → auto (full cycle)
+    // dark → system (full cycle)
     await userEvent.click(toggle);
     await waitFor(() =>
-      expect(container.classList.contains("react-flow-container--mode-auto")).toBe(true),
+      expect(container.classList.contains("react-flow-container--mode-system")).toBe(true),
     );
   },
 };
 
-// ─── `auto` follows an injected systemTheme and re-resolves on change ────
+// ─── `system` follows an injected systemTheme and re-resolves on change ────
 
 function InjectedSystemThemeHarness() {
   const [sys, setSys] = React.useState<GraphTheme>("light");
@@ -96,26 +96,31 @@ function InjectedSystemThemeHarness() {
       >
         flip system theme
       </button>
-      <GraphViewer graphspec={SPEC} theme="auto" systemTheme={sys} initialShowControllers={false} />
+      <GraphViewer
+        graphspec={SPEC}
+        theme="system"
+        systemTheme={sys}
+        initialShowControllers={false}
+      />
     </div>
   );
 }
 
-export const AutoFollowsInjectedSystemTheme: Story = {
+export const SystemModeFollowsInjectedTheme: Story = {
   render: () => <InjectedSystemThemeHarness />,
   play: async ({ canvasElement }) => {
     const container = await waitForRender(canvasElement);
     const canvas = within(canvasElement);
 
-    // mode=auto + injected systemTheme=light → resolves to light.
-    expect(container.classList.contains("react-flow-container--mode-auto")).toBe(true);
+    // mode=system + injected systemTheme=light → resolves to light.
+    expect(container.classList.contains("react-flow-container--mode-system")).toBe(true);
     expect(container.classList.contains("react-flow-container--theme-light")).toBe(true);
 
-    // Flipping the injected systemTheme re-resolves `auto` with no toolbar click.
+    // Flipping the injected systemTheme re-resolves `system` with no toolbar click.
     await userEvent.click(canvas.getByTestId("flip-system"));
     await waitFor(() =>
       expect(container.classList.contains("react-flow-container--theme-dark")).toBe(true),
     );
-    expect(container.classList.contains("react-flow-container--mode-auto")).toBe(true);
+    expect(container.classList.contains("react-flow-container--mode-system")).toBe(true);
   },
 };

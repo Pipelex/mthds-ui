@@ -5,16 +5,15 @@
  * Config parsing lives in `./viewerProps` so it can be unit-tested without a DOM.
  *
  * Theming: the in-graph toolbar is the single theme toggle. The library owns
- * the tri-state (`dark | light | auto`) and the `prefers-color-scheme`
+ * the tri-state (`dark | light | system`) and the `prefers-color-scheme`
  * subscription; this adapter only mirrors the resolved theme onto page chrome
  * (`<body>` palette + `data-theme` for the CSS chrome/logo rules).
  */
 import React from "react";
 import { createRoot } from "react-dom/client";
 import type { GraphTheme, GraphThemeMode } from "@graph/types";
-import { GRAPH_THEME_MODE } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
-import { GraphViewer } from "@graph/react/viewer/GraphViewer";
+import { GraphViewer, resolveActiveTheme } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { detectSystemTheme } from "@graph/react/viewer/useSystemTheme";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
@@ -54,21 +53,16 @@ function applyBodyPalette(theme: GraphTheme, overrides?: Record<string, string>)
 /**
  * Mirror a (mode, resolvedTheme) onto page chrome:
  * - `body[data-theme]` carries the *mode* so the standalone CSS chrome/logo
- *   rules (including the `auto` `prefers-color-scheme` media queries) react.
+ *   rules (including the `system` `prefers-color-scheme` media queries) react.
  * - the body graph palette is set from the *resolved* theme.
  *
  * Called at mount and on every `onThemeChange` from the GraphViewer (toolbar
- * clicks and `auto` re-resolving on a system change), keeping body chrome in
+ * clicks and `system` re-resolving on a system change), keeping body chrome in
  * sync with the chart in all three states.
  */
 function applyPageChrome(mode: GraphThemeMode, resolvedTheme: GraphTheme): void {
   document.body.setAttribute("data-theme", mode);
   applyBodyPalette(resolvedTheme, viewerProps.config.paletteColors);
-}
-
-/** Resolve a mode to a binary theme the same way the library does (for mount). */
-function resolveMode(mode: GraphThemeMode): GraphTheme {
-  return mode === GRAPH_THEME_MODE.AUTO ? detectSystemTheme() : mode;
 }
 
 // ─── React app ──────────────────────────────────────────────────────────
@@ -107,8 +101,9 @@ function mount() {
     viewerProps = buildViewerProps(rawConfig, graphspec);
 
     // Paint initial page chrome from the parsed mode. `onThemeChange` does not
-    // fire on mount, so resolve `auto` here the same way the library will.
-    applyPageChrome(viewerProps.theme, resolveMode(viewerProps.theme));
+    // fire on mount, so resolve `system` here through the same library helper
+    // the GraphViewer uses (single source of truth — no parallel copy to drift).
+    applyPageChrome(viewerProps.theme, resolveActiveTheme(viewerProps.theme, detectSystemTheme()));
 
     // Re-render with data (triggers GraphViewer's graphspec useEffect)
     renderApp?.();

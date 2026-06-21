@@ -75,22 +75,22 @@ export interface GraphViewerProps {
   /** Hide the built-in floating toolbar (direction + controllers toggle). */
   hideToolbar?: boolean;
   /**
-   * Theme *mode*: `dark | light | auto`. Reactive: passing it as a prop drives
+   * Theme *mode*: `dark | light | system`. Reactive: passing it as a prop drives
    * the active mode, and clearing it back to `undefined` hands control back to
-   * `config.theme` (or the default `auto`). Users can also cycle it via the
+   * `config.theme` (or the default `system`). Users can also cycle it via the
    * built-in toolbar button (unless `showThemeToggle` is `false`).
    *
-   * `auto` resolves to the environment theme — the browser's
+   * `system` resolves to the environment theme — the browser's
    * `prefers-color-scheme`, or `systemTheme` when injected.
    *
-   * Defaults to `config.theme` or `"auto"`.
+   * Defaults to `config.theme` or `"system"`.
    */
   theme?: GraphThemeMode;
   /**
    * Host-injected environment theme, authoritative when set. Forwarded to the
-   * `auto` resolver so non-browser hosts (e.g. VS Code webviews, where
-   * `prefers-color-scheme` is unreliable) can drive `auto` from their own
-   * detection. When omitted, `auto` follows the browser's `prefers-color-scheme`.
+   * `system` resolver so non-browser hosts (e.g. VS Code webviews, where
+   * `prefers-color-scheme` is unreliable) can drive `system` from their own
+   * detection. When omitted, `system` follows the browser's `prefers-color-scheme`.
    */
   systemTheme?: GraphTheme;
   /**
@@ -101,7 +101,7 @@ export interface GraphViewerProps {
   showThemeToggle?: boolean;
   /**
    * Called whenever the theme changes — from the built-in toggle, from external
-   * prop / config updates, or when `auto` re-resolves because the environment
+   * prop / config updates, or when `system` re-resolves because the environment
    * changed. Receives both the selected `mode` (for persistence) and the
    * `resolvedTheme` (for keeping page chrome outside the container in sync).
    */
@@ -203,7 +203,7 @@ function seedFoldedControllers(mode: FoldMode, controllerIds: ReadonlySet<string
  * - `themeProp` wins when set
  * - falls back to `config.theme` when `themeProp` is undefined (so a host can
  *   hand theme control back to config after passing it as a prop)
- * - falls back to the library default (`auto`) when neither is set
+ * - falls back to the library default (`system`) when neither is set
  * - a `themeProp` transition controlled→undefined→same-prior-value still
  *   round-trips through the config fallback rather than silently re-using
  *   the previous prop value
@@ -212,16 +212,16 @@ export function resolveExternalThemeMode(
   themeProp: GraphThemeMode | undefined,
   configTheme: GraphThemeMode | undefined,
 ): GraphThemeMode {
-  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME_MODE.AUTO;
+  return themeProp ?? configTheme ?? DEFAULT_GRAPH_CONFIG.theme ?? GRAPH_THEME_MODE.SYSTEM;
 }
 
 /**
  * Collapse a theme mode + the detected environment theme into the binary
- * `GraphTheme` that drives the palette and container class. `auto` follows the
+ * `GraphTheme` that drives the palette and container class. `system` follows the
  * environment; `dark`/`light` are returned as-is. Pure + exported for testing.
  */
 export function resolveActiveTheme(mode: GraphThemeMode, systemTheme: GraphTheme): GraphTheme {
-  return mode === GRAPH_THEME_MODE.AUTO ? systemTheme : mode;
+  return mode === GRAPH_THEME_MODE.SYSTEM ? systemTheme : mode;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -320,14 +320,14 @@ export function GraphViewer(props: GraphViewerProps) {
     }
   }, [externalMode]);
 
-  // Resolve `auto` to a binary theme via the environment. `systemThemeProp`,
+  // Resolve `system` to a binary theme via the environment. `systemThemeProp`,
   // when set, is authoritative (host owns detection); otherwise this follows
   // the browser's `prefers-color-scheme` live.
   const systemTheme = useSystemTheme(systemThemeProp);
   const resolvedTheme = resolveActiveTheme(mode, systemTheme);
 
   // Notify the host whenever the mode OR the resolved theme changes. Covers
-  // internal toggle clicks, external prop/config updates, and `auto`
+  // internal toggle clicks, external prop/config updates, and `system`
   // re-resolving on an environment change — all from one place — and stays
   // correct even if the host re-renders for unrelated reasons. Reports both so
   // chrome-sync uses `resolvedTheme` while persistence uses `mode`.

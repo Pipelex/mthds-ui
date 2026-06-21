@@ -40,7 +40,7 @@ body[data-theme="light"] {
 }
 
 @media (prefers-color-scheme: light) {
-  body[data-theme="auto"] {
+  body[data-theme="system"] {
     --chrome-bg: #ffffff;
     --chrome-surface: #f6f8fa;
     --chrome-border: rgba(0, 0, 0, 0.1);
@@ -52,7 +52,7 @@ body[data-theme="light"] {
 }
 
 @media (prefers-color-scheme: dark) {
-  body[data-theme="auto"] {
+  body[data-theme="system"] {
     --chrome-bg: #0d1117;
     --chrome-surface: #161b22;
     --chrome-border: rgba(255, 255, 255, 0.08);
@@ -207,16 +207,16 @@ body[data-theme="light"] .header-logo.light-logo {
 }
 
 @media (prefers-color-scheme: light) {
-  body[data-theme="auto"] .header-logo.dark-logo {
+  body[data-theme="system"] .header-logo.dark-logo {
     display: none;
   }
-  body[data-theme="auto"] .header-logo.light-logo {
+  body[data-theme="system"] .header-logo.light-logo {
     display: inline;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  body[data-theme="auto"] .header-logo.light-logo {
+  body[data-theme="system"] .header-logo.light-logo {
     display: none;
   }
 }
