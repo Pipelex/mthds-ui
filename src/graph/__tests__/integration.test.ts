@@ -38,8 +38,8 @@ import {
   DRY_DEEP_NESTING,
   DRY_ALL_CONTROLLER_TYPES,
   DRY_RUN_CATALOG,
-  LIVE_RUN_CATALOG,
 } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/liveGraphSpec";
 import { makeWideParallel, makeWideBatch } from "@graph/react/viewer/__stories__/extremeGraphSpecs";
 import type { GraphSpec } from "../types";
 

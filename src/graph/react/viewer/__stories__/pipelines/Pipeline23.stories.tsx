@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_SIBLING_PARALLELS, LIVE_SIBLING_PARALLELS } from "../mockGraphSpec";
+import { DRY_SIBLING_PARALLELS } from "./specs/_generated/dry/pipeline_23";
+import { LIVE_SIBLING_PARALLELS } from "./specs/_generated/live/pipeline_23";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/23 Sibling Parallels",

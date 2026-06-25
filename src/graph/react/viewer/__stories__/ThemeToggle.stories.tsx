@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import type { GraphTheme } from "@graph/types";
 import { GraphViewer } from "../GraphViewer";
-import { LIVE_TWO_PIPE_CHAIN } from "./mockGraphSpec";
+import { LIVE_TWO_PIPE_CHAIN } from "./pipelines/specs/_generated/live/pipeline_02";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/ThemeToggle",

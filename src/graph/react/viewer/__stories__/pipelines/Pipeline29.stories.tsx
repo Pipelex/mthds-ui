@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_CV_MATCHING, LIVE_CV_MATCHING } from "../mockGraphSpec";
+import { DRY_CV_MATCHING } from "./specs/_generated/dry/pipeline_26";
+import { LIVE_CV_MATCHING } from "./specs/_generated/live/pipeline_26";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/29 CV Matching (Condition + Compose)",

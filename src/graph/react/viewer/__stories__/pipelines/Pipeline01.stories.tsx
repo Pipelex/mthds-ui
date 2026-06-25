@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_SINGLE_PIPE, LIVE_SINGLE_PIPE } from "../mockGraphSpec";
+import { DRY_SINGLE_PIPE } from "./specs/_generated/dry/pipeline_01";
+import { LIVE_SINGLE_PIPE } from "./specs/_generated/live/pipeline_01";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/01 Single PipeLLM",

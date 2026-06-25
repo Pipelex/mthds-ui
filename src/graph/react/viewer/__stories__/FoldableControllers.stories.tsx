@@ -2,7 +2,8 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
-import { DRY_CV_MATCHING, LIVE_CV_SCREENING } from "./mockGraphSpec";
+import { DRY_CV_MATCHING } from "./pipelines/specs/_generated/dry/pipeline_26";
+import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/FoldableControllers",

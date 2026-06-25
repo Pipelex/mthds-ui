@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_SIMPLE_PARALLEL, LIVE_SIMPLE_PARALLEL } from "../mockGraphSpec";
+import { DRY_SIMPLE_PARALLEL } from "./specs/_generated/dry/pipeline_05";
+import { LIVE_SIMPLE_PARALLEL } from "./specs/_generated/live/pipeline_05";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/05 Simple Parallel (2 branches)",

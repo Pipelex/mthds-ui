@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_CV_SCREENING, LIVE_CV_SCREENING } from "../mockGraphSpec";
+import { DRY_CV_SCREENING } from "./specs/_generated/dry/pipeline_09";
+import { LIVE_CV_SCREENING } from "./specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/09 CV Screening Pipeline",

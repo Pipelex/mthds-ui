@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_CONTENT_MODERATION, LIVE_CONTENT_MODERATION } from "../mockGraphSpec";
+import { DRY_CONTENT_MODERATION } from "./specs/_generated/dry/pipeline_19";
+import { LIVE_CONTENT_MODERATION } from "./specs/_generated/live/pipeline_19";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/19 Content Moderation",

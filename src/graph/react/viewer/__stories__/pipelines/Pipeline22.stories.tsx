@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_MULTI_OUTPUT_FANOUT, LIVE_MULTI_OUTPUT_FANOUT } from "../mockGraphSpec";
+import { DRY_MULTI_OUTPUT_FANOUT } from "./specs/_generated/dry/pipeline_22";
+import { LIVE_MULTI_OUTPUT_FANOUT } from "./specs/_generated/live/pipeline_22";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/22 Multi-Output Fan-out",

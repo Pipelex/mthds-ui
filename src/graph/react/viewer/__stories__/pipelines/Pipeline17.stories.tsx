@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_EMAIL_TRIAGE, LIVE_EMAIL_TRIAGE } from "../mockGraphSpec";
+import { DRY_EMAIL_TRIAGE } from "./specs/_generated/dry/pipeline_17";
+import { LIVE_EMAIL_TRIAGE } from "./specs/_generated/live/pipeline_17";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/17 Email Triage",
