@@ -290,14 +290,14 @@ describe("applyFolds — empty fold set", () => {
 
   it("does not mutate inputs when fold set is non-empty", () => {
     const { spec, analysis, graphData } = buildPipeline(makeNestedSiblingSpec());
-    const originalNodes = JSON.parse(JSON.stringify(graphData.nodes));
-    const originalEdges = JSON.parse(JSON.stringify(graphData.edges));
+    const originalNodes = structuredClone(graphData.nodes);
+    const originalEdges = structuredClone(graphData.edges);
     const originalControllerIds = Array.from(analysis.controllerNodeIds);
 
     applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
 
-    expect(JSON.parse(JSON.stringify(graphData.nodes))).toEqual(originalNodes);
-    expect(JSON.parse(JSON.stringify(graphData.edges))).toEqual(originalEdges);
+    expect(structuredClone(graphData.nodes)).toEqual(originalNodes);
+    expect(structuredClone(graphData.edges)).toEqual(originalEdges);
     expect(Array.from(analysis.controllerNodeIds)).toEqual(originalControllerIds);
   });
 });
@@ -784,8 +784,11 @@ describe("applyFolds — edge cases", () => {
     const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
     const card = result.nodes.find((n) => n.id === "ctrlA")!;
     // pipeCardData arrays must be fresh (not aliased to the GraphSpecNode.io arrays).
-    expect(card.data.pipeCardData!.inputs).not.toBe(spec.nodes[0].io!.inputs);
-    expect(card.data.pipeCardData!.outputs).not.toBe(spec.nodes[0].io!.outputs);
+    const { pipeCardData } = card.data;
+    expect(pipeCardData).toBeDefined();
+    if (!pipeCardData) throw new Error("Expected folded card to have pipeCardData");
+    expect(pipeCardData.inputs).not.toBe(spec.nodes[0].io.inputs);
+    expect(pipeCardData.outputs).not.toBe(spec.nodes[0].io.outputs);
   });
 
   it("rewrites batch_item edges with the same folding rules", () => {

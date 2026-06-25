@@ -4,6 +4,11 @@
  * This module re-exports it so bundled imports resolve correctly.
  */
 
-// @ts-expect-error — ELK is set by CDN script tag
+declare global {
+  interface Window {
+    ELK: unknown;
+  }
+}
+
 const ELK = window.ELK;
 export default ELK;

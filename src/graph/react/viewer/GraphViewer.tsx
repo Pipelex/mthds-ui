@@ -500,7 +500,7 @@ export function GraphViewer(props: GraphViewerProps) {
     if (!initialDataRef.current) return;
     let cancelled = false;
 
-    (async () => {
+    void (async () => {
       try {
         const data = initialDataRef.current;
         if (!data) return;
@@ -538,7 +538,7 @@ export function GraphViewer(props: GraphViewerProps) {
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
-            reactFlowRef.current.fitView({ padding: 0.1 });
+            void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
       } catch (err) {
@@ -644,7 +644,7 @@ export function GraphViewer(props: GraphViewerProps) {
       _graphspec: graphspec,
     };
 
-    (async () => {
+    void (async () => {
       try {
         const currentDirection = directionRef.current;
         const currentLayoutConfig = layoutConfigRef.current;
@@ -697,13 +697,13 @@ export function GraphViewer(props: GraphViewerProps) {
         // Fit view after render, then apply zoom/pan overrides
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
-            reactFlowRef.current.fitView({ padding: 0.1 });
+            void reactFlowRef.current.fitView({ padding: 0.1 });
             if (initialZoomRef.current !== undefined && initialZoomRef.current !== null) {
-              reactFlowRef.current.zoomTo(initialZoomRef.current);
+              void reactFlowRef.current.zoomTo(initialZoomRef.current);
             }
             if (panToTopRef.current) {
               const vp = reactFlowRef.current.getViewport();
-              reactFlowRef.current.setViewport({ x: vp.x, y: 20, zoom: vp.zoom });
+              void reactFlowRef.current.setViewport({ x: vp.x, y: 20, zoom: vp.zoom });
             }
           }
         }, 100);
@@ -761,7 +761,7 @@ export function GraphViewer(props: GraphViewerProps) {
       _graphspec: currentGraphspec,
     };
 
-    (async () => {
+    void (async () => {
       try {
         const layouted = await getLayoutedElements(
           folded.nodes,
@@ -797,7 +797,7 @@ export function GraphViewer(props: GraphViewerProps) {
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
-            reactFlowRef.current.fitView({ padding: 0.1 });
+            void reactFlowRef.current.fitView({ padding: 0.1 });
           }
         }, 50);
       } catch (err) {
@@ -843,7 +843,7 @@ export function GraphViewer(props: GraphViewerProps) {
       if (nodeData.isController || nodeData.isPipe) {
         const code = nodeData.pipeCode || nodeData.labelText;
         if (code && onNavigateToPipe) {
-          onNavigateToPipe(code, nodeData.pipeCardData?.status as PipeStatus | undefined);
+          onNavigateToPipe(code, nodeData.pipeCardData?.status);
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
         const digest = stuffDigestFromId(node.id);
@@ -1005,9 +1005,15 @@ export function GraphViewer(props: GraphViewerProps) {
           onDirectionChange={setDirection}
           showControllers={showControllers}
           onShowControllersChange={setShowControllers}
-          onZoomIn={() => reactFlowRef.current?.zoomIn()}
-          onZoomOut={() => reactFlowRef.current?.zoomOut()}
-          onFitView={() => reactFlowRef.current?.fitView({ padding: 0.1 })}
+          onZoomIn={() => {
+            void reactFlowRef.current?.zoomIn();
+          }}
+          onZoomOut={() => {
+            void reactFlowRef.current?.zoomOut();
+          }}
+          onFitView={() => {
+            void reactFlowRef.current?.fitView({ padding: 0.1 });
+          }}
           onFoldAll={foldAllProps.onFoldAll}
           onExpandAll={foldAllProps.onExpandAll}
           foldAllDisabled={foldAllProps.foldAllDisabled}
