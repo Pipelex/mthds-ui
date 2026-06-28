@@ -84,7 +84,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
     if (direct) return direct;
     // Search all registry entries by pipe_code suffix
     for (const [ref, pipe] of Object.entries(spec.pipe_registry)) {
-      if (ref.endsWith(`.${node.pipe_code}`)) return pipe as PipeBlueprintUnion;
+      if (ref.endsWith(`.${node.pipe_code}`)) return pipe;
     }
     return undefined;
   }, [node.pipe_code, spec]);

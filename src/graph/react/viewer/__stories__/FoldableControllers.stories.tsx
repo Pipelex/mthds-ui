@@ -2,7 +2,9 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
-import { DRY_CV_MATCHING, LIVE_CV_SCREENING } from "./mockGraphSpec";
+import { waitForGraphRender } from "./storyTestUtils";
+import { DRY_CV_MATCHING } from "./pipelines/specs/_generated/dry/pipeline_26";
+import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/FoldableControllers",
@@ -24,15 +26,9 @@ const D = { initialDirection: "LR" as const, initialShowControllers: true };
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
-/** Wait for the ELK layout to finish and at least one node to render. */
+/** Wait for the ELK layout to finish, then a tick for fold buttons to appear. */
 async function waitForRender(canvasElement: HTMLElement) {
-  await waitFor(
-    () => {
-      const nodes = canvasElement.querySelectorAll(".react-flow__node");
-      expect(nodes.length).toBeGreaterThan(0);
-    },
-    { timeout: 5000 },
-  );
+  await waitForGraphRender(canvasElement);
   // Give a tick for fold buttons to appear after layout.
   await new Promise((r) => setTimeout(r, 100));
 }

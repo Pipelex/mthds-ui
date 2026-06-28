@@ -12,6 +12,7 @@ import type {
   DataflowAnalysis,
   PipeOperatorType,
   PipeStatus,
+  GraphSpecNodeIo,
 } from "../types";
 import { NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "../types";
 import { buildGraph } from "../graphBuilders";
@@ -108,21 +109,22 @@ export function makeMinimalSpec(nodeCount: number): GraphSpec {
   const edges: GraphSpecEdge[] = [];
 
   for (let i = 0; i < nodeCount; i++) {
+    const io: GraphSpecNodeIo = { inputs: [], outputs: [] };
     const node: GraphSpecNode = {
       kind: "operator",
       status: "scheduled",
       id: `op${i}`,
       pipe_code: `step_${i}`,
       pipe_type: "PipeFunc",
-      io: { inputs: [], outputs: [] },
+      io,
     };
     if (i > 0) {
       const digest = `d${i - 1}_${i}`;
-      node.io!.inputs = [{ digest, name: `data_${i - 1}`, concept: "Text" }];
+      io.inputs = [{ digest, name: `data_${i - 1}`, concept: "Text" }];
     }
     if (i < nodeCount - 1) {
       const digest = `d${i}_${i + 1}`;
-      node.io!.outputs = [{ digest, name: `data_${i}`, concept: "Text" }];
+      io.outputs = [{ digest, name: `data_${i}`, concept: "Text" }];
     }
     nodes.push(node);
   }

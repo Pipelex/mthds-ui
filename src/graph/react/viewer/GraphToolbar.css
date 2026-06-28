@@ -2,14 +2,29 @@
 /* Token-only styling: theme switching happens by swapping `--surface-*`,   */
 /* `--text-*`, `--border-*`, and `--color-accent` values on the container.  */
 
+/* The ReactFlow <Panel> owns positioning now (anchor + margin). It sits above
+   the graph but the old code used z-index 11, so keep parity. */
+.graph-toolbar-panel {
+  z-index: 11;
+}
+
 .graph-toolbar {
-  position: absolute;
-  top: 8px;
   display: flex;
   align-items: center;
   gap: 4px;
-  z-index: 11;
   pointer-events: auto;
+}
+
+/* Vertical bar — `center-left` / `center-right` anchors. Stack the buttons in a
+   column and rotate the separators so they divide rows instead of columns. */
+.graph-toolbar--vertical {
+  flex-direction: column;
+}
+
+.graph-toolbar--vertical .graph-toolbar-separator {
+  width: 18px;
+  height: 1px;
+  margin: 2px 0;
 }
 
 .graph-toolbar-btn {

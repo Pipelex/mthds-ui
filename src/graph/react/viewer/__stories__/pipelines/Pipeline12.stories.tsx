@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_BATCH_WITH_INNER_SEQ, LIVE_BATCH_WITH_INNER_SEQ } from "../mockGraphSpec";
+import { DRY_BATCH_WITH_INNER_SEQ } from "./specs/_generated/dry/pipeline_12";
+import { LIVE_BATCH_WITH_INNER_SEQ } from "./specs/_generated/live/pipeline_12";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/12 Batch with Inner Sequence",

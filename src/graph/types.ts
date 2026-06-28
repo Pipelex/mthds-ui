@@ -458,6 +458,74 @@ export const GRAPH_THEME_MODE = {
 
 export type GraphThemeMode = (typeof GRAPH_THEME_MODE)[keyof typeof GRAPH_THEME_MODE];
 
+/**
+ * Anchor for the built-in floating toolbar. The values match ReactFlow's
+ * `PanelPosition` union exactly, so they pass straight to `<Panel position=…>`
+ * (the React layer asserts that subset relationship at compile time). Orientation
+ * is *derived* from the position, never configured independently — see
+ * `toolbarOrientation`: only the two edge-center anchors are vertical, everything
+ * else (corners + top/bottom-center) is a horizontal bar.
+ *
+ * `types.ts` stays React-free, so `PanelPosition` is intentionally NOT imported
+ * here — the compatibility assertion lives in `GraphToolbar.tsx`.
+ */
+export const TOOLBAR_POSITION = {
+  TOP_LEFT: "top-left",
+  TOP_CENTER: "top-center",
+  TOP_RIGHT: "top-right",
+  BOTTOM_LEFT: "bottom-left",
+  BOTTOM_CENTER: "bottom-center",
+  BOTTOM_RIGHT: "bottom-right",
+  CENTER_LEFT: "center-left",
+  CENTER_RIGHT: "center-right",
+} as const;
+
+export type ToolbarPosition = (typeof TOOLBAR_POSITION)[keyof typeof TOOLBAR_POSITION];
+
+export type ToolbarOrientation = "horizontal" | "vertical";
+
+/**
+ * Derive the bar orientation from its anchor. "Corners are horizontal, edges
+ * decide the rest": only `center-left` / `center-right` produce a vertical bar;
+ * every other position (the four corners plus `top-center` / `bottom-center`) is
+ * horizontal. Pure + React-free so it is unit-testable without rendering.
+ */
+export function toolbarOrientation(position: ToolbarPosition): ToolbarOrientation {
+  return position === TOOLBAR_POSITION.CENTER_LEFT || position === TOOLBAR_POSITION.CENTER_RIGHT
+    ? "vertical"
+    : "horizontal";
+}
+
+export type ToolbarSide = "left" | "center" | "right";
+
+/**
+ * Derive which edge the anchor hugs. The built-in `DetailPanel` overlays the
+ * right edge, so only right-side anchors (`*-right`) need to dodge it — the
+ * toolbar reads this to decide whether to shift left while the panel is open.
+ * Pure + React-free so it is unit-testable without rendering, and exhaustively
+ * switched so adding a `TOOLBAR_POSITION` value without a side fails to compile
+ * — exactly like {@link toolbarOrientation}.
+ */
+export function toolbarSide(position: ToolbarPosition): ToolbarSide {
+  switch (position) {
+    case TOOLBAR_POSITION.TOP_LEFT:
+    case TOOLBAR_POSITION.CENTER_LEFT:
+    case TOOLBAR_POSITION.BOTTOM_LEFT:
+      return "left";
+    case TOOLBAR_POSITION.TOP_RIGHT:
+    case TOOLBAR_POSITION.CENTER_RIGHT:
+    case TOOLBAR_POSITION.BOTTOM_RIGHT:
+      return "right";
+    case TOOLBAR_POSITION.TOP_CENTER:
+    case TOOLBAR_POSITION.BOTTOM_CENTER:
+      return "center";
+    default: {
+      const _exhaustive: never = position;
+      return _exhaustive;
+    }
+  }
+}
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
@@ -468,6 +536,13 @@ export interface GraphConfig {
    * a fixed appearance.
    */
   theme?: GraphThemeMode;
+  /**
+   * Anchor for the built-in floating toolbar (default `top-right`). Orientation
+   * is derived from the position — see {@link toolbarOrientation}. The
+   * `toolbarPosition` *prop* on `GraphViewer` takes precedence over this; both
+   * are reactive and persistence is the host's responsibility.
+   */
+  toolbarPosition?: ToolbarPosition;
   nodesep?: number;
   ranksep?: number;
   edgeType?: EdgeType;

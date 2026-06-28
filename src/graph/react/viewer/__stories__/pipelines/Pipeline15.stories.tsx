@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_RAG_PIPELINE, LIVE_RAG_PIPELINE } from "../mockGraphSpec";
+import { DRY_RAG_PIPELINE } from "./specs/_generated/dry/pipeline_15";
+import { LIVE_RAG_PIPELINE } from "./specs/_generated/live/pipeline_15";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/15 RAG Pipeline",

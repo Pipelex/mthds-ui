@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_NESTED_SEQ_PAR_SEQ, LIVE_NESTED_SEQ_PAR_SEQ } from "../mockGraphSpec";
+import { DRY_NESTED_SEQ_PAR_SEQ } from "./specs/_generated/dry/pipeline_10";
+import { LIVE_NESTED_SEQ_PAR_SEQ } from "./specs/_generated/live/pipeline_10";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/10 Nested Seq > Parallel > Seq",

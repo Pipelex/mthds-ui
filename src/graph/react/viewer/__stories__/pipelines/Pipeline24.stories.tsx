@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_DEEP_NESTING, LIVE_DEEP_NESTING } from "../mockGraphSpec";
+import { DRY_DEEP_NESTING } from "./specs/_generated/dry/pipeline_24";
+import { LIVE_DEEP_NESTING } from "./specs/_generated/live/pipeline_24";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/24 Deep Nesting",
