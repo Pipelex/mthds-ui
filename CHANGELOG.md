@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Configurable toolbar position:** The built-in floating toolbar is now positionable via a new `toolbarPosition` prop on `GraphViewer` (and `config.toolbarPosition`). It accepts one of eight anchors — `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`, `center-left`, `center-right` — exposed as the `TOOLBAR_POSITION` constant / `ToolbarPosition` type. The bar's orientation is derived from the anchor (`toolbarOrientation` helper, also exported): the two edge-center anchors render a vertical column, every other position a horizontal row. The prop is controlled and reactive (precedence: prop → `config.toolbarPosition` → `top-right`); persistence is the host's responsibility. The toolbar now renders inside a ReactFlow `<Panel>`. The default stays `top-right`, so existing consumers are unaffected. Right-anchored positions still dodge the open `DetailPanel`. See `docs/toolbar-position.md`.
+
 ## [v0.9.0] - 2026-06-21
 
 ### Added

@@ -21,6 +21,7 @@ import type {
   GraphThemeMode,
   PipeStatus,
   ConceptInfo,
+  ToolbarPosition,
 } from "@graph/types";
 import {
   stuffDigestFromId,
@@ -28,6 +29,7 @@ import {
   FOLD_MODE,
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
+  TOOLBAR_POSITION,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { resolveConceptRef } from "@graph/graphAnalysis";
@@ -86,6 +88,19 @@ export interface GraphViewerProps {
    * Defaults to `config.theme` or `"system"`.
    */
   theme?: GraphThemeMode;
+  /**
+   * Anchor for the built-in toolbar. Controlled + reactive: pass a new value to
+   * move it, and the viewer reacts immediately. This library does NOT persist the
+   * value — the host owns it (read its own state, change it by passing a new prop).
+   *
+   * Orientation (horizontal row vs vertical column) is derived from the position,
+   * not configured separately: only `center-left` / `center-right` render a
+   * vertical bar; the four corners plus `top-center` / `bottom-center` are
+   * horizontal.
+   *
+   * Precedence: this prop → `config.toolbarPosition` → `"top-right"`.
+   */
+  toolbarPosition?: ToolbarPosition;
   /**
    * Host-injected environment theme, authoritative when set. Forwarded to the
    * `system` resolver so non-browser hosts (e.g. VS Code webviews, where
@@ -224,6 +239,26 @@ export function resolveActiveTheme(mode: GraphThemeMode, systemTheme: GraphTheme
   return mode === GRAPH_THEME_MODE.SYSTEM ? systemTheme : mode;
 }
 
+/**
+ * Resolve the toolbar anchor from `(positionProp, config.toolbarPosition,
+ * default)`. Pure + exported so the controlled/reactive precedence is
+ * unit-testable without React. Mirrors `resolveExternalThemeMode`:
+ * - the `toolbarPosition` prop wins when set,
+ * - falls back to `config.toolbarPosition` when the prop is undefined,
+ * - falls back to the library default (`top-right`) when neither is set.
+ */
+export function resolveToolbarPosition(
+  positionProp: ToolbarPosition | undefined,
+  configPosition: ToolbarPosition | undefined,
+): ToolbarPosition {
+  return (
+    positionProp ??
+    configPosition ??
+    DEFAULT_GRAPH_CONFIG.toolbarPosition ??
+    TOOLBAR_POSITION.TOP_RIGHT
+  );
+}
+
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   return nodes.map((n) => ({
     ...n,
@@ -278,6 +313,7 @@ export function GraphViewer(props: GraphViewerProps) {
     initialFoldMode,
     hideToolbar = false,
     theme: themeProp,
+    toolbarPosition: toolbarPositionProp,
     systemTheme: systemThemeProp,
     showThemeToggle = true,
     onThemeChange,
@@ -916,6 +952,13 @@ export function GraphViewer(props: GraphViewerProps) {
 
   const detailOpen = detailSelection !== null || conceptOverride !== null;
 
+  // Controlled + reactive: resolved on every render (no local state) so a new
+  // `toolbarPosition` prop or `config.toolbarPosition` propagates immediately.
+  const effectiveToolbarPosition = resolveToolbarPosition(
+    toolbarPositionProp,
+    config.toolbarPosition,
+  );
+
   // ─── Fold-all / Expand-all toolbar wiring ────────────────────────────
   // Use the RAW analysis (pre-fold) so we can refold already-folded controllers.
   const rawAnalysis = rawGraphDataRef.current?.analysis;
@@ -968,6 +1011,31 @@ export function GraphViewer(props: GraphViewerProps) {
           size={1}
           color="var(--color-bg-dots)"
         />
+        {!hideToolbar && (
+          <GraphToolbar
+            direction={direction}
+            onDirectionChange={setDirection}
+            showControllers={showControllers}
+            onShowControllersChange={setShowControllers}
+            onZoomIn={() => {
+              void reactFlowRef.current?.zoomIn();
+            }}
+            onZoomOut={() => {
+              void reactFlowRef.current?.zoomOut();
+            }}
+            onFitView={() => {
+              void reactFlowRef.current?.fitView({ padding: 0.1 });
+            }}
+            onFoldAll={foldAllProps.onFoldAll}
+            onExpandAll={foldAllProps.onExpandAll}
+            foldAllDisabled={foldAllProps.foldAllDisabled}
+            expandAllDisabled={foldAllProps.expandAllDisabled}
+            themeMode={showThemeToggle ? mode : undefined}
+            onThemeModeChange={showThemeToggle ? setMode : undefined}
+            rightOffset={detailOpen ? panelWidth : 0}
+            position={effectiveToolbarPosition}
+          />
+        )}
       </ReactFlow>
       <DetailPanel
         isOpen={detailOpen}
@@ -999,30 +1067,6 @@ export function GraphViewer(props: GraphViewerProps) {
           !conceptOverride &&
           renderDetailExtra(detailSelection.nodeId, detailSelection.nodeData)}
       </DetailPanel>
-      {!hideToolbar && (
-        <GraphToolbar
-          direction={direction}
-          onDirectionChange={setDirection}
-          showControllers={showControllers}
-          onShowControllersChange={setShowControllers}
-          onZoomIn={() => {
-            void reactFlowRef.current?.zoomIn();
-          }}
-          onZoomOut={() => {
-            void reactFlowRef.current?.zoomOut();
-          }}
-          onFitView={() => {
-            void reactFlowRef.current?.fitView({ padding: 0.1 });
-          }}
-          onFoldAll={foldAllProps.onFoldAll}
-          onExpandAll={foldAllProps.onExpandAll}
-          foldAllDisabled={foldAllProps.foldAllDisabled}
-          expandAllDisabled={foldAllProps.expandAllDisabled}
-          themeMode={showThemeToggle ? mode : undefined}
-          onThemeModeChange={showThemeToggle ? setMode : undefined}
-          rightOffset={detailOpen ? panelWidth : 0}
-        />
-      )}
     </div>
   );
 }

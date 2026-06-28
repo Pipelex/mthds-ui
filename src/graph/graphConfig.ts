@@ -1,5 +1,5 @@
 import type { GraphConfig, GraphTheme } from "./types";
-import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME, GRAPH_THEME_MODE } from "./types";
+import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME, GRAPH_THEME_MODE, TOOLBAR_POSITION } from "./types";
 
 /**
  * Semantic design tokens consumed by every component CSS file.
@@ -196,6 +196,9 @@ export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
   // the box — the least-surprising default for an embedded component. Hosts
   // that want a fixed appearance pass `theme: "dark"` / `"light"` explicitly.
   theme: GRAPH_THEME_MODE.SYSTEM,
+  // Backward-compatible default: the toolbar stays pinned top-right unless the
+  // host overrides it via `config.toolbarPosition` or the `toolbarPosition` prop.
+  toolbarPosition: TOOLBAR_POSITION.TOP_RIGHT,
   nodesep: 50,
   ranksep: 100,
   edgeType: EDGE_TYPE.DEFAULT,

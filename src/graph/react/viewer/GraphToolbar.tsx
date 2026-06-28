@@ -1,11 +1,23 @@
 import React from "react";
+import { Panel, type PanelPosition } from "@xyflow/react";
 import "./GraphToolbar.css";
 import {
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
+  TOOLBAR_POSITION,
+  toolbarOrientation,
   type GraphDirection,
   type GraphThemeMode,
+  type ToolbarPosition,
 } from "@graph/types";
+
+// Guarantees our public `ToolbarPosition` enum stays a strict subset of
+// ReactFlow's `PanelPosition`, so every value passes straight to `<Panel>`.
+// This assertion belongs in the React layer — `types.ts` stays React-free and
+// must never import `PanelPosition`.
+type _AssertToolbarPositionIsPanelPosition = ToolbarPosition extends PanelPosition ? true : never;
+const _toolbarPositionCompat: _AssertToolbarPositionIsPanelPosition = true;
+void _toolbarPositionCompat;
 
 export interface GraphToolbarProps {
   direction: GraphDirection;
@@ -29,6 +41,12 @@ export interface GraphToolbarProps {
   onThemeModeChange?: (mode: GraphThemeMode) => void;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
+  /**
+   * Anchor for the toolbar (default `top-right`). The value is forwarded to a
+   * ReactFlow `<Panel position=…>`; orientation (row vs column) is derived from
+   * it via {@link toolbarOrientation}.
+   */
+  position?: ToolbarPosition;
 }
 
 const ARROW_RIGHT_ICON = (
@@ -281,8 +299,21 @@ export function GraphToolbar({
   themeMode,
   onThemeModeChange,
   rightOffset = 0,
+  position = TOOLBAR_POSITION.TOP_RIGHT,
 }: GraphToolbarProps) {
   const themeToggleEnabled = themeMode !== undefined && onThemeModeChange !== undefined;
+  const orientation = toolbarOrientation(position);
+  // Only right-anchored positions dodge the detail panel (which overlays the
+  // right edge). Left/center positions don't collide with it in practice —
+  // center-x overlap at very narrow widths is explicitly out of scope.
+  const isRight =
+    position === TOOLBAR_POSITION.TOP_RIGHT ||
+    position === TOOLBAR_POSITION.CENTER_RIGHT ||
+    position === TOOLBAR_POSITION.BOTTOM_RIGHT;
+  // Pin an 8px margin (parity with the old top:8px/right:8px). ReactFlow's
+  // default Panel margin is 15px, so set it explicitly.
+  const panelStyle: React.CSSProperties = { margin: 8 };
+  if (isRight && rightOffset) panelStyle.marginRight = 8 + rightOffset;
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
   const directionLabel = isVertical ? "Switch to horizontal layout" : "Switch to vertical layout";
   const controllersLabel = showControllers
@@ -298,107 +329,109 @@ export function GraphToolbar({
     : "Expand all controllers";
 
   return (
-    <div className="graph-toolbar" style={{ right: `${rightOffset + 8}px` }}>
-      {onFoldAll && (
-        <button
-          type="button"
-          className="graph-toolbar-btn"
-          onClick={onFoldAll}
-          disabled={foldAllDisabled}
-          title={foldAllTitle}
-          aria-label={foldAllTitle}
-        >
-          {FOLD_ALL_ICON}
-        </button>
-      )}
-
-      {onExpandAll && (
-        <button
-          type="button"
-          className="graph-toolbar-btn"
-          onClick={onExpandAll}
-          disabled={expandAllDisabled}
-          title={expandAllTitle}
-          aria-label={expandAllTitle}
-        >
-          {EXPAND_ALL_ICON}
-        </button>
-      )}
-
-      {foldAllSection && <div className="graph-toolbar-separator" />}
-
-      <button
-        type="button"
-        className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
-        onClick={() => onShowControllersChange(!showControllers)}
-        title={controllersLabel}
-        aria-label={controllersLabel}
-      >
-        {BOXES_ICON}
-      </button>
-
-      <button
-        type="button"
-        className="graph-toolbar-btn"
-        onClick={() => onDirectionChange(isVertical ? GRAPH_DIRECTION.LR : GRAPH_DIRECTION.TB)}
-        title={directionLabel}
-        aria-label={directionLabel}
-      >
-        {isVertical ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
-      </button>
-
-      {(onZoomOut || onZoomIn || onFitView) && <div className="graph-toolbar-separator" />}
-
-      {onZoomOut && (
-        <button
-          type="button"
-          className="graph-toolbar-btn"
-          onClick={onZoomOut}
-          title="Zoom out"
-          aria-label="Zoom out"
-        >
-          {MINUS_ICON}
-        </button>
-      )}
-
-      {onZoomIn && (
-        <button
-          type="button"
-          className="graph-toolbar-btn"
-          onClick={onZoomIn}
-          title="Zoom in"
-          aria-label="Zoom in"
-        >
-          {PLUS_ICON}
-        </button>
-      )}
-
-      {onFitView && (
-        <button
-          type="button"
-          className="graph-toolbar-btn"
-          onClick={onFitView}
-          title="Fit view"
-          aria-label="Fit view"
-        >
-          {FIT_VIEW_ICON}
-        </button>
-      )}
-
-      {themeToggleEnabled && (
-        <>
-          <div className="graph-toolbar-separator" />
+    <Panel position={position} className="graph-toolbar-panel" style={panelStyle}>
+      <div className={`graph-toolbar graph-toolbar--${orientation}`}>
+        {onFoldAll && (
           <button
             type="button"
             className="graph-toolbar-btn"
-            onClick={() => onThemeModeChange(nextThemeMode(themeMode))}
-            title={themeModeLabel(themeMode)}
-            aria-label={themeModeLabel(themeMode)}
+            onClick={onFoldAll}
+            disabled={foldAllDisabled}
+            title={foldAllTitle}
+            aria-label={foldAllTitle}
           >
-            {themeModeIcon(themeMode)}
+            {FOLD_ALL_ICON}
           </button>
-        </>
-      )}
-    </div>
+        )}
+
+        {onExpandAll && (
+          <button
+            type="button"
+            className="graph-toolbar-btn"
+            onClick={onExpandAll}
+            disabled={expandAllDisabled}
+            title={expandAllTitle}
+            aria-label={expandAllTitle}
+          >
+            {EXPAND_ALL_ICON}
+          </button>
+        )}
+
+        {foldAllSection && <div className="graph-toolbar-separator" />}
+
+        <button
+          type="button"
+          className={`graph-toolbar-btn${showControllers ? " graph-toolbar-btn--active" : ""}`}
+          onClick={() => onShowControllersChange(!showControllers)}
+          title={controllersLabel}
+          aria-label={controllersLabel}
+        >
+          {BOXES_ICON}
+        </button>
+
+        <button
+          type="button"
+          className="graph-toolbar-btn"
+          onClick={() => onDirectionChange(isVertical ? GRAPH_DIRECTION.LR : GRAPH_DIRECTION.TB)}
+          title={directionLabel}
+          aria-label={directionLabel}
+        >
+          {isVertical ? ARROW_RIGHT_ICON : ARROW_DOWN_ICON}
+        </button>
+
+        {(onZoomOut || onZoomIn || onFitView) && <div className="graph-toolbar-separator" />}
+
+        {onZoomOut && (
+          <button
+            type="button"
+            className="graph-toolbar-btn"
+            onClick={onZoomOut}
+            title="Zoom out"
+            aria-label="Zoom out"
+          >
+            {MINUS_ICON}
+          </button>
+        )}
+
+        {onZoomIn && (
+          <button
+            type="button"
+            className="graph-toolbar-btn"
+            onClick={onZoomIn}
+            title="Zoom in"
+            aria-label="Zoom in"
+          >
+            {PLUS_ICON}
+          </button>
+        )}
+
+        {onFitView && (
+          <button
+            type="button"
+            className="graph-toolbar-btn"
+            onClick={onFitView}
+            title="Fit view"
+            aria-label="Fit view"
+          >
+            {FIT_VIEW_ICON}
+          </button>
+        )}
+
+        {themeToggleEnabled && (
+          <>
+            <div className="graph-toolbar-separator" />
+            <button
+              type="button"
+              className="graph-toolbar-btn"
+              onClick={() => onThemeModeChange(nextThemeMode(themeMode))}
+              title={themeModeLabel(themeMode)}
+              aria-label={themeModeLabel(themeMode)}
+            >
+              {themeModeIcon(themeMode)}
+            </button>
+          </>
+        )}
+      </div>
+    </Panel>
   );
 }
