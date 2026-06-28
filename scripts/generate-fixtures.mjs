@@ -270,25 +270,60 @@ async function main() {
   writeFileSync(outFile, formatted);
   console.log(`\n✓ wrote ${path.relative(REPO, outFile)} (${specs.length} specs)`);
 
-  // Bootstrap a LIVE placeholder so a plain `make fixtures` is enough to build
-  // Storybook. `make fixtures-live` writes the real file; the existence guard
-  // ensures a real _generated.live.ts is never clobbered by a DRY run.
+  // Bootstrap a LIVE placeholder layer so a plain `make fixtures` is enough to
+  // build Storybook without a paid live run. The pipeline stories import LIVE
+  // specs from the per-pipeline split modules (not the barrel), so a barrel-only
+  // placeholder is not enough — we must emit a matching split for every pipeline
+  // that lacks real LIVE data. Each write is guarded by existsSync so a real
+  // `make fixtures-live` output is never clobbered.
   if (!LIVE && !PARTIAL) {
-    const liveFile = path.join(SPECS_DIR, "_generated.live.ts");
-    if (!existsSync(liveFile)) {
+    const liveDir = path.join(SPECS_DIR, "_generated", "live");
+    mkdirSync(liveDir, { recursive: true });
+
+    let placeholdersWritten = 0;
+    for (const { pipelineDir, name } of specs) {
+      const liveSplit = path.join(liveDir, `${pipelineDir}.ts`);
+      if (existsSync(liveSplit)) continue; // keep real LIVE data
       const placeholderRaw =
         `/**\n` +
-        ` * PLACEHOLDER — re-exports the DRY specs as LIVE so Storybook builds\n` +
+        ` * PLACEHOLDER — re-exports the DRY spec as LIVE so Storybook builds\n` +
         ` * without a paid live run. Run \`make fixtures-live\` for real LIVE data.\n` +
         ` */\n` +
-        `export {\n` +
-        specs.map(({ name }) => `  DRY_${name} as LIVE_${name},`).join("\n") +
-        `\n} from "./_generated.dry";\n`;
+        `export { DRY_${name} as LIVE_${name} } from "../dry/${pipelineDir}";\n`;
       writeFileSync(
-        liveFile,
+        liveSplit,
         await prettier.format(placeholderRaw, { ...prettierConfig, parser: "typescript" }),
       );
-      console.log("  wrote _generated.live.ts (DRY placeholder — run `make fixtures-live`)");
+      placeholdersWritten++;
+    }
+
+    // (Re)write the LIVE barrel when it is missing or we just filled gaps. It only
+    // re-exports the per-pipeline split modules, so this matches a real
+    // `make fixtures-live` barrel in shape and never loses real LIVE data.
+    const liveFile = path.join(SPECS_DIR, "_generated.live.ts");
+    if (!existsSync(liveFile) || placeholdersWritten > 0) {
+      const barrelRaw =
+        `/**\n` +
+        ` * PLACEHOLDER barrel — re-exports the per-pipeline LIVE split modules.\n` +
+        ` * Run \`make fixtures-live\` to replace the placeholder splits with real data.\n` +
+        ` */\n` +
+        specs
+          .map(
+            ({ name, pipelineDir }) =>
+              `export { LIVE_${name} } from "./_generated/live/${pipelineDir}";`,
+          )
+          .join("\n\n") +
+        `\n`;
+      writeFileSync(
+        liveFile,
+        await prettier.format(barrelRaw, { ...prettierConfig, parser: "typescript" }),
+      );
+    }
+
+    if (placeholdersWritten > 0) {
+      console.log(
+        `  wrote ${placeholdersWritten} LIVE placeholder split(s) — run \`make fixtures-live\` for real data`,
+      );
     }
   }
 }
