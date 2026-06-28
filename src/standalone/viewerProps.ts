@@ -9,8 +9,9 @@ import type {
   GraphDirection,
   FoldMode,
   GraphThemeMode,
+  ToolbarPosition,
 } from "@graph/types";
-import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME_MODE } from "@graph/types";
+import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME_MODE, TOOLBAR_POSITION } from "@graph/types";
 
 export interface StandaloneViewerProps {
   graphspec: GraphSpec | null;
@@ -84,13 +85,33 @@ function parseDirection(raw: unknown): GraphDirection {
 }
 
 /**
+ * An absent `toolbarPosition` key legitimately defaults (the viewer falls back
+ * to `top-right` via `DEFAULT_GRAPH_CONFIG`). A *present* but unrecognized value
+ * is a malformed config — throw rather than letting it spread through to
+ * ReactFlow's `<Panel position>`, where an unknown anchor silently collapses the
+ * toolbar to an unanchored corner with no diagnostic (the same pattern as
+ * `parseFoldMode` / `parseDirection` / `parseTheme`).
+ */
+function parseToolbarPosition(raw: unknown): ToolbarPosition | undefined {
+  if (raw === undefined || raw === null) return undefined;
+  const positions = Object.values(TOOLBAR_POSITION);
+  if (positions.includes(raw as ToolbarPosition)) return raw as ToolbarPosition;
+  throw new Error(
+    `Invalid toolbarPosition in standalone config: ${JSON.stringify(raw)} — ` +
+      `expected one of ${positions.map((p) => `"${p}"`).join(", ")}.`,
+  );
+}
+
+/**
  * Translate the raw `pipelex-config` JSON blob into props for `GraphViewer`.
  *
  * Unknown fields in `rawConfig` are forwarded verbatim (spread) so any future
  * `GraphConfig` key reaches `GraphViewer` without a code change here —
  * eliminating the v0.6.2-shape regression where new fields silently fail to
- * wire through. Validated fields (currently just `foldMode`) override the
- * spread.
+ * wire through. The explicitly parsed enum fields (`direction`, `foldMode`,
+ * `theme`, `toolbarPosition`) override the spread; each throws on a
+ * present-but-unrecognized value so a malformed config surfaces on the
+ * standalone error screen instead of silently misrendering.
  */
 export function buildViewerProps(
   rawConfig: unknown,
@@ -104,6 +125,7 @@ export function buildViewerProps(
   const showControllers = Boolean(cfg.showControllers);
   const foldMode = parseFoldMode(cfg.foldMode);
   const theme = parseTheme(cfg.theme);
+  const toolbarPosition = parseToolbarPosition(cfg.toolbarPosition);
   return {
     graphspec,
     config: {
@@ -112,6 +134,7 @@ export function buildViewerProps(
       showControllers,
       foldMode,
       theme,
+      toolbarPosition,
     } as GraphConfig,
     initialDirection: direction,
     initialShowControllers: showControllers,

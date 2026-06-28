@@ -459,7 +459,7 @@ export const GRAPH_THEME_MODE = {
 export type GraphThemeMode = (typeof GRAPH_THEME_MODE)[keyof typeof GRAPH_THEME_MODE];
 
 /**
- * Anchor for the built-in floating toolbar. The eight values match ReactFlow's
+ * Anchor for the built-in floating toolbar. The values match ReactFlow's
  * `PanelPosition` union exactly, so they pass straight to `<Panel position=…>`
  * (the React layer asserts that subset relationship at compile time). Orientation
  * is *derived* from the position, never configured independently — see
@@ -494,6 +494,36 @@ export function toolbarOrientation(position: ToolbarPosition): ToolbarOrientatio
   return position === TOOLBAR_POSITION.CENTER_LEFT || position === TOOLBAR_POSITION.CENTER_RIGHT
     ? "vertical"
     : "horizontal";
+}
+
+export type ToolbarSide = "left" | "center" | "right";
+
+/**
+ * Derive which edge the anchor hugs. The built-in `DetailPanel` overlays the
+ * right edge, so only right-side anchors (`*-right`) need to dodge it — the
+ * toolbar reads this to decide whether to shift left while the panel is open.
+ * Pure + React-free so it is unit-testable without rendering, and exhaustively
+ * switched so adding a `TOOLBAR_POSITION` value without a side fails to compile
+ * — exactly like {@link toolbarOrientation}.
+ */
+export function toolbarSide(position: ToolbarPosition): ToolbarSide {
+  switch (position) {
+    case TOOLBAR_POSITION.TOP_LEFT:
+    case TOOLBAR_POSITION.CENTER_LEFT:
+    case TOOLBAR_POSITION.BOTTOM_LEFT:
+      return "left";
+    case TOOLBAR_POSITION.TOP_RIGHT:
+    case TOOLBAR_POSITION.CENTER_RIGHT:
+    case TOOLBAR_POSITION.BOTTOM_RIGHT:
+      return "right";
+    case TOOLBAR_POSITION.TOP_CENTER:
+    case TOOLBAR_POSITION.BOTTOM_CENTER:
+      return "center";
+    default: {
+      const _exhaustive: never = position;
+      return _exhaustive;
+    }
+  }
 }
 
 export interface GraphConfig {

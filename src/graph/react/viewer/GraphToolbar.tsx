@@ -4,12 +4,20 @@ import "./GraphToolbar.css";
 import {
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
-  TOOLBAR_POSITION,
   toolbarOrientation,
+  toolbarSide,
   type GraphDirection,
   type GraphThemeMode,
   type ToolbarPosition,
 } from "@graph/types";
+
+/**
+ * ReactFlow's default `<Panel>` margin (`.react-flow__panel { margin: 15px }`).
+ * Its center-anchor rules hardcode a `translate(-15px)` that cancels exactly
+ * this margin, so we let ReactFlow own the base margin and only *add* to it for
+ * the detail-panel dodge — never override the `margin` shorthand (see below).
+ */
+const REACTFLOW_PANEL_MARGIN = 15;
 
 // Guarantees our public `ToolbarPosition` enum stays a strict subset of
 // ReactFlow's `PanelPosition`, so every value passes straight to `<Panel>`.
@@ -42,11 +50,12 @@ export interface GraphToolbarProps {
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
   /**
-   * Anchor for the toolbar (default `top-right`). The value is forwarded to a
-   * ReactFlow `<Panel position=…>`; orientation (row vs column) is derived from
-   * it via {@link toolbarOrientation}.
+   * Anchor for the toolbar. The value is forwarded to a ReactFlow
+   * `<Panel position=…>`; orientation (row vs column) is derived from it via
+   * {@link toolbarOrientation}. Required — `GraphViewer` always resolves it from
+   * the prop/config/default chain (see `resolveToolbarPosition`).
    */
-  position?: ToolbarPosition;
+  position: ToolbarPosition;
 }
 
 const ARROW_RIGHT_ICON = (
@@ -299,21 +308,27 @@ export function GraphToolbar({
   themeMode,
   onThemeModeChange,
   rightOffset = 0,
-  position = TOOLBAR_POSITION.TOP_RIGHT,
+  position,
 }: GraphToolbarProps) {
   const themeToggleEnabled = themeMode !== undefined && onThemeModeChange !== undefined;
   const orientation = toolbarOrientation(position);
-  // Only right-anchored positions dodge the detail panel (which overlays the
-  // right edge). Left/center positions don't collide with it in practice —
-  // center-x overlap at very narrow widths is explicitly out of scope.
-  const isRight =
-    position === TOOLBAR_POSITION.TOP_RIGHT ||
-    position === TOOLBAR_POSITION.CENTER_RIGHT ||
-    position === TOOLBAR_POSITION.BOTTOM_RIGHT;
-  // Pin an 8px margin (parity with the old top:8px/right:8px). ReactFlow's
-  // default Panel margin is 15px, so set it explicitly.
-  const panelStyle: React.CSSProperties = { margin: 8 };
-  if (isRight && rightOffset) panelStyle.marginRight = 8 + rightOffset;
+  // ReactFlow's <Panel> owns all base positioning: the anchor, its default 15px
+  // margin, and the center-anchor transforms calibrated to cancel exactly that
+  // margin. We deliberately do NOT set the `margin` shorthand here —
+  //  - overriding it (e.g. to 8px) leaves ReactFlow's hardcoded -15px center
+  //    compensation in place, mis-centering every center anchor; and
+  //  - mixing an inline `margin` shorthand with a conditional `marginRight`
+  //    longhand defeats React's style reconciliation — clearing the longhand
+  //    can't restore the shorthand, so the bar stays stuck at the wrong offset
+  //    once the panel closes.
+  // The only override is the detail-panel dodge: the panel overlays the right
+  // edge, so right-anchored bars shift left by its width. Expressed as
+  // `marginRight` alone (base margin + width); when the panel closes the inline
+  // value is dropped and the gap falls cleanly back to the stylesheet's margin.
+  const dodgesDetailPanel = toolbarSide(position) === "right" && rightOffset > 0;
+  const panelStyle: React.CSSProperties | undefined = dodgesDetailPanel
+    ? { marginRight: REACTFLOW_PANEL_MARGIN + rightOffset }
+    : undefined;
   const isVertical = direction === GRAPH_DIRECTION.TB || direction === GRAPH_DIRECTION.BT;
   const directionLabel = isVertical ? "Switch to horizontal layout" : "Switch to vertical layout";
   const controllersLabel = showControllers

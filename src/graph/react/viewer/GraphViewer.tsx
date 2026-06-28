@@ -29,7 +29,6 @@ import {
   FOLD_MODE,
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
-  TOOLBAR_POSITION,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { resolveConceptRef } from "@graph/graphAnalysis";
@@ -251,12 +250,9 @@ export function resolveToolbarPosition(
   positionProp: ToolbarPosition | undefined,
   configPosition: ToolbarPosition | undefined,
 ): ToolbarPosition {
-  return (
-    positionProp ??
-    configPosition ??
-    DEFAULT_GRAPH_CONFIG.toolbarPosition ??
-    TOOLBAR_POSITION.TOP_RIGHT
-  );
+  // `DEFAULT_GRAPH_CONFIG.toolbarPosition` is the single source of the library
+  // default (typed non-optional), so the chain needs no extra literal floor.
+  return positionProp ?? configPosition ?? DEFAULT_GRAPH_CONFIG.toolbarPosition;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {

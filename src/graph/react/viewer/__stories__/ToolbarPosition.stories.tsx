@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, waitFor, within } from "storybook/test";
+import { expect, within } from "storybook/test";
 import { TOOLBAR_POSITION, toolbarOrientation, type ToolbarPosition } from "@graph/types";
 import { GraphViewer } from "../GraphViewer";
+import { waitForGraphRender } from "./storyTestUtils";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
@@ -15,8 +16,8 @@ const meta: Meta<typeof GraphViewer> = {
     ),
   ],
   argTypes: {
-    // Single select over the eight anchors. Orientation is derived from the
-    // chosen value — the corners + top/bottom-center render a horizontal bar,
+    // Single select over the anchors. Orientation is derived from the chosen
+    // value — the corners + top/bottom-center render a horizontal bar,
     // center-left / center-right a vertical one.
     toolbarPosition: {
       control: "select",
@@ -36,16 +37,6 @@ const BASE = { graphspec: SPEC, initialShowControllers: true } as const;
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
-async function waitForRender(canvasElement: HTMLElement): Promise<void> {
-  await waitFor(
-    () => {
-      const nodes = canvasElement.querySelectorAll(".react-flow__node");
-      expect(nodes.length).toBeGreaterThan(0);
-    },
-    { timeout: 5000 },
-  );
-}
-
 /** The ReactFlow <Panel> renders its anchor as a class on the panel element. */
 function toolbarPanel(canvasElement: HTMLElement): HTMLElement | null {
   return canvasElement.querySelector(".graph-toolbar-panel");
@@ -64,7 +55,7 @@ function panelHasAnchor(panel: HTMLElement, position: ToolbarPosition): boolean 
 export const Playground: Story = {
   args: { ...BASE, toolbarPosition: TOOLBAR_POSITION.TOP_RIGHT },
   play: async ({ canvasElement }) => {
-    await waitForRender(canvasElement);
+    await waitForGraphRender(canvasElement);
     const canvas = within(canvasElement);
 
     // The toolbar renders inside the ReactFlow pane (it needs <Panel> context).
@@ -86,7 +77,7 @@ function positionStory(position: ToolbarPosition): Story {
   return {
     args: { ...BASE, toolbarPosition: position },
     play: async ({ canvasElement }) => {
-      await waitForRender(canvasElement);
+      await waitForGraphRender(canvasElement);
       const panel = toolbarPanel(canvasElement);
       expect(panel).not.toBeNull();
       // ReactFlow applies the anchor as split classes on the panel element.

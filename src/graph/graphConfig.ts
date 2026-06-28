@@ -1,4 +1,4 @@
-import type { GraphConfig, GraphTheme } from "./types";
+import type { GraphConfig, GraphTheme, ToolbarPosition } from "./types";
 import { EDGE_TYPE, FOLD_MODE, GRAPH_THEME, GRAPH_THEME_MODE, TOOLBAR_POSITION } from "./types";
 
 /**
@@ -188,7 +188,10 @@ export function getPaletteForTheme(theme: GraphTheme): Record<string, string> {
   return theme === GRAPH_THEME.LIGHT ? LIGHT_PALETTE_COLORS : DARK_PALETTE_COLORS;
 }
 
-export const DEFAULT_GRAPH_CONFIG: GraphConfig = {
+// `toolbarPosition` is narrowed to required: the default always sets it, so
+// `resolveToolbarPosition` can terminate its fallback chain here without a
+// redundant literal floor.
+export const DEFAULT_GRAPH_CONFIG: GraphConfig & { toolbarPosition: ToolbarPosition } = {
   direction: "LR",
   showControllers: false,
   foldMode: FOLD_MODE.EXPANDED,

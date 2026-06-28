@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor, within, userEvent } from "storybook/test";
 import type { GraphTheme } from "@graph/types";
 import { GraphViewer } from "../GraphViewer";
+import { waitForGraphRender } from "./storyTestUtils";
 import { LIVE_TWO_PIPE_CHAIN } from "./pipelines/specs/_generated/live/pipeline_02";
 
 const meta: Meta<typeof GraphViewer> = {
@@ -25,13 +26,7 @@ const SPEC = LIVE_TWO_PIPE_CHAIN;
 // ─── Helpers ────────────────────────────────────────────────────────────
 
 async function waitForRender(canvasElement: HTMLElement): Promise<HTMLElement> {
-  await waitFor(
-    () => {
-      const nodes = canvasElement.querySelectorAll(".react-flow__node");
-      expect(nodes.length).toBeGreaterThan(0);
-    },
-    { timeout: 5000 },
-  );
+  await waitForGraphRender(canvasElement);
   const container = canvasElement.querySelector(".react-flow-container") as HTMLElement | null;
   expect(container).not.toBeNull();
   return container!;

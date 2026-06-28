@@ -2,9 +2,9 @@
 
 `GraphViewer` renders a built-in floating toolbar (direction toggle, controller grouping, fold/expand, zoom, theme). Its anchor is configurable via the `toolbarPosition` prop and `config.toolbarPosition`. The default is `top-right`, so existing consumers see no change.
 
-## The eight positions
+## The positions
 
-`ToolbarPosition` (the `TOOLBAR_POSITION` constant) is a single enum of eight anchors, matching ReactFlow's `PanelPosition` union exactly so the value passes straight to the `<Panel position=…>` the toolbar renders inside:
+`ToolbarPosition` (the `TOOLBAR_POSITION` constant) is a single enum of anchors, matching ReactFlow's `PanelPosition` union exactly so the value passes straight to the `<Panel position=…>` the toolbar renders inside:
 
 `top-left` · `top-center` · `top-right` · `bottom-left` · `bottom-center` · `bottom-right` · `center-left` · `center-right`
 
@@ -41,17 +41,23 @@ const [pos, setPos] = useState<ToolbarPosition>(TOOLBAR_POSITION.CENTER_LEFT);
 setPos(TOOLBAR_POSITION.BOTTOM_RIGHT);
 ```
 
+## Positioning is ReactFlow's, not ours
+
+The toolbar renders inside a ReactFlow `<Panel>`, which owns **all** base positioning: the anchor, its default margin, and the center-anchor transforms calibrated to cancel exactly that margin. The component never sets the `margin` shorthand — doing so would leave ReactFlow's hardcoded center compensation in place (mis-centering every center anchor) and would break React's style reconciliation when mixed with the conditional dodge override below. The toolbar's `side` (left / center / right) is derived from the anchor by `toolbarSide(position)`.
+
 ## Detail-panel dodge
 
-The built-in `DetailPanel` overlays the right edge of the pane when a node is selected. To avoid sitting under it, only the **right-anchored** positions (`top-right`, `center-right`, `bottom-right`) shift left by the panel width while it is open (`marginRight = 8 + panelWidth`). Left and center anchors don't collide with a right-side panel in practice, so they don't move.
+The built-in `DetailPanel` overlays the right edge of the pane when a node is selected. To avoid sitting under it, only the **right-anchored** positions (`top-right`, `center-right`, `bottom-right` — i.e. `toolbarSide(position) === "right"`) shift left by the panel width while it is open, by adding it to `marginRight` on top of the panel's normal margin. When the panel closes the override is dropped and the gap falls cleanly back to the default. Left and center anchors don't collide with a right-side panel in practice, so they don't move.
 
 Center-x positions (`top-center` / `bottom-center`) could in theory overlap the panel at very narrow viewport widths; that edge case is out of scope. ReactFlow's own zoom Controls are hidden in this viewer, so they are not a dodge target.
 
 ## API surface
 
-- `TOOLBAR_POSITION` — the constant of eight anchor values (use these, not raw strings).
+- `TOOLBAR_POSITION` — the constant of anchor values (use these, not raw strings).
 - `ToolbarPosition` — the union type.
 - `ToolbarOrientation` — `"horizontal" | "vertical"`.
 - `toolbarOrientation(position)` — pure helper deriving orientation from an anchor.
+- `ToolbarSide` — `"left" | "center" | "right"`.
+- `toolbarSide(position)` — pure helper deriving which edge an anchor hugs (drives the detail-panel dodge).
 - `GraphViewerProps.toolbarPosition` — the controlled, reactive prop.
 - `GraphConfig.toolbarPosition` — the config-level fallback (`DEFAULT_GRAPH_CONFIG.toolbarPosition` is `top-right`).
