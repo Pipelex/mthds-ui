@@ -8,7 +8,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../GraphViewer";
-import { LIVE_CV_SCREENING } from "./mockGraphSpec";
+import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 import { buildDataflowAnalysis } from "@graph/graphAnalysis";
 import { isStuffNodeId, stuffDigestFromId } from "@graph/types";
 import type { GraphSpec } from "@graph/types";

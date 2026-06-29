@@ -4,7 +4,8 @@
  */
 import { describe, it, expect } from "vitest";
 import { runFullPipeline } from "./testUtils";
-import { DRY_RUN_CATALOG, LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { DRY_RUN_CATALOG } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/liveGraphSpec";
 import type { GraphDirection, GraphSpec } from "../types";
 
 const ALL_CATALOG_ENTRIES: [string, { label: string; spec: GraphSpec }][] = [

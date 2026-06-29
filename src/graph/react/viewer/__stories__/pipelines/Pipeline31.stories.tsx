@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_RFP_QUALIFIER, LIVE_RFP_QUALIFIER } from "../mockGraphSpec";
+import { DRY_RFP_QUALIFIER } from "./specs/_generated/dry/pipeline_31";
+import { LIVE_RFP_QUALIFIER } from "./specs/_generated/live/pipeline_31";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/31 RFP Qualifier (Structured Concepts)",

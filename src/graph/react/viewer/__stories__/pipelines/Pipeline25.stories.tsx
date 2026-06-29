@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_ALL_CONTROLLER_TYPES, LIVE_ALL_CONTROLLER_TYPES } from "../mockGraphSpec";
+import { DRY_ALL_CONTROLLER_TYPES } from "./specs/_generated/dry/pipeline_25";
+import { LIVE_ALL_CONTROLLER_TYPES } from "./specs/_generated/live/pipeline_25";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/25 All Controller Types",

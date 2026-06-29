@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_MULTI_INPUT_CONVERGE, LIVE_MULTI_INPUT_CONVERGE } from "../mockGraphSpec";
+import { DRY_MULTI_INPUT_CONVERGE } from "./specs/_generated/dry/pipeline_21";
+import { LIVE_MULTI_INPUT_CONVERGE } from "./specs/_generated/live/pipeline_21";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/21 Multi-Input Converge",

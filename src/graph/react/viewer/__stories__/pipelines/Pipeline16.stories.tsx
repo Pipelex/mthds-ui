@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_IMAGE_PIPELINE, LIVE_IMAGE_PIPELINE } from "../mockGraphSpec";
+import { DRY_IMAGE_PIPELINE } from "./specs/_generated/dry/pipeline_16";
+import { LIVE_IMAGE_PIPELINE } from "./specs/_generated/live/pipeline_16";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/16 Image Processing",

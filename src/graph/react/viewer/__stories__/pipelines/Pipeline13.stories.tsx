@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GraphViewer } from "../../GraphViewer";
-import { DRY_DIAMOND_PATTERN, LIVE_DIAMOND_PATTERN } from "../mockGraphSpec";
+import { DRY_DIAMOND_PATTERN } from "./specs/_generated/dry/pipeline_13";
+import { LIVE_DIAMOND_PATTERN } from "./specs/_generated/live/pipeline_13";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/13 Diamond Pattern",

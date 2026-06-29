@@ -214,27 +214,34 @@ function SchemaTable({
 }
 
 function extractType(schema: Record<string, unknown>): string {
-  if (schema.type) return String(schema.type);
+  if (typeof schema.type === "string") return schema.type;
+  if (Array.isArray(schema.type)) return schema.type.join(" | ");
   if (schema.anyOf) return "union";
   if (schema.allOf) return "all";
-  if (schema.$ref) {
-    const ref = String(schema.$ref);
+  if (typeof schema.$ref === "string") {
+    const ref = schema.$ref;
     return ref.split("/").pop() ?? "(unresolved type)";
   }
   return "(unresolved type)";
 }
 
 function toStuffViewerData(ioData: GraphSpecNodeIoItem | StuffViewerData): StuffViewerData {
-  // Already a StuffViewerData (has "digest" key)
-  if ("digest" in ioData) return ioData as StuffViewerData;
+  // Already a StuffViewerData.
+  if (isStuffViewerData(ioData)) return ioData;
   // Convert from GraphSpecNodeIoItem
   return {
-    digest: (ioData as GraphSpecNodeIoItem).digest ?? "",
-    name: (ioData as GraphSpecNodeIoItem).name,
-    concept: (ioData as GraphSpecNodeIoItem).concept,
-    contentType: (ioData as GraphSpecNodeIoItem).content_type,
-    data: (ioData as GraphSpecNodeIoItem).data,
-    dataText: (ioData as GraphSpecNodeIoItem).data_text,
-    dataHtml: (ioData as GraphSpecNodeIoItem).data_html,
+    digest: ioData.digest ?? "",
+    name: ioData.name,
+    concept: ioData.concept,
+    contentType: ioData.content_type,
+    data: ioData.data,
+    dataText: ioData.data_text,
+    dataHtml: ioData.data_html,
   };
+}
+
+function isStuffViewerData(
+  ioData: GraphSpecNodeIoItem | StuffViewerData,
+): ioData is StuffViewerData {
+  return "contentType" in ioData || "dataText" in ioData || "dataHtml" in ioData;
 }

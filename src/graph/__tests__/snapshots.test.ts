@@ -14,10 +14,10 @@ import { describe, it, expect } from "vitest";
 import { runFullPipeline, assertDeterministic } from "./testUtils";
 import {
   DRY_RUN_CATALOG,
-  LIVE_RUN_CATALOG,
   DRY_ALL_CONTROLLER_TYPES,
   DRY_DEEP_NESTING,
 } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/liveGraphSpec";
 import { makeWideParallel } from "@graph/react/viewer/__stories__/extremeGraphSpecs";
 import type { GraphSpec } from "../types";
 

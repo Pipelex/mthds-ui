@@ -218,7 +218,7 @@ make fixtures-live        # LIVE specs -> _generated.live.ts (real inference, co
 make fixtures-live-test   # smoke-test the live path on 3 small bundles, writes nothing
 ```
 
-`make fixtures` also bootstraps `_generated.live.ts` as a DRY placeholder if it is absent, so a DRY-only run is enough to build Storybook; `make fixtures-live` overwrites it with real LIVE data and never clobbers an existing file. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
+`make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 
 `validateGraphSpec` runs on every spec at the `GraphViewer` boundary, so a regenerated fixture that violates the contract fails loudly in its story. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines.
 

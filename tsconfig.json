@@ -12,9 +12,8 @@
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
-      "@graph/*": ["src/graph/*"]
+      "@graph/*": ["./src/graph/*"]
     }
   },
   "include": ["src/"],

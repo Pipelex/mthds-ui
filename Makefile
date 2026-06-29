@@ -10,10 +10,10 @@ lint:
 	npx eslint src/
 
 format:
-	npx prettier --write "src/**/*.ts"
+	npx prettier --write "src/**/*.{ts,tsx}"
 
 format-check:
-	npx prettier --check "src/**/*.ts"
+	npx prettier --check "src/**/*.{ts,tsx}"
 
 typecheck:
 	npx tsc --noEmit
