@@ -4,6 +4,7 @@ export { PipeLLMSection, LLMExecutionData } from "./PipeLLMDetail";
 export { PipeImgGenSection, ImgGenExecutionData } from "./PipeImgGenDetail";
 export { PipeExtractSection, ExtractExecutionData } from "./PipeExtractDetail";
 export { PipeSearchSection, SearchExecutionData } from "./PipeSearchDetail";
+export { PipeStructureSection, StructureExecutionData } from "./PipeStructureDetail";
 export { PipeComposeSection, ComposeExecutionData } from "./PipeComposeDetail";
 export { PipeConditionSection, ConditionExecutionData } from "./PipeConditionDetail";
 export { PipeSequenceSection, SequenceExecutionData } from "./PipeSequenceDetail";

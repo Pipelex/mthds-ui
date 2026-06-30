@@ -10,6 +10,7 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeStructure: "Structure",
   PipeSignature: "Signature",
   PipeSequence: "Sequence",
   PipeParallel: "Parallel",

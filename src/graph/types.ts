@@ -8,6 +8,7 @@ export type PipeOperatorType =
   | "PipeImgGen"
   | "PipeSearch"
   | "PipeFunc"
+  | "PipeStructure" // turns Text into a structured concept via an LLM
   | "PipeSignature"; // contract-only stub — emitted under `--allow-signatures`
 
 export type PipeControllerType = "PipeSequence" | "PipeParallel" | "PipeCondition" | "PipeBatch";
@@ -25,6 +26,7 @@ const PIPE_TYPE_PRESENCE: Record<PipeType, true> = {
   PipeImgGen: true,
   PipeSearch: true,
   PipeFunc: true,
+  PipeStructure: true,
   PipeSignature: true,
   PipeSequence: true,
   PipeParallel: true,
@@ -316,6 +318,25 @@ export interface PipeFuncBlueprint extends PipeBlueprintBase {
 }
 
 /**
+ * A PipeStructure: an LLM-backed operator that turns a single Text-compatible
+ * input into a structured concept. Serialized from the runtime `PipeStructure`,
+ * so the registry entry carries the runtime fields below alongside the base.
+ */
+export interface PipeStructureBlueprint extends PipeBlueprintBase {
+  type: "PipeStructure";
+  /**
+   * LLM used to structure the text. A string model handle, an inline LLM
+   * setting object, or null (→ resolved from the model deck's `for_object`
+   * default at run time).
+   */
+  llm_choice: string | Record<string, unknown> | null;
+  /** The single Text-compatible input variable the structuring reads. */
+  text_input_name: string;
+  /** `true` → let the LLM decide the count, a number → fixed count, null → single object. */
+  output_multiplicity: boolean | number | null;
+}
+
+/**
  * A contract-only pipe: declares inputs + output but has no implementation.
  * Emitted under `--allow-signatures` so an in-progress bundle still validates
  * (dry-run mocks the declared output) before every referenced pipe is built.
@@ -367,6 +388,7 @@ export type PipeBlueprintUnion =
   | PipeExtractBlueprint
   | PipeSearchBlueprint
   | PipeFuncBlueprint
+  | PipeStructureBlueprint
   | PipeSignatureBlueprint
   | PipeSequenceBlueprint
   | PipeParallelBlueprint

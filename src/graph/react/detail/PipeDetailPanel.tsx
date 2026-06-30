@@ -12,6 +12,8 @@ import {
   ExtractExecutionData,
   PipeSearchSection,
   SearchExecutionData,
+  PipeStructureSection,
+  StructureExecutionData,
   PipeComposeSection,
   ComposeExecutionData,
   PipeConditionSection,
@@ -34,6 +36,7 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeStructure: "Structure",
   PipeSignature: "Signature",
   PipeSequence: "Seq",
   PipeParallel: "Par",
@@ -243,6 +246,8 @@ function BlueprintSection({
       return <PipeExtractSection blueprint={blueprint} executionData={executionData} />;
     case "PipeSearch":
       return <PipeSearchSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeStructure":
+      return <PipeStructureSection blueprint={blueprint} executionData={executionData} />;
     case "PipeSequence":
       return <PipeSequenceSection blueprint={blueprint} executionData={executionData} />;
     case "PipeParallel":
@@ -284,6 +289,8 @@ function ExecutionDataSection({
       return <ExtractExecutionData data={executionData} />;
     case "PipeSearch":
       return <SearchExecutionData data={executionData} />;
+    case "PipeStructure":
+      return <StructureExecutionData data={executionData} />;
     case "PipeCompose":
       return <ComposeExecutionData data={executionData} />;
     case "PipeCondition":

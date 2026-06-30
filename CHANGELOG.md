@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.11.0] - 2026-06-30
+
+### Fixed
+
+- **Render `PipeStructure` operator nodes in the method graph.** A node with `pipe_type: "PipeStructure"` — emitted by pipelex for a real LLM-backed operator that turns Text into a structured concept (via `structuring_method = preliminary_text` or explicit authoring) — now validates and renders as an ordinary operator card (badge `Structure`) instead of throwing `GraphSpecValidationError` and blanking the entire viewer (the standalone adapter's "Failed to render method graph" screen). `PipeStructure` joins `PipeOperatorType`, gains a `PipeStructureBlueprint` in the registry union, and the detail panel shows its structuring config (model, text variable, output multiplicity, rendered prompt).
+
 ## [v0.10.0] - 2026-06-29
 
 ### Added
