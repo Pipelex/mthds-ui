@@ -17,6 +17,7 @@ const PIPE_CARD_REGISTRY: Record<PipeType, ComponentType<PipeCardBaseProps>> = {
   PipeImgGen: PipeCardBase,
   PipeSearch: PipeCardBase,
   PipeFunc: PipeCardBase,
+  PipeStructure: PipeCardBase,
   PipeSignature: PipeCardBase,
   PipeSequence: PipeCardBase,
   PipeParallel: PipeCardBase,

@@ -77,6 +77,23 @@ export const BadgeImgGen: Story = {
   },
 };
 
+// Regression guard: a "PipeStructure" node (a real LLM-backed operator, emitted
+// for `structuring_method = preliminary_text` and explicit authoring) must
+// validate and render as an ordinary operator card instead of crashing the
+// viewer with GraphSpecValidationError.
+export const BadgeStructure: Story = {
+  args: { graphspec: toGraphSpec(MOCK_PIPES.PipeStructure), ...D },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = await canvas.findByText("Structure");
+    await expect(badge).toBeInTheDocument();
+    // A real operator: plain badge, not the controller/signature variants.
+    await expect(badge.classList.contains("pipe-card-badge")).toBe(true);
+    await expect(badge.classList.contains("pipe-card-badge--controller")).toBe(false);
+    await expect(badge.classList.contains("pipe-card-badge--signature")).toBe(false);
+  },
+};
+
 // ─── Signature stub — distinct dashed/muted card + badge ────────────────────
 // Regression guard: a "PipeSignature" node (emitted under --allow-signatures)
 // must validate and render the stub style instead of crashing the viewer.

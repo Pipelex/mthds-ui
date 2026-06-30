@@ -44,7 +44,3 @@ export function PipeConditionSection({
     </>
   );
 }
-
-export function ConditionExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

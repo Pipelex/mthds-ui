@@ -24,7 +24,3 @@ export function PipeSequenceSection({
     </div>
   );
 }
-
-export function SequenceExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

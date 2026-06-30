@@ -91,6 +91,19 @@ export const MOCK_PIPES: Record<PipeOperatorType, PipeCardData> = {
     },
   },
 
+  PipeStructure: {
+    pipeCode: "structure_candidate",
+    pipeType: "PipeStructure",
+    description: "Turn the raw CV text into a structured candidate profile",
+    status: "succeeded",
+    inputs: [{ name: "cv_text", concept: "Text" }],
+    outputs: [{ name: "candidate", concept: "CandidateProfile" }],
+    tags: {
+      model: "$structuring",
+      text_variable: "cv_text",
+    },
+  },
+
   PipeSignature: {
     pipeCode: "build_scorecard",
     pipeType: "PipeSignature",

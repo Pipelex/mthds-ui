@@ -114,6 +114,58 @@ describe("GraphSpec — PipeSignature registry blueprint", () => {
   });
 });
 
+// ─── GraphSpec type — PipeStructure registry blueprint ───────────────────
+// PipeStructure is a real operator, so pipelex serializes its `pipe_registry`
+// entry from the runtime pipe: the base fields plus `llm_choice`,
+// `text_input_name`, and `output_multiplicity`. The `: GraphSpec` annotation is
+// the real guard — tsc checks the entry against `PipeBlueprintUnion`, so this
+// fails to compile if `PipeStructureBlueprint` drifts from the runtime shape.
+
+describe("GraphSpec — PipeStructure registry blueprint", () => {
+  it("represents a structure blueprint serialized from the runtime pipe", () => {
+    const spec: GraphSpec = {
+      meta: { format: "mthds" },
+      nodes: [],
+      edges: [],
+      pipe_registry: {
+        "demo.structure_candidate": {
+          type: "PipeStructure",
+          pipe_category: "PipeOperator",
+          code: "structure_candidate",
+          domain_code: "demo",
+          description: "Turn the CV text into a structured candidate profile.",
+          inputs: {
+            cv_text: {
+              concept: {
+                code: "Text",
+                domain_code: "native",
+                description: "A text",
+                structure_class_name: "TextContent",
+                refines: null,
+              },
+              multiplicity: null,
+            },
+          },
+          output: {
+            concept: {
+              code: "CandidateProfile",
+              domain_code: "demo",
+              description: "A structured candidate profile",
+              structure_class_name: "demo__CandidateProfile",
+              refines: null,
+            },
+            multiplicity: null,
+          },
+          llm_choice: null,
+          text_input_name: "cv_text",
+          output_multiplicity: null,
+        },
+      },
+    };
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+  });
+});
+
 // ─── Phase 1 — top-level shape ───────────────────────────────────────────
 
 describe("validateGraphSpec — top-level shape", () => {
@@ -345,6 +397,7 @@ describe("validateGraphSpec — unknown PipeType", () => {
       "PipeImgGen",
       "PipeSearch",
       "PipeFunc",
+      "PipeStructure",
       "PipeSignature",
       "PipeSequence",
       "PipeParallel",
@@ -360,6 +413,12 @@ describe("validateGraphSpec — unknown PipeType", () => {
   it("accepts a PipeSignature node (unimplemented stub emitted under --allow-signatures)", () => {
     const spec = makeValidSpec();
     (spec.nodes as Record<string, unknown>[])[0].pipe_type = "PipeSignature";
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+  });
+
+  it("accepts a PipeStructure node (real operator — structuring Text into a concept)", () => {
+    const spec = makeValidSpec();
+    (spec.nodes as Record<string, unknown>[])[0].pipe_type = "PipeStructure";
     expect(() => validateGraphSpec(spec)).not.toThrow();
   });
 });

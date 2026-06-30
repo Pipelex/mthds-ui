@@ -39,7 +39,3 @@ export function PipeImgGenSection({
     </>
   );
 }
-
-export function ImgGenExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

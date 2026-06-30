@@ -34,7 +34,3 @@ export function PipeSearchSection({
     </>
   );
 }
-
-export function SearchExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

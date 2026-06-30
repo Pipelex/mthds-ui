@@ -25,7 +25,3 @@ export function PipeExtractSection({
     </>
   );
 }
-
-export function ExtractExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

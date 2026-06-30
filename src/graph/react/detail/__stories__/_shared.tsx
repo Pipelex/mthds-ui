@@ -165,6 +165,97 @@ export function makeComposeStoryProps(
   return { node, spec };
 }
 
+// ─── PipeStructure blueprint builders ──────────────────────────────────────
+// Mirror the PipeCompose builders for PipeStructure stories so each story stays
+// focused on the case it exercises (inline llm_choice object, unresolved
+// blueprint, constant structuring_path) rather than pipe_registry plumbing.
+
+const STRUCTURE_DOMAIN = "cv_screener";
+const STRUCTURE_PIPE_CODE = "structure_assessment";
+const STRUCTURE_PIPE_KEY = `${STRUCTURE_DOMAIN}.${STRUCTURE_PIPE_CODE}`;
+const STRUCTURE_NODE_ID = "run_001:node_structure";
+
+/** Build a PipeStructure blueprint. `llm_choice` may be a string handle, an
+ *  inline LLMSetting object (keyed by `model`), or null. */
+export function makeStructureBlueprint(opts?: {
+  description?: string;
+  llm_choice?: string | Record<string, unknown> | null;
+  text_input_name?: string;
+  output_multiplicity?: boolean | number | null;
+}): PipeBlueprintUnion {
+  return {
+    pipe_category: "PipeOperator",
+    type: "PipeStructure",
+    code: STRUCTURE_PIPE_CODE,
+    domain_code: STRUCTURE_DOMAIN,
+    description: opts?.description ?? "Structure the raw assessment text into a typed concept",
+    inputs: {
+      assessment_text: {
+        concept: {
+          code: "Text",
+          domain_code: "native",
+          description: "Plain text",
+          structure_class_name: "TextContent",
+          refines: null,
+        },
+        multiplicity: null,
+      },
+    },
+    output: {
+      concept: makeMatchAssessmentConcept(),
+      multiplicity: null,
+    },
+    llm_choice: opts?.llm_choice ?? null,
+    text_input_name: opts?.text_input_name ?? "assessment_text",
+    output_multiplicity: opts?.output_multiplicity ?? null,
+  } as unknown as PipeBlueprintUnion;
+}
+
+/** Build a GraphSpecNode + GraphSpec pair wiring a PipeStructure blueprint to a
+ *  node. Set `registerBlueprint: false` to leave the blueprint out of the
+ *  pipe_registry — modelling the unresolved-blueprint case where runtime data
+ *  must still surface via the generic execution dump. */
+export function makeStructureStoryProps(
+  blueprint: PipeBlueprintUnion,
+  execution_data?: Record<string, unknown>,
+  opts?: { registerBlueprint?: boolean },
+): { node: GraphSpecNode; spec: GraphSpec } {
+  const registerBlueprint = opts?.registerBlueprint ?? true;
+
+  const node: GraphSpecNode = {
+    id: STRUCTURE_NODE_ID,
+    kind: "operator",
+    pipe_code: STRUCTURE_PIPE_CODE,
+    pipe_type: "PipeStructure",
+    status: "succeeded",
+    timing: {
+      started_at: "2026-04-10T16:00:00.000000Z",
+      ended_at: "2026-04-10T16:00:00.042000Z",
+      duration: 0.042,
+    },
+    io: { inputs: [], outputs: [] },
+    error: null,
+    tags: {},
+    metrics: {},
+    ...(execution_data ? { execution_data } : {}),
+  } as unknown as GraphSpecNode;
+
+  const spec: GraphSpec = {
+    graph_id: "run_001",
+    created_at: "2026-04-10T16:00:00.000000Z",
+    pipeline_ref: { domain: STRUCTURE_DOMAIN, main_pipe: STRUCTURE_PIPE_CODE },
+    nodes: [node],
+    edges: [],
+    meta: {},
+    pipe_registry: (registerBlueprint
+      ? { [STRUCTURE_PIPE_KEY]: blueprint as unknown as Record<string, unknown> }
+      : {}) as unknown as GraphSpec["pipe_registry"],
+    concept_registry: {},
+  } as GraphSpec;
+
+  return { node, spec };
+}
+
 // ─── Sample text fixtures ──────────────────────────────────────────────────
 
 export const SHORT_COMPOSE_TEMPLATE =

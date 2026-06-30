@@ -5,23 +5,16 @@ import {
   formatDuration,
   KV,
   PipeLLMSection,
-  LLMExecutionData,
   PipeImgGenSection,
-  ImgGenExecutionData,
   PipeExtractSection,
-  ExtractExecutionData,
   PipeSearchSection,
-  SearchExecutionData,
+  PipeStructureSection,
   PipeComposeSection,
-  ComposeExecutionData,
   PipeConditionSection,
-  ConditionExecutionData,
   PipeSequenceSection,
-  SequenceExecutionData,
   PipeParallelSection,
-  ParallelExecutionData,
   PipeBatchSection,
-  BatchExecutionData,
+  shouldDumpExecutionData,
 } from "./sections";
 import "./DetailPanel.css";
 
@@ -34,6 +27,7 @@ const PIPE_TYPE_BADGES: Record<PipeType, string> = {
   PipeImgGen: "ImgGen",
   PipeSearch: "Search",
   PipeFunc: "Func",
+  PipeStructure: "Structure",
   PipeSignature: "Signature",
   PipeSequence: "Seq",
   PipeParallel: "Par",
@@ -176,7 +170,11 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
 
       {/* Execution data (runtime-resolved values) */}
       {node.execution_data && Object.keys(node.execution_data).length > 0 && (
-        <ExecutionDataSection executionData={node.execution_data} pipeType={pipeType} />
+        <ExecutionDataSection
+          executionData={node.execution_data}
+          pipeType={pipeType}
+          hasBlueprint={!!blueprint}
+        />
       )}
 
       {/* Error */}
@@ -243,6 +241,8 @@ function BlueprintSection({
       return <PipeExtractSection blueprint={blueprint} executionData={executionData} />;
     case "PipeSearch":
       return <PipeSearchSection blueprint={blueprint} executionData={executionData} />;
+    case "PipeStructure":
+      return <PipeStructureSection blueprint={blueprint} executionData={executionData} />;
     case "PipeSequence":
       return <PipeSequenceSection blueprint={blueprint} executionData={executionData} />;
     case "PipeParallel":
@@ -271,32 +271,18 @@ function BlueprintSection({
 function ExecutionDataSection({
   executionData,
   pipeType,
+  hasBlueprint,
 }: {
   executionData: Record<string, unknown>;
   pipeType: string;
+  hasBlueprint: boolean;
 }) {
-  switch (pipeType) {
-    case "PipeLLM":
-      return <LLMExecutionData data={executionData} />;
-    case "PipeImgGen":
-      return <ImgGenExecutionData data={executionData} />;
-    case "PipeExtract":
-      return <ExtractExecutionData data={executionData} />;
-    case "PipeSearch":
-      return <SearchExecutionData data={executionData} />;
-    case "PipeCompose":
-      return <ComposeExecutionData data={executionData} />;
-    case "PipeCondition":
-      return <ConditionExecutionData data={executionData} />;
-    case "PipeSequence":
-      return <SequenceExecutionData data={executionData} />;
-    case "PipeParallel":
-      return <ParallelExecutionData data={executionData} />;
-    case "PipeBatch":
-      return <BatchExecutionData data={executionData} />;
-    default:
-      return <GenericExecutionData data={executionData} />;
-  }
+  // Known pipe types merge their runtime data into the blueprint section, so
+  // there is nothing extra to render once that section mounted. The raw dump is
+  // only shown when the blueprint failed to resolve (so runtime data isn't lost)
+  // or for types without a merged section (PipeFunc, PipeSignature, unknown).
+  if (!shouldDumpExecutionData(pipeType, hasBlueprint)) return null;
+  return <GenericExecutionData data={executionData} />;
 }
 
 function GenericExecutionData({ data }: { data: Record<string, unknown> }) {
