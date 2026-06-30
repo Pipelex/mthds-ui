@@ -211,7 +211,3 @@ export function PipeComposeSection({
     </>
   );
 }
-
-export function ComposeExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

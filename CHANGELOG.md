@@ -5,6 +5,8 @@
 ### Fixed
 
 - **Render `PipeStructure` operator nodes in the method graph.** A node with `pipe_type: "PipeStructure"` — emitted by pipelex for a real LLM-backed operator that turns Text into a structured concept (via `structuring_method = preliminary_text` or explicit authoring) — now validates and renders as an ordinary operator card (badge `Structure`) instead of throwing `GraphSpecValidationError` and blanking the entire viewer (the standalone adapter's "Failed to render method graph" screen). `PipeStructure` joins `PipeOperatorType`, gains a `PipeStructureBlueprint` in the registry union, and the detail panel shows its structuring config (model, text variable, output multiplicity, rendered prompt).
+- **`PipeStructure` detail panel: surface an inline `llm_choice` model, drop the constant structuring row.** When `llm_choice` is an inline LLM setting object (a serialized `LLMSetting`) rather than a string handle, the Model row now derives its label from the object's `model` field instead of disappearing; the runtime-resolved model still wins when present. The always-constant "Structuring" row is gone — pipelex hardcodes `structuring_path`, so it never carried information.
+- **Don't drop runtime execution data when a blueprint can't be resolved.** For any recognized operator or controller node whose blueprint isn't in the registry (partial/streaming graph, missing entry), the detail panel now falls back to the generic execution-data dump instead of rendering nothing — matching how unrecognized pipe types already behave. Previously such a node showed only "Blueprint not available" and silently hid its resolved model, rendered prompt, and other runtime values.
 
 ## [v0.10.0] - 2026-06-29
 

@@ -1,6 +1,7 @@
 import React from "react";
 import type { PipeBlueprintUnion } from "@graph/types";
 import { KV, PromptToggle } from "./shared";
+import { labelFromLlmChoice } from "./llmChoice";
 
 /**
  * Unified PipeStructure detail — merges blueprint config and runtime execution
@@ -18,19 +19,16 @@ export function PipeStructureSection({
   // Runtime-resolved values (from execution_data).
   const resolvedModel = executionData?.resolved_model as string | undefined;
   const isMultipleOutput = executionData?.is_multiple_output as boolean | undefined;
-  const structuringPath = executionData?.structuring_path as string | undefined;
   const renderedUser = executionData?.rendered_user_prompt as string | undefined;
 
-  // Config LLM choice is only a plain string handle here; an inline setting
-  // object isn't a single label, so fall back to the resolved runtime model.
-  const llmChoice = typeof blueprint.llm_choice === "string" ? blueprint.llm_choice : undefined;
-  const modelDisplay = resolvedModel || llmChoice;
+  // Prefer the runtime-resolved model; otherwise derive a label from the
+  // configured llm_choice (a string handle or an inline LLMSetting object).
+  const modelDisplay = resolvedModel || labelFromLlmChoice(blueprint.llm_choice);
 
   return (
     <>
       <KV label="Model" value={modelDisplay} />
       <KV label="Text Variable" value={blueprint.text_input_name} />
-      <KV label="Structuring" value={structuringPath} />
       <KV label="Multiple Output" value={isMultipleOutput} />
       <KV label="Output Multiplicity" value={blueprint.output_multiplicity} />
 
@@ -38,12 +36,4 @@ export function PipeStructureSection({
       <PromptToggle label="Prompt" templateText={undefined} renderedText={renderedUser} />
     </>
   );
-}
-
-/**
- * No-op: all PipeStructure runtime data is merged into PipeStructureSection
- * above. Kept so the dispatcher's per-type branch stays uniform.
- */
-export function StructureExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
 }

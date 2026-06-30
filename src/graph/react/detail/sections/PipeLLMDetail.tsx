@@ -83,11 +83,3 @@ export function PipeLLMSection({
     </>
   );
 }
-
-/**
- * LLMExecutionData is now empty — all data is merged into PipeLLMSection above.
- * Kept as a no-op so the dispatcher doesn't need to change.
- */
-export function LLMExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

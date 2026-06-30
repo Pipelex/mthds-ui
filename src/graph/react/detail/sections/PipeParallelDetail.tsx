@@ -28,7 +28,3 @@ export function PipeParallelSection({
     </>
   );
 }
-
-export function ParallelExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}

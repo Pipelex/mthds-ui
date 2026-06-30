@@ -20,7 +20,3 @@ export function PipeBatchSection({
     </>
   );
 }
-
-export function BatchExecutionData(_props: { data: Record<string, unknown> }) {
-  return null;
-}
