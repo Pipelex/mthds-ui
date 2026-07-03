@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh
 
 install:
 	npm install
@@ -55,6 +55,11 @@ fixtures-live-missing:
 # Smoke-test the live path on 3 small bundles — runs real inference, writes nothing.
 fixtures-live-test:
 	node scripts/generate-fixtures.mjs --live --check --only pipeline_01,pipeline_02,pipeline_03
+
+# Re-copy the MTHDS authoring schema from the pipelex repo (reference contract
+# for src/static/ parsing — not a runtime dependency).
+schema-refresh:
+	cp ../pipelex/derived/mthds_schema.json data/schema/mthds_schema.json
 
 clean:
 	rm -rf dist node_modules

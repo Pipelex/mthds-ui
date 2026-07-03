@@ -91,9 +91,11 @@ The one discipline this requires: the core module accepts TOML **strings**, neve
 
 The builder emits a `GraphSpec` (with `meta.mode = "static"`), not mthds-ui's internal `GraphNode`/`GraphEdge` types. Three reasons: `GraphViewer` needs zero changes; the output stays consumable by anything that already speaks GraphSpec; and — decisive for testing — it makes the parity harness possible, because the dry-run side of the comparison is also a GraphSpec.
 
-### Lenient parsing, schema-generated types
+### Lenient parsing, schema as reference contract
 
-Best-effort rendering of half-written methods is the point, so the builder must **not** hard-validate input at runtime. Follow the `validateGraphSpec` house pattern: hand-rolled narrowing that tolerates missing/partial sections and skips what it can't interpret (collecting non-fatal notes for diagnostics). `mthds_schema.json`'s job is at dev time, not runtime: generate the TS types for the parsed bundle shape (e.g. via `json-schema-to-typescript`) so the types track pipelex releases mechanically instead of by hand. The schema lives in `pipelex/derived/` — how it reaches this repo (checked-in copy refreshed by a script, or published artifact) is an open question.
+Best-effort rendering of half-written methods is the point, so the builder must **not** hard-validate input at runtime. Follow the `validateGraphSpec` house pattern: hand-rolled narrowing that tolerates missing/partial sections and skips what it can't interpret (collecting non-fatal notes for diagnostics).
+
+> **Decision (checkpoint 1a): no codegen.** An earlier draft proposed generating TS types from `mthds_schema.json` (e.g. via `json-schema-to-typescript`). Implementation showed the parsed shape should not be the authoring shape at all: the parser normalizes each `[pipe.*]` table straight into the `PipeBlueprintUnion` registry shapes that already exist in `src/graph/types.ts` (`steps` → `sequential_sub_pipes`, `model` → choice strings, `prompt` → `TemplateBlueprint`, …), so parsed pipes can feed a GraphSpec `pipe_registry` verbatim and no second type universe exists to generate. `mthds_schema.json` is checked in under `data/schema/` (`make schema-refresh` re-copies it from `pipelex/derived/`) as the human/agent reference contract for the authoring surface; codegen is reconsidered only if drift actually bites. The schema-sync mechanism (checked-in copy vs published artifact) stays an open question.
 
 ## The static graph algorithm
 

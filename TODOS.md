@@ -17,18 +17,18 @@ At each `CHECKPOINT` below, before starting the next phase:
 
 New pure-TS module, its own entry point (like `shiki/`): no React, no imports from `graph/react/`. Proposed layout: `src/static/` with `toml` parsing, blueprint narrowing, and the builder; barrel at `src/static/index.ts`.
 
-- [ ] Add `smol-toml` to `dependencies` (isomorphic, zero-dep; already proven in mthds-js)
-- [ ] Create `src/static/` entry point: tsup entry + declarations, path alias if needed (follow the `@graph/*` pattern), barrel export
-- [ ] Check in a copy of `mthds_schema.json` (from `pipelex/derived/`) under `data/schema/`, with a `make schema-refresh` target that re-copies it — reference contract, not a runtime dependency
-- [ ] **Reuse, don't duplicate, blueprint types**: the `Pipe*Blueprint` / `PipeBlueprintUnion` types already exist in `src/graph/types.ts` (pipe_registry payloads). The parsed-TOML shape should narrow to these. Only add what's missing (bundle-level shape: `domain`, `description`, `main_pipe`, `concept` map, `pipe` map). No codegen unless drift actually bites (record decision if that changes)
-- [ ] `parseMthdsBundle(tomlText: string): { bundle: ParsedBundle; diagnostics: Diagnostic[] }` — smol-toml parse + **lenient** narrowing in the `validateGraphSpec` house style: tolerate missing/partial sections, skip what can't be interpreted, collect non-fatal diagnostics, never throw on content (only on unparseable TOML — and even that becomes a diagnostic at the API boundary)
-- [ ] `mergeBundles(bundles: ParsedBundle[]): MergedMethodSet` — same-domain namespace merge (duplicate codes → diagnostic, keep-first)
-- [ ] Unit tests co-located in `src/static/__tests__/`: happy path, empty/garbage TOML, partial pipes, duplicate codes, dotted input names, multiplicity suffix parsing (`Concept`, `Concept[]`, `Concept[N]`, `domain.Concept`)
+- [x] Add `smol-toml` to `dependencies` (isomorphic, zero-dep; already proven in mthds-js)
+- [x] Create `src/static/` entry point: tsup entry + declarations, path alias if needed (follow the `@graph/*` pattern), barrel export
+- [x] Check in a copy of `mthds_schema.json` (from `pipelex/derived/`) under `data/schema/`, with a `make schema-refresh` target that re-copies it — reference contract, not a runtime dependency
+- [x] **Reuse, don't duplicate, blueprint types**: the `Pipe*Blueprint` / `PipeBlueprintUnion` types already exist in `src/graph/types.ts` (pipe_registry payloads). The parsed-TOML shape should narrow to these. Only add what's missing (bundle-level shape: `domain`, `description`, `main_pipe`, `concept` map, `pipe` map). No codegen unless drift actually bites (record decision if that changes)
+- [x] `parseMthdsBundle(tomlText: string): { bundle: ParsedBundle; diagnostics: Diagnostic[] }` — smol-toml parse + **lenient** narrowing in the `validateGraphSpec` house style: tolerate missing/partial sections, skip what can't be interpreted, collect non-fatal diagnostics, never throw on content (only on unparseable TOML — and even that becomes a diagnostic at the API boundary)
+- [x] `mergeBundles(bundles: ParsedBundle[]): MergedMethodSet` — same-domain namespace merge (duplicate codes → diagnostic, keep-first)
+- [x] Unit tests co-located in `src/static/__tests__/`: happy path, empty/garbage TOML, partial pipes, duplicate codes, dotted input names, multiplicity suffix parsing (`Concept`, `Concept[]`, `Concept[N]`, `domain.Concept`)
 
 ### CHECKPOINT 1a — parser lands
 
-- [ ] Ritual steps 1–4 (no Storybook check needed yet — pure logic only)
-- [ ] Cold-start notes updated: parser API surface frozen enough to build on? open naming questions resolved (`src/static/` vs `src/mthds/`)?
+- [x] Ritual steps 1–4 (no Storybook check needed yet — pure logic only)
+- [x] Cold-start notes updated: parser API surface frozen enough to build on? open naming questions resolved (`src/static/` vs `src/mthds/`)?
 
 ## Phase 1b — the static walk: blueprint → GraphSpec
 
@@ -98,6 +98,19 @@ Rendering works without any of this; these make static graphs first-class.
 
 _Updated at every checkpoint. A fresh session should be able to resume from here + the design doc alone._
 
-- **Current state:** nothing implemented yet — design doc complete (`wip/static-graph-design.md`), plan written, no code changes on the branch.
-- **Decisions taken so far:** all-TS path (no Python utilities anywhere); incubate in mthds-ui, extract to mthds-js later; output = GraphSpec with `meta.mode: "static"`; lenient runtime parsing, schema as reference contract only; no elaboration (as-authored display); deterministic invocation-path ids + hashed digests; batch = one representative branch; statuses = `scheduled`.
-- **Open questions (tracked in design doc):** elaboration display flag, schema sync mechanism, cross-package expansion depth, live-status overlay mapping, mthds-js extraction trigger.
+_Checkpoint 1a (2026-07-03) — Phase 1a complete._
+
+- **Current state:** Phase 1a landed. `src/static/` exists as its own pure-TS entry point (`@pipelex/mthds-ui/static` export, `@static/*` alias wired in tsconfig/tsup/vitest/storybook, tsup entry + dts). Module contents: `types.ts` (Diagnostic, ParsedBundle, MergedMethodSet, narrowing helpers), `conceptRefs.ts` (concept-ref parsing + resolution + native concept catalog), `normalizePipe.ts` (authored TOML shape → `PipeBlueprintUnion` registry shape, per pipe type), `parseMthdsBundle.ts` (smol-toml parse + lenient narrowing, never throws — even TOML parse errors become `error` diagnostics), `mergeBundles.ts` (per-domain namespace merge, keep-first duplicates, cross-file concept enrichment). Tests in `src/static/__tests__/` including a sweep that parses every `data/pipelines/pipeline_NN/bundle.mthds` with zero error diagnostics. Static module coverage ~99% stmts / ~93% branches; `make check && make test` green. Nothing of Phase 1b exists yet (no walk, no GraphSpec output).
+- **Decisions taken at 1a:**
+  - Module named `src/static/` (as proposed; `src/mthds/` rejected — the parser moves to mthds-js in Phase 3 anyway).
+  - **Parsed pipes normalize all the way to the runtime registry shapes** (`PipeBlueprintUnion` from `@graph/types`) at parse time — `steps` → `sequential_sub_pipes`, `model` → `llm_choices`/`*_choice` strings, `prompt` → `TemplateBlueprint`, `outcomes` → `outcome_map`, batch fields → `batch_params` — so Phase 1b can drop them into `pipe_registry` verbatim. Runtime-only fields we cannot know statically are set to honest defaults (null / false / `[]`).
+  - Concepts normalize to `ConceptInfo` (no parallel type) with a **best-effort derived `json_schema`** from `[concept.X.structure]` (simpler than pydantic's output — display data, not contract). `refines` is qualified like the runtime registry (`Text` → `native.Text`).
+  - Native concept catalog mirrored from pipelex `NativeConceptCode` (Dynamic, Text, Image, Document, Html, TextAndImages, Number, Page, JSON, SearchResult, Anything, Composite; `<Code>Content` structure class names). Descriptions are our own display stand-ins, not runtime wording.
+  - Referenced-but-undeclared concepts become current-domain stubs (empty description) — pipelex's implicit-concept behavior, approximated; `mergeBundles` re-points stubs at declarations contributed by sibling files (same or other domain).
+  - Bundles without `domain` parse under `UNKNOWN_DOMAIN = "unknown"` with a warning diagnostic.
+  - Missing/uninterpretable pipe `output` → `native.Anything` + warning. A pipe is dropped entirely only for a missing/unknown `type` (error diagnostic).
+  - No codegen from `mthds_schema.json` — checked in under `data/schema/` (refresh via `make schema-refresh`) as the reference contract; hand-rolled lenient narrowing per the house style.
+  - Duplicate codes: within one file = TOML parse error (smol-toml throws → error diagnostic); across files = `mergeBundles` keep-first + warning.
+- **Code-review triage at 1a** (fresh Sonnet sub-agent, /code-review on the working tree): fixed (1) PipeExtract now classifies its input as image-like vs document-like mirroring the runtime factory (`image_stuff_name` derived; `document_stuff_name` loosened to `string | null` in `graph/types.ts` — pre-existing type inaccuracy, noted in CHANGELOG); (2) `normalizeOutput` reuses `nativeConceptInfo("Anything")` instead of a hand-written literal; (3) inline PipeCompose template tables keep `extra_context`; (4) synthetic structure class names replace dots in hierarchical domains with interpuncts (`qualifiedStructureClassName`, mirroring pipelex `make_qualified_structure_class_name`). Pushed back on: flagging the fixture test's 3-level `path.resolve` — it is filesystem resolution, not a module import, so the alias rule doesn't apply.
+- **Parser API considered frozen for 1b:** `parseMthdsBundle(tomlText) → { bundle, diagnostics }`, `mergeBundles(bundles) → MergedMethodSet` (`domains[domain].{concepts,pipes}`, `mainDomain`, `mainPipe`, `description`, `diagnostics`).
+- **Open questions (tracked in design doc):** elaboration display flag, schema sync mechanism (checked-in copy chosen for now, drift risk accepted), cross-package expansion depth, live-status overlay mapping, mthds-js extraction trigger.

@@ -39,6 +39,10 @@
     "./shiki": {
       "import": "./dist/shiki/index.js",
       "types": "./dist/shiki/index.d.ts"
+    },
+    "./static": {
+      "import": "./dist/static/index.js",
+      "types": "./dist/static/index.d.ts"
     }
   },
   "files": [
@@ -65,7 +69,8 @@
   "dependencies": {
     "@xyflow/react": "^12",
     "dompurify": "^3.3.3",
-    "elkjs": "^0.11.1"
+    "elkjs": "^0.11.1",
+    "smol-toml": "^1.7.0"
   },
   "peerDependencies": {
     "react": "^19",

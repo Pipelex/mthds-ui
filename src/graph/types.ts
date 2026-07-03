@@ -297,7 +297,7 @@ export interface PipeExtractBlueprint extends PipeBlueprintBase {
   render_js: boolean | null;
   include_raw_html: boolean | null;
   image_stuff_name: string | null;
-  document_stuff_name: string;
+  document_stuff_name: string | null;
 }
 
 export interface PipeSearchBlueprint extends PipeBlueprintBase {

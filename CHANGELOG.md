@@ -1,6 +1,14 @@
 # Changelog
 
-## [v0.11.0] - 2026-06-30
+## [Unreleased]
+
+### Added
+
+- **Static method-graph parser (new `@pipelex/mthds-ui/static` entry point).** A pure-TypeScript, React-free module that parses raw `.mthds` TOML text into blueprint-shaped bundles: `parseMthdsBundle(tomlText)` (smol-toml parse + lenient narrowing that never throws — uninterpretable content becomes diagnostics) and `mergeBundles(bundles)` (per-domain namespace merge with keep-first duplicate handling and cross-file concept enrichment). Parsed pipes normalize to the existing `PipeBlueprintUnion` registry shapes and concepts to `ConceptInfo` (with a best-effort derived `json_schema`), so parsed entries can feed a GraphSpec `pipe_registry` / `concept_registry` directly. First phase of the static graph builder (see `wip/static-graph-design.md`); the authoring-surface schema is checked in under `data/schema/mthds_schema.json` (`make schema-refresh`).
+
+### Fixed
+
+- **`PipeExtractBlueprint.document_stuff_name` is now `string | null`.** The pipelex runtime sets exactly one of `image_stuff_name` / `document_stuff_name` (an image-based extract serializes `document_stuff_name: null`), so the previous non-null `string` type misdescribed real registry payloads. Breaking for consumers reading the field without a null check.
 
 ### Fixed
 

@@ -13,7 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "paths": {
-      "@graph/*": ["./src/graph/*"]
+      "@graph/*": ["./src/graph/*"],
+      "@static/*": ["./src/static/*"]
     }
   },
   "include": ["src/"],
