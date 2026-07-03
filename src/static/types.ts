@@ -23,7 +23,12 @@ export type DiagnosticCode =
   | "invalid-sub-pipe"
   | "incomplete-batch-spec"
   | "duplicate-concept"
-  | "duplicate-pipe";
+  | "duplicate-pipe"
+  | "unresolved-pipe-ref"
+  | "cyclic-pipe-ref"
+  | "missing-main-pipe"
+  | "no-entry-pipe"
+  | "conflicting-input-concept";
 
 /**
  * A non-fatal note collected while parsing or merging. `error` means a whole

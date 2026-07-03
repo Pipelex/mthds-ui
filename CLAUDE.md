@@ -52,6 +52,7 @@ src/
     normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
     parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
     mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)
+    buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
 ```
 
 The `static/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Work in progress: see `TODOS.md` and `wip/static-graph-design.md`.

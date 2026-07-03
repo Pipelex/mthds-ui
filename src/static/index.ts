@@ -16,3 +16,5 @@ export type { ConceptRefParts } from "./conceptRefs";
 export { NATIVE_CONCEPT_CODES, NATIVE_DOMAIN, parseConceptRef } from "./conceptRefs";
 export { parseMthdsBundle } from "./parseMthdsBundle";
 export { mergeBundles } from "./mergeBundles";
+export type { StaticGraphOptions, StaticGraphResult } from "./buildStaticGraphSpec";
+export { buildStaticGraphSpec, buildStaticGraphSpecFromToml } from "./buildStaticGraphSpec";

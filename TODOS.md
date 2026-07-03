@@ -34,26 +34,26 @@ New pure-TS module, its own entry point (like `shiki/`): no React, no imports fr
 
 The algorithm as specified in the design doc ("The static graph algorithm"). Pure functions, no React.
 
-- [ ] Identity scheme: invocation-path node ids (`screening.process_cv/step_2/…`), deterministic stuff digests (`sha1(producer_node_id + ":" + name)[:8]`; external inputs `sha1("input:" + name)`)
-- [ ] Reference resolution: bare → current bundle → same-domain; `domain.code` → package domain; `alias->…` → **opaque leaf card** (phase-1 policy)
-- [ ] Scope-based input binding with dotted-prefix matching (`a.b` satisfied by binding for `a`); dangling input → minted input stuff (UI classifies producer-less stuff as role `input`)
-- [ ] Controller recursion:
-  - [ ] PipeSequence — ordered steps, `result` binding, inline `batch_over`/`batch_as` (item stuff + `batch_item`/`batch_aggregate` edges)
-  - [ ] PipeParallel — all branches, `add_each_output` bindings, `combined_output` stuff + `parallel_combine` edges
-  - [ ] PipeCondition — all outcomes + `default_outcome` (skip `fail`/`continue`), `add_alias_from_expression_to` binding; record outcome value per child for later UI use
-  - [ ] PipeBatch — one representative branch, `batch_item` edge (list → item), `batch_aggregate` edge (branch output → output list)
-  - [ ] Operators — leaf output stuff from declared `output` concept, honoring the invoking step's `nb_output`/`multiple_output` override
-- [ ] **Controller transparency**: a controller's `io.outputs` carries its internal producing operator's digest, never a fresh one (the UI only takes producers from non-controller nodes)
-- [ ] Cycle guard: repeated pipe-ref on the recursion stack → render as leaf, stop expansion
-- [ ] Policies from the design doc: no elaboration (as-authored), best-effort on unresolvable refs (emit referencing node, skip missing child, never throw), unused `result`s still get stuff nodes, PipeSignature as leaf (pipe_type handling deferred to Phase 2 — exclude signature bundles from validation-dependent tests until then)
-- [ ] GraphSpec assembly: `meta.format: "mthds"`, `meta.mode: "static"`, `status: "scheduled"` on all nodes, `pipeline_ref`, populated `pipe_registry`/`concept_registry` from parsed entries, `contains` edges; decide and record whether to also emit `data` edges (UI ignores them)
-- [ ] Output must pass `validateGraphSpec` — direct test
-- [ ] Unit tests: minimal bundle, each controller type, nesting, cycles, dangling inputs, opaque cross-package ref, repeated invocation of the same pipe code (two nodes, distinct digests)
+- [x] Identity scheme: invocation-path node ids (`screening.process_cv/step_2/…`), deterministic stuff digests (**raw strings** `<producer_node_id>:<name>`; external inputs `input:<name>` — sha1 dropped, see design doc)
+- [x] Reference resolution: bare → current bundle → same-domain; `domain.code` → package domain; `alias->…` → **opaque leaf card** (phase-1 policy)
+- [x] Scope-based input binding with dotted-prefix matching (`a.b` satisfied by binding for `a`); dangling input → minted input stuff (UI classifies producer-less stuff as role `input`)
+- [x] Controller recursion:
+  - [x] PipeSequence — ordered steps, `result` binding, inline `batch_over`/`batch_as` (materialized as a synthetic PipeBatch node `<pipe>_batch`, mirroring the runtime)
+  - [x] PipeParallel — all branches, `add_each_output` bindings, `combined_output` stuff + `parallel_combine` edges
+  - [x] PipeCondition — all outcomes + `default_outcome` (skip `fail`/`continue`), `add_alias_from_expression_to` binding; outcome value recorded per child (`tags.outcome` + `contains` edge label)
+  - [x] PipeBatch — one representative branch, `batch_item` edge (list → item), `batch_aggregate` edge (branch output → output list)
+  - [x] Operators — leaf output stuff from declared `output` concept, honoring the invoking step's `nb_output`/`multiple_output` override
+- [x] **Controller transparency**: a controller's `io.outputs` carries its internal producing operator's digest, never a fresh one (the UI only takes producers from non-controller nodes)
+- [x] Cycle guard: repeated pipe-ref on the recursion stack → render as leaf, stop expansion
+- [x] Policies from the design doc: no elaboration (as-authored), best-effort on unresolvable refs (emit referencing node, skip missing child, never throw), unused `result`s still get stuff nodes, PipeSignature as leaf (renders today — `PipeSignature` is already in `KNOWN_PIPE_TYPES`; the distinct card treatment stays Phase 2)
+- [x] GraphSpec assembly: `meta.format: "mthds"`, `meta.mode: "static"`, `status: "scheduled"` on all nodes, `pipeline_ref`, populated `pipe_registry`/`concept_registry` from parsed entries, `contains` edges; **decision: no `data` edges** (UI ignores them — recorded in design doc)
+- [x] Output must pass `validateGraphSpec` — direct test
+- [x] Unit tests: minimal bundle, each controller type, nesting, cycles, dangling inputs, opaque cross-package ref, repeated invocation of the same pipe code (two nodes, distinct digests)
 
 ### CHECKPOINT 1b — builder lands (natural handoff point)
 
-- [ ] Ritual steps 1–4, including first Storybook smoke: one dev story feeding a built-from-TOML spec (`?raw` import of a fixture bundle) into `GraphViewer`, visually verified via `/browse`
-- [ ] Cold-start notes updated: builder API frozen, known rendering gaps listed
+- [x] Ritual steps 1–4, including first Storybook smoke: one dev story feeding a built-from-TOML spec (`?raw` import of a fixture bundle) into `GraphViewer`, visually verified via `/browse`
+- [x] Cold-start notes updated: builder API frozen, known rendering gaps listed
 
 ## Phase 1c — parity harness against dry-run fixtures
 
@@ -97,6 +97,21 @@ Rendering works without any of this; these make static graphs first-class.
 ## Cold-start notes
 
 _Updated at every checkpoint. A fresh session should be able to resume from here + the design doc alone._
+
+_Checkpoint 1b (2026-07-03) — Phase 1b complete._
+
+- **Current state:** the static walk exists and is visually verified. `src/static/buildStaticGraphSpec.ts` exports `buildStaticGraphSpec(mergedSet, options?)` and `buildStaticGraphSpecFromToml(tomlText | tomlText[], options?)`, both returning `{ spec, diagnostics }`; barrel-exported with `StaticGraphOptions` / `StaticGraphResult`. Every fixture bundle in `data/pipelines/` builds a validator-clean, deterministic GraphSpec (sweep test `buildFixtureGraphs.test.ts` asserts zero error diagnostics + build-twice equality). Behavior tests in `buildStaticGraphSpec.test.ts` cover all controller types, nesting, cycles, best-effort paths, entry selection, multi-domain refs. Dev story `StaticGraphDev.stories.tsx` (`Graph/GraphViewer/Static Graph (dev)`) feeds `?raw` bundle imports through the builder into `GraphViewer` — CV screening, batch, condition, deep nesting, plus a WIP/broken inline bundle; all of them visually verified via /browse, no console errors, and static CV screening lays out identically to its dry-run counterpart (status dots aside). `src/mthds-raw.d.ts` declares the `*.mthds?raw` module type. Phase 1c (parity harness) not started.
+- **Builder API considered frozen for 1c:** node ids = invocation paths (`domain.code`, `…/step_N`, `…/branch_N`, `…/outcome_<value>`, `…/default`, `…/batch_branch`); stuff digests = raw `producer_node_id:name` / `input:name`; edge ids = `static:edge_<n>`.
+- **Decisions taken at 1b** (recorded in the design doc):
+  - Digests are raw strings, not sha1 — collision-free, readable, no crypto dependency.
+  - Inline `batch_over` steps materialize a synthetic PipeBatch node (`<pipe>_batch`, "Batch processing for <pipe>", registered in `pipe_registry`) — mirrors the runtime (verified against the pipeline_08 dry fixture), not the edge-only wrapping the design first sketched.
+  - No `data` edges emitted — the UI ignores them; revisit only for non-mthds-ui consumers.
+  - Stuff-name fallback when no `result` names an output: `snake_case(concept code)` (runtime behavior, verified against dry fixtures).
+  - Condition representative output = default branch, else first producing outcome; parallel without `combined_output` exposes all branch outputs and binds the last as primary.
+  - Edge ids MUST be namespaced (`static:edge_<n>`): bare `edge_<n>` collides with the renderer's synthesized dataflow edge ids (`graphBuilders.ts`) — React silently dropped edges (found visually: missing `exit_combine → final` edge, duplicate-key console errors).
+  - `PipeSignature` already passes validation (it's in `KNOWN_PIPE_TYPES`); opaque `alias->…` leaves reuse it as their `pipe_type`. Entry selection: explicit `entryPipe` option > `main_pipe` > unreferenced-root heuristic (warning diagnostic).
+- **Code-review triage at 1b** (fresh Sonnet sub-agent, /code-review on the working tree): fixed (1) same-named dangling inputs share one `input:<name>` stuff by design (one missing working-memory entry), but a concept conflict between their declarations now emits a `conflicting-input-concept` warning instead of silently keeping the first; (2) repeated inline batches over the same pipe get distinct registry entries (`x_batch`, `x_batch_2`, …) — the detail panel resolves blueprints by `domain.pipe_code`, so a shared key showed the first invocation's `batch_params` on every node; identical repeats still reuse one entry; (3) an inline batch over a dependency-alias ref (`helpers->clean`) now strips the alias from the synthetic code (`clean_batch`, not `helpers->clean_batch`); (4) de-hardcoded a story count in these notes. All four accepted — no push-backs this round.
+- **Known rendering gaps (Phase 2 material):** status dots show on static cards (no `meta.mode` handling yet); condition outcome labels (`tags.outcome`, `contains` label) not surfaced by the UI; no batch ×N badge; signature cards already render with a dashed treatment via the existing PipeSignature support.
 
 _Checkpoint 1a (2026-07-03) — Phase 1a complete._
 
