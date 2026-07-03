@@ -933,3 +933,242 @@ prompt = "p"
     ]);
   });
 });
+
+// ─── Runtime-parity semantics (verified against the dry-run fixtures) ────────
+
+const SHARED_MEMORY = `
+domain = "mem"
+main_pipe = "outer"
+
+[pipe.outer]
+type = "PipeSequence"
+description = "Outer sequence"
+inputs = { text = "Text" }
+output = "Text"
+steps = [
+  { pipe = "prepare", result = "prepared" },
+  { pipe = "consume", result = "final" },
+]
+
+[pipe.prepare]
+type = "PipeSequence"
+description = "Inner producer"
+inputs = { text = "Text" }
+output = "Text"
+steps = [
+  { pipe = "make_side", result = "side_note" },
+  { pipe = "make_main", result = "main_out" },
+]
+
+[pipe.make_side]
+type = "PipeLLM"
+description = "Side note"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.make_main]
+type = "PipeLLM"
+description = "Main"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.consume]
+type = "PipeLLM"
+description = "Consume the side note"
+inputs = { side_note = "Text" }
+output = "Text"
+prompt = "p"
+`;
+
+describe("buildStaticGraphSpec — shared working memory", () => {
+  it("makes a nested sub-sequence's inner result visible to later ancestor steps", () => {
+    const { spec, diagnostics } = build(SHARED_MEMORY);
+    expect(diagnostics).toEqual([]);
+    const makeSide = nodeById(spec, "mem.outer/step_1/step_1");
+    const consume = nodeById(spec, "mem.outer/step_2");
+    // Working memory is one flat namespace: `side_note` is the inner step's
+    // stuff, not a freshly minted dangling input.
+    expect(consume.io.inputs).toEqual([
+      { name: "side_note", digest: makeSide.io.outputs[0].digest, concept: "Text" },
+    ]);
+    expect(makeSide.io.outputs[0].digest).toBe("mem.outer/step_1/step_1:side_note");
+  });
+});
+
+const CONDITION_MERGED = `
+domain = "condm"
+main_pipe = "screen"
+
+[pipe.screen]
+type = "PipeSequence"
+description = "Screen and route"
+inputs = { evaluation = "Text" }
+output = "Text"
+steps = [
+  { pipe = "route", result = "verdict" },
+]
+
+[pipe.route]
+type = "PipeCondition"
+description = "Route by match"
+inputs = { evaluation = "Text" }
+output = "Text"
+expression = "evaluation.match"
+outcomes = { yes = "accept", no = "reject" }
+default_outcome = "reject"
+
+[pipe.accept]
+type = "PipeLLM"
+description = "Accept"
+inputs = { evaluation = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.reject]
+type = "PipeCompose"
+description = "Reject"
+inputs = { evaluation = "Text" }
+output = "Text"
+template = "@evaluation"
+`;
+
+describe("buildStaticGraphSpec — condition outcome merging and slot naming", () => {
+  it("emits one child per distinct target pipe, merging outcomes and the default", () => {
+    const { spec, diagnostics } = build(CONDITION_MERGED);
+    expect(diagnostics).toEqual([]);
+    expect(spec.nodes.map((node) => node.id)).toEqual([
+      "condm.screen",
+      "condm.screen/step_1",
+      "condm.screen/step_1/outcome_yes",
+      "condm.screen/step_1/outcome_no",
+    ]);
+    const reject = nodeById(spec, "condm.screen/step_1/outcome_no");
+    expect(reject.tags).toEqual({ outcome: "no | default" });
+    const rejectEdge = containsEdges(spec).find(
+      (edge) => edge.target === "condm.screen/step_1/outcome_no",
+    );
+    expect(rejectEdge?.label).toBe("no | default");
+  });
+
+  it("names every branch's output after the condition's slot name", () => {
+    const { spec } = build(CONDITION_MERGED);
+    const accept = nodeById(spec, "condm.screen/step_1/outcome_yes");
+    const reject = nodeById(spec, "condm.screen/step_1/outcome_no");
+    expect(accept.io.outputs).toEqual([
+      { name: "verdict", digest: "condm.screen/step_1/outcome_yes:verdict", concept: "Text" },
+    ]);
+    expect(reject.io.outputs).toEqual([
+      { name: "verdict", digest: "condm.screen/step_1/outcome_no:verdict", concept: "Text" },
+    ]);
+    // The controller's representative output is the default route's stuff,
+    // exposed under the slot name.
+    const route = nodeById(spec, "condm.screen/step_1");
+    expect(route.io.outputs).toEqual(reject.io.outputs);
+  });
+});
+
+const PARALLEL_SLOT_NAMES = `
+domain = "slots"
+main_pipe = "run"
+
+[pipe.run]
+type = "PipeSequence"
+description = "Run the fan-out"
+inputs = { text = "Text" }
+output = "Text"
+steps = [
+  { pipe = "fan_out", result = "clean_text" },
+]
+
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Two branches"
+inputs = { text = "Text" }
+output = "Text"
+add_each_output = true
+branches = [
+  { pipe = "text_branch", result = "clean_text" },
+]
+
+[pipe.text_branch]
+type = "PipeSequence"
+description = "Text branch"
+inputs = { text = "Text" }
+output = "Text"
+steps = [
+  { pipe = "enrich", result = "enriched" },
+]
+
+[pipe.enrich]
+type = "PipeLLM"
+description = "Enrich"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`;
+
+describe("buildStaticGraphSpec — controller io slot naming", () => {
+  it("exposes a transparent output under the invoking slot name, keeping the local name on the leaf", () => {
+    const { spec, diagnostics } = build(PARALLEL_SLOT_NAMES);
+    expect(diagnostics).toEqual([]);
+    const enrich = nodeById(spec, "slots.run/step_1/branch_1/step_1");
+    const branch = nodeById(spec, "slots.run/step_1/branch_1");
+    const parallel = nodeById(spec, "slots.run/step_1");
+    const digest = enrich.io.outputs[0].digest;
+    // Leaf keeps its own step's result name; the branch sequence and the
+    // parallel both expose the same digest under the branch slot name.
+    expect(enrich.io.outputs[0].name).toBe("enriched");
+    expect(branch.io.outputs).toEqual([{ name: "clean_text", digest, concept: "Text" }]);
+    expect(parallel.io.outputs).toEqual([{ name: "clean_text", digest, concept: "Text" }]);
+  });
+});
+
+const CONDITION_DEFAULT_VALUE = `
+domain = "condd"
+main_pipe = "route"
+
+[pipe.route]
+type = "PipeCondition"
+description = "Route with an authored outcome literally named default"
+inputs = { evaluation = "Text" }
+output = "Text"
+expression = "evaluation.match"
+outcomes = { default = "accept" }
+default_outcome = "reject"
+
+[pipe.accept]
+type = "PipeLLM"
+description = "Accept"
+inputs = { evaluation = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.reject]
+type = "PipeCompose"
+description = "Reject"
+inputs = { evaluation = "Text" }
+output = "Text"
+template = "@evaluation"
+`;
+
+describe("buildStaticGraphSpec — authored outcome value named 'default'", () => {
+  it("does not collide with the synthetic default route's node id", () => {
+    const { spec, diagnostics } = build(CONDITION_DEFAULT_VALUE);
+    expect(diagnostics).toEqual([]);
+    // The authored "default" outcome and the default_outcome route target
+    // different pipes: two children with distinct ids, and the synthetic
+    // default route (not the authored value) drives the representative output.
+    expect(spec.nodes.map((node) => node.id)).toEqual([
+      "condd.route",
+      "condd.route/outcome_default",
+      "condd.route/default",
+    ]);
+    const ids = spec.nodes.map((node) => node.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    const route = nodeById(spec, "condd.route");
+    const reject = nodeById(spec, "condd.route/default");
+    expect(route.io.outputs).toEqual(reject.io.outputs);
+  });
+});

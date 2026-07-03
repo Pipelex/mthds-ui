@@ -321,8 +321,16 @@ function mintStuff(
   return record;
 }
 
-function ioItem(stuff: StuffRecord): GraphSpecNodeIoItem {
-  return { name: stuff.name, digest: stuff.digest, concept: stuff.concept.code };
+/**
+ * An io item for `stuff`, optionally exposed under a *slot name* — the name
+ * the invoking step binds it to (`result = "x"`). The runtime names a
+ * controller's transparent output by its slot, while the producing operator
+ * keeps the local name; the UI's stuff registry is first-occurrence-wins and
+ * controllers are emitted before their children, so the slot name is what
+ * renders (verified against the dry fixtures).
+ */
+function ioItem(stuff: StuffRecord, slotName?: string | null): GraphSpecNodeIoItem {
+  return { name: slotName ?? stuff.name, digest: stuff.digest, concept: stuff.concept.code };
 }
 
 function addEdge(
@@ -371,18 +379,22 @@ function conceptKey(concept: ConceptInfo): string {
  * wherever it is read, so all its consumers share one stuff. When two
  * consumers declare *different* concepts for that shared name, the first
  * mint wins and a diagnostic surfaces the authoring inconsistency.
+ *
+ * Minted dangling inputs are written into `scope`: working memory is one flat
+ * namespace shared down the walk (see the scope model note on `walkPipe`), so
+ * later readers of the same name bind the same record.
  */
 function bindInputs(
   ctx: WalkCtx,
   blueprint: PipeBlueprintUnion,
   scope: Scope,
-): { ioInputs: GraphSpecNodeIoItem[]; bindings: Scope } {
+): GraphSpecNodeIoItem[] {
   const ioInputs: GraphSpecNodeIoItem[] = [];
-  const bindings: Scope = new Map();
   for (const [name, spec] of Object.entries(blueprint.inputs)) {
     let bound = lookupScope(scope, name);
     if (bound === undefined) {
       bound = mintStuff(ctx, `input:${name}`, name, spec.concept, spec.multiplicity);
+      scope.set(name, bound);
       if (conceptKey(bound.concept) !== conceptKey(spec.concept)) {
         ctx.diagnostics.push({
           severity: "warning",
@@ -395,10 +407,9 @@ function bindInputs(
         });
       }
     }
-    bindings.set(name, bound);
     ioInputs.push(ioItem(bound));
   }
-  return { ioInputs, bindings };
+  return ioInputs;
 }
 
 function emitNode(
@@ -446,6 +457,17 @@ function emitNode(
  * Walk one pipe *invocation*: resolve the ref, emit the node (and its
  * `contains` edge), bind inputs from the caller's scope, recurse per
  * controller type, and report the invocation's output stuff.
+ *
+ * Scope model — the static mirror of the runtime's working memory, which is
+ * ONE flat namespace shared across the whole run (verified against the dry
+ * fixtures: a result produced inside a nested sub-sequence is consumed by a
+ * later step of an ancestor sequence). So: sequence steps see and mutate the
+ * caller's scope *object*; parallel/batch branches and condition outcome
+ * children each get a *copy* — branches because the runtime forks memory per
+ * branch and merges back only the declared outputs, condition outcomes
+ * because they are mutually exclusive alternatives (only one runs, so no
+ * branch's writes may be visible to its siblings or, beyond the condition's
+ * representative output, to the caller).
  */
 function walkPipe(
   ctx: WalkCtx,
@@ -472,7 +494,7 @@ function walkPipe(
 
   const { blueprint, domain, code } = resolution;
   const qualified = `${domain}.${code}`;
-  const { ioInputs, bindings } = bindInputs(ctx, blueprint, scope);
+  const ioInputs = bindInputs(ctx, blueprint, scope);
   const node = emitNode(ctx, {
     id: nodeId,
     kind: blueprint.pipe_category === "PipeController" ? "controller" : "operator",
@@ -499,13 +521,13 @@ function walkPipe(
   try {
     switch (blueprint.type) {
       case "PipeSequence":
-        return finishSequence(ctx, node, blueprint, nodeId, bindings);
+        return finishSequence(ctx, node, blueprint, nodeId, scope, inv);
       case "PipeParallel":
-        return finishParallel(ctx, node, blueprint, nodeId, bindings);
+        return finishParallel(ctx, node, blueprint, nodeId, scope, inv);
       case "PipeCondition":
-        return finishCondition(ctx, node, blueprint, nodeId, bindings);
+        return finishCondition(ctx, node, blueprint, nodeId, scope, inv);
       case "PipeBatch":
-        return finishBatch(ctx, node, blueprint, nodeId, bindings, inv);
+        return finishBatch(ctx, node, blueprint, nodeId, scope, inv);
       default:
         return finishLeaf(ctx, node, blueprint, nodeId, inv);
     }
@@ -591,9 +613,9 @@ function finishSequence(
   node: GraphSpecNode,
   blueprint: PipeSequenceBlueprint,
   nodeId: string,
-  bindings: Scope,
+  scope: Scope,
+  inv: Invocation,
 ): WalkResult {
-  const scope: Scope = new Map(bindings);
   let lastOutput: StuffRecord | null = null;
   blueprint.sequential_sub_pipes.forEach((sub, index) => {
     const result = walkSubPipe(
@@ -614,7 +636,7 @@ function finishSequence(
   // Controller transparency: the sequence's output IS its last producing
   // step's stuff — same digest, so downstream consumers wire to the real
   // producer (the UI only takes producers from non-controller nodes).
-  node.io.outputs = lastOutput === null ? [] : [ioItem(lastOutput)];
+  node.io.outputs = lastOutput === null ? [] : [ioItem(lastOutput, inv.resultName)];
   return { nodeId, output: lastOutput, eachOutputs: [] };
 }
 
@@ -623,7 +645,8 @@ function finishParallel(
   node: GraphSpecNode,
   blueprint: PipeParallelBlueprint,
   nodeId: string,
-  bindings: Scope,
+  scope: Scope,
+  inv: Invocation,
 ): WalkResult {
   const branchResults: { sub: SubPipeSpec; result: WalkResult }[] = [];
   blueprint.parallel_sub_pipes.forEach((sub, index) => {
@@ -634,7 +657,7 @@ function finishParallel(
       blueprint.domain_code,
       `${nodeId}/branch_${index + 1}`,
       nodeId,
-      new Map(bindings),
+      new Map(scope),
     );
     if (result !== null) branchResults.push({ sub, result });
   });
@@ -664,14 +687,17 @@ function finishParallel(
         });
       }
     }
-    node.io.outputs = [ioItem(combined)];
+    node.io.outputs = [ioItem(combined, inv.resultName)];
     return { nodeId, output: combined, eachOutputs };
   }
 
   // No combined output: expose every branch output (transparency — same
-  // digests as the producing branches), primary = the last producing branch.
+  // digests as the producing branches) under its branch's slot name, primary
+  // = the last producing branch.
   const producing = branchResults.filter((branch) => branch.result.output !== null);
-  node.io.outputs = producing.map((branch) => ioItem(branch.result.output as StuffRecord));
+  node.io.outputs = producing.map((branch) =>
+    ioItem(branch.result.output as StuffRecord, branch.sub.output_name),
+  );
   const primary = producing.length > 0 ? producing[producing.length - 1].result.output : null;
   return { nodeId, output: primary, eachOutputs };
 }
@@ -681,62 +707,82 @@ function finishCondition(
   node: GraphSpecNode,
   blueprint: PipeConditionBlueprint,
   nodeId: string,
-  bindings: Scope,
+  scope: Scope,
+  inv: Invocation,
 ): WalkResult {
-  const scope: Scope = new Map(bindings);
+  const conditionScope: Scope = new Map(scope);
   if (blueprint.add_alias_from_expression_to !== null) {
     const alias = blueprint.add_alias_from_expression_to;
     // The alias points at whatever the expression evaluates to at run time —
     // statically typed as native.Dynamic.
-    scope.set(
+    conditionScope.set(
       alias,
       mintStuff(ctx, `${nodeId}:${alias}`, alias, nativeConceptInfo("Dynamic"), null),
     );
   }
 
-  const results: WalkResult[] = [];
+  // One child node per distinct *target pipe*, not per outcome value —
+  // mirroring the runtime tracer. Outcomes routing to the same pipe (often
+  // one value plus `default_outcome`) merge into a single child carrying all
+  // its routing values. `fail` / `continue` are outcome actions, not refs.
+  // The default route is tracked as a flag, never as a value string — an
+  // *authored* outcome value literally named "default" must not collide with
+  // the synthetic default sentinel (node ids and primary selection key on it).
+  interface RouteEntry {
+    values: string[];
+    ref: string;
+    viaDefault: boolean;
+  }
+  const targets: RouteEntry[] = [];
+  const byRef = new Map<string, RouteEntry>();
+  const addRoute = (value: string, ref: string, isDefault: boolean): void => {
+    if (ref === "" || ref === "fail" || ref === "continue") return;
+    const existing = byRef.get(ref);
+    if (existing !== undefined) {
+      existing.values.push(value);
+      existing.viaDefault ||= isDefault;
+      return;
+    }
+    const entry = { values: [value], ref, viaDefault: isDefault };
+    byRef.set(ref, entry);
+    targets.push(entry);
+  };
   for (const [value, target] of Object.entries(blueprint.outcome_map)) {
-    // `fail` / `continue` are outcome actions, not pipe refs.
-    if (target === "fail" || target === "continue") continue;
+    addRoute(value, target, false);
+  }
+  addRoute("default", blueprint.default_outcome, true);
+
+  const results: { entry: RouteEntry; result: WalkResult }[] = [];
+  for (const entry of targets) {
+    const idSegment =
+      entry.viaDefault && entry.values.length === 1 ? "default" : `outcome_${entry.values[0]}`;
     const result = walkPipe(
       ctx,
-      target,
+      entry.ref,
       blueprint.domain_code,
-      `${nodeId}/outcome_${value}`,
+      `${nodeId}/${idSegment}`,
       nodeId,
-      new Map(scope),
+      new Map(conditionScope),
       {
-        resultName: null,
+        // The runtime stores whichever branch runs under the condition's own
+        // slot name, so every branch's output carries it (dry-run parity).
+        resultName: inv.resultName,
         outputMultiplicity: null,
-        outcomeValue: value,
+        outcomeValue: entry.values.join(" | "),
       },
     );
-    if (result !== null) results.push(result);
-  }
-  let defaultResult: WalkResult | null = null;
-  const fallback = blueprint.default_outcome;
-  if (fallback !== "" && fallback !== "fail" && fallback !== "continue") {
-    defaultResult = walkPipe(
-      ctx,
-      fallback,
-      blueprint.domain_code,
-      `${nodeId}/default`,
-      nodeId,
-      new Map(scope),
-      {
-        resultName: null,
-        outputMultiplicity: null,
-        outcomeValue: "default",
-      },
-    );
+    if (result !== null) results.push({ entry, result });
   }
 
   // Statically all outcomes exist; pick one representative output for the
-  // controller (the default branch when present, else the first producing
+  // controller (the default route when present, else the first producing
   // outcome) so downstream consumers wire to a real producer.
   const primary =
-    defaultResult?.output ?? results.find((result) => result.output !== null)?.output ?? null;
-  node.io.outputs = primary === null ? [] : [ioItem(primary)];
+    results.find(({ entry, result }) => entry.viaDefault && result.output !== null)?.result
+      .output ??
+    results.find(({ result }) => result.output !== null)?.result.output ??
+    null;
+  node.io.outputs = primary === null ? [] : [ioItem(primary, inv.resultName)];
   return { nodeId, output: primary, eachOutputs: [] };
 }
 
@@ -745,14 +791,14 @@ function finishBatch(
   node: GraphSpecNode,
   blueprint: PipeBatchBlueprint,
   nodeId: string,
-  bindings: Scope,
+  scope: Scope,
   inv: Invocation,
 ): WalkResult {
   const params = blueprint.batch_params;
 
   let listStuff: StuffRecord | null = null;
   if (params.input_list_stuff_name !== "") {
-    const bound = bindings.get(params.input_list_stuff_name);
+    const bound = lookupScope(scope, params.input_list_stuff_name);
     if (bound !== undefined) {
       listStuff = bound;
     } else {
@@ -770,7 +816,7 @@ function finishBatch(
   }
 
   let itemStuff: StuffRecord | null = null;
-  const branchScope: Scope = new Map(bindings);
+  const branchScope: Scope = new Map(scope);
   if (params.input_item_stuff_name !== "" && listStuff !== null) {
     // The item is one element of the list: same concept, single multiplicity.
     itemStuff = mintStuff(
@@ -878,7 +924,7 @@ function walkInlineBatch(
   };
   ctx.pipeRegistry[`${domain}.${code}`] ??= blueprint;
 
-  const { ioInputs, bindings } = bindInputs(ctx, blueprint, scope);
+  const ioInputs = bindInputs(ctx, blueprint, scope);
   const inv: Invocation = {
     resultName: sub.output_name,
     outputMultiplicity: sub.output_multiplicity,
@@ -894,5 +940,5 @@ function walkInlineBatch(
     parentId,
     inv,
   });
-  return finishBatch(ctx, node, blueprint, nodeId, bindings, inv);
+  return finishBatch(ctx, node, blueprint, nodeId, scope, inv);
 }

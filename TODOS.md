@@ -59,16 +59,16 @@ The algorithm as specified in the design doc ("The static graph algorithm"). Pur
 
 The acceptance test and permanent Python↔TS drift detector. No Python at test time — the Python side is already checked in.
 
-- [ ] Vitest suite: run the builder on every `data/pipelines/pipeline_NN/bundle.mthds`, compare against the corresponding `_generated.dry.ts` GraphSpec
-- [ ] Normalization layer (documented rules): map ids by invocation structure, collapse dry-run batch fan-out (3 branches) to one, collapse elaboration expansion (`<code>__draft_text` + synthetic PipeStructure → authored PipeLLM), strip runtime fields
-- [ ] Comparison over: node multiset, containment tree, producer/consumer relation per stuff
-- [ ] Explicitly verify the `combined_output` case — the dry run registers the _controller_ as producer while the UI only accepts non-controller producers; if this exposes a real rendering quirk, document it here and (if the root cause is in pipelex) write a bugfix brief in `pipelex/wip/` — do not edit the pipelex repo
-- [ ] Document any legitimate, accepted divergences in `wip/static-graph-design.md`
+- [x] Vitest suite: run the builder on every `data/pipelines/pipeline_NN/bundle.mthds`, compare against the corresponding dry-run GraphSpec (`dry_run_graph_spec.json` — same generator output as `_generated.dry.ts`, no React-side import needed)
+- [x] Normalization layer (documented rules): map ids by invocation structure, collapse dry-run batch fan-out to one branch, strip runtime fields (elaboration collapse documented as not-implemented — no fixture uses `preliminary_text`, parity fails loudly if one appears)
+- [x] Comparison over: node multiset, containment tree, producer/consumer relation per stuff (via the renderer's own `buildDataflowAnalysis`)
+- [x] Explicitly verify the `combined_output` case — pinned by a direct test (producer-less on both paths, `parallel_combine` stuff-edges carry the dataflow, renderer handles it; cosmetic role-`input` quirk noted for Phase 2). End-to-end fixture impossible: pipelex deleted `combined_output` upstream (#1014) after the corpus was generated — see design doc
+- [x] Document any legitimate, accepted divergences in `wip/static-graph-design.md`
 
 ### CHECKPOINT 1c — parity proven
 
-- [ ] Ritual steps 1–4
-- [ ] Cold-start notes: parity report summary (which pipelines match, which diverge and why)
+- [x] Ritual steps 1–4
+- [x] Cold-start notes: parity report summary (which pipelines match, which diverge and why)
 
 ## Phase 2 — UI adaptations
 
@@ -97,6 +97,15 @@ Rendering works without any of this; these make static graphs first-class.
 ## Cold-start notes
 
 _Updated at every checkpoint. A fresh session should be able to resume from here + the design doc alone._
+
+_Checkpoint 1c (2026-07-04) — Phase 1c complete._
+
+- **Parity report: every fixture pipeline matches its dry-run GraphSpec with an EMPTY per-pipeline allowlist** (`ACCEPTED_DIVERGENCES = {}` in `src/static/__tests__/parity.test.ts`). The only standing lenient rule is corpus-wide, not per-pipeline: dry-side `concept=Anything` is a wildcard (the runtime types batch aggregates as `Anything`; the static side keeps the declared concept — richer, accepted). Full normalization rules live in the `parityHarness.ts` header and the design doc's "Parity harness" section.
+- **Harness shape:** `parityHarness.ts` (test-only helper) exports `collapseBatchFanOut`, `canonicalizeGraph`, `compareParity`. Canonical node identity = containment paths from `pipe_code` segments (`#k` suffix for same-code siblings); stuff identity = relation signature (producer path, name, concept, sorted consumer paths) computed with the renderer's own `buildDataflowAnalysis`; signatures compared as multisets, divergences returned as readable lines. Dry side loads `data/pipelines/pipeline_NN/dry_run_graph_spec.json` via fs — no React-side imports. Sensitivity is self-tested (dropped node / rewired consumer must diverge; batch collapse proven on the batch fixture).
+- **Builder semantics changed at 1c to match the runtime** (all four verified against dry fixtures, behavior-tested in `buildStaticGraphSpec.test.ts` under "Runtime-parity semantics"): (1) shared working memory — sequence steps mutate the caller's scope object (so nested sub-sequence results are visible to later ancestor steps) while parallel/batch branches and condition outcome children get copies; (2) condition children all carry the condition invocation's `resultName` as their output stuff name; (3) condition outcomes dedupe by _target pipe_ — outcomes routing to the same pipe (incl. `default_outcome`) merge into one child node, `tags.outcome`/edge label = values joined with `" | "`, id = `outcome_<first value>` (or `/default` if default-only); (4) controller io exposes transparent outputs under the invoking slot name (`ioItem(stuff, slotName)`) while leaves keep local names — first-occurrence-wins in the UI registry then renders the outermost alias, same as dry.
+- **`combined_output` finding (upstream surprise):** pipelex deleted `combined_output` in #1014 ("PipeParallel always combines", adds `native.Composite`) — the installed pipelex 0.36.0 _rejects_ the field on authored bundles, while the MTHDS spec and `data/schema/mthds_schema.json` still document it. So no end-to-end fixture is possible; the semantics are pinned by a direct test in `parity.test.ts` instead (combined stuff is producer-less on both paths, consumed by digest, fed by `parallel_combine` stuff-edges). Cosmetic quirk for Phase 2: producer-less stuff is role-classified `input` in `graphBuilders.ts`, so combined stuff wears an input-style label (applies to dry too).
+- **Fixture corpus is pinned to the pre-#1014 pipelex generation.** Regenerating with pipelex ≥ 0.36 will shift every parallel graph to always-combine semantics — a dedicated follow-up task (regenerate corpus + adapt builder + re-verify stories), do NOT casually run `make fixtures`. Related: `.pipelex/pipelex.toml` was stripped of config sections pipelex 0.36.0 rejects (`temporal`, `cogt.tenacity_config`, `tracing_config.temporal_dynamodb`) so the CLI can run at all in this repo.
+- **Phase 2 not started.** Rendering gaps carried over from 1b (status dots, outcome labels, batch badge) plus the new role-`input` quirk above.
 
 _Checkpoint 1b (2026-07-03) — Phase 1b complete._
 
