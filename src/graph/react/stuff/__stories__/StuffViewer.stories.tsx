@@ -189,6 +189,121 @@ const INTERNAL_STORAGE_IMAGE_STUFF: StuffViewerData = {
   dataHtml: '<img src="pipelex-storage://anonymous/85bc58dc26cda5ab.png" class="msg-img">',
 };
 
+// A full rendered devis, exactly as an MTHDS `Html`-refining concept carries it:
+// the whole document lives in `inner_html`, styles included. The StuffViewer must
+// render this in a real sandboxed iframe so the <style> block applies faithfully
+// instead of being flattened / stripped.
+const DEVIS_INNER_HTML = `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Devis LATL-2087</title>
+<style>
+  :root{--ink:#1a1a1a;--muted:#6b6b6b;--line:#dcdcdc;--bg:#fff;--gold:#b8912f;--accent:#111;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f2f2f2;color:var(--ink);font:14px/1.55 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+  .sheet{max-width:820px;margin:24px auto;background:var(--bg);padding:44px 52px 60px;box-shadow:0 1px 6px rgba(0,0,0,.12);}
+  header.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--accent);padding-bottom:18px;}
+  .maison .name{font-size:22px;letter-spacing:.28em;font-weight:600;text-transform:uppercase;}
+  .maison .tagline{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+  .maison .addr{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .cobrand{text-align:right;font-size:12px;color:var(--muted);}
+  .cobrand .brand{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:600;}
+  .devis-band{display:flex;justify-content:space-between;align-items:flex-start;margin:22px 0 8px;gap:20px;}
+  .devis-band .num{font-size:16px;font-weight:700;letter-spacing:.04em;border:1px solid var(--accent);padding:6px 12px;white-space:nowrap;}
+  .refs{font-size:11.5px;color:var(--muted);text-align:right;line-height:1.7;}
+  .refs b{color:var(--ink);font-weight:600;}
+  h2{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:5px;margin:26px 0 12px;}
+  .watch{display:grid;grid-template-columns:1fr 1fr;gap:2px 26px;font-size:12.5px;}
+  .watch div span{color:var(--muted);display:inline-block;min-width:104px;}
+  ul.diag{margin:0;padding-left:18px;font-size:13px;}
+  ul.diag li{margin:3px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--accent);padding:6px 4px;}
+  th.num,td.num{text-align:right;white-space:nowrap;}
+  td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top;}
+  td .ops{margin:5px 0 0;padding-left:16px;color:var(--muted);font-size:11.5px;}
+  .qty{color:var(--muted);font-size:12px;}
+  .totals{margin-top:14px;margin-left:auto;width:290px;font-size:13px;}
+  .totals div{display:flex;justify-content:space-between;padding:4px 0;}
+  .totals .grand{border-top:2px solid var(--accent);margin-top:4px;padding-top:8px;font-weight:700;font-size:15px;}
+  .delay{margin-top:22px;font-size:12.5px;font-weight:600;}
+  .terms{margin-top:26px;font-size:11px;color:#444;}
+  .terms .block{margin-top:12px;}
+  .terms .block .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="top">
+    <div class="maison">
+      <div class="name">Les Ateliers</div>
+      <div class="tagline">Atelier horloger — Genève</div>
+      <div class="addr">12 Rue du Rhône<br/>1204 Genève</div>
+    </div>
+    <div class="cobrand">Service agréé<div class="brand">TAG Heuer</div></div>
+  </header>
+  <div class="devis-band">
+    <div class="num">DEVIS N° LATL-2087</div>
+    <div class="refs">Le <b>06/07/2026</b><br/>Valable jusqu'au <b>06/09/2026</b><br/>Votre référence : <b>Carnet-2087 / M. Dubois</b><br/>Référence dossier : <b>TAG-DV-55913</b></div>
+  </div>
+  <div style="font-size:12.5px;margin-bottom:4px">Concernant la montre de <b>M. Dubois</b></div>
+  <h2>Votre garde-temps</h2>
+  <div class="watch">
+    <div><span>Marque</span>TAG Heuer</div>
+    <div><span>Collection</span>Carrera</div>
+    <div><span>Modèle</span>Chronographe</div>
+    <div><span>Référence</span>CBN2A1B</div>
+    <div><span>N° de série</span>RPX8842</div>
+    <div><span>Calibre</span>Heuer 02</div>
+  </div>
+  <h2>Diagnostic de notre atelier</h2>
+  <ul class="diag"><li>Réserve de marche insuffisante, oscillations irrégulières.</li><li>Étanchéité à contrôler, joints à remplacer.</li></ul>
+  <h2>Interventions nécessaires</h2>
+  <table>
+    <thead><tr><th>Prestation</th><th class="num">Prix TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Révision complète du mouvement<ul class="ops"><li>Démontage, nettoyage, remontage</li><li>Lubrification et réglage</li></ul></td><td class="num">690,00&nbsp;€</td></tr>
+      <tr><td>Remplacement des joints d'étanchéité</td><td class="num">Inclus</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div><span>Total H.T.</span><span>575,00&nbsp;€</span></div>
+    <div><span>TVA 20 %</span><span>115,00&nbsp;€</span></div>
+    <div class="grand"><span>Total TTC</span><span>690,00&nbsp;€</span></div>
+  </div>
+  <div class="delay">Délai estimé : 6 semaines à réception de votre accord.</div>
+  <h2>Conditions</h2>
+  <div class="terms">
+    <div class="block"><div class="lbl">Garantie du service</div>L'intervention est garantie 24 mois.</div>
+    <div class="block"><div class="lbl">Validité de l'offre</div>Ce devis est valable 2 mois à compter de sa date d'émission.</div>
+  </div>
+</div>
+</body>
+</html>`;
+
+// Native `Html` concept: stuff.data IS `{ inner_html, css_class }`.
+const NATIVE_HTML_STUFF: StuffViewerData = {
+  digest: "devis1",
+  name: "client_html",
+  concept: "ClientQuoteHtml",
+  data: { inner_html: DEVIS_INNER_HTML, css_class: "" },
+};
+
+// Wrapped concept: a structured concept (title/date) whose `html_repr` field IS a
+// native `Html` concept. The iframe must still find and render the nested inner_html.
+const WRAPPED_HTML_STUFF: StuffViewerData = {
+  digest: "wrap01",
+  name: "quote_document",
+  concept: "QuoteDocument",
+  data: {
+    title: "Devis de révision — Carrera",
+    date: "2026-07-06",
+    html_repr: { inner_html: DEVIS_INNER_HTML, css_class: "quote-sheet" },
+  },
+};
+
 const EMPTY_STUFF: StuffViewerData = {
   digest: "empty",
 };
@@ -303,6 +418,37 @@ export const InternalStorageImage: Story = {
     const thumbnailElements = canvas.getAllByText("thumbnail");
     await expect(thumbnailElements.length).toBeGreaterThanOrEqual(1);
     await expect(canvas.getByText(/no preview available/)).toBeInTheDocument();
+  },
+};
+
+/** Native `Html` concept — the whole devis document lives in `inner_html` and
+ *  must render inside a real sandboxed iframe (its own <style> applies). */
+export const NativeHtmlConcept: Story = {
+  args: { stuff: NATIVE_HTML_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("client_html")).toBeInTheDocument();
+    await expect(canvas.getByText("ClientQuoteHtml")).toBeInTheDocument();
+    // The document renders in an iframe, not inlined into the host DOM.
+    const frame = canvasElement.querySelector("iframe.stuff-viewer-html-frame");
+    await expect(frame).not.toBeNull();
+    await expect(frame).toHaveAttribute("sandbox", "");
+    // The devis markup is inside the iframe's srcDoc, not the host document.
+    await expect(frame?.getAttribute("srcdoc") ?? "").toContain("DEVIS N° LATL-2087");
+    await expect(canvas.queryByText("DEVIS N° LATL-2087")).toBeNull();
+  },
+};
+
+/** Wrapped concept — a structured concept (title/date) whose `html_repr` field
+ *  is itself an `Html` concept. The iframe must still find the nested inner_html. */
+export const WrappedHtmlConcept: Story = {
+  args: { stuff: WRAPPED_HTML_STUFF },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("quote_document")).toBeInTheDocument();
+    const frame = canvasElement.querySelector("iframe.stuff-viewer-html-frame");
+    await expect(frame).not.toBeNull();
+    await expect(frame?.getAttribute("srcdoc") ?? "").toContain("DEVIS N° LATL-2087");
   },
 };
 

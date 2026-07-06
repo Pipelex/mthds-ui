@@ -5,6 +5,7 @@ import type { ResolveStorageUrl, StuffViewerData } from "./stuffViewerTypes";
 import {
   extractFilename,
   extractInlineUrl,
+  extractInnerHtml,
   extractStorageUri,
   extractUrl,
   getHtmlTabLabel,
@@ -121,6 +122,10 @@ export function StuffViewer({
   // Internal pipelex-storage:// URI, if any — needs async resolution before rendering
   const storageUri = React.useMemo(() => extractStorageUri(stuff.data), [stuff.data]);
   const filename = React.useMemo(() => extractFilename(stuff.data), [stuff.data]);
+  // Native MTHDS `Html` concept content (inner_html), if the stuff is — or wraps
+  // — an Html concept. When present, the HTML tab renders it in a real sandboxed
+  // iframe so the document's own <style>/layout is isolated from the host page.
+  const innerHtml = React.useMemo(() => extractInnerHtml(stuff.data), [stuff.data]);
 
   // Resolve pipelex-storage:// URIs to browser-fetchable URLs via the provided resolver.
   // Only runs when no direct http(s) URL is available — we prefer public_url/src/href first.
@@ -262,6 +267,22 @@ export function StuffViewer({
         return renderMediaFallback("Image");
       }
 
+      // Native `Html` concept — render the full document in a real, fully
+      // sandboxed iframe so its own <style>/layout renders faithfully and stays
+      // isolated from the host page. `sandbox=""` blocks scripts, same-origin
+      // access, forms and navigation; we still run the markup through DOMPurify
+      // (whole-document) as defense in depth.
+      if (innerHtml != null) {
+        return (
+          <iframe
+            className="stuff-viewer-html-frame"
+            title={stuff.name ? `${stuff.name} preview` : "HTML preview"}
+            sandbox=""
+            srcDoc={DOMPurify.sanitize(innerHtml, { WHOLE_DOCUMENT: true })}
+          />
+        );
+      }
+
       // HTML content
       if (stuff.dataHtml) {
         return (
@@ -330,7 +351,7 @@ export function StuffViewer({
     } else if (activeTab === "text") {
       textToCopy = stuff.dataText || jsonString || "";
     } else {
-      textToCopy = stuff.dataText || stuff.dataHtml || jsonString || "";
+      textToCopy = innerHtml || stuff.dataText || stuff.dataHtml || jsonString || "";
     }
     if (!textToCopy) return;
 
@@ -372,7 +393,7 @@ export function StuffViewer({
       );
     } else {
       downloadBlob(
-        stuff.dataHtml || jsonString || "",
+        innerHtml || stuff.dataHtml || jsonString || "",
         `${stuff.name || "stuff"}.html`,
         "text/html",
       );
