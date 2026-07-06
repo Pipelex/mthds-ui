@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.12.0] - 2026-07-06
+
+### Added
+
+- **`StuffViewer` renders native `Html` concepts in a real sandboxed iframe.** When a stuff is (or wraps) an MTHDS `Html` concept, the HTML tab now renders its `inner_html` inside a fully sandboxed `<iframe>` (`sandbox=""`, `srcDoc`) instead of flattening it with inline sanitization. A full `<!doctype html>` document with its own `<style>` — an invoice, quote or report — now renders faithfully and stays isolated from the host page (no style leakage, doctype/`<head>`/`<style>` preserved). The markup still passes through a whole-document DOMPurify sweep as defense in depth. A new `extractInnerHtml` helper (`stuffViewerUtils.ts`) finds `inner_html` either directly (`{ inner_html, css_class }`) or one level deep in a structured concept that holds an `Html` field (e.g. `{ title, date, html_repr: { inner_html, css_class } }`); whitespace-only values are treated as absent so the viewer falls through to the existing `data_html`/JSON paths. Copy and Download on the HTML tab prefer this `inner_html`. New stories `Graph/StuffViewer` → `NativeHtmlConcept` and `WrappedHtmlConcept`; see `docs/stuff-viewer.md`.
+
 ## [v0.11.0] - 2026-06-30
 
 ### Fixed

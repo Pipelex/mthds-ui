@@ -4,6 +4,7 @@ import {
   isInlineRenderableUrl,
   extractUrl,
   extractInlineUrl,
+  extractInnerHtml,
   extractFilename,
   getHtmlTabLabel,
   findStuffDataByDigest,
@@ -111,6 +112,56 @@ describe("extractInlineUrl", () => {
   it("returns null for null/undefined data", () => {
     expect(extractInlineUrl(null)).toBeNull();
     expect(extractInlineUrl(undefined)).toBeNull();
+  });
+});
+
+// ─── extractInnerHtml ────────────────────────────────────────────────────────
+
+describe("extractInnerHtml", () => {
+  it("extracts inner_html from a native Html concept", () => {
+    expect(extractInnerHtml({ inner_html: "<h1>Hi</h1>", css_class: "" })).toBe("<h1>Hi</h1>");
+  });
+
+  it("extracts inner_html from a wrapped concept (nested one level)", () => {
+    expect(
+      extractInnerHtml({
+        title: "Devis",
+        date: "2026-07-06",
+        html_repr: { inner_html: "<p>doc</p>", css_class: "sheet" },
+      }),
+    ).toBe("<p>doc</p>");
+  });
+
+  it("prefers a top-level inner_html over a nested one", () => {
+    expect(
+      extractInnerHtml({
+        inner_html: "<b>top</b>",
+        nested: { inner_html: "<b>deep</b>" },
+      }),
+    ).toBe("<b>top</b>");
+  });
+
+  it("treats whitespace-only inner_html as absent", () => {
+    expect(extractInnerHtml({ inner_html: "   \n  ", css_class: "" })).toBeNull();
+  });
+
+  it("returns null when no inner_html is present", () => {
+    expect(extractInnerHtml({ title: "x", body: "y" })).toBeNull();
+  });
+
+  it("returns null for non-string inner_html", () => {
+    expect(extractInnerHtml({ inner_html: 42 })).toBeNull();
+  });
+
+  it("does not descend into arrays", () => {
+    expect(extractInnerHtml({ items: [{ inner_html: "<p>x</p>" }] })).toBeNull();
+  });
+
+  it("returns null for null/undefined/non-object data", () => {
+    expect(extractInnerHtml(null)).toBeNull();
+    expect(extractInnerHtml(undefined)).toBeNull();
+    expect(extractInnerHtml("string")).toBeNull();
+    expect(extractInnerHtml(["a"])).toBeNull();
   });
 });
 
