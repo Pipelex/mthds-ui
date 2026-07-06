@@ -17,6 +17,14 @@
 
 - **`PipeExtractBlueprint.document_stuff_name` is now `string | null`.** The pipelex runtime sets exactly one of `image_stuff_name` / `document_stuff_name` (an image-based extract serializes `document_stuff_name: null`), so the previous non-null `string` type misdescribed real registry payloads. Breaking for consumers reading the field without a null check.
 
+## [v0.12.0] - 2026-07-06
+
+### Added
+
+- **`StuffViewer` renders native `Html` concepts in a real sandboxed iframe.** When a stuff is (or wraps) an MTHDS `Html` concept, the HTML tab now renders its `inner_html` inside a fully sandboxed `<iframe>` (`sandbox=""`, `srcDoc`) instead of flattening it with inline sanitization. A full `<!doctype html>` document with its own `<style>` — an invoice, quote or report — now renders faithfully and stays isolated from the host page (no style leakage, doctype/`<head>`/`<style>` preserved). The markup still passes through a whole-document DOMPurify sweep as defense in depth. A new `extractInnerHtml` helper (`stuffViewerUtils.ts`) finds `inner_html` either directly (`{ inner_html, css_class }`) or one level deep in a structured concept that holds an `Html` field (e.g. `{ title, date, html_repr: { inner_html, css_class } }`); whitespace-only values are treated as absent so the viewer falls through to the existing `data_html`/JSON paths. Copy and Download on the HTML tab prefer this `inner_html`. New stories `Graph/StuffViewer` → `NativeHtmlConcept` and `WrappedHtmlConcept`; see `docs/stuff-viewer.md`.
+
+## [v0.11.0] - 2026-06-30
+
 ### Fixed
 
 - **Render `PipeStructure` operator nodes in the method graph.** A node with `pipe_type: "PipeStructure"` — emitted by pipelex for a real LLM-backed operator that turns Text into a structured concept (via `structuring_method = preliminary_text` or explicit authoring) — now validates and renders as an ordinary operator card (badge `Structure`) instead of throwing `GraphSpecValidationError` and blanking the entire viewer (the standalone adapter's "Failed to render method graph" screen). `PipeStructure` joins `PipeOperatorType`, gains a `PipeStructureBlueprint` in the registry union, and the detail panel shows its structuring config (model, text variable, output multiplicity, rendered prompt).

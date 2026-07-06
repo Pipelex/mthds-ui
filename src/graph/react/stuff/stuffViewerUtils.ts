@@ -84,6 +84,43 @@ export function extractStorageUri(data: unknown): string | null {
   return null;
 }
 
+/**
+ * Extract the `inner_html` of a native MTHDS `Html` concept from stuff data.
+ *
+ * The `Html` native concept (and anything refining it) carries its content in an
+ * `inner_html` string field (paired with `css_class`). This can appear either:
+ *   - directly, when the stuff *is* an `Html` concept — `{ inner_html, css_class }`
+ *   - wrapped, when the stuff is a structured concept holding an `Html` field —
+ *     e.g. `{ title, date, html_repr: { inner_html, css_class } }`
+ *
+ * We look at the top level first, then one level deep into object-valued fields,
+ * returning the first non-empty `inner_html` found. Whitespace-only values are
+ * treated as absent (nothing to render). Returns null when no `Html` concept is
+ * present, so the caller can fall back to the normal HTML/JSON rendering paths.
+ */
+export function extractInnerHtml(data: unknown): string | null {
+  const fromObject = (obj: Record<string, unknown>): string | null => {
+    const value = obj.inner_html;
+    if (typeof value === "string" && value.trim() !== "") return value;
+    return null;
+  };
+
+  if (!data || typeof data !== "object" || Array.isArray(data)) return null;
+  const obj = data as Record<string, unknown>;
+
+  const direct = fromObject(obj);
+  if (direct != null) return direct;
+
+  for (const value of Object.values(obj)) {
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      const nested = fromObject(value as Record<string, unknown>);
+      if (nested != null) return nested;
+    }
+  }
+
+  return null;
+}
+
 /** Extract the filename from stuff data, if available. */
 export function extractFilename(data: unknown): string | null {
   if (!data || typeof data !== "object") return null;
