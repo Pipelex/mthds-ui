@@ -71,6 +71,12 @@ describe("buildStaticGraphSpec — minimal bundle", () => {
     expect(spec.concept_registry).toHaveProperty("native.Text");
   });
 
+  it("emits a static GraphSpec that validates directly", () => {
+    const { spec } = buildStaticGraphSpecFromToml(MINIMAL);
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+    expect(spec.meta).toEqual({ format: "mthds", mode: "static" });
+  });
+
   it("is deterministic across builds", () => {
     const first = build(MINIMAL).spec;
     const second = build(MINIMAL).spec;
@@ -436,6 +442,43 @@ describe("buildStaticGraphSpec — PipeBatch", () => {
     // The aggregate is a fresh list stuff, not the branch's.
     expect(batch.io.outputs[0].digest).not.toBe(branch.io.outputs[0].digest);
   });
+
+  it("tags the batch card with declared list multiplicity", () => {
+    const { spec } = build(BATCH_DECLARED);
+    expect(nodeById(spec, "batch.summarize_all").tags).toMatchObject({
+      batch_multiplicity: "xmany",
+    });
+    expect(nodeById(spec, "batch.summarize_all/batch_branch").tags).toMatchObject({
+      batch_multiplicity: "xmany",
+    });
+  });
+
+  it("tags exact list multiplicity as xN", () => {
+    const toml = `
+domain = "batch_exact"
+main_pipe = "summarize_all"
+
+[pipe.summarize_all]
+type = "PipeBatch"
+description = "Summarize each fixed page"
+inputs = { pages = "Page[3]" }
+output = "Text[]"
+branch_pipe_code = "summarize_page"
+input_list_name = "pages"
+input_item_name = "page"
+
+[pipe.summarize_page]
+type = "PipeLLM"
+description = "Summarize one page"
+inputs = { page = "Page" }
+output = "Text"
+prompt = "p"
+`;
+    const { spec } = build(toml);
+    expect(nodeById(spec, "batch_exact.summarize_all").tags).toMatchObject({
+      batch_multiplicity: "x3",
+    });
+  });
 });
 
 const BATCH_INLINE = `
@@ -492,6 +535,8 @@ describe("buildStaticGraphSpec — inline batch_over step", () => {
     expect(branch.pipe_code).toBe("enrich_one");
     // The minted item carries the list's element concept.
     expect(branch.io.inputs[0]).toMatchObject({ name: "record", concept: "Record" });
+    expect(batch.tags).toMatchObject({ batch_multiplicity: "xmany" });
+    expect(branch.tags).toMatchObject({ batch_multiplicity: "xmany" });
   });
 
   it("names the aggregate after the step result and binds it downstream", () => {

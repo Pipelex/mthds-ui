@@ -9031,3 +9031,772 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_WIDE_PARALLEL matches 
   ],
 }
 `;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_CV_SCREENING matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "recruitment.cv_screening/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "recruitment.cv_screening/step_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "recruitment.cv_screening/step_3/branch_1",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "recruitment.cv_screening/step_3/branch_2",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "edge_4",
+      "source": "recruitment.cv_screening/step_4",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_5",
+      "source": "recruitment.cv_screening/step_5",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "recruitment.cv_screening/step_1",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "recruitment.cv_screening/step_2",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d3",
+      "target": "recruitment.cv_screening/step_3/branch_1",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d3",
+      "target": "recruitment.cv_screening/step_3/branch_2",
+    },
+    {
+      "id": "edge_10",
+      "source": "stuff_d3",
+      "target": "recruitment.cv_screening/step_4",
+    },
+    {
+      "id": "edge_11",
+      "source": "stuff_d3",
+      "target": "recruitment.cv_screening/step_5",
+    },
+    {
+      "id": "edge_12",
+      "source": "stuff_d4",
+      "target": "recruitment.cv_screening/step_4",
+    },
+    {
+      "id": "edge_13",
+      "source": "stuff_d6",
+      "target": "recruitment.cv_screening/step_5",
+    },
+    {
+      "id": "edge_14",
+      "source": "stuff_d5",
+      "target": "recruitment.cv_screening/step_5",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "recruitment.cv_screening",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "recruitment.cv_screening/step_3",
+      "parentId": "recruitment.cv_screening",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "recruitment.cv_screening/step_1",
+      "parentId": "recruitment.cv_screening",
+      "type": "pipeCard",
+    },
+    {
+      "id": "recruitment.cv_screening/step_2",
+      "parentId": "recruitment.cv_screening",
+      "type": "pipeCard",
+    },
+    {
+      "id": "recruitment.cv_screening/step_4",
+      "parentId": "recruitment.cv_screening",
+      "type": "pipeCard",
+    },
+    {
+      "id": "recruitment.cv_screening/step_5",
+      "parentId": "recruitment.cv_screening",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "recruitment.cv_screening",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "recruitment.cv_screening",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "recruitment.cv_screening",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": "recruitment.cv_screening",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "recruitment.cv_screening",
+      "type": "default",
+    },
+    {
+      "id": "recruitment.cv_screening/step_3/branch_1",
+      "parentId": "recruitment.cv_screening/step_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "recruitment.cv_screening/step_3/branch_2",
+      "parentId": "recruitment.cv_screening/step_3",
+      "type": "pipeCard",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_DEEP_NESTING matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "deep_processing.deep_nested_pipeline/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "deep_processing.deep_nested_pipeline/step_2/branch_1/batch_branch",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_2",
+      "source": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_1",
+      "target": "stuff_d7",
+    },
+    {
+      "id": "edge_3",
+      "source": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_2",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_4",
+      "source": "deep_processing.deep_nested_pipeline/step_3",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "deep_processing.deep_nested_pipeline/step_1",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d5",
+      "target": "deep_processing.deep_nested_pipeline/step_2/branch_1/batch_branch",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_1",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d7",
+      "target": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_2",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d3",
+      "target": "deep_processing.deep_nested_pipeline/step_3",
+    },
+    {
+      "id": "edge_10",
+      "source": "stuff_d4",
+      "target": "deep_processing.deep_nested_pipeline/step_3",
+    },
+    {
+      "id": "static:edge_4",
+      "source": "stuff_d2",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "static:edge_5",
+      "source": "stuff_d6",
+      "target": "stuff_d3",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "deep_processing.deep_nested_pipeline",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_1",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_3",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "deep_processing.deep_nested_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2/branch_1",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2/branch_2",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2/branch_1/batch_branch",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_1",
+      "type": "pipeCard",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_1",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_2",
+      "type": "pipeCard",
+    },
+    {
+      "id": "deep_processing.deep_nested_pipeline/step_2/branch_2/step_2",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_2",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_1",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_1",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d7",
+      "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_2",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_SIMPLE_BATCH matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "document_batch.batch_ocr_pipeline/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "document_batch.batch_ocr_pipeline/step_2/batch_branch",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "edge_2",
+      "source": "document_batch.batch_ocr_pipeline/step_3",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_3",
+      "source": "stuff_d0",
+      "target": "document_batch.batch_ocr_pipeline/step_1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d4",
+      "target": "document_batch.batch_ocr_pipeline/step_2/batch_branch",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d3",
+      "target": "document_batch.batch_ocr_pipeline/step_3",
+    },
+    {
+      "id": "static:edge_3",
+      "source": "stuff_d2",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "static:edge_4",
+      "source": "stuff_d5",
+      "target": "stuff_d3",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "document_batch.batch_ocr_pipeline",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "document_batch.batch_ocr_pipeline/step_2",
+      "parentId": "document_batch.batch_ocr_pipeline",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "document_batch.batch_ocr_pipeline/step_1",
+      "parentId": "document_batch.batch_ocr_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "document_batch.batch_ocr_pipeline/step_3",
+      "parentId": "document_batch.batch_ocr_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "document_batch.batch_ocr_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "document_batch.batch_ocr_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "document_batch.batch_ocr_pipeline/step_2/batch_branch",
+      "parentId": "document_batch.batch_ocr_pipeline/step_2",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": "document_batch.batch_ocr_pipeline/step_2",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "document_batch.batch_ocr_pipeline/step_2",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_SIMPLE_CONDITION matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "translation.translate_pipeline/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "translation.translate_pipeline/step_2/outcome_english",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "translation.translate_pipeline/step_2/outcome_french",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "translation.translate_pipeline/step_2/default",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "translation.translate_pipeline/step_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d2",
+      "target": "translation.translate_pipeline/step_2/outcome_english",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d2",
+      "target": "translation.translate_pipeline/step_2/outcome_french",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "translation.translate_pipeline/step_2/default",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "translation.translate_pipeline",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "translation.translate_pipeline/step_2",
+      "parentId": "translation.translate_pipeline",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "translation.translate_pipeline/step_1",
+      "parentId": "translation.translate_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "translation.translate_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "translation.translate_pipeline/step_2/outcome_english",
+      "parentId": "translation.translate_pipeline/step_2",
+      "type": "pipeCard",
+    },
+    {
+      "id": "translation.translate_pipeline/step_2/outcome_french",
+      "parentId": "translation.translate_pipeline/step_2",
+      "type": "pipeCard",
+    },
+    {
+      "id": "translation.translate_pipeline/step_2/default",
+      "parentId": "translation.translate_pipeline/step_2",
+      "type": "pipeCard",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_SIMPLE_SEQUENCE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "document_processing.extract_analyze_report/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "document_processing.extract_analyze_report/step_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "document_processing.extract_analyze_report/step_3",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_3",
+      "source": "stuff_d0",
+      "target": "document_processing.extract_analyze_report/step_1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d2",
+      "target": "document_processing.extract_analyze_report/step_2",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d3",
+      "target": "document_processing.extract_analyze_report/step_3",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "document_processing.extract_analyze_report",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "document_processing.extract_analyze_report/step_1",
+      "parentId": "document_processing.extract_analyze_report",
+      "type": "pipeCard",
+    },
+    {
+      "id": "document_processing.extract_analyze_report/step_2",
+      "parentId": "document_processing.extract_analyze_report",
+      "type": "pipeCard",
+    },
+    {
+      "id": "document_processing.extract_analyze_report/step_3",
+      "parentId": "document_processing.extract_analyze_report",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "document_processing.extract_analyze_report",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "document_processing.extract_analyze_report",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_WIDE_PARALLEL matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "wide_processing.wide_pipeline/step_1/branch_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "wide_processing.wide_pipeline/step_1/branch_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "wide_processing.wide_pipeline/step_1/branch_3",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "wide_processing.wide_pipeline/step_1/branch_4",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "edge_4",
+      "source": "wide_processing.wide_pipeline/step_1/branch_5",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_5",
+      "source": "wide_processing.wide_pipeline/step_2",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "wide_processing.wide_pipeline/step_1/branch_1",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d0",
+      "target": "wide_processing.wide_pipeline/step_1/branch_2",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d0",
+      "target": "wide_processing.wide_pipeline/step_1/branch_3",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d0",
+      "target": "wide_processing.wide_pipeline/step_1/branch_4",
+    },
+    {
+      "id": "edge_10",
+      "source": "stuff_d0",
+      "target": "wide_processing.wide_pipeline/step_1/branch_5",
+    },
+    {
+      "id": "edge_11",
+      "source": "stuff_d2",
+      "target": "wide_processing.wide_pipeline/step_2",
+    },
+    {
+      "id": "edge_12",
+      "source": "stuff_d3",
+      "target": "wide_processing.wide_pipeline/step_2",
+    },
+    {
+      "id": "edge_13",
+      "source": "stuff_d4",
+      "target": "wide_processing.wide_pipeline/step_2",
+    },
+    {
+      "id": "edge_14",
+      "source": "stuff_d5",
+      "target": "wide_processing.wide_pipeline/step_2",
+    },
+    {
+      "id": "edge_15",
+      "source": "stuff_d6",
+      "target": "wide_processing.wide_pipeline/step_2",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "wide_processing.wide_pipeline",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_2",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "wide_processing.wide_pipeline",
+      "type": "default",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1/branch_1",
+      "parentId": "wide_processing.wide_pipeline/step_1",
+      "type": "pipeCard",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1/branch_2",
+      "parentId": "wide_processing.wide_pipeline/step_1",
+      "type": "pipeCard",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1/branch_3",
+      "parentId": "wide_processing.wide_pipeline/step_1",
+      "type": "pipeCard",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1/branch_4",
+      "parentId": "wide_processing.wide_pipeline/step_1",
+      "type": "pipeCard",
+    },
+    {
+      "id": "wide_processing.wide_pipeline/step_1/branch_5",
+      "parentId": "wide_processing.wide_pipeline/step_1",
+      "type": "pipeCard",
+    },
+  ],
+}
+`;

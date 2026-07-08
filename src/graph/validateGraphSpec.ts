@@ -16,6 +16,7 @@
 import type {
   GraphSpec,
   GraphSpecEdgeKind,
+  GraphSpecMode,
   GraphSpecNode,
   PipeCallNode,
   PipeStatus,
@@ -47,6 +48,8 @@ const PIPE_STATUSES: ReadonlySet<string> = new Set<PipeStatus>([
   "skipped",
   "canceled",
 ]);
+
+const GRAPH_SPEC_MODES: ReadonlySet<string> = new Set<GraphSpecMode>(["dry", "live", "static"]);
 
 const EDGE_KINDS: ReadonlySet<string> = new Set<GraphSpecEdgeKind>([
   "contains",
@@ -196,6 +199,16 @@ export function validateGraphSpec(raw: unknown): GraphSpec {
       "meta.format",
       `expected "mthds" (this does not look like pipelex GraphSpec JSON), ` +
         `got ${JSON.stringify(raw.meta.format)}`,
+    );
+  }
+  if (
+    raw.meta.mode !== undefined &&
+    (typeof raw.meta.mode !== "string" || !GRAPH_SPEC_MODES.has(raw.meta.mode))
+  ) {
+    fail(
+      "meta.mode",
+      `expected one of ${[...GRAPH_SPEC_MODES].join(", ")} when present, ` +
+        `got ${JSON.stringify(raw.meta.mode)}`,
     );
   }
 

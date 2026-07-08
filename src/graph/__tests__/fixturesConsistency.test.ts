@@ -13,6 +13,9 @@ import { describe, it, expect } from "vitest";
 import { readdirSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
+import { DRY_RUN_CATALOG } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { STATIC_RUN_CATALOG } from "@graph/react/viewer/__stories__/staticGraphSpec";
 
 const SPECS_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -40,6 +43,31 @@ describe("generated fixtures consistency", () => {
     for (const file of readdirSync(LIVE_DIR).filter((f) => f.endsWith(".ts"))) {
       const moduleRef = `./_generated/live/${file.replace(/\.ts$/, "")}`;
       expect(barrel).toContain(moduleRef);
+    }
+  });
+});
+
+const STATIC_DRY_COUNTERPARTS: Record<string, string> = {
+  STATIC_SIMPLE_SEQUENCE: "DRY_SIMPLE_SEQUENCE",
+  STATIC_SIMPLE_CONDITION: "DRY_SIMPLE_CONDITION",
+  STATIC_SIMPLE_BATCH: "DRY_SIMPLE_BATCH",
+  STATIC_CV_SCREENING: "DRY_CV_SCREENING",
+  STATIC_DEEP_NESTING: "DRY_DEEP_NESTING",
+  STATIC_WIDE_PARALLEL: "DRY_WIDE_PARALLEL",
+};
+
+describe("static fixture catalog consistency", () => {
+  it.each(Object.keys(STATIC_DRY_COUNTERPARTS))("%s validates as static", (key) => {
+    const entry = STATIC_RUN_CATALOG[key];
+    expect(entry).toBeDefined();
+    expect(() => validateGraphSpec(entry.spec)).not.toThrow();
+    expect(entry.spec.meta?.mode).toBe("static");
+  });
+
+  it("covers the intended dry catalog counterparts", () => {
+    for (const [staticKey, dryKey] of Object.entries(STATIC_DRY_COUNTERPARTS)) {
+      expect(STATIC_RUN_CATALOG[staticKey]).toBeDefined();
+      expect(DRY_RUN_CATALOG[dryKey]).toBeDefined();
     }
   });
 });

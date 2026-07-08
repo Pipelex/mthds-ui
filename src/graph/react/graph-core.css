@@ -384,6 +384,40 @@
 .pipe-card--controller {
   --pipe-card-accent: var(--text-muted);
 }
+.pipe-card--static {
+  background: var(--surface-sunken);
+  border-left-style: solid;
+}
+.pipe-card-annotations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+.pipe-card-annotation {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-pill);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  padding: 1px 6px;
+}
+.pipe-card-annotation--outcome {
+  color: var(--color-warning);
+  border-color: var(--ctrl-condition-border);
+}
+.pipe-card-annotation--batch {
+  color: var(--ctrl-batch-text);
+  border-color: var(--ctrl-batch-border);
+}
 
 /* Signature (unimplemented stub) — dashed + muted so it reads as "declared,
    not built yet", distinct from operator (solid accent) and controller (tinted). */

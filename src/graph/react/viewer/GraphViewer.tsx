@@ -271,6 +271,9 @@ export function applyStatusOverrides(
 ): AppNode[] {
   if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
   return nodes.map((node) => {
+    if (node.data.graphMode === "static" || node.data.pipeCardData?.graphMode === "static") {
+      return node;
+    }
     const pipeCode = node.data.pipeCode;
     if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];

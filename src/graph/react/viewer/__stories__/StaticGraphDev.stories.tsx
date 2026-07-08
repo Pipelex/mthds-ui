@@ -1,18 +1,13 @@
-// Phase-1b dev smoke story: feed `.mthds` TOML straight into the static graph
-// builder and render the result with the unchanged GraphViewer. No CLI, no
-// gateway key — the bundles are imported as raw text (`?raw`). The proper
-// STATIC_* fixture catalog lands in Phase 2; this story exists to eyeball the
-// walk's output next to the dry-run stories.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
 import { GraphViewer } from "../GraphViewer";
-
-// Asset paths, not module imports — the `@graph/*` alias rule does not apply.
-import bundleCvScreening from "../../../../../data/pipelines/pipeline_09/bundle.mthds?raw";
-import bundleSimpleBatch from "../../../../../data/pipelines/pipeline_08/bundle.mthds?raw";
-import bundleSimpleCondition from "../../../../../data/pipelines/pipeline_07/bundle.mthds?raw";
-import bundleDeepNesting from "../../../../../data/pipelines/pipeline_24/bundle.mthds?raw";
+import {
+  STATIC_CV_SCREENING,
+  STATIC_DEEP_NESTING,
+  STATIC_SIMPLE_BATCH,
+  STATIC_SIMPLE_CONDITION,
+} from "./staticGraphSpec";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph - static/Valid/Examples",
@@ -68,23 +63,50 @@ output = "Finding"
 prompt = "Find issues in @chunk"
 `;
 
+const SIGNATURE_BUNDLE = `
+domain = "signature_demo"
+main_pipe = "run_all"
+
+[concept.Scorecard]
+description = "A candidate scorecard"
+
+[pipe.run_all]
+type = "PipeSequence"
+description = "Run a method with a declared-but-unimplemented step"
+inputs = { job_offer = "Text" }
+output = "Scorecard"
+steps = [{ pipe = "build_scorecard", result = "scorecard" }]
+
+[pipe.build_scorecard]
+type = "PipeSignature"
+description = "Build a scorecard from the job offer"
+inputs = { job_offer = "Text" }
+output = "Scorecard"
+signature_for = "PipeLLM"
+`;
+
 export const CvScreening: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(bundleCvScreening).spec, ...D },
+  args: { graphspec: STATIC_CV_SCREENING, ...D },
 };
 
 export const SimpleBatch: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(bundleSimpleBatch).spec, ...D },
+  args: { graphspec: STATIC_SIMPLE_BATCH, ...D },
 };
 
 export const SimpleCondition: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(bundleSimpleCondition).spec, ...D },
+  args: { graphspec: STATIC_SIMPLE_CONDITION, ...D },
 };
 
 export const DeepNesting: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(bundleDeepNesting).spec, ...D },
+  args: { graphspec: STATIC_DEEP_NESTING, ...D },
 };
 
 /** Best-effort path: unresolved step skipped, opaque dependency leaf, inline batch. */
 export const WipBrokenBundle: Story = {
   args: { graphspec: buildStaticGraphSpecFromToml(WIP_BROKEN_BUNDLE).spec, ...D },
+};
+
+/** Contract-only pipe: distinct signature badge/card and detail copy. */
+export const Signature: Story = {
+  args: { graphspec: buildStaticGraphSpecFromToml(SIGNATURE_BUNDLE).spec, ...D },
 };

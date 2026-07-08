@@ -350,6 +350,16 @@ function addEdge(
   ctx.edges.push(edge);
 }
 
+function addNodeTag(node: GraphSpecNode, key: string, value: string): void {
+  node.tags = { ...(node.tags ?? {}), [key]: value };
+}
+
+function formatBatchMultiplicity(multiplicity: number | boolean | null | undefined): string {
+  if (typeof multiplicity === "number") return `x${multiplicity}`;
+  if (multiplicity === true) return "xmany";
+  return "x?";
+}
+
 /**
  * Working-memory name matching: exact name first, then dotted-prefix — an
  * input `a.b` is satisfied by a binding for `a`.
@@ -829,6 +839,9 @@ function finishBatch(
     branchScope.set(params.input_item_stuff_name, itemStuff);
   }
 
+  const batchMultiplicity = formatBatchMultiplicity(listStuff?.multiplicity);
+  addNodeTag(node, "batch_multiplicity", batchMultiplicity);
+
   // One representative branch, not N — this is a method view, not a run trace.
   let branchResult: WalkResult | null = null;
   if (blueprint.branch_pipe_code !== "") {
@@ -841,6 +854,10 @@ function finishBatch(
       branchScope,
       { resultName: null, outputMultiplicity: null },
     );
+    const branchNode = ctx.nodes.find((candidate) => candidate.id === branchResult?.nodeId);
+    if (branchNode !== undefined) {
+      addNodeTag(branchNode, "batch_multiplicity", batchMultiplicity);
+    }
   }
 
   const aggConcept = branchResult?.output?.concept ?? blueprint.output.concept;

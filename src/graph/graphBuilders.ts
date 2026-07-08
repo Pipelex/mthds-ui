@@ -1,5 +1,11 @@
 import type { GraphSpec, DataflowAnalysis, GraphNode, GraphEdge, GraphData } from "./types";
-import { ARROW_CLOSED_MARKER, NODE_TYPE_PIPE_CARD, NODE_TYPE_STUFF, stuffNodeId } from "./types";
+import {
+  ARROW_CLOSED_MARKER,
+  NODE_TYPE_PIPE_CARD,
+  NODE_TYPE_STUFF,
+  graphSpecMode,
+  stuffNodeId,
+} from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
 import { asPipeCallNode } from "./validateGraphSpec";
 import { buildPipeCardPayload } from "./pipeCardPayload";
@@ -19,6 +25,13 @@ export function buildDataflowGraph(
 ): GraphData {
   const nodes: GraphNode[] = [];
   const edges: GraphEdge[] = [];
+  const graphMode = graphSpecMode(graphspec);
+  const combinedStuffDigests = new Set<string>();
+  for (const edge of graphspec.edges) {
+    if (edge.kind === "parallel_combine" && edge.target_stuff_digest) {
+      combinedStuffDigests.add(edge.target_stuff_digest);
+    }
+  }
 
   // Find participating pipes (those that produce or consume data)
   const participatingPipes = new Set<string>();
@@ -40,7 +53,7 @@ export function buildDataflowGraph(
 
     const isFailed = pipeNode.status === "failed";
     const label = pipeNode.pipe_code;
-    const pipeCardData = buildPipeCardPayload(pipeNode);
+    const pipeCardData = buildPipeCardPayload(pipeNode, graphMode);
 
     nodes.push({
       id: pipeNode.id,
@@ -53,6 +66,7 @@ export function buildDataflowGraph(
         labelText: label,
         pipeCode: pipeCardData.pipeCode,
         pipeType: pipeNode.pipe_type,
+        graphMode,
         pipeCardData,
       },
       position: { x: 0, y: 0 },
@@ -69,15 +83,24 @@ export function buildDataflowGraph(
     const stuffWidth = Math.max(MIN_STUFF_WIDTH, textWidth);
 
     // Classify: input (no producer), output (no consumer), or intermediate
-    const isInput = !analysis.stuffProducers[digest];
-    const isOutput = !isInput && !analysis.stuffConsumers[digest]?.length;
-    const stuffRole = isInput ? ("input" as const) : isOutput ? ("output" as const) : undefined;
+    const isCombined = combinedStuffDigests.has(digest);
+    const isInput = !analysis.stuffProducers[digest] && !isCombined;
+    const isOutput = !isInput && !isCombined && !analysis.stuffConsumers[digest]?.length;
+    const stuffRole = isCombined
+      ? ("combined" as const)
+      : isInput
+        ? ("input" as const)
+        : isOutput
+          ? ("output" as const)
+          : undefined;
 
     const borderColor = isInput
       ? "var(--color-stuff-input-border, #50FA7B)"
       : isOutput
         ? "var(--color-stuff-output-border, #a78bfa)"
-        : "var(--color-stuff-border)";
+        : isCombined
+          ? "var(--color-parallel-combine)"
+          : "var(--color-stuff-border)";
 
     nodes.push({
       id: stuffId,

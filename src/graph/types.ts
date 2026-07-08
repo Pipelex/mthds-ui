@@ -39,6 +39,26 @@ export const KNOWN_PIPE_TYPES: ReadonlySet<string> = new Set(Object.keys(PIPE_TY
 
 export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped" | "canceled";
 
+// ─── GraphSpec mode contract ────────────────────────────────────────────────
+
+export const GRAPH_SPEC_MODE = {
+  DRY: "dry",
+  LIVE: "live",
+  STATIC: "static",
+} as const;
+
+export type GraphSpecMode = (typeof GRAPH_SPEC_MODE)[keyof typeof GRAPH_SPEC_MODE];
+
+export interface GraphSpecMeta {
+  format: "mthds";
+  /**
+   * Missing mode is a legacy runtime graph. Static UI behavior must key only on
+   * `mode === "static"` and never infer it from absent runtime fields.
+   */
+  mode?: GraphSpecMode;
+  [key: string]: unknown;
+}
+
 // ─── Node type constants ────────────────────────────────────────────────────
 // Used by graphBuilders and consumed by ReactFlow custom node registration.
 
@@ -403,9 +423,19 @@ export interface GraphSpec {
   pipeline_ref?: { domain?: string; main_pipe?: string; entrypoint?: string };
   nodes: GraphSpecNode[];
   edges: GraphSpecEdge[];
-  meta?: Record<string, unknown>;
+  meta?: GraphSpecMeta;
   pipe_registry?: Record<string, PipeBlueprintUnion>;
   concept_registry?: Record<string, ConceptInfo>;
+}
+
+export function graphSpecMode(
+  spec: Pick<GraphSpec, "meta"> | null | undefined,
+): GraphSpecMode | undefined {
+  return spec?.meta?.mode;
+}
+
+export function isStaticGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined): boolean {
+  return graphSpecMode(spec) === GRAPH_SPEC_MODE.STATIC;
 }
 
 // ─── Dataflow analysis result ───────────────────────────────────────────────
@@ -602,8 +632,11 @@ export interface PipeCardPayload {
   pipeType: PipeType;
   description?: string;
   status: PipeStatus;
+  graphMode?: GraphSpecMode;
   inputs: { name: string; concept: string }[];
   outputs: { name: string; concept: string }[];
+  /** Authored/static annotations and runtime tags carried by the GraphSpec node. */
+  tags?: Record<string, string>;
   /** Layout direction — injected by the layout engine */
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
@@ -613,7 +646,7 @@ export interface PipeCardPayload {
 // ─── Graph node data ────────────────────────────────────────────────────────
 // Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
 
-export type StuffRole = "input" | "output";
+export type StuffRole = "input" | "output" | "combined";
 
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
@@ -625,6 +658,7 @@ export interface GraphNodeData extends Record<string, unknown> {
   labelText: string;
   pipeCode?: string;
   pipeType?: PipeType;
+  graphMode?: GraphSpecMode;
   pipeCardData?: PipeCardPayload;
   /** For stuff nodes: "input" (no producer), "output" (no consumer), or undefined (intermediate). */
   stuffRole?: StuffRole;
