@@ -13,6 +13,7 @@ import bundleCvScreening from "../../../../../data/pipelines/pipeline_09/bundle.
 import bundleSimpleBatch from "../../../../../data/pipelines/pipeline_08/bundle.mthds?raw";
 import bundleSimpleCondition from "../../../../../data/pipelines/pipeline_07/bundle.mthds?raw";
 import bundleDeepNesting from "../../../../../data/pipelines/pipeline_24/bundle.mthds?raw";
+import bundleGarments from "../../../../../data/static/garments_from_moodboard/bundle_with_error.mthds?raw";
 
 const meta: Meta<typeof GraphViewer> = {
   title: "Graph/GraphViewer/Static Graph (dev)",
@@ -87,4 +88,14 @@ export const DeepNesting: Story = {
 /** Best-effort path: unresolved step skipped, opaque dependency leaf, inline batch. */
 export const WipBrokenBundle: Story = {
   args: { graphspec: buildStaticGraphSpecFromToml(WIP_BROKEN_BUNDLE).spec, ...D },
+};
+
+/**
+ * Real-world WIP bundle (from pipelex-demos) that does not pass pipelex
+ * semantic validation — the static walk still renders it, which is the whole
+ * point of the static path. Bundles like this live in `data/static/` because
+ * the fixture generator can't run them through the pipelex CLI.
+ */
+export const GarmentsFromMoodboard: Story = {
+  args: { graphspec: buildStaticGraphSpecFromToml(bundleGarments).spec, ...D },
 };
