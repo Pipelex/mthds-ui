@@ -40,9 +40,9 @@
       "import": "./dist/shiki/index.js",
       "types": "./dist/shiki/index.d.ts"
     },
-    "./static": {
-      "import": "./dist/static/index.js",
-      "types": "./dist/static/index.d.ts"
+    "./static-graph": {
+      "import": "./dist/static-graph/index.js",
+      "types": "./dist/static-graph/index.d.ts"
     }
   },
   "files": [

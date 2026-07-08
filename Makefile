@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check clean storybook fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean storybook st fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t
 
 install:
 	npm install
@@ -21,6 +21,8 @@ typecheck:
 test:
 	npx vitest run
 
+t: test
+
 test-watch:
 	npx vitest
 
@@ -30,11 +32,15 @@ test-coverage:
 check: lint format-check typecheck
 	@echo "All checks passed."
 
+c: check
+
 all: check test build
 	@echo "All checks passed and build succeeded."
 
 storybook:
 	npx storybook dev -p 6006
+
+st: storybook
 
 # Pass ONLY=pipeline_04 (or a comma-separated list) to regenerate just those
 # pipelines — the rest are reused from disk so the fixture file stays complete.
@@ -57,7 +63,7 @@ fixtures-live-test:
 	node scripts/generate-fixtures.mjs --live --check --only pipeline_01,pipeline_02,pipeline_03
 
 # Re-copy the MTHDS authoring schema from the pipelex repo (reference contract
-# for src/static/ parsing — not a runtime dependency).
+# for src/static-graph/ parsing — not a runtime dependency).
 schema-refresh:
 	cp ../pipelex/derived/mthds_schema.json data/schema/mthds_schema.json
 

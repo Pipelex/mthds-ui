@@ -11,7 +11,7 @@ export default defineConfig({
     "src/graph/index.ts",
     "src/graph/react/index.ts",
     "src/shiki/index.ts",
-    "src/static/index.ts",
+    "src/static-graph/index.ts",
   ],
   format: ["esm"],
   dts: true,
@@ -33,7 +33,7 @@ export default defineConfig({
   esbuildOptions(options) {
     options.alias = {
       "@graph": path.resolve(dirname, "src/graph"),
-      "@static": path.resolve(dirname, "src/static"),
+      "@static-graph": path.resolve(dirname, "src/static-graph"),
     };
   },
   // CSS files are kept external so the import stays in the JS output.

@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@graph": path.resolve(dirname, "src/graph"),
-      "@static": path.resolve(dirname, "src/static"),
+      "@static-graph": path.resolve(dirname, "src/static-graph"),
     },
   },
   test: {
@@ -29,11 +29,11 @@ export default defineConfig({
         "src/graph/graphFolds.ts",
         "src/graph/pipeCardPayload.ts",
         "src/graph/react/rfTypes.ts",
-        "src/static/types.ts",
-        "src/static/conceptRefs.ts",
-        "src/static/normalizePipe.ts",
-        "src/static/parseMthdsBundle.ts",
-        "src/static/mergeBundles.ts",
+        "src/static-graph/types.ts",
+        "src/static-graph/conceptRefs.ts",
+        "src/static-graph/normalizePipe.ts",
+        "src/static-graph/parseMthdsBundle.ts",
+        "src/static-graph/mergeBundles.ts",
       ],
       thresholds: {
         statements: 90,

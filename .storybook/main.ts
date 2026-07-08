@@ -20,7 +20,7 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...(config.resolve.alias as Record<string, string>),
       "@graph": path.resolve(dirname, "../src/graph"),
-      "@static": path.resolve(dirname, "../src/static"),
+      "@static-graph": path.resolve(dirname, "../src/static-graph"),
     };
     // Pre-bundle elkjs CJS module for browser compatibility
     config.optimizeDeps = config.optimizeDeps || {};

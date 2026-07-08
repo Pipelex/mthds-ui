@@ -46,7 +46,7 @@ src/
           pipeCardTypes.ts        # PipeCardData interface (imports from types.ts)
           pipeCardRegistry.ts     # Pipe type → component registry
   shiki/                          # Syntax highlighting (separate entry point)
-  static/                         # Static method-graph module (separate entry point, pure TS, no React):
+  static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
     types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
     conceptRefs.ts                #   Concept-ref parsing/resolution + native concept catalog
     normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
@@ -55,11 +55,11 @@ src/
     buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
 ```
 
-The `static/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Work in progress: see `TODOS.md` and `wip/static-graph-design.md`.
+The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Work in progress: see `TODOS.md` and `wip/static-graph-design.md`.
 
 ## Path Alias
 
-The project uses `@graph/*` → `src/graph/*` and `@static/*` → `src/static/*` to avoid deep relative imports. Configured in:
+The project uses `@graph/*` → `src/graph/*` and `@static-graph/*` → `src/static-graph/*` to avoid deep relative imports. Configured in:
 
 - `tsconfig.json` (`paths`)
 - `tsup.config.ts` (`esbuildOptions.alias`)

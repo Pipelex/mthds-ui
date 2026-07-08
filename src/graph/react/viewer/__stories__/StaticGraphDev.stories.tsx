@@ -5,7 +5,7 @@
 // walk's output next to the dry-run stories.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { buildStaticGraphSpecFromToml } from "@static/buildStaticGraphSpec";
+import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
 import { GraphViewer } from "../GraphViewer";
 
 // Asset paths, not module imports — the `@graph/*` alias rule does not apply.

@@ -134,7 +134,7 @@ The builder walks pipe _invocations_, not pipe definitions: the same `pipe_code`
 
 ### Parity harness
 
-**Implemented at checkpoint 1c** (`src/static/__tests__/parityHarness.ts` + `parity.test.ts`): the acceptance test and the permanent drift detector between the TS implementation and the Python runtime's view. The vitest suite runs the TS builder on every fixture bundle in `data/pipelines/pipeline_NN/bundle.mthds` and compares against the checked-in dry-run GraphSpec (`dry_run_graph_spec.json`, the same generator output as `_generated.dry.ts`). No CLI, no gateway key, no Python at test time. **All fixture pipelines match with an empty per-pipeline allowlist.**
+**Implemented at checkpoint 1c** (`src/static-graph/__tests__/parityHarness.ts` + `parity.test.ts`): the acceptance test and the permanent drift detector between the TS implementation and the Python runtime's view. The vitest suite runs the TS builder on every fixture bundle in `data/pipelines/pipeline_NN/bundle.mthds` and compares against the checked-in dry-run GraphSpec (`dry_run_graph_spec.json`, the same generator output as `_generated.dry.ts`). No CLI, no gateway key, no Python at test time. **All fixture pipelines match with an empty per-pipeline allowlist.**
 
 Both sides normalize to a canonical structural form, and the comparison runs over exactly what the renderer consumes — node multiset, containment tree (encoded in canonical paths), and the producer/consumer relation per stuff, derived with the renderer's own `buildDataflowAnalysis` (so "producer" means what it means on screen: operators only, never controllers). Normalization rules:
 
