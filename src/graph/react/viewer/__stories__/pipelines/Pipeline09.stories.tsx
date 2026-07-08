@@ -4,7 +4,7 @@ import { DRY_CV_SCREENING } from "./specs/_generated/dry/pipeline_09";
 import { LIVE_CV_SCREENING } from "./specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/09 CV Screening Pipeline",
+  title: "Graph - from run/09 CV Screening Pipeline",
   component: GraphViewer,
   decorators: [
     (Story) => (

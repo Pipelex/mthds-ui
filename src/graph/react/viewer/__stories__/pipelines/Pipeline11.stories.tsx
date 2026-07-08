@@ -4,7 +4,7 @@ import { DRY_NESTED_SEQ_COND_SEQ } from "./specs/_generated/dry/pipeline_11";
 import { LIVE_NESTED_SEQ_COND_SEQ } from "./specs/_generated/live/pipeline_11";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/11 Nested Seq > Condition > Seq",
+  title: "Graph - from run/11 Nested Seq > Condition > Seq",
   component: GraphViewer,
   decorators: [
     (Story) => (

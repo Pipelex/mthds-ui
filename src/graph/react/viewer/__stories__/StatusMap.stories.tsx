@@ -6,7 +6,7 @@ import { DRY_RUN_CATALOG } from "./mockGraphSpec";
 import type { PipeStatus } from "@graph/types";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/StatusMap",
+  title: "Misc/StatusMap",
   component: GraphViewer,
   decorators: [
     (Story) => (

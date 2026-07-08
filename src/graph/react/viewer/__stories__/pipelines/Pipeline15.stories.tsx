@@ -4,7 +4,7 @@ import { DRY_RAG_PIPELINE } from "./specs/_generated/dry/pipeline_15";
 import { LIVE_RAG_PIPELINE } from "./specs/_generated/live/pipeline_15";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/15 RAG Pipeline",
+  title: "Graph - from run/15 RAG Pipeline",
   component: GraphViewer,
   decorators: [
     (Story) => (

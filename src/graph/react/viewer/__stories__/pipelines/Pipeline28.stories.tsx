@@ -4,7 +4,7 @@ import { DRY_CV_BATCH_SCREENING } from "./specs/_generated/dry/pipeline_28";
 import { LIVE_CV_BATCH_SCREENING } from "./specs/_generated/live/pipeline_28";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/28 CV Batch Screening",
+  title: "Graph - from run/28 CV Batch Screening",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -4,7 +4,7 @@ import { DRY_NESTED_SEQ_PAR_SEQ } from "./specs/_generated/dry/pipeline_10";
 import { LIVE_NESTED_SEQ_PAR_SEQ } from "./specs/_generated/live/pipeline_10";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/10 Nested Seq > Parallel > Seq",
+  title: "Graph - from run/10 Nested Seq > Parallel > Seq",
   component: GraphViewer,
   decorators: [
     (Story) => (

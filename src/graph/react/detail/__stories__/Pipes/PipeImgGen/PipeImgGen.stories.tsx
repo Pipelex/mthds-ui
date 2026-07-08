@@ -4,7 +4,7 @@ import { ENRICHED_SPEC, NODE_GENERATE_CARD } from "../../enrichedMockData";
 import { PipeStory, detailPanelDecorator, detailPanelParameters } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeImgGen",
+  title: "Misc/Detail Panel/Pipes/PipeImgGen",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

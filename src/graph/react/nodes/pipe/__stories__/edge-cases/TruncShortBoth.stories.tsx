@@ -4,7 +4,7 @@ import { toGraphSpec } from "../edgeCaseGraphSpecs";
 import { truncShortBoth } from "./edgeCaseData";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/EdgeCases/TruncShortBoth",
+  title: "Misc/PipeCard/EdgeCases/TruncShortBoth",
   component: GraphViewer,
   decorators: [
     (Story) => (

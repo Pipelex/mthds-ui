@@ -4,7 +4,7 @@ import { DRY_IMAGE_PIPELINE } from "./specs/_generated/dry/pipeline_16";
 import { LIVE_IMAGE_PIPELINE } from "./specs/_generated/live/pipeline_16";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/16 Image Processing",
+  title: "Graph - from run/16 Image Processing",
   component: GraphViewer,
   decorators: [
     (Story) => (

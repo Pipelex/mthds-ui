@@ -4,7 +4,7 @@ import { DRY_BATCH_WITH_INNER_SEQ } from "./specs/_generated/dry/pipeline_12";
 import { LIVE_BATCH_WITH_INNER_SEQ } from "./specs/_generated/live/pipeline_12";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/12 Batch with Inner Sequence",
+  title: "Graph - from run/12 Batch with Inner Sequence",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -9,7 +9,7 @@ import {
 import { PipeStory, detailPanelDecorator, detailPanelParameters } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeLLM",
+  title: "Misc/Detail Panel/Pipes/PipeLLM",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

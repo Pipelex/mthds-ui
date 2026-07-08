@@ -14,7 +14,7 @@ import {
 import { detailPanelDecorator, detailPanelParameters } from "../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Stuff/Concept Detail",
+  title: "Misc/Detail Panel/Stuff/Concept Detail",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

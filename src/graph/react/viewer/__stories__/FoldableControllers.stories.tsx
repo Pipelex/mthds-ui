@@ -7,7 +7,7 @@ import { DRY_CV_MATCHING } from "./pipelines/specs/_generated/dry/pipeline_26";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/FoldableControllers",
+  title: "Misc/FoldableControllers",
   component: GraphViewer,
   decorators: [
     (Story) => (

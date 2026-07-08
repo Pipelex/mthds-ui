@@ -4,7 +4,7 @@ import { DRY_SIBLING_PARALLELS } from "./specs/_generated/dry/pipeline_23";
 import { LIVE_SIBLING_PARALLELS } from "./specs/_generated/live/pipeline_23";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/23 Sibling Parallels",
+  title: "Graph - from run/23 Sibling Parallels",
   component: GraphViewer,
   decorators: [
     (Story) => (

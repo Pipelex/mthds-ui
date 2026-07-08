@@ -4,7 +4,7 @@ import { DRY_ALL_PIPE_TYPES } from "./specs/_generated/dry/pipeline_14";
 import { LIVE_ALL_PIPE_TYPES } from "./specs/_generated/live/pipeline_14";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/14 All Pipe Types",
+  title: "Graph - from run/14 All Pipe Types",
   component: GraphViewer,
   decorators: [
     (Story) => (

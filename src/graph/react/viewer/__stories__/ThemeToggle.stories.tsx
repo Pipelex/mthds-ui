@@ -7,7 +7,7 @@ import { waitForGraphRender } from "./storyTestUtils";
 import { LIVE_TWO_PIPE_CHAIN } from "./pipelines/specs/_generated/live/pipeline_02";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/ThemeToggle",
+  title: "Misc/ThemeToggle",
   component: GraphViewer,
   decorators: [
     (Story) => (
