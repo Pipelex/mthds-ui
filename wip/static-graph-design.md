@@ -60,7 +60,7 @@ Honest inventory of what we give up in a static graph, and why it's acceptable f
 ```
 .mthds TOML text
   → parse TOML              smol-toml (proven in mthds-js, isomorphic, zero-dep)
-  → blueprint-shaped object lenient narrowing; TS types generated from mthds_schema.json
+  → blueprint-shaped object lenient narrowing; checked-in schema used as reference
   → static walk             the algorithm below
   → GraphSpec               meta.mode = "static"
   → GraphViewer             unchanged
@@ -79,13 +79,9 @@ The one discipline this requires: the core module accepts TOML **strings**, neve
 
 ### Where the code lives
 
-| Option                                             | For                                                                                                                                                             | Against                                                                               |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| 1. Incubate in mthds-ui (own pure entry point)     | Fastest play loop: fixture bundles, dry-run GraphSpecs, Storybook, and the parity vitest suite all live here. No cross-repo friction while the design is fluid. | A rendering library takes on language parsing — a layering violation if it stays.     |
-| 2. mthds-js from day one                           | The architecturally correct home: parsing MTHDS is language-level (MTHDS brand), and `smol-toml` + `[pipe.*]` scanning precedent already exist there.           | Cross-repo iteration overhead exactly when the design needs rapid iteration.          |
-| 3. Incubate in mthds-ui, extract to mthds-js later | Both of the above, sequenced.                                                                                                                                   | Requires the discipline to actually extract (pure module, no `@graph/react` imports). |
+**Decision (2026-07-08): keep the static graph builder in mthds-ui.** The module is already implemented as `src/static-graph/`, with its own pure TypeScript entry point and no React dependency. That remains the home for this plan.
 
-**Recommendation: option 3.** Build it as a self-contained pure module in mthds-ui (its own entry point, like `shiki/` — no React, no imports from the rendering layer except shared types), play with it in Storybook, and extract to mthds-js once the shape stabilizes. The pure-module discipline makes the extraction mechanical.
+The earlier extraction idea is explicitly dismissed: there is no planned move to `mthds-js`, even as a future Phase 3. Keeping the module pure is still useful engineering discipline because it lets stories, tests, and downstream consumers call the same code without dragging in React internals, but it is no longer preparation for extraction.
 
 ### Output format: GraphSpec
 
@@ -176,11 +172,12 @@ Stuff identity across sides: digests are not comparable (random dry strings vs d
 
 Strictly required for rendering: **none** — a spec built as above passes `validateGraphSpec` and renders through the existing pipeline untouched. Worth doing anyway:
 
-1. **Static display mode.** When `meta.mode === "static"` (or a `GraphViewer` prop), suppress status dots and run-centric detail rows (timing, metrics, execution-data dump). Small, contained change in `PipeCardBase` / `PipeDetailPanel`.
-2. **`PipeSignature` as a known pipe type.** First verify what `pipe_type` the tracer emits today when a dry run executes a signature — if it's already `PipeSignature`, then dry-run graphs containing signatures fail `validateGraphSpec` right now, a pre-existing gap worth fixing regardless of this design. Then add it to the `PipeType` union with its own badge ("Signature") and a visually distinct card treatment (e.g. dashed border) — the exhaustiveness maps in `types.ts`, `PipeCardBase.tsx`, `PipeDetailPanel.tsx` will enforce completeness.
+1. **Static display mode.** When `meta.mode === "static"`, suppress status dots and run-centric detail rows (timing, metrics, execution-data dump). Static behavior comes from the explicit mode flag, not inference from missing runtime data.
+2. **`PipeSignature` audit and story.** `PipeSignature` is already in the known pipe type set and has card/detail handling. Verify the visual treatment, keep the distinct signature card behavior, and add a focused story so it stays covered.
 3. **Condition outcome labels.** Static generation knows which outcome value maps to which child (the tracer never emitted this). Surface it — outcome badge on the child card or a labeled edge. Pure win over both dry and live graphs.
 4. **Batch multiplicity badge.** A "×N / ×many" tag on the representative batch branch, from the list input's declared multiplicity.
-5. **Static fixture catalog.** A third `STATIC_*` catalog next to `DRY_*`/`LIVE_*` in the stories — generated in-repo by the builder itself at test time, no CLI, no gateway key, deterministic snapshots.
+5. **Combined-output role classification.** Producer-less combined stuff currently looks like an input because the renderer only sees producer absence. Classify `parallel_combine` targets as combined/intermediate instead; this improves dry and static graphs.
+6. **Static fixture catalog.** A third `STATIC_*` catalog next to `DRY_*`/`LIVE_*` in the stories — generated in-repo by the builder itself at test time, no CLI, no gateway key, deterministic snapshots.
 
 ## Coexistence: static vs dry vs live
 
@@ -192,20 +189,17 @@ These are three views of one method, on one wire format, through one renderer:
 
 ## Phasing
 
-**Phase 1 — parser + builder, incubated in mthds-ui.** New pure-TS module (own entry point, no React): smol-toml parse, lenient blueprint narrowing with schema-generated types, the walk, GraphSpec output. Parity vitest suite against the checked-in dry-run fixtures. Exit criteria: all fixture bundles produce a GraphSpec that passes `validateGraphSpec` and renders; parity report vs dry-run documented.
+**Phase 1 — parser + builder in mthds-ui.** Complete. New pure-TS module (own entry point, no React): smol-toml parse, lenient blueprint narrowing, the walk, GraphSpec output, and parity vitest suite against the checked-in dry-run fixtures. Exit criteria met: all fixture bundles produce a GraphSpec that passes `validateGraphSpec`; parity vs dry-run is documented.
 
 > **Checkpoint 1.** Static GraphSpecs render in Storybook next to their dry-run counterparts. Decisions to revisit with real output in hand: `data`-edge emission, `combined_output` parity quirk, elaboration display policy, how `mthds_schema.json` is synced into the repo. Good handoff point.
 
-**Phase 2 — UI adaptations.** `meta.mode` handling, `PipeSignature` support, condition-outcome labels, batch badge, `STATIC_*` fixture catalog.
+**Phase 2 — UI adaptations.** Active plan. `meta.mode` handling, static display chrome, condition-outcome labels, batch badge, combined-output role classification, `PipeSignature` audit/story, `STATIC_*` fixture catalog, snapshots, and docs.
 
 > **Checkpoint 2.** Static graphs are first-class in Storybook, including a WIP/partially-broken bundle story exercising the best-effort path. Consumer experiments (pipelex-app live re-render, vscode-pipelex, hub previews) can proceed independently per repo, if and when the experiment earns it.
-
-**Phase 3 — extraction to mthds-js.** Once the module shape stabilizes and a second consumer wants it, move the parser+builder to mthds-js (language-level home; `smol-toml` already there); mthds-ui goes back to being a pure renderer that depends on it. The parity harness moves with it.
 
 ## Open questions
 
 1. **Elaboration display policy** — as-authored (proposed default) vs mirroring the runtime's `preliminary_text` expansion behind a flag. Affects parity normalization either way.
-2. **How `mthds_schema.json` reaches this repo** for type generation: checked-in copy refreshed by a script (simple, drifts silently) vs published artifact from pipelex releases (correct, more plumbing).
+2. **How `mthds_schema.json` reaches this repo** as the reference contract: checked-in copy refreshed by a script (simple, drifts silently) vs published artifact from pipelex releases (correct, more plumbing).
 3. **Cross-package expansion depth** — opaque leaf (proposed), or accept dependency bundle sources as extra inputs and expand. Interacts with graph size for hub-published methods.
 4. **Live-status overlay on static graphs** — is `pipe_code`-keyed `statusMap` good enough short-term, or do we need the run to echo static invocation paths? (The latter suggests the runtime tracer could _adopt_ the static id scheme, which would also make dry/live graphs deterministic — attractive but a bigger change.)
-5. **Extraction trigger for mthds-js** — what concretely gates the move (second consumer? API freeze? first release?), so incubation doesn't become the permanent home by inertia.
