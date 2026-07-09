@@ -934,7 +934,7 @@ export const LIVE_ALL_PIPE_TYPES = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "pipe_showcase.all_types_chain": {
       pipe_category: "PipeController",

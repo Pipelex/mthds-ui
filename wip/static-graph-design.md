@@ -184,7 +184,7 @@ Phase 2 landed the renderer contract around explicit graph modes:
 These are three views of one method, on one wire format, through one renderer:
 
 - **Static** — the method as written. Instant, deterministic, best-effort even on broken bundles, computable anywhere TypeScript runs. This is the new, additional view this design introduces; where it earns a place (method pages, build chatbot, hub previews, VS Code) is exactly what the experiment is meant to reveal.
-- **Dry** — the method as simulated. Remains the reference display path and `/validate`'s `graph_spec`, unchanged; also the executability check and the preview of realistic fan-out with mock data.
+- **Dry** — the method as simulated. Remains `/validate`'s `graph_spec`, the executability check, and the preview of realistic fan-out with mock data. The renderer hides generated mock payloads in detail panels because the fixture data is synthetic.
 - **Live** — the method as executed, with statuses streaming in. Unchanged. Open follow-up: since node ids differ between a static graph and a run graph, live status overlay onto a static graph needs a mapping (the existing `statusMap` prop keys by `pipe_code`, which already partially decouples this — but repeated invocations of one pipe are ambiguous). Worth a small design pass when we get to "start from static, animate the run".
 
 ## Phasing

@@ -805,7 +805,7 @@ export const LIVE_LONG_SEQUENCE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "data_pipeline.ingest_pipeline": {
       pipe_category: "PipeController",

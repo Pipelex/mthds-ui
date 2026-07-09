@@ -1496,7 +1496,7 @@ export const LIVE_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "controller_showcase.all_controllers": {
       pipe_category: "PipeController",

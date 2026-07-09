@@ -630,7 +630,7 @@ export const DRY_MULTI_OUTPUT_FANOUT = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "content_distribution.fanout_pipeline": {
       pipe_category: "PipeController",

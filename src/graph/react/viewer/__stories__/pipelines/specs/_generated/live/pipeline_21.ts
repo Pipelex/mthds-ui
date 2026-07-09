@@ -2347,7 +2347,7 @@ export const LIVE_MULTI_INPUT_CONVERGE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "data_aggregation.multi_source_pipeline": {
       pipe_category: "PipeController",

@@ -72,7 +72,7 @@ export const DRY_SINGLE_PIPE = {
     },
   ],
   edges: [],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "text_processing.summarize": {
       pipe_category: "PipeOperator",

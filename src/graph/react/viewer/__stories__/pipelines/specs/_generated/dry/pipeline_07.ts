@@ -437,7 +437,7 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "translation.translate_pipeline": {
       pipe_category: "PipeController",

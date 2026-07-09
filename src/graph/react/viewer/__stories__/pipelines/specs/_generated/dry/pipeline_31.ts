@@ -1608,7 +1608,7 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "rfp_qualification.qualify_rfp": {
       pipe_category: "PipeController",

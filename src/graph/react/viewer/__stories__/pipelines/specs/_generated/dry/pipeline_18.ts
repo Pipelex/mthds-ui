@@ -1134,7 +1134,7 @@ export const DRY_CODE_REVIEW = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "code_review.review_pipeline": {
       pipe_category: "PipeController",

@@ -714,7 +714,7 @@ export const DRY_DIAMOND_PATTERN = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "data_processing.diamond_pipeline": {
       pipe_category: "PipeController",

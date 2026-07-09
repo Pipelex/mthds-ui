@@ -841,7 +841,7 @@ export const LIVE_THREE_WAY_PARALLEL = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "report_generation.multi_format_report": {
       pipe_category: "PipeController",

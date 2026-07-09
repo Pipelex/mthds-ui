@@ -2509,7 +2509,7 @@ export const LIVE_BATCH_WITH_INNER_SEQ = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "data_enrichment.batch_enrich": {
       pipe_category: "PipeController",

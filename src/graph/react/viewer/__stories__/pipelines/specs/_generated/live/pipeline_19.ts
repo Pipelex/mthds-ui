@@ -565,7 +565,7 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "content_moderation.moderation_pipeline": {
       pipe_category: "PipeController",

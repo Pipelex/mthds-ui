@@ -704,7 +704,7 @@ export const LIVE_EMAIL_TRIAGE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "email_management.email_triage": {
       pipe_category: "PipeController",

@@ -1496,7 +1496,7 @@ export const LIVE_CV_MATCHING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "cv_matching.screen_cvs": {
       pipe_category: "PipeController",

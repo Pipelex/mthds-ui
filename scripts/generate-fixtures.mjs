@@ -79,6 +79,7 @@ const CHECK = process.argv.includes("--check");
 const MISSING = process.argv.includes("--missing");
 const FROM_DISK = process.argv.includes("--from-disk");
 const MODE = LIVE ? "LIVE" : "DRY";
+const MODE_VALUE = LIVE ? "live" : "dry";
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
 
@@ -141,6 +142,9 @@ function assertValid(spec, pipelineDir) {
   if (spec?.meta?.format !== "mthds") {
     die(`${pipelineDir}: meta.format is not "mthds" (got ${JSON.stringify(spec?.meta)})`);
   }
+  if (spec.meta.mode !== MODE_VALUE) {
+    die(`${pipelineDir}: meta.mode is not "${MODE_VALUE}" (got ${JSON.stringify(spec.meta)})`);
+  }
   if (!Array.isArray(spec.nodes) || spec.nodes.length === 0) {
     die(`${pipelineDir}: spec has no nodes`);
   }
@@ -148,6 +152,17 @@ function assertValid(spec, pipelineDir) {
     if (!node.description) die(`${pipelineDir}: node ${node.id} has no description`);
     if (!node.domain_code) die(`${pipelineDir}: node ${node.id} has no domain_code`);
   }
+}
+
+function normalizeSpecMode(spec) {
+  return {
+    ...spec,
+    meta: {
+      ...spec.meta,
+      format: "mthds",
+      mode: MODE_VALUE,
+    },
+  };
 }
 
 async function main() {
@@ -189,7 +204,7 @@ async function main() {
   const specByName = new Map();
   for (const pipelineDir of toProcess) {
     process.stdout.write(`  ${pipelineDir} ... `);
-    const spec = generateSpec(pipelineDir);
+    const spec = normalizeSpecMode(generateSpec(pipelineDir));
     assertValid(spec, pipelineDir);
     specByName.set(NAME_MAP[pipelineDir], spec);
 
@@ -213,7 +228,9 @@ async function main() {
     for (const p of allPipelines) {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {
-        specByName.set(NAME_MAP[p], JSON.parse(readFileSync(specJsonPath(p), "utf-8")));
+        const spec = normalizeSpecMode(JSON.parse(readFileSync(specJsonPath(p), "utf-8")));
+        assertValid(spec, p);
+        specByName.set(NAME_MAP[p], spec);
         reused.push(p);
       } else {
         omitted.push(p);
@@ -286,10 +303,15 @@ async function main() {
       if (existsSync(liveSplit)) continue; // keep real LIVE data
       const placeholderRaw =
         `/**\n` +
-        ` * PLACEHOLDER — re-exports the DRY spec as LIVE so Storybook builds\n` +
+        ` * PLACEHOLDER — wraps the DRY spec as LIVE so Storybook builds\n` +
         ` * without a paid live run. Run \`make fixtures-live\` for real LIVE data.\n` +
         ` */\n` +
-        `export { DRY_${name} as LIVE_${name} } from "../dry/${pipelineDir}";\n`;
+        `import type { GraphSpec } from "@graph/types";\n` +
+        `import { DRY_${name} } from "../dry/${pipelineDir}";\n\n` +
+        `export const LIVE_${name} = {\n` +
+        `  ...DRY_${name},\n` +
+        `  meta: { ...DRY_${name}.meta, format: "mthds", mode: "live" },\n` +
+        `} as GraphSpec;\n`;
       writeFileSync(
         liveSplit,
         await prettier.format(placeholderRaw, { ...prettierConfig, parser: "typescript" }),

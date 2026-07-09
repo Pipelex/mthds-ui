@@ -641,7 +641,7 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "data_pipeline.ingest_pipeline": {
       pipe_category: "PipeController",

@@ -1220,7 +1220,7 @@ export const LIVE_DEEP_NESTING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "deep_processing.deep_nested_pipeline": {
       pipe_category: "PipeController",

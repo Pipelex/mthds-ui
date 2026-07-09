@@ -2453,7 +2453,7 @@ export const DRY_CV_MATCHING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "cv_matching.screen_cvs": {
       pipe_category: "PipeController",

@@ -255,7 +255,7 @@ export const LIVE_TWO_PIPE_CHAIN = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "document_analysis.extract_and_analyze": {
       pipe_category: "PipeController",

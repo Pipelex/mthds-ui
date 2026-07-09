@@ -75,7 +75,7 @@ export const LIVE_SINGLE_PIPE = {
     },
   ],
   edges: [],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "text_processing.summarize": {
       pipe_category: "PipeOperator",

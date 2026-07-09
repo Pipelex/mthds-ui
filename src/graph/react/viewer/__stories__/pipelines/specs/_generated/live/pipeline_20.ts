@@ -1375,7 +1375,7 @@ export const LIVE_WIDE_PARALLEL = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "wide_processing.wide_pipeline": {
       pipe_category: "PipeController",

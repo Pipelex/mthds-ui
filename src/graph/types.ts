@@ -438,6 +438,10 @@ export function isStaticGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefin
   return graphSpecMode(spec) === GRAPH_SPEC_MODE.STATIC;
 }
 
+export function isDryGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined): boolean {
+  return graphSpecMode(spec) === GRAPH_SPEC_MODE.DRY;
+}
+
 // ─── Dataflow analysis result ───────────────────────────────────────────────
 
 export interface DataflowAnalysis {

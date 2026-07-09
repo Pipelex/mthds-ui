@@ -47,6 +47,10 @@ Static pipe details hide status, duration, metrics, and execution-data dumps.
 They keep authored blueprint sections, IO, concept links, descriptions, static
 tags, and errors/diagnostics when present.
 
+Dry pipe details keep run status and timing chrome, but hide generated mock
+payloads, metrics, and rendered execution-data values. Dry stuff-node details
+show concept structure only, not the generated data created by the fixture run.
+
 `statusMap` overlays are ignored for static cards. Live-status overlay onto a
 static graph needs a separate identity-mapping design because repeated
 invocations can share a `pipe_code`.
@@ -75,10 +79,10 @@ from checked-in raw `.mthds` fixture bundles through the TypeScript static
 builder. It does not require the Pipelex CLI, Python, a gateway key, or network
 access.
 
-Representative static-vs-dry stories live in:
+Representative static-vs-live stories live in:
 
 - `StaticGraphDev.stories.tsx`
-- `StaticVsDry.stories.tsx`
+- `StaticVsLive.stories.tsx`
 - `StaticGraphInvalid.stories.tsx`
 
 ## Limitations

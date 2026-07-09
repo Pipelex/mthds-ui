@@ -339,7 +339,7 @@ export const LIVE_SIMPLE_SEQUENCE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "document_processing.extract_analyze_report": {
       pipe_category: "PipeController",

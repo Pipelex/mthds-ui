@@ -616,7 +616,7 @@ export const DRY_THREE_WAY_PARALLEL = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "report_generation.multi_format_report": {
       pipe_category: "PipeController",

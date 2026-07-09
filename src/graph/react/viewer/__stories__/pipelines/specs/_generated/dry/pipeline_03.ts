@@ -381,7 +381,7 @@ export const DRY_SIMPLE_SEQUENCE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "document_processing.extract_analyze_report": {
       pipe_category: "PipeController",

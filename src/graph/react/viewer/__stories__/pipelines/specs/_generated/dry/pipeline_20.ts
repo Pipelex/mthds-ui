@@ -825,7 +825,7 @@ export const DRY_WIDE_PARALLEL = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "wide_processing.wide_pipeline": {
       pipe_category: "PipeController",

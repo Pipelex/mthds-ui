@@ -2,7 +2,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-import type { GraphSpec, GraphSpecNode } from "@graph/types";
+import type { ConceptInfo, GraphSpec, GraphSpecNode, PipeBlueprintUnion } from "@graph/types";
 import { PipeDetailPanel } from "../PipeDetailPanel";
 
 function makeNode(): GraphSpecNode {
@@ -29,7 +29,7 @@ function makeNode(): GraphSpecNode {
   };
 }
 
-function renderPanel(mode?: "dry" | "static"): string {
+function renderPanel(mode?: "dry" | "live" | "static"): string {
   const node = makeNode();
   const spec: GraphSpec = {
     meta: mode === undefined ? { format: "mthds" } : { format: "mthds", mode },
@@ -39,7 +39,70 @@ function renderPanel(mode?: "dry" | "static"): string {
   return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
 }
 
-describe("PipeDetailPanel static chrome", () => {
+const DOCUMENT_CONCEPT: ConceptInfo = {
+  code: "Document",
+  domain_code: "demo",
+  description: "A document",
+  structure_class_name: "Document",
+  refines: null,
+};
+
+const TEXT_CONCEPT: ConceptInfo = {
+  code: "Text",
+  domain_code: "demo",
+  description: "Extracted text",
+  structure_class_name: "Text",
+  refines: null,
+};
+
+const EXTRACT_BLUEPRINT: Extract<PipeBlueprintUnion, { type: "PipeExtract" }> = {
+  type: "PipeExtract",
+  pipe_category: "PipeOperator",
+  code: "extract_document",
+  domain_code: "demo",
+  description: "Extract a document",
+  inputs: {
+    document: { concept: DOCUMENT_CONCEPT, multiplicity: null },
+  },
+  output: { concept: TEXT_CONCEPT, multiplicity: null },
+  extract_choice: "authored-extract-choice",
+  should_caption_images: false,
+  max_page_images: null,
+  should_include_page_views: false,
+  page_views_dpi: null,
+  render_js: null,
+  include_raw_html: null,
+  image_stuff_name: null,
+  document_stuff_name: "document",
+};
+
+function renderExtractPanel(mode: "dry" | "live"): string {
+  const node: GraphSpecNode = {
+    id: "extract",
+    kind: "operator",
+    pipe_code: "extract_document",
+    pipe_type: "PipeExtract",
+    description: "Extract a document",
+    domain_code: "demo",
+    status: "succeeded",
+    io: {
+      inputs: [{ name: "document", concept: "Document", digest: "document" }],
+      outputs: [{ name: "text", concept: "Text", digest: "text" }],
+    },
+    execution_data: { resolved_model: "polyfactory-generated-model" },
+  };
+  const spec: GraphSpec = {
+    meta: { format: "mthds", mode },
+    nodes: [node],
+    edges: [],
+    pipe_registry: {
+      "demo.extract_document": EXTRACT_BLUEPRINT,
+    },
+  };
+  return renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+}
+
+describe("PipeDetailPanel mode chrome", () => {
   it("hides runtime status, timing, execution data, and metrics for static specs", () => {
     const html = renderPanel("static");
 
@@ -55,8 +118,27 @@ describe("PipeDetailPanel static chrome", () => {
     expect(html).toContain("accepted");
   });
 
-  it("keeps runtime rows for non-static specs", () => {
+  it("keeps dry-run status chrome but hides generated payload data", () => {
     const html = renderPanel("dry");
+
+    expect(html).toContain("detail-status");
+    expect(html).toContain("scheduled");
+    expect(html).toContain("1.23s");
+    expect(html).not.toContain("Execution");
+    expect(html).not.toContain("runtime_value");
+    expect(html).not.toContain("Metrics");
+    expect(html).not.toContain("tokens");
+  });
+
+  it("uses authored blueprint values instead of generated dry execution values", () => {
+    const html = renderExtractPanel("dry");
+
+    expect(html).toContain("authored-extract-choice");
+    expect(html).not.toContain("polyfactory-generated-model");
+  });
+
+  it("keeps runtime data for live specs", () => {
+    const html = renderPanel("live");
 
     expect(html).toContain("detail-status");
     expect(html).toContain("scheduled");
@@ -65,5 +147,18 @@ describe("PipeDetailPanel static chrome", () => {
     expect(html).toContain("runtime_value");
     expect(html).toContain("Metrics");
     expect(html).toContain("tokens");
+  });
+
+  it("uses runtime execution values for live specs", () => {
+    const html = renderExtractPanel("live");
+
+    expect(html).toContain("polyfactory-generated-model");
+  });
+
+  it("keeps runtime data for legacy specs without an explicit mode", () => {
+    const html = renderPanel();
+
+    expect(html).toContain("Execution");
+    expect(html).toContain("runtime_value");
   });
 });

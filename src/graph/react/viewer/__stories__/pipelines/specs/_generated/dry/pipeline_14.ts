@@ -627,7 +627,7 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "pipe_showcase.all_types_chain": {
       pipe_category: "PipeController",

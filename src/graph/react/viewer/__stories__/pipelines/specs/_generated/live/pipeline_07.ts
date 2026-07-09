@@ -305,7 +305,7 @@ export const LIVE_SIMPLE_CONDITION = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "translation.translate_pipeline": {
       pipe_category: "PipeController",

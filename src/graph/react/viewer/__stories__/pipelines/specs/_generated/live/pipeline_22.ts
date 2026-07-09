@@ -986,7 +986,7 @@ export const LIVE_MULTI_OUTPUT_FANOUT = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "content_distribution.fanout_pipeline": {
       pipe_category: "PipeController",

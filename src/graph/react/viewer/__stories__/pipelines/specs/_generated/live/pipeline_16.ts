@@ -538,7 +538,7 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "image_catalog.image_pipeline": {
       pipe_category: "PipeController",

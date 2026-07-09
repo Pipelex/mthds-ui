@@ -3,11 +3,11 @@ import type React from "react";
 import type { GraphSpec } from "@graph/types";
 
 import { GraphViewer } from "../GraphViewer";
-import { DRY_RUN_CATALOG } from "./mockGraphSpec";
+import { LIVE_RUN_CATALOG } from "./liveGraphSpec";
 import { STATIC_RUN_CATALOG } from "./staticGraphSpec";
 
 const meta: Meta = {
-  title: "Graph - static/Compare/Static vs Dry",
+  title: "Graph - static/Compare/Static vs Live",
   decorators: [
     (Story) => (
       <div style={{ width: "100%", height: "100vh" }}>
@@ -18,9 +18,9 @@ const meta: Meta = {
 };
 
 export default meta;
-type Story = StoryObj<{ staticSpec: GraphSpec; drySpec: GraphSpec }>;
+type Story = StoryObj<{ staticSpec: GraphSpec; liveSpec: GraphSpec }>;
 
-function SideBySide({ staticSpec, drySpec }: { staticSpec: GraphSpec; drySpec: GraphSpec }) {
+function SideBySide({ staticSpec, liveSpec }: { staticSpec: GraphSpec; liveSpec: GraphSpec }) {
   return (
     <div
       style={{
@@ -32,17 +32,26 @@ function SideBySide({ staticSpec, drySpec }: { staticSpec: GraphSpec; drySpec: G
         background: "#1f2937",
       }}
     >
-      <div style={{ position: "relative", minWidth: 0, minHeight: 0, background: "#0a0a0a" }}>
+      <div style={paneStyle}>
         <div style={labelStyle}>Static</div>
         <GraphViewer graphspec={staticSpec} initialDirection="LR" initialShowControllers />
       </div>
-      <div style={{ position: "relative", minWidth: 0, minHeight: 0, background: "#0a0a0a" }}>
-        <div style={labelStyle}>Dry</div>
-        <GraphViewer graphspec={drySpec} initialDirection="LR" initialShowControllers />
+      <div style={paneStyle}>
+        <div style={labelStyle}>Live</div>
+        <GraphViewer graphspec={liveSpec} initialDirection="LR" initialShowControllers />
       </div>
     </div>
   );
 }
+
+const paneStyle: React.CSSProperties = {
+  position: "relative",
+  minWidth: 0,
+  minHeight: 0,
+  overflow: "hidden",
+  isolation: "isolate",
+  background: "#0a0a0a",
+};
 
 const labelStyle: React.CSSProperties = {
   position: "absolute",
@@ -56,19 +65,19 @@ const labelStyle: React.CSSProperties = {
   font: "12px ui-monospace, SFMono-Regular, Menlo, monospace",
 };
 
-function compare(staticKey: string, dryKey: string): Story {
+function compare(staticKey: string, liveKey: string): Story {
   return {
     render: (args) => <SideBySide {...args} />,
     args: {
       staticSpec: STATIC_RUN_CATALOG[staticKey].spec,
-      drySpec: DRY_RUN_CATALOG[dryKey].spec,
+      liveSpec: LIVE_RUN_CATALOG[liveKey].spec,
     },
   };
 }
 
-export const SimpleSequence = compare("STATIC_SIMPLE_SEQUENCE", "DRY_SIMPLE_SEQUENCE");
-export const SimpleCondition = compare("STATIC_SIMPLE_CONDITION", "DRY_SIMPLE_CONDITION");
-export const SimpleBatch = compare("STATIC_SIMPLE_BATCH", "DRY_SIMPLE_BATCH");
-export const CvScreening = compare("STATIC_CV_SCREENING", "DRY_CV_SCREENING");
-export const DeepNesting = compare("STATIC_DEEP_NESTING", "DRY_DEEP_NESTING");
-export const WideParallel = compare("STATIC_WIDE_PARALLEL", "DRY_WIDE_PARALLEL");
+export const SimpleSequence = compare("STATIC_SIMPLE_SEQUENCE", "LIVE_SIMPLE_SEQUENCE");
+export const SimpleCondition = compare("STATIC_SIMPLE_CONDITION", "LIVE_SIMPLE_CONDITION");
+export const SimpleBatch = compare("STATIC_SIMPLE_BATCH", "LIVE_SIMPLE_BATCH");
+export const CvScreening = compare("STATIC_CV_SCREENING", "LIVE_CV_SCREENING");
+export const DeepNesting = compare("STATIC_DEEP_NESTING", "LIVE_DEEP_NESTING");
+export const WideParallel = compare("STATIC_WIDE_PARALLEL", "LIVE_WIDE_PARALLEL");

@@ -512,7 +512,7 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "email_management.email_triage": {
       pipe_category: "PipeController",

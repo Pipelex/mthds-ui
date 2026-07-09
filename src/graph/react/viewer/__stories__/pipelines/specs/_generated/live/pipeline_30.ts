@@ -756,7 +756,7 @@ export const LIVE_CV_ANALYZER = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "candidate_screening.screen_candidate": {
       pipe_category: "PipeController",

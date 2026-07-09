@@ -956,7 +956,7 @@ export const DRY_SIBLING_PARALLELS = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "dual_phase.double_parallel_pipeline": {
       pipe_category: "PipeController",

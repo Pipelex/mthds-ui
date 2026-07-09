@@ -901,7 +901,7 @@ export const LIVE_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "content_etl.etl_pipeline": {
       pipe_category: "PipeController",

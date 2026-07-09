@@ -1,6 +1,6 @@
 import React from "react";
 import type { GraphSpecNode, PipeBlueprintUnion, PipeType, GraphSpec } from "@graph/types";
-import { isStaticGraphSpec } from "@graph/types";
+import { isDryGraphSpec, isStaticGraphSpec } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -66,6 +66,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
   const pipeType = node.pipe_type;
   const isController = CONTROLLER_TYPES.has(pipeType);
   const isStatic = isStaticGraphSpec(spec);
+  const showsGeneratedData = !isStatic && !isDryGraphSpec(spec);
   const badge = PIPE_TYPE_BADGES[pipeType];
   const status = node.status;
   const statusColor = STATUS_COLORS[status] ?? "#6272a4";
@@ -173,12 +174,12 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       {blueprint && (
         <BlueprintSection
           blueprint={blueprint}
-          executionData={isStatic ? undefined : node.execution_data}
+          executionData={showsGeneratedData ? node.execution_data : undefined}
         />
       )}
 
       {/* Execution data (runtime-resolved values) */}
-      {!isStatic && node.execution_data && Object.keys(node.execution_data).length > 0 && (
+      {showsGeneratedData && node.execution_data && Object.keys(node.execution_data).length > 0 && (
         <ExecutionDataSection
           executionData={node.execution_data}
           pipeType={pipeType}
@@ -196,7 +197,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       )}
 
       {/* Metrics */}
-      {!isStatic && node.metrics && Object.keys(node.metrics).length > 0 && (
+      {showsGeneratedData && node.metrics && Object.keys(node.metrics).length > 0 && (
         <div>
           <div className="detail-section-label">Metrics</div>
           {Object.entries(node.metrics).map(([key, value]) => (

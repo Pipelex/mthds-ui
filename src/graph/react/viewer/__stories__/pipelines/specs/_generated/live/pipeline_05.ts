@@ -446,7 +446,7 @@ export const LIVE_SIMPLE_PARALLEL = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "text_analysis.dual_analysis_pipeline": {
       pipe_category: "PipeController",

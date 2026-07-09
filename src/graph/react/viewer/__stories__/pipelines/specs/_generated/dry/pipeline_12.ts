@@ -1270,7 +1270,7 @@ export const DRY_BATCH_WITH_INNER_SEQ = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "data_enrichment.batch_enrich": {
       pipe_category: "PipeController",

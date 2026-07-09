@@ -1100,7 +1100,7 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "candidate_screening.screen_candidate": {
       pipe_category: "PipeController",

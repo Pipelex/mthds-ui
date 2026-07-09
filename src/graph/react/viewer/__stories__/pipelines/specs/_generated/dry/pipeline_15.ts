@@ -764,7 +764,7 @@ export const DRY_RAG_PIPELINE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "rag.rag_pipeline": {
       pipe_category: "PipeController",

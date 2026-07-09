@@ -525,7 +525,7 @@ export const DRY_IMAGE_PIPELINE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "image_catalog.image_pipeline": {
       pipe_category: "PipeController",

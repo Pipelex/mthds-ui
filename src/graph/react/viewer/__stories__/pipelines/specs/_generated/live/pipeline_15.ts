@@ -1852,7 +1852,7 @@ export const LIVE_RAG_PIPELINE = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "rag.rag_pipeline": {
       pipe_category: "PipeController",

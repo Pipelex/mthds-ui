@@ -1293,7 +1293,7 @@ export const DRY_DEEP_NESTING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "deep_processing.deep_nested_pipeline": {
       pipe_category: "PipeController",

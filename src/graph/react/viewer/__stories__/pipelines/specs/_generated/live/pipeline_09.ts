@@ -1467,7 +1467,7 @@ export const LIVE_CV_SCREENING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "recruitment.cv_screening": {
       pipe_category: "PipeController",

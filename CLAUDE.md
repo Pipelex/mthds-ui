@@ -216,7 +216,7 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 - **Pipeline fixtures** are generated from the `.mthds` bundles in `data/pipelines/pipeline_NN/` (see "Regenerating fixtures" below). The generator emits `__stories__/pipelines/specs/_generated.dry.ts` and `_generated.live.ts`; `mockGraphSpec.ts` and `liveGraphSpec.ts` re-export them as `DRY_*` / `LIVE_*` and build `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG`.
 - **Static fixture catalog** lives in `src/graph/react/viewer/__stories__/staticGraphSpec.ts`. It wraps `_generated.static.ts`, which imports raw `.mthds` bundles and builds `STATIC_*` specs through `buildStaticGraphSpecFromToml` with no CLI, Python, gateway key, or network.
-- **Static stories** live in `StaticGraphDev.stories.tsx`, `StaticVsDry.stories.tsx`, and `StaticGraphInvalid.stories.tsx`. Keep representative static-vs-dry coverage for sequence, condition, batch, CV screening, deep nesting, and wide parallel.
+- **Static stories** live in `StaticGraphDev.stories.tsx`, `StaticVsLive.stories.tsx`, and `StaticGraphInvalid.stories.tsx`. Keep representative static-vs-live coverage for sequence, condition, batch, CV screening, deep nesting, and wide parallel.
 - **Extreme-scale generators** in `extremeGraphSpecs.ts` — `makeWideParallel(N)`, `makeWideBatch(N)` (hand-built; kept validator-clean by `finalizeSpec`).
 - **PipeCard edge cases** in `src/graph/react/nodes/pipe/__stories__/edge-cases/edgeCaseData.ts`.
 - **Programmatic factories** in `src/graph/__tests__/testUtils.ts` — `makeMinimalSpec()`, `makeParallelSpec()`, `makeBatchSpec()`, `makeNestedSpec()`, `runFullPipeline()`.

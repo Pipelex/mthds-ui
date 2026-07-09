@@ -436,7 +436,7 @@ export const LIVE_SIMPLE_BATCH = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "document_batch.batch_ocr_pipeline": {
       pipe_category: "PipeController",

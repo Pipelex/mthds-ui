@@ -8861,7 +8861,7 @@ export const LIVE_RFP_QUALIFIER = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "rfp_qualification.qualify_rfp": {
       pipe_category: "PipeController",

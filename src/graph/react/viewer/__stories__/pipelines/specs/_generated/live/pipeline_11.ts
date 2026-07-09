@@ -473,7 +473,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "customer_support.smart_responder": {
       pipe_category: "PipeController",

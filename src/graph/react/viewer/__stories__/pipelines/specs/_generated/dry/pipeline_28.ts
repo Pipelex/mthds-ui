@@ -2000,7 +2000,7 @@ export const DRY_CV_BATCH_SCREENING = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "cv_batch_screening.batch_analyze_cvs_for_job_offer": {
       pipe_category: "PipeController",

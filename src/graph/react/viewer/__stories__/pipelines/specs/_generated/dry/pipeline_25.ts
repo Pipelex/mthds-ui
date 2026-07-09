@@ -1435,7 +1435,7 @@ export const DRY_ALL_CONTROLLER_TYPES = {
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "controller_showcase.all_controllers": {
       pipe_category: "PipeController",
