@@ -160,9 +160,9 @@ export const ToolbarDisabledStates: Story = {
 // ─── Cousin folding: shared pipe_code across branches ──────────────────
 
 /**
- * DRY_CV_MATCHING contains three branches each running a `route_by_match`
+ * DRY_CV_MATCHING contains repeated branches running a `route_by_match`
  * controller and a `process_single_cv` controller. A regular fold click on
- * one `route_by_match` should mirror to all three; an alt-click should only
+ * one `route_by_match` should mirror to all cousins; an alt-click should only
  * affect the clicked one.
  */
 export const CousinFold_MirrorsAcrossBranches: Story = {
@@ -170,13 +170,14 @@ export const CousinFold_MirrorsAcrossBranches: Story = {
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
     const initialGroups = getControllerGroupNodes(canvasElement).length;
-    // The spec has 8 controller groups (1 root + 1 inner-batch + 3 route_by_match + 3 process_single_cv).
     expect(initialGroups).toBeGreaterThan(3);
 
     // Find the first route_by_match controller's fold button.
-    const firstRouteCtrl = Array.from(
+    const initialRouteCtrls = Array.from(
       canvasElement.querySelectorAll(".controller-group-node"),
-    ).find((el) => el.textContent?.includes("route_by_match")) as HTMLElement | undefined;
+    ).filter((el) => el.textContent?.includes("route_by_match"));
+    expect(initialRouteCtrls.length).toBeGreaterThan(1);
+    const firstRouteCtrl = initialRouteCtrls[0] as HTMLElement | undefined;
     expect(firstRouteCtrl).toBeDefined();
     const foldBtn = firstRouteCtrl!.querySelector(".controller-group-fold") as HTMLElement | null;
     expect(foldBtn).not.toBeNull();
@@ -186,11 +187,11 @@ export const CousinFold_MirrorsAcrossBranches: Story = {
 
     await waitFor(
       () => {
-        // All three route_by_match controllers should now be folded cards.
+        // All route_by_match cousin controllers should now be folded cards.
         const folded = Array.from(canvasElement.querySelectorAll(".pipe-card--controller")).filter(
           (el) => el.textContent?.includes("route_by_match"),
         );
-        expect(folded.length).toBe(3);
+        expect(folded.length).toBe(initialRouteCtrls.length);
       },
       { timeout: 5000 },
     );
@@ -202,9 +203,11 @@ export const CousinFold_AltKeyFoldsSoloOnly: Story = {
   play: async ({ canvasElement }) => {
     await waitForRender(canvasElement);
 
-    const firstRouteCtrl = Array.from(
+    const initialRouteCtrls = Array.from(
       canvasElement.querySelectorAll(".controller-group-node"),
-    ).find((el) => el.textContent?.includes("route_by_match")) as HTMLElement | undefined;
+    ).filter((el) => el.textContent?.includes("route_by_match"));
+    expect(initialRouteCtrls.length).toBeGreaterThan(1);
+    const firstRouteCtrl = initialRouteCtrls[0] as HTMLElement | undefined;
     expect(firstRouteCtrl).toBeDefined();
     const foldBtn = firstRouteCtrl!.querySelector(".controller-group-fold") as HTMLElement | null;
     expect(foldBtn).not.toBeNull();
@@ -227,7 +230,7 @@ export const CousinFold_AltKeyFoldsSoloOnly: Story = {
         const openGroups = Array.from(
           canvasElement.querySelectorAll(".controller-group-node"),
         ).filter((el) => el.textContent?.includes("route_by_match"));
-        expect(openGroups.length).toBe(2);
+        expect(openGroups.length).toBe(initialRouteCtrls.length - 1);
       },
       { timeout: 5000 },
     );

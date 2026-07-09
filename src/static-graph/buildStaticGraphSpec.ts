@@ -681,35 +681,25 @@ function finishParallel(
     }
   }
 
-  if (blueprint.combined_output !== null) {
-    const combined = mintStuff(
-      ctx,
-      `${nodeId}:${blueprint.combined_output}`,
-      blueprint.combined_output,
-      blueprint.output.concept,
-      blueprint.output.multiplicity,
-    );
-    for (const { result } of branchResults) {
-      if (result.output !== null) {
-        addEdge(ctx, "parallel_combine", result.nodeId, nodeId, {
-          sourceStuff: result.output.digest,
-          targetStuff: combined.digest,
-        });
-      }
-    }
-    node.io.outputs = [ioItem(combined, inv.resultName)];
-    return { nodeId, output: combined, eachOutputs };
-  }
-
-  // No combined output: expose every branch output (transparency — same
-  // digests as the producing branches) under its branch's slot name, primary
-  // = the last producing branch.
-  const producing = branchResults.filter((branch) => branch.result.output !== null);
-  node.io.outputs = producing.map((branch) =>
-    ioItem(branch.result.output as StuffRecord, branch.sub.output_name),
+  const combinedName =
+    blueprint.combined_output ?? inv.resultName ?? snakeCase(blueprint.output.concept.code);
+  const combined = mintStuff(
+    ctx,
+    `${nodeId}:${combinedName}`,
+    combinedName,
+    blueprint.output.concept,
+    blueprint.output.multiplicity,
   );
-  const primary = producing.length > 0 ? producing[producing.length - 1].result.output : null;
-  return { nodeId, output: primary, eachOutputs };
+  for (const { result } of branchResults) {
+    if (result.output !== null) {
+      addEdge(ctx, "parallel_combine", result.nodeId, nodeId, {
+        sourceStuff: result.output.digest,
+        targetStuff: combined.digest,
+      });
+    }
+  }
+  node.io.outputs = [ioItem(combined, inv.resultName)];
+  return { nodeId, output: combined, eachOutputs };
 }
 
 function finishCondition(

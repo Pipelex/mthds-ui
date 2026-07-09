@@ -1,6 +1,6 @@
 {
-  "graph_id": "c710e7c2-fc34-499d-963e-d39468da3bd0",
-  "created_at": "2026-05-15T19:12:43.818097Z",
+  "graph_id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b",
+  "created_at": "2026-07-09T11:20:23.210760Z",
   "pipeline_ref": {
     "domain": "code_review",
     "main_pipe": "review_pipeline",
@@ -8,17 +8,18 @@
   },
   "nodes": [
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_0",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_0",
       "kind": "controller",
       "pipe_code": "review_pipeline",
       "pipe_type": "PipeSequence",
       "description": "Full code review pipeline",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:43.818097Z",
-        "ended_at": "2026-05-15T19:12:51.370103Z",
-        "duration": 7.552006
+        "started_at": "2026-07-09T11:20:23.210760Z",
+        "ended_at": "2026-07-09T11:20:31.860980Z",
+        "duration": 8.65022
       },
       "io": {
         "inputs": [
@@ -28,7 +29,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "nk63w",
+            "digest": "gETXJ",
             "data": {
               "text": "https://github.com/example/repo/pull/42"
             },
@@ -44,7 +45,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "56khZ",
+            "digest": "dgv2k",
             "data": {
               "text": "# Code Review\n\n## Security\nsecurity_findings: ```\n\n```\n\n## Style\nstyle_findings: ```\n\n```\n\n## Logic\nlogic_findings: ```\n\n```\n\n## Performance\nperf_findings: ```\n\n```"
             },
@@ -62,17 +63,18 @@
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
       "kind": "operator",
       "pipe_code": "fetch_diff",
       "pipe_type": "PipeSearch",
       "description": "Fetch PR diff content",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:43.824670Z",
-        "ended_at": "2026-05-15T19:12:48.612694Z",
-        "duration": 4.788024
+        "started_at": "2026-07-09T11:20:23.223462Z",
+        "ended_at": "2026-07-09T11:20:27.963485Z",
+        "duration": 4.740023
       },
       "io": {
         "inputs": [
@@ -82,7 +84,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "nk63w",
+            "digest": "gETXJ",
             "data": {
               "text": "https://github.com/example/repo/pull/42"
             },
@@ -98,13 +100,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ]
@@ -119,17 +121,18 @@
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
       "kind": "controller",
       "pipe_code": "parallel_checks",
       "pipe_type": "PipeParallel",
       "description": "Run security, style, logic, and perf checks in parallel",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:48.624722Z",
-        "ended_at": "2026-05-15T19:12:51.344035Z",
-        "duration": 2.719313
+        "started_at": "2026-07-09T11:20:27.970010Z",
+        "ended_at": "2026-07-09T11:20:31.836713Z",
+        "duration": 3.866703
       },
       "io": {
         "inputs": [
@@ -139,13 +142,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ],
@@ -156,7 +159,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dVWwY",
+            "digest": "6oiUD",
             "data": {
               "items": []
             },
@@ -170,7 +173,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MDZkw",
+            "digest": "gM2GD",
             "data": {
               "items": []
             },
@@ -184,7 +187,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7k3gn",
+            "digest": "3JRMY",
             "data": {
               "items": []
             },
@@ -198,12 +201,37 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8u3PD",
+            "digest": "Qg3mx",
             "data": {
               "items": []
             },
             "data_text": "",
             "data_html": "<ul><li><em>empty</em></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "review_findings_bundle",
+            "concept": "Composite",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NrPZY",
+            "data": {
+              "security_findings": {
+                "items": []
+              },
+              "style_findings": {
+                "items": []
+              },
+              "logic_findings": {
+                "items": []
+              },
+              "perf_findings": {
+                "items": []
+              }
+            },
+            "data_text": "{\n    \"security_findings\": {\n        \"items\": []\n    },\n    \"style_findings\": {\n        \"items\": []\n    },\n    \"logic_findings\": {\n        \"items\": []\n    },\n    \"perf_findings\": {\n        \"items\": []\n    }\n}\n",
+            "data_html": "<table><tr><th>security_findings</th><td><ul><li><em>empty</em></li></ul></td></tr><tr><th>style_findings</th><td><ul><li><em>empty</em></li></ul></td></tr><tr><th>logic_findings</th><td><ul><li><em>empty</em></li></ul></td></tr><tr><th>perf_findings</th><td><ul><li><em>empty</em></li></ul></td></tr></table>",
             "extra": {}
           }
         ]
@@ -214,21 +242,22 @@
       "execution_data": {
         "branch_count": 4,
         "add_each_output": true,
-        "combined_output_concept": null
+        "combined_output_concept": "native.Composite"
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_3",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_3",
       "kind": "operator",
       "pipe_code": "security_check",
       "pipe_type": "PipeLLM",
       "description": "Check for security vulnerabilities",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:48.633113Z",
-        "ended_at": "2026-05-15T19:12:50.858410Z",
-        "duration": 2.225297
+        "started_at": "2026-07-09T11:20:27.977675Z",
+        "ended_at": "2026-07-09T11:20:30.642670Z",
+        "duration": 2.664995
       },
       "io": {
         "inputs": [
@@ -238,13 +267,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ],
@@ -255,7 +284,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dVWwY",
+            "digest": "6oiUD",
             "data": {
               "items": []
             },
@@ -273,22 +302,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Review this code diff for security vulnerabilities (injection, XSS, auth issues, etc.):\n\n<diff>\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Review this code diff for security vulnerabilities (injection, XSS, auth issues, etc.):\n\n<diff>\nNo information is available to show the pull request diff.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_4",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_4",
       "kind": "operator",
       "pipe_code": "style_check",
       "pipe_type": "PipeLLM",
       "description": "Check code style and conventions",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:48.925838Z",
-        "ended_at": "2026-05-15T19:12:51.326467Z",
-        "duration": 2.400629
+        "started_at": "2026-07-09T11:20:29.109008Z",
+        "ended_at": "2026-07-09T11:20:31.823996Z",
+        "duration": 2.714988
       },
       "io": {
         "inputs": [
@@ -298,13 +328,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ],
@@ -315,7 +345,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MDZkw",
+            "digest": "gM2GD",
             "data": {
               "items": []
             },
@@ -333,22 +363,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Review this code diff for style issues and convention violations:\n\n<diff>\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Review this code diff for style issues and convention violations:\n\n<diff>\nNo information is available to show the pull request diff.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_5",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_5",
       "kind": "operator",
       "pipe_code": "logic_check",
       "pipe_type": "PipeLLM",
       "description": "Check for logic errors",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:48.945748Z",
-        "ended_at": "2026-05-15T19:12:50.802714Z",
-        "duration": 1.856966
+        "started_at": "2026-07-09T11:20:29.133533Z",
+        "ended_at": "2026-07-09T11:20:31.083000Z",
+        "duration": 1.949467
       },
       "io": {
         "inputs": [
@@ -358,13 +389,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ],
@@ -375,7 +406,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7k3gn",
+            "digest": "3JRMY",
             "data": {
               "items": []
             },
@@ -393,22 +424,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Review this code diff for logic errors, edge cases, and correctness issues:\n\n<diff>\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Review this code diff for logic errors, edge cases, and correctness issues:\n\n<diff>\nNo information is available to show the pull request diff.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_6",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_6",
       "kind": "operator",
       "pipe_code": "perf_check",
       "pipe_type": "PipeLLM",
       "description": "Check for performance issues",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:48.962567Z",
-        "ended_at": "2026-05-15T19:12:50.790968Z",
-        "duration": 1.828401
+        "started_at": "2026-07-09T11:20:29.153856Z",
+        "ended_at": "2026-07-09T11:20:30.923569Z",
+        "duration": 1.769713
       },
       "io": {
         "inputs": [
@@ -418,13 +450,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZoCYa",
+            "digest": "oG5wy",
             "data": {
-              "answer": "No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.",
+              "answer": "No information is available to show the pull request diff.",
               "sources": []
             },
-            "data_text": "Search Result:\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42. \n",
-            "data_html": "<div><p>No data is available to provide the pull request diff from https://github.com/example/repo/pull/42.</p></div>",
+            "data_text": "Search Result:\nNo information is available to show the pull request diff.                                          \n",
+            "data_html": "<div><p>No information is available to show the pull request diff.</p></div>",
             "extra": {}
           }
         ],
@@ -435,7 +467,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8u3PD",
+            "digest": "Qg3mx",
             "data": {
               "items": []
             },
@@ -453,22 +485,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Review this code diff for performance issues (N+1 queries, memory leaks, expensive operations):\n\n<diff>\nNo data is available to provide the pull request diff from https://github.com/example/repo/pull/42.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Review this code diff for performance issues (N+1 queries, memory leaks, expensive operations):\n\n<diff>\nNo information is available to show the pull request diff.\n</diff>\n\n---\nThe instance we want to generate will be for the following class:\nclass code_review__ReviewFinding(StructuredContent):\n    \"\"\"A finding from code review\"\"\"\n    severity: Literal[\n        \"critical\",\n        \"warning\",\n        \"info\",\n    ]  # Severity level\n    category: str  # Finding category\n    description: str  # Description of the finding\n    line_ref: str  # Line reference in the diff\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "operator",
       "pipe_code": "compose_review",
       "pipe_type": "PipeCompose",
       "description": "Compose final review from all findings",
       "domain_code": "code_review",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:51.352420Z",
-        "ended_at": "2026-05-15T19:12:51.366803Z",
-        "duration": 0.014383
+        "started_at": "2026-07-09T11:20:31.843331Z",
+        "ended_at": "2026-07-09T11:20:31.856436Z",
+        "duration": 0.013105
       },
       "io": {
         "inputs": [
@@ -478,7 +511,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dVWwY",
+            "digest": "6oiUD",
             "data": {
               "items": []
             },
@@ -492,7 +525,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MDZkw",
+            "digest": "gM2GD",
             "data": {
               "items": []
             },
@@ -506,7 +539,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7k3gn",
+            "digest": "3JRMY",
             "data": {
               "items": []
             },
@@ -520,7 +553,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8u3PD",
+            "digest": "Qg3mx",
             "data": {
               "items": []
             },
@@ -536,7 +569,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "56khZ",
+            "digest": "dgv2k",
             "data": {
               "text": "# Code Review\n\n## Security\nsecurity_findings: ```\n\n```\n\n## Style\nstyle_findings: ```\n\n```\n\n## Logic\nlogic_findings: ```\n\n```\n\n## Performance\nperf_findings: ```\n\n```"
             },
@@ -557,168 +590,229 @@
   ],
   "edges": [
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_0",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_0",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_0",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_0",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_1",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_0",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_1",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_0",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_2",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_3",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_2",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_3",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_4",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_3",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_4",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_5",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_4",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_5",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_6",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_5",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:edge_6",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_0",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:edge_6",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_0",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_0",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_0",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
       "kind": "data",
+      "optional": false,
       "label": "diff",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_1",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_3",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_1",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_3",
       "kind": "data",
+      "optional": false,
       "label": "diff",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_2",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_4",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_2",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_4",
       "kind": "data",
+      "optional": false,
       "label": "diff",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_3",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_5",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_3",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_5",
       "kind": "data",
+      "optional": false,
       "label": "diff",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_4",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_1",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_6",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_4",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_1",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_6",
       "kind": "data",
+      "optional": false,
       "label": "diff",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_5",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_5",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "data",
+      "optional": false,
       "label": "security_findings",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_6",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_6",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "data",
+      "optional": false,
       "label": "style_findings",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_7",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_7",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "data",
+      "optional": false,
       "label": "logic_findings",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c710e7c2-fc34-499d-963e-d39468da3bd0:asm_edge_8",
-      "source": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_2",
-      "target": "c710e7c2-fc34-499d-963e-d39468da3bd0:node_7",
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_8",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_7",
       "kind": "data",
+      "optional": false,
       "label": "perf_findings",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
+    },
+    {
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_9",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_3",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "6oiUD",
+      "target_stuff_digest": "NrPZY",
+      "meta": {}
+    },
+    {
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_10",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_4",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "gM2GD",
+      "target_stuff_digest": "NrPZY",
+      "meta": {}
+    },
+    {
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_11",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_5",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "3JRMY",
+      "target_stuff_digest": "NrPZY",
+      "meta": {}
+    },
+    {
+      "id": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:asm_edge_12",
+      "source": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_6",
+      "target": "0e2e1dc2-929f-4665-a6fe-3df0b3478e3b:node_2",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "Qg3mx",
+      "target_stuff_digest": "NrPZY",
+      "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "live"
   },
   "pipe_registry": {
     "code_review.review_pipeline": {
@@ -736,7 +830,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -747,7 +842,8 @@
           "structure_class_name": "code_review__CodeReview",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -758,7 +854,7 @@
         },
         {
           "pipe_code": "parallel_checks",
-          "output_name": "security_findings",
+          "output_name": "review_findings_bundle",
           "output_multiplicity": null,
           "batch_params": null
         },
@@ -785,7 +881,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -796,7 +893,8 @@
           "structure_class_name": "SearchResultContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "search_choice": null,
       "prompt_blueprint": {
@@ -828,18 +926,20 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
         "concept": {
-          "code": "ReviewFinding",
-          "domain_code": "code_review",
-          "description": "A finding from code review",
-          "structure_class_name": "code_review__ReviewFinding",
+          "code": "Composite",
+          "domain_code": "native",
+          "description": "A named composition of contents",
+          "structure_class_name": "CompositeContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": null,
+        "presence": "plain"
       },
       "parallel_sub_pipes": [
         {
@@ -867,8 +967,7 @@
           "batch_params": null
         }
       ],
-      "add_each_output": true,
-      "combined_output": null
+      "add_each_output": true
     },
     "code_review.security_check": {
       "pipe_category": "PipeOperator",
@@ -885,7 +984,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -896,7 +996,8 @@
           "structure_class_name": "code_review__ReviewFinding",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -916,7 +1017,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "code_review.style_check": {
@@ -934,7 +1034,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -945,7 +1046,8 @@
           "structure_class_name": "code_review__ReviewFinding",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -965,7 +1067,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "code_review.logic_check": {
@@ -983,7 +1084,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -994,7 +1096,8 @@
           "structure_class_name": "code_review__ReviewFinding",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -1014,7 +1117,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "code_review.perf_check": {
@@ -1032,7 +1134,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1043,7 +1146,8 @@
           "structure_class_name": "code_review__ReviewFinding",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -1063,7 +1167,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "code_review.compose_review": {
@@ -1081,7 +1184,8 @@
             "structure_class_name": "code_review__ReviewFinding",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "style_findings": {
           "concept": {
@@ -1091,7 +1195,8 @@
             "structure_class_name": "code_review__ReviewFinding",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "logic_findings": {
           "concept": {
@@ -1101,7 +1206,8 @@
             "structure_class_name": "code_review__ReviewFinding",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "perf_findings": {
           "concept": {
@@ -1111,7 +1217,8 @@
             "structure_class_name": "code_review__ReviewFinding",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1122,9 +1229,10 @@
           "structure_class_name": "code_review__CodeReview",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "# Code Review\n\n## Security\n{{ security_findings|tag(\"security_findings\") }}\n\n## Style\n{{ style_findings|tag(\"style_findings\") }}\n\n## Logic\n{{ logic_findings|tag(\"logic_findings\") }}\n\n## Performance\n{{ perf_findings|tag(\"perf_findings\") }}\n",
+      "template": "# Code Review\n\n## Security\n@security_findings\n\n## Style\n@style_findings\n\n## Logic\n@logic_findings\n\n## Performance\n@perf_findings\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -1279,6 +1387,20 @@
           "answer"
         ],
         "title": "SearchResultContent",
+        "type": "object"
+      }
+    },
+    "native.Composite": {
+      "code": "Composite",
+      "domain_code": "native",
+      "description": "A named composition of contents",
+      "structure_class_name": "CompositeContent",
+      "refines": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "Untyped named composition of contents — the structure class of `native.Composite`.\n\nHolds its named sub-contents as top-level fields (pydantic `extra=\"allow\"`), so the\nserialized shape matches a bespoke structured concept: `{name: content, ...}` with no\nwrapper key. This is the combination vehicle for a `PipeParallel` whose author does not\nwant to declare a bespoke concept: each branch's `result` name becomes a field.",
+        "properties": {},
+        "title": "CompositeContent",
         "type": "object"
       }
     },

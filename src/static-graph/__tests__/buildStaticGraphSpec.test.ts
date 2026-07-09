@@ -206,7 +206,7 @@ steps = [
 type = "PipeParallel"
 description = "Two analyses"
 inputs = { text = "Text" }
-output = "Text"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "analyze_a", result = "a" },
@@ -236,18 +236,20 @@ template = "@a @b"
 `;
 
 describe("buildStaticGraphSpec — PipeParallel", () => {
-  it("walks every branch and exposes branch outputs on the controller", () => {
+  it("walks every branch and exposes the combined output on the controller", () => {
     const { spec, diagnostics } = build(PARALLEL_EACH);
     expect(diagnostics).toEqual([]);
 
     const parallel = nodeById(spec, "par.run_all/step_1");
-    const branchA = nodeById(spec, "par.run_all/step_1/branch_1");
-    const branchB = nodeById(spec, "par.run_all/step_1/branch_2");
     expect(parallel.kind).toBe("controller");
-    expect(parallel.io.outputs.map((item) => item.digest)).toEqual([
-      branchA.io.outputs[0].digest,
-      branchB.io.outputs[0].digest,
+    expect(parallel.io.outputs).toEqual([
+      {
+        name: "composite",
+        digest: "par.run_all/step_1:composite",
+        concept: "Composite",
+      },
     ]);
+    expect(spec.edges.filter((edge) => edge.kind === "parallel_combine")).toHaveLength(2);
   });
 
   it("binds add_each_output results into the enclosing sequence scope", () => {
@@ -646,14 +648,14 @@ main_pipe = "outer"
 type = "PipeSequence"
 description = "Outer"
 inputs = { text = "Text" }
-output = "Text"
+output = "Composite"
 steps = [{ pipe = "middle", result = "out" }]
 
 [pipe.middle]
 type = "PipeParallel"
 description = "Middle"
 inputs = { text = "Text" }
-output = "Text"
+output = "Composite"
 add_each_output = true
 branches = [{ pipe = "inner", result = "x" }]
 
@@ -682,11 +684,14 @@ describe("buildStaticGraphSpec — nesting", () => {
       "nest.outer/step_1/branch_1",
       "nest.outer/step_1/branch_1/step_1",
     ]);
-    // Transparency propagates the leaf digest all the way up.
+    // Sequence controllers stay transparent, while parallel controllers expose
+    // their own combined output.
     const leaf = nodeById(spec, "nest.outer/step_1/branch_1/step_1");
-    for (const id of ["nest.outer", "nest.outer/step_1", "nest.outer/step_1/branch_1"]) {
-      expect(nodeById(spec, id).io.outputs[0].digest).toBe(leaf.io.outputs[0].digest);
-    }
+    expect(nodeById(spec, "nest.outer/step_1/branch_1").io.outputs[0].digest).toBe(
+      leaf.io.outputs[0].digest,
+    );
+    expect(nodeById(spec, "nest.outer/step_1").io.outputs[0].digest).toBe("nest.outer/step_1:out");
+    expect(nodeById(spec, "nest.outer").io.outputs[0].digest).toBe("nest.outer/step_1:out");
   });
 });
 
@@ -1131,7 +1136,7 @@ steps = [
 type = "PipeParallel"
 description = "Two branches"
 inputs = { text = "Text" }
-output = "Text"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "text_branch", result = "clean_text" },
@@ -1155,18 +1160,21 @@ prompt = "p"
 `;
 
 describe("buildStaticGraphSpec — controller io slot naming", () => {
-  it("exposes a transparent output under the invoking slot name, keeping the local name on the leaf", () => {
+  it("keeps branch sequence slot naming separate from the parallel combined output", () => {
     const { spec, diagnostics } = build(PARALLEL_SLOT_NAMES);
     expect(diagnostics).toEqual([]);
     const enrich = nodeById(spec, "slots.run/step_1/branch_1/step_1");
     const branch = nodeById(spec, "slots.run/step_1/branch_1");
     const parallel = nodeById(spec, "slots.run/step_1");
     const digest = enrich.io.outputs[0].digest;
-    // Leaf keeps its own step's result name; the branch sequence and the
-    // parallel both expose the same digest under the branch slot name.
+    // Leaf keeps its own step's result name. The branch sequence exposes the
+    // same digest under the branch slot, while the parallel exposes its
+    // combined output under the invoking step slot.
     expect(enrich.io.outputs[0].name).toBe("enriched");
     expect(branch.io.outputs).toEqual([{ name: "clean_text", digest, concept: "Text" }]);
-    expect(parallel.io.outputs).toEqual([{ name: "clean_text", digest, concept: "Text" }]);
+    expect(parallel.io.outputs).toEqual([
+      { name: "clean_text", digest: "slots.run/step_1:clean_text", concept: "Composite" },
+    ]);
   });
 });
 
