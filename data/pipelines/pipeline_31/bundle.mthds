@@ -95,7 +95,7 @@ model       = "@default-extract-document"
 type = "PipeParallel"
 description = "Extract both the RFP and capabilities documents concurrently."
 inputs = { rfp = "Document", capabilities = "Document" }
-output = "Page[]"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "extract_rfp", result = "rfp_pages" },

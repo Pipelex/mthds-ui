@@ -32,7 +32,7 @@ output = "Report"
 steps = [
   { pipe = "extract_cv", result = "pages" },
   { pipe = "analyze_candidate", result = "profile" },
-  { pipe = "enrich_candidate", result = "search_result" },
+  { pipe = "enrich_candidate", result = "candidate_assets" },
   { pipe = "score_match", result = "match" },
   { pipe = "compose_report", result = "report" },
 ]
@@ -58,7 +58,7 @@ Analyze this CV and extract a structured candidate profile:
 type = "PipeParallel"
 description = "Search online and generate profile card in parallel"
 inputs = { profile = "CandidateProfile" }
-output = "SearchResult"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "search_candidate", result = "search_result" },

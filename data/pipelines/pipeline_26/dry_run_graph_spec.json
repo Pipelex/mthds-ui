@@ -1,6 +1,6 @@
 {
-  "graph_id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8",
-  "created_at": "2026-05-15T12:39:53.549893Z",
+  "graph_id": "aae18495-c091-4ac6-b0b4-ce867ce1b528",
+  "created_at": "2026-07-09T11:06:31.847464Z",
   "pipeline_ref": {
     "domain": "cv_matching",
     "main_pipe": "screen_cvs",
@@ -8,37 +8,38 @@
   },
   "nodes": [
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_0",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_0",
       "kind": "controller",
       "pipe_code": "screen_cvs",
       "pipe_type": "PipeSequence",
       "description": "Screen multiple CVs against a job offer",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.549893Z",
-        "ended_at": "2026-05-15T12:39:53.780473Z",
-        "duration": 0.23058
+        "started_at": "2026-07-09T11:06:31.847464Z",
+        "ended_at": "2026-07-09T11:06:32.117680Z",
+        "duration": 0.270216
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer",
             "concept": "Document",
-            "content_type": "eRerhPomHVIzwyTjdYTR",
+            "content_type": "raeBeFfUlJBrkDbIcAfr",
             "preview": null,
             "size": null,
-            "digest": "nc7Yo",
+            "digest": "XmdDn",
             "data": {
-              "url": "zSONkfBotraqazdVAgxy",
-              "public_url": "qsrfIxLUAntOAOMACqqc",
-              "mime_type": "eRerhPomHVIzwyTjdYTR",
-              "filename": "qEUdNbAErIWytCUSqFpC",
-              "title": "BDqhfyTgwZNMJHTDZmbz",
-              "snippet": "IFkczUDixRRsCjLyvcZz"
+              "url": "nKuREcurqKDPmYGxdBab",
+              "public_url": "PEGGDWSDYvqFxJfugxAo",
+              "mime_type": "raeBeFfUlJBrkDbIcAfr",
+              "filename": "CgZlUFJktahpITBwptkj",
+              "title": "VupEeFvnMVywFZQPicRX",
+              "snippet": "lYkJTqFWexHxZSIEoSXe"
             },
-            "data_text": "BDqhfyTgwZNMJHTDZmbz (zSONkfBotraqazdVAgxy)\n  IFkczUDixRRsCjLyvcZz\n",
-            "data_html": "<a href=\"qsrfIxLUAntOAOMACqqc\" class=\"msg-document\">BDqhfyTgwZNMJHTDZmbz</a><br/><small>IFkczUDixRRsCjLyvcZz</small>",
+            "data_text": "VupEeFvnMVywFZQPicRX (nKuREcurqKDPmYGxdBab)\n  lYkJTqFWexHxZSIEoSXe\n",
+            "data_html": "<a href=\"PEGGDWSDYvqFxJfugxAo\" class=\"msg-document\">VupEeFvnMVywFZQPicRX</a><br/><small>lYkJTqFWexHxZSIEoSXe</small>",
             "extra": {}
           },
           {
@@ -47,37 +48,29 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bpY7s",
+            "digest": "iQgRr",
             "data": {
               "items": [
                 {
-                  "url": "joGKynvTaoBTKjboSAdM",
-                  "public_url": "WgfMBsUieIeTIwAlmwso",
-                  "mime_type": "OcHuhdPndwnvGjHrZPXm",
-                  "filename": "VaqqrRnosLCvVDolwukI",
-                  "title": "dwRjVJueXDYBrAivgQAe",
-                  "snippet": "sdIBMUBaxRymxsGYlvLK"
+                  "url": "qAnYgZeBErnkesLalyAD",
+                  "public_url": "jcqsCMPOnzhOtloODGyR",
+                  "mime_type": "WrQfZlmdMKhGYihxfjBb",
+                  "filename": "phErEUwOlLQbDXvYUhmx",
+                  "title": "rbtnfWeslIjyUVhDoDVZ",
+                  "snippet": "BfJnJOoBorcxzmPCPtvB"
                 },
                 {
-                  "url": "pAgVHqOgNCwhIxkAJuHh",
-                  "public_url": "pOMCwbDdhFBXKqqaIJMs",
-                  "mime_type": "RISEcXPfmgTlboIwpdWE",
-                  "filename": "avLiHjTPNCJoOcISzftN",
-                  "title": "RhqLdBeCKNiLouqvwCvw",
-                  "snippet": "qvGPjDbhmCRJAlbrSYTu"
-                },
-                {
-                  "url": "WVEUCsnbSdrVnNqtxmQS",
-                  "public_url": "gwZGvKJWXJTSxOCihkHy",
-                  "mime_type": "YwrBFKOdEMflXiYtkhpM",
-                  "filename": "qdNFlEnIEGauAwqESqFm",
-                  "title": "JQTzDqyaGvENlzXHFnIA",
-                  "snippet": "vHDtrNstrBEDYfxElJTn"
+                  "url": "yjrXtXmbQFGwKDyRgYZQ",
+                  "public_url": "rxojnARurYKwFNWJQCih",
+                  "mime_type": "mJConTtfxVLDRPFcqvdz",
+                  "filename": "EFcmGErDUKQxdvRkLHnG",
+                  "title": "zZzyYfUuGTMjdJdtKgzH",
+                  "snippet": "ANKWJIWRxniMUUODzWJW"
                 }
               ]
             },
-            "data_text": "     1      │ dwRjVJueXDYBrAivgQAe (joGKynvTaoBTKjboSAdM)                       \n            │   sdIBMUBaxRymxsGYlvLK                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ RhqLdBeCKNiLouqvwCvw (pAgVHqOgNCwhIxkAJuHh)                       \n            │   qvGPjDbhmCRJAlbrSYTu                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ JQTzDqyaGvENlzXHFnIA (WVEUCsnbSdrVnNqtxmQS)                       \n            │   vHDtrNstrBEDYfxElJTn                                            \n",
-            "data_html": "<ul><li><a href=\"WgfMBsUieIeTIwAlmwso\" class=\"msg-document\">dwRjVJueXDYBrAivgQAe</a><br/><small>sdIBMUBaxRymxsGYlvLK</small></li><li><a href=\"pOMCwbDdhFBXKqqaIJMs\" class=\"msg-document\">RhqLdBeCKNiLouqvwCvw</a><br/><small>qvGPjDbhmCRJAlbrSYTu</small></li><li><a href=\"gwZGvKJWXJTSxOCihkHy\" class=\"msg-document\">JQTzDqyaGvENlzXHFnIA</a><br/><small>vHDtrNstrBEDYfxElJTn</small></li></ul>",
+            "data_text": "     1      │ rbtnfWeslIjyUVhDoDVZ (qAnYgZeBErnkesLalyAD)                       \n            │   BfJnJOoBorcxzmPCPtvB                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ zZzyYfUuGTMjdJdtKgzH (yjrXtXmbQFGwKDyRgYZQ)                       \n            │   ANKWJIWRxniMUUODzWJW                                            \n",
+            "data_html": "<ul><li><a href=\"jcqsCMPOnzhOtloODGyR\" class=\"msg-document\">rbtnfWeslIjyUVhDoDVZ</a><br/><small>BfJnJOoBorcxzmPCPtvB</small></li><li><a href=\"rxojnARurYKwFNWJQCih\" class=\"msg-document\">zZzyYfUuGTMjdJdtKgzH</a><br/><small>ANKWJIWRxniMUUODzWJW</small></li></ul>",
             "extra": {}
           }
         ],
@@ -88,22 +81,39 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5owRn",
+            "digest": "eWDxJ",
             "data": {
               "items": [
                 {
-                  "text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                  "items": [
+                    {
+                      "text": "WjajxxKFJjQakAgmAIdR"
+                    },
+                    {
+                      "text": "ykEcGYXpJqVriYsSyCJv"
+                    },
+                    {
+                      "text": "ezHggMyVoPPmZmdfUyhH"
+                    }
+                  ]
                 },
                 {
-                  "text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-                },
-                {
-                  "text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                  "items": [
+                    {
+                      "text": "MswoeGtJKalAISeEadJw"
+                    },
+                    {
+                      "text": "LwOMYHCrAvttvfxquhrD"
+                    },
+                    {
+                      "text": "SGLvMrjrGnuZVCFSCpcK"
+                    }
+                  ]
                 }
               ]
             },
-            "data_text": "   1    │ Dear pPYSyUGuhGfzVzvaZEpw,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ afxAGhgyicoiBRLyfjHF                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Dear jwaxUznXBhfpGdoRGkcL,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ OPeIBysJHZtASgCRyCBP                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Dear liXfxktqSfQRxyNHRHCC,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ uGhOPOJQhPFLRJYpyOWQ                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n",
-            "data_html": "<ul><li>Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li></ul>",
+            "data_text": "   1    │    1    │ WjajxxKFJjQakAgmAIdR                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    2    │ ykEcGYXpJqVriYsSyCJv                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    3    │ ezHggMyVoPPmZmdfUyhH                                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │    1    │ MswoeGtJKalAISeEadJw                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    2    │ LwOMYHCrAvttvfxquhrD                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    3    │ SGLvMrjrGnuZVCFSCpcK                                        \n",
+            "data_html": "<ul><li><ul><li>WjajxxKFJjQakAgmAIdR</li><li>ykEcGYXpJqVriYsSyCJv</li><li>ezHggMyVoPPmZmdfUyhH</li></ul></li><li><ul><li>MswoeGtJKalAISeEadJw</li><li>LwOMYHCrAvttvfxquhrD</li><li>SGLvMrjrGnuZVCFSCpcK</li></ul></li></ul>",
             "extra": {}
           }
         ]
@@ -116,37 +126,38 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
       "kind": "operator",
       "pipe_code": "extract_job_pages",
       "pipe_type": "PipeExtract",
       "description": "Extract text pages from the job offer document",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.557160Z",
-        "ended_at": "2026-05-15T12:39:53.564851Z",
-        "duration": 0.007691
+        "started_at": "2026-07-09T11:06:31.855938Z",
+        "ended_at": "2026-07-09T11:06:31.867140Z",
+        "duration": 0.011202
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer",
             "concept": "Document",
-            "content_type": "eRerhPomHVIzwyTjdYTR",
+            "content_type": "raeBeFfUlJBrkDbIcAfr",
             "preview": null,
             "size": null,
-            "digest": "nc7Yo",
+            "digest": "XmdDn",
             "data": {
-              "url": "zSONkfBotraqazdVAgxy",
-              "public_url": "qsrfIxLUAntOAOMACqqc",
-              "mime_type": "eRerhPomHVIzwyTjdYTR",
-              "filename": "qEUdNbAErIWytCUSqFpC",
-              "title": "BDqhfyTgwZNMJHTDZmbz",
-              "snippet": "IFkczUDixRRsCjLyvcZz"
+              "url": "nKuREcurqKDPmYGxdBab",
+              "public_url": "PEGGDWSDYvqFxJfugxAo",
+              "mime_type": "raeBeFfUlJBrkDbIcAfr",
+              "filename": "CgZlUFJktahpITBwptkj",
+              "title": "VupEeFvnMVywFZQPicRX",
+              "snippet": "lYkJTqFWexHxZSIEoSXe"
             },
-            "data_text": "BDqhfyTgwZNMJHTDZmbz (zSONkfBotraqazdVAgxy)\n  IFkczUDixRRsCjLyvcZz\n",
-            "data_html": "<a href=\"qsrfIxLUAntOAOMACqqc\" class=\"msg-document\">BDqhfyTgwZNMJHTDZmbz</a><br/><small>IFkczUDixRRsCjLyvcZz</small>",
+            "data_text": "VupEeFvnMVywFZQPicRX (nKuREcurqKDPmYGxdBab)\n  lYkJTqFWexHxZSIEoSXe\n",
+            "data_html": "<a href=\"PEGGDWSDYvqFxJfugxAo\" class=\"msg-document\">VupEeFvnMVywFZQPicRX</a><br/><small>lYkJTqFWexHxZSIEoSXe</small>",
             "extra": {}
           }
         ],
@@ -157,7 +168,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "32ixX",
+            "digest": "9YjGJ",
             "data": {
               "items": [
                 {
@@ -219,17 +230,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
       "kind": "controller",
       "pipe_code": "screen_single_cv_batch",
       "pipe_type": "PipeBatch",
       "description": "Batch processing for screen_single_cv",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.569133Z",
-        "ended_at": "2026-05-15T12:39:53.777380Z",
-        "duration": 0.208247
+        "started_at": "2026-07-09T11:06:31.867432Z",
+        "ended_at": "2026-07-09T11:06:32.115690Z",
+        "duration": 0.248258
       },
       "io": {
         "inputs": [
@@ -239,37 +251,29 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "bpY7s",
+            "digest": "iQgRr",
             "data": {
               "items": [
                 {
-                  "url": "joGKynvTaoBTKjboSAdM",
-                  "public_url": "WgfMBsUieIeTIwAlmwso",
-                  "mime_type": "OcHuhdPndwnvGjHrZPXm",
-                  "filename": "VaqqrRnosLCvVDolwukI",
-                  "title": "dwRjVJueXDYBrAivgQAe",
-                  "snippet": "sdIBMUBaxRymxsGYlvLK"
+                  "url": "qAnYgZeBErnkesLalyAD",
+                  "public_url": "jcqsCMPOnzhOtloODGyR",
+                  "mime_type": "WrQfZlmdMKhGYihxfjBb",
+                  "filename": "phErEUwOlLQbDXvYUhmx",
+                  "title": "rbtnfWeslIjyUVhDoDVZ",
+                  "snippet": "BfJnJOoBorcxzmPCPtvB"
                 },
                 {
-                  "url": "pAgVHqOgNCwhIxkAJuHh",
-                  "public_url": "pOMCwbDdhFBXKqqaIJMs",
-                  "mime_type": "RISEcXPfmgTlboIwpdWE",
-                  "filename": "avLiHjTPNCJoOcISzftN",
-                  "title": "RhqLdBeCKNiLouqvwCvw",
-                  "snippet": "qvGPjDbhmCRJAlbrSYTu"
-                },
-                {
-                  "url": "WVEUCsnbSdrVnNqtxmQS",
-                  "public_url": "gwZGvKJWXJTSxOCihkHy",
-                  "mime_type": "YwrBFKOdEMflXiYtkhpM",
-                  "filename": "qdNFlEnIEGauAwqESqFm",
-                  "title": "JQTzDqyaGvENlzXHFnIA",
-                  "snippet": "vHDtrNstrBEDYfxElJTn"
+                  "url": "yjrXtXmbQFGwKDyRgYZQ",
+                  "public_url": "rxojnARurYKwFNWJQCih",
+                  "mime_type": "mJConTtfxVLDRPFcqvdz",
+                  "filename": "EFcmGErDUKQxdvRkLHnG",
+                  "title": "zZzyYfUuGTMjdJdtKgzH",
+                  "snippet": "ANKWJIWRxniMUUODzWJW"
                 }
               ]
             },
-            "data_text": "     1      │ dwRjVJueXDYBrAivgQAe (joGKynvTaoBTKjboSAdM)                       \n            │   sdIBMUBaxRymxsGYlvLK                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ RhqLdBeCKNiLouqvwCvw (pAgVHqOgNCwhIxkAJuHh)                       \n            │   qvGPjDbhmCRJAlbrSYTu                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ JQTzDqyaGvENlzXHFnIA (WVEUCsnbSdrVnNqtxmQS)                       \n            │   vHDtrNstrBEDYfxElJTn                                            \n",
-            "data_html": "<ul><li><a href=\"WgfMBsUieIeTIwAlmwso\" class=\"msg-document\">dwRjVJueXDYBrAivgQAe</a><br/><small>sdIBMUBaxRymxsGYlvLK</small></li><li><a href=\"pOMCwbDdhFBXKqqaIJMs\" class=\"msg-document\">RhqLdBeCKNiLouqvwCvw</a><br/><small>qvGPjDbhmCRJAlbrSYTu</small></li><li><a href=\"gwZGvKJWXJTSxOCihkHy\" class=\"msg-document\">JQTzDqyaGvENlzXHFnIA</a><br/><small>vHDtrNstrBEDYfxElJTn</small></li></ul>",
+            "data_text": "     1      │ rbtnfWeslIjyUVhDoDVZ (qAnYgZeBErnkesLalyAD)                       \n            │   BfJnJOoBorcxzmPCPtvB                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ zZzyYfUuGTMjdJdtKgzH (yjrXtXmbQFGwKDyRgYZQ)                       \n            │   ANKWJIWRxniMUUODzWJW                                            \n",
+            "data_html": "<ul><li><a href=\"jcqsCMPOnzhOtloODGyR\" class=\"msg-document\">rbtnfWeslIjyUVhDoDVZ</a><br/><small>BfJnJOoBorcxzmPCPtvB</small></li><li><a href=\"rxojnARurYKwFNWJQCih\" class=\"msg-document\">zZzyYfUuGTMjdJdtKgzH</a><br/><small>ANKWJIWRxniMUUODzWJW</small></li></ul>",
             "extra": {}
           }
         ],
@@ -280,22 +284,39 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5owRn",
+            "digest": "eWDxJ",
             "data": {
               "items": [
                 {
-                  "text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                  "items": [
+                    {
+                      "text": "WjajxxKFJjQakAgmAIdR"
+                    },
+                    {
+                      "text": "ykEcGYXpJqVriYsSyCJv"
+                    },
+                    {
+                      "text": "ezHggMyVoPPmZmdfUyhH"
+                    }
+                  ]
                 },
                 {
-                  "text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-                },
-                {
-                  "text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                  "items": [
+                    {
+                      "text": "MswoeGtJKalAISeEadJw"
+                    },
+                    {
+                      "text": "LwOMYHCrAvttvfxquhrD"
+                    },
+                    {
+                      "text": "SGLvMrjrGnuZVCFSCpcK"
+                    }
+                  ]
                 }
               ]
             },
-            "data_text": "   1    │ Dear pPYSyUGuhGfzVzvaZEpw,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ afxAGhgyicoiBRLyfjHF                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Dear jwaxUznXBhfpGdoRGkcL,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ OPeIBysJHZtASgCRyCBP                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Dear liXfxktqSfQRxyNHRHCC,                                            \n        │                                                                       \n        │ Thank you for your interest in the position and for taking the time   \n        │ to submit your application.                                           \n        │                                                                       \n        │ After careful review, we regret to inform you that your profile does  \n        │ not fully align with the requirements for this role at this time.     \n        │                                                                       \n        │ uGhOPOJQhPFLRJYpyOWQ                                                  \n        │                                                                       \n        │ We encourage you to apply for future openings that may better match   \n        │ your qualifications.                                                  \n        │                                                                       \n        │ Best regards, HR Team                                                 \n",
-            "data_html": "<ul><li>Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li></ul>",
+            "data_text": "   1    │    1    │ WjajxxKFJjQakAgmAIdR                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    2    │ ykEcGYXpJqVriYsSyCJv                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    3    │ ezHggMyVoPPmZmdfUyhH                                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │    1    │ MswoeGtJKalAISeEadJw                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    2    │ LwOMYHCrAvttvfxquhrD                                        \n        │ ────────┼──────────────────────────────────────────────────────────── \n        │    3    │ SGLvMrjrGnuZVCFSCpcK                                        \n",
+            "data_html": "<ul><li><ul><li>WjajxxKFJjQakAgmAIdR</li><li>ykEcGYXpJqVriYsSyCJv</li><li>ezHggMyVoPPmZmdfUyhH</li></ul></li><li><ul><li>MswoeGtJKalAISeEadJw</li><li>LwOMYHCrAvttvfxquhrD</li><li>SGLvMrjrGnuZVCFSCpcK</li></ul></li></ul>",
             "extra": {}
           }
         ]
@@ -304,42 +325,43 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "item_count": 3,
+        "item_count": 2,
         "branch_pipe_code": "screen_single_cv"
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
       "kind": "controller",
       "pipe_code": "screen_single_cv",
       "pipe_type": "PipeSequence",
       "description": "Screen a single CV against a job offer",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.577558Z",
-        "ended_at": "2026-05-15T12:39:53.644330Z",
-        "duration": 0.066772
+        "started_at": "2026-07-09T11:06:31.871973Z",
+        "ended_at": "2026-07-09T11:06:32.044438Z",
+        "duration": 0.172465
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "OcHuhdPndwnvGjHrZPXm",
+            "content_type": "WrQfZlmdMKhGYihxfjBb",
             "preview": null,
             "size": null,
-            "digest": "bpY7s-branch-0",
+            "digest": "iQgRr-branch-0",
             "data": {
-              "url": "joGKynvTaoBTKjboSAdM",
-              "public_url": "WgfMBsUieIeTIwAlmwso",
-              "mime_type": "OcHuhdPndwnvGjHrZPXm",
-              "filename": "VaqqrRnosLCvVDolwukI",
-              "title": "dwRjVJueXDYBrAivgQAe",
-              "snippet": "sdIBMUBaxRymxsGYlvLK"
+              "url": "qAnYgZeBErnkesLalyAD",
+              "public_url": "jcqsCMPOnzhOtloODGyR",
+              "mime_type": "WrQfZlmdMKhGYihxfjBb",
+              "filename": "phErEUwOlLQbDXvYUhmx",
+              "title": "rbtnfWeslIjyUVhDoDVZ",
+              "snippet": "BfJnJOoBorcxzmPCPtvB"
             },
-            "data_text": "dwRjVJueXDYBrAivgQAe (joGKynvTaoBTKjboSAdM)\n  sdIBMUBaxRymxsGYlvLK\n",
-            "data_html": "<a href=\"WgfMBsUieIeTIwAlmwso\" class=\"msg-document\">dwRjVJueXDYBrAivgQAe</a><br/><small>sdIBMUBaxRymxsGYlvLK</small>",
+            "data_text": "rbtnfWeslIjyUVhDoDVZ (qAnYgZeBErnkesLalyAD)\n  BfJnJOoBorcxzmPCPtvB\n",
+            "data_html": "<a href=\"jcqsCMPOnzhOtloODGyR\" class=\"msg-document\">rbtnfWeslIjyUVhDoDVZ</a><br/><small>BfJnJOoBorcxzmPCPtvB</small>",
             "extra": {}
           },
           {
@@ -348,7 +370,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "32ixX",
+            "digest": "9YjGJ",
             "data": {
               "items": [
                 {
@@ -401,16 +423,26 @@
         "outputs": [
           {
             "name": "output",
-            "concept": "Text",
+            "concept": "InterviewQuestion",
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FnhKk",
+            "digest": "JBQq9-branch-0",
             "data": {
-              "text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+              "items": [
+                {
+                  "text": "WjajxxKFJjQakAgmAIdR"
+                },
+                {
+                  "text": "ykEcGYXpJqVriYsSyCJv"
+                },
+                {
+                  "text": "ezHggMyVoPPmZmdfUyhH"
+                }
+              ]
             },
-            "data_text": "Dear pPYSyUGuhGfzVzvaZEpw,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nafxAGhgyicoiBRLyfjHF                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "data_text": "   1    │ WjajxxKFJjQakAgmAIdR                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ykEcGYXpJqVriYsSyCJv                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ezHggMyVoPPmZmdfUyhH                                                  \n",
+            "data_html": "<ul><li>WjajxxKFJjQakAgmAIdR</li><li>ykEcGYXpJqVriYsSyCJv</li><li>ezHggMyVoPPmZmdfUyhH</li></ul>",
             "extra": {}
           }
         ]
@@ -423,37 +455,38 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_4",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_4",
       "kind": "operator",
       "pipe_code": "extract_cv_pages",
       "pipe_type": "PipeExtract",
       "description": "Extract text pages from a CV document",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.584231Z",
-        "ended_at": "2026-05-15T12:39:53.590404Z",
-        "duration": 0.006173
+        "started_at": "2026-07-09T11:06:31.877856Z",
+        "ended_at": "2026-07-09T11:06:31.886257Z",
+        "duration": 0.008401
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "OcHuhdPndwnvGjHrZPXm",
+            "content_type": "WrQfZlmdMKhGYihxfjBb",
             "preview": null,
             "size": null,
-            "digest": "bpY7s-branch-0",
+            "digest": "iQgRr-branch-0",
             "data": {
-              "url": "joGKynvTaoBTKjboSAdM",
-              "public_url": "WgfMBsUieIeTIwAlmwso",
-              "mime_type": "OcHuhdPndwnvGjHrZPXm",
-              "filename": "VaqqrRnosLCvVDolwukI",
-              "title": "dwRjVJueXDYBrAivgQAe",
-              "snippet": "sdIBMUBaxRymxsGYlvLK"
+              "url": "qAnYgZeBErnkesLalyAD",
+              "public_url": "jcqsCMPOnzhOtloODGyR",
+              "mime_type": "WrQfZlmdMKhGYihxfjBb",
+              "filename": "phErEUwOlLQbDXvYUhmx",
+              "title": "rbtnfWeslIjyUVhDoDVZ",
+              "snippet": "BfJnJOoBorcxzmPCPtvB"
             },
-            "data_text": "dwRjVJueXDYBrAivgQAe (joGKynvTaoBTKjboSAdM)\n  sdIBMUBaxRymxsGYlvLK\n",
-            "data_html": "<a href=\"WgfMBsUieIeTIwAlmwso\" class=\"msg-document\">dwRjVJueXDYBrAivgQAe</a><br/><small>sdIBMUBaxRymxsGYlvLK</small>",
+            "data_text": "rbtnfWeslIjyUVhDoDVZ (qAnYgZeBErnkesLalyAD)\n  BfJnJOoBorcxzmPCPtvB\n",
+            "data_html": "<a href=\"jcqsCMPOnzhOtloODGyR\" class=\"msg-document\">rbtnfWeslIjyUVhDoDVZ</a><br/><small>BfJnJOoBorcxzmPCPtvB</small>",
             "extra": {}
           }
         ],
@@ -464,7 +497,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kTirC",
+            "digest": "BqjGs",
             "data": {
               "items": [
                 {
@@ -526,17 +559,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
       "kind": "operator",
       "pipe_code": "evaluate_cv",
       "pipe_type": "PipeLLM",
       "description": "Evaluate how well the CV matches the job offer requirements",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.595240Z",
-        "ended_at": "2026-05-15T12:39:53.610295Z",
-        "duration": 0.015055
+        "started_at": "2026-07-09T11:06:31.887800Z",
+        "ended_at": "2026-07-09T11:06:32.001293Z",
+        "duration": 0.113493
       },
       "io": {
         "inputs": [
@@ -546,7 +580,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "kTirC",
+            "digest": "BqjGs",
             "data": {
               "items": [
                 {
@@ -601,7 +635,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "32ixX",
+            "digest": "9YjGJ",
             "data": {
               "items": [
                 {
@@ -658,21 +692,21 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7CUgu",
+            "digest": "mAUoV",
             "data": {
-              "candidate_name": "pPYSyUGuhGfzVzvaZEpw",
+              "candidate_name": "FGScwjMHrUqTJtIQBBmU",
               "match": "yes",
-              "match_score": -58557.2057169453,
+              "match_score": -40.82287797473,
               "strengths": [
-                "38932af"
+                "17a6"
               ],
               "gaps": [
-                "43a617047a"
+                "56b7f2"
               ],
-              "summary": "afxAGhgyicoiBRLyfjHF"
+              "summary": "riyQWJYSuXgjUrVkOdAF"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ pPYSyUGuhGfzVzvaZEpw                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -58557.2057169453                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 38932af                             \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 43a617047a                          \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ afxAGhgyicoiBRLyfjHF                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>pPYSyUGuhGfzVzvaZEpw</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58557.2057169453</td></tr><tr><th>strengths</th><td><ul><li>38932af</li></ul></td></tr><tr><th>gaps</th><td><ul><li>43a617047a</li></ul></td></tr><tr><th>summary</th><td>afxAGhgyicoiBRLyfjHF</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ FGScwjMHrUqTJtIQBBmU                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -40.82287797473                             \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 17a6                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 56b7f2                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ riyQWJYSuXgjUrVkOdAF                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>FGScwjMHrUqTJtIQBBmU</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-40.82287797473</td></tr><tr><th>strengths</th><td><ul><li>17a6</li></ul></td></tr><tr><th>gaps</th><td><ul><li>56b7f2</li></ul></td></tr><tr><th>summary</th><td>riyQWJYSuXgjUrVkOdAF</td></tr></table>",
             "extra": {}
           }
         ]
@@ -690,17 +724,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_6",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_6",
       "kind": "controller",
       "pipe_code": "route_by_match",
       "pipe_type": "PipeCondition",
       "description": "Route based on whether the CV matches the job offer",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.613879Z",
-        "ended_at": "2026-05-15T12:39:53.642123Z",
-        "duration": 0.028244
+        "started_at": "2026-07-09T11:06:32.001442Z",
+        "ended_at": "2026-07-09T11:06:32.043500Z",
+        "duration": 0.042058
       },
       "io": {
         "inputs": [
@@ -710,37 +745,47 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7CUgu",
+            "digest": "mAUoV",
             "data": {
-              "candidate_name": "pPYSyUGuhGfzVzvaZEpw",
+              "candidate_name": "FGScwjMHrUqTJtIQBBmU",
               "match": "yes",
-              "match_score": -58557.2057169453,
+              "match_score": -40.82287797473,
               "strengths": [
-                "38932af"
+                "17a6"
               ],
               "gaps": [
-                "43a617047a"
+                "56b7f2"
               ],
-              "summary": "afxAGhgyicoiBRLyfjHF"
+              "summary": "riyQWJYSuXgjUrVkOdAF"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ pPYSyUGuhGfzVzvaZEpw                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -58557.2057169453                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 38932af                             \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 43a617047a                          \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ afxAGhgyicoiBRLyfjHF                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>pPYSyUGuhGfzVzvaZEpw</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58557.2057169453</td></tr><tr><th>strengths</th><td><ul><li>38932af</li></ul></td></tr><tr><th>gaps</th><td><ul><li>43a617047a</li></ul></td></tr><tr><th>summary</th><td>afxAGhgyicoiBRLyfjHF</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ FGScwjMHrUqTJtIQBBmU                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -40.82287797473                             \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 17a6                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 56b7f2                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ riyQWJYSuXgjUrVkOdAF                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>FGScwjMHrUqTJtIQBBmU</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-40.82287797473</td></tr><tr><th>strengths</th><td><ul><li>17a6</li></ul></td></tr><tr><th>gaps</th><td><ul><li>56b7f2</li></ul></td></tr><tr><th>summary</th><td>riyQWJYSuXgjUrVkOdAF</td></tr></table>",
             "extra": {}
           }
         ],
         "outputs": [
           {
             "name": "output",
-            "concept": "Text",
+            "concept": "InterviewQuestion",
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FnhKk",
+            "digest": "JBQq9-branch-0",
             "data": {
-              "text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+              "items": [
+                {
+                  "text": "WjajxxKFJjQakAgmAIdR"
+                },
+                {
+                  "text": "ykEcGYXpJqVriYsSyCJv"
+                },
+                {
+                  "text": "ezHggMyVoPPmZmdfUyhH"
+                }
+              ]
             },
-            "data_text": "Dear pPYSyUGuhGfzVzvaZEpw,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nafxAGhgyicoiBRLyfjHF                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "data_text": "   1    │ WjajxxKFJjQakAgmAIdR                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ykEcGYXpJqVriYsSyCJv                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ezHggMyVoPPmZmdfUyhH                                                  \n",
+            "data_html": "<ul><li>WjajxxKFJjQakAgmAIdR</li><li>ykEcGYXpJqVriYsSyCJv</li><li>ezHggMyVoPPmZmdfUyhH</li></ul>",
             "extra": {}
           }
         ]
@@ -754,17 +799,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_7",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_7",
       "kind": "operator",
-      "pipe_code": "generate_interview_questions",
-      "pipe_type": "PipeLLM",
-      "description": "Generate tailored interview questions for a matching candidate",
+      "pipe_code": "write_refusal_email",
+      "pipe_type": "PipeCompose",
+      "description": "Write a professional refusal email for a non-matching candidate",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.617021Z",
-        "ended_at": "2026-05-15T12:39:53.632056Z",
-        "duration": 0.015035
+        "started_at": "2026-07-09T11:06:32.006180Z",
+        "ended_at": "2026-07-09T11:06:32.014234Z",
+        "duration": 0.008054
       },
       "io": {
         "inputs": [
@@ -774,21 +820,86 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7CUgu",
+            "digest": "mAUoV",
             "data": {
-              "candidate_name": "pPYSyUGuhGfzVzvaZEpw",
+              "candidate_name": "FGScwjMHrUqTJtIQBBmU",
               "match": "yes",
-              "match_score": -58557.2057169453,
+              "match_score": -40.82287797473,
               "strengths": [
-                "38932af"
+                "17a6"
               ],
               "gaps": [
-                "43a617047a"
+                "56b7f2"
               ],
-              "summary": "afxAGhgyicoiBRLyfjHF"
+              "summary": "riyQWJYSuXgjUrVkOdAF"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ pPYSyUGuhGfzVzvaZEpw                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -58557.2057169453                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 38932af                             \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 43a617047a                          \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ afxAGhgyicoiBRLyfjHF                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>pPYSyUGuhGfzVzvaZEpw</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58557.2057169453</td></tr><tr><th>strengths</th><td><ul><li>38932af</li></ul></td></tr><tr><th>gaps</th><td><ul><li>43a617047a</li></ul></td></tr><tr><th>summary</th><td>afxAGhgyicoiBRLyfjHF</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ FGScwjMHrUqTJtIQBBmU                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -40.82287797473                             \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 17a6                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 56b7f2                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ riyQWJYSuXgjUrVkOdAF                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>FGScwjMHrUqTJtIQBBmU</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-40.82287797473</td></tr><tr><th>strengths</th><td><ul><li>17a6</li></ul></td></tr><tr><th>gaps</th><td><ul><li>56b7f2</li></ul></td></tr><tr><th>summary</th><td>riyQWJYSuXgjUrVkOdAF</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "aCEcN",
+            "data": {
+              "text": "Dear FGScwjMHrUqTJtIQBBmU,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nriyQWJYSuXgjUrVkOdAF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear FGScwjMHrUqTJtIQBBmU,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nriyQWJYSuXgjUrVkOdAF                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear FGScwjMHrUqTJtIQBBmU,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nriyQWJYSuXgjUrVkOdAF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "Dear FGScwjMHrUqTJtIQBBmU,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nriyQWJYSuXgjUrVkOdAF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+      }
+    },
+    {
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_8",
+      "kind": "operator",
+      "pipe_code": "generate_interview_questions",
+      "pipe_type": "PipeLLM",
+      "description": "Generate tailored interview questions for a matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-07-09T11:06:32.014313Z",
+        "ended_at": "2026-07-09T11:06:32.042520Z",
+        "duration": 0.028207
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "mAUoV",
+            "data": {
+              "candidate_name": "FGScwjMHrUqTJtIQBBmU",
+              "match": "yes",
+              "match_score": -40.82287797473,
+              "strengths": [
+                "17a6"
+              ],
+              "gaps": [
+                "56b7f2"
+              ],
+              "summary": "riyQWJYSuXgjUrVkOdAF"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ FGScwjMHrUqTJtIQBBmU                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -40.82287797473                             \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 17a6                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 56b7f2                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ riyQWJYSuXgjUrVkOdAF                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>FGScwjMHrUqTJtIQBBmU</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-40.82287797473</td></tr><tr><th>strengths</th><td><ul><li>17a6</li></ul></td></tr><tr><th>gaps</th><td><ul><li>56b7f2</li></ul></td></tr><tr><th>summary</th><td>riyQWJYSuXgjUrVkOdAF</td></tr></table>",
             "extra": {}
           }
         ],
@@ -799,22 +910,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LG4tm-branch-0",
+            "digest": "JBQq9-branch-0",
             "data": {
               "items": [
                 {
-                  "text": "nSowZztmTEKsJkxwFLaI"
+                  "text": "WjajxxKFJjQakAgmAIdR"
                 },
                 {
-                  "text": "BToiBlKSBtSbyFjOhKHm"
+                  "text": "ykEcGYXpJqVriYsSyCJv"
                 },
                 {
-                  "text": "gFrmqLfYOcIewnHyXWak"
+                  "text": "ezHggMyVoPPmZmdfUyhH"
                 }
               ]
             },
-            "data_text": "   1    │ nSowZztmTEKsJkxwFLaI                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ BToiBlKSBtSbyFjOhKHm                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ gFrmqLfYOcIewnHyXWak                                                  \n",
-            "data_html": "<ul><li>nSowZztmTEKsJkxwFLaI</li><li>BToiBlKSBtSbyFjOhKHm</li><li>gFrmqLfYOcIewnHyXWak</li></ul>",
+            "data_text": "   1    │ WjajxxKFJjQakAgmAIdR                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ykEcGYXpJqVriYsSyCJv                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ezHggMyVoPPmZmdfUyhH                                                  \n",
+            "data_html": "<ul><li>WjajxxKFJjQakAgmAIdR</li><li>ykEcGYXpJqVriYsSyCJv</li><li>ezHggMyVoPPmZmdfUyhH</li></ul>",
             "extra": {}
           }
         ]
@@ -827,106 +938,43 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: pPYSyUGuhGfzVzvaZEpw\n\n# match: yes\n\n# match_score: -58557.2057169453\n\n# strengths: - 38932af\n\n# gaps: - 43a617047a\n\n# summary: afxAGhgyicoiBRLyfjHF\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: FGScwjMHrUqTJtIQBBmU\n\n# match: yes\n\n# match_score: -40.82287797473\n\n# strengths: - 17a6\n\n# gaps: - 56b7f2\n\n# summary: riyQWJYSuXgjUrVkOdAF\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_8",
-      "kind": "operator",
-      "pipe_code": "write_refusal_email",
-      "pipe_type": "PipeCompose",
-      "description": "Write a professional refusal email for a non-matching candidate",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.632116Z",
-        "ended_at": "2026-05-15T12:39:53.641666Z",
-        "duration": 0.00955
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "7CUgu",
-            "data": {
-              "candidate_name": "pPYSyUGuhGfzVzvaZEpw",
-              "match": "yes",
-              "match_score": -58557.2057169453,
-              "strengths": [
-                "38932af"
-              ],
-              "gaps": [
-                "43a617047a"
-              ],
-              "summary": "afxAGhgyicoiBRLyfjHF"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ pPYSyUGuhGfzVzvaZEpw                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ yes                                         \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ -58557.2057169453                           \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 38932af                             \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 43a617047a                          \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ afxAGhgyicoiBRLyfjHF                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>pPYSyUGuhGfzVzvaZEpw</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58557.2057169453</td></tr><tr><th>strengths</th><td><ul><li>38932af</li></ul></td></tr><tr><th>gaps</th><td><ul><li>43a617047a</li></ul></td></tr><tr><th>summary</th><td>afxAGhgyicoiBRLyfjHF</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "Text",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "FnhKk",
-            "data": {
-              "text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-            },
-            "data_text": "Dear pPYSyUGuhGfzVzvaZEpw,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nafxAGhgyicoiBRLyfjHF                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "compose_mode": "template",
-        "rendered_text": "Dear pPYSyUGuhGfzVzvaZEpw,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nafxAGhgyicoiBRLyfjHF\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
       "kind": "controller",
       "pipe_code": "screen_single_cv",
       "pipe_type": "PipeSequence",
       "description": "Screen a single CV against a job offer",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.646854Z",
-        "ended_at": "2026-05-15T12:39:53.709819Z",
-        "duration": 0.062965
+        "started_at": "2026-07-09T11:06:32.045262Z",
+        "ended_at": "2026-07-09T11:06:32.112156Z",
+        "duration": 0.066894
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "RISEcXPfmgTlboIwpdWE",
+            "content_type": "mJConTtfxVLDRPFcqvdz",
             "preview": null,
             "size": null,
-            "digest": "bpY7s-branch-1",
+            "digest": "iQgRr-branch-1",
             "data": {
-              "url": "pAgVHqOgNCwhIxkAJuHh",
-              "public_url": "pOMCwbDdhFBXKqqaIJMs",
-              "mime_type": "RISEcXPfmgTlboIwpdWE",
-              "filename": "avLiHjTPNCJoOcISzftN",
-              "title": "RhqLdBeCKNiLouqvwCvw",
-              "snippet": "qvGPjDbhmCRJAlbrSYTu"
+              "url": "yjrXtXmbQFGwKDyRgYZQ",
+              "public_url": "rxojnARurYKwFNWJQCih",
+              "mime_type": "mJConTtfxVLDRPFcqvdz",
+              "filename": "EFcmGErDUKQxdvRkLHnG",
+              "title": "zZzyYfUuGTMjdJdtKgzH",
+              "snippet": "ANKWJIWRxniMUUODzWJW"
             },
-            "data_text": "RhqLdBeCKNiLouqvwCvw (pAgVHqOgNCwhIxkAJuHh)\n  qvGPjDbhmCRJAlbrSYTu\n",
-            "data_html": "<a href=\"pOMCwbDdhFBXKqqaIJMs\" class=\"msg-document\">RhqLdBeCKNiLouqvwCvw</a><br/><small>qvGPjDbhmCRJAlbrSYTu</small>",
+            "data_text": "zZzyYfUuGTMjdJdtKgzH (yjrXtXmbQFGwKDyRgYZQ)\n  ANKWJIWRxniMUUODzWJW\n",
+            "data_html": "<a href=\"rxojnARurYKwFNWJQCih\" class=\"msg-document\">zZzyYfUuGTMjdJdtKgzH</a><br/><small>ANKWJIWRxniMUUODzWJW</small>",
             "extra": {}
           },
           {
@@ -935,7 +983,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "32ixX",
+            "digest": "9YjGJ",
             "data": {
               "items": [
                 {
@@ -988,16 +1036,26 @@
         "outputs": [
           {
             "name": "output",
-            "concept": "Text",
+            "concept": "InterviewQuestion",
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9S47C",
+            "digest": "JBQq9-branch-1",
             "data": {
-              "text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+              "items": [
+                {
+                  "text": "MswoeGtJKalAISeEadJw"
+                },
+                {
+                  "text": "LwOMYHCrAvttvfxquhrD"
+                },
+                {
+                  "text": "SGLvMrjrGnuZVCFSCpcK"
+                }
+              ]
             },
-            "data_text": "Dear jwaxUznXBhfpGdoRGkcL,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nOPeIBysJHZtASgCRyCBP                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "data_text": "   1    │ MswoeGtJKalAISeEadJw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ LwOMYHCrAvttvfxquhrD                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ SGLvMrjrGnuZVCFSCpcK                                                  \n",
+            "data_html": "<ul><li>MswoeGtJKalAISeEadJw</li><li>LwOMYHCrAvttvfxquhrD</li><li>SGLvMrjrGnuZVCFSCpcK</li></ul>",
             "extra": {}
           }
         ]
@@ -1010,37 +1068,38 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_10",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_10",
       "kind": "operator",
       "pipe_code": "extract_cv_pages",
       "pipe_type": "PipeExtract",
       "description": "Extract text pages from a CV document",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.653051Z",
-        "ended_at": "2026-05-15T12:39:53.659483Z",
-        "duration": 0.006432
+        "started_at": "2026-07-09T11:06:32.050992Z",
+        "ended_at": "2026-07-09T11:06:32.059696Z",
+        "duration": 0.008704
       },
       "io": {
         "inputs": [
           {
             "name": "cv",
             "concept": "Document",
-            "content_type": "RISEcXPfmgTlboIwpdWE",
+            "content_type": "mJConTtfxVLDRPFcqvdz",
             "preview": null,
             "size": null,
-            "digest": "bpY7s-branch-1",
+            "digest": "iQgRr-branch-1",
             "data": {
-              "url": "pAgVHqOgNCwhIxkAJuHh",
-              "public_url": "pOMCwbDdhFBXKqqaIJMs",
-              "mime_type": "RISEcXPfmgTlboIwpdWE",
-              "filename": "avLiHjTPNCJoOcISzftN",
-              "title": "RhqLdBeCKNiLouqvwCvw",
-              "snippet": "qvGPjDbhmCRJAlbrSYTu"
+              "url": "yjrXtXmbQFGwKDyRgYZQ",
+              "public_url": "rxojnARurYKwFNWJQCih",
+              "mime_type": "mJConTtfxVLDRPFcqvdz",
+              "filename": "EFcmGErDUKQxdvRkLHnG",
+              "title": "zZzyYfUuGTMjdJdtKgzH",
+              "snippet": "ANKWJIWRxniMUUODzWJW"
             },
-            "data_text": "RhqLdBeCKNiLouqvwCvw (pAgVHqOgNCwhIxkAJuHh)\n  qvGPjDbhmCRJAlbrSYTu\n",
-            "data_html": "<a href=\"pOMCwbDdhFBXKqqaIJMs\" class=\"msg-document\">RhqLdBeCKNiLouqvwCvw</a><br/><small>qvGPjDbhmCRJAlbrSYTu</small>",
+            "data_text": "zZzyYfUuGTMjdJdtKgzH (yjrXtXmbQFGwKDyRgYZQ)\n  ANKWJIWRxniMUUODzWJW\n",
+            "data_html": "<a href=\"rxojnARurYKwFNWJQCih\" class=\"msg-document\">zZzyYfUuGTMjdJdtKgzH</a><br/><small>ANKWJIWRxniMUUODzWJW</small>",
             "extra": {}
           }
         ],
@@ -1051,7 +1110,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "DcJiv",
+            "digest": "BcFV2",
             "data": {
               "items": [
                 {
@@ -1113,17 +1172,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
       "kind": "operator",
       "pipe_code": "evaluate_cv",
       "pipe_type": "PipeLLM",
       "description": "Evaluate how well the CV matches the job offer requirements",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.664271Z",
-        "ended_at": "2026-05-15T12:39:53.678061Z",
-        "duration": 0.01379
+        "started_at": "2026-07-09T11:06:32.061167Z",
+        "ended_at": "2026-07-09T11:06:32.080416Z",
+        "duration": 0.019249
       },
       "io": {
         "inputs": [
@@ -1133,7 +1193,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "DcJiv",
+            "digest": "BcFV2",
             "data": {
               "items": [
                 {
@@ -1188,7 +1248,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "32ixX",
+            "digest": "9YjGJ",
             "data": {
               "items": [
                 {
@@ -1245,21 +1305,21 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fUBh5",
+            "digest": "T6yqY",
             "data": {
-              "candidate_name": "jwaxUznXBhfpGdoRGkcL",
+              "candidate_name": "srvsoNMLHscSIISBUEIa",
               "match": "no",
-              "match_score": 2207.86502018224,
+              "match_score": 131674205.806995,
               "strengths": [
-                "40a2dc85f5"
+                "ea574"
               ],
               "gaps": [
-                "e8b75cc9"
+                "8157bf"
               ],
-              "summary": "OPeIBysJHZtASgCRyCBP"
+              "summary": "svAEVSJYWarzYcryZhBW"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ jwaxUznXBhfpGdoRGkcL                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 2207.86502018224                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 40a2dc85f5                          \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ e8b75cc9                            \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ OPeIBysJHZtASgCRyCBP                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>jwaxUznXBhfpGdoRGkcL</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>2207.86502018224</td></tr><tr><th>strengths</th><td><ul><li>40a2dc85f5</li></ul></td></tr><tr><th>gaps</th><td><ul><li>e8b75cc9</li></ul></td></tr><tr><th>summary</th><td>OPeIBysJHZtASgCRyCBP</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ srvsoNMLHscSIISBUEIa                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 131674205.806995                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ ea574                               \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 8157bf                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ svAEVSJYWarzYcryZhBW                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>srvsoNMLHscSIISBUEIa</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>131674205.806995</td></tr><tr><th>strengths</th><td><ul><li>ea574</li></ul></td></tr><tr><th>gaps</th><td><ul><li>8157bf</li></ul></td></tr><tr><th>summary</th><td>svAEVSJYWarzYcryZhBW</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1277,17 +1337,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_12",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_12",
       "kind": "controller",
       "pipe_code": "route_by_match",
       "pipe_type": "PipeCondition",
       "description": "Route based on whether the CV matches the job offer",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.681610Z",
-        "ended_at": "2026-05-15T12:39:53.707673Z",
-        "duration": 0.026063
+        "started_at": "2026-07-09T11:06:32.080540Z",
+        "ended_at": "2026-07-09T11:06:32.111213Z",
+        "duration": 0.030673
       },
       "io": {
         "inputs": [
@@ -1297,37 +1358,47 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fUBh5",
+            "digest": "T6yqY",
             "data": {
-              "candidate_name": "jwaxUznXBhfpGdoRGkcL",
+              "candidate_name": "srvsoNMLHscSIISBUEIa",
               "match": "no",
-              "match_score": 2207.86502018224,
+              "match_score": 131674205.806995,
               "strengths": [
-                "40a2dc85f5"
+                "ea574"
               ],
               "gaps": [
-                "e8b75cc9"
+                "8157bf"
               ],
-              "summary": "OPeIBysJHZtASgCRyCBP"
+              "summary": "svAEVSJYWarzYcryZhBW"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ jwaxUznXBhfpGdoRGkcL                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 2207.86502018224                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 40a2dc85f5                          \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ e8b75cc9                            \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ OPeIBysJHZtASgCRyCBP                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>jwaxUznXBhfpGdoRGkcL</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>2207.86502018224</td></tr><tr><th>strengths</th><td><ul><li>40a2dc85f5</li></ul></td></tr><tr><th>gaps</th><td><ul><li>e8b75cc9</li></ul></td></tr><tr><th>summary</th><td>OPeIBysJHZtASgCRyCBP</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ srvsoNMLHscSIISBUEIa                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 131674205.806995                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ ea574                               \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 8157bf                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ svAEVSJYWarzYcryZhBW                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>srvsoNMLHscSIISBUEIa</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>131674205.806995</td></tr><tr><th>strengths</th><td><ul><li>ea574</li></ul></td></tr><tr><th>gaps</th><td><ul><li>8157bf</li></ul></td></tr><tr><th>summary</th><td>svAEVSJYWarzYcryZhBW</td></tr></table>",
             "extra": {}
           }
         ],
         "outputs": [
           {
             "name": "output",
-            "concept": "Text",
+            "concept": "InterviewQuestion",
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9S47C",
+            "digest": "JBQq9-branch-1",
             "data": {
-              "text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+              "items": [
+                {
+                  "text": "MswoeGtJKalAISeEadJw"
+                },
+                {
+                  "text": "LwOMYHCrAvttvfxquhrD"
+                },
+                {
+                  "text": "SGLvMrjrGnuZVCFSCpcK"
+                }
+              ]
             },
-            "data_text": "Dear jwaxUznXBhfpGdoRGkcL,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nOPeIBysJHZtASgCRyCBP                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "data_text": "   1    │ MswoeGtJKalAISeEadJw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ LwOMYHCrAvttvfxquhrD                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ SGLvMrjrGnuZVCFSCpcK                                                  \n",
+            "data_html": "<ul><li>MswoeGtJKalAISeEadJw</li><li>LwOMYHCrAvttvfxquhrD</li><li>SGLvMrjrGnuZVCFSCpcK</li></ul>",
             "extra": {}
           }
         ]
@@ -1341,17 +1412,18 @@
       }
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_13",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_13",
       "kind": "operator",
-      "pipe_code": "generate_interview_questions",
-      "pipe_type": "PipeLLM",
-      "description": "Generate tailored interview questions for a matching candidate",
+      "pipe_code": "write_refusal_email",
+      "pipe_type": "PipeCompose",
+      "description": "Write a professional refusal email for a non-matching candidate",
       "domain_code": "cv_matching",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:53.684821Z",
-        "ended_at": "2026-05-15T12:39:53.698517Z",
-        "duration": 0.013696
+        "started_at": "2026-07-09T11:06:32.084554Z",
+        "ended_at": "2026-07-09T11:06:32.090958Z",
+        "duration": 0.006404
       },
       "io": {
         "inputs": [
@@ -1361,21 +1433,86 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fUBh5",
+            "digest": "T6yqY",
             "data": {
-              "candidate_name": "jwaxUznXBhfpGdoRGkcL",
+              "candidate_name": "srvsoNMLHscSIISBUEIa",
               "match": "no",
-              "match_score": 2207.86502018224,
+              "match_score": 131674205.806995,
               "strengths": [
-                "40a2dc85f5"
+                "ea574"
               ],
               "gaps": [
-                "e8b75cc9"
+                "8157bf"
               ],
-              "summary": "OPeIBysJHZtASgCRyCBP"
+              "summary": "svAEVSJYWarzYcryZhBW"
             },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ jwaxUznXBhfpGdoRGkcL                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 2207.86502018224                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 40a2dc85f5                          \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ e8b75cc9                            \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ OPeIBysJHZtASgCRyCBP                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>jwaxUznXBhfpGdoRGkcL</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>2207.86502018224</td></tr><tr><th>strengths</th><td><ul><li>40a2dc85f5</li></ul></td></tr><tr><th>gaps</th><td><ul><li>e8b75cc9</li></ul></td></tr><tr><th>summary</th><td>OPeIBysJHZtASgCRyCBP</td></tr></table>",
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ srvsoNMLHscSIISBUEIa                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 131674205.806995                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ ea574                               \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 8157bf                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ svAEVSJYWarzYcryZhBW                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>srvsoNMLHscSIISBUEIa</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>131674205.806995</td></tr><tr><th>strengths</th><td><ul><li>ea574</li></ul></td></tr><tr><th>gaps</th><td><ul><li>8157bf</li></ul></td></tr><tr><th>summary</th><td>svAEVSJYWarzYcryZhBW</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VLzyC",
+            "data": {
+              "text": "Dear srvsoNMLHscSIISBUEIa,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nsvAEVSJYWarzYcryZhBW\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear srvsoNMLHscSIISBUEIa,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nsvAEVSJYWarzYcryZhBW                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear srvsoNMLHscSIISBUEIa,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nsvAEVSJYWarzYcryZhBW\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "Dear srvsoNMLHscSIISBUEIa,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nsvAEVSJYWarzYcryZhBW\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+      }
+    },
+    {
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_14",
+      "kind": "operator",
+      "pipe_code": "generate_interview_questions",
+      "pipe_type": "PipeLLM",
+      "description": "Generate tailored interview questions for a matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-07-09T11:06:32.091016Z",
+        "ended_at": "2026-07-09T11:06:32.110160Z",
+        "duration": 0.019144
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "T6yqY",
+            "data": {
+              "candidate_name": "srvsoNMLHscSIISBUEIa",
+              "match": "no",
+              "match_score": 131674205.806995,
+              "strengths": [
+                "ea574"
+              ],
+              "gaps": [
+                "8157bf"
+              ],
+              "summary": "svAEVSJYWarzYcryZhBW"
+            },
+            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ srvsoNMLHscSIISBUEIa                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 131674205.806995                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ ea574                               \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 8157bf                              \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ svAEVSJYWarzYcryZhBW                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>srvsoNMLHscSIISBUEIa</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>131674205.806995</td></tr><tr><th>strengths</th><td><ul><li>ea574</li></ul></td></tr><tr><th>gaps</th><td><ul><li>8157bf</li></ul></td></tr><tr><th>summary</th><td>svAEVSJYWarzYcryZhBW</td></tr></table>",
             "extra": {}
           }
         ],
@@ -1386,22 +1523,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LG4tm-branch-1",
+            "digest": "JBQq9-branch-1",
             "data": {
               "items": [
                 {
-                  "text": "MQAmIBukVmmXkugWyhho"
+                  "text": "MswoeGtJKalAISeEadJw"
                 },
                 {
-                  "text": "mfurLKlXOWtLsPziqECZ"
+                  "text": "LwOMYHCrAvttvfxquhrD"
                 },
                 {
-                  "text": "hfWBxDlrrBKcniGIUWRq"
+                  "text": "SGLvMrjrGnuZVCFSCpcK"
                 }
               ]
             },
-            "data_text": "   1    │ MQAmIBukVmmXkugWyhho                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ mfurLKlXOWtLsPziqECZ                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ hfWBxDlrrBKcniGIUWRq                                                  \n",
-            "data_html": "<ul><li>MQAmIBukVmmXkugWyhho</li><li>mfurLKlXOWtLsPziqECZ</li><li>hfWBxDlrrBKcniGIUWRq</li></ul>",
+            "data_text": "   1    │ MswoeGtJKalAISeEadJw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ LwOMYHCrAvttvfxquhrD                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ SGLvMrjrGnuZVCFSCpcK                                                  \n",
+            "data_html": "<ul><li>MswoeGtJKalAISeEadJw</li><li>LwOMYHCrAvttvfxquhrD</li><li>SGLvMrjrGnuZVCFSCpcK</li></ul>",
             "extra": {}
           }
         ]
@@ -1414,1136 +1551,368 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: jwaxUznXBhfpGdoRGkcL\n\n# match: no\n\n# match_score: 2207.86502018224\n\n# strengths: - 40a2dc85f5\n\n# gaps: - e8b75cc9\n\n# summary: OPeIBysJHZtASgCRyCBP\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: srvsoNMLHscSIISBUEIa\n\n# match: no\n\n# match_score: 131674205.806995\n\n# strengths: - ea574\n\n# gaps: - 8157bf\n\n# summary: svAEVSJYWarzYcryZhBW\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_14",
-      "kind": "operator",
-      "pipe_code": "write_refusal_email",
-      "pipe_type": "PipeCompose",
-      "description": "Write a professional refusal email for a non-matching candidate",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.698583Z",
-        "ended_at": "2026-05-15T12:39:53.707217Z",
-        "duration": 0.008634
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "fUBh5",
-            "data": {
-              "candidate_name": "jwaxUznXBhfpGdoRGkcL",
-              "match": "no",
-              "match_score": 2207.86502018224,
-              "strengths": [
-                "40a2dc85f5"
-              ],
-              "gaps": [
-                "e8b75cc9"
-              ],
-              "summary": "OPeIBysJHZtASgCRyCBP"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ jwaxUznXBhfpGdoRGkcL                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 2207.86502018224                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 40a2dc85f5                          \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ e8b75cc9                            \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ OPeIBysJHZtASgCRyCBP                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>jwaxUznXBhfpGdoRGkcL</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>2207.86502018224</td></tr><tr><th>strengths</th><td><ul><li>40a2dc85f5</li></ul></td></tr><tr><th>gaps</th><td><ul><li>e8b75cc9</li></ul></td></tr><tr><th>summary</th><td>OPeIBysJHZtASgCRyCBP</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "Text",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "9S47C",
-            "data": {
-              "text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-            },
-            "data_text": "Dear jwaxUznXBhfpGdoRGkcL,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nOPeIBysJHZtASgCRyCBP                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "compose_mode": "template",
-        "rendered_text": "Dear jwaxUznXBhfpGdoRGkcL,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nOPeIBysJHZtASgCRyCBP\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "kind": "controller",
-      "pipe_code": "screen_single_cv",
-      "pipe_type": "PipeSequence",
-      "description": "Screen a single CV against a job offer",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.712406Z",
-        "ended_at": "2026-05-15T12:39:53.773519Z",
-        "duration": 0.061113
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv",
-            "concept": "Document",
-            "content_type": "YwrBFKOdEMflXiYtkhpM",
-            "preview": null,
-            "size": null,
-            "digest": "bpY7s-branch-2",
-            "data": {
-              "url": "WVEUCsnbSdrVnNqtxmQS",
-              "public_url": "gwZGvKJWXJTSxOCihkHy",
-              "mime_type": "YwrBFKOdEMflXiYtkhpM",
-              "filename": "qdNFlEnIEGauAwqESqFm",
-              "title": "JQTzDqyaGvENlzXHFnIA",
-              "snippet": "vHDtrNstrBEDYfxElJTn"
-            },
-            "data_text": "JQTzDqyaGvENlzXHFnIA (WVEUCsnbSdrVnNqtxmQS)\n  vHDtrNstrBEDYfxElJTn\n",
-            "data_html": "<a href=\"gwZGvKJWXJTSxOCihkHy\" class=\"msg-document\">JQTzDqyaGvENlzXHFnIA</a><br/><small>vHDtrNstrBEDYfxElJTn</small>",
-            "extra": {}
-          },
-          {
-            "name": "job_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "32ixX",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "Text",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "UBGLF",
-            "data": {
-              "text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-            },
-            "data_text": "Dear liXfxktqSfQRxyNHRHCC,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nuGhOPOJQhPFLRJYpyOWQ                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "step_count": 3
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_16",
-      "kind": "operator",
-      "pipe_code": "extract_cv_pages",
-      "pipe_type": "PipeExtract",
-      "description": "Extract text pages from a CV document",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.718423Z",
-        "ended_at": "2026-05-15T12:39:53.724854Z",
-        "duration": 0.006431
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv",
-            "concept": "Document",
-            "content_type": "YwrBFKOdEMflXiYtkhpM",
-            "preview": null,
-            "size": null,
-            "digest": "bpY7s-branch-2",
-            "data": {
-              "url": "WVEUCsnbSdrVnNqtxmQS",
-              "public_url": "gwZGvKJWXJTSxOCihkHy",
-              "mime_type": "YwrBFKOdEMflXiYtkhpM",
-              "filename": "qdNFlEnIEGauAwqESqFm",
-              "title": "JQTzDqyaGvENlzXHFnIA",
-              "snippet": "vHDtrNstrBEDYfxElJTn"
-            },
-            "data_text": "JQTzDqyaGvENlzXHFnIA (WVEUCsnbSdrVnNqtxmQS)\n  vHDtrNstrBEDYfxElJTn\n",
-            "data_html": "<a href=\"gwZGvKJWXJTSxOCihkHy\" class=\"msg-document\">JQTzDqyaGvENlzXHFnIA</a><br/><small>vHDtrNstrBEDYfxElJTn</small>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "cv_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "i5j7U",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "azure-document-intelligence",
-        "document_stuff_name": "cv",
-        "should_caption_images": false,
-        "should_include_page_views": false
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "kind": "operator",
-      "pipe_code": "evaluate_cv",
-      "pipe_type": "PipeLLM",
-      "description": "Evaluate how well the CV matches the job offer requirements",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.729390Z",
-        "ended_at": "2026-05-15T12:39:53.742010Z",
-        "duration": 0.01262
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "i5j7U",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          },
-          {
-            "name": "job_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "32ixX",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "F7HDC",
-            "data": {
-              "candidate_name": "liXfxktqSfQRxyNHRHCC",
-              "match": "no",
-              "match_score": 5.52359938490033,
-              "strengths": [
-                "6b0a"
-              ],
-              "gaps": [
-                "496"
-              ],
-              "summary": "uGhOPOJQhPFLRJYpyOWQ"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ liXfxktqSfQRxyNHRHCC                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 5.52359938490033                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 6b0a                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 496                                 \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ uGhOPOJQhPFLRJYpyOWQ                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>liXfxktqSfQRxyNHRHCC</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>5.52359938490033</td></tr><tr><th>strengths</th><td><ul><li>6b0a</li></ul></td></tr><tr><th>gaps</th><td><ul><li>496</li></ul></td></tr><tr><th>summary</th><td>uGhOPOJQhPFLRJYpyOWQ</td></tr></table>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "claude-4.6-sonnet",
-        "resolved_model_for_object": "claude-4.6-sonnet",
-        "is_multiple_output": false,
-        "rendered_system_prompt": null,
-        "rendered_user_prompt": "You are an experienced HR recruiter. Analyze the following CV and job offer, then evaluate how well the candidate matches the position.\n\n## Job Offer\n<job_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_pages>\n\n## Candidate CV\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n## Instructions\n- Extract the candidate name from the CV\n- Assess whether the candidate is a good match (yes/no) based on required qualifications, experience, and skills\n- Provide a match score from 0 to 100\n- List key strengths relevant to the position\n- List gaps or missing qualifications\n- Write a concise overall summary of the evaluation\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__CvEvaluation(StructuredContent):\n    \"\"\"Evaluation of a CV against a job offer\"\"\"\n    candidate_name: str  # Name of the candidate\n    match: Literal[\n        \"yes\",\n        \"no\",\n    ]  # Whether the CV matches: yes or no\n    match_score: float  # Match score from 0 to 100\n    strengths: List[Any] | None = None  # Key strengths relative to the job\n    gaps: List[Any] | None = None  # Missing qualifications relative to the job\n    summary: str  # Overall evaluation summary\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
-        "structuring_path": "object_direct"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_18",
-      "kind": "controller",
-      "pipe_code": "route_by_match",
-      "pipe_type": "PipeCondition",
-      "description": "Route based on whether the CV matches the job offer",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.745394Z",
-        "ended_at": "2026-05-15T12:39:53.771336Z",
-        "duration": 0.025942
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "F7HDC",
-            "data": {
-              "candidate_name": "liXfxktqSfQRxyNHRHCC",
-              "match": "no",
-              "match_score": 5.52359938490033,
-              "strengths": [
-                "6b0a"
-              ],
-              "gaps": [
-                "496"
-              ],
-              "summary": "uGhOPOJQhPFLRJYpyOWQ"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ liXfxktqSfQRxyNHRHCC                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 5.52359938490033                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 6b0a                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 496                                 \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ uGhOPOJQhPFLRJYpyOWQ                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>liXfxktqSfQRxyNHRHCC</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>5.52359938490033</td></tr><tr><th>strengths</th><td><ul><li>6b0a</li></ul></td></tr><tr><th>gaps</th><td><ul><li>496</li></ul></td></tr><tr><th>summary</th><td>uGhOPOJQhPFLRJYpyOWQ</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "Text",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "UBGLF",
-            "data": {
-              "text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-            },
-            "data_text": "Dear liXfxktqSfQRxyNHRHCC,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nuGhOPOJQhPFLRJYpyOWQ                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "evaluated_expression": "dry_run",
-        "selected_outcome": "all_outcomes"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_19",
-      "kind": "operator",
-      "pipe_code": "generate_interview_questions",
-      "pipe_type": "PipeLLM",
-      "description": "Generate tailored interview questions for a matching candidate",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.748459Z",
-        "ended_at": "2026-05-15T12:39:53.761974Z",
-        "duration": 0.013515
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "F7HDC",
-            "data": {
-              "candidate_name": "liXfxktqSfQRxyNHRHCC",
-              "match": "no",
-              "match_score": 5.52359938490033,
-              "strengths": [
-                "6b0a"
-              ],
-              "gaps": [
-                "496"
-              ],
-              "summary": "uGhOPOJQhPFLRJYpyOWQ"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ liXfxktqSfQRxyNHRHCC                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 5.52359938490033                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 6b0a                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 496                                 \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ uGhOPOJQhPFLRJYpyOWQ                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>liXfxktqSfQRxyNHRHCC</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>5.52359938490033</td></tr><tr><th>strengths</th><td><ul><li>6b0a</li></ul></td></tr><tr><th>gaps</th><td><ul><li>496</li></ul></td></tr><tr><th>summary</th><td>uGhOPOJQhPFLRJYpyOWQ</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "InterviewQuestion",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "LG4tm-branch-2",
-            "data": {
-              "items": [
-                {
-                  "text": "VjqYwnEzTiLXYQMDQlOB"
-                },
-                {
-                  "text": "DhecfLkAmIeGXGTFYSCW"
-                },
-                {
-                  "text": "EQtLCxwAwYhDCDsZRaQC"
-                }
-              ]
-            },
-            "data_text": "   1    │ VjqYwnEzTiLXYQMDQlOB                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DhecfLkAmIeGXGTFYSCW                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ EQtLCxwAwYhDCDsZRaQC                                                  \n",
-            "data_html": "<ul><li>VjqYwnEzTiLXYQMDQlOB</li><li>DhecfLkAmIeGXGTFYSCW</li><li>EQtLCxwAwYhDCDsZRaQC</li></ul>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "claude-4.6-sonnet",
-        "resolved_model_for_object": "claude-4.6-sonnet",
-        "is_multiple_output": true,
-        "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: liXfxktqSfQRxyNHRHCC\n\n# match: no\n\n# match_score: 5.52359938490033\n\n# strengths: - 6b0a\n\n# gaps: - 496\n\n# summary: uGhOPOJQhPFLRJYpyOWQ\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
-        "structuring_path": "object_list"
-      }
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_20",
-      "kind": "operator",
-      "pipe_code": "write_refusal_email",
-      "pipe_type": "PipeCompose",
-      "description": "Write a professional refusal email for a non-matching candidate",
-      "domain_code": "cv_matching",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:53.762032Z",
-        "ended_at": "2026-05-15T12:39:53.770894Z",
-        "duration": 0.008862
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "evaluation",
-            "concept": "CvEvaluation",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "F7HDC",
-            "data": {
-              "candidate_name": "liXfxktqSfQRxyNHRHCC",
-              "match": "no",
-              "match_score": 5.52359938490033,
-              "strengths": [
-                "6b0a"
-              ],
-              "gaps": [
-                "496"
-              ],
-              "summary": "uGhOPOJQhPFLRJYpyOWQ"
-            },
-            "data_text": " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n candidate_name                   │ liXfxktqSfQRxyNHRHCC                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match                            │ no                                          \n──────────────────────────────────┼─────────────────────────────────────────────\n match_score                      │ 5.52359938490033                            \n──────────────────────────────────┼─────────────────────────────────────────────\n strengths                        │   1   │ 6b0a                                \n──────────────────────────────────┼─────────────────────────────────────────────\n gaps                             │   1   │ 496                                 \n──────────────────────────────────┼─────────────────────────────────────────────\n summary                          │ uGhOPOJQhPFLRJYpyOWQ                        \n",
-            "data_html": "<table><tr><th>candidate_name</th><td>liXfxktqSfQRxyNHRHCC</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>5.52359938490033</td></tr><tr><th>strengths</th><td><ul><li>6b0a</li></ul></td></tr><tr><th>gaps</th><td><ul><li>496</li></ul></td></tr><tr><th>summary</th><td>uGhOPOJQhPFLRJYpyOWQ</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "output",
-            "concept": "Text",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "UBGLF",
-            "data": {
-              "text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
-            },
-            "data_text": "Dear liXfxktqSfQRxyNHRHCC,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nuGhOPOJQhPFLRJYpyOWQ                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
-            "data_html": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "compose_mode": "template",
-        "rendered_text": "Dear liXfxktqSfQRxyNHRHCC,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nuGhOPOJQhPFLRJYpyOWQ\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
       }
     }
   ],
   "edges": [
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_0",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_0",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_0",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_0",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_1",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_0",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_1",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_0",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_2",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_2",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_3",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_4",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_3",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_4",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_4",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_5",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_6",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_5",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_6",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_6",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_7",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_6",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_6",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_7",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_7",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_6",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_8",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_7",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_6",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_8",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_8",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_8",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_9",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_10",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_9",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_10",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_10",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_10",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_11",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_12",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_11",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_12",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_12",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_12",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_13",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_12",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_12",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_13",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_13",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_12",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_14",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:edge_13",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_12",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_14",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_14",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_15",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_16",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_16",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_17",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_18",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_18",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_18",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_19",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:edge_19",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_18",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_20",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_0",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_0",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
       "kind": "data",
+      "optional": false,
       "label": "job_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_1",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_4",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_1",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_4",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
       "kind": "data",
+      "optional": false,
       "label": "cv_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_2",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_2",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
       "kind": "data",
+      "optional": false,
       "label": "job_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_3",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_6",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_3",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_6",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_4",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_7",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_4",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_7",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_5",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_5",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_8",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_5",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_5",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_8",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_6",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_6",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
       "kind": "data",
+      "optional": false,
       "label": "job_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_7",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_10",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_7",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_10",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
       "kind": "data",
+      "optional": false,
       "label": "cv_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_8",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_8",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_1",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
       "kind": "data",
+      "optional": false,
       "label": "job_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_9",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_12",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_9",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_12",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_10",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_13",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_10",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_13",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_11",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_11",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_14",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_11",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_11",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_14",
       "kind": "data",
+      "optional": false,
       "label": "evaluation",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_12",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "kind": "data",
-      "label": "job_pages",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_13",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_16",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "kind": "data",
-      "label": "cv_pages",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_14",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_1",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "kind": "data",
-      "label": "job_pages",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_15",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_18",
-      "kind": "data",
-      "label": "evaluation",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_16",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_19",
-      "kind": "data",
-      "label": "evaluation",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_17",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_17",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_20",
-      "kind": "data",
-      "label": "evaluation",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_18",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_12",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-0",
+      "source_stuff_digest": "iQgRr",
+      "target_stuff_digest": "iQgRr-branch-0",
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_19",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_4",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_13",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_4",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-0",
+      "source_stuff_digest": "iQgRr",
+      "target_stuff_digest": "iQgRr-branch-0",
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_20",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_14",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-1",
+      "source_stuff_digest": "iQgRr",
+      "target_stuff_digest": "iQgRr-branch-1",
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_21",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_10",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_15",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_10",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-1",
+      "source_stuff_digest": "iQgRr",
+      "target_stuff_digest": "iQgRr-branch-1",
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_22",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "kind": "batch_item",
-      "label": "[2]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-2",
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_23",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_16",
-      "kind": "batch_item",
-      "label": "[2]",
-      "source_stuff_digest": "bpY7s",
-      "target_stuff_digest": "bpY7s-branch-2",
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_24",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_3",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_16",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_3",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "FnhKk",
-      "target_stuff_digest": "5owRn",
+      "source_stuff_digest": "JBQq9-branch-0",
+      "target_stuff_digest": "eWDxJ",
       "meta": {}
     },
     {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_25",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_9",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
+      "id": "aae18495-c091-4ac6-b0b4-ce867ce1b528:asm_edge_17",
+      "source": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_9",
+      "target": "aae18495-c091-4ac6-b0b4-ce867ce1b528:node_2",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "9S47C",
-      "target_stuff_digest": "5owRn",
-      "meta": {}
-    },
-    {
-      "id": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:asm_edge_26",
-      "source": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_15",
-      "target": "5c0dc7d3-1a98-4d5b-9adc-0f67d8bbf2a8:node_2",
-      "kind": "batch_aggregate",
-      "label": "[2]",
-      "source_stuff_digest": "UBGLF",
-      "target_stuff_digest": "5owRn",
+      "source_stuff_digest": "JBQq9-branch-1",
+      "target_stuff_digest": "eWDxJ",
       "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "cv_matching.screen_cvs": {
@@ -2561,7 +1930,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "job_offer": {
           "concept": {
@@ -2571,7 +1941,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2582,7 +1953,8 @@
           "structure_class_name": "AnythingContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -2617,7 +1989,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2628,7 +2001,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": null,
       "should_caption_images": false,
@@ -2655,7 +2029,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2666,7 +2041,8 @@
           "structure_class_name": "AnythingContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "branch_pipe_code": "screen_single_cv",
       "batch_params": {
@@ -2689,7 +2065,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "job_pages": {
           "concept": {
@@ -2699,7 +2076,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2710,7 +2088,8 @@
           "structure_class_name": "AnythingContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -2748,7 +2127,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2759,7 +2139,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": null,
       "should_caption_images": false,
@@ -2786,7 +2167,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "job_pages": {
           "concept": {
@@ -2796,7 +2178,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2807,7 +2190,8 @@
           "structure_class_name": "cv_matching__CvEvaluation",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -2827,7 +2211,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "cv_matching.route_by_match": {
@@ -2845,7 +2228,8 @@
             "structure_class_name": "cv_matching__CvEvaluation",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2856,7 +2240,8 @@
           "structure_class_name": "AnythingContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "expression": "{{ evaluation.match }}",
       "outcome_map": {
@@ -2865,6 +2250,42 @@
       },
       "default_outcome": "write_refusal_email",
       "add_alias_from_expression_to": null
+    },
+    "cv_matching.write_refusal_email": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "write_refusal_email",
+      "domain_code": "cv_matching",
+      "description": "Write a professional refusal email for a non-matching candidate",
+      "inputs": {
+        "evaluation": {
+          "concept": {
+            "code": "CvEvaluation",
+            "domain_code": "cv_matching",
+            "description": "Evaluation of a CV against a job offer",
+            "structure_class_name": "cv_matching__CvEvaluation",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Text",
+          "domain_code": "native",
+          "description": "A text",
+          "structure_class_name": "TextContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "template": "Dear {{ evaluation.candidate_name }},\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\n{{ evaluation.summary }}\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
     },
     "cv_matching.generate_interview_questions": {
       "pipe_category": "PipeOperator",
@@ -2881,7 +2302,8 @@
             "structure_class_name": "cv_matching__CvEvaluation",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2892,7 +2314,8 @@
           "structure_class_name": "cv_matching__InterviewQuestion",
           "refines": "native.Text"
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -2912,42 +2335,7 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
-    },
-    "cv_matching.write_refusal_email": {
-      "pipe_category": "PipeOperator",
-      "type": "PipeCompose",
-      "code": "write_refusal_email",
-      "domain_code": "cv_matching",
-      "description": "Write a professional refusal email for a non-matching candidate",
-      "inputs": {
-        "evaluation": {
-          "concept": {
-            "code": "CvEvaluation",
-            "domain_code": "cv_matching",
-            "description": "Evaluation of a CV against a job offer",
-            "structure_class_name": "cv_matching__CvEvaluation",
-            "refines": null
-          },
-          "multiplicity": null
-        }
-      },
-      "output": {
-        "concept": {
-          "code": "Text",
-          "domain_code": "native",
-          "description": "A text",
-          "structure_class_name": "TextContent",
-          "refines": null
-        },
-        "multiplicity": null
-      },
-      "template": "Dear {{ evaluation.candidate_name }},\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\n{{ evaluation.summary }}\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team\n",
-      "templating_style": null,
-      "category": "basic",
-      "extra_context": null,
-      "construct_blueprint": null
     }
   },
   "concept_registry": {
@@ -3160,10 +2548,12 @@
           "ImageSize": {
             "properties": {
               "width": {
+                "exclusiveMinimum": 0,
                 "title": "Width",
                 "type": "integer"
               },
               "height": {
+                "exclusiveMinimum": 0,
                 "title": "Height",
                 "type": "integer"
               }
@@ -3333,6 +2723,26 @@
         "type": "object"
       }
     },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
     "cv_matching.InterviewQuestion": {
       "code": "InterviewQuestion",
       "domain_code": "cv_matching",
@@ -3351,26 +2761,6 @@
           "text"
         ],
         "title": "cv_matching__InterviewQuestion",
-        "type": "object"
-      }
-    },
-    "native.Text": {
-      "code": "Text",
-      "domain_code": "native",
-      "description": "A text",
-      "structure_class_name": "TextContent",
-      "refines": null,
-      "json_schema": {
-        "properties": {
-          "text": {
-            "title": "Text",
-            "type": "string"
-          }
-        },
-        "required": [
-          "text"
-        ],
-        "title": "TextContent",
         "type": "object"
       }
     }

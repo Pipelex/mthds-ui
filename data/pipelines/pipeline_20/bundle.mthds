@@ -16,7 +16,7 @@ description = "Process data through 5 parallel paths then collect"
 inputs = { data = "Text" }
 output = "CollectedResults"
 steps = [
-  { pipe = "five_way_split", result = "alpha" },
+  { pipe = "five_way_split", result = "parallel_results" },
   { pipe = "collect_all", result = "collected" },
 ]
 
@@ -24,7 +24,7 @@ steps = [
 type = "PipeParallel"
 description = "Five parallel processing branches"
 inputs = { data = "Text" }
-output = "ProcessedData"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "process_alpha", result = "alpha" },

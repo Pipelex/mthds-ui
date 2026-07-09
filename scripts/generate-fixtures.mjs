@@ -1,7 +1,7 @@
 /**
  * Regenerate Storybook GraphSpec fixtures from the pipelex bundles in
- * data/pipelines/. Each bundle is run through `pipelex ... --graph` and the
- * resulting graphspec.json is emitted as a typed fixture consumed by
+ * data/pipelines/. Each bundle is run through the sibling `../pipelex`
+ * checkout and the resulting graphspec.json is emitted as a typed fixture consumed by
  * mockGraphSpec.ts.
  *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
@@ -38,6 +38,10 @@ import { fileURLToPath } from "node:url";
 import prettier from "prettier";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
+const PIPELEX_BIN =
+  process.env.PIPELEX_BIN ??
+  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
 
@@ -92,6 +96,15 @@ function die(message) {
   process.exit(1);
 }
 
+function assertPipelexCliAvailable() {
+  if (!existsSync(PIPELEX_BIN)) {
+    die(
+      `cannot find pipelex CLI at ${PIPELEX_BIN}. ` +
+        `Set PIPELEX_BIN to an explicit CLI path or set up ../pipelex/.venv.`,
+    );
+  }
+}
+
 /** Run one bundle through pipelex and return the parsed graphspec.json. */
 function generateSpec(pipelineDir) {
   const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
@@ -109,7 +122,7 @@ function generateSpec(pipelineDir) {
     }
 
     try {
-      execFileSync("pipelex", args, {
+      execFileSync(PIPELEX_BIN, args, {
         cwd: REPO,
         env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
         stdio: ["ignore", "pipe", "pipe"],
@@ -154,18 +167,9 @@ function assertValid(spec, pipelineDir) {
   }
 }
 
-function normalizeSpecMode(spec) {
-  return {
-    ...spec,
-    meta: {
-      ...spec.meta,
-      format: "mthds",
-      mode: MODE_VALUE,
-    },
-  };
-}
-
 async function main() {
+  assertPipelexCliAvailable();
+
   const allPipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
     .sort();
@@ -199,12 +203,13 @@ async function main() {
       `${CHECK ? " [check — no files written]" : ""}` +
       `${FROM_DISK ? " [from disk]" : ""}`,
   );
+  console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
 
   // name -> spec, assembled in allPipelines order for a stable output file.
   const specByName = new Map();
   for (const pipelineDir of toProcess) {
     process.stdout.write(`  ${pipelineDir} ... `);
-    const spec = normalizeSpecMode(generateSpec(pipelineDir));
+    const spec = generateSpec(pipelineDir);
     assertValid(spec, pipelineDir);
     specByName.set(NAME_MAP[pipelineDir], spec);
 
@@ -228,7 +233,7 @@ async function main() {
     for (const p of allPipelines) {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {
-        const spec = normalizeSpecMode(JSON.parse(readFileSync(specJsonPath(p), "utf-8")));
+        const spec = JSON.parse(readFileSync(specJsonPath(p), "utf-8"));
         assertValid(spec, p);
         specByName.set(NAME_MAP[p], spec);
         reused.push(p);

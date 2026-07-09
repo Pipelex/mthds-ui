@@ -30,7 +30,7 @@ inputs = { pr_url = "Text" }
 output = "CodeReview"
 steps = [
   { pipe = "fetch_diff", result = "diff" },
-  { pipe = "parallel_checks", result = "security_findings" },
+  { pipe = "parallel_checks", result = "review_findings_bundle" },
   { pipe = "compose_review", result = "review" },
 ]
 
@@ -45,7 +45,7 @@ prompt      = "Pull request diff from $pr_url"
 type = "PipeParallel"
 description = "Run security, style, logic, and perf checks in parallel"
 inputs = { diff = "SearchResult" }
-output = "ReviewFinding[]"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "security_check", result = "security_findings" },

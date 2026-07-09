@@ -1,6 +1,6 @@
 {
-  "graph_id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c",
-  "created_at": "2026-05-15T12:39:04.363255Z",
+  "graph_id": "272cc9f1-8560-4346-b474-f5c0ea4607de",
+  "created_at": "2026-07-09T11:00:10.382161Z",
   "pipeline_ref": {
     "domain": "document_processing",
     "main_pipe": "extract_analyze_report",
@@ -8,37 +8,38 @@
   },
   "nodes": [
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_0",
       "kind": "controller",
       "pipe_code": "extract_analyze_report",
       "pipe_type": "PipeSequence",
       "description": "Full document processing pipeline",
       "domain_code": "document_processing",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:04.363255Z",
-        "ended_at": "2026-05-15T12:39:04.406921Z",
-        "duration": 0.043666
+        "started_at": "2026-07-09T11:00:10.382161Z",
+        "ended_at": "2026-07-09T11:00:10.432491Z",
+        "duration": 0.05033
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "HtbYocCsZJULfvsreEKF",
+            "content_type": "aAaGukDHpeYrgkwcQjNS",
             "preview": null,
             "size": null,
-            "digest": "Nuf2W",
+            "digest": "3vCkp",
             "data": {
-              "url": "oOOEfoxrKJfLqHZgwaST",
-              "public_url": "KOOcGRboFzsiZAUvbwLw",
-              "mime_type": "HtbYocCsZJULfvsreEKF",
-              "filename": "sJLOHkauDycabHlDamjF",
-              "title": "gQkPBcFYsSsubdlXktrP",
-              "snippet": "SXpNwcONtsygjDVAJQbB"
+              "url": "FlbaHwYnDFQtKJHsfUQj",
+              "public_url": "jlWORhrvHlswznOAsuXj",
+              "mime_type": "aAaGukDHpeYrgkwcQjNS",
+              "filename": "TXYSTOepjOylDCLMiNfU",
+              "title": "pvXeXUVbbfOftJZCyuyN",
+              "snippet": "BryGrbZvtvzKxpzoPmtE"
             },
-            "data_text": "gQkPBcFYsSsubdlXktrP (oOOEfoxrKJfLqHZgwaST)\n  SXpNwcONtsygjDVAJQbB\n",
-            "data_html": "<a href=\"KOOcGRboFzsiZAUvbwLw\" class=\"msg-document\">gQkPBcFYsSsubdlXktrP</a><br/><small>SXpNwcONtsygjDVAJQbB</small>",
+            "data_text": "pvXeXUVbbfOftJZCyuyN (FlbaHwYnDFQtKJHsfUQj)\n  BryGrbZvtvzKxpzoPmtE\n",
+            "data_html": "<a href=\"jlWORhrvHlswznOAsuXj\" class=\"msg-document\">pvXeXUVbbfOftJZCyuyN</a><br/><small>BryGrbZvtvzKxpzoPmtE</small>",
             "extra": {}
           }
         ],
@@ -49,12 +50,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Eb5Kh",
+            "digest": "ZoHiP",
             "data": {
-              "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
+              "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
             },
-            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\nfollowing document content thoroughly:                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,          \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\nfollowing document content thoroughly:                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
             "extra": {}
           }
         ]
@@ -67,37 +68,38 @@
       }
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_1",
       "kind": "operator",
       "pipe_code": "extract_pages",
       "pipe_type": "PipeExtract",
       "description": "Extract pages from document",
       "domain_code": "document_processing",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:04.368391Z",
-        "ended_at": "2026-05-15T12:39:04.375374Z",
-        "duration": 0.006983
+        "started_at": "2026-07-09T11:00:10.388812Z",
+        "ended_at": "2026-07-09T11:00:10.400988Z",
+        "duration": 0.012176
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "HtbYocCsZJULfvsreEKF",
+            "content_type": "aAaGukDHpeYrgkwcQjNS",
             "preview": null,
             "size": null,
-            "digest": "Nuf2W",
+            "digest": "3vCkp",
             "data": {
-              "url": "oOOEfoxrKJfLqHZgwaST",
-              "public_url": "KOOcGRboFzsiZAUvbwLw",
-              "mime_type": "HtbYocCsZJULfvsreEKF",
-              "filename": "sJLOHkauDycabHlDamjF",
-              "title": "gQkPBcFYsSsubdlXktrP",
-              "snippet": "SXpNwcONtsygjDVAJQbB"
+              "url": "FlbaHwYnDFQtKJHsfUQj",
+              "public_url": "jlWORhrvHlswznOAsuXj",
+              "mime_type": "aAaGukDHpeYrgkwcQjNS",
+              "filename": "TXYSTOepjOylDCLMiNfU",
+              "title": "pvXeXUVbbfOftJZCyuyN",
+              "snippet": "BryGrbZvtvzKxpzoPmtE"
             },
-            "data_text": "gQkPBcFYsSsubdlXktrP (oOOEfoxrKJfLqHZgwaST)\n  SXpNwcONtsygjDVAJQbB\n",
-            "data_html": "<a href=\"KOOcGRboFzsiZAUvbwLw\" class=\"msg-document\">gQkPBcFYsSsubdlXktrP</a><br/><small>SXpNwcONtsygjDVAJQbB</small>",
+            "data_text": "pvXeXUVbbfOftJZCyuyN (FlbaHwYnDFQtKJHsfUQj)\n  BryGrbZvtvzKxpzoPmtE\n",
+            "data_html": "<a href=\"jlWORhrvHlswznOAsuXj\" class=\"msg-document\">pvXeXUVbbfOftJZCyuyN</a><br/><small>BryGrbZvtvzKxpzoPmtE</small>",
             "extra": {}
           }
         ],
@@ -108,7 +110,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "DJy5D",
+            "digest": "4SU7L",
             "data": {
               "items": [
                 {
@@ -170,17 +172,18 @@
       }
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_2",
       "kind": "operator",
       "pipe_code": "analyze_content",
       "pipe_type": "PipeLLM",
       "description": "Analyze extracted content",
       "domain_code": "document_processing",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:04.380340Z",
-        "ended_at": "2026-05-15T12:39:04.390846Z",
-        "duration": 0.010506
+        "started_at": "2026-07-09T11:00:10.402493Z",
+        "ended_at": "2026-07-09T11:00:10.421512Z",
+        "duration": 0.019019
       },
       "io": {
         "inputs": [
@@ -190,7 +193,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "DJy5D",
+            "digest": "4SU7L",
             "data": {
               "items": [
                 {
@@ -247,12 +250,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MAgZX",
+            "digest": "NVDat",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument content thoroughly:                                                                        \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument content thoroughly:                                                                        \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
             "extra": {}
           }
         ]
@@ -270,17 +273,18 @@
       }
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_3",
       "kind": "operator",
       "pipe_code": "compose_report",
       "pipe_type": "PipeCompose",
       "description": "Format analysis into final report",
       "domain_code": "document_processing",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:04.395603Z",
-        "ended_at": "2026-05-15T12:39:04.404009Z",
-        "duration": 0.008406
+        "started_at": "2026-07-09T11:00:10.422808Z",
+        "ended_at": "2026-07-09T11:00:10.431069Z",
+        "duration": 0.008261
       },
       "io": {
         "inputs": [
@@ -290,12 +294,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "MAgZX",
+            "digest": "NVDat",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument content thoroughly:                                                                        \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the following       \ndocument content thoroughly:                                                                        \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
             "extra": {}
           }
         ],
@@ -306,12 +310,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Eb5Kh",
+            "digest": "ZoHiP",
             "data": {
-              "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
+              "text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
             },
-            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ``` DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,         \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\nfollowing document content thoroughly:                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,          \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\nfollowing document content thoroughly:                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\ni                                                                                                   \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
             "extra": {}
           }
         ]
@@ -321,56 +325,61 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
+        "rendered_text": "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_0",
-      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
-      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:edge_0",
+      "source": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_0",
+      "target": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_1",
-      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
-      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:edge_1",
+      "source": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_0",
+      "target": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:edge_2",
-      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_0",
-      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:edge_2",
+      "source": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_0",
+      "target": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:asm_edge_0",
-      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_1",
-      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:asm_edge_0",
+      "source": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_1",
+      "target": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_2",
       "kind": "data",
+      "optional": false,
       "label": "pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:asm_edge_1",
-      "source": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_2",
-      "target": "c7f4f16d-73b9-4c32-bfc6-69868d11834c:node_3",
+      "id": "272cc9f1-8560-4346-b474-f5c0ea4607de:asm_edge_1",
+      "source": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_2",
+      "target": "272cc9f1-8560-4346-b474-f5c0ea4607de:node_3",
       "kind": "data",
+      "optional": false,
       "label": "analysis",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
@@ -378,7 +387,8 @@
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "document_processing.extract_analyze_report": {
@@ -396,7 +406,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -407,7 +418,8 @@
           "structure_class_name": "document_processing__Report",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -445,7 +457,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -456,7 +469,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": null,
       "should_caption_images": false,
@@ -483,7 +497,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -494,7 +509,8 @@
           "structure_class_name": "document_processing__Analysis",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -514,7 +530,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "document_processing.compose_report": {
@@ -532,7 +547,8 @@
             "structure_class_name": "document_processing__Analysis",
             "refines": "native.Text"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -543,9 +559,10 @@
           "structure_class_name": "document_processing__Report",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "# Document Analysis Report\n\n{{ analysis|tag(\"analysis\") }}\n",
+      "template": "# Document Analysis Report\n\n@analysis\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -775,10 +792,12 @@
           "ImageSize": {
             "properties": {
               "width": {
+                "exclusiveMinimum": 0,
                 "title": "Width",
                 "type": "integer"
               },
               "height": {
+                "exclusiveMinimum": 0,
                 "title": "Height",
                 "type": "integer"
               }

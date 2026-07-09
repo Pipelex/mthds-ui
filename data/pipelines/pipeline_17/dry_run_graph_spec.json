@@ -1,6 +1,6 @@
 {
-  "graph_id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264",
-  "created_at": "2026-05-15T12:39:34.079743Z",
+  "graph_id": "e8dedfd7-8a1e-418f-92a2-c83700583a94",
+  "created_at": "2026-07-09T11:04:02.318297Z",
   "pipeline_ref": {
     "domain": "email_management",
     "main_pipe": "email_triage",
@@ -8,17 +8,18 @@
   },
   "nodes": [
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_0",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_0",
       "kind": "controller",
       "pipe_code": "email_triage",
       "pipe_type": "PipeSequence",
       "description": "Search inbox, classify, and route to action",
       "domain_code": "email_management",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:34.079743Z",
-        "ended_at": "2026-05-15T12:39:34.143634Z",
-        "duration": 0.063891
+        "started_at": "2026-07-09T11:04:02.318297Z",
+        "ended_at": "2026-07-09T11:04:02.471360Z",
+        "duration": 0.153063
       },
       "io": {
         "inputs": [
@@ -28,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "GJn64",
+            "digest": "geVDr",
             "data": {
-              "text": "BlwrqlWiKaCrxrRTmInY"
+              "text": "PLmilkwkkwdugShZpTfW"
             },
-            "data_text": "BlwrqlWiKaCrxrRTmInY                                                                                \n",
-            "data_html": "BlwrqlWiKaCrxrRTmInY",
+            "data_text": "PLmilkwkkwdugShZpTfW                                                                                \n",
+            "data_html": "PLmilkwkkwdugShZpTfW",
             "extra": {}
           }
         ],
@@ -44,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "55Az5",
+            "digest": "PeFWp",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    "
+              "text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb"
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: iVrzlzVmcUVStOsQdBAc Summary: TEwfODPJWXGjcQcAZXXj                                         \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    ",
+            "data_text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb                                     \n",
+            "data_html": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb",
             "extra": {}
           }
         ]
@@ -62,17 +63,18 @@
       }
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_1",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_1",
       "kind": "operator",
       "pipe_code": "search_inbox",
       "pipe_type": "PipeSearch",
       "description": "Search email inbox",
       "domain_code": "email_management",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:34.084710Z",
-        "ended_at": "2026-05-15T12:39:34.092235Z",
-        "duration": 0.007525
+        "started_at": "2026-07-09T11:04:02.322767Z",
+        "ended_at": "2026-07-09T11:04:02.335865Z",
+        "duration": 0.013098
       },
       "io": {
         "inputs": [
@@ -82,12 +84,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "GJn64",
+            "digest": "geVDr",
             "data": {
-              "text": "BlwrqlWiKaCrxrRTmInY"
+              "text": "PLmilkwkkwdugShZpTfW"
             },
-            "data_text": "BlwrqlWiKaCrxrRTmInY                                                                                \n",
-            "data_html": "BlwrqlWiKaCrxrRTmInY",
+            "data_text": "PLmilkwkkwdugShZpTfW                                                                                \n",
+            "data_html": "PLmilkwkkwdugShZpTfW",
             "extra": {}
           }
         ],
@@ -98,38 +100,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Xsww2",
+            "digest": "3VR34",
             "data": {
-              "answer": "rehjnjyMAkYPewpsSFas",
+              "answer": "jsyBRjUQYuyXcQlycrdI",
               "sources": [
                 {
-                  "url": "SUdfnvDSLTMtPrCRZZUc",
-                  "public_url": "ZwPpiUZgyvWEAacKzQix",
-                  "mime_type": "bzSNRiYnSSUADYtkDJQY",
-                  "filename": "OvWpgpNhHklqrmMZbafz",
-                  "title": "HQEmaFDGkKdasTYmNLsi",
-                  "snippet": "HHIkZywWVbItNoZaEgUy"
+                  "url": "NQcODLaqBmyPqMNZXaoh",
+                  "public_url": "BxPPLazobcOIfLfFOUAr",
+                  "mime_type": "CYdNRuafmfgqxIoqXBpq",
+                  "filename": "ctJaYbVJhNBXjccDAgkF",
+                  "title": "ymvkbFZSEUwcecccCNXC",
+                  "snippet": "pTtEYlGqeSUqxbpkQNKi"
                 },
                 {
-                  "url": "seojChQNPrLFdHUPcFlQ",
-                  "public_url": "zWkxKjFyjNrQITHPknKP",
-                  "mime_type": "nGmSGKQonwgCNQaQqmPA",
-                  "filename": "lnTYGueGfYMUrXjukbKS",
-                  "title": "IkSdPIQxpAbmwlQjStfx",
-                  "snippet": "mEwZfhzzWXXPeNEceFkx"
+                  "url": "jAFUjFNjlJCczXtYSJKS",
+                  "public_url": "CNiUclRfhhXOYBLybKUM",
+                  "mime_type": "RhskNJJgBSuejrmPadtN",
+                  "filename": "rLhWYdmIfKMwEUSFvaZW",
+                  "title": "OhMKGmijsusyviblDTqy",
+                  "snippet": "tGGlXkTeQNQKDwiodxnI"
                 },
                 {
-                  "url": "wCyPwHjPQuALLPYiwiKs",
-                  "public_url": "evzMpwcOmHAcOZZhkhuP",
-                  "mime_type": "oMGbzfRONfSheOYhSmXl",
-                  "filename": "AJNGHejHudGLkdejoANu",
-                  "title": "KGtuJJbzatqJfcvfZRdg",
-                  "snippet": "NQWsLlgQjLlaECTWEQHG"
+                  "url": "afAwFYMppnzAoBCabZve",
+                  "public_url": "RTeySESepDqBqoSrxqlL",
+                  "mime_type": "sZMRLhfRxTlHYOfBCqFB",
+                  "filename": "klDjZOkjuOaLniDrIhDs",
+                  "title": "COcedGEAFVLVPecEuyAG",
+                  "snippet": "xYhuCZKtOwudtxlfzybr"
                 }
               ]
             },
-            "data_text": "Search Result:\nrehjnjyMAkYPewpsSFas                                                                                \n\nSources (3):\nHQEmaFDGkKdasTYmNLsi (SUdfnvDSLTMtPrCRZZUc)\n  HHIkZywWVbItNoZaEgUy\n\nIkSdPIQxpAbmwlQjStfx (seojChQNPrLFdHUPcFlQ)\n  mEwZfhzzWXXPeNEceFkx\n\nKGtuJJbzatqJfcvfZRdg (wCyPwHjPQuALLPYiwiKs)\n  NQWsLlgQjLlaECTWEQHG\n",
-            "data_html": "<div><p>rehjnjyMAkYPewpsSFas</p><h4>Sources</h4><ul><li><a href=\"ZwPpiUZgyvWEAacKzQix\" class=\"msg-document\">HQEmaFDGkKdasTYmNLsi</a><br/><small>HHIkZywWVbItNoZaEgUy</small></li><li><a href=\"zWkxKjFyjNrQITHPknKP\" class=\"msg-document\">IkSdPIQxpAbmwlQjStfx</a><br/><small>mEwZfhzzWXXPeNEceFkx</small></li><li><a href=\"evzMpwcOmHAcOZZhkhuP\" class=\"msg-document\">KGtuJJbzatqJfcvfZRdg</a><br/><small>NQWsLlgQjLlaECTWEQHG</small></li></ul></div>",
+            "data_text": "Search Result:\njsyBRjUQYuyXcQlycrdI                                                                                \n\nSources (3):\nymvkbFZSEUwcecccCNXC (NQcODLaqBmyPqMNZXaoh)\n  pTtEYlGqeSUqxbpkQNKi\n\nOhMKGmijsusyviblDTqy (jAFUjFNjlJCczXtYSJKS)\n  tGGlXkTeQNQKDwiodxnI\n\nCOcedGEAFVLVPecEuyAG (afAwFYMppnzAoBCabZve)\n  xYhuCZKtOwudtxlfzybr\n",
+            "data_html": "<div><p>jsyBRjUQYuyXcQlycrdI</p><h4>Sources</h4><ul><li><a href=\"BxPPLazobcOIfLfFOUAr\" class=\"msg-document\">ymvkbFZSEUwcecccCNXC</a><br/><small>pTtEYlGqeSUqxbpkQNKi</small></li><li><a href=\"CNiUclRfhhXOYBLybKUM\" class=\"msg-document\">OhMKGmijsusyviblDTqy</a><br/><small>tGGlXkTeQNQKDwiodxnI</small></li><li><a href=\"RTeySESepDqBqoSrxqlL\" class=\"msg-document\">COcedGEAFVLVPecEuyAG</a><br/><small>xYhuCZKtOwudtxlfzybr</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -138,23 +140,24 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "rendered_query": "mock",
-        "resolved_model": "mock",
+        "rendered_query": "Recent emails about: PLmilkwkkwdugShZpTfW",
+        "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
       "kind": "operator",
       "pipe_code": "classify_email",
       "pipe_type": "PipeLLM",
       "description": "Classify email priority",
       "domain_code": "email_management",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:34.097599Z",
-        "ended_at": "2026-05-15T12:39:34.112874Z",
-        "duration": 0.015275
+        "started_at": "2026-07-09T11:04:02.337183Z",
+        "ended_at": "2026-07-09T11:04:02.437028Z",
+        "duration": 0.099845
       },
       "io": {
         "inputs": [
@@ -164,38 +167,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Xsww2",
+            "digest": "3VR34",
             "data": {
-              "answer": "rehjnjyMAkYPewpsSFas",
+              "answer": "jsyBRjUQYuyXcQlycrdI",
               "sources": [
                 {
-                  "url": "SUdfnvDSLTMtPrCRZZUc",
-                  "public_url": "ZwPpiUZgyvWEAacKzQix",
-                  "mime_type": "bzSNRiYnSSUADYtkDJQY",
-                  "filename": "OvWpgpNhHklqrmMZbafz",
-                  "title": "HQEmaFDGkKdasTYmNLsi",
-                  "snippet": "HHIkZywWVbItNoZaEgUy"
+                  "url": "NQcODLaqBmyPqMNZXaoh",
+                  "public_url": "BxPPLazobcOIfLfFOUAr",
+                  "mime_type": "CYdNRuafmfgqxIoqXBpq",
+                  "filename": "ctJaYbVJhNBXjccDAgkF",
+                  "title": "ymvkbFZSEUwcecccCNXC",
+                  "snippet": "pTtEYlGqeSUqxbpkQNKi"
                 },
                 {
-                  "url": "seojChQNPrLFdHUPcFlQ",
-                  "public_url": "zWkxKjFyjNrQITHPknKP",
-                  "mime_type": "nGmSGKQonwgCNQaQqmPA",
-                  "filename": "lnTYGueGfYMUrXjukbKS",
-                  "title": "IkSdPIQxpAbmwlQjStfx",
-                  "snippet": "mEwZfhzzWXXPeNEceFkx"
+                  "url": "jAFUjFNjlJCczXtYSJKS",
+                  "public_url": "CNiUclRfhhXOYBLybKUM",
+                  "mime_type": "RhskNJJgBSuejrmPadtN",
+                  "filename": "rLhWYdmIfKMwEUSFvaZW",
+                  "title": "OhMKGmijsusyviblDTqy",
+                  "snippet": "tGGlXkTeQNQKDwiodxnI"
                 },
                 {
-                  "url": "wCyPwHjPQuALLPYiwiKs",
-                  "public_url": "evzMpwcOmHAcOZZhkhuP",
-                  "mime_type": "oMGbzfRONfSheOYhSmXl",
-                  "filename": "AJNGHejHudGLkdejoANu",
-                  "title": "KGtuJJbzatqJfcvfZRdg",
-                  "snippet": "NQWsLlgQjLlaECTWEQHG"
+                  "url": "afAwFYMppnzAoBCabZve",
+                  "public_url": "RTeySESepDqBqoSrxqlL",
+                  "mime_type": "sZMRLhfRxTlHYOfBCqFB",
+                  "filename": "klDjZOkjuOaLniDrIhDs",
+                  "title": "COcedGEAFVLVPecEuyAG",
+                  "snippet": "xYhuCZKtOwudtxlfzybr"
                 }
               ]
             },
-            "data_text": "Search Result:\nrehjnjyMAkYPewpsSFas                                                                                \n\nSources (3):\nHQEmaFDGkKdasTYmNLsi (SUdfnvDSLTMtPrCRZZUc)\n  HHIkZywWVbItNoZaEgUy\n\nIkSdPIQxpAbmwlQjStfx (seojChQNPrLFdHUPcFlQ)\n  mEwZfhzzWXXPeNEceFkx\n\nKGtuJJbzatqJfcvfZRdg (wCyPwHjPQuALLPYiwiKs)\n  NQWsLlgQjLlaECTWEQHG\n",
-            "data_html": "<div><p>rehjnjyMAkYPewpsSFas</p><h4>Sources</h4><ul><li><a href=\"ZwPpiUZgyvWEAacKzQix\" class=\"msg-document\">HQEmaFDGkKdasTYmNLsi</a><br/><small>HHIkZywWVbItNoZaEgUy</small></li><li><a href=\"zWkxKjFyjNrQITHPknKP\" class=\"msg-document\">IkSdPIQxpAbmwlQjStfx</a><br/><small>mEwZfhzzWXXPeNEceFkx</small></li><li><a href=\"evzMpwcOmHAcOZZhkhuP\" class=\"msg-document\">KGtuJJbzatqJfcvfZRdg</a><br/><small>NQWsLlgQjLlaECTWEQHG</small></li></ul></div>",
+            "data_text": "Search Result:\njsyBRjUQYuyXcQlycrdI                                                                                \n\nSources (3):\nymvkbFZSEUwcecccCNXC (NQcODLaqBmyPqMNZXaoh)\n  pTtEYlGqeSUqxbpkQNKi\n\nOhMKGmijsusyviblDTqy (jAFUjFNjlJCczXtYSJKS)\n  tGGlXkTeQNQKDwiodxnI\n\nCOcedGEAFVLVPecEuyAG (afAwFYMppnzAoBCabZve)\n  xYhuCZKtOwudtxlfzybr\n",
+            "data_html": "<div><p>jsyBRjUQYuyXcQlycrdI</p><h4>Sources</h4><ul><li><a href=\"BxPPLazobcOIfLfFOUAr\" class=\"msg-document\">ymvkbFZSEUwcecccCNXC</a><br/><small>pTtEYlGqeSUqxbpkQNKi</small></li><li><a href=\"CNiUclRfhhXOYBLybKUM\" class=\"msg-document\">OhMKGmijsusyviblDTqy</a><br/><small>tGGlXkTeQNQKDwiodxnI</small></li><li><a href=\"RTeySESepDqBqoSrxqlL\" class=\"msg-document\">COcedGEAFVLVPecEuyAG</a><br/><small>xYhuCZKtOwudtxlfzybr</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -206,14 +209,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B9ayV",
+            "digest": "oLfZd",
             "data": {
-              "subject": "iVrzlzVmcUVStOsQdBAc",
-              "priority": "auto_reply",
-              "summary": "TEwfODPJWXGjcQcAZXXj"
+              "subject": "eOPAgrKiXppUlHrhGRQG",
+              "priority": "needs_review",
+              "summary": "YXwhvpRCLwsLLIDnLXPb"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ iVrzlzVmcUVStOsQdBAc                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ TEwfODPJWXGjcQcAZXXj                               \n",
-            "data_html": "<table><tr><th>subject</th><td>iVrzlzVmcUVStOsQdBAc</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>TEwfODPJWXGjcQcAZXXj</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ eOPAgrKiXppUlHrhGRQG                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ YXwhvpRCLwsLLIDnLXPb                               \n",
+            "data_html": "<table><tr><th>subject</th><td>eOPAgrKiXppUlHrhGRQG</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>YXwhvpRCLwsLLIDnLXPb</td></tr></table>",
             "extra": {}
           }
         ]
@@ -226,22 +229,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Classify this email by priority (auto_reply or needs_review):\n\n<search_result>\nrehjnjyMAkYPewpsSFas\n\nSources:\n- HQEmaFDGkKdasTYmNLsi: SUdfnvDSLTMtPrCRZZUc\n  HHIkZywWVbItNoZaEgUy\n- IkSdPIQxpAbmwlQjStfx: seojChQNPrLFdHUPcFlQ\n  mEwZfhzzWXXPeNEceFkx\n- KGtuJJbzatqJfcvfZRdg: wCyPwHjPQuALLPYiwiKs\n  NQWsLlgQjLlaECTWEQHG\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass email_management__EmailClassification(StructuredContent):\n    \"\"\"Classified email with priority\"\"\"\n    subject: str  # Email subject\n    priority: Literal[\n        \"auto_reply\",\n        \"needs_review\",\n    ]  # Priority level\n    summary: str  # Brief summary of the email\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Classify this email by priority (auto_reply or needs_review):\n\n<search_result>\njsyBRjUQYuyXcQlycrdI\n\nSources:\n- ymvkbFZSEUwcecccCNXC: NQcODLaqBmyPqMNZXaoh\n  pTtEYlGqeSUqxbpkQNKi\n- OhMKGmijsusyviblDTqy: jAFUjFNjlJCczXtYSJKS\n  tGGlXkTeQNQKDwiodxnI\n- COcedGEAFVLVPecEuyAG: afAwFYMppnzAoBCabZve\n  xYhuCZKtOwudtxlfzybr\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass email_management__EmailClassification(StructuredContent):\n    \"\"\"Classified email with priority\"\"\"\n    subject: str  # Email subject\n    priority: Literal[\n        \"auto_reply\",\n        \"needs_review\",\n    ]  # Priority level\n    summary: str  # Brief summary of the email\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_3",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_3",
       "kind": "controller",
       "pipe_code": "route_email",
       "pipe_type": "PipeCondition",
       "description": "Route email based on classification",
       "domain_code": "email_management",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:34.116731Z",
-        "ended_at": "2026-05-15T12:39:34.141106Z",
-        "duration": 0.024375
+        "started_at": "2026-07-09T11:04:02.437155Z",
+        "ended_at": "2026-07-09T11:04:02.470986Z",
+        "duration": 0.033831
       },
       "io": {
         "inputs": [
@@ -251,14 +255,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B9ayV",
+            "digest": "oLfZd",
             "data": {
-              "subject": "iVrzlzVmcUVStOsQdBAc",
-              "priority": "auto_reply",
-              "summary": "TEwfODPJWXGjcQcAZXXj"
+              "subject": "eOPAgrKiXppUlHrhGRQG",
+              "priority": "needs_review",
+              "summary": "YXwhvpRCLwsLLIDnLXPb"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ iVrzlzVmcUVStOsQdBAc                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ TEwfODPJWXGjcQcAZXXj                               \n",
-            "data_html": "<table><tr><th>subject</th><td>iVrzlzVmcUVStOsQdBAc</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>TEwfODPJWXGjcQcAZXXj</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ eOPAgrKiXppUlHrhGRQG                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ YXwhvpRCLwsLLIDnLXPb                               \n",
+            "data_html": "<table><tr><th>subject</th><td>eOPAgrKiXppUlHrhGRQG</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>YXwhvpRCLwsLLIDnLXPb</td></tr></table>",
             "extra": {}
           }
         ],
@@ -269,12 +273,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "55Az5",
+            "digest": "PeFWp",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    "
+              "text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb"
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: iVrzlzVmcUVStOsQdBAc Summary: TEwfODPJWXGjcQcAZXXj                                         \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    ",
+            "data_text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb                                     \n",
+            "data_html": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb",
             "extra": {}
           }
         ]
@@ -288,74 +292,18 @@
       }
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_4",
-      "kind": "operator",
-      "pipe_code": "flag_for_review",
-      "pipe_type": "PipeCompose",
-      "description": "Flag email for human review",
-      "domain_code": "email_management",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:34.120799Z",
-        "ended_at": "2026-05-15T12:39:34.126028Z",
-        "duration": 0.005229
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "classified",
-            "concept": "EmailClassification",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "B9ayV",
-            "data": {
-              "subject": "iVrzlzVmcUVStOsQdBAc",
-              "priority": "auto_reply",
-              "summary": "TEwfODPJWXGjcQcAZXXj"
-            },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ iVrzlzVmcUVStOsQdBAc                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ TEwfODPJWXGjcQcAZXXj                               \n",
-            "data_html": "<table><tr><th>subject</th><td>iVrzlzVmcUVStOsQdBAc</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>TEwfODPJWXGjcQcAZXXj</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "digest",
-            "concept": "InboxDigest",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "egCUn",
-            "data": {
-              "text": "FLAGGED FOR REVIEW: iVrzlzVmcUVStOsQdBAc - TEwfODPJWXGjcQcAZXXj"
-            },
-            "data_text": "FLAGGED FOR REVIEW: iVrzlzVmcUVStOsQdBAc - TEwfODPJWXGjcQcAZXXj                                     \n",
-            "data_html": "FLAGGED FOR REVIEW: iVrzlzVmcUVStOsQdBAc - TEwfODPJWXGjcQcAZXXj",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "compose_mode": "template",
-        "rendered_text": "FLAGGED FOR REVIEW: iVrzlzVmcUVStOsQdBAc - TEwfODPJWXGjcQcAZXXj"
-      }
-    },
-    {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_5",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_4",
       "kind": "operator",
       "pipe_code": "generate_auto_reply",
       "pipe_type": "PipeLLM",
       "description": "Generate automatic reply",
       "domain_code": "email_management",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:34.126064Z",
-        "ended_at": "2026-05-15T12:39:34.140545Z",
-        "duration": 0.014481
+        "started_at": "2026-07-09T11:04:02.441417Z",
+        "ended_at": "2026-07-09T11:04:02.459299Z",
+        "duration": 0.017882
       },
       "io": {
         "inputs": [
@@ -365,14 +313,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B9ayV",
+            "digest": "oLfZd",
             "data": {
-              "subject": "iVrzlzVmcUVStOsQdBAc",
-              "priority": "auto_reply",
-              "summary": "TEwfODPJWXGjcQcAZXXj"
+              "subject": "eOPAgrKiXppUlHrhGRQG",
+              "priority": "needs_review",
+              "summary": "YXwhvpRCLwsLLIDnLXPb"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ iVrzlzVmcUVStOsQdBAc                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ TEwfODPJWXGjcQcAZXXj                               \n",
-            "data_html": "<table><tr><th>subject</th><td>iVrzlzVmcUVStOsQdBAc</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>TEwfODPJWXGjcQcAZXXj</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ eOPAgrKiXppUlHrhGRQG                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ YXwhvpRCLwsLLIDnLXPb                               \n",
+            "data_html": "<table><tr><th>subject</th><td>eOPAgrKiXppUlHrhGRQG</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>YXwhvpRCLwsLLIDnLXPb</td></tr></table>",
             "extra": {}
           }
         ],
@@ -383,12 +331,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "55Az5",
+            "digest": "foSAp",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: eOPAgrKiXppUlHrhGRQG\nSummary: YXwhvpRCLwsLLIDnLXPb\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: iVrzlzVmcUVStOsQdBAc Summary: TEwfODPJWXGjcQcAZXXj                                         \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: eOPAgrKiXppUlHrhGRQG Summary: YXwhvpRCLwsLLIDnLXPb                                         \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: eOPAgrKiXppUlHrhGRQG\nSummary: YXwhvpRCLwsLLIDnLXPb\n    ",
             "extra": {}
           }
         ]
@@ -401,97 +349,164 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Generate a professional auto-reply digest for this email:\n\nSubject: iVrzlzVmcUVStOsQdBAc\nSummary: TEwfODPJWXGjcQcAZXXj",
+        "rendered_user_prompt": "Generate a professional auto-reply digest for this email:\n\nSubject: eOPAgrKiXppUlHrhGRQG\nSummary: YXwhvpRCLwsLLIDnLXPb",
         "structuring_path": "text"
+      }
+    },
+    {
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_5",
+      "kind": "operator",
+      "pipe_code": "flag_for_review",
+      "pipe_type": "PipeCompose",
+      "description": "Flag email for human review",
+      "domain_code": "email_management",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-07-09T11:04:02.459372Z",
+        "ended_at": "2026-07-09T11:04:02.470567Z",
+        "duration": 0.011195
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "classified",
+            "concept": "EmailClassification",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "oLfZd",
+            "data": {
+              "subject": "eOPAgrKiXppUlHrhGRQG",
+              "priority": "needs_review",
+              "summary": "YXwhvpRCLwsLLIDnLXPb"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ eOPAgrKiXppUlHrhGRQG                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ needs_review                                       \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ YXwhvpRCLwsLLIDnLXPb                               \n",
+            "data_html": "<table><tr><th>subject</th><td>eOPAgrKiXppUlHrhGRQG</td></tr><tr><th>priority</th><td>needs_review</td></tr><tr><th>summary</th><td>YXwhvpRCLwsLLIDnLXPb</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "digest",
+            "concept": "InboxDigest",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "PeFWp",
+            "data": {
+              "text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb"
+            },
+            "data_text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb                                     \n",
+            "data_html": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "FLAGGED FOR REVIEW: eOPAgrKiXppUlHrhGRQG - YXwhvpRCLwsLLIDnLXPb"
       }
     }
   ],
   "edges": [
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:edge_0",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_0",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_1",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:edge_0",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_0",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:edge_1",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_0",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:edge_1",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_0",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:edge_2",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_0",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_3",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:edge_2",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_0",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:edge_3",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_3",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_4",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:edge_3",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_3",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:edge_4",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_3",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_5",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:edge_4",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_3",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:asm_edge_0",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_1",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:asm_edge_0",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_1",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
       "kind": "data",
+      "optional": false,
       "label": "search_result",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:asm_edge_1",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_3",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:asm_edge_1",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_3",
       "kind": "data",
+      "optional": false,
       "label": "classified",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:asm_edge_2",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_4",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:asm_edge_2",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_4",
       "kind": "data",
+      "optional": false,
       "label": "classified",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:asm_edge_3",
-      "source": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_2",
-      "target": "3311d3e7-5dc9-4d4a-80c1-fb8df4a16264:node_5",
+      "id": "e8dedfd7-8a1e-418f-92a2-c83700583a94:asm_edge_3",
+      "source": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_2",
+      "target": "e8dedfd7-8a1e-418f-92a2-c83700583a94:node_5",
       "kind": "data",
+      "optional": false,
       "label": "classified",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
@@ -499,7 +514,8 @@
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "email_management.email_triage": {
@@ -517,7 +533,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -528,7 +545,8 @@
           "structure_class_name": "email_management__InboxDigest",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -566,7 +584,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -577,7 +596,8 @@
           "structure_class_name": "SearchResultContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "search_choice": null,
       "prompt_blueprint": {
@@ -609,7 +629,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -620,7 +641,8 @@
           "structure_class_name": "email_management__EmailClassification",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -640,7 +662,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "email_management.route_email": {
@@ -658,7 +679,8 @@
             "structure_class_name": "email_management__EmailClassification",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -669,7 +691,8 @@
           "structure_class_name": "email_management__InboxDigest",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "expression": "{{ classified.priority }}",
       "outcome_map": {
@@ -678,40 +701,6 @@
       },
       "default_outcome": "flag_for_review",
       "add_alias_from_expression_to": null
-    },
-    "email_management.flag_for_review": {
-      "pipe_category": "PipeOperator",
-      "type": "PipeCompose",
-      "code": "flag_for_review",
-      "domain_code": "email_management",
-      "description": "Flag email for human review",
-      "inputs": {
-        "classified": {
-          "concept": {
-            "code": "EmailClassification",
-            "domain_code": "email_management",
-            "description": "Classified email with priority",
-            "structure_class_name": "email_management__EmailClassification",
-            "refines": null
-          },
-          "multiplicity": null
-        }
-      },
-      "output": {
-        "concept": {
-          "code": "InboxDigest",
-          "domain_code": "email_management",
-          "description": "Summary digest of inbox processing",
-          "structure_class_name": "email_management__InboxDigest",
-          "refines": "native.Text"
-        },
-        "multiplicity": null
-      },
-      "template": "FLAGGED FOR REVIEW: {{ classified.subject|format() }} - {{ classified.summary|format() }}",
-      "templating_style": null,
-      "category": "basic",
-      "extra_context": null,
-      "construct_blueprint": null
     },
     "email_management.generate_auto_reply": {
       "pipe_category": "PipeOperator",
@@ -728,7 +717,8 @@
             "structure_class_name": "email_management__EmailClassification",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -739,7 +729,8 @@
           "structure_class_name": "email_management__InboxDigest",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -759,8 +750,43 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
+    },
+    "email_management.flag_for_review": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "flag_for_review",
+      "domain_code": "email_management",
+      "description": "Flag email for human review",
+      "inputs": {
+        "classified": {
+          "concept": {
+            "code": "EmailClassification",
+            "domain_code": "email_management",
+            "description": "Classified email with priority",
+            "structure_class_name": "email_management__EmailClassification",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InboxDigest",
+          "domain_code": "email_management",
+          "description": "Summary digest of inbox processing",
+          "structure_class_name": "email_management__InboxDigest",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "template": "FLAGGED FOR REVIEW: $classified.subject - $classified.summary",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
     }
   },
   "concept_registry": {
