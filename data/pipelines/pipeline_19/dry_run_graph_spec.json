@@ -1,6 +1,6 @@
 {
-  "graph_id": "8206123e-d0ab-44ae-884b-2c9757696dab",
-  "created_at": "2026-05-15T12:39:38.184101Z",
+  "graph_id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e",
+  "created_at": "2026-07-09T11:04:35.449501Z",
   "pipeline_ref": {
     "domain": "content_moderation",
     "main_pipe": "moderation_pipeline",
@@ -8,17 +8,18 @@
   },
   "nodes": [
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_0",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_0",
       "kind": "controller",
       "pipe_code": "moderation_pipeline",
       "pipe_type": "PipeSequence",
       "description": "Moderate content through parallel checks then route decision",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.184101Z",
-        "ended_at": "2026-05-15T12:39:38.266449Z",
-        "duration": 0.082348
+        "started_at": "2026-07-09T11:04:35.449501Z",
+        "ended_at": "2026-07-09T11:04:35.620933Z",
+        "duration": 0.171432
       },
       "io": {
         "inputs": [
@@ -28,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7W3ZV",
+            "digest": "Q8PBS",
             "data": {
-              "text": "RvAYvcCbroUazifRCQpg"
+              "text": "PewVmKEDiQcVRIHSuTjU"
             },
-            "data_text": "RvAYvcCbroUazifRCQpg                                                                                \n",
-            "data_html": "RvAYvcCbroUazifRCQpg",
+            "data_text": "PewVmKEDiQcVRIHSuTjU                                                                                \n",
+            "data_html": "PewVmKEDiQcVRIHSuTjU",
             "extra": {}
           }
         ],
@@ -44,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QsKTG",
+            "digest": "5byCC",
             "data": {
-              "text": "APPROVED: pzCGdzhGpAgnsPitJmXh"
+              "text": "REJECTED: TBgNWTthfdcpqcKqySWL"
             },
-            "data_text": "APPROVED: pzCGdzhGpAgnsPitJmXh                                                                      \n",
-            "data_html": "APPROVED: pzCGdzhGpAgnsPitJmXh",
+            "data_text": "REJECTED: TBgNWTthfdcpqcKqySWL                                                                      \n",
+            "data_html": "REJECTED: TBgNWTthfdcpqcKqySWL",
             "extra": {}
           }
         ]
@@ -62,17 +63,18 @@
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
       "kind": "controller",
       "pipe_code": "parallel_checks",
       "pipe_type": "PipeParallel",
       "description": "Check text and image safety in parallel",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.189291Z",
-        "ended_at": "2026-05-15T12:39:38.222953Z",
-        "duration": 0.033662
+        "started_at": "2026-07-09T11:04:35.453065Z",
+        "ended_at": "2026-07-09T11:04:35.572840Z",
+        "duration": 0.119775
       },
       "io": {
         "inputs": [
@@ -82,12 +84,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7W3ZV",
+            "digest": "Q8PBS",
             "data": {
-              "text": "RvAYvcCbroUazifRCQpg"
+              "text": "PewVmKEDiQcVRIHSuTjU"
             },
-            "data_text": "RvAYvcCbroUazifRCQpg                                                                                \n",
-            "data_html": "RvAYvcCbroUazifRCQpg",
+            "data_text": "PewVmKEDiQcVRIHSuTjU                                                                                \n",
+            "data_html": "PewVmKEDiQcVRIHSuTjU",
             "extra": {}
           }
         ],
@@ -98,16 +100,16 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "YJksG",
+            "digest": "axqvb",
             "data": {
-              "score": -5.79005016236189,
+              "score": -8109107339.28377,
               "flagged_categories": [
-                "4e9e"
+                "f1"
               ],
-              "safe": true
+              "safe": false
             },
-            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -5.79005016236189                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ 4e9e                         \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ True                                 \n",
-            "data_html": "<table><tr><th>score</th><td>-5.79005016236189</td></tr><tr><th>flagged_categories</th><td><ul><li>4e9e</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -8109107339.28377                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ f1                           \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
+            "data_html": "<table><tr><th>score</th><td>-8109107339.28377</td></tr><tr><th>flagged_categories</th><td><ul><li>f1</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
             "extra": {}
           },
           {
@@ -116,16 +118,43 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9sUWn",
+            "digest": "aPpFt",
             "data": {
-              "score": 99244132.8624748,
+              "score": 98000888.9022681,
               "flagged_categories": [
-                "2a40"
+                "b251"
               ],
               "safe": true
             },
-            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 99244132.8624748                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ 2a40                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
-            "data_html": "<table><tr><th>score</th><td>99244132.8624748</td></tr><tr><th>flagged_categories</th><td><ul><li>2a40</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 98000888.9022681                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ b251                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
+            "data_html": "<table><tr><th>score</th><td>98000888.9022681</td></tr><tr><th>flagged_categories</th><td><ul><li>b251</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "safety_scores_bundle",
+            "concept": "Composite",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "7NUEo",
+            "data": {
+              "text_score": {
+                "score": -8109107339.28377,
+                "flagged_categories": [
+                  "f1"
+                ],
+                "safe": false
+              },
+              "image_score": {
+                "score": 98000888.9022681,
+                "flagged_categories": [
+                  "b251"
+                ],
+                "safe": true
+              }
+            },
+            "data_text": "{\n    \"text_score\": {\n        \"score\": -8109107339.28377,\n        \"flagged_categories\": [\n            \"f1\"\n        ],\n        \"safe\": false\n    },\n    \"image_score\": {\n        \"score\": 98000888.9022681,\n        \"flagged_categories\": [\n            \"b251\"\n        ],\n        \"safe\": true\n    }\n}\n",
+            "data_html": "<table><tr><th>text_score</th><td><table><tr><th>score</th><td>-8109107339.28377</td></tr><tr><th>flagged_categories</th><td><ul><li>f1</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table></td></tr><tr><th>image_score</th><td><table><tr><th>score</th><td>98000888.9022681</td></tr><tr><th>flagged_categories</th><td><ul><li>b251</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table></td></tr></table>",
             "extra": {}
           }
         ]
@@ -136,21 +165,22 @@
       "execution_data": {
         "branch_count": 2,
         "add_each_output": true,
-        "combined_output_concept": null
+        "combined_output_concept": "native.Composite"
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_2",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_2",
       "kind": "operator",
       "pipe_code": "check_text_safety",
       "pipe_type": "PipeLLM",
       "description": "Assess text content safety",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.193909Z",
-        "ended_at": "2026-05-15T12:39:38.206006Z",
-        "duration": 0.012097
+        "started_at": "2026-07-09T11:04:35.455670Z",
+        "ended_at": "2026-07-09T11:04:35.549823Z",
+        "duration": 0.094153
       },
       "io": {
         "inputs": [
@@ -160,12 +190,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7W3ZV",
+            "digest": "Q8PBS",
             "data": {
-              "text": "RvAYvcCbroUazifRCQpg"
+              "text": "PewVmKEDiQcVRIHSuTjU"
             },
-            "data_text": "RvAYvcCbroUazifRCQpg                                                                                \n",
-            "data_html": "RvAYvcCbroUazifRCQpg",
+            "data_text": "PewVmKEDiQcVRIHSuTjU                                                                                \n",
+            "data_html": "PewVmKEDiQcVRIHSuTjU",
             "extra": {}
           }
         ],
@@ -176,16 +206,16 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "YJksG",
+            "digest": "axqvb",
             "data": {
-              "score": -5.79005016236189,
+              "score": -8109107339.28377,
               "flagged_categories": [
-                "4e9e"
+                "f1"
               ],
-              "safe": true
+              "safe": false
             },
-            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -5.79005016236189                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ 4e9e                         \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ True                                 \n",
-            "data_html": "<table><tr><th>score</th><td>-5.79005016236189</td></tr><tr><th>flagged_categories</th><td><ul><li>4e9e</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -8109107339.28377                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ f1                           \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
+            "data_html": "<table><tr><th>score</th><td>-8109107339.28377</td></tr><tr><th>flagged_categories</th><td><ul><li>f1</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
             "extra": {}
           }
         ]
@@ -198,22 +228,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nRvAYvcCbroUazifRCQpg\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nPewVmKEDiQcVRIHSuTjU\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_3",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_3",
       "kind": "operator",
       "pipe_code": "check_image_safety",
       "pipe_type": "PipeLLM",
       "description": "Assess image content safety",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.210043Z",
-        "ended_at": "2026-05-15T12:39:38.220296Z",
-        "duration": 0.010253
+        "started_at": "2026-07-09T11:04:35.550965Z",
+        "ended_at": "2026-07-09T11:04:35.566758Z",
+        "duration": 0.015793
       },
       "io": {
         "inputs": [
@@ -223,12 +254,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7W3ZV",
+            "digest": "Q8PBS",
             "data": {
-              "text": "RvAYvcCbroUazifRCQpg"
+              "text": "PewVmKEDiQcVRIHSuTjU"
             },
-            "data_text": "RvAYvcCbroUazifRCQpg                                                                                \n",
-            "data_html": "RvAYvcCbroUazifRCQpg",
+            "data_text": "PewVmKEDiQcVRIHSuTjU                                                                                \n",
+            "data_html": "PewVmKEDiQcVRIHSuTjU",
             "extra": {}
           }
         ],
@@ -239,16 +270,16 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9sUWn",
+            "digest": "aPpFt",
             "data": {
-              "score": 99244132.8624748,
+              "score": 98000888.9022681,
               "flagged_categories": [
-                "2a40"
+                "b251"
               ],
               "safe": true
             },
-            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 99244132.8624748                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ 2a40                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
-            "data_html": "<table><tr><th>score</th><td>99244132.8624748</td></tr><tr><th>flagged_categories</th><td><ul><li>2a40</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 98000888.9022681                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ b251                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
+            "data_html": "<table><tr><th>score</th><td>98000888.9022681</td></tr><tr><th>flagged_categories</th><td><ul><li>b251</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
             "extra": {}
           }
         ]
@@ -261,22 +292,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Assess the safety of any images referenced in this content:\n\n<content>\nRvAYvcCbroUazifRCQpg\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Assess the safety of any images referenced in this content:\n\n<content>\nPewVmKEDiQcVRIHSuTjU\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    \"\"\"Content safety assessment score\"\"\"\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
       "kind": "operator",
       "pipe_code": "make_decision",
       "pipe_type": "PipeLLM",
       "description": "Make moderation decision based on safety scores",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.228031Z",
-        "ended_at": "2026-05-15T12:39:38.240732Z",
-        "duration": 0.012701
+        "started_at": "2026-07-09T11:04:35.574833Z",
+        "ended_at": "2026-07-09T11:04:35.599824Z",
+        "duration": 0.024991
       },
       "io": {
         "inputs": [
@@ -286,16 +318,16 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "YJksG",
+            "digest": "axqvb",
             "data": {
-              "score": -5.79005016236189,
+              "score": -8109107339.28377,
               "flagged_categories": [
-                "4e9e"
+                "f1"
               ],
-              "safe": true
+              "safe": false
             },
-            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -5.79005016236189                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ 4e9e                         \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ True                                 \n",
-            "data_html": "<table><tr><th>score</th><td>-5.79005016236189</td></tr><tr><th>flagged_categories</th><td><ul><li>4e9e</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ -8109107339.28377                    \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ f1                           \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
+            "data_html": "<table><tr><th>score</th><td>-8109107339.28377</td></tr><tr><th>flagged_categories</th><td><ul><li>f1</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
             "extra": {}
           },
           {
@@ -304,16 +336,16 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9sUWn",
+            "digest": "aPpFt",
             "data": {
-              "score": 99244132.8624748,
+              "score": 98000888.9022681,
               "flagged_categories": [
-                "2a40"
+                "b251"
               ],
               "safe": true
             },
-            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 99244132.8624748                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ 2a40                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
-            "data_html": "<table><tr><th>score</th><td>99244132.8624748</td></tr><tr><th>flagged_categories</th><td><ul><li>2a40</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "data_text": " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 98000888.9022681                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ b251                        \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ True                                \n",
+            "data_html": "<table><tr><th>score</th><td>98000888.9022681</td></tr><tr><th>flagged_categories</th><td><ul><li>b251</li></ul></td></tr><tr><th>safe</th><td>True</td></tr></table>",
             "extra": {}
           }
         ],
@@ -324,14 +356,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HDath",
+            "digest": "hwfgx",
             "data": {
               "approved": true,
-              "reason": "pzCGdzhGpAgnsPitJmXh",
+              "reason": "TBgNWTthfdcpqcKqySWL",
               "action": "reject"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ pzCGdzhGpAgnsPitJmXh                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>pzCGdzhGpAgnsPitJmXh</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ TBgNWTthfdcpqcKqySWL                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>TBgNWTthfdcpqcKqySWL</td></tr><tr><th>action</th><td>reject</td></tr></table>",
             "extra": {}
           }
         ]
@@ -344,22 +376,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=-5.79005016236189, safe=True\nImage safety: score=99244132.8624748, safe=True\n\nFlagged categories:\nText: ['4e9e']\nImage: ['2a40']\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__Decision(StructuredContent):\n    \"\"\"Moderation decision\"\"\"\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        \"approve\",\n        \"reject\",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Based on these safety assessments, make a moderation decision:\n\nText safety: score=-8109107339.28377, safe=False\nImage safety: score=98000888.9022681, safe=True\n\nFlagged categories:\nText: ['f1']\nImage: ['b251']\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__Decision(StructuredContent):\n    \"\"\"Moderation decision\"\"\"\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        \"approve\",\n        \"reject\",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_5",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_5",
       "kind": "controller",
       "pipe_code": "route_action",
       "pipe_type": "PipeCondition",
       "description": "Route to approve or reject action",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.244714Z",
-        "ended_at": "2026-05-15T12:39:38.263998Z",
-        "duration": 0.019284
+        "started_at": "2026-07-09T11:04:35.599945Z",
+        "ended_at": "2026-07-09T11:04:35.620584Z",
+        "duration": 0.020639
       },
       "io": {
         "inputs": [
@@ -369,14 +402,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HDath",
+            "digest": "hwfgx",
             "data": {
               "approved": true,
-              "reason": "pzCGdzhGpAgnsPitJmXh",
+              "reason": "TBgNWTthfdcpqcKqySWL",
               "action": "reject"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ pzCGdzhGpAgnsPitJmXh                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>pzCGdzhGpAgnsPitJmXh</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ TBgNWTthfdcpqcKqySWL                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>TBgNWTthfdcpqcKqySWL</td></tr><tr><th>action</th><td>reject</td></tr></table>",
             "extra": {}
           }
         ],
@@ -387,12 +420,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QsKTG",
+            "digest": "5byCC",
             "data": {
-              "text": "APPROVED: pzCGdzhGpAgnsPitJmXh"
+              "text": "REJECTED: TBgNWTthfdcpqcKqySWL"
             },
-            "data_text": "APPROVED: pzCGdzhGpAgnsPitJmXh                                                                      \n",
-            "data_html": "APPROVED: pzCGdzhGpAgnsPitJmXh",
+            "data_text": "REJECTED: TBgNWTthfdcpqcKqySWL                                                                      \n",
+            "data_html": "REJECTED: TBgNWTthfdcpqcKqySWL",
             "extra": {}
           }
         ]
@@ -406,74 +439,18 @@
       }
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_6",
-      "kind": "operator",
-      "pipe_code": "reject_content",
-      "pipe_type": "PipeCompose",
-      "description": "Reject content with explanation",
-      "domain_code": "content_moderation",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:38.248152Z",
-        "ended_at": "2026-05-15T12:39:38.253655Z",
-        "duration": 0.005503
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "decision",
-            "concept": "Decision",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "HDath",
-            "data": {
-              "approved": true,
-              "reason": "pzCGdzhGpAgnsPitJmXh",
-              "action": "reject"
-            },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ pzCGdzhGpAgnsPitJmXh                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>pzCGdzhGpAgnsPitJmXh</td></tr><tr><th>action</th><td>reject</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "result",
-            "concept": "ModerationResult",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "5MadW",
-            "data": {
-              "text": "REJECTED: pzCGdzhGpAgnsPitJmXh"
-            },
-            "data_text": "REJECTED: pzCGdzhGpAgnsPitJmXh                                                                      \n",
-            "data_html": "REJECTED: pzCGdzhGpAgnsPitJmXh",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "compose_mode": "template",
-        "rendered_text": "REJECTED: pzCGdzhGpAgnsPitJmXh"
-      }
-    },
-    {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:node_7",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_6",
       "kind": "operator",
       "pipe_code": "approve_content",
       "pipe_type": "PipeCompose",
       "description": "Approve content for publication",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:38.253708Z",
-        "ended_at": "2026-05-15T12:39:38.263620Z",
-        "duration": 0.009912
+        "started_at": "2026-07-09T11:04:35.603630Z",
+        "ended_at": "2026-07-09T11:04:35.609469Z",
+        "duration": 0.005839
       },
       "io": {
         "inputs": [
@@ -483,14 +460,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "HDath",
+            "digest": "hwfgx",
             "data": {
               "approved": true,
-              "reason": "pzCGdzhGpAgnsPitJmXh",
+              "reason": "TBgNWTthfdcpqcKqySWL",
               "action": "reject"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ pzCGdzhGpAgnsPitJmXh                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>pzCGdzhGpAgnsPitJmXh</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ TBgNWTthfdcpqcKqySWL                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>TBgNWTthfdcpqcKqySWL</td></tr><tr><th>action</th><td>reject</td></tr></table>",
             "extra": {}
           }
         ],
@@ -501,12 +478,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QsKTG",
+            "digest": "kkStE",
             "data": {
-              "text": "APPROVED: pzCGdzhGpAgnsPitJmXh"
+              "text": "APPROVED: TBgNWTthfdcpqcKqySWL"
             },
-            "data_text": "APPROVED: pzCGdzhGpAgnsPitJmXh                                                                      \n",
-            "data_html": "APPROVED: pzCGdzhGpAgnsPitJmXh",
+            "data_text": "APPROVED: TBgNWTthfdcpqcKqySWL                                                                      \n",
+            "data_html": "APPROVED: TBgNWTthfdcpqcKqySWL",
             "extra": {}
           }
         ]
@@ -516,134 +493,227 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "APPROVED: pzCGdzhGpAgnsPitJmXh"
+        "rendered_text": "APPROVED: TBgNWTthfdcpqcKqySWL"
+      }
+    },
+    {
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_7",
+      "kind": "operator",
+      "pipe_code": "reject_content",
+      "pipe_type": "PipeCompose",
+      "description": "Reject content with explanation",
+      "domain_code": "content_moderation",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-07-09T11:04:35.609519Z",
+        "ended_at": "2026-07-09T11:04:35.620209Z",
+        "duration": 0.01069
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "decision",
+            "concept": "Decision",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hwfgx",
+            "data": {
+              "approved": true,
+              "reason": "TBgNWTthfdcpqcKqySWL",
+              "action": "reject"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ TBgNWTthfdcpqcKqySWL                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
+            "data_html": "<table><tr><th>approved</th><td>True</td></tr><tr><th>reason</th><td>TBgNWTthfdcpqcKqySWL</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "result",
+            "concept": "ModerationResult",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5byCC",
+            "data": {
+              "text": "REJECTED: TBgNWTthfdcpqcKqySWL"
+            },
+            "data_text": "REJECTED: TBgNWTthfdcpqcKqySWL                                                                      \n",
+            "data_html": "REJECTED: TBgNWTthfdcpqcKqySWL",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "REJECTED: TBgNWTthfdcpqcKqySWL"
       }
     }
   ],
   "edges": [
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_0",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_0",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_0",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_0",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_1",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_2",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_1",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_2",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_3",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_2",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_3",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_0",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_3",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_0",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_4",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_0",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_5",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_4",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_0",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_5",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_5",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_6",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_5",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_5",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:edge_6",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_5",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_7",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:edge_6",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_5",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_7",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:asm_edge_0",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_0",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
       "kind": "data",
+      "optional": false,
       "label": "text_score",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:asm_edge_1",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_1",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_1",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
       "kind": "data",
+      "optional": false,
       "label": "image_score",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:asm_edge_2",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_5",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_2",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_5",
       "kind": "data",
+      "optional": false,
       "label": "decision",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:asm_edge_3",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_6",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_3",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_6",
       "kind": "data",
+      "optional": false,
       "label": "decision",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "8206123e-d0ab-44ae-884b-2c9757696dab:asm_edge_4",
-      "source": "8206123e-d0ab-44ae-884b-2c9757696dab:node_4",
-      "target": "8206123e-d0ab-44ae-884b-2c9757696dab:node_7",
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_4",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_4",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_7",
       "kind": "data",
+      "optional": false,
       "label": "decision",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_5",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_2",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "axqvb",
+      "target_stuff_digest": "7NUEo",
+      "meta": {}
+    },
+    {
+      "id": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:asm_edge_6",
+      "source": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_3",
+      "target": "b55f9c8a-8fe4-4d6f-9b5b-bdb67684ae6e:node_1",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "aPpFt",
+      "target_stuff_digest": "7NUEo",
       "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "content_moderation.moderation_pipeline": {
@@ -661,7 +731,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -672,12 +743,13 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
           "pipe_code": "parallel_checks",
-          "output_name": "text_score",
+          "output_name": "safety_scores_bundle",
           "output_multiplicity": null,
           "batch_params": null
         },
@@ -710,18 +782,20 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
         "concept": {
-          "code": "SafetyScore",
-          "domain_code": "content_moderation",
-          "description": "Content safety assessment score",
-          "structure_class_name": "content_moderation__SafetyScore",
+          "code": "Composite",
+          "domain_code": "native",
+          "description": "A named composition of contents",
+          "structure_class_name": "CompositeContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "parallel_sub_pipes": [
         {
@@ -737,8 +811,7 @@
           "batch_params": null
         }
       ],
-      "add_each_output": true,
-      "combined_output": null
+      "add_each_output": true
     },
     "content_moderation.check_text_safety": {
       "pipe_category": "PipeOperator",
@@ -755,7 +828,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -766,7 +840,8 @@
           "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -786,7 +861,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.check_image_safety": {
@@ -804,7 +878,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -815,7 +890,8 @@
           "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -835,7 +911,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.make_decision": {
@@ -853,7 +928,8 @@
             "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "image_score": {
           "concept": {
@@ -863,7 +939,8 @@
             "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -874,7 +951,8 @@
           "structure_class_name": "content_moderation__Decision",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -894,7 +972,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.route_action": {
@@ -912,7 +989,8 @@
             "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -923,7 +1001,8 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "expression": "{{ decision.action }}",
       "outcome_map": {
@@ -932,40 +1011,6 @@
       },
       "default_outcome": "reject_content",
       "add_alias_from_expression_to": null
-    },
-    "content_moderation.reject_content": {
-      "pipe_category": "PipeOperator",
-      "type": "PipeCompose",
-      "code": "reject_content",
-      "domain_code": "content_moderation",
-      "description": "Reject content with explanation",
-      "inputs": {
-        "decision": {
-          "concept": {
-            "code": "Decision",
-            "domain_code": "content_moderation",
-            "description": "Moderation decision",
-            "structure_class_name": "content_moderation__Decision",
-            "refines": null
-          },
-          "multiplicity": null
-        }
-      },
-      "output": {
-        "concept": {
-          "code": "ModerationResult",
-          "domain_code": "content_moderation",
-          "description": "Final moderation result",
-          "structure_class_name": "content_moderation__ModerationResult",
-          "refines": "native.Text"
-        },
-        "multiplicity": null
-      },
-      "template": "REJECTED: {{ decision.reason|format() }}",
-      "templating_style": null,
-      "category": "basic",
-      "extra_context": null,
-      "construct_blueprint": null
     },
     "content_moderation.approve_content": {
       "pipe_category": "PipeOperator",
@@ -982,7 +1027,8 @@
             "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -993,9 +1039,46 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "APPROVED: {{ decision.reason|format() }}",
+      "template": "APPROVED: $decision.reason",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    },
+    "content_moderation.reject_content": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "reject_content",
+      "domain_code": "content_moderation",
+      "description": "Reject content with explanation",
+      "inputs": {
+        "decision": {
+          "concept": {
+            "code": "Decision",
+            "domain_code": "content_moderation",
+            "description": "Moderation decision",
+            "structure_class_name": "content_moderation__Decision",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "ModerationResult",
+          "domain_code": "content_moderation",
+          "description": "Final moderation result",
+          "structure_class_name": "content_moderation__ModerationResult",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "template": "REJECTED: $decision.reason",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -1041,6 +1124,20 @@
           "text"
         ],
         "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.Composite": {
+      "code": "Composite",
+      "domain_code": "native",
+      "description": "A named composition of contents",
+      "structure_class_name": "CompositeContent",
+      "refines": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "Untyped named composition of contents — the structure class of `native.Composite`.\n\nHolds its named sub-contents as top-level fields (pydantic `extra=\"allow\"`), so the\nserialized shape matches a bespoke structured concept: `{name: content, ...}` with no\nwrapper key. This is the combination vehicle for a `PipeParallel` whose author does not\nwant to declare a bespoke concept: each branch's `result` name becomes a field.",
+        "properties": {},
+        "title": "CompositeContent",
         "type": "object"
       }
     },

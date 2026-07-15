@@ -4,7 +4,7 @@ import { DRY_ALL_CONTROLLER_TYPES } from "./specs/_generated/dry/pipeline_25";
 import { LIVE_ALL_CONTROLLER_TYPES } from "./specs/_generated/live/pipeline_25";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/25 All Controller Types",
+  title: "Graph - from run/25 All Controller Types",
   component: GraphViewer,
   decorators: [
     (Story) => (

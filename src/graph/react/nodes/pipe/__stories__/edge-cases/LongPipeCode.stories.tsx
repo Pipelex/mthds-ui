@@ -4,7 +4,7 @@ import { toGraphSpec } from "../edgeCaseGraphSpecs";
 import { longPipeCode } from "./edgeCaseData";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/EdgeCases/LongPipeCode",
+  title: "Misc/PipeCard/EdgeCases/LongPipeCode",
   component: GraphViewer,
   decorators: [
     (Story) => (

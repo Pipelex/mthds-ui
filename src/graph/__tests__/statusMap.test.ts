@@ -93,6 +93,23 @@ describe("statusMap apply", () => {
       expect(updatedVersion).toBe(stuffNode); // Same reference
     }
   });
+
+  it("does not apply runtime status overlays to static graph nodes", async () => {
+    const spec = makeMinimalSpec(2);
+    spec.meta = { format: "mthds", mode: "static" };
+    const result = await runFullPipeline(spec);
+    const nodes = result.appNodes;
+
+    const step0 = nodes.find((n) => n.data.pipeCode === "step_0");
+    expect(step0?.data.pipeCardData?.graphMode).toBe("static");
+
+    const updated = applyStatusOverrides(nodes, { step_0: "running" });
+
+    const updatedStep0 = updated.find((n) => n.data.pipeCode === "step_0");
+    expect(updatedStep0).toBe(step0);
+    expect(updatedStep0?.data.pipeCardData?.status).toBe("scheduled");
+    expect(updatedStep0?.data.nodeData?.status).toBe("scheduled");
+  });
 });
 
 describe("statusMap with undefined/empty", () => {

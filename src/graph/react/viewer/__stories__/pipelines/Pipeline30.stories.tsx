@@ -4,7 +4,7 @@ import { DRY_CV_ANALYZER } from "./specs/_generated/dry/pipeline_30";
 import { LIVE_CV_ANALYZER } from "./specs/_generated/live/pipeline_30";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/30 CV Analyzer (Concept Refinement)",
+  title: "Graph - from run/30 CV Analyzer (Concept Refinement)",
   component: GraphViewer,
   decorators: [
     (Story) => (

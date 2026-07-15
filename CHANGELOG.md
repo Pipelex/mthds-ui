@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Static method-graph parser (new `@pipelex/mthds-ui/static-graph` entry point).** A pure-TypeScript, React-free module that parses raw `.mthds` TOML text into blueprint-shaped bundles: `parseMthdsBundle(tomlText)` (smol-toml parse + lenient narrowing that never throws — uninterpretable content becomes diagnostics) and `mergeBundles(bundles)` (per-domain namespace merge with keep-first duplicate handling and cross-file concept enrichment). Parsed pipes normalize to the existing `PipeBlueprintUnion` registry shapes and concepts to `ConceptInfo` (with a best-effort derived `json_schema`), so parsed entries can feed a GraphSpec `pipe_registry` / `concept_registry` directly. First phase of the static graph builder (see `wip/static-graph-design.md`); the authoring-surface schema is checked in under `data/schema/mthds_schema.json` (`make schema-refresh`).
+- **Static↔dry parity harness.** A permanent Python↔TS drift detector: a vitest suite builds every fixture bundle statically and compares it against the checked-in pipelex dry-run GraphSpec, normalized to a canonical structural form (containment-path node identity, dry batch fan-out collapsed to one branch, runtime fields stripped) and compared over exactly what the renderer consumes — node multiset, containment tree, and the per-stuff producer/consumer relation derived with `buildDataflowAnalysis`. Every fixture pipeline matches with an empty allowlist; the harness's own sensitivity is tested so it cannot pass vacuously.
+- **Static graph builder: `.mthds` TOML → renderable GraphSpec, no Python anywhere.** `buildStaticGraphSpec(mergedSet)` and `buildStaticGraphSpecFromToml(tomlText | tomlText[])` (both on the `static-graph` entry point) walk the parsed method statically — pipe invocations, scope-based input binding with dotted-prefix matching, controller recursion (sequence / parallel / condition / batch, including inline `batch_over` steps materialized as synthetic PipeBatch nodes like the runtime does) — and emit a `GraphSpec` with `meta.mode: "static"` that the existing `GraphViewer` renders unchanged. Identity is fully deterministic: invocation-path node ids, raw-string stuff digests, `static:`-namespaced edge ids. Best-effort by design: unresolvable refs are skipped with diagnostics, cycles render as leaves, `alias->…` dependency refs render as opaque signature cards, and half-written bundles still produce a graph. Every fixture bundle builds a validator-clean spec (sweep-tested).
+
+### Changed
+
+- **Static walk semantics aligned with the pipelex runtime** (driven by the parity harness, all verified against dry-run fixtures): working memory is one flat namespace — results produced inside a nested sub-sequence are now visible to later steps of ancestor sequences (parallel/batch branches still fork a copy); condition outcome children all carry the invoking step's `result` as their output stuff name; condition outcomes routing to the same target pipe (including `default_outcome`) merge into a single child node whose `tags.outcome` and `contains`-edge label carry all routing values; controllers expose transparent outputs on their io under the invoking slot name while the producing leaf keeps its local name.
+- **Repo-local `.pipelex/pipelex.toml` updated for pipelex 0.36.x:** stripped config sections the current CLI rejects (`temporal`, `cogt.tenacity_config`, `pipelex.tracing_config.temporal_dynamodb`) so fixture generation runs again. Note: the fixture corpus itself remains pinned to the pre-0.36 pipelex generation — regenerating it is a separate task because PipeParallel semantics changed upstream (`combined_output` was deleted; parallels now always combine).
+
+### Fixed
+
+- **`PipeExtractBlueprint.document_stuff_name` is now `string | null`.** The pipelex runtime sets exactly one of `image_stuff_name` / `document_stuff_name` (an image-based extract serializes `document_stuff_name: null`), so the previous non-null `string` type misdescribed real registry payloads. Breaking for consumers reading the field without a null check.
+
 ## [v0.12.0] - 2026-07-06
 
 ### Added

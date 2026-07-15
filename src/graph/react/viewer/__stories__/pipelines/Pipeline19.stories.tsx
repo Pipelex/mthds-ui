@@ -4,7 +4,7 @@ import { DRY_CONTENT_MODERATION } from "./specs/_generated/dry/pipeline_19";
 import { LIVE_CONTENT_MODERATION } from "./specs/_generated/live/pipeline_19";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/19 Content Moderation",
+  title: "Graph - from run/19 Content Moderation",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -1,6 +1,6 @@
 {
-  "graph_id": "028212af-c9c1-4215-bcdc-878318f2d626",
-  "created_at": "2026-05-15T13:41:17.694919Z",
+  "graph_id": "7ba29aca-c691-4d97-9fec-087cdc55a290",
+  "created_at": "2026-07-09T11:12:24.004388Z",
   "pipeline_ref": {
     "domain": "text_processing",
     "main_pipe": "summarize",
@@ -8,17 +8,18 @@
   },
   "nodes": [
     {
-      "id": "028212af-c9c1-4215-bcdc-878318f2d626:node_0",
+      "id": "7ba29aca-c691-4d97-9fec-087cdc55a290:node_0",
       "kind": "operator",
       "pipe_code": "summarize",
       "pipe_type": "PipeLLM",
       "description": "Summarize input text",
       "domain_code": "text_processing",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T13:41:17.694919Z",
-        "ended_at": "2026-05-15T13:41:22.797689Z",
-        "duration": 5.10277
+        "started_at": "2026-07-09T11:12:24.004388Z",
+        "ended_at": "2026-07-09T11:12:29.885552Z",
+        "duration": 5.881164
       },
       "io": {
         "inputs": [
@@ -28,7 +29,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QvzYi",
+            "digest": "dxsJN",
             "data": {
               "text": "Artificial intelligence has transformed the technology landscape in recent years. Machine learning models, particularly large language models, have shown remarkable capabilities in understanding and generating human language. These models are trained on vast amounts of text data and can perform tasks such as translation, summarization, question answering, and creative writing. The development of transformer architectures in 2017 marked a turning point, enabling models to process sequences of text more efficiently than previous approaches. Companies across industries are now integrating AI into their workflows, from customer service chatbots to medical diagnosis assistance. However, challenges remain around bias, hallucination, and the environmental cost of training large models."
             },
@@ -44,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FFCNG",
+            "digest": "XA2GL",
             "data": {
-              "text": "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and Q&A. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain significant challenges."
+              "text": "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges."
             },
-            "data_text": "Summary                                                                                             \n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities \nin tasks like translation, writing, and Q&A. The 2017 introduction of transformer architecture was a\nkey breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such\nas bias, inaccuracies, and high energy consumption remain significant challenges.                   \n",
-            "data_html": "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and Q&amp;A. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain significant challenges.",
+            "data_text": "Summary                                                                                             \n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities \nin tasks like translation, writing, and question answering. The 2017 introduction of transformer    \narchitecture was a key breakthrough, and AI is now widely adopted across industries. Despite this   \nprogress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges. \n",
+            "data_html": "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges.",
             "extra": {}
           }
         ]
@@ -69,7 +70,8 @@
   ],
   "edges": [],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "live"
   },
   "pipe_registry": {
     "text_processing.summarize": {
@@ -87,7 +89,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -98,7 +101,8 @@
           "structure_class_name": "text_processing__Summary",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -118,7 +122,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     }
   },

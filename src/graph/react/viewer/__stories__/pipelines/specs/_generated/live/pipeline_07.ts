@@ -5,22 +5,23 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_SIMPLE_CONDITION = {
-  graph_id: "08365ae2-a915-40f8-9604-f3495f2ecf48",
-  created_at: "2026-05-15T19:07:51.739901Z",
+  graph_id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6",
+  created_at: "2026-07-09T11:15:29.730129Z",
   pipeline_ref: { domain: "translation", main_pipe: "translate_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_0",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
       kind: "controller",
       pipe_code: "translate_pipeline",
       pipe_type: "PipeSequence",
       description: "Detect language and translate if needed",
       domain_code: "translation",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:07:51.739901Z",
-        ended_at: "2026-05-15T19:07:58.011348Z",
-        duration: 6.271447,
+        started_at: "2026-07-09T11:15:29.730129Z",
+        ended_at: "2026-07-09T11:15:36.144992Z",
+        duration: 6.414863,
       },
       io: {
         inputs: [
@@ -30,7 +31,7 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "A93q9",
+            digest: "cGtJe",
             data: {
               text: "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
             },
@@ -48,14 +49,14 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LACSy",
+            digest: "7ezv3",
             data: {
-              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."',
+              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance."',
             },
             data_text:
-              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance."                                              \n',
+              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance."                                                \n',
             data_html:
-              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
+              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
             extra: {},
           },
         ],
@@ -66,17 +67,18 @@ export const LIVE_SIMPLE_CONDITION = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_1",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
       kind: "operator",
       pipe_code: "detect_language",
       pipe_type: "PipeLLM",
       description: "Detect the language of input text",
       domain_code: "translation",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:07:51.746700Z",
-        ended_at: "2026-05-15T19:07:54.754958Z",
-        duration: 3.008258,
+        started_at: "2026-07-09T11:15:29.741353Z",
+        ended_at: "2026-07-09T11:15:34.195972Z",
+        duration: 4.454619,
       },
       io: {
         inputs: [
@@ -86,7 +88,7 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "A93q9",
+            digest: "cGtJe",
             data: {
               text: "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
             },
@@ -104,7 +106,7 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f5qVR",
+            digest: "8rnwK",
             data: {
               text: "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               language: "french",
@@ -131,17 +133,18 @@ export const LIVE_SIMPLE_CONDITION = {
       },
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_2",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
       kind: "controller",
       pipe_code: "route_translation",
       pipe_type: "PipeCondition",
       description: "Route based on detected language",
       domain_code: "translation",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:07:54.761122Z",
-        ended_at: "2026-05-15T19:07:58.006217Z",
-        duration: 3.245095,
+        started_at: "2026-07-09T11:15:34.201161Z",
+        ended_at: "2026-07-09T11:15:36.141148Z",
+        duration: 1.939987,
       },
       io: {
         inputs: [
@@ -151,7 +154,7 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f5qVR",
+            digest: "8rnwK",
             data: {
               text: "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               language: "french",
@@ -170,14 +173,14 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LACSy",
+            digest: "7ezv3",
             data: {
-              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."',
+              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance."',
             },
             data_text:
-              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance."                                              \n',
+              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance."                                                \n',
             data_html:
-              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
+              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
             extra: {},
           },
         ],
@@ -188,17 +191,18 @@ export const LIVE_SIMPLE_CONDITION = {
       execution_data: { evaluated_expression: "french", selected_outcome: "translate_french" },
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_3",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
       kind: "operator",
       pipe_code: "translate_french",
       pipe_type: "PipeLLM",
       description: "Translate French text to English",
       domain_code: "translation",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:07:54.771410Z",
-        ended_at: "2026-05-15T19:07:57.999586Z",
-        duration: 3.228176,
+        started_at: "2026-07-09T11:15:34.212303Z",
+        ended_at: "2026-07-09T11:15:36.136536Z",
+        duration: 1.924233,
       },
       io: {
         inputs: [
@@ -208,7 +212,7 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f5qVR",
+            digest: "8rnwK",
             data: {
               text: "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               language: "french",
@@ -227,14 +231,14 @@ export const LIVE_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LACSy",
+            digest: "7ezv3",
             data: {
-              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance."',
+              text: 'Here is the English translation of the French text:\n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance."',
             },
             data_text:
-              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance."                                              \n',
+              'Here is the English translation of the French text:                                                 \n\n"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance."                                                \n',
             data_html:
-              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
+              "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
             extra: {},
           },
         ],
@@ -255,57 +259,62 @@ export const LIVE_SIMPLE_CONDITION = {
   ],
   edges: [
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:edge_0",
-      source: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_0",
-      target: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_1",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_0",
+      source: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
+      target: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:edge_1",
-      source: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_0",
-      target: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_2",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_1",
+      source: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
+      target: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:edge_2",
-      source: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_2",
-      target: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_3",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_2",
+      source: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
+      target: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:asm_edge_0",
-      source: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_1",
-      target: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_2",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:asm_edge_0",
+      source: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
+      target: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
       kind: "data",
+      optional: false,
       label: "classified",
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "08365ae2-a915-40f8-9604-f3495f2ecf48:asm_edge_1",
-      source: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_1",
-      target: "08365ae2-a915-40f8-9604-f3495f2ecf48:node_3",
+      id: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:asm_edge_1",
+      source: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
+      target: "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
       kind: "data",
+      optional: false,
       label: "classified",
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "translation.translate_pipeline": {
       pipe_category: "PipeController",
@@ -323,6 +332,7 @@ export const LIVE_SIMPLE_CONDITION = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -334,6 +344,7 @@ export const LIVE_SIMPLE_CONDITION = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       sequential_sub_pipes: [
         {
@@ -366,6 +377,7 @@ export const LIVE_SIMPLE_CONDITION = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -377,6 +389,7 @@ export const LIVE_SIMPLE_CONDITION = {
           refines: null,
         },
         multiplicity: null,
+        presence: "plain",
       },
       llm_prompt_spec: {
         templating_style: null,
@@ -393,7 +406,6 @@ export const LIVE_SIMPLE_CONDITION = {
         system_document_references: null,
       },
       llm_choices: { for_text: null, for_object: null },
-      structuring_method: null,
       output_multiplicity: null,
     },
     "translation.route_translation": {
@@ -412,6 +424,7 @@ export const LIVE_SIMPLE_CONDITION = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -423,6 +436,7 @@ export const LIVE_SIMPLE_CONDITION = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       expression: "{{ classified.language }}",
       outcome_map: { english: "passthrough", french: "translate_french" },
@@ -445,6 +459,7 @@ export const LIVE_SIMPLE_CONDITION = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -456,6 +471,7 @@ export const LIVE_SIMPLE_CONDITION = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       llm_prompt_spec: {
         templating_style: null,
@@ -472,7 +488,6 @@ export const LIVE_SIMPLE_CONDITION = {
         system_document_references: null,
       },
       llm_choices: { for_text: null, for_object: null },
-      structuring_method: null,
       output_multiplicity: null,
     },
   },

@@ -36,7 +36,7 @@ function ResizablePanelDemo({ children }: { children: React.ReactNode }) {
 // ─── Meta ─────────────────────────────────────────────────────────────────
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Resizable",
+  title: "Misc/Detail Panel/Resizable",
   decorators: [
     (Story) => (
       <div style={{ width: "100%", height: "90vh", position: "relative" }}>

@@ -1,12 +1,20 @@
 import type {
   FoldToggleOptions,
+  GraphSpecMode,
   PipeControllerType,
   PipeOperatorType,
   PipeStatus,
   PipeType,
 } from "@graph/types";
 
-export type { FoldToggleOptions, PipeControllerType, PipeOperatorType, PipeStatus, PipeType };
+export type {
+  FoldToggleOptions,
+  GraphSpecMode,
+  PipeControllerType,
+  PipeOperatorType,
+  PipeStatus,
+  PipeType,
+};
 
 export type PipeCardDirection = "LR" | "TB";
 
@@ -15,6 +23,7 @@ export interface PipeCardData {
   pipeType: PipeType;
   description?: string;
   status: PipeStatus;
+  graphMode?: GraphSpecMode;
   inputs: { name: string; concept: string }[];
   outputs: { name: string; concept: string }[];
   /** Blueprint-specific tags (model, prompt, etc.) */

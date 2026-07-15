@@ -6,7 +6,7 @@ import { toGraphSpec } from "./edgeCaseGraphSpecs";
 import { manyInputs, everythingAtOnce, minimal } from "./edge-cases/edgeCaseData";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/Rendering Tests",
+  title: "Misc/PipeCard/Rendering Tests",
   component: GraphViewer,
   decorators: [
     (Story) => (

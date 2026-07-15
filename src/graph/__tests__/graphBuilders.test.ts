@@ -153,6 +153,69 @@ describe("buildDataflowGraph — additional cases", () => {
     expect(combineEdge!.style?.stroke).toBe("var(--color-parallel-combine)");
   });
 
+  it("classifies producer-less parallel_combine targets as combined stuff, not inputs", () => {
+    const gs: GraphSpec = {
+      meta: { format: "mthds", mode: "static" },
+      nodes: [
+        {
+          pipe_code: "branch",
+          kind: "operator",
+          status: "scheduled",
+          id: "branch",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "branch_out", name: "branch_out" }] },
+        },
+        {
+          pipe_code: "consumer",
+          kind: "operator",
+          status: "scheduled",
+          id: "consumer",
+          pipe_type: "PipeFunc",
+          io: { outputs: [], inputs: [{ digest: "combo", name: "combo" }] },
+        },
+      ],
+      edges: [
+        {
+          id: "combine",
+          source: "branch",
+          target: "consumer",
+          kind: "parallel_combine",
+          source_stuff_digest: "branch_out",
+          target_stuff_digest: "combo",
+        },
+      ],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
+
+    const combined = nodes.find((n) => n.id === "stuff_combo")!;
+    expect(combined.data.stuffRole).toBe("combined");
+    expect(combined.style?.border).toContain("var(--color-parallel-combine)");
+  });
+
+  it("threads static graph mode into pipe card payloads", () => {
+    const gs: GraphSpec = {
+      meta: { format: "mthds", mode: "static" },
+      nodes: [
+        {
+          kind: "operator",
+          status: "scheduled",
+          id: "op1",
+          pipe_code: "my_pipe",
+          pipe_type: "PipeFunc",
+          io: { inputs: [], outputs: [{ digest: "d1", name: "result", concept: "Text" }] },
+        },
+      ],
+      edges: [],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
+
+    const pipeNode = nodes.find((n) => n.id === "op1")!;
+    expect(pipeNode.data.graphMode).toBe("static");
+    expect(pipeNode.data.pipeCardData?.graphMode).toBe("static");
+  });
+
   it("marks cross-group edges between different controller groups", () => {
     const gs: GraphSpec = {
       nodes: [

@@ -4,7 +4,7 @@ import { ENRICHED_SPEC, NODE_EXTRACT_CV } from "../../enrichedMockData";
 import { PipeStory, detailPanelDecorator, detailPanelParameters } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeExtract",
+  title: "Misc/Detail Panel/Pipes/PipeExtract",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

@@ -155,7 +155,7 @@ export function makeComposeStoryProps(
     pipeline_ref: { domain: COMPOSE_DOMAIN, main_pipe: COMPOSE_PIPE_CODE },
     nodes: [node],
     edges: [],
-    meta: {},
+    meta: { format: "mthds" },
     pipe_registry: {
       [COMPOSE_PIPE_KEY]: blueprint as unknown as Record<string, unknown>,
     } as unknown as GraphSpec["pipe_registry"],
@@ -246,7 +246,7 @@ export function makeStructureStoryProps(
     pipeline_ref: { domain: STRUCTURE_DOMAIN, main_pipe: STRUCTURE_PIPE_CODE },
     nodes: [node],
     edges: [],
-    meta: {},
+    meta: { format: "mthds" },
     pipe_registry: (registerBlueprint
       ? { [STRUCTURE_PIPE_KEY]: blueprint as unknown as Record<string, unknown> }
       : {}) as unknown as GraphSpec["pipe_registry"],

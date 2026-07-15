@@ -201,6 +201,22 @@ describe("validateGraphSpec — top-level shape", () => {
     expectInvalid({ ...makeValidSpec(), meta: { format: "other" } }, "meta.format");
   });
 
+  it("accepts explicit static, dry, and live modes", () => {
+    for (const mode of ["static", "dry", "live"] as const) {
+      expect(() =>
+        validateGraphSpec({ ...makeValidSpec(), meta: { format: "mthds", mode } }),
+      ).not.toThrow();
+    }
+  });
+
+  it("keeps legacy specs without meta.mode valid", () => {
+    expect(() => validateGraphSpec(makeValidSpec())).not.toThrow();
+  });
+
+  it("throws when meta.mode is not a known mode", () => {
+    expectInvalid({ ...makeValidSpec(), meta: { format: "mthds", mode: "preview" } }, "meta.mode");
+  });
+
   it("accepts missing pipe_registry / concept_registry", () => {
     const spec = makeValidSpec();
     delete spec.pipe_registry;

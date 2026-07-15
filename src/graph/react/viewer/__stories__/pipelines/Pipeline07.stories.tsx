@@ -4,7 +4,7 @@ import { DRY_SIMPLE_CONDITION } from "./specs/_generated/dry/pipeline_07";
 import { LIVE_SIMPLE_CONDITION } from "./specs/_generated/live/pipeline_07";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/07 Simple Condition",
+  title: "Graph - from run/07 Simple Condition",
   component: GraphViewer,
   decorators: [
     (Story) => (

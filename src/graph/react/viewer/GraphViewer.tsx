@@ -27,8 +27,10 @@ import {
   stuffDigestFromId,
   EDGE_TYPE,
   FOLD_MODE,
+  GRAPH_SPEC_MODE,
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
+  graphSpecMode,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { resolveConceptRef } from "@graph/graphAnalysis";
@@ -171,6 +173,7 @@ function StuffNodeDetail({
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
+  const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
 
   return (
     <>
@@ -179,11 +182,14 @@ function StuffNodeDetail({
         <ConceptDetailPanel
           concept={conceptInfo}
           ioData={stuffData}
+          isDryRun={isDryRun}
           instanceKey={nodeId}
           resolveStorageUrl={resolveStorageUrl}
           canEmbedPdf={canEmbedPdf}
           onOpenExternally={onOpenExternally}
         />
+      ) : isDryRun ? (
+        <div className="detail-not-available">Dry run data hidden</div>
       ) : (
         /* Fallback: just show the StuffViewer if no concept info */
         <StuffViewer
@@ -271,6 +277,9 @@ export function applyStatusOverrides(
 ): AppNode[] {
   if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
   return nodes.map((node) => {
+    if (node.data.graphMode === "static" || node.data.pipeCardData?.graphMode === "static") {
+      return node;
+    }
     const pipeCode = node.data.pipeCode;
     if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];

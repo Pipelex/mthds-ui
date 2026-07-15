@@ -20,7 +20,7 @@ description = "Process image: analyze in parallel then build catalog entry"
 inputs = { image = "Image" }
 output = "CatalogEntry"
 steps = [
-  { pipe = "parallel_analyze", result = "description" },
+  { pipe = "parallel_analyze", result = "image_assets" },
   { pipe = "build_catalog", result = "entry" },
 ]
 
@@ -28,7 +28,7 @@ steps = [
 type = "PipeParallel"
 description = "Describe, classify, and generate thumbnail in parallel"
 inputs = { image = "Image" }
-output = "Description"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "describe_image", result = "description" },

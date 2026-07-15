@@ -3,7 +3,7 @@ import { GraphViewer } from "../../GraphViewer";
 import { makeWideBatch } from "../extremeGraphSpecs";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/27 Wide Batch (many iterations)",
+  title: "Graph - from run/27 Wide Batch (many iterations)",
   component: GraphViewer,
   decorators: [
     (Story) => (

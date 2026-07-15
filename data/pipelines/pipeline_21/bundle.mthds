@@ -12,7 +12,7 @@ description = "Gather from 3 sources in parallel then combine"
 inputs = { query = "Text" }
 output = "CombinedData"
 steps = [
-  { pipe = "gather_sources", result = "api_data" },
+  { pipe = "gather_sources", result = "source_bundle" },
   { pipe = "combine_sources", result = "combined" },
 ]
 
@@ -20,7 +20,7 @@ steps = [
 type = "PipeParallel"
 description = "Fetch from API, file, and web in parallel"
 inputs = { query = "Text" }
-output = "SearchResult"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "fetch_api", result = "api_data" },

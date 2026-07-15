@@ -4,7 +4,7 @@ import { DRY_LONG_SEQUENCE } from "./specs/_generated/dry/pipeline_04";
 import { LIVE_LONG_SEQUENCE } from "./specs/_generated/live/pipeline_04";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/04 Long 6-Pipe Sequence",
+  title: "Graph - from run/04 Long 6-Pipe Sequence",
   component: GraphViewer,
   decorators: [
     (Story) => (

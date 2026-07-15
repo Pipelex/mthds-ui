@@ -1,7 +1,7 @@
 /**
  * Regenerate Storybook GraphSpec fixtures from the pipelex bundles in
- * data/pipelines/. Each bundle is run through `pipelex ... --graph` and the
- * resulting graphspec.json is emitted as a typed fixture consumed by
+ * data/pipelines/. Each bundle is run through the sibling `../pipelex`
+ * checkout and the resulting graphspec.json is emitted as a typed fixture consumed by
  * mockGraphSpec.ts.
  *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
@@ -38,6 +38,10 @@ import { fileURLToPath } from "node:url";
 import prettier from "prettier";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
+const PIPELEX_BIN =
+  process.env.PIPELEX_BIN ??
+  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
 
@@ -79,6 +83,7 @@ const CHECK = process.argv.includes("--check");
 const MISSING = process.argv.includes("--missing");
 const FROM_DISK = process.argv.includes("--from-disk");
 const MODE = LIVE ? "LIVE" : "DRY";
+const MODE_VALUE = LIVE ? "live" : "dry";
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
 
@@ -89,6 +94,15 @@ const specJsonPath = (pipelineDir) => path.join(PIPELINES_DIR, pipelineDir, SPEC
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
   process.exit(1);
+}
+
+function assertPipelexCliAvailable() {
+  if (!existsSync(PIPELEX_BIN)) {
+    die(
+      `cannot find pipelex CLI at ${PIPELEX_BIN}. ` +
+        `Set PIPELEX_BIN to an explicit CLI path or set up ../pipelex/.venv.`,
+    );
+  }
 }
 
 /** Run one bundle through pipelex and return the parsed graphspec.json. */
@@ -108,7 +122,7 @@ function generateSpec(pipelineDir) {
     }
 
     try {
-      execFileSync("pipelex", args, {
+      execFileSync(PIPELEX_BIN, args, {
         cwd: REPO,
         env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
         stdio: ["ignore", "pipe", "pipe"],
@@ -140,6 +154,9 @@ function generateSpec(pipelineDir) {
 function assertValid(spec, pipelineDir) {
   if (spec?.meta?.format !== "mthds") {
     die(`${pipelineDir}: meta.format is not "mthds" (got ${JSON.stringify(spec?.meta)})`);
+  }
+  if (spec.meta.mode !== MODE_VALUE) {
+    die(`${pipelineDir}: meta.mode is not "${MODE_VALUE}" (got ${JSON.stringify(spec.meta)})`);
   }
   if (!Array.isArray(spec.nodes) || spec.nodes.length === 0) {
     die(`${pipelineDir}: spec has no nodes`);
@@ -184,6 +201,12 @@ async function main() {
       `${CHECK ? " [check — no files written]" : ""}` +
       `${FROM_DISK ? " [from disk]" : ""}`,
   );
+  // Pure-disk flows (--from-disk, or --missing with nothing missing) never
+  // invoke pipelex, so only require the CLI when something will be generated.
+  if (toProcess.length > 0) {
+    assertPipelexCliAvailable();
+    console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
+  }
 
   // name -> spec, assembled in allPipelines order for a stable output file.
   const specByName = new Map();
@@ -213,7 +236,9 @@ async function main() {
     for (const p of allPipelines) {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {
-        specByName.set(NAME_MAP[p], JSON.parse(readFileSync(specJsonPath(p), "utf-8")));
+        const spec = JSON.parse(readFileSync(specJsonPath(p), "utf-8"));
+        assertValid(spec, p);
+        specByName.set(NAME_MAP[p], spec);
         reused.push(p);
       } else {
         omitted.push(p);
@@ -286,10 +311,15 @@ async function main() {
       if (existsSync(liveSplit)) continue; // keep real LIVE data
       const placeholderRaw =
         `/**\n` +
-        ` * PLACEHOLDER — re-exports the DRY spec as LIVE so Storybook builds\n` +
+        ` * PLACEHOLDER — wraps the DRY spec as LIVE so Storybook builds\n` +
         ` * without a paid live run. Run \`make fixtures-live\` for real LIVE data.\n` +
         ` */\n` +
-        `export { DRY_${name} as LIVE_${name} } from "../dry/${pipelineDir}";\n`;
+        `import type { GraphSpec } from "@graph/types";\n` +
+        `import { DRY_${name} } from "../dry/${pipelineDir}";\n\n` +
+        `export const LIVE_${name} = {\n` +
+        `  ...DRY_${name},\n` +
+        `  meta: { ...DRY_${name}.meta, format: "mthds", mode: "live" },\n` +
+        `} as GraphSpec;\n`;
       writeFileSync(
         liveSplit,
         await prettier.format(placeholderRaw, { ...prettierConfig, parser: "typescript" }),

@@ -4,7 +4,7 @@ import { MOCK_PIPES, withStatus } from "./mockData";
 import { toGraphSpec } from "./edgeCaseGraphSpecs";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/ByStatus",
+  title: "Misc/PipeCard/ByStatus",
   component: GraphViewer,
   decorators: [
     (Story) => (

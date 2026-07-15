@@ -95,4 +95,23 @@ describe("buildPipeCardPayload", () => {
     };
     expect(buildPipeCardPayload(node).status).toBe("canceled");
   });
+
+  it("carries graph mode and authored tags when provided", () => {
+    const node: PipeCallNode = {
+      kind: "operator",
+      id: "op1",
+      pipe_code: "route_yes",
+      pipe_type: "PipeLLM",
+      description: "Route outcome",
+      domain_code: "demo",
+      status: "scheduled",
+      io: { inputs: [], outputs: [] },
+      tags: { outcome: "yes" },
+    };
+
+    expect(buildPipeCardPayload(node, "static")).toMatchObject({
+      graphMode: "static",
+      tags: { outcome: "yes" },
+    });
+  });
 });

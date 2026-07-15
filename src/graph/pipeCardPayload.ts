@@ -1,4 +1,4 @@
-import type { PipeCallNode, PipeCardPayload } from "./types";
+import type { GraphSpecMode, PipeCallNode, PipeCardPayload } from "./types";
 
 /**
  * Build a PipeCardPayload from a pipe-call node.
@@ -7,8 +7,11 @@ import type { PipeCallNode, PipeCardPayload } from "./types";
  * `description`, `status`, and `io` are present and well-formed, so this
  * function reads them directly with no fallback synthesis.
  */
-export function buildPipeCardPayload(node: PipeCallNode): PipeCardPayload {
-  return {
+export function buildPipeCardPayload(
+  node: PipeCallNode,
+  graphMode?: GraphSpecMode,
+): PipeCardPayload {
+  const payload: PipeCardPayload = {
     pipeCode: node.pipe_code,
     pipeType: node.pipe_type,
     description: node.description,
@@ -16,4 +19,7 @@ export function buildPipeCardPayload(node: PipeCallNode): PipeCardPayload {
     inputs: node.io.inputs.map((i) => ({ name: i.name, concept: i.concept ?? "" })),
     outputs: node.io.outputs.map((o) => ({ name: o.name, concept: o.concept ?? "" })),
   };
+  if (graphMode !== undefined) payload.graphMode = graphMode;
+  if (node.tags !== undefined) payload.tags = node.tags;
+  return payload;
 }

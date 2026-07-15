@@ -31,7 +31,7 @@ description = "Analyze text for sentiment and keywords then merge"
 inputs = { text = "Text" }
 output = "AnalysisReport"
 steps = [
-  { pipe = "parallel_analyze", result = "sentiment" },
+  { pipe = "parallel_analyze", result = "analysis_bundle" },
   { pipe = "merge_results", result = "report" },
 ]
 
@@ -39,7 +39,7 @@ steps = [
 type = "PipeParallel"
 description = "Run sentiment and keyword extraction in parallel"
 inputs = { text = "Text" }
-output = "Sentiment"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "analyze_sentiment", result = "sentiment" },

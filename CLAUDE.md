@@ -46,11 +46,22 @@ src/
           pipeCardTypes.ts        # PipeCardData interface (imports from types.ts)
           pipeCardRegistry.ts     # Pipe type → component registry
   shiki/                          # Syntax highlighting (separate entry point)
+  static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
+    types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
+    conceptRefs.ts                #   Concept-ref parsing/resolution + native concept catalog
+    normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
+    parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
+    mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)
+    buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
+docs/
+  static-graph.md                 # Static GraphSpec API, mode contract, display behavior
 ```
+
+The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Static specs must carry `meta: { format: "mthds", mode: "static" }`; renderer behavior must check that explicit mode only.
 
 ## Path Alias
 
-The project uses `@graph/*` → `src/graph/*` to avoid deep relative imports. Configured in:
+The project uses `@graph/*` → `src/graph/*` and `@static-graph/*` → `src/static-graph/*` to avoid deep relative imports. Configured in:
 
 - `tsconfig.json` (`paths`)
 - `tsup.config.ts` (`esbuildOptions.alias`)
@@ -82,7 +93,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 ### Data Pipeline
 
 ```
-GraphSpec (JSON from pipelex-agent)
+GraphSpec (JSON from pipelex-agent, or static builder output)
   → buildDataflowAnalysis()     # Extract stuff registry, containment tree
   → buildDataflowGraph()        # Create pipe nodes + stuff nodes + edges
   → getLayoutedElements()       # ELK auto-layout (hierarchical, direction-aware)
@@ -203,7 +214,9 @@ GraphSpec (JSON from pipelex-agent)
 
 ### Test Data
 
-- **Pipeline fixtures** are generated from the `.mthds` bundles in `data/pipelines/pipeline_NN/` (see "Regenerating fixtures" below). The generator emits `__stories__/pipelines/specs/_generated.dry.ts` and `_generated.live.ts`; `mockGraphSpec.ts` re-exports them as `DRY_*` / `LIVE_*` and builds `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG`.
+- **Pipeline fixtures** are generated from the `.mthds` bundles in `data/pipelines/pipeline_NN/` (see "Regenerating fixtures" below). The generator emits `__stories__/pipelines/specs/_generated.dry.ts` and `_generated.live.ts`; `mockGraphSpec.ts` and `liveGraphSpec.ts` re-export them as `DRY_*` / `LIVE_*` and build `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG`.
+- **Static fixture catalog** lives in `src/graph/react/viewer/__stories__/staticGraphSpec.ts`. It wraps `_generated.static.ts`, which imports raw `.mthds` bundles and builds `STATIC_*` specs through `buildStaticGraphSpecFromToml` with no CLI, Python, gateway key, or network.
+- **Static stories** live in `StaticGraphDev.stories.tsx`, `StaticVsLive.stories.tsx`, and `StaticGraphInvalid.stories.tsx`. Keep representative static-vs-live coverage for sequence, condition, batch, CV screening, deep nesting, and wide parallel.
 - **Extreme-scale generators** in `extremeGraphSpecs.ts` — `makeWideParallel(N)`, `makeWideBatch(N)` (hand-built; kept validator-clean by `finalizeSpec`).
 - **PipeCard edge cases** in `src/graph/react/nodes/pipe/__stories__/edge-cases/edgeCaseData.ts`.
 - **Programmatic factories** in `src/graph/__tests__/testUtils.ts` — `makeMinimalSpec()`, `makeParallelSpec()`, `makeBatchSpec()`, `makeNestedSpec()`, `runFullPipeline()`.
@@ -220,7 +233,7 @@ make fixtures-live-test   # smoke-test the live path on 3 small bundles, writes 
 
 `make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 
-`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, so a regenerated fixture that violates the contract fails loudly in its story. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines.
+`validateGraphSpec` runs on every spec at the `GraphViewer` boundary, so a regenerated fixture that violates the contract fails loudly in its story. After `make fixtures`, the `snapshots.test.ts` structural snapshot may need re-baselining (`npx vitest run -u src/graph/__tests__/snapshots.test.ts`) — pipelex node numbering is not fully deterministic for branching pipelines. Static snapshots should only change when authored static behavior changes; static ids and stuff digests are deterministic.
 
 ### Coverage
 

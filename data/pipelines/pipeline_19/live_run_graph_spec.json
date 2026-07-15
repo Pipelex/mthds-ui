@@ -1,6 +1,6 @@
 {
-  "graph_id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e",
-  "created_at": "2026-05-15T19:12:53.634576Z",
+  "graph_id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30",
+  "created_at": "2026-07-09T11:20:34.291788Z",
   "pipeline_ref": {
     "domain": "content_moderation",
     "main_pipe": "moderation_pipeline",
@@ -8,17 +8,18 @@
   },
   "nodes": [
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_0",
       "kind": "controller",
       "pipe_code": "moderation_pipeline",
       "pipe_type": "PipeSequence",
       "description": "Moderate content through parallel checks then route decision",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:53.634576Z",
-        "ended_at": "2026-05-15T19:12:58.711910Z",
-        "duration": 5.077334
+        "started_at": "2026-07-09T11:20:34.291788Z",
+        "ended_at": "2026-07-09T11:20:43.105774Z",
+        "duration": 8.813986
       },
       "io": {
         "inputs": [
@@ -28,7 +29,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Waqak",
+            "digest": "C5dxh",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -44,7 +45,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mdNtg",
+            "digest": "dJUrp",
             "data": {
               "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
@@ -62,17 +63,18 @@
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
       "kind": "controller",
       "pipe_code": "parallel_checks",
       "pipe_type": "PipeParallel",
       "description": "Check text and image safety in parallel",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:53.641119Z",
-        "ended_at": "2026-05-15T19:12:56.327424Z",
-        "duration": 2.686305
+        "started_at": "2026-07-09T11:20:34.301181Z",
+        "ended_at": "2026-07-09T11:20:40.773526Z",
+        "duration": 6.472345
       },
       "io": {
         "inputs": [
@@ -82,7 +84,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Waqak",
+            "digest": "C5dxh",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -98,7 +100,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "oQJvA",
+            "digest": "Kf9iE",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -114,7 +116,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "diwpE",
+            "digest": "3rbA8",
             "data": {
               "score": 1,
               "flagged_categories": null,
@@ -122,6 +124,29 @@
             },
             "data_text": " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 1.0                          \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
             "data_html": "<table><tr><th>score</th><td>1.0</td></tr><tr><th>safe</th><td>True</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "safety_scores_bundle",
+            "concept": "Composite",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "NXL28",
+            "data": {
+              "text_score": {
+                "score": 0.95,
+                "flagged_categories": null,
+                "safe": true
+              },
+              "image_score": {
+                "score": 1,
+                "flagged_categories": null,
+                "safe": true
+              }
+            },
+            "data_text": "{\n    \"text_score\": {\n        \"score\": 0.95,\n        \"flagged_categories\": null,\n        \"safe\": true\n    },\n    \"image_score\": {\n        \"score\": 1.0,\n        \"flagged_categories\": null,\n        \"safe\": true\n    }\n}\n",
+            "data_html": "<table><tr><th>text_score</th><td><table><tr><th>score</th><td>0.95</td></tr><tr><th>safe</th><td>True</td></tr></table></td></tr><tr><th>image_score</th><td><table><tr><th>score</th><td>1.0</td></tr><tr><th>safe</th><td>True</td></tr></table></td></tr></table>",
             "extra": {}
           }
         ]
@@ -132,21 +157,22 @@
       "execution_data": {
         "branch_count": 2,
         "add_each_output": true,
-        "combined_output_concept": null
+        "combined_output_concept": "native.Composite"
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_2",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_2",
       "kind": "operator",
       "pipe_code": "check_text_safety",
       "pipe_type": "PipeLLM",
       "description": "Assess text content safety",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:53.645890Z",
-        "ended_at": "2026-05-15T19:12:56.142805Z",
-        "duration": 2.496915
+        "started_at": "2026-07-09T11:20:34.308385Z",
+        "ended_at": "2026-07-09T11:20:37.601950Z",
+        "duration": 3.293565
       },
       "io": {
         "inputs": [
@@ -156,7 +182,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Waqak",
+            "digest": "C5dxh",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -172,7 +198,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "oQJvA",
+            "digest": "Kf9iE",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -197,17 +223,18 @@
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_3",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_3",
       "kind": "operator",
       "pipe_code": "check_image_safety",
       "pipe_type": "PipeLLM",
       "description": "Assess image content safety",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:54.411215Z",
-        "ended_at": "2026-05-15T19:12:56.321267Z",
-        "duration": 1.910052
+        "started_at": "2026-07-09T11:20:36.068002Z",
+        "ended_at": "2026-07-09T11:20:40.764187Z",
+        "duration": 4.696185
       },
       "io": {
         "inputs": [
@@ -217,7 +244,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Waqak",
+            "digest": "C5dxh",
             "data": {
               "text": "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged."
             },
@@ -233,7 +260,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "diwpE",
+            "digest": "3rbA8",
             "data": {
               "score": 1,
               "flagged_categories": null,
@@ -258,17 +285,18 @@
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
       "kind": "operator",
       "pipe_code": "make_decision",
       "pipe_type": "PipeLLM",
       "description": "Make moderation decision based on safety scores",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:56.333340Z",
-        "ended_at": "2026-05-15T19:12:58.676119Z",
-        "duration": 2.342779
+        "started_at": "2026-07-09T11:20:40.780432Z",
+        "ended_at": "2026-07-09T11:20:43.069147Z",
+        "duration": 2.288715
       },
       "io": {
         "inputs": [
@@ -278,7 +306,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "oQJvA",
+            "digest": "Kf9iE",
             "data": {
               "score": 0.95,
               "flagged_categories": null,
@@ -294,7 +322,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "diwpE",
+            "digest": "3rbA8",
             "data": {
               "score": 1,
               "flagged_categories": null,
@@ -312,7 +340,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8NVfU",
+            "digest": "aTvWc",
             "data": {
               "approved": true,
               "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
@@ -337,17 +365,18 @@
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_5",
       "kind": "controller",
       "pipe_code": "route_action",
       "pipe_type": "PipeCondition",
       "description": "Route to approve or reject action",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:58.681174Z",
-        "ended_at": "2026-05-15T19:12:58.708204Z",
-        "duration": 0.02703
+        "started_at": "2026-07-09T11:20:43.076615Z",
+        "ended_at": "2026-07-09T11:20:43.102658Z",
+        "duration": 0.026043
       },
       "io": {
         "inputs": [
@@ -357,7 +386,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8NVfU",
+            "digest": "aTvWc",
             "data": {
               "approved": true,
               "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
@@ -375,7 +404,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mdNtg",
+            "digest": "dJUrp",
             "data": {
               "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
@@ -394,17 +423,18 @@
       }
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_6",
       "kind": "operator",
       "pipe_code": "approve_content",
       "pipe_type": "PipeCompose",
       "description": "Approve content for publication",
       "domain_code": "content_moderation",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T19:12:58.692735Z",
-        "ended_at": "2026-05-15T19:12:58.703965Z",
-        "duration": 0.01123
+        "started_at": "2026-07-09T11:20:43.087387Z",
+        "ended_at": "2026-07-09T11:20:43.098858Z",
+        "duration": 0.011471
       },
       "io": {
         "inputs": [
@@ -414,7 +444,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8NVfU",
+            "digest": "aTvWc",
             "data": {
               "approved": true,
               "reason": "Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image.",
@@ -432,7 +462,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "mdNtg",
+            "digest": "dJUrp",
             "data": {
               "text": "APPROVED: Both text and image content passed safety checks with high safety scores (text: 0.95, image: 1.0). No categories were flagged for either text or image."
             },
@@ -453,108 +483,141 @@
   ],
   "edges": [
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_0",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_0",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_0",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_1",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_2",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_1",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_2",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_3",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_2",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_3",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_3",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_0",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_4",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_0",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_4",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_0",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:edge_5",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:edge_5",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_5",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_0",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_0",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
       "kind": "data",
+      "optional": false,
       "label": "text_score",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_1",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_1",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_1",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
       "kind": "data",
+      "optional": false,
       "label": "image_score",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_2",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_5",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_2",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_5",
       "kind": "data",
+      "optional": false,
       "label": "decision",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:asm_edge_3",
-      "source": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_4",
-      "target": "924d5ff3-6105-48f1-a94c-ae1268a2d47e:node_6",
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_3",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_4",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_6",
       "kind": "data",
+      "optional": false,
       "label": "decision",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
+    },
+    {
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_4",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_2",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "Kf9iE",
+      "target_stuff_digest": "NXL28",
+      "meta": {}
+    },
+    {
+      "id": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:asm_edge_5",
+      "source": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_3",
+      "target": "ddfde007-e94e-4b0b-b9ea-ec30b78f9e30:node_1",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "3rbA8",
+      "target_stuff_digest": "NXL28",
+      "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "live"
   },
   "pipe_registry": {
     "content_moderation.moderation_pipeline": {
@@ -572,7 +635,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -583,12 +647,13 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
           "pipe_code": "parallel_checks",
-          "output_name": "text_score",
+          "output_name": "safety_scores_bundle",
           "output_multiplicity": null,
           "batch_params": null
         },
@@ -621,18 +686,20 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
         "concept": {
-          "code": "SafetyScore",
-          "domain_code": "content_moderation",
-          "description": "Content safety assessment score",
-          "structure_class_name": "content_moderation__SafetyScore",
+          "code": "Composite",
+          "domain_code": "native",
+          "description": "A named composition of contents",
+          "structure_class_name": "CompositeContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "parallel_sub_pipes": [
         {
@@ -648,8 +715,7 @@
           "batch_params": null
         }
       ],
-      "add_each_output": true,
-      "combined_output": null
+      "add_each_output": true
     },
     "content_moderation.check_text_safety": {
       "pipe_category": "PipeOperator",
@@ -666,7 +732,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -677,7 +744,8 @@
           "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -697,7 +765,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.check_image_safety": {
@@ -715,7 +782,8 @@
             "structure_class_name": "TextContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -726,7 +794,8 @@
           "structure_class_name": "content_moderation__SafetyScore",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -746,7 +815,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.make_decision": {
@@ -764,7 +832,8 @@
             "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "image_score": {
           "concept": {
@@ -774,7 +843,8 @@
             "structure_class_name": "content_moderation__SafetyScore",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -785,7 +855,8 @@
           "structure_class_name": "content_moderation__Decision",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -805,7 +876,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "content_moderation.route_action": {
@@ -823,7 +893,8 @@
             "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -834,7 +905,8 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "expression": "{{ decision.action }}",
       "outcome_map": {
@@ -859,7 +931,8 @@
             "structure_class_name": "content_moderation__Decision",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -870,9 +943,10 @@
           "structure_class_name": "content_moderation__ModerationResult",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "APPROVED: {{ decision.reason|format() }}",
+      "template": "APPROVED: $decision.reason",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -918,6 +992,20 @@
           "text"
         ],
         "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.Composite": {
+      "code": "Composite",
+      "domain_code": "native",
+      "description": "A named composition of contents",
+      "structure_class_name": "CompositeContent",
+      "refines": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "Untyped named composition of contents — the structure class of `native.Composite`.\n\nHolds its named sub-contents as top-level fields (pydantic `extra=\"allow\"`), so the\nserialized shape matches a bespoke structured concept: `{name: content, ...}` with no\nwrapper key. This is the combination vehicle for a `PipeParallel` whose author does not\nwant to declare a bespoke concept: each branch's `result` name becomes a field.",
+        "properties": {},
+        "title": "CompositeContent",
         "type": "object"
       }
     },

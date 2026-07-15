@@ -5,22 +5,23 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_SIMPLE_BATCH = {
-  graph_id: "43ee4b42-3a48-4cbe-b988-045e903559f7",
-  created_at: "2026-05-15T19:08:00.130621Z",
+  graph_id: "28450985-ea2c-46d6-941a-8f4c698c0221",
+  created_at: "2026-07-09T11:15:38.731265Z",
   pipeline_ref: { domain: "document_batch", main_pipe: "batch_ocr_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_0",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:node_0",
       kind: "controller",
       pipe_code: "batch_ocr_pipeline",
       pipe_type: "PipeSequence",
       description: "Extract pages then batch-process each",
       domain_code: "document_batch",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:08:00.130621Z",
-        ended_at: "2026-05-15T19:08:10.834675Z",
-        duration: 10.704054,
+        started_at: "2026-07-09T11:15:38.731265Z",
+        ended_at: "2026-07-09T11:15:51.792684Z",
+        duration: 13.061419,
       },
       io: {
         inputs: [
@@ -30,19 +31,19 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "nbb6t",
+            digest: "NU6cP",
             data: {
-              url: "pipelex-storage://normalized/JC28EaNfbETuTEBaQ42dnX.pdf",
+              url: "pipelex-storage://normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf",
+                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/JC28EaNfbETuTEBaQ42dnX.pdf\n",
+            data_text: "pipelex-storage://normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf</a>',
+              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf</a>',
             extra: {},
           },
         ],
@@ -53,14 +54,14 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "UDvtZ",
+            digest: "572dh",
             data: {
-              text: "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
+              text: "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
             },
             data_text:
-              "                                          Document Summary                                          \n\npage_summaries: ```                                                                                 \n\n• item #1:                                                                                          \n\nQ4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n • Net Promoter Score improved from 62 → 71                                                         \n\nOperations                                                                                          \n\n • 8,500 employees across 12 global offices                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+              "                                          Document Summary                                          \n\npage_summaries: ```                                                                                 \n\n• item #1:                                                                                          \n\nQ4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n\nCompany Scale                                                                                       \n\n • 8,500 employees across 12 global offices                                                         \n • Net Promoter Score improved from 62 → 71                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
             data_html:
-              "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
+              "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
             extra: {},
           },
         ],
@@ -71,17 +72,18 @@ export const LIVE_SIMPLE_BATCH = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_1",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:node_1",
       kind: "operator",
       pipe_code: "extract_pages",
       pipe_type: "PipeExtract",
       description: "Extract pages from document",
       domain_code: "document_batch",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:08:00.137414Z",
-        ended_at: "2026-05-15T19:08:06.144865Z",
-        duration: 6.007451,
+        started_at: "2026-07-09T11:15:38.740292Z",
+        ended_at: "2026-07-09T11:15:46.110479Z",
+        duration: 7.370187,
       },
       io: {
         inputs: [
@@ -91,19 +93,19 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "nbb6t",
+            digest: "NU6cP",
             data: {
-              url: "pipelex-storage://normalized/JC28EaNfbETuTEBaQ42dnX.pdf",
+              url: "pipelex-storage://normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf",
+                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf",
               mime_type: "application/pdf",
               filename: "document.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/JC28EaNfbETuTEBaQ42dnX.pdf\n",
+            data_text: "pipelex-storage://normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/JC28EaNfbETuTEBaQ42dnX.pdf</a>',
+              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/2zAUQ8G64JSyuQB4QJF8oa.pdf</a>',
             extra: {},
           },
         ],
@@ -114,7 +116,7 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "fr7gT",
+            digest: "noRxi",
             data: {
               items: [
                 {
@@ -148,17 +150,18 @@ export const LIVE_SIMPLE_BATCH = {
       },
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
       kind: "controller",
       pipe_code: "summarize_page_batch",
       pipe_type: "PipeBatch",
       description: "Batch processing for summarize_page",
       domain_code: "document_batch",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:08:06.152879Z",
-        ended_at: "2026-05-15T19:08:10.808129Z",
-        duration: 4.65525,
+        started_at: "2026-07-09T11:15:46.115690Z",
+        ended_at: "2026-07-09T11:15:51.765393Z",
+        duration: 5.649703,
       },
       io: {
         inputs: [
@@ -168,7 +171,7 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "fr7gT",
+            digest: "noRxi",
             data: {
               items: [
                 {
@@ -197,18 +200,18 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "So6wV",
+            digest: "Jije2",
             data: {
               items: [
                 {
-                  text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
+                  text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
                 },
               ],
             },
             data_text:
-              "   1    │ Q4 2025 Business Report Summary                                       \n        │                                                                       \n        │ Financial Performance                                                 \n        │                                                                       \n        │  • Revenue: $4.2B (+15% YoY) with operating margin improving to 28%   \n        │    (up from 24%)                                                      \n        │  • Monthly recurring revenue: $350M                                   \n        │  • R&D investment: $840M (20% of revenue)                             \n        │                                                                       \n        │ Growth Highlights                                                     \n        │                                                                       \n        │  • Active users: 45M (+22%)                                           \n        │  • Customer acquisition cost down 12% via better marketing efficiency \n        │  • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and   \n        │    South America                                                      \n        │  • Net Promoter Score improved from 62 → 71                           \n        │                                                                       \n        │ Operations                                                            \n        │                                                                       \n        │  • 8,500 employees across 12 global offices                           \n        │                                                                       \n        │ Q1 2026 Outlook                                                       \n        │                                                                       \n        │  • Revenue guidance: $4.4B–$4.6B                                      \n        │  • Key initiatives: AI analytics platform launch, partner ecosystem   \n        │    expansion, and SOC 2 Type II certification                         \n",
+              "   1    │ Q4 2025 Business Report Summary                                       \n        │                                                                       \n        │ Financial Performance                                                 \n        │                                                                       \n        │  • Revenue: $4.2B (+15% YoY) with operating margin improving to 28%   \n        │    (up from 24%)                                                      \n        │  • Monthly recurring revenue: $350M                                   \n        │  • R&D investment: $840M (20% of revenue)                             \n        │                                                                       \n        │ Growth Highlights                                                     \n        │                                                                       \n        │  • Active users: 45M (+22%)                                           \n        │  • Customer acquisition cost down 12% via better marketing efficiency \n        │  • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and   \n        │    South America                                                      \n        │                                                                       \n        │ Company Scale                                                         \n        │                                                                       \n        │  • 8,500 employees across 12 global offices                           \n        │  • Net Promoter Score improved from 62 → 71                           \n        │                                                                       \n        │ Q1 2026 Outlook                                                       \n        │                                                                       \n        │  • Revenue guidance: $4.4B–$4.6B                                      \n        │  • Key initiatives: AI analytics platform launch, partner ecosystem   \n        │    expansion, and SOC 2 Type II certification                         \n",
             data_html:
-              "<ul><li>## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification</li></ul>",
+              "<ul><li>## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification</li></ul>",
             extra: {},
           },
         ],
@@ -219,17 +222,18 @@ export const LIVE_SIMPLE_BATCH = {
       execution_data: { item_count: 1, branch_pipe_code: "summarize_page" },
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_3",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:node_3",
       kind: "operator",
       pipe_code: "summarize_page",
       pipe_type: "PipeLLM",
       description: "Summarize a single page",
       domain_code: "document_batch",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:08:06.167467Z",
-        ended_at: "2026-05-15T19:08:10.799460Z",
-        duration: 4.631993,
+        started_at: "2026-07-09T11:15:46.125661Z",
+        ended_at: "2026-07-09T11:15:51.758646Z",
+        duration: 5.632985,
       },
       io: {
         inputs: [
@@ -239,7 +243,7 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "fr7gT-branch-0",
+            digest: "noRxi-branch-0",
             data: {
               text_and_images: {
                 text: {
@@ -264,14 +268,14 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CCEHc-branch-0",
+            digest: "23DaN-branch-0",
             data: {
-              text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
+              text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
             },
             data_text:
-              "Q4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n • Net Promoter Score improved from 62 → 71                                                         \n\nOperations                                                                                          \n\n • 8,500 employees across 12 global offices                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n",
+              "Q4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n\nCompany Scale                                                                                       \n\n • 8,500 employees across 12 global offices                                                         \n • Net Promoter Score improved from 62 → 71                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n",
             data_html:
-              "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
+              "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
             extra: {},
           },
         ],
@@ -290,17 +294,18 @@ export const LIVE_SIMPLE_BATCH = {
       },
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_4",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:node_4",
       kind: "operator",
       pipe_code: "combine_summaries",
       pipe_type: "PipeCompose",
       description: "Combine all page summaries into document summary",
       domain_code: "document_batch",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T19:08:10.815527Z",
-        ended_at: "2026-05-15T19:08:10.830178Z",
-        duration: 0.014651,
+        started_at: "2026-07-09T11:15:51.771313Z",
+        ended_at: "2026-07-09T11:15:51.786946Z",
+        duration: 0.015633,
       },
       io: {
         inputs: [
@@ -310,18 +315,18 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "So6wV",
+            digest: "Jije2",
             data: {
               items: [
                 {
-                  text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
+                  text: "## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification",
                 },
               ],
             },
             data_text:
-              "   1    │ Q4 2025 Business Report Summary                                       \n        │                                                                       \n        │ Financial Performance                                                 \n        │                                                                       \n        │  • Revenue: $4.2B (+15% YoY) with operating margin improving to 28%   \n        │    (up from 24%)                                                      \n        │  • Monthly recurring revenue: $350M                                   \n        │  • R&D investment: $840M (20% of revenue)                             \n        │                                                                       \n        │ Growth Highlights                                                     \n        │                                                                       \n        │  • Active users: 45M (+22%)                                           \n        │  • Customer acquisition cost down 12% via better marketing efficiency \n        │  • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and   \n        │    South America                                                      \n        │  • Net Promoter Score improved from 62 → 71                           \n        │                                                                       \n        │ Operations                                                            \n        │                                                                       \n        │  • 8,500 employees across 12 global offices                           \n        │                                                                       \n        │ Q1 2026 Outlook                                                       \n        │                                                                       \n        │  • Revenue guidance: $4.4B–$4.6B                                      \n        │  • Key initiatives: AI analytics platform launch, partner ecosystem   \n        │    expansion, and SOC 2 Type II certification                         \n",
+              "   1    │ Q4 2025 Business Report Summary                                       \n        │                                                                       \n        │ Financial Performance                                                 \n        │                                                                       \n        │  • Revenue: $4.2B (+15% YoY) with operating margin improving to 28%   \n        │    (up from 24%)                                                      \n        │  • Monthly recurring revenue: $350M                                   \n        │  • R&D investment: $840M (20% of revenue)                             \n        │                                                                       \n        │ Growth Highlights                                                     \n        │                                                                       \n        │  • Active users: 45M (+22%)                                           \n        │  • Customer acquisition cost down 12% via better marketing efficiency \n        │  • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and   \n        │    South America                                                      \n        │                                                                       \n        │ Company Scale                                                         \n        │                                                                       \n        │  • 8,500 employees across 12 global offices                           \n        │  • Net Promoter Score improved from 62 → 71                           \n        │                                                                       \n        │ Q1 2026 Outlook                                                       \n        │                                                                       \n        │  • Revenue guidance: $4.4B–$4.6B                                      \n        │  • Key initiatives: AI analytics platform launch, partner ecosystem   \n        │    expansion, and SOC 2 Type II certification                         \n",
             data_html:
-              "<ul><li>## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification</li></ul>",
+              "<ul><li>## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification</li></ul>",
             extra: {},
           },
         ],
@@ -332,14 +337,14 @@ export const LIVE_SIMPLE_BATCH = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "UDvtZ",
+            digest: "572dh",
             data: {
-              text: "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
+              text: "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
             },
             data_text:
-              "                                          Document Summary                                          \n\npage_summaries: ```                                                                                 \n\n• item #1:                                                                                          \n\nQ4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n • Net Promoter Score improved from 62 → 71                                                         \n\nOperations                                                                                          \n\n • 8,500 employees across 12 global offices                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+              "                                          Document Summary                                          \n\npage_summaries: ```                                                                                 \n\n• item #1:                                                                                          \n\nQ4 2025 Business Report Summary                                                                     \n\nFinancial Performance                                                                               \n\n • Revenue: $4.2B (+15% YoY) with operating margin improving to 28% (up from 24%)                   \n • Monthly recurring revenue: $350M                                                                 \n • R&D investment: $840M (20% of revenue)                                                           \n\nGrowth Highlights                                                                                   \n\n • Active users: 45M (+22%)                                                                         \n • Customer acquisition cost down 12% via better marketing efficiency                               \n • Expanded into 3 new markets: Southeast Asia, Eastern Europe, and South America                   \n\nCompany Scale                                                                                       \n\n • 8,500 employees across 12 global offices                                                         \n • Net Promoter Score improved from 62 → 71                                                         \n\nQ1 2026 Outlook                                                                                     \n\n • Revenue guidance: $4.4B–$4.6B                                                                    \n • Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II    \n   certification                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
             data_html:
-              "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
+              "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&amp;D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
             extra: {},
           },
         ],
@@ -350,93 +355,101 @@ export const LIVE_SIMPLE_BATCH = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n- Net Promoter Score improved from **62 → 71**\n\n**Operations**\n- **8,500 employees** across 12 global offices\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
+          "# Document Summary\n\npage_summaries: ```\n\n • item #1:\n\n## Q4 2025 Business Report Summary\n\n**Financial Performance**\n- Revenue: **$4.2B** (+15% YoY) with operating margin improving to **28%** (up from 24%)\n- Monthly recurring revenue: **$350M**\n- R&D investment: **$840M** (20% of revenue)\n\n**Growth Highlights**\n- Active users: **45M** (+22%)\n- Customer acquisition cost down **12%** via better marketing efficiency\n- Expanded into **3 new markets**: Southeast Asia, Eastern Europe, and South America\n\n**Company Scale**\n- **8,500 employees** across 12 global offices\n- Net Promoter Score improved from **62 → 71**\n\n**Q1 2026 Outlook**\n- Revenue guidance: **$4.4B–$4.6B**\n- Key initiatives: AI analytics platform launch, partner ecosystem expansion, and SOC 2 Type II certification\n\n```",
       },
     },
   ],
   edges: [
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:edge_0",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_0",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_1",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:edge_0",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_0",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_1",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:edge_1",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_0",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:edge_1",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_0",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:edge_2",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_3",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:edge_2",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_3",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:edge_3",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_0",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_4",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:edge_3",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_0",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_4",
       kind: "contains",
+      optional: false,
       label: null,
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:asm_edge_0",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_1",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:asm_edge_0",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_1",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
       kind: "data",
+      optional: false,
       label: "pages",
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:asm_edge_1",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_4",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:asm_edge_1",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_4",
       kind: "data",
+      optional: false,
       label: "page_summaries",
       source_stuff_digest: null,
       target_stuff_digest: null,
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:asm_edge_2",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_3",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:asm_edge_2",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_3",
       kind: "batch_item",
+      optional: false,
       label: "[0]",
-      source_stuff_digest: "fr7gT",
-      target_stuff_digest: "fr7gT-branch-0",
+      source_stuff_digest: "noRxi",
+      target_stuff_digest: "noRxi-branch-0",
       meta: {},
     },
     {
-      id: "43ee4b42-3a48-4cbe-b988-045e903559f7:asm_edge_3",
-      source: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_3",
-      target: "43ee4b42-3a48-4cbe-b988-045e903559f7:node_2",
+      id: "28450985-ea2c-46d6-941a-8f4c698c0221:asm_edge_3",
+      source: "28450985-ea2c-46d6-941a-8f4c698c0221:node_3",
+      target: "28450985-ea2c-46d6-941a-8f4c698c0221:node_2",
       kind: "batch_aggregate",
+      optional: false,
       label: "[0]",
-      source_stuff_digest: "CCEHc-branch-0",
-      target_stuff_digest: "So6wV",
+      source_stuff_digest: "23DaN-branch-0",
+      target_stuff_digest: "Jije2",
       meta: {},
     },
   ],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "document_batch.batch_ocr_pipeline": {
       pipe_category: "PipeController",
@@ -454,6 +467,7 @@ export const LIVE_SIMPLE_BATCH = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -465,6 +479,7 @@ export const LIVE_SIMPLE_BATCH = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       sequential_sub_pipes: [
         {
@@ -503,6 +518,7 @@ export const LIVE_SIMPLE_BATCH = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -515,6 +531,7 @@ export const LIVE_SIMPLE_BATCH = {
           refines: null,
         },
         multiplicity: true,
+        presence: "plain",
       },
       extract_choice: null,
       should_caption_images: false,
@@ -543,6 +560,7 @@ export const LIVE_SIMPLE_BATCH = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -554,6 +572,7 @@ export const LIVE_SIMPLE_BATCH = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       branch_pipe_code: "summarize_page",
       batch_params: { input_list_stuff_name: "pages", input_item_stuff_name: "page" },
@@ -575,6 +594,7 @@ export const LIVE_SIMPLE_BATCH = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -586,6 +606,7 @@ export const LIVE_SIMPLE_BATCH = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       llm_prompt_spec: {
         templating_style: null,
@@ -602,7 +623,6 @@ export const LIVE_SIMPLE_BATCH = {
         system_document_references: null,
       },
       llm_choices: { for_text: null, for_object: null },
-      structuring_method: null,
       output_multiplicity: null,
     },
     "document_batch.combine_summaries": {
@@ -621,6 +641,7 @@ export const LIVE_SIMPLE_BATCH = {
             refines: "native.Text",
           },
           multiplicity: true,
+          presence: "plain",
         },
       },
       output: {
@@ -632,8 +653,9 @@ export const LIVE_SIMPLE_BATCH = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
-      template: '# Document Summary\n\n{{ page_summaries|tag("page_summaries") }}\n',
+      template: "# Document Summary\n\n@page_summaries\n",
       templating_style: null,
       category: "basic",
       extra_context: null,
@@ -770,8 +792,8 @@ export const LIVE_SIMPLE_BATCH = {
           },
           ImageSize: {
             properties: {
-              width: { title: "Width", type: "integer" },
-              height: { title: "Height", type: "integer" },
+              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
+              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
             },
             required: ["width", "height"],
             title: "ImageSize",

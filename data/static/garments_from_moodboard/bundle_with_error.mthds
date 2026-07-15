@@ -1,0 +1,273 @@
+domain      = "garments_from_moodboard"
+description = "From a moodboard image and a fashion target, analyze the moodboard, propose 3 garment designs, craft 3 showcase image prompts per design, and render every prompt with both nano-banana-2 and gpt-image-1.5"
+main_pipe   = "design_garments_from_moodboard"
+
+[concept.FashionTarget]
+description = "A fashion market and season target, e.g. Women Spring/Summer 2027 or Men FW27"
+refines     = "Text"
+
+[concept.MoodboardAnalysis]
+description = "A fashion designer interpretation of a moodboard image"
+
+[concept.MoodboardAnalysis.structure]
+overall_mood           = { type = "text", description = "The overall mood and feeling conveyed by the moodboard", required = true }
+visible_elements       = { type = "text", description = "Concrete visual elements observed: garments, props, settings, people", required = true }
+color_palette          = { type = "text", description = "Dominant and accent colors with their relationships", required = true }
+materials_and_textures = { type = "text", description = "Fabrics, surfaces, finishes and tactile qualities suggested", required = true }
+silhouettes_and_shapes = { type = "text", description = "Silhouettes, volumes, proportions and structural lines suggested", required = true }
+cultural_references    = { type = "text", description = "Cultural, historical or subcultural references the moodboard evokes", required = true }
+exploration_directions = { type = "text", description = "Creative directions a designer could explore beyond what is literally visible", required = true }
+
+[concept.GarmentDesign]
+description = "A single proposed garment design for a fashion collection"
+
+[concept.GarmentDesign.structure]
+name              = { type = "text", description = "A short evocative name for the design", required = true }
+garment_type      = { type = "text", description = "Type of garment, e.g. trench coat, slip dress, tailored blazer", required = true }
+concept_statement = { type = "text", description = "One or two sentences describing the design intent and how it ties to the moodboard", required = true }
+silhouette        = { type = "text", description = "Silhouette, fit and proportions", required = true }
+materials         = { type = "text", description = "Primary fabrics and trims", required = true }
+color_story       = { type = "text", description = "Colors used and how they are combined", required = true }
+key_details       = { type = "text", description = "Distinctive construction details, hardware, finishes", required = true }
+target_fit        = { type = "text", description = "Why this design fits the fashion target market and season", required = true }
+
+[concept.ShowcasePrompt]
+description = "A single image generation prompt for a model wearing a designed garment in an editorial setting"
+
+[concept.ShowcasePrompt.structure]
+design_name   = { type = "text", description = "Name of the garment design this prompt is for", required = true }
+twist         = { type = "text", description = "The original idea or twist that makes this shot stand out in a showroom", required = true }
+scene_setting = { type = "text", description = "The setting and atmosphere in which the model is photographed", required = true }
+prompt_text   = { type = "text", description = "The full image generation prompt describing the model, garment, setting, lighting and mood", required = true }
+pitch         = { type = "text", description = "A short editorial pitch (1-2 sentences) that sells this specific shot, grounded in the prompt's twist and scene", required = true }
+
+[concept.DesignRender]
+description = "Rendered showcase photographs for a single garment design, from both image generation models"
+
+[concept.DesignRender.structure]
+design_name        = { type = "text", description = "Name of the garment design these renders belong to", required = true }
+garment_type       = { type = "text", description = "Garment type", required = true }
+concept_statement  = { type = "text", description = "Concept statement for the design", required = true }
+showcase_prompts   = { type = "list", description = "The 3 ShowcasePrompt objects whose pitches caption the renders (index-aligned with the image lists)", required = true }
+nano_banana_images = { type = "list", description = "Photographs rendered with nano-banana-2 (index-aligned with showcase_prompts)", required = true }
+gpt_images         = { type = "list", description = "Photographs rendered with gpt-image-1.5 (index-aligned with showcase_prompts)", required = true }
+
+[pipe.design_garments_from_moodboard]
+type = "PipeSequence"
+description = "From a moodboard image and a fashion target, analyze, design 3 garments, then per design craft 3 showcase prompts and render each with two image generation models"
+inputs = { moodboard = "Image", fashion_target = "FashionTarget" }
+output = "Html"
+steps = [
+  { pipe = "analyze_moodboard", result = "moodboard_analysis" },
+  { pipe = "propose_designs", result = "garment_designs" },
+  { pipe = "render_all_designs", result = "design_renders" },
+  { pipe = "compose_report", result = "report_html" },
+]
+
+[pipe.analyze_moodboard]
+type = "PipeLLM"
+description = "Analyze a fashion moodboard image like a designer would"
+inputs = { moodboard = "Image", fashion_target = "FashionTarget" }
+output = "MoodboardAnalysis"
+model = "$vision-cheap"
+prompt = """
+You are a senior fashion designer studying a moodboard for the following target market and season:
+$fashion_target
+
+Moodboard image:
+@moodboard
+
+Analyze the moodboard the way a designer would in their studio. Cover what is literally visible (garments, props, people, settings), the dominant and accent colors, the materials and textures suggested, the silhouettes and proportions, cultural and historical references, and the overall mood. Then propose creative directions a designer could explore that go beyond what is literally on the board but stay faithful to its spirit and to the target market and season.
+"""
+
+[pipe.propose_designs]
+type = "PipeLLM"
+description = "Propose 3 garment designs grounded in the moodboard analysis and the fashion target"
+inputs = { moodboard_analysis = "MoodboardAnalysis", fashion_target = "FashionTarget" }
+output = "GarmentDesign[3]"
+model = "$writing-creative-cheap"
+prompt = """
+You are a senior fashion designer creating a small capsule for the following target market and season:
+$fashion_target
+
+Your moodboard analysis:
+@moodboard_analysis
+
+Propose exactly 3 garment designs that together feel like a coherent capsule channeling the *philosophy and emotional core* of this moodboard — not a literal copy of it. You have full creative liberty with colors and shapes: feel free to introduce palettes and silhouettes that are NOT literally on the board, including unexpected accent colors, reinterpreted proportions, or shapes that reference the moodboard's spirit through a different formal language. The only non-negotiable is that every design must still *feel* like it belongs to the same world as the moodboard — same mood, same attitude, same cultural register.
+
+Make the 3 designs meaningfully different in garment type, silhouette and use case so the capsule feels rich and exploratory. For each design, give it a short evocative name, specify the garment type, write a concept statement explaining the intent and how it ties (sometimes obliquely) to the moodboard's philosophy, then describe silhouette, materials, color story, key construction details, and why it fits the target market and season.
+"""
+
+[pipe.render_all_designs]
+type             = "PipeBatch"
+description      = "For every garment design, craft showcase prompts and render them with both models"
+inputs           = { garment_designs = "GarmentDesign[]", fashion_target = "FashionTarget" }
+output           = "DesignRender[]"
+branch_pipe_code = "render_design"
+input_list_name  = "garment_designs"
+input_item_name  = "garment_design"
+
+[pipe.render_design]
+type = "PipeSequence"
+description = "For one garment design, craft 3 showcase prompts and render them with both image generation models"
+inputs = { garment_design = "GarmentDesign", fashion_target = "FashionTarget" }
+output = "DesignRender"
+steps = [
+  { pipe = "craft_prompts_for_design", result = "showcase_prompts" },
+  { pipe = "render_both_models", result = "both_renders" },
+  { pipe = "assemble_design_render", result = "design_render" },
+]
+
+[pipe.craft_prompts_for_design]
+type = "PipeLLM"
+description = "Craft 3 distinct showcase image prompts for a single garment design, each with an original twist"
+inputs = { garment_design = "GarmentDesign", fashion_target = "FashionTarget" }
+output = "ShowcasePrompt[3]"
+model = "$img-gen-prompting-cheap"
+prompt = """
+You are a fashion art director briefing a photographer for the following target market and season:
+$fashion_target
+
+The garment design to showcase:
+@garment_design
+
+Write exactly 3 image generation prompts of a model wearing this garment in a setting appropriate to the design and to the target. The 3 prompts must use clearly different twists — original ideas that would make the shot stand out in a showroom (unusual setting, unexpected styling, surprising lighting, conceptual prop, narrative situation, etc.).
+
+You have full creative liberty with colors, shapes, settings and props. Each of the 3 shots can pull the design into a different chromatic register or play with reinterpreted silhouettes through styling, layering, posture or environment — as long as the *philosophy* of the underlying garment design and of the moodboard's mood remains intact. Lean into surprise: don't repeat the same palette or scene logic across the 3 prompts.
+
+For each, populate design_name with the exact name of the design, twist with the original idea, scene_setting with the setting, and prompt_text with a complete, vivid, professional fashion photograph prompt (camera feel, lighting, mood, composition, color treatment, shape language) that explicitly mentions $fashion_target, the garment, and the twist. Avoid copying language verbatim across the 3 prompts.
+
+Also populate pitch: a short editorial caption of 1 to 2 sentences that SELLS this specific shot. The pitch must be grounded in this prompt's twist and scene (derive it directly from the prompt_text you just wrote). Voice: confident, evocative, magazine-editorial — think tagline for a lookbook page. Do not restate technical details; sell the feeling and the idea.
+"""
+
+[pipe.render_with_nano_banana]
+type        = "PipeImgGen"
+description = "Render a single showcase prompt with nano-banana-2"
+inputs      = { showcase_prompt = "ShowcasePrompt" }
+output      = "Image"
+model       = "nano-banana-2"
+prompt      = "$showcase_prompt.prompt_text"
+
+[pipe.render_with_gpt_image]
+type        = "PipeImgGen"
+description = "Render a single showcase prompt with gpt-image-1.5"
+inputs      = { showcase_prompt = "ShowcasePrompt" }
+output      = "Image"
+model       = "gpt-image-1.5"
+prompt      = "$showcase_prompt.prompt_text"
+
+[pipe.render_both_models]
+type = "PipeParallel"
+description = "Render every showcase prompt with nano-banana-2 and gpt-image-1.5 in parallel"
+inputs = { showcase_prompts = "ShowcasePrompt[]" }
+output = "Image[]"
+add_each_output = true
+branches = [
+  { pipe = "render_all_nano_banana", result = "nano_banana_images" },
+  { pipe = "render_all_gpt_image", result = "gpt_images" },
+]
+
+[pipe.render_all_nano_banana]
+type             = "PipeBatch"
+description      = "Render every showcase prompt with nano-banana-2"
+inputs           = { showcase_prompts = "ShowcasePrompt[]" }
+output           = "Image[]"
+branch_pipe_code = "render_with_nano_banana"
+input_list_name  = "showcase_prompts"
+input_item_name  = "showcase_prompt"
+
+[pipe.render_all_gpt_image]
+type             = "PipeBatch"
+description      = "Render every showcase prompt with gpt-image-1.5"
+inputs           = { showcase_prompts = "ShowcasePrompt[]" }
+output           = "Image[]"
+branch_pipe_code = "render_with_gpt_image"
+input_list_name  = "showcase_prompts"
+input_item_name  = "showcase_prompt"
+
+[pipe.assemble_design_render]
+type        = "PipeCompose"
+description = "Assemble the per-design render struct from the showcase prompts and image lists"
+inputs      = { garment_design = "GarmentDesign", showcase_prompts = "ShowcasePrompt[]", nano_banana_images = "Image[]", gpt_images = "Image[]" }
+output      = "DesignRender"
+
+[pipe.assemble_design_render.construct]
+design_name        = { from = "garment_design.name" }
+garment_type       = { from = "garment_design.garment_type" }
+concept_statement  = { from = "garment_design.concept_statement" }
+showcase_prompts   = { from = "showcase_prompts" }
+nano_banana_images = { from = "nano_banana_images" }
+gpt_images         = { from = "gpt_images" }
+
+[pipe.compose_report]
+type = "PipeCompose"
+description = "Compose a self-contained HTML report presenting the original moodboard and each design with its renders side by side"
+inputs = { design_renders = "DesignRender[]", fashion_target = "FashionTarget", moodboard = "Image" }
+output = "Html"
+template = """
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+<meta charset=\"UTF-8\">
+<title>Garment Showcase — {{ fashion_target.text }}</title>
+<style>
+  :root { --bg:#f7f5f1; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --accent:#b8865c; --line:#e8e4dc; }
+  * { box-sizing:border-box; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background:var(--bg); color:var(--ink); margin:0; padding:48px 32px; line-height:1.55; }
+  .container { max-width:1200px; margin:0 auto; }
+  header { text-align:center; margin-bottom:56px; }
+  header h1 { font-size:2.8em; margin:0; letter-spacing:0.02em; font-weight:400; }
+  header .target { color:var(--accent); font-style:italic; font-size:1.2em; margin-top:8px; letter-spacing:0.15em; text-transform:uppercase; }
+  .moodboard { background:var(--card); border:1px solid var(--line); border-radius:6px; padding:36px 40px; margin-bottom:48px; box-shadow:0 4px 24px rgba(0,0,0,0.04); text-align:center; }
+  .moodboard h3 { font-size:0.78em; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); margin:0 0 18px; font-family:'Helvetica Neue',sans-serif; font-weight:600; }
+  .moodboard img { max-width:100%; max-height:640px; border-radius:4px; display:inline-block; box-shadow:0 2px 12px rgba(0,0,0,0.1); }
+  .design { background:var(--card); border:1px solid var(--line); border-radius:6px; padding:36px 40px; margin-bottom:48px; box-shadow:0 4px 24px rgba(0,0,0,0.04); }
+  .design h2 { font-size:2em; margin:0 0 4px; font-weight:500; }
+  .design .gtype { color:var(--muted); font-style:italic; margin:0 0 18px; letter-spacing:0.05em; }
+  .design .concept { font-size:1.05em; margin:0 0 32px; color:#333; max-width:780px; }
+  .shot { margin:0 0 36px; padding-top:28px; border-top:1px solid var(--line); }
+  .shot:first-of-type { border-top:none; padding-top:0; }
+  .shot .pitch { font-size:1.15em; line-height:1.5; color:var(--ink); margin:0 0 6px; font-style:italic; max-width:780px; }
+  .shot .twist { font-size:0.78em; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent); margin:0 0 18px; font-family:'Helvetica Neue',sans-serif; font-weight:600; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .cell h4 { font-size:0.72em; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); border-bottom:1px solid var(--line); padding-bottom:6px; margin:0 0 12px; font-family:'Helvetica Neue',sans-serif; font-weight:600; }
+  .cell img { width:100%; border-radius:4px; display:block; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+</style>
+</head>
+<body>
+<div class=\"container\">
+<header>
+  <h1>Showcase Collection</h1>
+  <div class=\"target\">{{ fashion_target.text }}</div>
+</header>
+<section class=\"moodboard\">
+  <h3>Original Moodboard</h3>
+  <img src=\"{{ moodboard.public_url }}\" alt=\"Original moodboard\">
+</section>
+{% for design in design_renders %}
+<section class=\"design\">
+  <h2>{{ design.design_name }}</h2>
+  <p class=\"gtype\">{{ design.garment_type }}</p>
+  <p class=\"concept\">{{ design.concept_statement }}</p>
+  {% for prompt in design.showcase_prompts %}
+  <div class=\"shot\">
+    <p class=\"pitch\">{{ prompt.pitch }}</p>
+    <p class=\"twist\">{{ prompt.twist }}</p>
+    <div class=\"pair\">
+      <div class=\"cell\">
+        <h4>nano-banana-2</h4>
+        <img src=\"{{ design.nano_banana_images[loop.index0].public_url }}\" alt=\"{{ design.design_name }} — nano-banana-2\">
+      </div>
+      <div class=\"cell\">
+        <h4>gpt-image-1.5</h4>
+        <img src=\"{{ design.gpt_images[loop.index0].public_url }}\" alt=\"{{ design.design_name }} — gpt-image-1.5\">
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endfor %}
+</div>
+</body>
+</html>
+"""

@@ -4,7 +4,7 @@ import { DRY_SIMPLE_SEQUENCE } from "./specs/_generated/dry/pipeline_03";
 import { LIVE_SIMPLE_SEQUENCE } from "./specs/_generated/live/pipeline_03";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/03 Simple 3-Pipe Sequence",
+  title: "Graph - from run/03 Simple 3-Pipe Sequence",
   component: GraphViewer,
   decorators: [
     (Story) => (

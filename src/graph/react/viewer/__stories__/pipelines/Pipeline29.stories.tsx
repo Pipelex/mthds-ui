@@ -4,7 +4,7 @@ import { DRY_CV_MATCHING } from "./specs/_generated/dry/pipeline_26";
 import { LIVE_CV_MATCHING } from "./specs/_generated/live/pipeline_26";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/29 CV Matching (Condition + Compose)",
+  title: "Graph - from run/29 CV Matching (Condition + Compose)",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -4,7 +4,7 @@ import { DRY_MULTI_INPUT_CONVERGE } from "./specs/_generated/dry/pipeline_21";
 import { LIVE_MULTI_INPUT_CONVERGE } from "./specs/_generated/live/pipeline_21";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/21 Multi-Input Converge",
+  title: "Graph - from run/21 Multi-Input Converge",
   component: GraphViewer,
   decorators: [
     (Story) => (

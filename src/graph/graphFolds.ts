@@ -10,6 +10,7 @@ import type {
 import {
   ARROW_CLOSED_MARKER,
   NODE_TYPE_PIPE_CARD,
+  graphSpecMode,
   isStuffNodeId,
   stuffDigestFromId,
 } from "./types";
@@ -121,6 +122,7 @@ export function applyFolds(
   }
 
   const childToCtrl = buildChildToControllerMap(graphspec, analysis);
+  const graphMode = graphSpecMode(graphspec);
 
   // ─── Promote declared-output stuffs out of folded controllers ───────────
   // A folded controller's pipe-card represents the controller as a whole, and
@@ -191,7 +193,7 @@ export function applyFolds(
 
     // A folded controller is a pipe-call node; guard the narrowing so a
     // malformed spec fails loudly instead of producing an undefined pipeCode.
-    const payload = buildPipeCardPayload(asPipeCallNode(specNode, folded));
+    const payload = buildPipeCardPayload(asPipeCallNode(specNode, folded), graphMode);
     if (onToggleFold) {
       payload.onExpand = (options?: FoldToggleOptions) => onToggleFold(folded, options);
     }
@@ -212,6 +214,7 @@ export function applyFolds(
         labelText: payload.pipeCode,
         pipeCode: payload.pipeCode,
         pipeType: specNode.pipe_type,
+        graphMode,
         pipeCardData: payload,
       },
       position: { x: 0, y: 0 },
