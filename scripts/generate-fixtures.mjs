@@ -168,8 +168,6 @@ function assertValid(spec, pipelineDir) {
 }
 
 async function main() {
-  assertPipelexCliAvailable();
-
   const allPipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
     .sort();
@@ -203,7 +201,12 @@ async function main() {
       `${CHECK ? " [check — no files written]" : ""}` +
       `${FROM_DISK ? " [from disk]" : ""}`,
   );
-  console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
+  // Pure-disk flows (--from-disk, or --missing with nothing missing) never
+  // invoke pipelex, so only require the CLI when something will be generated.
+  if (toProcess.length > 0) {
+    assertPipelexCliAvailable();
+    console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
+  }
 
   // name -> spec, assembled in allPipelines order for a stable output file.
   const specByName = new Map();

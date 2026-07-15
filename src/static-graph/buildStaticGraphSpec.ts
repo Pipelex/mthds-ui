@@ -194,20 +194,29 @@ function resolvePipeRef(set: MergedMethodSet, ref: string, currentDomain: string
 /** Sub-pipe refs appearing anywhere in a namespace — used by the root heuristic. */
 function referencedPipeCodes(namespace: DomainNamespace): Set<string> {
   const refs = new Set<string>();
+  // Refs are authored strings: bare (`helper`) or qualified (`domain.helper`).
+  // Reduce them to bare codes in this namespace, mirroring resolvePipeRef —
+  // cross-domain and `alias->` refs can't name a pipe here, so they're dropped.
+  const add = (ref: string): void => {
+    if (ref === "" || ref.includes("->")) return;
+    const dot = ref.lastIndexOf(".");
+    if (dot === -1) refs.add(ref);
+    else if (ref.slice(0, dot) === namespace.domain) refs.add(ref.slice(dot + 1));
+  };
   for (const pipe of Object.values(namespace.pipes)) {
     switch (pipe.type) {
       case "PipeSequence":
-        for (const sub of pipe.sequential_sub_pipes) refs.add(sub.pipe_code);
+        for (const sub of pipe.sequential_sub_pipes) add(sub.pipe_code);
         break;
       case "PipeParallel":
-        for (const sub of pipe.parallel_sub_pipes) refs.add(sub.pipe_code);
+        for (const sub of pipe.parallel_sub_pipes) add(sub.pipe_code);
         break;
       case "PipeCondition":
-        for (const target of Object.values(pipe.outcome_map)) refs.add(target);
-        if (pipe.default_outcome !== "") refs.add(pipe.default_outcome);
+        for (const target of Object.values(pipe.outcome_map)) add(target);
+        add(pipe.default_outcome);
         break;
       case "PipeBatch":
-        refs.add(pipe.branch_pipe_code);
+        add(pipe.branch_pipe_code);
         break;
       default:
         break;

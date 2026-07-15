@@ -939,6 +939,29 @@ steps = [{ pipe = "helper", result = "a" }]
     expect(diagnostics.some((diagnostic) => diagnostic.code === "missing-main-pipe")).toBe(true);
     expect(spec.nodes[0].id).toBe("nomain.root_pipe");
   });
+
+  it("treats same-domain qualified refs as referenced in the root heuristic", () => {
+    const toml = `
+domain = "nomain"
+
+[pipe.helper]
+type = "PipeLLM"
+description = "Referenced helper (qualified ref)"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.root_pipe]
+type = "PipeSequence"
+description = "The actual root"
+inputs = { text = "Text" }
+output = "Text"
+steps = [{ pipe = "nomain.helper", result = "a" }]
+`;
+    const { spec, diagnostics } = build(toml);
+    expect(diagnostics.some((diagnostic) => diagnostic.code === "missing-main-pipe")).toBe(true);
+    expect(spec.nodes[0].id).toBe("nomain.root_pipe");
+  });
 });
 
 // ─── Multi-bundle / cross-domain ─────────────────────────────────────────────
