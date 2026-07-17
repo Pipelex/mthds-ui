@@ -79,8 +79,10 @@ export interface DomainNamespace {
 /**
  * The merged namespace of a method package: every parsed bundle grouped by
  * domain, with duplicate codes resolved keep-first (plus a diagnostic).
- * `mainDomain` / `mainPipe` / `description` come from the first bundle that
- * declares them — the walk entry point for the static graph builder.
+ * `mainDomain` / `mainPipe` come as a pair from the first bundle declaring
+ * `main_pipe` (falling back to the first domained bundle when none does) —
+ * the walk entry point for the static graph builder. `description` comes from
+ * the first bundle that declares it.
  */
 export interface MergedMethodSet {
   domains: Record<string, DomainNamespace>;

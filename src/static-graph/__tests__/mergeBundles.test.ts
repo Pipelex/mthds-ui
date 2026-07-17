@@ -40,6 +40,30 @@ prompt = "Go"
     expect(merged.diagnostics).toEqual([]);
   });
 
+  it("pins mainDomain to the bundle that declares main_pipe", () => {
+    const merged = mergeBundles([
+      parsed(`
+domain = "shared"
+[pipe.clean]
+type = "PipeLLM"
+description = "Clean text"
+output = "Text"
+prompt = "Go"
+`),
+      parsed(`
+domain = "app"
+main_pipe = "run"
+[pipe.run]
+type = "PipeLLM"
+description = "Entry"
+output = "Text"
+prompt = "Go"
+`),
+    ]);
+    expect(merged.mainDomain).toBe("app");
+    expect(merged.mainPipe).toBe("run");
+  });
+
   it("keeps the first declaration on duplicate codes and records diagnostics", () => {
     const merged = mergeBundles([
       parsed(`

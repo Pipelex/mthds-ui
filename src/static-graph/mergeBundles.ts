@@ -29,8 +29,11 @@ function enrichPipeConcepts(
 
 /**
  * Merge parsed bundles into one namespace per domain. Order matters: on
- * duplicate codes the first bundle wins, and `mainDomain` / `mainPipe` /
- * `description` come from the first bundle that declares each.
+ * duplicate codes the first bundle wins. `mainDomain` and `mainPipe` are taken
+ * together from the first bundle declaring `main_pipe`, so a bare entry ref
+ * always resolves in its declaring bundle's namespace; when no bundle declares
+ * one, `mainDomain` falls back to the first domained bundle. `description`
+ * comes from the first bundle that declares it.
  */
 export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
   const diagnostics: Diagnostic[] = [];
@@ -43,7 +46,12 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
     const domain = bundle.domain ?? UNKNOWN_DOMAIN;
     const namespace = (domains[domain] ??= { domain, concepts: {}, pipes: {} });
     if (mainDomain === null && bundle.domain !== null) mainDomain = bundle.domain;
-    if (mainPipe === null && bundle.main_pipe !== null) mainPipe = bundle.main_pipe;
+    if (mainPipe === null && bundle.main_pipe !== null) {
+      mainPipe = bundle.main_pipe;
+      // A bare main_pipe must resolve in the namespace of the bundle declaring
+      // it, not whichever bundle happened to come first.
+      mainDomain = domain;
+    }
     if (description === null && bundle.description !== null) description = bundle.description;
 
     for (const [code, concept] of Object.entries(bundle.concepts)) {

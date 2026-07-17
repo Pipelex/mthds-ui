@@ -996,6 +996,34 @@ prompt = "p"
     expect(child.domain_code).toBe("lib");
   });
 
+  it("resolves a bare main_pipe in its declaring bundle's domain regardless of bundle order", () => {
+    const shared = `
+domain = "shared"
+
+[pipe.clean]
+type = "PipeLLM"
+description = "Clean text"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`;
+    const app = `
+domain = "app"
+main_pipe = "run"
+
+[pipe.run]
+type = "PipeLLM"
+description = "Entry point"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`;
+    const { spec, diagnostics } = build([shared, app]);
+    expect(diagnostics).toEqual([]);
+    expect(spec.pipeline_ref).toEqual({ domain: "app", main_pipe: "run" });
+    expect(spec.nodes[0].id).toBe("app.run");
+  });
+
   it("accepts a pre-merged set through buildStaticGraphSpec directly", () => {
     const merged = mergeBundles([]);
     const { spec, diagnostics } = buildStaticGraphSpec(merged);
