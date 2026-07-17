@@ -11,6 +11,7 @@ interface ControllerGroupData {
   onToggleCollapse?: () => void;
   onToggleFold?: (options?: FoldToggleOptions) => void;
   validation?: NodeValidationSummary;
+  onValidationBadgeClick?: () => void;
 }
 
 const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
@@ -61,7 +62,9 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
             ⤡
           </button>
         )}
-        {data.validation && <NodeValidationBadge validation={data.validation} />}
+        {data.validation && (
+          <NodeValidationBadge validation={data.validation} onClick={data.onValidationBadgeClick} />
+        )}
       </div>
       {isCollapsible && (
         <button

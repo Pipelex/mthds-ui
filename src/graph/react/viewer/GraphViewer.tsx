@@ -36,7 +36,11 @@ import {
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { buildChildToControllerMap, resolveConceptRef } from "@graph/graphAnalysis";
-import { applyValidationDecorations, buildValidationDecorations } from "@graph/graphValidation";
+import {
+  applyValidationDecorations,
+  buildValidationDecorations,
+  resolveIssueTargetNodeId,
+} from "@graph/graphValidation";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import { StuffViewer } from "../stuff/StuffViewer";
@@ -281,6 +285,11 @@ export function resolveToolbarPosition(
   // `DEFAULT_GRAPH_CONFIG.toolbarPosition` is the single source of the library
   // default (typed non-optional), so the chain needs no extra literal floor.
   return positionProp ?? configPosition ?? DEFAULT_GRAPH_CONFIG.toolbarPosition;
+}
+
+/** Remove the transient flash class (undefined when nothing else remains). */
+function stripFlash(className: string | undefined): string | undefined {
+  return className?.replace(/\s*\bnode-validation-flash\b/, "") || undefined;
 }
 
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
@@ -563,25 +572,96 @@ export function GraphViewer(props: GraphViewerProps) {
   const validationIssuesRef = React.useRef(validationIssues);
   validationIssuesRef.current = validationIssues;
 
+  // Validation dropdown open state — owned here (not in GraphToolbar) so node
+  // badges can open the panel too. The toolbar reports toggle/dismiss requests
+  // through onValidationOpenChange.
+  const [validationOpen, setValidationOpen] = React.useState(false);
+  const openValidationPanel = React.useCallback(() => setValidationOpen(true), []);
+
   // Final per-render node pass, shared by every setNodes site: hydrate labels,
   // apply execution-status overrides, then stamp validation decorations derived
   // from the CURRENT issues + fold state (folded controllers roll up their
   // hidden descendants' issues). Reads refs only, so the callback is stable.
-  const decorateNodes = React.useCallback((nodes: GraphNode[]): AppNode[] => {
-    const raw = rawGraphDataRef.current;
-    const childToCtrl =
-      raw?.graphspec && raw.analysis ? buildChildToControllerMap(raw.graphspec, raw.analysis) : {};
-    const decorations = buildValidationDecorations(
-      validationIssuesRef.current,
-      raw?.graphspec ?? null,
-      childToCtrl,
-      foldedRef.current,
-    );
-    return applyValidationDecorations(
-      applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
-      decorations,
-    );
-  }, []);
+  const decorateNodes = React.useCallback(
+    (nodes: GraphNode[]): AppNode[] => {
+      const raw = rawGraphDataRef.current;
+      const childToCtrl =
+        raw?.graphspec && raw.analysis
+          ? buildChildToControllerMap(raw.graphspec, raw.analysis)
+          : {};
+      const decorations = buildValidationDecorations(
+        validationIssuesRef.current,
+        raw?.graphspec ?? null,
+        childToCtrl,
+        foldedRef.current,
+      );
+      return applyValidationDecorations(
+        applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
+        decorations,
+        openValidationPanel,
+      );
+    },
+    [openValidationPanel],
+  );
+
+  // Panel row click → host source-jump AND graph pan/flash to the target node
+  // (when the issue targets one). The flash is a transient class on the
+  // ReactFlow node wrapper; it is dropped on the next full node rebuild, which
+  // is fine — it only needs to outlive its CSS animation.
+  const nodesRef = React.useRef<AppNode[]>([]);
+  nodesRef.current = nodes;
+  const onValidationIssueClickRef = React.useRef(onValidationIssueClick);
+  onValidationIssueClickRef.current = onValidationIssueClick;
+  const flashTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  React.useEffect(
+    () => () => {
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+    },
+    [],
+  );
+
+  const handleValidationIssueClick = React.useCallback(
+    (index: number, issue: ValidationIssue) => {
+      onValidationIssueClickRef.current?.(index, issue);
+      const raw = rawGraphDataRef.current;
+      if (!raw?.graphspec || !raw.analysis) return;
+      const targetId = resolveIssueTargetNodeId(
+        issue,
+        raw.graphspec,
+        buildChildToControllerMap(raw.graphspec, raw.analysis),
+        foldedRef.current,
+        new Set(nodesRef.current.map((n) => n.id)),
+      );
+      if (!targetId) return;
+      void reactFlowRef.current?.fitView({
+        nodes: [{ id: targetId }],
+        duration: 500,
+        padding: 0.4,
+      });
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+      setNodes((nds) =>
+        nds.map((n) => {
+          const base = stripFlash(n.className);
+          if (n.id === targetId) {
+            return {
+              ...n,
+              className: base ? `${base} node-validation-flash` : "node-validation-flash",
+            };
+          }
+          return base === n.className ? n : { ...n, className: base };
+        }),
+      );
+      flashTimeoutRef.current = setTimeout(() => {
+        setNodes((nds) =>
+          nds.map((n) => {
+            const base = stripFlash(n.className);
+            return base === n.className ? n : { ...n, className: base };
+          }),
+        );
+      }, 1800);
+    },
+    [setNodes],
+  );
 
   // Re-layout when direction or layout config changes
   React.useEffect(() => {
@@ -1090,7 +1170,9 @@ export function GraphViewer(props: GraphViewerProps) {
             position={effectiveToolbarPosition}
             validationState={validationState}
             validationIssues={validationIssues}
-            onValidationIssueClick={onValidationIssueClick}
+            onValidationIssueClick={handleValidationIssueClick}
+            validationOpen={validationOpen}
+            onValidationOpenChange={setValidationOpen}
           />
         )}
       </ReactFlow>

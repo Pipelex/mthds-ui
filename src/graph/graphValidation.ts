@@ -63,24 +63,54 @@ export function buildValidationDecorations(
 }
 
 /**
+ * Resolve the rendered node a panel row should navigate to: the issue's first
+ * target, remapped through the fold containment, and only if that id is
+ * actually rendered. `null` for panel-only issues (no target, or the target
+ * never became a node).
+ */
+export function resolveIssueTargetNodeId(
+  issue: ValidationIssue,
+  graphspec: GraphSpec | null,
+  childToCtrl: Readonly<Record<string, string>>,
+  foldedSet: ReadonlySet<string>,
+  renderedNodeIds: ReadonlySet<string>,
+): string | null {
+  if (!graphspec) return null;
+  for (const targetId of issueTargetIds(issue, graphspec)) {
+    const visibleId = outermostFoldedAncestor(targetId, childToCtrl, foldedSet) ?? targetId;
+    if (renderedNodeIds.has(visibleId)) return visibleId;
+  }
+  return null;
+}
+
+/**
  * Stamp the decoration map onto rendered nodes (and their pipe-card payloads).
  * Nodes whose decoration is unchanged are returned as-is; a node whose issues
  * disappeared gets its stamp cleared, so verdict flips are fully reactive.
+ * `onBadgeClick` (when provided) rides along on decorated nodes only — the
+ * badge renders as a button that opens the validation panel.
  */
 export function applyValidationDecorations<T extends { id: string; data: GraphNodeData }>(
   nodes: T[],
   decorations: ReadonlyMap<string, NodeValidationSummary>,
+  onBadgeClick?: () => void,
 ): T[] {
   return nodes.map((node) => {
     const decoration = decorations.get(node.id);
     if (!decoration && !node.data.validation && !node.data.pipeCardData?.validation) return node;
+    const badgeClick = decoration ? onBadgeClick : undefined;
     return {
       ...node,
       data: {
         ...node.data,
         validation: decoration,
+        onValidationBadgeClick: badgeClick,
         pipeCardData: node.data.pipeCardData
-          ? { ...node.data.pipeCardData, validation: decoration }
+          ? {
+              ...node.data.pipeCardData,
+              validation: decoration,
+              onValidationBadgeClick: badgeClick,
+            }
           : node.data.pipeCardData,
       },
     };

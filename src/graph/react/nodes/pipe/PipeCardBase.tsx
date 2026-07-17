@@ -119,7 +119,9 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
             ⤢
           </button>
         )}
-        {data.validation && <NodeValidationBadge validation={data.validation} />}
+        {data.validation && (
+          <NodeValidationBadge validation={data.validation} onClick={data.onValidationBadgeClick} />
+        )}
       </div>
 
       {(outcome || batchMultiplicity) && (

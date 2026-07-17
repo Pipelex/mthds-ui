@@ -36,4 +36,6 @@ export interface PipeCardData {
   onExpand?: (options?: FoldToggleOptions) => void;
   /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
   validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }

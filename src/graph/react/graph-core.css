@@ -629,3 +629,21 @@ button.node-validation-badge {
 .controller-group-header .node-validation-badge {
   pointer-events: auto;
 }
+
+/* Transient highlight when a validation-panel row navigates to its node.
+   Applied to the ReactFlow node wrapper; the animation fades the halo out and
+   the class is cleared (or dropped by the next rebuild) once it has played. */
+.react-flow__node.node-validation-flash {
+  animation: node-validation-flash 1.6s ease-out;
+}
+@keyframes node-validation-flash {
+  0%,
+  50% {
+    outline: 3px solid var(--color-accent-strong);
+    outline-offset: 5px;
+  }
+  100% {
+    outline: 3px solid transparent;
+    outline-offset: 5px;
+  }
+}

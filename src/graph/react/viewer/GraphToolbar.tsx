@@ -63,6 +63,14 @@ export interface GraphToolbarProps {
   /** Issue row-click handler; the host typically navigates to the issue's source. */
   onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
   /**
+   * Controlled open state of the validation dropdown. GraphViewer owns it so
+   * node badges can open the panel; the toolbar still handles the toggle
+   * button and outside-click/Escape dismissal through `onValidationOpenChange`.
+   */
+  validationOpen?: boolean;
+  /** Open-state change requests (toggle click, outside click, Escape). */
+  onValidationOpenChange?: (open: boolean) => void;
+  /**
    * Anchor for the toolbar. The value is forwarded to a ReactFlow
    * `<Panel position=…>`; orientation (row vs column) is derived from it via
    * {@link toolbarOrientation}. Required — `GraphViewer` always resolves it from
@@ -409,31 +417,36 @@ export function GraphToolbar({
   validationState,
   validationIssues = [],
   onValidationIssueClick,
+  validationOpen = false,
+  onValidationOpenChange,
 }: GraphToolbarProps) {
   const themeToggleEnabled = themeMode !== undefined && onThemeModeChange !== undefined;
   const orientation = toolbarOrientation(position);
 
-  // The validation dropdown's open state lives here (not in ValidationPanel) so
-  // the toggle button and the outside-click/Escape dismissal share one owner.
-  const [validationOpen, setValidationOpen] = React.useState(false);
+  // The dropdown's open state is controlled by GraphViewer (so node badges can
+  // open the panel too); the toolbar owns the toggle button and the
+  // outside-click/Escape dismissal, reported through onValidationOpenChange.
+  const setValidationOpen = onValidationOpenChange ?? (() => {});
+  const setValidationOpenRef = React.useRef(setValidationOpen);
+  setValidationOpenRef.current = setValidationOpen;
   const validationRef = React.useRef<HTMLDivElement | null>(null);
   // useId, not a constant: several viewers can coexist on one page (Storybook grids).
   const validationPanelId = React.useId();
   // The widget can be hidden (validationState undefined) while GraphToolbar stays
   // mounted; drop the open state so re-enabling doesn't resurrect the dropdown.
   React.useEffect(() => {
-    if (validationState === undefined) setValidationOpen(false);
+    if (validationState === undefined) setValidationOpenRef.current(false);
   }, [validationState]);
   React.useEffect(() => {
     if (!validationOpen) return;
     const onPointerDown = (event: MouseEvent) => {
       const wrapper = validationRef.current;
       if (wrapper && event.target instanceof Node && !wrapper.contains(event.target)) {
-        setValidationOpen(false);
+        setValidationOpenRef.current(false);
       }
     };
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setValidationOpen(false);
+      if (event.key === "Escape") setValidationOpenRef.current(false);
     };
     document.addEventListener("mousedown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
@@ -482,7 +495,7 @@ export function GraphToolbar({
               <button
                 type="button"
                 className={`graph-toolbar-btn graph-toolbar-validation-btn graph-toolbar-validation-btn--${validationState}`}
-                onClick={() => setValidationOpen((open) => !open)}
+                onClick={() => setValidationOpen(!validationOpen)}
                 title={validationLabel(validationState, validationIssues.length)}
                 aria-label={validationLabel(validationState, validationIssues.length)}
                 aria-expanded={validationOpen}

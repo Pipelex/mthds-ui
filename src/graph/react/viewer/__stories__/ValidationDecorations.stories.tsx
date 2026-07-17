@@ -3,7 +3,7 @@
 // suggested fixes, fold roll-up. Driven the way a host drives the widget — the
 // decorations derive from the same `validationIssues` prop.
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, waitFor, within } from "storybook/test";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import type { ValidationIssue } from "@graph/types";
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
@@ -119,6 +119,18 @@ export const ValidatorTargeted: Story = {
     // The tooltip carries the message and the suggested fix.
     const badge = canvas.getAllByLabelText(/validation issue/)[0];
     await expect(badge.title).toContain("Fix: ");
+
+    // Graph → panel: a badge click opens the validation panel.
+    await userEvent.click(badge);
+    const panel = await canvas.findByRole("region", { name: "Validation issues" });
+
+    // Panel → graph: clicking the analyze_moodboard row flashes its node.
+    const rows = within(panel).getAllByRole("button");
+    await userEvent.click(rows[0]);
+    await waitFor(async () => {
+      const flashed = canvasElement.querySelector(".react-flow__node.node-validation-flash");
+      await expect(flashed?.textContent).toContain("analyze_moodboard");
+    });
   },
 };
 

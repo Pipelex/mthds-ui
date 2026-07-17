@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import type { GraphNodeData, GraphSpec, ValidationIssue } from "@graph/types";
-import { applyValidationDecorations, buildValidationDecorations } from "@graph/graphValidation";
+import {
+  applyValidationDecorations,
+  buildValidationDecorations,
+  resolveIssueTargetNodeId,
+} from "@graph/graphValidation";
 
 /**
  * Minimal spec: a root sequence containing two invocations of the same pipe
@@ -141,6 +145,69 @@ describe("buildValidationDecorations", () => {
   });
 });
 
+describe("resolveIssueTargetNodeId", () => {
+  const rendered = new Set([
+    "demo.main",
+    "demo.main/step_1",
+    "demo.main/step_2",
+    "demo.main/step_3",
+  ]);
+
+  it("resolves a nodeId-targeted issue to its rendered node", () => {
+    expect(
+      resolveIssueTargetNodeId(
+        issue({ nodeId: "demo.main/step_2" }),
+        makeSpec(),
+        CHILD_TO_CTRL,
+        NO_FOLDS,
+        rendered,
+      ),
+    ).toBe("demo.main/step_2");
+  });
+
+  it("resolves a pipeCode-targeted issue to the first rendered invocation", () => {
+    expect(
+      resolveIssueTargetNodeId(
+        issue({ pipeCode: "analyze" }),
+        makeSpec(),
+        CHILD_TO_CTRL,
+        NO_FOLDS,
+        rendered,
+      ),
+    ).toBe("demo.main/step_1");
+  });
+
+  it("remaps through folds to the folded ancestor", () => {
+    expect(
+      resolveIssueTargetNodeId(
+        issue({ nodeId: "demo.main/step_2" }),
+        makeSpec(),
+        CHILD_TO_CTRL,
+        new Set(["demo.main"]),
+        new Set(["demo.main"]),
+      ),
+    ).toBe("demo.main");
+  });
+
+  it("returns null for panel-only issues and unrendered targets", () => {
+    expect(resolveIssueTargetNodeId(issue({}), makeSpec(), CHILD_TO_CTRL, NO_FOLDS, rendered)).toBe(
+      null,
+    );
+    expect(
+      resolveIssueTargetNodeId(
+        issue({ nodeId: "demo.main/step_9" }),
+        makeSpec(),
+        CHILD_TO_CTRL,
+        NO_FOLDS,
+        rendered,
+      ),
+    ).toBe(null);
+    expect(
+      resolveIssueTargetNodeId(issue({ nodeId: "x" }), null, CHILD_TO_CTRL, NO_FOLDS, rendered),
+    ).toBe(null);
+  });
+});
+
 describe("applyValidationDecorations", () => {
   function makeRenderedNode(id: string, withPayload: boolean) {
     const data: GraphNodeData = { isPipe: true, isStuff: false, labelText: id };
@@ -169,6 +236,19 @@ describe("applyValidationDecorations", () => {
     const node = makeRenderedNode("b", true);
     const [result] = applyValidationDecorations([node], new Map());
     expect(result).toBe(node);
+  });
+
+  it("stamps the badge-click handler on decorated nodes only", () => {
+    const onBadgeClick = () => {};
+    const decorations = new Map([["a", { severity: "error" as const, count: 1, lines: ["x"] }]]);
+    const [decorated, plain] = applyValidationDecorations(
+      [makeRenderedNode("a", true), makeRenderedNode("b", true)],
+      decorations,
+      onBadgeClick,
+    );
+    expect(decorated.data.onValidationBadgeClick).toBe(onBadgeClick);
+    expect(decorated.data.pipeCardData?.onValidationBadgeClick).toBe(onBadgeClick);
+    expect(plain.data.onValidationBadgeClick).toBeUndefined();
   });
 
   it("clears a stale stamp when the node's issues disappear", () => {

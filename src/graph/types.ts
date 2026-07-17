@@ -712,6 +712,8 @@ export interface PipeCardPayload {
   onExpand?: (options?: FoldToggleOptions) => void;
   /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
   validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }
 
 // ─── Graph node data ────────────────────────────────────────────────────────
@@ -737,6 +739,8 @@ export interface GraphNodeData extends Record<string, unknown> {
   stuffDigest?: string;
   /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
   validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }
 
 // ─── Graph node / edge / data ───────────────────────────────────────────────
