@@ -491,11 +491,21 @@ export function GraphViewer(props: GraphViewerProps) {
     edges: GraphEdge[];
     analysis: DataflowAnalysis | null;
     graphspec: GraphSpec | null;
+    /** Containment map derived once per graphspec (pure in graphspec+analysis). */
+    childToCtrl: Record<string, string>;
   } | null>(null);
   const layoutCacheRef = React.useRef<{
     nodes: GraphNode[];
     edges: GraphEdge[];
     controllerPositions?: Record<string, { x: number; y: number; width: number; height: number }>;
+    /**
+     * The graphspec these layouted nodes belong to. Cache-reuse effects must
+     * skip when this is not the graphspec in `initialDataRef` — on a graphspec
+     * swap the cache is only refreshed after the async layout resolves, and
+     * rebuilding controllers from old nodes against the new spec would render
+     * garbage (or throw on the id mismatch).
+     */
+    graphspec: GraphSpec | null;
   } | null>(null);
 
   // Collapse state: tracks which controllers the user explicitly expanded.
@@ -585,14 +595,10 @@ export function GraphViewer(props: GraphViewerProps) {
   const decorateNodes = React.useCallback(
     (nodes: GraphNode[]): AppNode[] => {
       const raw = rawGraphDataRef.current;
-      const childToCtrl =
-        raw?.graphspec && raw.analysis
-          ? buildChildToControllerMap(raw.graphspec, raw.analysis)
-          : {};
       const decorations = buildValidationDecorations(
         validationIssuesRef.current,
         raw?.graphspec ?? null,
-        childToCtrl,
+        raw?.childToCtrl ?? {},
         foldedRef.current,
       );
       return applyValidationDecorations(
@@ -628,7 +634,7 @@ export function GraphViewer(props: GraphViewerProps) {
       const targetId = resolveIssueTargetNodeId(
         issue,
         raw.graphspec,
-        buildChildToControllerMap(raw.graphspec, raw.analysis),
+        raw.childToCtrl,
         foldedRef.current,
         new Set(nodesRef.current.map((n) => n.id)),
       );
@@ -685,6 +691,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: relayouted.nodes,
           edges: relayouted.edges,
           controllerPositions: relayouted.controllerPositions,
+          graphspec: data._graphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(relayouted.nodes),
@@ -718,6 +725,9 @@ export function GraphViewer(props: GraphViewerProps) {
   // Rebuild controllers when showControllers or collapse state changes (reuses cached layout)
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard: the cache still holds the previous graphspec's layout
+    // until the async layout lands; the in-flight build will repaint anyway.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
     const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
     const cachedEdges = layoutCacheRef.current.edges;
     const withControllers = applyControllers(
@@ -760,6 +770,7 @@ export function GraphViewer(props: GraphViewerProps) {
       edges: graphData.edges,
       analysis,
       graphspec,
+      childToCtrl: analysis ? buildChildToControllerMap(graphspec, analysis) : {},
     };
 
     // Apply the host-supplied initial fold mode now that we know which
@@ -834,6 +845,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: layouted.nodes,
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
+          graphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(layouted.nodes),
@@ -932,6 +944,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: layouted.nodes,
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
+          graphspec: currentGraphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(layouted.nodes),
@@ -967,6 +980,8 @@ export function GraphViewer(props: GraphViewerProps) {
   // This effect handles runtime changes only (SSE updates arriving after initial render).
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard — see the layoutCacheRef.graphspec doc comment.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
     const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
     const cachedEdges = layoutCacheRef.current.edges;
     const withControllers = applyControllers(
@@ -988,6 +1003,13 @@ export function GraphViewer(props: GraphViewerProps) {
   // layout — a verdict flip must never re-run ELK or reset the viewport).
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard: when graphspec and validationIssues change in the same
+    // commit (a host delivering a new file plus its known issues at once), the
+    // cache still holds the OLD graphspec's nodes until the async layout lands
+    // — rebuilding from it against the new spec would render garbage. The
+    // in-flight graphspec build stamps the fresh issues itself via
+    // decorateNodes, so skipping here loses nothing.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
     const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
     const withControllers = applyControllers(
       cachedNodes,

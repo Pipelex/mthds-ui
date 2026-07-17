@@ -614,6 +614,8 @@
   line-height: 16px;
   text-align: center;
   box-sizing: border-box;
+}
+.node-validation-badge--error {
   background: var(--color-error);
   color: #fff;
 }
