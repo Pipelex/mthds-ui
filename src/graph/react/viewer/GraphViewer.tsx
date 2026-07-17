@@ -587,6 +587,11 @@ export function GraphViewer(props: GraphViewerProps) {
   // through onValidationOpenChange.
   const [validationOpen, setValidationOpen] = React.useState(false);
   const openValidationPanel = React.useCallback(() => setValidationOpen(true), []);
+  // Badges only get a click handler while the panel can actually appear —
+  // otherwise they'd render as buttons whose click has no visible effect.
+  const validationWidgetAvailable = validationState !== undefined && !hideToolbar;
+  const validationWidgetAvailableRef = React.useRef(validationWidgetAvailable);
+  validationWidgetAvailableRef.current = validationWidgetAvailable;
 
   // Final per-render node pass, shared by every setNodes site: hydrate labels,
   // apply execution-status overrides, then stamp validation decorations derived
@@ -604,7 +609,7 @@ export function GraphViewer(props: GraphViewerProps) {
       return applyValidationDecorations(
         applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
         decorations,
-        openValidationPanel,
+        validationWidgetAvailableRef.current ? openValidationPanel : undefined,
       );
     },
     [openValidationPanel],
@@ -1023,7 +1028,9 @@ export function GraphViewer(props: GraphViewerProps) {
       toggleFoldRef.current,
     );
     setNodes(decorateNodes(withControllers.nodes));
-  }, [validationIssues, decorateNodes]);
+    // validationWidgetAvailable: badge clickability must follow widget
+    // visibility (validationState / hideToolbar flips re-stamp the handler).
+  }, [validationIssues, validationWidgetAvailable, decorateNodes]);
 
   // Handle node click — opens detail panel + fires external callbacks
   const onNodeClick = React.useCallback(
@@ -1192,7 +1199,10 @@ export function GraphViewer(props: GraphViewerProps) {
             position={effectiveToolbarPosition}
             validationState={validationState}
             validationIssues={validationIssues}
-            onValidationIssueClick={handleValidationIssueClick}
+            // Wrapped handler (host source-jump + pan/flash), but only when the
+            // host wired row clicks — the panel renders rows as interactive
+            // exactly when a handler is present, per the documented contract.
+            onValidationIssueClick={onValidationIssueClick ? handleValidationIssueClick : undefined}
             validationOpen={validationOpen}
             onValidationOpenChange={setValidationOpen}
           />

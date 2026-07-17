@@ -113,11 +113,13 @@ export const ValidatorTargeted: Story = {
     });
     // Worst severity drives the ring: analyze_moodboard errors, compose_report warns.
     const analyzeCode = await canvas.findByTitle("analyze_moodboard");
-    await expect(analyzeCode.closest(".pipe-card")).toHaveClass("node-validation-ring--error");
+    const analyzeCard = analyzeCode.closest(".pipe-card") as HTMLElement;
+    await expect(analyzeCard).toHaveClass("node-validation-ring--error");
     const composeCode = await canvas.findByTitle("compose_report");
     await expect(composeCode.closest(".pipe-card")).toHaveClass("node-validation-ring--warning");
-    // The tooltip carries the message and the suggested fix.
-    const badge = canvas.getAllByLabelText(/validation issue/)[0];
+    // The analyze_moodboard badge's tooltip carries the message and the fix
+    // (query scoped to that card — badge DOM order is layout-dependent).
+    const badge = within(analyzeCard).getByLabelText(/validation issue/);
     await expect(badge.title).toContain("Fix: ");
 
     // Graph → panel: a badge click opens the validation panel.
