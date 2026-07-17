@@ -1,6 +1,7 @@
 import React from "react";
-import type { FoldToggleOptions, PipeControllerType } from "@graph/types";
+import type { FoldToggleOptions, NodeValidationSummary, PipeControllerType } from "@graph/types";
 import { MAX_VISIBLE_CONTROLLER_CHILDREN } from "@graph/graphControllers";
+import { NodeValidationBadge, validationRingClass } from "../NodeValidationBadge";
 
 interface ControllerGroupData {
   label?: React.ReactNode;
@@ -9,6 +10,7 @@ interface ControllerGroupData {
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
   onToggleFold?: (options?: FoldToggleOptions) => void;
+  validation?: NodeValidationSummary;
 }
 
 const CONTROLLER_CONFIG: Record<PipeControllerType, { badge: string; icon: string }> = {
@@ -40,7 +42,7 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
   const hiddenCount = isCollapsible ? (data.childCount ?? 0) - MAX_VISIBLE_CONTROLLER_CHILDREN : 0;
 
   return (
-    <div className={`controller-group-node ${modifier}`}>
+    <div className={`controller-group-node ${modifier}${validationRingClass(data.validation)}`}>
       <div className="controller-group-header">
         <span className="controller-group-icon">{config.icon}</span>
         <span className="controller-group-badge">{config.badge}</span>
@@ -59,6 +61,7 @@ export function ControllerGroupNode({ data }: { data: ControllerGroupData }) {
             ⤡
           </button>
         )}
+        {data.validation && <NodeValidationBadge validation={data.validation} />}
       </div>
       {isCollapsible && (
         <button

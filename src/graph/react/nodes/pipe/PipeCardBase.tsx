@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { PipeCardData, PipeControllerType, PipeStatus, PipeType } from "./pipeCardTypes";
+import { NodeValidationBadge, validationRingClass } from "../NodeValidationBadge";
 
 // ─── Pipe type badge labels ──────────────────────────────────────────────
 
@@ -80,9 +81,13 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
       ? "pipe-card-badge pipe-card-badge--signature"
       : "pipe-card-badge";
 
+  const ringClass = validationRingClass(data.validation);
+
   return (
-    <div className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${staticClass}`}>
-      {/* Header: badge + pipe code + status + (optional) expand */}
+    <div
+      className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${staticClass}${ringClass}`}
+    >
+      {/* Header: badge + pipe code + status + (optional) expand + validation */}
       <div className="pipe-card-header">
         <span className={badgeClass}>{badge}</span>
         <span className="pipe-card-code" title={data.pipeCode}>
@@ -114,6 +119,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
             ⤢
           </button>
         )}
+        {data.validation && <NodeValidationBadge validation={data.validation} />}
       </div>
 
       {(outcome || batchMultiplicity) && (

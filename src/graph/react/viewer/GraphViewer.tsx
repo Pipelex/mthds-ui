@@ -35,7 +35,8 @@ import {
   graphSpecMode,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
-import { resolveConceptRef } from "@graph/graphAnalysis";
+import { buildChildToControllerMap, resolveConceptRef } from "@graph/graphAnalysis";
+import { applyValidationDecorations, buildValidationDecorations } from "@graph/graphValidation";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import { StuffViewer } from "../stuff/StuffViewer";
@@ -559,6 +560,28 @@ export function GraphViewer(props: GraphViewerProps) {
   const skipNextFoldEffectRef = React.useRef(false);
   const statusMapRef = React.useRef(statusMap);
   statusMapRef.current = statusMap;
+  const validationIssuesRef = React.useRef(validationIssues);
+  validationIssuesRef.current = validationIssues;
+
+  // Final per-render node pass, shared by every setNodes site: hydrate labels,
+  // apply execution-status overrides, then stamp validation decorations derived
+  // from the CURRENT issues + fold state (folded controllers roll up their
+  // hidden descendants' issues). Reads refs only, so the callback is stable.
+  const decorateNodes = React.useCallback((nodes: GraphNode[]): AppNode[] => {
+    const raw = rawGraphDataRef.current;
+    const childToCtrl =
+      raw?.graphspec && raw.analysis ? buildChildToControllerMap(raw.graphspec, raw.analysis) : {};
+    const decorations = buildValidationDecorations(
+      validationIssuesRef.current,
+      raw?.graphspec ?? null,
+      childToCtrl,
+      foldedRef.current,
+    );
+    return applyValidationDecorations(
+      applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
+      decorations,
+    );
+  }, []);
 
   // Re-layout when direction or layout config changes
   React.useEffect(() => {
@@ -594,12 +617,7 @@ export function GraphViewer(props: GraphViewerProps) {
           relayouted.controllerPositions,
           toggleFoldRef.current,
         );
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
@@ -633,11 +651,9 @@ export function GraphViewer(props: GraphViewerProps) {
       layoutCacheRef.current.controllerPositions,
       toggleFold,
     );
-    setNodes(
-      applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current),
-    );
+    setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
-  }, [showControllers, expandedControllers, toggleCollapse, toggleFold]);
+  }, [showControllers, expandedControllers, toggleCollapse, toggleFold, decorateNodes]);
 
   // Build + layout when graphspec/edgeType changes
   React.useEffect(() => {
@@ -751,12 +767,7 @@ export function GraphViewer(props: GraphViewerProps) {
           toggleFoldRef.current,
         );
 
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
 
         // Fit view after render, then apply zoom/pan overrides
@@ -853,12 +864,7 @@ export function GraphViewer(props: GraphViewerProps) {
           layouted.controllerPositions,
           toggleFoldRef.current,
         );
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
@@ -894,9 +900,28 @@ export function GraphViewer(props: GraphViewerProps) {
       layoutCacheRef.current.controllerPositions,
       toggleFoldRef.current,
     );
-    setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMap));
+    setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
-  }, [statusMap]);
+  }, [statusMap, decorateNodes]);
+
+  // Re-stamp validation decorations when the issues change (reuses cached
+  // layout — a verdict flip must never re-run ELK or reset the viewport).
+  React.useEffect(() => {
+    if (!layoutCacheRef.current || !initialDataRef.current) return;
+    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
+    const withControllers = applyControllers(
+      cachedNodes,
+      layoutCacheRef.current.edges,
+      initialDataRef.current._graphspec,
+      initialDataRef.current._analysis,
+      showControllersRef.current,
+      expandedRef.current,
+      toggleCollapseRef.current,
+      layoutCacheRef.current.controllerPositions,
+      toggleFoldRef.current,
+    );
+    setNodes(decorateNodes(withControllers.nodes));
+  }, [validationIssues, decorateNodes]);
 
   // Handle node click — opens detail panel + fires external callbacks
   const onNodeClick = React.useCallback(
