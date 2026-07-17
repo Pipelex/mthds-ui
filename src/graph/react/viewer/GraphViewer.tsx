@@ -35,7 +35,12 @@ import {
   graphSpecMode,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
-import { resolveConceptRef } from "@graph/graphAnalysis";
+import { buildChildToControllerMap, resolveConceptRef } from "@graph/graphAnalysis";
+import {
+  applyValidationDecorations,
+  buildValidationDecorations,
+  resolveIssueTargetNodeId,
+} from "@graph/graphValidation";
 import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
 import { StuffViewer } from "../stuff/StuffViewer";
@@ -282,6 +287,11 @@ export function resolveToolbarPosition(
   return positionProp ?? configPosition ?? DEFAULT_GRAPH_CONFIG.toolbarPosition;
 }
 
+/** Remove the transient flash class (undefined when nothing else remains). */
+function stripFlash(className: string | undefined): string | undefined {
+  return className?.replace(/\s*\bnode-validation-flash\b/, "") || undefined;
+}
+
 function cloneCachedNodes(nodes: GraphNode[]): GraphNode[] {
   return nodes.map((n) => ({
     ...n,
@@ -481,11 +491,21 @@ export function GraphViewer(props: GraphViewerProps) {
     edges: GraphEdge[];
     analysis: DataflowAnalysis | null;
     graphspec: GraphSpec | null;
+    /** Containment map derived once per graphspec (pure in graphspec+analysis). */
+    childToCtrl: Record<string, string>;
   } | null>(null);
   const layoutCacheRef = React.useRef<{
     nodes: GraphNode[];
     edges: GraphEdge[];
     controllerPositions?: Record<string, { x: number; y: number; width: number; height: number }>;
+    /**
+     * The graphspec these layouted nodes belong to. Cache-reuse effects must
+     * skip when this is not the graphspec in `initialDataRef` — on a graphspec
+     * swap the cache is only refreshed after the async layout resolves, and
+     * rebuilding controllers from old nodes against the new spec would render
+     * garbage (or throw on the id mismatch).
+     */
+    graphspec: GraphSpec | null;
   } | null>(null);
 
   // Collapse state: tracks which controllers the user explicitly expanded.
@@ -559,6 +579,95 @@ export function GraphViewer(props: GraphViewerProps) {
   const skipNextFoldEffectRef = React.useRef(false);
   const statusMapRef = React.useRef(statusMap);
   statusMapRef.current = statusMap;
+  const validationIssuesRef = React.useRef(validationIssues);
+  validationIssuesRef.current = validationIssues;
+
+  // Validation dropdown open state — owned here (not in GraphToolbar) so node
+  // badges can open the panel too. The toolbar reports toggle/dismiss requests
+  // through onValidationOpenChange.
+  const [validationOpen, setValidationOpen] = React.useState(false);
+  const openValidationPanel = React.useCallback(() => setValidationOpen(true), []);
+
+  // Final per-render node pass, shared by every setNodes site: hydrate labels,
+  // apply execution-status overrides, then stamp validation decorations derived
+  // from the CURRENT issues + fold state (folded controllers roll up their
+  // hidden descendants' issues). Reads refs only, so the callback is stable.
+  const decorateNodes = React.useCallback(
+    (nodes: GraphNode[]): AppNode[] => {
+      const raw = rawGraphDataRef.current;
+      const decorations = buildValidationDecorations(
+        validationIssuesRef.current,
+        raw?.graphspec ?? null,
+        raw?.childToCtrl ?? {},
+        foldedRef.current,
+      );
+      return applyValidationDecorations(
+        applyStatusOverrides(toAppNodes(hydrateLabels(nodes)), statusMapRef.current),
+        decorations,
+        openValidationPanel,
+      );
+    },
+    [openValidationPanel],
+  );
+
+  // Panel row click → host source-jump AND graph pan/flash to the target node
+  // (when the issue targets one). The flash is a transient class on the
+  // ReactFlow node wrapper; it is dropped on the next full node rebuild, which
+  // is fine — it only needs to outlive its CSS animation.
+  const nodesRef = React.useRef<AppNode[]>([]);
+  nodesRef.current = nodes;
+  const onValidationIssueClickRef = React.useRef(onValidationIssueClick);
+  onValidationIssueClickRef.current = onValidationIssueClick;
+  const flashTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  React.useEffect(
+    () => () => {
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+    },
+    [],
+  );
+
+  const handleValidationIssueClick = React.useCallback(
+    (index: number, issue: ValidationIssue) => {
+      onValidationIssueClickRef.current?.(index, issue);
+      const raw = rawGraphDataRef.current;
+      if (!raw?.graphspec || !raw.analysis) return;
+      const targetId = resolveIssueTargetNodeId(
+        issue,
+        raw.graphspec,
+        raw.childToCtrl,
+        foldedRef.current,
+        new Set(nodesRef.current.map((n) => n.id)),
+      );
+      if (!targetId) return;
+      void reactFlowRef.current?.fitView({
+        nodes: [{ id: targetId }],
+        duration: 500,
+        padding: 0.4,
+      });
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+      setNodes((nds) =>
+        nds.map((n) => {
+          const base = stripFlash(n.className);
+          if (n.id === targetId) {
+            return {
+              ...n,
+              className: base ? `${base} node-validation-flash` : "node-validation-flash",
+            };
+          }
+          return base === n.className ? n : { ...n, className: base };
+        }),
+      );
+      flashTimeoutRef.current = setTimeout(() => {
+        setNodes((nds) =>
+          nds.map((n) => {
+            const base = stripFlash(n.className);
+            return base === n.className ? n : { ...n, className: base };
+          }),
+        );
+      }, 1800);
+    },
+    [setNodes],
+  );
 
   // Re-layout when direction or layout config changes
   React.useEffect(() => {
@@ -582,6 +691,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: relayouted.nodes,
           edges: relayouted.edges,
           controllerPositions: relayouted.controllerPositions,
+          graphspec: data._graphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(relayouted.nodes),
@@ -594,12 +704,7 @@ export function GraphViewer(props: GraphViewerProps) {
           relayouted.controllerPositions,
           toggleFoldRef.current,
         );
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
@@ -620,6 +725,9 @@ export function GraphViewer(props: GraphViewerProps) {
   // Rebuild controllers when showControllers or collapse state changes (reuses cached layout)
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard: the cache still holds the previous graphspec's layout
+    // until the async layout lands; the in-flight build will repaint anyway.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
     const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
     const cachedEdges = layoutCacheRef.current.edges;
     const withControllers = applyControllers(
@@ -633,11 +741,9 @@ export function GraphViewer(props: GraphViewerProps) {
       layoutCacheRef.current.controllerPositions,
       toggleFold,
     );
-    setNodes(
-      applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMapRef.current),
-    );
+    setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
-  }, [showControllers, expandedControllers, toggleCollapse, toggleFold]);
+  }, [showControllers, expandedControllers, toggleCollapse, toggleFold, decorateNodes]);
 
   // Build + layout when graphspec/edgeType changes
   React.useEffect(() => {
@@ -664,6 +770,7 @@ export function GraphViewer(props: GraphViewerProps) {
       edges: graphData.edges,
       analysis,
       graphspec,
+      childToCtrl: analysis ? buildChildToControllerMap(graphspec, analysis) : {},
     };
 
     // Apply the host-supplied initial fold mode now that we know which
@@ -738,6 +845,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: layouted.nodes,
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
+          graphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(layouted.nodes),
@@ -751,12 +859,7 @@ export function GraphViewer(props: GraphViewerProps) {
           toggleFoldRef.current,
         );
 
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
 
         // Fit view after render, then apply zoom/pan overrides
@@ -841,6 +944,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodes: layouted.nodes,
           edges: layouted.edges,
           controllerPositions: layouted.controllerPositions,
+          graphspec: currentGraphspec,
         };
         const withControllers = applyControllers(
           cloneCachedNodes(layouted.nodes),
@@ -853,12 +957,7 @@ export function GraphViewer(props: GraphViewerProps) {
           layouted.controllerPositions,
           toggleFoldRef.current,
         );
-        setNodes(
-          applyStatusOverrides(
-            toAppNodes(hydrateLabels(withControllers.nodes)),
-            statusMapRef.current,
-          ),
-        );
+        setNodes(decorateNodes(withControllers.nodes));
         setEdges(toAppEdges(withControllers.edges));
         setTimeout(() => {
           if (!cancelled && reactFlowRef.current) {
@@ -881,6 +980,8 @@ export function GraphViewer(props: GraphViewerProps) {
   // This effect handles runtime changes only (SSE updates arriving after initial render).
   React.useEffect(() => {
     if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard — see the layoutCacheRef.graphspec doc comment.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
     const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
     const cachedEdges = layoutCacheRef.current.edges;
     const withControllers = applyControllers(
@@ -894,9 +995,35 @@ export function GraphViewer(props: GraphViewerProps) {
       layoutCacheRef.current.controllerPositions,
       toggleFoldRef.current,
     );
-    setNodes(applyStatusOverrides(toAppNodes(hydrateLabels(withControllers.nodes)), statusMap));
+    setNodes(decorateNodes(withControllers.nodes));
     setEdges(toAppEdges(withControllers.edges));
-  }, [statusMap]);
+  }, [statusMap, decorateNodes]);
+
+  // Re-stamp validation decorations when the issues change (reuses cached
+  // layout — a verdict flip must never re-run ELK or reset the viewport).
+  React.useEffect(() => {
+    if (!layoutCacheRef.current || !initialDataRef.current) return;
+    // Mid-swap guard: when graphspec and validationIssues change in the same
+    // commit (a host delivering a new file plus its known issues at once), the
+    // cache still holds the OLD graphspec's nodes until the async layout lands
+    // — rebuilding from it against the new spec would render garbage. The
+    // in-flight graphspec build stamps the fresh issues itself via
+    // decorateNodes, so skipping here loses nothing.
+    if (layoutCacheRef.current.graphspec !== initialDataRef.current._graphspec) return;
+    const cachedNodes = cloneCachedNodes(layoutCacheRef.current.nodes);
+    const withControllers = applyControllers(
+      cachedNodes,
+      layoutCacheRef.current.edges,
+      initialDataRef.current._graphspec,
+      initialDataRef.current._analysis,
+      showControllersRef.current,
+      expandedRef.current,
+      toggleCollapseRef.current,
+      layoutCacheRef.current.controllerPositions,
+      toggleFoldRef.current,
+    );
+    setNodes(decorateNodes(withControllers.nodes));
+  }, [validationIssues, decorateNodes]);
 
   // Handle node click — opens detail panel + fires external callbacks
   const onNodeClick = React.useCallback(
@@ -1065,7 +1192,9 @@ export function GraphViewer(props: GraphViewerProps) {
             position={effectiveToolbarPosition}
             validationState={validationState}
             validationIssues={validationIssues}
-            onValidationIssueClick={onValidationIssueClick}
+            onValidationIssueClick={handleValidationIssueClick}
+            validationOpen={validationOpen}
+            onValidationOpenChange={setValidationOpen}
           />
         )}
       </ReactFlow>

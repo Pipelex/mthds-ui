@@ -27,10 +27,29 @@ Constants and types are exported from the package root: `VALIDATION_STATE`, `Val
 ```
 
 - `validationState?: ValidationState` — drives the widget; reactive, so a host typically flips it `validating → valid | invalid | error` as its validator progresses.
-- `validationIssues?: ValidationIssue[]` — the rows listed in the dropdown; the badge shows their count. Each issue carries `severity` (`error`/`warning`), `message`, and optionally `context` (a locator chip such as `pipe.analyze_candidate` or a TOML path), `file` (owning-file basename), `suggestedFix` (human-readable fix line), and `origin` (`validator` vs `static`).
+- `validationIssues?: ValidationIssue[]` — the rows listed in the dropdown; the badge shows their count. Each issue carries `severity` (`error`/`warning`), `message`, and optionally `context` (a locator chip such as `pipe.analyze_candidate` or a TOML path), `file` (owning-file basename), `suggestedFix` (human-readable fix line), `origin` (`validator` vs `static`), and the targeting fields below.
 - `onValidationIssueClick?: (index, issue) => void` — row-click handler; wire it to source navigation in the host. Rows are only interactive when this is set.
 
-The widget is **presentation-only**: the viewer never interprets issues, produces verdicts, or decides which issues to show per state — that policy belongs to the host (the VS Code extension, for instance, shows static diagnostics while `validating`, the validator's errors on `invalid`, and static warnings only on `valid`).
+The widget itself is **presentation-only**: the viewer never interprets issues, produces verdicts, or decides which issues to show per state — that policy belongs to the host (the VS Code extension, for instance, shows static diagnostics while `validating`, the validator's errors on `invalid`, and static warnings only on `valid`). The one exception is the pair of optional *targeting fields*, which the viewer resolves to graph nodes for the decorations below.
+
+## Node decorations
+
+Issues can target graph nodes, and targeted issues decorate them — same `validationIssues` prop, no extra wiring:
+
+- `pipeCode?: string` — decorates **every** rendered invocation of that pipe (a pipe can appear in several places in the graph).
+- `nodeId?: string` — decorates one precise invocation (a GraphSpec node id such as `demo.main_flow/step_2`); wins over `pipeCode` when both are set.
+- Neither field → the issue stays **panel-only**. There is no failure mode: a target that never became a node (e.g. a diagnostic about a pipe skipped during the static walk) simply doesn't decorate anything.
+
+A decorated node renders a **severity ring** (outline — layout-neutral, node geometry never changes, so a verdict flip never re-runs layout or resets the viewport) and a **corner count badge** whose tooltip lists each issue's message and `Fix:` line. Worst severity wins per node (`error` over `warning`). **Folding rolls issues up**: a folded controller's badge aggregates its hidden descendants' issues, so folding never hides an error. Counts are per issue × invocation — a folded controller containing two invocations of a broken pipe shows 2, matching what expanding reveals.
+
+`staticDiagnosticsToValidationIssues` auto-fills the targeting fields from diagnostic paths (`pipe.<code>[...]` → `pipeCode`; a walk-phase node-id path containing `/` → `nodeId`), so static diagnostics decorate the graph for free. Validator-side hosts fill `pipeCode`/`nodeId` themselves when they can derive a target.
+
+### Interactions
+
+- **Panel → graph**: clicking an issue row still calls `onValidationIssueClick` (host source-jump), and *additionally* pans the viewport to the issue's target node (`fitView` on that node, animated) and flashes a temporary halo around it. Panel-only issues just do the host callback.
+- **Graph → panel**: clicking a node's count badge opens the validation panel (the dropdown open state lives in `GraphViewer` for exactly this reason; the toolbar reports toggle/outside-click/Escape through `onValidationOpenChange`).
+
+The decoration internals (`buildValidationDecorations`, `applyValidationDecorations`, `resolveIssueTargetNodeId`, `NodeValidationSummary`) are exported from the package root for hosts that need the same mapping outside the viewer.
 
 ## Dropdown panel
 
