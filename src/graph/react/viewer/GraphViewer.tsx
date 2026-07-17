@@ -22,6 +22,8 @@ import type {
   PipeStatus,
   ConceptInfo,
   ToolbarPosition,
+  ValidationIssue,
+  ValidationState,
 } from "@graph/types";
 import {
   stuffDigestFromId,
@@ -152,6 +154,25 @@ export interface GraphViewerProps {
    * external-open mechanism (e.g. `vscode.env.openExternal` via postMessage).
    */
   onOpenExternally?: (url: string, filename?: string) => void;
+  /**
+   * State of the toolbar's validation widget. The widget renders only when this
+   * is set — `undefined` (the default) disables the feature entirely. Reactive:
+   * a host typically drives `validating → valid | invalid | error` as its
+   * validator progresses, without re-mounting the viewer.
+   */
+  validationState?: ValidationState;
+  /**
+   * Issues listed in the validation widget's dropdown (the badge shows their
+   * count). Presentation-only — the host decides which issues to surface per
+   * state (validator errors, static-analysis diagnostics, or a mix; see
+   * `staticDiagnosticsToValidationIssues` in `@pipelex/mthds-ui/static-graph`).
+   */
+  validationIssues?: ValidationIssue[];
+  /**
+   * Called when an issue row is clicked, with the row's index in
+   * `validationIssues`. Wire this to source navigation in the host.
+   */
+  onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
 }
 
 /** Stuff node detail: concept structure + data viewer. */
@@ -332,6 +353,9 @@ export function GraphViewer(props: GraphViewerProps) {
     resolveStorageUrl,
     canEmbedPdf,
     onOpenExternally,
+    validationState,
+    validationIssues,
+    onValidationIssueClick,
   } = props;
 
   // Single boundary validator for the React render path — mirrors the standalone
@@ -1039,6 +1063,9 @@ export function GraphViewer(props: GraphViewerProps) {
             onThemeModeChange={showThemeToggle ? setMode : undefined}
             rightOffset={detailOpen ? panelWidth : 0}
             position={effectiveToolbarPosition}
+            validationState={validationState}
+            validationIssues={validationIssues}
+            onValidationIssueClick={onValidationIssueClick}
           />
         )}
       </ReactFlow>

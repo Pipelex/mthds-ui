@@ -582,6 +582,44 @@ export function toolbarSide(position: ToolbarPosition): ToolbarSide {
   }
 }
 
+// ─── Validation status (toolbar widget) ──────────────────────────────────────
+
+/**
+ * State of the toolbar's validation widget. The widget itself is opt-in: it
+ * renders only when the host passes a `validationState` to `GraphViewer` —
+ * `undefined` (the default) keeps it hidden entirely. The states describe the
+ * host's validation lifecycle, not the static analyzer's: `validating` while a
+ * verdict is being produced, `valid`/`invalid` once one exists, and `error`
+ * when no verdict could be produced at all (validator unavailable, timeout…).
+ */
+export const VALIDATION_STATE = {
+  VALIDATING: "validating",
+  VALID: "valid",
+  INVALID: "invalid",
+  ERROR: "error",
+} as const;
+
+export type ValidationState = (typeof VALIDATION_STATE)[keyof typeof VALIDATION_STATE];
+
+/**
+ * One issue row in the validation panel. Presentation-only: the host decides
+ * which issues to show for each state (its validator's errors, the static
+ * analyzer's diagnostics, or a mix) and handles navigation on row click —
+ * the viewer never interprets these fields beyond displaying them.
+ */
+export interface ValidationIssue {
+  severity: "error" | "warning";
+  message: string;
+  /** Short locator chip, e.g. `pipe.analyze_candidate` or a TOML path. */
+  context?: string;
+  /** Owning-file basename, when the issue lives in a specific file. */
+  file?: string;
+  /** Human-readable suggested fix, when the validator derived one. */
+  suggestedFix?: string;
+  /** Which analyzer produced the issue: the host's validator or the static parser. */
+  origin?: "validator" | "static";
+}
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
