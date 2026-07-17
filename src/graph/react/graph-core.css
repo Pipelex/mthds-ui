@@ -126,16 +126,22 @@
     var(--shadow-lg) !important;
   z-index: 1000 !important;
 }
-/* Pipe cards handle their own selection styling — suppress the wrapper outline */
+/* Pipe cards handle their own selection styling — suppress the wrapper outline.
+   The outline reset excludes .node-validation-flash: the flash animates the
+   wrapper outline, and an !important reset would override the animation. */
 .react-flow__node-pipeCard {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  outline: none !important;
   padding: 0 !important;
+}
+.react-flow__node-pipeCard:not(.node-validation-flash) {
+  outline: none !important;
 }
 .react-flow__node-pipeCard.selected {
   box-shadow: none !important;
+}
+.react-flow__node-pipeCard.selected:not(.node-validation-flash) {
   outline: none !important;
 }
 .react-flow__node-pipeCard.selected .pipe-card {
