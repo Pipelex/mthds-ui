@@ -18,3 +18,4 @@ export { parseMthdsBundle } from "./parseMthdsBundle";
 export { mergeBundles } from "./mergeBundles";
 export type { StaticGraphOptions, StaticGraphResult } from "./buildStaticGraphSpec";
 export { buildStaticGraphSpec, buildStaticGraphSpecFromToml } from "./buildStaticGraphSpec";
+export { staticDiagnosticsToValidationIssues } from "./validationIssues";

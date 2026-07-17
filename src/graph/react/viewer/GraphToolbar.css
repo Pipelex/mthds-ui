@@ -86,3 +86,198 @@
   background: var(--border-default);
   margin: 0 2px;
 }
+
+/* ─── Validation widget ─────────────────────────────────────────────────── */
+/* Lives in GraphToolbar.css on purpose: the VS Code extension copies exactly
+   this stylesheet into its webview, so a separate file would need host build
+   changes for no benefit. */
+
+.graph-toolbar-validation {
+  position: relative;
+  display: inline-flex;
+}
+
+.graph-toolbar-validation-btn {
+  position: relative;
+}
+
+.graph-toolbar-validation-btn--valid,
+.graph-toolbar-validation-btn--valid:hover {
+  color: var(--color-success);
+}
+
+.graph-toolbar-validation-btn--invalid,
+.graph-toolbar-validation-btn--invalid:hover {
+  color: var(--color-error);
+}
+
+.graph-toolbar-validation-btn--error,
+.graph-toolbar-validation-btn--error:hover {
+  color: var(--color-warning);
+}
+
+.graph-toolbar-validation-spin {
+  animation: graph-toolbar-validation-rotate 1s linear infinite;
+}
+
+@keyframes graph-toolbar-validation-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.graph-toolbar-validation-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  background: var(--color-error);
+  color: var(--text-on-accent);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  line-height: 14px;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+
+.graph-toolbar-validation-btn--valid .graph-toolbar-validation-badge,
+.graph-toolbar-validation-btn--error .graph-toolbar-validation-badge {
+  background: var(--color-warning);
+}
+
+/* ─── Validation dropdown panel ─────────────────────────────────────────── */
+
+.graph-validation-panel {
+  position: absolute;
+  z-index: 12;
+  min-width: 260px;
+  max-width: 360px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(6px);
+  pointer-events: auto;
+  font-family: var(--font-sans);
+  cursor: default;
+}
+
+/* Placement relative to the widget button — always unfolds toward the graph. */
+.graph-validation-panel--down-start {
+  top: calc(100% + 6px);
+  left: 0;
+}
+.graph-validation-panel--down-end {
+  top: calc(100% + 6px);
+  right: 0;
+}
+.graph-validation-panel--up-start {
+  bottom: calc(100% + 6px);
+  left: 0;
+}
+.graph-validation-panel--up-end {
+  bottom: calc(100% + 6px);
+  right: 0;
+}
+.graph-validation-panel--side-end {
+  left: calc(100% + 6px);
+  top: 0;
+}
+.graph-validation-panel--side-start {
+  right: calc(100% + 6px);
+  top: 0;
+}
+
+.graph-validation-panel-header {
+  padding: 4px 6px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.graph-validation-empty {
+  padding: 2px 6px 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.graph-validation-issues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.graph-validation-issue {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border-left: 3px solid var(--color-error);
+  background: var(--color-error-bg);
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.graph-validation-issue--warning {
+  border-left-color: var(--color-warning);
+  background: var(--surface-sunken);
+}
+
+.graph-validation-issue--clickable {
+  cursor: pointer;
+}
+
+.graph-validation-issue--clickable:hover {
+  filter: brightness(1.1);
+}
+
+.graph-validation-issue--clickable:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.graph-validation-issue-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.graph-validation-issue-context {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.graph-validation-issue-file {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.graph-validation-issue-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.graph-validation-issue-fix {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.graph-validation-issue-fix::before {
+  content: "Fix: ";
+  font-weight: 600;
+}

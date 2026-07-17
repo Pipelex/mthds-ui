@@ -4,12 +4,16 @@ import "./GraphToolbar.css";
 import {
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
+  VALIDATION_STATE,
   toolbarOrientation,
   toolbarSide,
   type GraphDirection,
   type GraphThemeMode,
   type ToolbarPosition,
+  type ValidationIssue,
+  type ValidationState,
 } from "@graph/types";
+import { ValidationPanel, validationLabel, validationPanelPlacement } from "./ValidationPanel";
 
 /**
  * ReactFlow's default `<Panel>` margin (`.react-flow__panel { margin: 15px }`).
@@ -49,6 +53,15 @@ export interface GraphToolbarProps {
   onThemeModeChange?: (mode: GraphThemeMode) => void;
   /** Pixel offset from the right edge (e.g. detail panel width when open). */
   rightOffset?: number;
+  /**
+   * State of the validation widget. Renders the widget (as the toolbar's first
+   * section) only when set — `undefined` (the default) hides it entirely.
+   */
+  validationState?: ValidationState;
+  /** Issues listed in the validation dropdown; the badge shows their count. */
+  validationIssues?: ValidationIssue[];
+  /** Issue row-click handler; the host typically navigates to the issue's source. */
+  onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
   /**
    * Anchor for the toolbar. The value is forwarded to a ReactFlow
    * `<Panel position=…>`; orientation (row vs column) is derived from it via
@@ -259,6 +272,90 @@ const MONITOR_ICON = (
   </svg>
 );
 
+/** `validating` — a three-quarter arc, spun by CSS. */
+const SPINNER_ICON = (
+  <svg
+    className="graph-toolbar-validation-spin"
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);
+
+const CHECK_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const X_CIRCLE_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <line x1="15" y1="9" x2="9" y2="15" />
+    <line x1="9" y1="9" x2="15" y2="15" />
+  </svg>
+);
+
+const ALERT_TRIANGLE_ICON = (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+    <line x1="12" y1="9" x2="12" y2="13" />
+    <line x1="12" y1="17" x2="12.01" y2="17" />
+  </svg>
+);
+
+/** The icon shown for a validation state. Pure, unit-testable. */
+export function validationIcon(state: ValidationState): React.ReactElement {
+  switch (state) {
+    case VALIDATION_STATE.VALIDATING:
+      return SPINNER_ICON;
+    case VALIDATION_STATE.VALID:
+      return CHECK_ICON;
+    case VALIDATION_STATE.INVALID:
+      return X_CIRCLE_ICON;
+    case VALIDATION_STATE.ERROR:
+      return ALERT_TRIANGLE_ICON;
+    default: {
+      const _exhaustive: never = state;
+      return _exhaustive;
+    }
+  }
+}
+
 // ─── Theme-mode toggle: pure cycle + presentation helpers ───────────────────
 // Exported so the cycle order and per-state labels/icons are unit-testable
 // without rendering. Order: system → light → dark → system.
@@ -309,9 +406,35 @@ export function GraphToolbar({
   onThemeModeChange,
   rightOffset = 0,
   position,
+  validationState,
+  validationIssues = [],
+  onValidationIssueClick,
 }: GraphToolbarProps) {
   const themeToggleEnabled = themeMode !== undefined && onThemeModeChange !== undefined;
   const orientation = toolbarOrientation(position);
+
+  // The validation dropdown's open state lives here (not in ValidationPanel) so
+  // the toggle button and the outside-click/Escape dismissal share one owner.
+  const [validationOpen, setValidationOpen] = React.useState(false);
+  const validationRef = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    if (!validationOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      const wrapper = validationRef.current;
+      if (wrapper && event.target instanceof Node && !wrapper.contains(event.target)) {
+        setValidationOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setValidationOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [validationOpen]);
   // ReactFlow's <Panel> owns all base positioning: the anchor, its default 15px
   // margin, and the center-anchor transforms calibrated to cancel exactly that
   // margin. We deliberately do NOT set the `margin` shorthand here —
@@ -346,6 +469,37 @@ export function GraphToolbar({
   return (
     <Panel position={position} className="graph-toolbar-panel" style={panelStyle}>
       <div className={`graph-toolbar graph-toolbar--${orientation}`}>
+        {validationState !== undefined && (
+          <>
+            <div className="graph-toolbar-validation" ref={validationRef}>
+              <button
+                type="button"
+                className={`graph-toolbar-btn graph-toolbar-validation-btn graph-toolbar-validation-btn--${validationState}`}
+                onClick={() => setValidationOpen((open) => !open)}
+                title={validationLabel(validationState, validationIssues.length)}
+                aria-label={validationLabel(validationState, validationIssues.length)}
+                aria-expanded={validationOpen}
+              >
+                {validationIcon(validationState)}
+                {validationIssues.length > 0 && (
+                  <span className="graph-toolbar-validation-badge">
+                    {validationIssues.length > 99 ? "99+" : validationIssues.length}
+                  </span>
+                )}
+              </button>
+              {validationOpen && (
+                <ValidationPanel
+                  state={validationState}
+                  issues={validationIssues}
+                  onIssueClick={onValidationIssueClick}
+                  placement={validationPanelPlacement(position)}
+                />
+              )}
+            </div>
+            <div className="graph-toolbar-separator" />
+          </>
+        )}
+
         {onFoldAll && (
           <button
             type="button"
