@@ -602,10 +602,11 @@ export const VALIDATION_STATE = {
 export type ValidationState = (typeof VALIDATION_STATE)[keyof typeof VALIDATION_STATE];
 
 /**
- * One issue row in the validation panel. Presentation-only: the host decides
+ * One issue row in the validation panel. Mostly presentation: the host decides
  * which issues to show for each state (its validator's errors, the static
- * analyzer's diagnostics, or a mix) and handles navigation on row click —
- * the viewer never interprets these fields beyond displaying them.
+ * analyzer's diagnostics, or a mix) and handles navigation on row click. The
+ * only fields the viewer interprets are the optional targeting fields
+ * (`pipeCode` / `nodeId`), which drive node decorations on the graph.
  */
 export interface ValidationIssue {
   severity: "error" | "warning";
@@ -618,6 +619,32 @@ export interface ValidationIssue {
   suggestedFix?: string;
   /** Which analyzer produced the issue: the host's validator or the static parser. */
   origin?: "validator" | "static";
+  /**
+   * Pipe code this issue targets — decorates every rendered node invoking that
+   * pipe (a pipe can be invoked from several places in the graph).
+   */
+  pipeCode?: string;
+  /**
+   * Precise invocation this issue targets — a GraphSpec node id (e.g.
+   * `demo.main_flow/step_2`). Takes precedence over `pipeCode` when both are
+   * set. Issues with neither targeting field stay panel-only.
+   */
+  nodeId?: string;
+}
+
+/**
+ * Aggregated validation decoration for one rendered node — derived from the
+ * targeted `ValidationIssue`s by `buildValidationDecorations` (worst severity
+ * wins, folded controllers roll up their hidden descendants' issues). Rendered
+ * as a severity ring + count badge on the node, with `lines` as the tooltip.
+ */
+export interface NodeValidationSummary {
+  /** Worst severity among the node's issues (`error` wins over `warning`). */
+  severity: "error" | "warning";
+  /** Number of issue hits on the node (a multi-instance pipe counts per invocation). */
+  count: number;
+  /** Tooltip lines: each issue's message, followed by a `Fix: …` line when present. */
+  lines: string[];
 }
 
 export interface GraphConfig {
@@ -683,6 +710,10 @@ export interface PipeCardPayload {
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
   onExpand?: (options?: FoldToggleOptions) => void;
+  /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
+  validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }
 
 // ─── Graph node data ────────────────────────────────────────────────────────
@@ -706,6 +737,10 @@ export interface GraphNodeData extends Record<string, unknown> {
   stuffRole?: StuffRole;
   /** For stuff nodes: the digest used to build the node ID. */
   stuffDigest?: string;
+  /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
+  validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }
 
 // ─── Graph node / edge / data ───────────────────────────────────────────────

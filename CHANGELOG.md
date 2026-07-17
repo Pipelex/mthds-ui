@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.14.0] - 2026-07-17
+
+### Added
+
+- **Validation node decorations.** Targeted `ValidationIssue`s now decorate the graph nodes they concern — same `validationIssues` prop as the toolbar widget, no extra wiring. `ValidationIssue` gains optional targeting fields: `pipeCode` (decorates every rendered invocation of that pipe) and `nodeId` (one precise invocation; wins when both are set); issues with neither stay panel-only, and unresolvable targets (e.g. pipes skipped during the static walk) are silently panel-only too. Decorated pipe cards and controller groups render a severity ring (outline — layout-neutral, so a verdict flip never re-runs layout or resets the viewport) plus a corner count badge whose tooltip lists each issue's message and `Fix:` line; worst severity wins per node. Folding rolls issues up: a folded controller's badge aggregates its hidden descendants' issues, so folding never hides an error. `staticDiagnosticsToValidationIssues` auto-fills the targeting fields from diagnostic paths, so static diagnostics decorate the graph for free. New pure helpers exported from the root: `buildValidationDecorations`, `applyValidationDecorations`, `resolveIssueTargetNodeId`, `NodeValidationSummary`. See `docs/validation-widget.md`.
+- **Validation navigation, both directions.** Clicking an issue row in the validation panel still fires `onValidationIssueClick` (host source-jump) and now also pans the viewport to the issue's target node with a temporary flash halo; clicking a node's count badge opens the validation panel. The dropdown open state moved from `GraphToolbar` into `GraphViewer` to make the latter possible (`GraphToolbar` gains controlled `validationOpen` / `onValidationOpenChange` props — breaking for direct `GraphToolbar` consumers).
+
 ## [v0.13.0] - 2026-07-17
 
 ### Added

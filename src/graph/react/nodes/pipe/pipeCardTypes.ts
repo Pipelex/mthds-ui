@@ -1,6 +1,7 @@
 import type {
   FoldToggleOptions,
   GraphSpecMode,
+  NodeValidationSummary,
   PipeControllerType,
   PipeOperatorType,
   PipeStatus,
@@ -10,6 +11,7 @@ import type {
 export type {
   FoldToggleOptions,
   GraphSpecMode,
+  NodeValidationSummary,
   PipeControllerType,
   PipeOperatorType,
   PipeStatus,
@@ -32,4 +34,8 @@ export interface PipeCardData {
   direction?: PipeCardDirection;
   /** When set, the card renders an unfold button that invokes this callback. */
   onExpand?: (options?: FoldToggleOptions) => void;
+  /** Validation decoration (severity ring + count badge), stamped by GraphViewer. */
+  validation?: NodeValidationSummary;
+  /** Badge click handler (opens the validation panel), stamped alongside `validation`. */
+  onValidationBadgeClick?: () => void;
 }
