@@ -92,6 +92,8 @@ export interface ValidationPanelProps {
   /** Row-click handler; rows render as buttons only when this is set. */
   onIssueClick?: (index: number, issue: ValidationIssue) => void;
   placement: ValidationPanelPlacement;
+  /** Id of the panel root, referenced by the toolbar button's aria-controls. */
+  id?: string;
 }
 
 /**
@@ -99,18 +101,26 @@ export interface ValidationPanelProps {
  * widget. Purely presentational: the host owns the issue list and what a row
  * click does (typically: navigate to the issue's source location).
  */
-export function ValidationPanel({ state, issues, onIssueClick, placement }: ValidationPanelProps) {
+export function ValidationPanel({
+  state,
+  issues,
+  onIssueClick,
+  placement,
+  id,
+}: ValidationPanelProps) {
   return (
     <div
+      id={id}
       className={`graph-validation-panel graph-validation-panel--${placement}`}
       role="region"
       aria-label="Validation issues"
     >
       <div className="graph-validation-panel-header">{validationLabel(state, issues.length)}</div>
+      {/* Explicit role="list": list-style:none strips implicit list semantics in Safari. */}
       {issues.length === 0 ? (
         <div className="graph-validation-empty">{validationEmptyText(state)}</div>
       ) : (
-        <ul className="graph-validation-issues">
+        <ul className="graph-validation-issues" role="list">
           {issues.map((issue, index) => {
             const clickable = onIssueClick !== undefined;
             const meta = (issue.context || issue.file) && (
@@ -121,6 +131,8 @@ export function ValidationPanel({ state, issues, onIssueClick, placement }: Vali
                 {issue.file && <span className="graph-validation-issue-file">{issue.file}</span>}
               </div>
             );
+            // Button semantics go on an inner body element, not the <li> itself,
+            // so each row keeps its listitem role for assistive tech.
             return (
               <li
                 key={index}
@@ -128,25 +140,29 @@ export function ValidationPanel({ state, issues, onIssueClick, placement }: Vali
                   `graph-validation-issue graph-validation-issue--${issue.severity}` +
                   (clickable ? " graph-validation-issue--clickable" : "")
                 }
-                role={clickable ? "button" : undefined}
-                tabIndex={clickable ? 0 : undefined}
-                onClick={clickable ? () => onIssueClick(index, issue) : undefined}
-                onKeyDown={
-                  clickable
-                    ? (event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          onIssueClick(index, issue);
-                        }
-                      }
-                    : undefined
-                }
               >
-                {meta}
-                <div className="graph-validation-issue-message">{issue.message}</div>
-                {issue.suggestedFix && (
-                  <div className="graph-validation-issue-fix">{issue.suggestedFix}</div>
-                )}
+                <div
+                  className="graph-validation-issue-body"
+                  role={clickable ? "button" : undefined}
+                  tabIndex={clickable ? 0 : undefined}
+                  onClick={clickable ? () => onIssueClick(index, issue) : undefined}
+                  onKeyDown={
+                    clickable
+                      ? (event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            onIssueClick(index, issue);
+                          }
+                        }
+                      : undefined
+                  }
+                >
+                  {meta}
+                  <div className="graph-validation-issue-message">{issue.message}</div>
+                  {issue.suggestedFix && (
+                    <div className="graph-validation-issue-fix">{issue.suggestedFix}</div>
+                  )}
+                </div>
               </li>
             );
           })}

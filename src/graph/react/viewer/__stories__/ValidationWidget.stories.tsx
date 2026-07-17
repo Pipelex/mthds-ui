@@ -2,6 +2,7 @@
 // (e.g. the VS Code extension) drives it: static graph rendered immediately,
 // `validationState` flowing validating → valid | invalid | error.
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 
 import type { ValidationIssue } from "@graph/types";
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
@@ -93,6 +94,22 @@ export const Valid: Story = {
 /** Invalid verdict — count badge; dropdown rows carry suggested fixes. */
 export const Invalid: Story = {
   args: { validationState: "invalid", validationIssues: validatorIssues },
+  // Locks the dropdown's assistive-tech contract: the toggle points at the panel
+  // via aria-controls, issues stay a list of listitems, and each clickable row
+  // exposes button semantics on an inner element (not the <li> itself).
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = await canvas.findByRole("button", { name: /method is invalid/i });
+    await userEvent.click(toggle);
+
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    const panel = canvas.getByRole("region", { name: "Validation issues" });
+    await expect(toggle).toHaveAttribute("aria-controls", panel.id);
+
+    const list = within(panel).getByRole("list");
+    await expect(within(list).getAllByRole("listitem")).toHaveLength(validatorIssues.length);
+    await expect(within(list).getAllByRole("button")).toHaveLength(validatorIssues.length);
+  },
 };
 
 /** No verdict could be produced — the host explains why in the first issue. */

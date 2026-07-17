@@ -417,6 +417,13 @@ export function GraphToolbar({
   // the toggle button and the outside-click/Escape dismissal share one owner.
   const [validationOpen, setValidationOpen] = React.useState(false);
   const validationRef = React.useRef<HTMLDivElement | null>(null);
+  // useId, not a constant: several viewers can coexist on one page (Storybook grids).
+  const validationPanelId = React.useId();
+  // The widget can be hidden (validationState undefined) while GraphToolbar stays
+  // mounted; drop the open state so re-enabling doesn't resurrect the dropdown.
+  React.useEffect(() => {
+    if (validationState === undefined) setValidationOpen(false);
+  }, [validationState]);
   React.useEffect(() => {
     if (!validationOpen) return;
     const onPointerDown = (event: MouseEvent) => {
@@ -479,6 +486,8 @@ export function GraphToolbar({
                 title={validationLabel(validationState, validationIssues.length)}
                 aria-label={validationLabel(validationState, validationIssues.length)}
                 aria-expanded={validationOpen}
+                aria-haspopup="true"
+                aria-controls={validationPanelId}
               >
                 {validationIcon(validationState)}
                 {validationIssues.length > 0 && (
@@ -489,6 +498,7 @@ export function GraphToolbar({
               </button>
               {validationOpen && (
                 <ValidationPanel
+                  id={validationPanelId}
                   state={validationState}
                   issues={validationIssues}
                   onIssueClick={onValidationIssueClick}
