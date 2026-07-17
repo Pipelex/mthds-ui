@@ -21,7 +21,7 @@ inputs = { question = "Text" }
 output = "Answer"
 steps = [
   { pipe = "embed_query", result = "query_embedding" },
-  { pipe = "parallel_search", result = "vector_results" },
+  { pipe = "parallel_search", result = "search_bundle" },
   { pipe = "rerank_results", result = "context" },
   { pipe = "generate_answer", result = "answer" },
 ]
@@ -41,7 +41,7 @@ Rephrase this question to capture the core semantic meaning for retrieval:
 type = "PipeParallel"
 description = "Vector and keyword search in parallel"
 inputs = { query_embedding = "QueryEmbedding", question = "Text" }
-output = "SearchResult"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "vector_search", result = "vector_results" },

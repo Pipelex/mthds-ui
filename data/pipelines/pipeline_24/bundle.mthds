@@ -21,7 +21,7 @@ inputs = { document = "Document" }
 output = "FinalOutput"
 steps = [
   { pipe = "extract_input", result = "pages" },
-  { pipe = "level_2_parallel", result = "batch_result" },
+  { pipe = "level_2_parallel", result = "branch_bundle" },
   { pipe = "exit_combine", result = "final" },
 ]
 
@@ -35,7 +35,7 @@ output      = "Page[]"
 type = "PipeParallel"
 description = "Level 2: batch branch and sequence branch in parallel"
 inputs = { pages = "Page[]" }
-output = "BatchResult"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "batch_branch", result = "batch_result" },

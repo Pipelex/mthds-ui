@@ -6,7 +6,13 @@ import { defineConfig } from "tsup";
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/graph/index.ts", "src/graph/react/index.ts", "src/shiki/index.ts"],
+  entry: [
+    "src/index.ts",
+    "src/graph/index.ts",
+    "src/graph/react/index.ts",
+    "src/shiki/index.ts",
+    "src/static-graph/index.ts",
+  ],
   format: ["esm"],
   dts: true,
   sourcemap: true,
@@ -27,6 +33,7 @@ export default defineConfig({
   esbuildOptions(options) {
     options.alias = {
       "@graph": path.resolve(dirname, "src/graph"),
+      "@static-graph": path.resolve(dirname, "src/static-graph"),
     };
   },
   // CSS files are kept external so the import stays in the JS output.

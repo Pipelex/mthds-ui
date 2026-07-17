@@ -4,7 +4,7 @@ import { DRY_EMAIL_TRIAGE } from "./specs/_generated/dry/pipeline_17";
 import { LIVE_EMAIL_TRIAGE } from "./specs/_generated/live/pipeline_17";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/17 Email Triage",
+  title: "Graph - from run/17 Email Triage",
   component: GraphViewer,
   decorators: [
     (Story) => (

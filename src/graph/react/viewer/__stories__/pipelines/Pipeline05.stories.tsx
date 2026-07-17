@@ -4,7 +4,7 @@ import { DRY_SIMPLE_PARALLEL } from "./specs/_generated/dry/pipeline_05";
 import { LIVE_SIMPLE_PARALLEL } from "./specs/_generated/live/pipeline_05";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/05 Simple Parallel (2 branches)",
+  title: "Graph - from run/05 Simple Parallel (2 branches)",
   component: GraphViewer,
   decorators: [
     (Story) => (

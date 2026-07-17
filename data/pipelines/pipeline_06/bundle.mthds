@@ -29,7 +29,7 @@ inputs = { data = "Text" }
 output = "Report"
 steps = [
   { pipe = "analyze_data", result = "insight" },
-  { pipe = "generate_outputs", result = "chart_spec" },
+  { pipe = "generate_outputs", result = "format_bundle" },
   { pipe = "assemble_report", result = "report" },
 ]
 
@@ -48,7 +48,7 @@ Analyze the following data and extract key insights:
 type = "PipeParallel"
 description = "Generate chart, table, and narrative in parallel"
 inputs = { insight = "Insight" }
-output = "ChartSpec"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "generate_chart", result = "chart_spec" },

@@ -18,6 +18,7 @@ import {
   DRY_DEEP_NESTING,
 } from "@graph/react/viewer/__stories__/mockGraphSpec";
 import { LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/liveGraphSpec";
+import { STATIC_RUN_CATALOG } from "@graph/react/viewer/__stories__/staticGraphSpec";
 import { makeWideParallel } from "@graph/react/viewer/__stories__/extremeGraphSpecs";
 import type { GraphSpec } from "../types";
 
@@ -83,6 +84,22 @@ describe("snapshot regression — DRY catalog", () => {
 describe("snapshot regression — LIVE catalog", () => {
   it.each(Object.entries(LIVE_RUN_CATALOG))("LIVE %s matches snapshot", async (_key, { spec }) => {
     const fp = await structuralFingerprint(spec);
+    expect(fp).toMatchSnapshot();
+  });
+});
+
+const STATIC_SNAPSHOT_KEYS = [
+  "STATIC_SIMPLE_SEQUENCE",
+  "STATIC_SIMPLE_CONDITION",
+  "STATIC_SIMPLE_BATCH",
+  "STATIC_CV_SCREENING",
+  "STATIC_DEEP_NESTING",
+  "STATIC_WIDE_PARALLEL",
+] as const;
+
+describe("snapshot regression — STATIC selected catalog", () => {
+  it.each(STATIC_SNAPSHOT_KEYS)("STATIC %s matches snapshot", async (key) => {
+    const fp = await structuralFingerprint(STATIC_RUN_CATALOG[key].spec);
     expect(fp).toMatchSnapshot();
   });
 });

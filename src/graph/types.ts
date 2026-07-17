@@ -39,6 +39,26 @@ export const KNOWN_PIPE_TYPES: ReadonlySet<string> = new Set(Object.keys(PIPE_TY
 
 export type PipeStatus = "succeeded" | "failed" | "running" | "scheduled" | "skipped" | "canceled";
 
+// ─── GraphSpec mode contract ────────────────────────────────────────────────
+
+export const GRAPH_SPEC_MODE = {
+  DRY: "dry",
+  LIVE: "live",
+  STATIC: "static",
+} as const;
+
+export type GraphSpecMode = (typeof GRAPH_SPEC_MODE)[keyof typeof GRAPH_SPEC_MODE];
+
+export interface GraphSpecMeta {
+  format: "mthds";
+  /**
+   * Missing mode is a legacy runtime graph. Static UI behavior must key only on
+   * `mode === "static"` and never infer it from absent runtime fields.
+   */
+  mode?: GraphSpecMode;
+  [key: string]: unknown;
+}
+
 // ─── Node type constants ────────────────────────────────────────────────────
 // Used by graphBuilders and consumed by ReactFlow custom node registration.
 
@@ -297,7 +317,7 @@ export interface PipeExtractBlueprint extends PipeBlueprintBase {
   render_js: boolean | null;
   include_raw_html: boolean | null;
   image_stuff_name: string | null;
-  document_stuff_name: string;
+  document_stuff_name: string | null;
 }
 
 export interface PipeSearchBlueprint extends PipeBlueprintBase {
@@ -403,9 +423,23 @@ export interface GraphSpec {
   pipeline_ref?: { domain?: string; main_pipe?: string; entrypoint?: string };
   nodes: GraphSpecNode[];
   edges: GraphSpecEdge[];
-  meta?: Record<string, unknown>;
+  meta?: GraphSpecMeta;
   pipe_registry?: Record<string, PipeBlueprintUnion>;
   concept_registry?: Record<string, ConceptInfo>;
+}
+
+export function graphSpecMode(
+  spec: Pick<GraphSpec, "meta"> | null | undefined,
+): GraphSpecMode | undefined {
+  return spec?.meta?.mode;
+}
+
+export function isStaticGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined): boolean {
+  return graphSpecMode(spec) === GRAPH_SPEC_MODE.STATIC;
+}
+
+export function isDryGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined): boolean {
+  return graphSpecMode(spec) === GRAPH_SPEC_MODE.DRY;
 }
 
 // ─── Dataflow analysis result ───────────────────────────────────────────────
@@ -548,6 +582,44 @@ export function toolbarSide(position: ToolbarPosition): ToolbarSide {
   }
 }
 
+// ─── Validation status (toolbar widget) ──────────────────────────────────────
+
+/**
+ * State of the toolbar's validation widget. The widget itself is opt-in: it
+ * renders only when the host passes a `validationState` to `GraphViewer` —
+ * `undefined` (the default) keeps it hidden entirely. The states describe the
+ * host's validation lifecycle, not the static analyzer's: `validating` while a
+ * verdict is being produced, `valid`/`invalid` once one exists, and `error`
+ * when no verdict could be produced at all (validator unavailable, timeout…).
+ */
+export const VALIDATION_STATE = {
+  VALIDATING: "validating",
+  VALID: "valid",
+  INVALID: "invalid",
+  ERROR: "error",
+} as const;
+
+export type ValidationState = (typeof VALIDATION_STATE)[keyof typeof VALIDATION_STATE];
+
+/**
+ * One issue row in the validation panel. Presentation-only: the host decides
+ * which issues to show for each state (its validator's errors, the static
+ * analyzer's diagnostics, or a mix) and handles navigation on row click —
+ * the viewer never interprets these fields beyond displaying them.
+ */
+export interface ValidationIssue {
+  severity: "error" | "warning";
+  message: string;
+  /** Short locator chip, e.g. `pipe.analyze_candidate` or a TOML path. */
+  context?: string;
+  /** Owning-file basename, when the issue lives in a specific file. */
+  file?: string;
+  /** Human-readable suggested fix, when the validator derived one. */
+  suggestedFix?: string;
+  /** Which analyzer produced the issue: the host's validator or the static parser. */
+  origin?: "validator" | "static";
+}
+
 export interface GraphConfig {
   direction?: GraphDirection;
   showControllers?: boolean;
@@ -602,8 +674,11 @@ export interface PipeCardPayload {
   pipeType: PipeType;
   description?: string;
   status: PipeStatus;
+  graphMode?: GraphSpecMode;
   inputs: { name: string; concept: string }[];
   outputs: { name: string; concept: string }[];
+  /** Authored/static annotations and runtime tags carried by the GraphSpec node. */
+  tags?: Record<string, string>;
   /** Layout direction — injected by the layout engine */
   direction?: "LR" | "TB";
   /** When set, the card renders an unfold button that invokes this callback. */
@@ -613,7 +688,7 @@ export interface PipeCardPayload {
 // ─── Graph node data ────────────────────────────────────────────────────────
 // Extends Record<string, unknown> for ReactFlow's Node<T> generic parameter.
 
-export type StuffRole = "input" | "output";
+export type StuffRole = "input" | "output" | "combined";
 
 export interface GraphNodeData extends Record<string, unknown> {
   labelDescriptor?: LabelDescriptor;
@@ -625,6 +700,7 @@ export interface GraphNodeData extends Record<string, unknown> {
   labelText: string;
   pipeCode?: string;
   pipeType?: PipeType;
+  graphMode?: GraphSpecMode;
   pipeCardData?: PipeCardPayload;
   /** For stuff nodes: "input" (no producer), "output" (no consumer), or undefined (intermediate). */
   stuffRole?: StuffRole;

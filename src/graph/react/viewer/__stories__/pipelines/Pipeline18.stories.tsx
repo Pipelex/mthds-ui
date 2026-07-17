@@ -4,7 +4,7 @@ import { DRY_CODE_REVIEW } from "./specs/_generated/dry/pipeline_18";
 import { LIVE_CODE_REVIEW } from "./specs/_generated/live/pipeline_18";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/18 Code Review",
+  title: "Graph - from run/18 Code Review",
   component: GraphViewer,
   decorators: [
     (Story) => (

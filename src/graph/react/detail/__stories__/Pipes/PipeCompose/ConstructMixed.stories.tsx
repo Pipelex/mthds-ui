@@ -22,7 +22,7 @@ import {
 } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeCompose/Construct - Mixed (all 4)",
+  title: "Misc/Detail Panel/Pipes/PipeCompose/Construct - Mixed (all 4)",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

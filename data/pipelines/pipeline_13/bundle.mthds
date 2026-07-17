@@ -16,7 +16,7 @@ description = "Split input, process 4 ways in parallel, merge"
 inputs = { data = "Text" }
 output = "MergedResult"
 steps = [
-  { pipe = "quad_process", result = "alpha_result" },
+  { pipe = "quad_process", result = "parallel_results" },
   { pipe = "merge_all", result = "merged" },
 ]
 
@@ -24,7 +24,7 @@ steps = [
 type = "PipeParallel"
 description = "Process data through 4 parallel paths"
 inputs = { data = "Text" }
-output = "ProcessedData"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "process_alpha", result = "alpha_result" },

@@ -4,7 +4,7 @@ import { DRY_THREE_WAY_PARALLEL } from "./specs/_generated/dry/pipeline_06";
 import { LIVE_THREE_WAY_PARALLEL } from "./specs/_generated/live/pipeline_06";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/06 Three-Way Parallel",
+  title: "Graph - from run/06 Three-Way Parallel",
   component: GraphViewer,
   decorators: [
     (Story) => (

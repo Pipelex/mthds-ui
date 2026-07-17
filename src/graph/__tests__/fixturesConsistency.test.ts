@@ -13,6 +13,10 @@ import { describe, it, expect } from "vitest";
 import { readdirSync, existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
+import { DRY_RUN_CATALOG } from "@graph/react/viewer/__stories__/mockGraphSpec";
+import { LIVE_RUN_CATALOG } from "@graph/react/viewer/__stories__/liveGraphSpec";
+import { STATIC_RUN_CATALOG } from "@graph/react/viewer/__stories__/staticGraphSpec";
 
 const SPECS_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -40,6 +44,40 @@ describe("generated fixtures consistency", () => {
     for (const file of readdirSync(LIVE_DIR).filter((f) => f.endsWith(".ts"))) {
       const moduleRef = `./_generated/live/${file.replace(/\.ts$/, "")}`;
       expect(barrel).toContain(moduleRef);
+    }
+  });
+
+  it("stamps explicit graph modes on generated dry and live catalog specs", () => {
+    for (const entry of Object.values(DRY_RUN_CATALOG)) {
+      expect(entry.spec.meta?.mode).toBe("dry");
+    }
+    for (const entry of Object.values(LIVE_RUN_CATALOG)) {
+      expect(entry.spec.meta?.mode).toBe("live");
+    }
+  });
+});
+
+const STATIC_LIVE_COUNTERPARTS: Record<string, string> = {
+  STATIC_SIMPLE_SEQUENCE: "LIVE_SIMPLE_SEQUENCE",
+  STATIC_SIMPLE_CONDITION: "LIVE_SIMPLE_CONDITION",
+  STATIC_SIMPLE_BATCH: "LIVE_SIMPLE_BATCH",
+  STATIC_CV_SCREENING: "LIVE_CV_SCREENING",
+  STATIC_DEEP_NESTING: "LIVE_DEEP_NESTING",
+  STATIC_WIDE_PARALLEL: "LIVE_WIDE_PARALLEL",
+};
+
+describe("static fixture catalog consistency", () => {
+  it.each(Object.keys(STATIC_LIVE_COUNTERPARTS))("%s validates as static", (key) => {
+    const entry = STATIC_RUN_CATALOG[key];
+    expect(entry).toBeDefined();
+    expect(() => validateGraphSpec(entry.spec)).not.toThrow();
+    expect(entry.spec.meta?.mode).toBe("static");
+  });
+
+  it("covers the intended live catalog counterparts", () => {
+    for (const [staticKey, liveKey] of Object.entries(STATIC_LIVE_COUNTERPARTS)) {
+      expect(STATIC_RUN_CATALOG[staticKey]).toBeDefined();
+      expect(LIVE_RUN_CATALOG[liveKey]).toBeDefined();
     }
   });
 });

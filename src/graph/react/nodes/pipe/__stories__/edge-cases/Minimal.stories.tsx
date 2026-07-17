@@ -4,7 +4,7 @@ import { toGraphSpec } from "../edgeCaseGraphSpecs";
 import { minimal } from "./edgeCaseData";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/EdgeCases/Minimal",
+  title: "Misc/PipeCard/EdgeCases/Minimal",
   component: GraphViewer,
   decorators: [
     (Story) => (

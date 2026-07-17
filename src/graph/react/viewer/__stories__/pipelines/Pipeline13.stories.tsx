@@ -4,7 +4,7 @@ import { DRY_DIAMOND_PATTERN } from "./specs/_generated/dry/pipeline_13";
 import { LIVE_DIAMOND_PATTERN } from "./specs/_generated/live/pipeline_13";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/13 Diamond Pattern",
+  title: "Graph - from run/13 Diamond Pattern",
   component: GraphViewer,
   decorators: [
     (Story) => (

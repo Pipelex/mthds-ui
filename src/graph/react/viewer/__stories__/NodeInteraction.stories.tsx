@@ -16,7 +16,7 @@ import type { GraphSpec } from "@graph/types";
 const DEMO_SPEC = LIVE_CV_SCREENING;
 
 const meta: Meta = {
-  title: "Graph/Interaction Prototypes",
+  title: "Misc/Interaction Prototypes",
   parameters: { layout: "fullscreen" },
 };
 

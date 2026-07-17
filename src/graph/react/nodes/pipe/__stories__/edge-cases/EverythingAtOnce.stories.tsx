@@ -4,7 +4,7 @@ import { toGraphSpec } from "../edgeCaseGraphSpecs";
 import { everythingAtOnce } from "./edgeCaseData";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/PipeCard/EdgeCases/EverythingAtOnce",
+  title: "Misc/PipeCard/EdgeCases/EverythingAtOnce",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -25,7 +25,7 @@ inputs = { document = "Document" }
 output = "ProcessedContent"
 steps = [
   { pipe = "extract_content", result = "pages" },
-  { pipe = "dual_process", result = "clean_text" },
+  { pipe = "dual_process", result = "processed_parts" },
   { pipe = "combine_results", result = "processed" },
 ]
 
@@ -39,7 +39,7 @@ output      = "Page[]"
 type = "PipeParallel"
 description = "Process text and images in parallel branches"
 inputs = { pages = "Page[]" }
-output = "CleanText"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "text_branch", result = "clean_text" },

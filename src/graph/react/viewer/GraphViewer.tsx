@@ -22,13 +22,17 @@ import type {
   PipeStatus,
   ConceptInfo,
   ToolbarPosition,
+  ValidationIssue,
+  ValidationState,
 } from "@graph/types";
 import {
   stuffDigestFromId,
   EDGE_TYPE,
   FOLD_MODE,
+  GRAPH_SPEC_MODE,
   GRAPH_DIRECTION,
   GRAPH_THEME_MODE,
+  graphSpecMode,
 } from "@graph/types";
 import { useSystemTheme } from "./useSystemTheme";
 import { resolveConceptRef } from "@graph/graphAnalysis";
@@ -150,6 +154,25 @@ export interface GraphViewerProps {
    * external-open mechanism (e.g. `vscode.env.openExternal` via postMessage).
    */
   onOpenExternally?: (url: string, filename?: string) => void;
+  /**
+   * State of the toolbar's validation widget. The widget renders only when this
+   * is set — `undefined` (the default) disables the feature entirely. Reactive:
+   * a host typically drives `validating → valid | invalid | error` as its
+   * validator progresses, without re-mounting the viewer.
+   */
+  validationState?: ValidationState;
+  /**
+   * Issues listed in the validation widget's dropdown (the badge shows their
+   * count). Presentation-only — the host decides which issues to surface per
+   * state (validator errors, static-analysis diagnostics, or a mix; see
+   * `staticDiagnosticsToValidationIssues` in `@pipelex/mthds-ui/static-graph`).
+   */
+  validationIssues?: ValidationIssue[];
+  /**
+   * Called when an issue row is clicked, with the row's index in
+   * `validationIssues`. Wire this to source navigation in the host.
+   */
+  onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
 }
 
 /** Stuff node detail: concept structure + data viewer. */
@@ -171,6 +194,7 @@ function StuffNodeDetail({
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
+  const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
 
   return (
     <>
@@ -179,11 +203,14 @@ function StuffNodeDetail({
         <ConceptDetailPanel
           concept={conceptInfo}
           ioData={stuffData}
+          isDryRun={isDryRun}
           instanceKey={nodeId}
           resolveStorageUrl={resolveStorageUrl}
           canEmbedPdf={canEmbedPdf}
           onOpenExternally={onOpenExternally}
         />
+      ) : isDryRun ? (
+        <div className="detail-not-available">Dry run data hidden</div>
       ) : (
         /* Fallback: just show the StuffViewer if no concept info */
         <StuffViewer
@@ -271,6 +298,9 @@ export function applyStatusOverrides(
 ): AppNode[] {
   if (!statusMap || Object.keys(statusMap).length === 0) return nodes;
   return nodes.map((node) => {
+    if (node.data.graphMode === "static" || node.data.pipeCardData?.graphMode === "static") {
+      return node;
+    }
     const pipeCode = node.data.pipeCode;
     if (!pipeCode || !Object.hasOwn(statusMap, pipeCode)) return node;
     const newStatus = statusMap[pipeCode];
@@ -323,6 +353,9 @@ export function GraphViewer(props: GraphViewerProps) {
     resolveStorageUrl,
     canEmbedPdf,
     onOpenExternally,
+    validationState,
+    validationIssues,
+    onValidationIssueClick,
   } = props;
 
   // Single boundary validator for the React render path — mirrors the standalone
@@ -1030,6 +1063,9 @@ export function GraphViewer(props: GraphViewerProps) {
             onThemeModeChange={showThemeToggle ? setMode : undefined}
             rightOffset={detailOpen ? panelWidth : 0}
             position={effectiveToolbarPosition}
+            validationState={validationState}
+            validationIssues={validationIssues}
+            onValidationIssueClick={onValidationIssueClick}
           />
         )}
       </ReactFlow>

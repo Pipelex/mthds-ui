@@ -102,12 +102,34 @@ result = px.validate_bundle("my-method.mthds", view=True)
 graphspec = result.graphspec  # dict ready for JSON serialization
 ```
 
+### Static GraphSpec from `.mthds`
+
+For authored-structure previews that should not run Pipelex, use the pure
+TypeScript static builder:
+
+```ts
+import { buildStaticGraphSpecFromToml } from "@pipelex/mthds-ui/static-graph";
+
+const { spec, diagnostics } = buildStaticGraphSpecFromToml(tomlText);
+```
+
+The returned `spec` has `meta: { format: "mthds", mode: "static" }` and can be
+passed directly to `GraphViewer`. Static graphs hide runtime status/timing
+chrome and are best-effort: diagnostics report incomplete or unresolved authored
+content without preventing rendering.
+
+See [docs/static-graph.md](./docs/static-graph.md) for the full contract.
+
 ### Structure
 
 ```typescript
 interface GraphSpec {
   nodes: GraphSpecNode[];
   edges: GraphSpecEdge[];
+  meta: {
+    format: "mthds";
+    mode?: "dry" | "live" | "static";
+  };
 }
 
 interface GraphSpecNode {

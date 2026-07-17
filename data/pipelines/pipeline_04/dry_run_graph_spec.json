@@ -1,6 +1,6 @@
 {
-  "graph_id": "94428b29-684b-4de1-b89d-c894302c77f6",
-  "created_at": "2026-05-15T12:39:06.394010Z",
+  "graph_id": "4992eee0-6482-410e-b569-dd2635f702c1",
+  "created_at": "2026-07-09T11:00:27.054366Z",
   "pipeline_ref": {
     "domain": "data_pipeline",
     "main_pipe": "ingest_pipeline",
@@ -8,37 +8,38 @@
   },
   "nodes": [
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
       "kind": "controller",
       "pipe_code": "ingest_pipeline",
       "pipe_type": "PipeSequence",
       "description": "Full document ingestion pipeline",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.394010Z",
-        "ended_at": "2026-05-15T12:39:06.492567Z",
-        "duration": 0.098557
+        "started_at": "2026-07-09T11:00:27.054366Z",
+        "ended_at": "2026-07-09T11:00:27.257228Z",
+        "duration": 0.202862
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "biIwUBeXmzZJeItAhITN",
+            "content_type": "RCDjzsAbNudkOhLZMIbo",
             "preview": null,
             "size": null,
-            "digest": "NNuyv",
+            "digest": "HU3oE",
             "data": {
-              "url": "nCIzdmCOcYiehEuOyifm",
-              "public_url": "vJJQXUbcgncfPhgqwFhE",
-              "mime_type": "biIwUBeXmzZJeItAhITN",
-              "filename": "fPnKSoAqCKSHLjrWvXkX",
-              "title": "SFHsXbZqaQNbDzegXKwh",
-              "snippet": "ZLKsnvwiSRKmGfdbevPX"
+              "url": "IokbNPOZyUElfXXkgPsu",
+              "public_url": "qxzqoxLIlWwAURNTthCT",
+              "mime_type": "RCDjzsAbNudkOhLZMIbo",
+              "filename": "TPqYXjMppFEIscbFUTZy",
+              "title": "DrjPqODDJtaCytFHfMQH",
+              "snippet": "pCKNmvvgPYlIJIxPWGJG"
             },
-            "data_text": "SFHsXbZqaQNbDzegXKwh (nCIzdmCOcYiehEuOyifm)\n  ZLKsnvwiSRKmGfdbevPX\n",
-            "data_html": "<a href=\"vJJQXUbcgncfPhgqwFhE\" class=\"msg-document\">SFHsXbZqaQNbDzegXKwh</a><br/><small>ZLKsnvwiSRKmGfdbevPX</small>",
+            "data_text": "DrjPqODDJtaCytFHfMQH (IokbNPOZyUElfXXkgPsu)\n  pCKNmvvgPYlIJIxPWGJG\n",
+            "data_html": "<a href=\"qxzqoxLIlWwAURNTthCT\" class=\"msg-document\">DrjPqODDJtaCytFHfMQH</a><br/><small>pCKNmvvgPYlIJIxPWGJG</small>",
             "extra": {}
           }
         ],
@@ -49,12 +50,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QryJt",
+            "digest": "US2eo",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"tKbgPxlYyOZWjZVXwFsq\": \"3\"\n}\n</index>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;xoMuMWizrJVPCAzUjwNM&quot;: &quot;62a5&quot;\n}\n&lt;/index&gt;\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;tKbgPxlYyOZWjZVXwFsq&quot;: &quot;3&quot;\n}\n&lt;/index&gt;\n    ",
             "extra": {}
           }
         ]
@@ -67,37 +68,38 @@
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
       "kind": "operator",
       "pipe_code": "extract_raw",
       "pipe_type": "PipeExtract",
       "description": "Extract raw content from document",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.399298Z",
-        "ended_at": "2026-05-15T12:39:06.406734Z",
-        "duration": 0.007436
+        "started_at": "2026-07-09T11:00:27.058980Z",
+        "ended_at": "2026-07-09T11:00:27.069065Z",
+        "duration": 0.010085
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "biIwUBeXmzZJeItAhITN",
+            "content_type": "RCDjzsAbNudkOhLZMIbo",
             "preview": null,
             "size": null,
-            "digest": "NNuyv",
+            "digest": "HU3oE",
             "data": {
-              "url": "nCIzdmCOcYiehEuOyifm",
-              "public_url": "vJJQXUbcgncfPhgqwFhE",
-              "mime_type": "biIwUBeXmzZJeItAhITN",
-              "filename": "fPnKSoAqCKSHLjrWvXkX",
-              "title": "SFHsXbZqaQNbDzegXKwh",
-              "snippet": "ZLKsnvwiSRKmGfdbevPX"
+              "url": "IokbNPOZyUElfXXkgPsu",
+              "public_url": "qxzqoxLIlWwAURNTthCT",
+              "mime_type": "RCDjzsAbNudkOhLZMIbo",
+              "filename": "TPqYXjMppFEIscbFUTZy",
+              "title": "DrjPqODDJtaCytFHfMQH",
+              "snippet": "pCKNmvvgPYlIJIxPWGJG"
             },
-            "data_text": "SFHsXbZqaQNbDzegXKwh (nCIzdmCOcYiehEuOyifm)\n  ZLKsnvwiSRKmGfdbevPX\n",
-            "data_html": "<a href=\"vJJQXUbcgncfPhgqwFhE\" class=\"msg-document\">SFHsXbZqaQNbDzegXKwh</a><br/><small>ZLKsnvwiSRKmGfdbevPX</small>",
+            "data_text": "DrjPqODDJtaCytFHfMQH (IokbNPOZyUElfXXkgPsu)\n  pCKNmvvgPYlIJIxPWGJG\n",
+            "data_html": "<a href=\"qxzqoxLIlWwAURNTthCT\" class=\"msg-document\">DrjPqODDJtaCytFHfMQH</a><br/><small>pCKNmvvgPYlIJIxPWGJG</small>",
             "extra": {}
           }
         ],
@@ -108,7 +110,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8DoNM",
+            "digest": "VtpgH",
             "data": {
               "items": [
                 {
@@ -170,17 +172,18 @@
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
       "kind": "operator",
       "pipe_code": "clean_text",
       "pipe_type": "PipeLLM",
       "description": "Clean and normalize extracted text",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.411950Z",
-        "ended_at": "2026-05-15T12:39:06.423158Z",
-        "duration": 0.011208
+        "started_at": "2026-07-09T11:00:27.070568Z",
+        "ended_at": "2026-07-09T11:00:27.088779Z",
+        "duration": 0.018211
       },
       "io": {
         "inputs": [
@@ -190,7 +193,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8DoNM",
+            "digest": "VtpgH",
             "data": {
               "items": [
                 {
@@ -247,12 +250,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LsxWn",
+            "digest": "XFkwG",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             "extra": {}
           }
         ]
@@ -270,17 +273,18 @@
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
       "kind": "operator",
       "pipe_code": "chunk_text",
       "pipe_type": "PipeLLM",
       "description": "Split text into semantic chunks",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.427851Z",
-        "ended_at": "2026-05-15T12:39:06.442164Z",
-        "duration": 0.014313
+        "started_at": "2026-07-09T11:00:27.090301Z",
+        "ended_at": "2026-07-09T11:00:27.191586Z",
+        "duration": 0.101285
       },
       "io": {
         "inputs": [
@@ -290,12 +294,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LsxWn",
+            "digest": "XFkwG",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             "extra": {}
           }
         ],
@@ -306,22 +310,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5yYVV",
+            "digest": "FpVnz",
             "data": {
               "items": [
                 {
-                  "text": "IOuIyELzPNTQifeVcTsm"
+                  "text": "HIfwoHBAPLhokhhLbJtW"
                 },
                 {
-                  "text": "EQMtDnMOlVqDNNTZXXmT"
+                  "text": "DzBHnUUKpbSqvktsDVEs"
                 },
                 {
-                  "text": "cIgBrwQgHjhgLBulzLov"
+                  "text": "ngZqJNqCkFmzlynqCdZu"
                 }
               ]
             },
-            "data_text": "   1    │ IOuIyELzPNTQifeVcTsm                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ EQMtDnMOlVqDNNTZXXmT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ cIgBrwQgHjhgLBulzLov                                                  \n",
-            "data_html": "<ul><li>IOuIyELzPNTQifeVcTsm</li><li>EQMtDnMOlVqDNNTZXXmT</li><li>cIgBrwQgHjhgLBulzLov</li></ul>",
+            "data_text": "   1    │ HIfwoHBAPLhokhhLbJtW                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DzBHnUUKpbSqvktsDVEs                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ngZqJNqCkFmzlynqCdZu                                                  \n",
+            "data_html": "<ul><li>HIfwoHBAPLhokhhLbJtW</li><li>DzBHnUUKpbSqvktsDVEs</li><li>ngZqJNqCkFmzlynqCdZu</li></ul>",
             "extra": {}
           }
         ]
@@ -334,22 +338,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n<clean_text>\nDRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    \n</clean_text>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__TextChunk(TextContent):\n    \"\"\"A segment of text split for processing\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    \n</clean_text>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__TextChunk(TextContent):\n    \"\"\"A segment of text split for processing\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
       "kind": "operator",
       "pipe_code": "embed_chunks",
       "pipe_type": "PipeLLM",
       "description": "Generate embeddings for text chunks",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.447033Z",
-        "ended_at": "2026-05-15T12:39:06.461722Z",
-        "duration": 0.014689
+        "started_at": "2026-07-09T11:00:27.192997Z",
+        "ended_at": "2026-07-09T11:00:27.215393Z",
+        "duration": 0.022396
       },
       "io": {
         "inputs": [
@@ -359,22 +364,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "5yYVV",
+            "digest": "FpVnz",
             "data": {
               "items": [
                 {
-                  "text": "IOuIyELzPNTQifeVcTsm"
+                  "text": "HIfwoHBAPLhokhhLbJtW"
                 },
                 {
-                  "text": "EQMtDnMOlVqDNNTZXXmT"
+                  "text": "DzBHnUUKpbSqvktsDVEs"
                 },
                 {
-                  "text": "cIgBrwQgHjhgLBulzLov"
+                  "text": "ngZqJNqCkFmzlynqCdZu"
                 }
               ]
             },
-            "data_text": "   1    │ IOuIyELzPNTQifeVcTsm                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ EQMtDnMOlVqDNNTZXXmT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ cIgBrwQgHjhgLBulzLov                                                  \n",
-            "data_html": "<ul><li>IOuIyELzPNTQifeVcTsm</li><li>EQMtDnMOlVqDNNTZXXmT</li><li>cIgBrwQgHjhgLBulzLov</li></ul>",
+            "data_text": "   1    │ HIfwoHBAPLhokhhLbJtW                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DzBHnUUKpbSqvktsDVEs                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ngZqJNqCkFmzlynqCdZu                                                  \n",
+            "data_html": "<ul><li>HIfwoHBAPLhokhhLbJtW</li><li>DzBHnUUKpbSqvktsDVEs</li><li>ngZqJNqCkFmzlynqCdZu</li></ul>",
             "extra": {}
           }
         ],
@@ -385,22 +390,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WDm2G",
+            "digest": "Dk6G6",
             "data": {
               "items": [
                 {
-                  "text": "CHImyylRjSLZwWnqXfOT"
+                  "text": "MBVKpbKlLaTFEJcujZWw"
                 },
                 {
-                  "text": "jhIvhGZrjAuKWcEXxUZa"
+                  "text": "HxiGAqIjYmZCXMABybox"
                 },
                 {
-                  "text": "UswAwhWTUOLnbyvWMPPr"
+                  "text": "LrYXcOOoBWYRIKYSgWsf"
                 }
               ]
             },
-            "data_text": "   1    │ CHImyylRjSLZwWnqXfOT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ jhIvhGZrjAuKWcEXxUZa                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ UswAwhWTUOLnbyvWMPPr                                                  \n",
-            "data_html": "<ul><li>CHImyylRjSLZwWnqXfOT</li><li>jhIvhGZrjAuKWcEXxUZa</li><li>UswAwhWTUOLnbyvWMPPr</li></ul>",
+            "data_text": "   1    │ MBVKpbKlLaTFEJcujZWw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ HxiGAqIjYmZCXMABybox                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ LrYXcOOoBWYRIKYSgWsf                                                  \n",
+            "data_html": "<ul><li>MBVKpbKlLaTFEJcujZWw</li><li>HxiGAqIjYmZCXMABybox</li><li>LrYXcOOoBWYRIKYSgWsf</li></ul>",
             "extra": {}
           }
         ]
@@ -413,22 +418,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nIOuIyELzPNTQifeVcTsm\n\n • item #2:\n\nEQMtDnMOlVqDNNTZXXmT\n\n • item #3:\n\ncIgBrwQgHjhgLBulzLov\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    \"\"\"Vector embedding of text\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nHIfwoHBAPLhokhhLbJtW\n\n • item #2:\n\nDzBHnUUKpbSqvktsDVEs\n\n • item #3:\n\nngZqJNqCkFmzlynqCdZu\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    \"\"\"Vector embedding of text\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
       "kind": "operator",
       "pipe_code": "build_index",
       "pipe_type": "PipeLLM",
       "description": "Build vector index from embeddings",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.466589Z",
-        "ended_at": "2026-05-15T12:39:06.477929Z",
-        "duration": 0.01134
+        "started_at": "2026-07-09T11:00:27.216763Z",
+        "ended_at": "2026-07-09T11:00:27.240378Z",
+        "duration": 0.023615
       },
       "io": {
         "inputs": [
@@ -438,22 +444,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "WDm2G",
+            "digest": "Dk6G6",
             "data": {
               "items": [
                 {
-                  "text": "CHImyylRjSLZwWnqXfOT"
+                  "text": "MBVKpbKlLaTFEJcujZWw"
                 },
                 {
-                  "text": "jhIvhGZrjAuKWcEXxUZa"
+                  "text": "HxiGAqIjYmZCXMABybox"
                 },
                 {
-                  "text": "UswAwhWTUOLnbyvWMPPr"
+                  "text": "LrYXcOOoBWYRIKYSgWsf"
                 }
               ]
             },
-            "data_text": "   1    │ CHImyylRjSLZwWnqXfOT                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ jhIvhGZrjAuKWcEXxUZa                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ UswAwhWTUOLnbyvWMPPr                                                  \n",
-            "data_html": "<ul><li>CHImyylRjSLZwWnqXfOT</li><li>jhIvhGZrjAuKWcEXxUZa</li><li>UswAwhWTUOLnbyvWMPPr</li></ul>",
+            "data_text": "   1    │ MBVKpbKlLaTFEJcujZWw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ HxiGAqIjYmZCXMABybox                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ LrYXcOOoBWYRIKYSgWsf                                                  \n",
+            "data_html": "<ul><li>MBVKpbKlLaTFEJcujZWw</li><li>HxiGAqIjYmZCXMABybox</li><li>LrYXcOOoBWYRIKYSgWsf</li></ul>",
             "extra": {}
           }
         ],
@@ -464,14 +470,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CiGGc",
+            "digest": "VHW7K",
             "data": {
               "json_obj": {
-                "xoMuMWizrJVPCAzUjwNM": "62a5"
+                "tKbgPxlYyOZWjZVXwFsq": "3"
               }
             },
-            "data_text": "{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n",
-            "data_html": "<table ><tr><th>xoMuMWizrJVPCAzUjwNM</th><td>62a5</td></tr></table>",
+            "data_text": "{\n    \"tKbgPxlYyOZWjZVXwFsq\": \"3\"\n}\n",
+            "data_html": "<table ><tr><th>tKbgPxlYyOZWjZVXwFsq</th><td>3</td></tr></table>",
             "extra": {}
           }
         ]
@@ -484,22 +490,23 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nCHImyylRjSLZwWnqXfOT\n\n • item #2:\n\njhIvhGZrjAuKWcEXxUZa\n\n • item #3:\n\nUswAwhWTUOLnbyvWMPPr\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    \"\"\"An indexed collection of vectors\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nMBVKpbKlLaTFEJcujZWw\n\n • item #2:\n\nHxiGAqIjYmZCXMABybox\n\n • item #3:\n\nLrYXcOOoBWYRIKYSgWsf\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    \"\"\"An indexed collection of vectors\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
       "kind": "operator",
       "pipe_code": "validate_index",
       "pipe_type": "PipeLLM",
       "description": "Validate the quality of the built index",
       "domain_code": "data_pipeline",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:06.482379Z",
-        "ended_at": "2026-05-15T12:39:06.490278Z",
-        "duration": 0.007899
+        "started_at": "2026-07-09T11:00:27.241713Z",
+        "ended_at": "2026-07-09T11:00:27.256637Z",
+        "duration": 0.014924
       },
       "io": {
         "inputs": [
@@ -509,14 +516,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "CiGGc",
+            "digest": "VHW7K",
             "data": {
               "json_obj": {
-                "xoMuMWizrJVPCAzUjwNM": "62a5"
+                "tKbgPxlYyOZWjZVXwFsq": "3"
               }
             },
-            "data_text": "{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n",
-            "data_html": "<table ><tr><th>xoMuMWizrJVPCAzUjwNM</th><td>62a5</td></tr></table>",
+            "data_text": "{\n    \"tKbgPxlYyOZWjZVXwFsq\": \"3\"\n}\n",
+            "data_html": "<table ><tr><th>tKbgPxlYyOZWjZVXwFsq</th><td>3</td></tr></table>",
             "extra": {}
           }
         ],
@@ -527,12 +534,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "QryJt",
+            "digest": "US2eo",
             "data": {
-              "text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"tKbgPxlYyOZWjZVXwFsq\": \"3\"\n}\n</index>\n    "
             },
-            "data_text": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            "data_html": "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;xoMuMWizrJVPCAzUjwNM&quot;: &quot;62a5&quot;\n}\n&lt;/index&gt;\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;tKbgPxlYyOZWjZVXwFsq&quot;: &quot;3&quot;\n}\n&lt;/index&gt;\n    ",
             "extra": {}
           }
         ]
@@ -545,117 +552,128 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"xoMuMWizrJVPCAzUjwNM\": \"62a5\"\n}\n</index>",
+        "rendered_user_prompt": "Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    \"tKbgPxlYyOZWjZVXwFsq\": \"3\"\n}\n</index>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_0",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_0",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_1",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_1",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_2",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_2",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_3",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_3",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_4",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_4",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:edge_5",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_0",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:edge_5",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_0",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_1",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_0",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
       "kind": "data",
+      "optional": false,
       "label": "pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_1",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_2",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_1",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
       "kind": "data",
+      "optional": false,
       "label": "clean_text",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_2",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_3",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_2",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
       "kind": "data",
+      "optional": false,
       "label": "chunks",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_3",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_4",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_3",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
       "kind": "data",
+      "optional": false,
       "label": "embeddings",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "94428b29-684b-4de1-b89d-c894302c77f6:asm_edge_4",
-      "source": "94428b29-684b-4de1-b89d-c894302c77f6:node_5",
-      "target": "94428b29-684b-4de1-b89d-c894302c77f6:node_6",
+      "id": "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_4",
+      "source": "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
+      "target": "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
       "kind": "data",
+      "optional": false,
       "label": "index",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
@@ -663,7 +681,8 @@
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "data_pipeline.ingest_pipeline": {
@@ -681,7 +700,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -692,7 +712,8 @@
           "structure_class_name": "data_pipeline__ValidationReport",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -748,7 +769,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -759,7 +781,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": null,
       "should_caption_images": false,
@@ -786,7 +809,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -797,7 +821,8 @@
           "structure_class_name": "data_pipeline__CleanText",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -817,7 +842,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "data_pipeline.chunk_text": {
@@ -835,7 +859,8 @@
             "structure_class_name": "data_pipeline__CleanText",
             "refines": "native.Text"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -846,7 +871,8 @@
           "structure_class_name": "data_pipeline__TextChunk",
           "refines": "native.Text"
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -866,7 +892,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "data_pipeline.embed_chunks": {
@@ -884,7 +909,8 @@
             "structure_class_name": "data_pipeline__TextChunk",
             "refines": "native.Text"
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -895,7 +921,8 @@
           "structure_class_name": "data_pipeline__Embedding",
           "refines": "native.Text"
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -915,7 +942,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "data_pipeline.build_index": {
@@ -933,7 +959,8 @@
             "structure_class_name": "data_pipeline__Embedding",
             "refines": "native.Text"
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -944,7 +971,8 @@
           "structure_class_name": "data_pipeline__VectorIndex",
           "refines": "native.JSON"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -964,7 +992,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "data_pipeline.validate_index": {
@@ -982,7 +1009,8 @@
             "structure_class_name": "data_pipeline__VectorIndex",
             "refines": "native.JSON"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -993,7 +1021,8 @@
           "structure_class_name": "data_pipeline__ValidationReport",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -1013,7 +1042,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     }
   },
@@ -1240,10 +1268,12 @@
           "ImageSize": {
             "properties": {
               "width": {
+                "exclusiveMinimum": 0,
                 "title": "Width",
                 "type": "integer"
               },
               "height": {
+                "exclusiveMinimum": 0,
                 "title": "Height",
                 "type": "integer"
               }

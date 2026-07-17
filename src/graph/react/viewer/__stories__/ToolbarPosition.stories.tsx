@@ -6,7 +6,7 @@ import { waitForGraphRender } from "./storyTestUtils";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated/live/pipeline_09";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/ToolbarPosition",
+  title: "Misc/ToolbarPosition",
   component: GraphViewer,
   decorators: [
     (Story) => (

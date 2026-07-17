@@ -31,7 +31,7 @@ description = "Moderate content through parallel checks then route decision"
 inputs = { content = "Text" }
 output = "ModerationResult"
 steps = [
-  { pipe = "parallel_checks", result = "text_score" },
+  { pipe = "parallel_checks", result = "safety_scores_bundle" },
   { pipe = "make_decision", result = "decision" },
   { pipe = "route_action", result = "result" },
 ]
@@ -40,7 +40,7 @@ steps = [
 type = "PipeParallel"
 description = "Check text and image safety in parallel"
 inputs = { content = "Text" }
-output = "SafetyScore"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "check_text_safety", result = "text_score" },

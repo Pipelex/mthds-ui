@@ -5,7 +5,7 @@ import type { PipeControllerType } from "@graph/types";
 import { ControllerGroupNode } from "../ControllerGroupNode";
 
 const meta: Meta<typeof ControllerGroupNode> = {
-  title: "Graph/ControllerGroupNode/Rendering Tests",
+  title: "Misc/ControllerGroupNode/Rendering Tests",
   component: ControllerGroupNode,
   decorators: [
     (Story) => (

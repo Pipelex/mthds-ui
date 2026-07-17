@@ -12,6 +12,7 @@ import {
   CONTROLLER_PADDING_TOP,
   CONTROLLER_PADDING_BOTTOM,
   NODE_TYPE_CONTROLLER,
+  graphSpecMode,
   nodeWidth,
   nodeHeight,
   isStuffNodeId,
@@ -67,6 +68,7 @@ export function buildControllerNodes(
   controllerPositions?: Record<string, ControllerRect>,
 ): GraphNode[] {
   const nodeById: Record<string, GraphNode> = {};
+  const graphMode = graphSpecMode(graphspec);
   for (const n of layoutedNodes) {
     nodeById[n.id] = n;
   }
@@ -185,6 +187,7 @@ export function buildControllerNodes(
         isStuff: false,
         pipeCode: pipeCode,
         labelText: pipeCode,
+        graphMode,
       },
       position: { x: groupX, y: groupY },
       style: {

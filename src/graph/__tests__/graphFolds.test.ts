@@ -322,6 +322,21 @@ describe("applyFolds — single fold", () => {
     expect(card!.data.pipeCardData?.pipeType).toBe("PipeSequence");
   });
 
+  it("propagates static mode to folded controller pipe cards", () => {
+    const staticSpec: GraphSpec = {
+      ...makeNestedSiblingSpec(),
+      meta: { format: "mthds", mode: "static" },
+    };
+    const { spec, analysis, graphData } = buildPipeline(staticSpec);
+
+    const result = applyFolds(graphData, analysis, spec, new Set(["ctrlA"]));
+
+    const card = result.nodes.find((n) => n.id === "ctrlA");
+    expect(card?.type).toBe(NODE_TYPE_PIPE_CARD);
+    expect(card?.data.graphMode).toBe("static");
+    expect(card?.data.pipeCardData?.graphMode).toBe("static");
+  });
+
   it("reattaches external edges so they connect to the controller card", () => {
     const { spec, analysis, graphData } = buildPipeline(makeNestedSiblingSpec());
 

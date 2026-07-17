@@ -1,5 +1,6 @@
 import React from "react";
 import type { GraphSpecNode, PipeBlueprintUnion, PipeType, GraphSpec } from "@graph/types";
+import { isDryGraphSpec, isStaticGraphSpec } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -64,6 +65,8 @@ export interface PipeDetailPanelProps {
 export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelProps) {
   const pipeType = node.pipe_type;
   const isController = CONTROLLER_TYPES.has(pipeType);
+  const isStatic = isStaticGraphSpec(spec);
+  const showsGeneratedData = !isStatic && !isDryGraphSpec(spec);
   const badge = PIPE_TYPE_BADGES[pipeType];
   const status = node.status;
   const statusColor = STATUS_COLORS[status] ?? "#6272a4";
@@ -106,15 +109,17 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         </div>
 
         {/* Status + Duration */}
-        <div className="detail-status">
-          <span className="detail-status-dot" style={{ background: statusColor }} />
-          <span className="detail-status-label" style={{ color: statusColor }}>
-            {status}
-          </span>
-          {node.timing?.duration != null && (
-            <span className="detail-duration">{formatDuration(node.timing.duration)}</span>
-          )}
-        </div>
+        {!isStatic && (
+          <div className="detail-status">
+            <span className="detail-status-dot" style={{ background: statusColor }} />
+            <span className="detail-status-label" style={{ color: statusColor }}>
+              {status}
+            </span>
+            {node.timing?.duration != null && (
+              <span className="detail-duration">{formatDuration(node.timing.duration)}</span>
+            )}
+          </div>
+        )}
 
         {/* Description */}
         {description && <div className="detail-description">{description}</div>}
@@ -166,10 +171,15 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       </div>
 
       {/* Blueprint-specific sections */}
-      {blueprint && <BlueprintSection blueprint={blueprint} executionData={node.execution_data} />}
+      {blueprint && (
+        <BlueprintSection
+          blueprint={blueprint}
+          executionData={showsGeneratedData ? node.execution_data : undefined}
+        />
+      )}
 
       {/* Execution data (runtime-resolved values) */}
-      {node.execution_data && Object.keys(node.execution_data).length > 0 && (
+      {showsGeneratedData && node.execution_data && Object.keys(node.execution_data).length > 0 && (
         <ExecutionDataSection
           executionData={node.execution_data}
           pipeType={pipeType}
@@ -187,7 +197,7 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
       )}
 
       {/* Metrics */}
-      {node.metrics && Object.keys(node.metrics).length > 0 && (
+      {showsGeneratedData && node.metrics && Object.keys(node.metrics).length > 0 && (
         <div>
           <div className="detail-section-label">Metrics</div>
           {Object.entries(node.metrics).map(([key, value]) => (

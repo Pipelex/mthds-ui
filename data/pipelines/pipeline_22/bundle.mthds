@@ -29,7 +29,7 @@ inputs = { document = "Document" }
 output = "DistributionReport"
 steps = [
   { pipe = "deep_analyze", result = "analysis" },
-  { pipe = "distribute", result = "summary" },
+  { pipe = "distribute", result = "distribution_bundle" },
   { pipe = "report", result = "distribution_report" },
 ]
 
@@ -48,7 +48,7 @@ Perform a deep analysis of this document covering summary, entities, and sentime
 type = "PipeParallel"
 description = "Distribute analysis to 3 consumers"
 inputs = { analysis = "Analysis" }
-output = "Summary"
+output = "Composite"
 add_each_output = true
 branches = [
   { pipe = "store_summary", result = "summary" },

@@ -28,7 +28,7 @@ import {
 } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeCompose/Template Mode",
+  title: "Misc/Detail Panel/Pipes/PipeCompose/Template Mode",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

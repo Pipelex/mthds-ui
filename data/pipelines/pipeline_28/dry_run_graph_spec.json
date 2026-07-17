@@ -1,6 +1,6 @@
 {
-  "graph_id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f",
-  "created_at": "2026-05-15T12:39:55.589792Z",
+  "graph_id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8",
+  "created_at": "2026-07-09T11:06:48.797524Z",
   "pipeline_ref": {
     "domain": "cv_batch_screening",
     "main_pipe": "batch_analyze_cvs_for_job_offer",
@@ -8,37 +8,38 @@
   },
   "nodes": [
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_0",
       "kind": "controller",
       "pipe_code": "batch_analyze_cvs_for_job_offer",
       "pipe_type": "PipeSequence",
       "description": "Main orchestrator pipe that takes a bunch of CVs and a job offer in PDF format,\nand analyzes how they match.\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.589792Z",
-        "ended_at": "2026-05-15T12:39:55.801488Z",
-        "duration": 0.211696
+        "started_at": "2026-07-09T11:06:48.797524Z",
+        "ended_at": "2026-07-09T11:06:49.067114Z",
+        "duration": 0.26959
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "tboHjLJFCJNOTvsFUcIK",
+            "content_type": "IxLcoZzOIsAkszWLEZpV",
             "preview": null,
             "size": null,
-            "digest": "juQjr",
+            "digest": "cpKKS",
             "data": {
-              "url": "romLlQpBjTOUWAKHFqqj",
-              "public_url": "otANBGNhkMKAeOFaUZAd",
-              "mime_type": "tboHjLJFCJNOTvsFUcIK",
-              "filename": "eHoKhreGPGmwVZPSPIjT",
-              "title": "ihJDIDpeOAkegLltSukj",
-              "snippet": "AxEtGNkBVpRkYYCBkjUX"
+              "url": "IzJQcvWFtWTsCdadCkaH",
+              "public_url": "VOMmmNNFZWyNalhLeAQu",
+              "mime_type": "IxLcoZzOIsAkszWLEZpV",
+              "filename": "dHScHCBYheGACUpqdCSY",
+              "title": "vqrkNEPIzStnQlJVRTwR",
+              "snippet": "rUhyiLBvwLKuCNkRHaws"
             },
-            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
-            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
+            "data_text": "vqrkNEPIzStnQlJVRTwR (IzJQcvWFtWTsCdadCkaH)\n  rUhyiLBvwLKuCNkRHaws\n",
+            "data_html": "<a href=\"VOMmmNNFZWyNalhLeAQu\" class=\"msg-document\">vqrkNEPIzStnQlJVRTwR</a><br/><small>rUhyiLBvwLKuCNkRHaws</small>",
             "extra": {}
           },
           {
@@ -47,37 +48,29 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "V5vae",
+            "digest": "BToD8",
             "data": {
               "items": [
                 {
-                  "url": "dXAsWBvZvBfnvVaeyULy",
-                  "public_url": "nvFGzZgwEblFGenNvLWn",
-                  "mime_type": "xgElecCTkPZgRwlnEhPw",
-                  "filename": "eAIcRFIZBeAEiDosQlyd",
-                  "title": "KyUptAsybHVCanWcOHUg",
-                  "snippet": "MqKSYginyDGNecynbURT"
+                  "url": "XOEfdXuQXcnPFlVvkjWp",
+                  "public_url": "rBqLbzzSzvhEvaDaaUtl",
+                  "mime_type": "gJWBugVKmmxeIeYqCDEG",
+                  "filename": "iYLwnwFjrNXfaviTDGgc",
+                  "title": "TicXALASbDFEFsbyzghA",
+                  "snippet": "FpDufCDmTKTHEcpFeibE"
                 },
                 {
-                  "url": "boOdshflPuvQVbvyIzHx",
-                  "public_url": "gfFaaKvQyerowkLicaZV",
-                  "mime_type": "jmIrWXUNNbXRLKVjxQwm",
-                  "filename": "lUBkWsCkCuwnZeVzhCad",
-                  "title": "YrqoorctKNIHkziRaFfQ",
-                  "snippet": "NNlsRKItdoAvnvVYoPyG"
-                },
-                {
-                  "url": "qLjWSQtReJZUEWUETJjO",
-                  "public_url": "aZDNpYUoispSfPGwwymj",
-                  "mime_type": "OuivZNaVcTkiYjlSIfjD",
-                  "filename": "qkQNwKNrDcXTnrBjipOn",
-                  "title": "kkOFQVPWsnIJkFEdlmQF",
-                  "snippet": "auAZEyQJJBxXnHBmAeOI"
+                  "url": "qoetonSXkphvcfmdMTCq",
+                  "public_url": "AWKiTKEMeDUzwSgFIvMN",
+                  "mime_type": "iWardUyImuHOIAwAxZab",
+                  "filename": "nLYYgkIfJcaiDpzrnsQb",
+                  "title": "IiixZukfOQJrVphCVWCf",
+                  "snippet": "EJNEhjIsworCOYKuZibo"
                 }
               ]
             },
-            "data_text": "     1      │ KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)                       \n            │   MqKSYginyDGNecynbURT                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)                       \n            │   NNlsRKItdoAvnvVYoPyG                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)                       \n            │   auAZEyQJJBxXnHBmAeOI                                            \n",
-            "data_html": "<ul><li><a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small></li><li><a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small></li><li><a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small></li></ul>",
+            "data_text": "     1      │ TicXALASbDFEFsbyzghA (XOEfdXuQXcnPFlVvkjWp)                       \n            │   FpDufCDmTKTHEcpFeibE                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ IiixZukfOQJrVphCVWCf (qoetonSXkphvcfmdMTCq)                       \n            │   EJNEhjIsworCOYKuZibo                                            \n",
+            "data_html": "<ul><li><a href=\"rBqLbzzSzvhEvaDaaUtl\" class=\"msg-document\">TicXALASbDFEFsbyzghA</a><br/><small>FpDufCDmTKTHEcpFeibE</small></li><li><a href=\"AWKiTKEMeDUzwSgFIvMN\" class=\"msg-document\">IiixZukfOQJrVphCVWCf</a><br/><small>EJNEhjIsworCOYKuZibo</small></li></ul>",
             "extra": {}
           }
         ],
@@ -88,31 +81,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LMiEK",
+            "digest": "AxLkk",
             "data": {
               "items": [
                 {
-                  "match_score": 84619584924982.1,
-                  "strengths": "nqXFhJAsyKFgFkIcsfJl",
-                  "gaps": "TCHAmVmmihqVBFuxDSNc",
-                  "overall_assessment": "tIGiICgdOSibQMomXxZP"
+                  "match_score": -8695451.1920006,
+                  "strengths": "DCnyxwntQUytnniflwUi",
+                  "gaps": "fSUSdoNYrIfflKqCazQe",
+                  "overall_assessment": "uodKFkiLOMjHBbigzUzj"
                 },
                 {
-                  "match_score": 8200.59706829677,
-                  "strengths": "zlDtGiKvXoerMxGDTnLe",
-                  "gaps": "sQZBIVYupSYKXoftBCWd",
-                  "overall_assessment": "rhJRTOeBMppKEvupZwev"
-                },
-                {
-                  "match_score": 308.596122362541,
-                  "strengths": "RPGssLScWPXjQagFYgkM",
-                  "gaps": "GVnzWxRukreNgNBpUAKn",
-                  "overall_assessment": "VmltLQKrevgdJFsboaMa"
+                  "match_score": 66.9552336570479,
+                  "strengths": "CzaWbJFpXyypOeWKziOG",
+                  "gaps": "pksOnNMkYiQkLAlcoAuJ",
+                  "overall_assessment": "vLJNKhEuBPEjiGJHBFum"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 84619584924982.1                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nqXFhJAsyKFgFkIcsfJl              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ TCHAmVmmihqVBFuxDSNc              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ tIGiICgdOSibQMomXxZP              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 8200.59706829677                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ zlDtGiKvXoerMxGDTnLe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ sQZBIVYupSYKXoftBCWd              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ rhJRTOeBMppKEvupZwev              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 308.596122362541                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ RPGssLScWPXjQagFYgkM              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ GVnzWxRukreNgNBpUAKn              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ VmltLQKrevgdJFsboaMa              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table></li><li><table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table></li><li><table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ -8695451.1920006                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ DCnyxwntQUytnniflwUi              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ fSUSdoNYrIfflKqCazQe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ uodKFkiLOMjHBbigzUzj              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 66.9552336570479                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ CzaWbJFpXyypOeWKziOG              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ pksOnNMkYiQkLAlcoAuJ              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ vLJNKhEuBPEjiGJHBFum              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>-8695451.1920006</td></tr><tr><th>strengths</th><td>DCnyxwntQUytnniflwUi</td></tr><tr><th>gaps</th><td>fSUSdoNYrIfflKqCazQe</td></tr><tr><th>overall_assessment</th><td>uodKFkiLOMjHBbigzUzj</td></tr></table></li><li><table><tr><th>match_score</th><td>66.9552336570479</td></tr><tr><th>strengths</th><td>CzaWbJFpXyypOeWKziOG</td></tr><tr><th>gaps</th><td>pksOnNMkYiQkLAlcoAuJ</td></tr><tr><th>overall_assessment</th><td>vLJNKhEuBPEjiGJHBFum</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -125,37 +112,38 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
       "kind": "controller",
       "pipe_code": "prepare_job_offer",
       "pipe_type": "PipeSequence",
       "description": "Prepares the job offer by extracting text content and analyzing the job requirements.\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.596795Z",
-        "ended_at": "2026-05-15T12:39:55.636570Z",
-        "duration": 0.039775
+        "started_at": "2026-07-09T11:06:48.803407Z",
+        "ended_at": "2026-07-09T11:06:48.929231Z",
+        "duration": 0.125824
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "tboHjLJFCJNOTvsFUcIK",
+            "content_type": "IxLcoZzOIsAkszWLEZpV",
             "preview": null,
             "size": null,
-            "digest": "juQjr",
+            "digest": "cpKKS",
             "data": {
-              "url": "romLlQpBjTOUWAKHFqqj",
-              "public_url": "otANBGNhkMKAeOFaUZAd",
-              "mime_type": "tboHjLJFCJNOTvsFUcIK",
-              "filename": "eHoKhreGPGmwVZPSPIjT",
-              "title": "ihJDIDpeOAkegLltSukj",
-              "snippet": "AxEtGNkBVpRkYYCBkjUX"
+              "url": "IzJQcvWFtWTsCdadCkaH",
+              "public_url": "VOMmmNNFZWyNalhLeAQu",
+              "mime_type": "IxLcoZzOIsAkszWLEZpV",
+              "filename": "dHScHCBYheGACUpqdCSY",
+              "title": "vqrkNEPIzStnQlJVRTwR",
+              "snippet": "rUhyiLBvwLKuCNkRHaws"
             },
-            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
-            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
+            "data_text": "vqrkNEPIzStnQlJVRTwR (IzJQcvWFtWTsCdadCkaH)\n  rUhyiLBvwLKuCNkRHaws\n",
+            "data_html": "<a href=\"VOMmmNNFZWyNalhLeAQu\" class=\"msg-document\">vqrkNEPIzStnQlJVRTwR</a><br/><small>rUhyiLBvwLKuCNkRHaws</small>",
             "extra": {}
           }
         ],
@@ -166,15 +154,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ]
@@ -187,37 +175,38 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_2",
       "kind": "operator",
       "pipe_code": "extract_one_job_offer",
       "pipe_type": "PipeExtract",
       "description": "Extracts text content from the job offer PDF document",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.601772Z",
-        "ended_at": "2026-05-15T12:39:55.610277Z",
-        "duration": 0.008505
+        "started_at": "2026-07-09T11:06:48.807482Z",
+        "ended_at": "2026-07-09T11:06:48.819046Z",
+        "duration": 0.011564
       },
       "io": {
         "inputs": [
           {
             "name": "job_offer_pdf",
             "concept": "Document",
-            "content_type": "tboHjLJFCJNOTvsFUcIK",
+            "content_type": "IxLcoZzOIsAkszWLEZpV",
             "preview": null,
             "size": null,
-            "digest": "juQjr",
+            "digest": "cpKKS",
             "data": {
-              "url": "romLlQpBjTOUWAKHFqqj",
-              "public_url": "otANBGNhkMKAeOFaUZAd",
-              "mime_type": "tboHjLJFCJNOTvsFUcIK",
-              "filename": "eHoKhreGPGmwVZPSPIjT",
-              "title": "ihJDIDpeOAkegLltSukj",
-              "snippet": "AxEtGNkBVpRkYYCBkjUX"
+              "url": "IzJQcvWFtWTsCdadCkaH",
+              "public_url": "VOMmmNNFZWyNalhLeAQu",
+              "mime_type": "IxLcoZzOIsAkszWLEZpV",
+              "filename": "dHScHCBYheGACUpqdCSY",
+              "title": "vqrkNEPIzStnQlJVRTwR",
+              "snippet": "rUhyiLBvwLKuCNkRHaws"
             },
-            "data_text": "ihJDIDpeOAkegLltSukj (romLlQpBjTOUWAKHFqqj)\n  AxEtGNkBVpRkYYCBkjUX\n",
-            "data_html": "<a href=\"otANBGNhkMKAeOFaUZAd\" class=\"msg-document\">ihJDIDpeOAkegLltSukj</a><br/><small>AxEtGNkBVpRkYYCBkjUX</small>",
+            "data_text": "vqrkNEPIzStnQlJVRTwR (IzJQcvWFtWTsCdadCkaH)\n  rUhyiLBvwLKuCNkRHaws\n",
+            "data_html": "<a href=\"VOMmmNNFZWyNalhLeAQu\" class=\"msg-document\">vqrkNEPIzStnQlJVRTwR</a><br/><small>rUhyiLBvwLKuCNkRHaws</small>",
             "extra": {}
           }
         ],
@@ -228,7 +217,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fDE7y",
+            "digest": "eF5i6",
             "data": {
               "items": [
                 {
@@ -290,17 +279,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_3",
       "kind": "operator",
       "pipe_code": "analyze_job_requirements",
       "pipe_type": "PipeLLM",
       "description": "Parses and summarizes the job requirements from the extracted job offer content, identifying required skills, responsibilities, qualifications, and nice-to-haves\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.616177Z",
-        "ended_at": "2026-05-15T12:39:55.633542Z",
-        "duration": 0.017365
+        "started_at": "2026-07-09T11:06:48.821012Z",
+        "ended_at": "2026-07-09T11:06:48.928322Z",
+        "duration": 0.10731
       },
       "io": {
         "inputs": [
@@ -310,7 +300,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fDE7y",
+            "digest": "eF5i6",
             "data": {
               "items": [
                 {
@@ -367,15 +357,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ]
@@ -393,17 +383,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
       "kind": "controller",
       "pipe_code": "process_cv_batch",
       "pipe_type": "PipeBatch",
       "description": "Batch processing for process_cv",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.640279Z",
-        "ended_at": "2026-05-15T12:39:55.797364Z",
-        "duration": 0.157085
+        "started_at": "2026-07-09T11:06:48.929496Z",
+        "ended_at": "2026-07-09T11:06:49.064876Z",
+        "duration": 0.13538
       },
       "io": {
         "inputs": [
@@ -413,37 +404,29 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "V5vae",
+            "digest": "BToD8",
             "data": {
               "items": [
                 {
-                  "url": "dXAsWBvZvBfnvVaeyULy",
-                  "public_url": "nvFGzZgwEblFGenNvLWn",
-                  "mime_type": "xgElecCTkPZgRwlnEhPw",
-                  "filename": "eAIcRFIZBeAEiDosQlyd",
-                  "title": "KyUptAsybHVCanWcOHUg",
-                  "snippet": "MqKSYginyDGNecynbURT"
+                  "url": "XOEfdXuQXcnPFlVvkjWp",
+                  "public_url": "rBqLbzzSzvhEvaDaaUtl",
+                  "mime_type": "gJWBugVKmmxeIeYqCDEG",
+                  "filename": "iYLwnwFjrNXfaviTDGgc",
+                  "title": "TicXALASbDFEFsbyzghA",
+                  "snippet": "FpDufCDmTKTHEcpFeibE"
                 },
                 {
-                  "url": "boOdshflPuvQVbvyIzHx",
-                  "public_url": "gfFaaKvQyerowkLicaZV",
-                  "mime_type": "jmIrWXUNNbXRLKVjxQwm",
-                  "filename": "lUBkWsCkCuwnZeVzhCad",
-                  "title": "YrqoorctKNIHkziRaFfQ",
-                  "snippet": "NNlsRKItdoAvnvVYoPyG"
-                },
-                {
-                  "url": "qLjWSQtReJZUEWUETJjO",
-                  "public_url": "aZDNpYUoispSfPGwwymj",
-                  "mime_type": "OuivZNaVcTkiYjlSIfjD",
-                  "filename": "qkQNwKNrDcXTnrBjipOn",
-                  "title": "kkOFQVPWsnIJkFEdlmQF",
-                  "snippet": "auAZEyQJJBxXnHBmAeOI"
+                  "url": "qoetonSXkphvcfmdMTCq",
+                  "public_url": "AWKiTKEMeDUzwSgFIvMN",
+                  "mime_type": "iWardUyImuHOIAwAxZab",
+                  "filename": "nLYYgkIfJcaiDpzrnsQb",
+                  "title": "IiixZukfOQJrVphCVWCf",
+                  "snippet": "EJNEhjIsworCOYKuZibo"
                 }
               ]
             },
-            "data_text": "     1      │ KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)                       \n            │   MqKSYginyDGNecynbURT                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)                       \n            │   NNlsRKItdoAvnvVYoPyG                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     3      │ kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)                       \n            │   auAZEyQJJBxXnHBmAeOI                                            \n",
-            "data_html": "<ul><li><a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small></li><li><a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small></li><li><a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small></li></ul>",
+            "data_text": "     1      │ TicXALASbDFEFsbyzghA (XOEfdXuQXcnPFlVvkjWp)                       \n            │   FpDufCDmTKTHEcpFeibE                                            \n────────────┼───────────────────────────────────────────────────────────────────\n     2      │ IiixZukfOQJrVphCVWCf (qoetonSXkphvcfmdMTCq)                       \n            │   EJNEhjIsworCOYKuZibo                                            \n",
+            "data_html": "<ul><li><a href=\"rBqLbzzSzvhEvaDaaUtl\" class=\"msg-document\">TicXALASbDFEFsbyzghA</a><br/><small>FpDufCDmTKTHEcpFeibE</small></li><li><a href=\"AWKiTKEMeDUzwSgFIvMN\" class=\"msg-document\">IiixZukfOQJrVphCVWCf</a><br/><small>EJNEhjIsworCOYKuZibo</small></li></ul>",
             "extra": {}
           }
         ],
@@ -454,31 +437,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "LMiEK",
+            "digest": "AxLkk",
             "data": {
               "items": [
                 {
-                  "match_score": 84619584924982.1,
-                  "strengths": "nqXFhJAsyKFgFkIcsfJl",
-                  "gaps": "TCHAmVmmihqVBFuxDSNc",
-                  "overall_assessment": "tIGiICgdOSibQMomXxZP"
+                  "match_score": -8695451.1920006,
+                  "strengths": "DCnyxwntQUytnniflwUi",
+                  "gaps": "fSUSdoNYrIfflKqCazQe",
+                  "overall_assessment": "uodKFkiLOMjHBbigzUzj"
                 },
                 {
-                  "match_score": 8200.59706829677,
-                  "strengths": "zlDtGiKvXoerMxGDTnLe",
-                  "gaps": "sQZBIVYupSYKXoftBCWd",
-                  "overall_assessment": "rhJRTOeBMppKEvupZwev"
-                },
-                {
-                  "match_score": 308.596122362541,
-                  "strengths": "RPGssLScWPXjQagFYgkM",
-                  "gaps": "GVnzWxRukreNgNBpUAKn",
-                  "overall_assessment": "VmltLQKrevgdJFsboaMa"
+                  "match_score": 66.9552336570479,
+                  "strengths": "CzaWbJFpXyypOeWKziOG",
+                  "gaps": "pksOnNMkYiQkLAlcoAuJ",
+                  "overall_assessment": "vLJNKhEuBPEjiGJHBFum"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 84619584924982.1                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ nqXFhJAsyKFgFkIcsfJl              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ TCHAmVmmihqVBFuxDSNc              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ tIGiICgdOSibQMomXxZP              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 8200.59706829677                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ zlDtGiKvXoerMxGDTnLe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ sQZBIVYupSYKXoftBCWd              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ rhJRTOeBMppKEvupZwev              \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 308.596122362541                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ RPGssLScWPXjQagFYgkM              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ GVnzWxRukreNgNBpUAKn              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ VmltLQKrevgdJFsboaMa              \n",
-            "data_html": "<ul><li><table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table></li><li><table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table></li><li><table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ -8695451.1920006                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ DCnyxwntQUytnniflwUi              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ fSUSdoNYrIfflKqCazQe              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ uodKFkiLOMjHBbigzUzj              \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                        ┃ Value                             \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score                      │ 66.9552336570479                  \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  strengths                        │ CzaWbJFpXyypOeWKziOG              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  gaps                             │ pksOnNMkYiQkLAlcoAuJ              \n        │ ──────────────────────────────────┼────────────────────────────────── \n        │  overall_assessment               │ vLJNKhEuBPEjiGJHBFum              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>-8695451.1920006</td></tr><tr><th>strengths</th><td>DCnyxwntQUytnniflwUi</td></tr><tr><th>gaps</th><td>fSUSdoNYrIfflKqCazQe</td></tr><tr><th>overall_assessment</th><td>uodKFkiLOMjHBbigzUzj</td></tr></table></li><li><table><tr><th>match_score</th><td>66.9552336570479</td></tr><tr><th>strengths</th><td>CzaWbJFpXyypOeWKziOG</td></tr><tr><th>gaps</th><td>pksOnNMkYiQkLAlcoAuJ</td></tr><tr><th>overall_assessment</th><td>vLJNKhEuBPEjiGJHBFum</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -487,42 +464,43 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "item_count": 3,
+        "item_count": 2,
         "branch_pipe_code": "process_cv"
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
       "description": "Processes one application",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.647810Z",
-        "ended_at": "2026-05-15T12:39:55.697195Z",
-        "duration": 0.049385
+        "started_at": "2026-07-09T11:06:48.934188Z",
+        "ended_at": "2026-07-09T11:06:49.009079Z",
+        "duration": 0.074891
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "xgElecCTkPZgRwlnEhPw",
+            "content_type": "gJWBugVKmmxeIeYqCDEG",
             "preview": null,
             "size": null,
-            "digest": "V5vae-branch-0",
+            "digest": "BToD8-branch-0",
             "data": {
-              "url": "dXAsWBvZvBfnvVaeyULy",
-              "public_url": "nvFGzZgwEblFGenNvLWn",
-              "mime_type": "xgElecCTkPZgRwlnEhPw",
-              "filename": "eAIcRFIZBeAEiDosQlyd",
-              "title": "KyUptAsybHVCanWcOHUg",
-              "snippet": "MqKSYginyDGNecynbURT"
+              "url": "XOEfdXuQXcnPFlVvkjWp",
+              "public_url": "rBqLbzzSzvhEvaDaaUtl",
+              "mime_type": "gJWBugVKmmxeIeYqCDEG",
+              "filename": "iYLwnwFjrNXfaviTDGgc",
+              "title": "TicXALASbDFEFsbyzghA",
+              "snippet": "FpDufCDmTKTHEcpFeibE"
             },
-            "data_text": "KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)\n  MqKSYginyDGNecynbURT\n",
-            "data_html": "<a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small>",
+            "data_text": "TicXALASbDFEFsbyzghA (XOEfdXuQXcnPFlVvkjWp)\n  FpDufCDmTKTHEcpFeibE\n",
+            "data_html": "<a href=\"rBqLbzzSzvhEvaDaaUtl\" class=\"msg-document\">TicXALASbDFEFsbyzghA</a><br/><small>FpDufCDmTKTHEcpFeibE</small>",
             "extra": {}
           },
           {
@@ -531,15 +509,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ],
@@ -550,15 +528,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "XDMLj-branch-0",
+            "digest": "RVkRp-branch-0",
             "data": {
-              "match_score": 84619584924982.1,
-              "strengths": "nqXFhJAsyKFgFkIcsfJl",
-              "gaps": "TCHAmVmmihqVBFuxDSNc",
-              "overall_assessment": "tIGiICgdOSibQMomXxZP"
+              "match_score": -8695451.1920006,
+              "strengths": "DCnyxwntQUytnniflwUi",
+              "gaps": "fSUSdoNYrIfflKqCazQe",
+              "overall_assessment": "uodKFkiLOMjHBbigzUzj"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 84619584924982.1                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nqXFhJAsyKFgFkIcsfJl                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ TCHAmVmmihqVBFuxDSNc                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ tIGiICgdOSibQMomXxZP                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ -8695451.1920006                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ DCnyxwntQUytnniflwUi                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ fSUSdoNYrIfflKqCazQe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ uodKFkiLOMjHBbigzUzj                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>-8695451.1920006</td></tr><tr><th>strengths</th><td>DCnyxwntQUytnniflwUi</td></tr><tr><th>gaps</th><td>fSUSdoNYrIfflKqCazQe</td></tr><tr><th>overall_assessment</th><td>uodKFkiLOMjHBbigzUzj</td></tr></table>",
             "extra": {}
           }
         ]
@@ -571,37 +549,38 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_6",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
       "description": "Extracts text content from the CV PDF document",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.652347Z",
-        "ended_at": "2026-05-15T12:39:55.658605Z",
-        "duration": 0.006258
+        "started_at": "2026-07-09T11:06:48.938309Z",
+        "ended_at": "2026-07-09T11:06:48.947906Z",
+        "duration": 0.009597
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "xgElecCTkPZgRwlnEhPw",
+            "content_type": "gJWBugVKmmxeIeYqCDEG",
             "preview": null,
             "size": null,
-            "digest": "V5vae-branch-0",
+            "digest": "BToD8-branch-0",
             "data": {
-              "url": "dXAsWBvZvBfnvVaeyULy",
-              "public_url": "nvFGzZgwEblFGenNvLWn",
-              "mime_type": "xgElecCTkPZgRwlnEhPw",
-              "filename": "eAIcRFIZBeAEiDosQlyd",
-              "title": "KyUptAsybHVCanWcOHUg",
-              "snippet": "MqKSYginyDGNecynbURT"
+              "url": "XOEfdXuQXcnPFlVvkjWp",
+              "public_url": "rBqLbzzSzvhEvaDaaUtl",
+              "mime_type": "gJWBugVKmmxeIeYqCDEG",
+              "filename": "iYLwnwFjrNXfaviTDGgc",
+              "title": "TicXALASbDFEFsbyzghA",
+              "snippet": "FpDufCDmTKTHEcpFeibE"
             },
-            "data_text": "KyUptAsybHVCanWcOHUg (dXAsWBvZvBfnvVaeyULy)\n  MqKSYginyDGNecynbURT\n",
-            "data_html": "<a href=\"nvFGzZgwEblFGenNvLWn\" class=\"msg-document\">KyUptAsybHVCanWcOHUg</a><br/><small>MqKSYginyDGNecynbURT</small>",
+            "data_text": "TicXALASbDFEFsbyzghA (XOEfdXuQXcnPFlVvkjWp)\n  FpDufCDmTKTHEcpFeibE\n",
+            "data_html": "<a href=\"rBqLbzzSzvhEvaDaaUtl\" class=\"msg-document\">TicXALASbDFEFsbyzghA</a><br/><small>FpDufCDmTKTHEcpFeibE</small>",
             "extra": {}
           }
         ],
@@ -612,7 +591,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SRn9k",
+            "digest": "Bb6SL",
             "data": {
               "items": [
                 {
@@ -674,17 +653,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_7",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
       "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.663226Z",
-        "ended_at": "2026-05-15T12:39:55.677377Z",
-        "duration": 0.014151
+        "started_at": "2026-07-09T11:06:48.949380Z",
+        "ended_at": "2026-07-09T11:06:48.978035Z",
+        "duration": 0.028655
       },
       "io": {
         "inputs": [
@@ -694,7 +674,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "SRn9k",
+            "digest": "Bb6SL",
             "data": {
               "items": [
                 {
@@ -751,15 +731,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FU4qK",
+            "digest": "mGRrY",
             "data": {
-              "skills": "PfjGRZbUvVxKDHnFimBC",
-              "experience": "aeuphKkidttvpbjWNKMN",
-              "education": "LysjxnEYGtjpLCJAwpXg",
-              "achievements": "pOIbwmHvzDYeLgKBBhpr"
+              "skills": "tiYZeSbGXzDoxlNPKoUB",
+              "experience": "TWpqfElzttHucHtyXtcf",
+              "education": "dPFaVPTCanreabmcBwht",
+              "achievements": "hFBnaknbZkauqSkhtKvw"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ PfjGRZbUvVxKDHnFimBC                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ aeuphKkidttvpbjWNKMN                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ LysjxnEYGtjpLCJAwpXg                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ pOIbwmHvzDYeLgKBBhpr                           \n",
-            "data_html": "<table><tr><th>skills</th><td>PfjGRZbUvVxKDHnFimBC</td></tr><tr><th>experience</th><td>aeuphKkidttvpbjWNKMN</td></tr><tr><th>education</th><td>LysjxnEYGtjpLCJAwpXg</td></tr><tr><th>achievements</th><td>pOIbwmHvzDYeLgKBBhpr</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ tiYZeSbGXzDoxlNPKoUB                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ TWpqfElzttHucHtyXtcf                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ dPFaVPTCanreabmcBwht                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ hFBnaknbZkauqSkhtKvw                           \n",
+            "data_html": "<table><tr><th>skills</th><td>tiYZeSbGXzDoxlNPKoUB</td></tr><tr><th>experience</th><td>TWpqfElzttHucHtyXtcf</td></tr><tr><th>education</th><td>dPFaVPTCanreabmcBwht</td></tr><tr><th>achievements</th><td>hFBnaknbZkauqSkhtKvw</td></tr></table>",
             "extra": {}
           }
         ]
@@ -777,17 +757,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_8",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
       "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.681773Z",
-        "ended_at": "2026-05-15T12:39:55.694856Z",
-        "duration": 0.013083
+        "started_at": "2026-07-09T11:06:48.979692Z",
+        "ended_at": "2026-07-09T11:06:49.008280Z",
+        "duration": 0.028588
       },
       "io": {
         "inputs": [
@@ -797,15 +778,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "FU4qK",
+            "digest": "mGRrY",
             "data": {
-              "skills": "PfjGRZbUvVxKDHnFimBC",
-              "experience": "aeuphKkidttvpbjWNKMN",
-              "education": "LysjxnEYGtjpLCJAwpXg",
-              "achievements": "pOIbwmHvzDYeLgKBBhpr"
+              "skills": "tiYZeSbGXzDoxlNPKoUB",
+              "experience": "TWpqfElzttHucHtyXtcf",
+              "education": "dPFaVPTCanreabmcBwht",
+              "achievements": "hFBnaknbZkauqSkhtKvw"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ PfjGRZbUvVxKDHnFimBC                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ aeuphKkidttvpbjWNKMN                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ LysjxnEYGtjpLCJAwpXg                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ pOIbwmHvzDYeLgKBBhpr                           \n",
-            "data_html": "<table><tr><th>skills</th><td>PfjGRZbUvVxKDHnFimBC</td></tr><tr><th>experience</th><td>aeuphKkidttvpbjWNKMN</td></tr><tr><th>education</th><td>LysjxnEYGtjpLCJAwpXg</td></tr><tr><th>achievements</th><td>pOIbwmHvzDYeLgKBBhpr</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ tiYZeSbGXzDoxlNPKoUB                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ TWpqfElzttHucHtyXtcf                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ dPFaVPTCanreabmcBwht                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ hFBnaknbZkauqSkhtKvw                           \n",
+            "data_html": "<table><tr><th>skills</th><td>tiYZeSbGXzDoxlNPKoUB</td></tr><tr><th>experience</th><td>TWpqfElzttHucHtyXtcf</td></tr><tr><th>education</th><td>dPFaVPTCanreabmcBwht</td></tr><tr><th>achievements</th><td>hFBnaknbZkauqSkhtKvw</td></tr></table>",
             "extra": {}
           },
           {
@@ -814,15 +795,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ],
@@ -833,15 +814,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "XDMLj-branch-0",
+            "digest": "RVkRp-branch-0",
             "data": {
-              "match_score": 84619584924982.1,
-              "strengths": "nqXFhJAsyKFgFkIcsfJl",
-              "gaps": "TCHAmVmmihqVBFuxDSNc",
-              "overall_assessment": "tIGiICgdOSibQMomXxZP"
+              "match_score": -8695451.1920006,
+              "strengths": "DCnyxwntQUytnniflwUi",
+              "gaps": "fSUSdoNYrIfflKqCazQe",
+              "overall_assessment": "uodKFkiLOMjHBbigzUzj"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 84619584924982.1                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ nqXFhJAsyKFgFkIcsfJl                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ TCHAmVmmihqVBFuxDSNc                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ tIGiICgdOSibQMomXxZP                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>84619584924982.1</td></tr><tr><th>strengths</th><td>nqXFhJAsyKFgFkIcsfJl</td></tr><tr><th>gaps</th><td>TCHAmVmmihqVBFuxDSNc</td></tr><tr><th>overall_assessment</th><td>tIGiICgdOSibQMomXxZP</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ -8695451.1920006                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ DCnyxwntQUytnniflwUi                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ fSUSdoNYrIfflKqCazQe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ uodKFkiLOMjHBbigzUzj                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>-8695451.1920006</td></tr><tr><th>strengths</th><td>DCnyxwntQUytnniflwUi</td></tr><tr><th>gaps</th><td>fSUSdoNYrIfflKqCazQe</td></tr><tr><th>overall_assessment</th><td>uodKFkiLOMjHBbigzUzj</td></tr></table>",
             "extra": {}
           }
         ]
@@ -854,42 +835,43 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: PfjGRZbUvVxKDHnFimBC\n\n# experience: aeuphKkidttvpbjWNKMN\n\n# education: LysjxnEYGtjpLCJAwpXg\n\n# achievements: pOIbwmHvzDYeLgKBBhpr\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: tiYZeSbGXzDoxlNPKoUB\n\n# experience: TWpqfElzttHucHtyXtcf\n\n# education: dPFaVPTCanreabmcBwht\n\n# achievements: hFBnaknbZkauqSkhtKvw\n</candidate_profile>\n\n<job_requirements>\n# required_skills: EAyKvEBUiJzQMCRFlkav\n\n# responsibilities: koGWegVFqnOQVtarbfoc\n\n# qualifications: VUjXgolihOOMqmPhsjfp\n\n# nice_to_haves: shjaAPEoQYpGESrTYssA\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
       "kind": "controller",
       "pipe_code": "process_cv",
       "pipe_type": "PipeSequence",
       "description": "Processes one application",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.699927Z",
-        "ended_at": "2026-05-15T12:39:55.744124Z",
-        "duration": 0.044197
+        "started_at": "2026-07-09T11:06:49.009945Z",
+        "ended_at": "2026-07-09T11:06:49.061003Z",
+        "duration": 0.051058
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jmIrWXUNNbXRLKVjxQwm",
+            "content_type": "iWardUyImuHOIAwAxZab",
             "preview": null,
             "size": null,
-            "digest": "V5vae-branch-1",
+            "digest": "BToD8-branch-1",
             "data": {
-              "url": "boOdshflPuvQVbvyIzHx",
-              "public_url": "gfFaaKvQyerowkLicaZV",
-              "mime_type": "jmIrWXUNNbXRLKVjxQwm",
-              "filename": "lUBkWsCkCuwnZeVzhCad",
-              "title": "YrqoorctKNIHkziRaFfQ",
-              "snippet": "NNlsRKItdoAvnvVYoPyG"
+              "url": "qoetonSXkphvcfmdMTCq",
+              "public_url": "AWKiTKEMeDUzwSgFIvMN",
+              "mime_type": "iWardUyImuHOIAwAxZab",
+              "filename": "nLYYgkIfJcaiDpzrnsQb",
+              "title": "IiixZukfOQJrVphCVWCf",
+              "snippet": "EJNEhjIsworCOYKuZibo"
             },
-            "data_text": "YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)\n  NNlsRKItdoAvnvVYoPyG\n",
-            "data_html": "<a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small>",
+            "data_text": "IiixZukfOQJrVphCVWCf (qoetonSXkphvcfmdMTCq)\n  EJNEhjIsworCOYKuZibo\n",
+            "data_html": "<a href=\"AWKiTKEMeDUzwSgFIvMN\" class=\"msg-document\">IiixZukfOQJrVphCVWCf</a><br/><small>EJNEhjIsworCOYKuZibo</small>",
             "extra": {}
           },
           {
@@ -898,15 +880,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ],
@@ -917,15 +899,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "XDMLj-branch-1",
+            "digest": "RVkRp-branch-1",
             "data": {
-              "match_score": 8200.59706829677,
-              "strengths": "zlDtGiKvXoerMxGDTnLe",
-              "gaps": "sQZBIVYupSYKXoftBCWd",
-              "overall_assessment": "rhJRTOeBMppKEvupZwev"
+              "match_score": 66.9552336570479,
+              "strengths": "CzaWbJFpXyypOeWKziOG",
+              "gaps": "pksOnNMkYiQkLAlcoAuJ",
+              "overall_assessment": "vLJNKhEuBPEjiGJHBFum"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 8200.59706829677                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ zlDtGiKvXoerMxGDTnLe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ sQZBIVYupSYKXoftBCWd                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ rhJRTOeBMppKEvupZwev                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 66.9552336570479                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ CzaWbJFpXyypOeWKziOG                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ pksOnNMkYiQkLAlcoAuJ                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ vLJNKhEuBPEjiGJHBFum                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>66.9552336570479</td></tr><tr><th>strengths</th><td>CzaWbJFpXyypOeWKziOG</td></tr><tr><th>gaps</th><td>pksOnNMkYiQkLAlcoAuJ</td></tr><tr><th>overall_assessment</th><td>vLJNKhEuBPEjiGJHBFum</td></tr></table>",
             "extra": {}
           }
         ]
@@ -938,37 +920,38 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_10",
       "kind": "operator",
       "pipe_code": "extract_one_cv",
       "pipe_type": "PipeExtract",
       "description": "Extracts text content from the CV PDF document",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.704430Z",
-        "ended_at": "2026-05-15T12:39:55.710722Z",
-        "duration": 0.006292
+        "started_at": "2026-07-09T11:06:49.014148Z",
+        "ended_at": "2026-07-09T11:06:49.022911Z",
+        "duration": 0.008763
       },
       "io": {
         "inputs": [
           {
             "name": "cv_pdf",
             "concept": "Document",
-            "content_type": "jmIrWXUNNbXRLKVjxQwm",
+            "content_type": "iWardUyImuHOIAwAxZab",
             "preview": null,
             "size": null,
-            "digest": "V5vae-branch-1",
+            "digest": "BToD8-branch-1",
             "data": {
-              "url": "boOdshflPuvQVbvyIzHx",
-              "public_url": "gfFaaKvQyerowkLicaZV",
-              "mime_type": "jmIrWXUNNbXRLKVjxQwm",
-              "filename": "lUBkWsCkCuwnZeVzhCad",
-              "title": "YrqoorctKNIHkziRaFfQ",
-              "snippet": "NNlsRKItdoAvnvVYoPyG"
+              "url": "qoetonSXkphvcfmdMTCq",
+              "public_url": "AWKiTKEMeDUzwSgFIvMN",
+              "mime_type": "iWardUyImuHOIAwAxZab",
+              "filename": "nLYYgkIfJcaiDpzrnsQb",
+              "title": "IiixZukfOQJrVphCVWCf",
+              "snippet": "EJNEhjIsworCOYKuZibo"
             },
-            "data_text": "YrqoorctKNIHkziRaFfQ (boOdshflPuvQVbvyIzHx)\n  NNlsRKItdoAvnvVYoPyG\n",
-            "data_html": "<a href=\"gfFaaKvQyerowkLicaZV\" class=\"msg-document\">YrqoorctKNIHkziRaFfQ</a><br/><small>NNlsRKItdoAvnvVYoPyG</small>",
+            "data_text": "IiixZukfOQJrVphCVWCf (qoetonSXkphvcfmdMTCq)\n  EJNEhjIsworCOYKuZibo\n",
+            "data_html": "<a href=\"AWKiTKEMeDUzwSgFIvMN\" class=\"msg-document\">IiixZukfOQJrVphCVWCf</a><br/><small>EJNEhjIsworCOYKuZibo</small>",
             "extra": {}
           }
         ],
@@ -979,7 +962,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9xUmP",
+            "digest": "bsQfy",
             "data": {
               "items": [
                 {
@@ -1041,17 +1024,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_11",
       "kind": "operator",
       "pipe_code": "analyze_one_cv",
       "pipe_type": "PipeLLM",
       "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.715121Z",
-        "ended_at": "2026-05-15T12:39:55.726681Z",
-        "duration": 0.01156
+        "started_at": "2026-07-09T11:06:49.024425Z",
+        "ended_at": "2026-07-09T11:06:49.042463Z",
+        "duration": 0.018038
       },
       "io": {
         "inputs": [
@@ -1061,7 +1045,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "9xUmP",
+            "digest": "bsQfy",
             "data": {
               "items": [
                 {
@@ -1118,15 +1102,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZnwzT",
+            "digest": "HhSHx",
             "data": {
-              "skills": "ItkHInnDPtdyQfvKuKIJ",
-              "experience": "acMYvuxAaMIrszylMhWc",
-              "education": "SIuGaCCghPCKwELkZRjM",
-              "achievements": "QvvEaDOmRhAFcNZFOKVx"
+              "skills": "mdUsNcSavtYfdGtdJxAk",
+              "experience": "jMxCJhcCOfFdsGYOYHBG",
+              "education": "GfuLLhTgShcJsqrVORzp",
+              "achievements": "xeuZdsWspZcZsUyLNsWp"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ItkHInnDPtdyQfvKuKIJ                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ acMYvuxAaMIrszylMhWc                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ SIuGaCCghPCKwELkZRjM                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ QvvEaDOmRhAFcNZFOKVx                           \n",
-            "data_html": "<table><tr><th>skills</th><td>ItkHInnDPtdyQfvKuKIJ</td></tr><tr><th>experience</th><td>acMYvuxAaMIrszylMhWc</td></tr><tr><th>education</th><td>SIuGaCCghPCKwELkZRjM</td></tr><tr><th>achievements</th><td>QvvEaDOmRhAFcNZFOKVx</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ mdUsNcSavtYfdGtdJxAk                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ jMxCJhcCOfFdsGYOYHBG                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ GfuLLhTgShcJsqrVORzp                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ xeuZdsWspZcZsUyLNsWp                           \n",
+            "data_html": "<table><tr><th>skills</th><td>mdUsNcSavtYfdGtdJxAk</td></tr><tr><th>experience</th><td>jMxCJhcCOfFdsGYOYHBG</td></tr><tr><th>education</th><td>GfuLLhTgShcJsqrVORzp</td></tr><tr><th>achievements</th><td>xeuZdsWspZcZsUyLNsWp</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1144,17 +1128,18 @@
       }
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_12",
       "kind": "operator",
       "pipe_code": "analyze_match",
       "pipe_type": "PipeLLM",
       "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
       "domain_code": "cv_batch_screening",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:55.731096Z",
-        "ended_at": "2026-05-15T12:39:55.741883Z",
-        "duration": 0.010787
+        "started_at": "2026-07-09T11:06:49.043939Z",
+        "ended_at": "2026-07-09T11:06:49.060191Z",
+        "duration": 0.016252
       },
       "io": {
         "inputs": [
@@ -1164,15 +1149,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "ZnwzT",
+            "digest": "HhSHx",
             "data": {
-              "skills": "ItkHInnDPtdyQfvKuKIJ",
-              "experience": "acMYvuxAaMIrszylMhWc",
-              "education": "SIuGaCCghPCKwELkZRjM",
-              "achievements": "QvvEaDOmRhAFcNZFOKVx"
+              "skills": "mdUsNcSavtYfdGtdJxAk",
+              "experience": "jMxCJhcCOfFdsGYOYHBG",
+              "education": "GfuLLhTgShcJsqrVORzp",
+              "achievements": "xeuZdsWspZcZsUyLNsWp"
             },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ItkHInnDPtdyQfvKuKIJ                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ acMYvuxAaMIrszylMhWc                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ SIuGaCCghPCKwELkZRjM                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ QvvEaDOmRhAFcNZFOKVx                           \n",
-            "data_html": "<table><tr><th>skills</th><td>ItkHInnDPtdyQfvKuKIJ</td></tr><tr><th>experience</th><td>acMYvuxAaMIrszylMhWc</td></tr><tr><th>education</th><td>SIuGaCCghPCKwELkZRjM</td></tr><tr><th>achievements</th><td>QvvEaDOmRhAFcNZFOKVx</td></tr></table>",
+            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ mdUsNcSavtYfdGtdJxAk                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ jMxCJhcCOfFdsGYOYHBG                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ GfuLLhTgShcJsqrVORzp                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ xeuZdsWspZcZsUyLNsWp                           \n",
+            "data_html": "<table><tr><th>skills</th><td>mdUsNcSavtYfdGtdJxAk</td></tr><tr><th>experience</th><td>jMxCJhcCOfFdsGYOYHBG</td></tr><tr><th>education</th><td>GfuLLhTgShcJsqrVORzp</td></tr><tr><th>achievements</th><td>xeuZdsWspZcZsUyLNsWp</td></tr></table>",
             "extra": {}
           },
           {
@@ -1181,15 +1166,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "AZaJm",
+            "digest": "386dA",
             "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
+              "required_skills": "EAyKvEBUiJzQMCRFlkav",
+              "responsibilities": "koGWegVFqnOQVtarbfoc",
+              "qualifications": "VUjXgolihOOMqmPhsjfp",
+              "nice_to_haves": "shjaAPEoQYpGESrTYssA"
             },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
+            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ EAyKvEBUiJzQMCRFlkav                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ koGWegVFqnOQVtarbfoc                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ VUjXgolihOOMqmPhsjfp                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ shjaAPEoQYpGESrTYssA                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>EAyKvEBUiJzQMCRFlkav</td></tr><tr><th>responsibilities</th><td>koGWegVFqnOQVtarbfoc</td></tr><tr><th>qualifications</th><td>VUjXgolihOOMqmPhsjfp</td></tr><tr><th>nice_to_haves</th><td>shjaAPEoQYpGESrTYssA</td></tr></table>",
             "extra": {}
           }
         ],
@@ -1200,15 +1185,15 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "XDMLj-branch-1",
+            "digest": "RVkRp-branch-1",
             "data": {
-              "match_score": 8200.59706829677,
-              "strengths": "zlDtGiKvXoerMxGDTnLe",
-              "gaps": "sQZBIVYupSYKXoftBCWd",
-              "overall_assessment": "rhJRTOeBMppKEvupZwev"
+              "match_score": 66.9552336570479,
+              "strengths": "CzaWbJFpXyypOeWKziOG",
+              "gaps": "pksOnNMkYiQkLAlcoAuJ",
+              "overall_assessment": "vLJNKhEuBPEjiGJHBFum"
             },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 8200.59706829677                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ zlDtGiKvXoerMxGDTnLe                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ sQZBIVYupSYKXoftBCWd                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ rhJRTOeBMppKEvupZwev                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>8200.59706829677</td></tr><tr><th>strengths</th><td>zlDtGiKvXoerMxGDTnLe</td></tr><tr><th>gaps</th><td>sQZBIVYupSYKXoftBCWd</td></tr><tr><th>overall_assessment</th><td>rhJRTOeBMppKEvupZwev</td></tr></table>",
+            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 66.9552336570479                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ CzaWbJFpXyypOeWKziOG                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ pksOnNMkYiQkLAlcoAuJ                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ vLJNKhEuBPEjiGJHBFum                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>66.9552336570479</td></tr><tr><th>strengths</th><td>CzaWbJFpXyypOeWKziOG</td></tr><tr><th>gaps</th><td>pksOnNMkYiQkLAlcoAuJ</td></tr><tr><th>overall_assessment</th><td>vLJNKhEuBPEjiGJHBFum</td></tr></table>",
             "extra": {}
           }
         ]
@@ -1221,762 +1206,313 @@
         "resolved_model_for_object": "@default-premium",
         "is_multiple_output": false,
         "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: ItkHInnDPtdyQfvKuKIJ\n\n# experience: acMYvuxAaMIrszylMhWc\n\n# education: SIuGaCCghPCKwELkZRjM\n\n# achievements: QvvEaDOmRhAFcNZFOKVx\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
-        "structuring_path": "object_direct"
-      }
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "kind": "controller",
-      "pipe_code": "process_cv",
-      "pipe_type": "PipeSequence",
-      "description": "Processes one application",
-      "domain_code": "cv_batch_screening",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:55.746762Z",
-        "ended_at": "2026-05-15T12:39:55.792538Z",
-        "duration": 0.045776
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv_pdf",
-            "concept": "Document",
-            "content_type": "OuivZNaVcTkiYjlSIfjD",
-            "preview": null,
-            "size": null,
-            "digest": "V5vae-branch-2",
-            "data": {
-              "url": "qLjWSQtReJZUEWUETJjO",
-              "public_url": "aZDNpYUoispSfPGwwymj",
-              "mime_type": "OuivZNaVcTkiYjlSIfjD",
-              "filename": "qkQNwKNrDcXTnrBjipOn",
-              "title": "kkOFQVPWsnIJkFEdlmQF",
-              "snippet": "auAZEyQJJBxXnHBmAeOI"
-            },
-            "data_text": "kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)\n  auAZEyQJJBxXnHBmAeOI\n",
-            "data_html": "<a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small>",
-            "extra": {}
-          },
-          {
-            "name": "job_requirements",
-            "concept": "JobRequirements",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "AZaJm",
-            "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
-            },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "match_analysis",
-            "concept": "CandidateMatch",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "XDMLj-branch-2",
-            "data": {
-              "match_score": 308.596122362541,
-              "strengths": "RPGssLScWPXjQagFYgkM",
-              "gaps": "GVnzWxRukreNgNBpUAKn",
-              "overall_assessment": "VmltLQKrevgdJFsboaMa"
-            },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 308.596122362541                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ RPGssLScWPXjQagFYgkM                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ GVnzWxRukreNgNBpUAKn                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ VmltLQKrevgdJFsboaMa                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "step_count": 3
-      }
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
-      "kind": "operator",
-      "pipe_code": "extract_one_cv",
-      "pipe_type": "PipeExtract",
-      "description": "Extracts text content from the CV PDF document",
-      "domain_code": "cv_batch_screening",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:55.751797Z",
-        "ended_at": "2026-05-15T12:39:55.757775Z",
-        "duration": 0.005978
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv_pdf",
-            "concept": "Document",
-            "content_type": "OuivZNaVcTkiYjlSIfjD",
-            "preview": null,
-            "size": null,
-            "digest": "V5vae-branch-2",
-            "data": {
-              "url": "qLjWSQtReJZUEWUETJjO",
-              "public_url": "aZDNpYUoispSfPGwwymj",
-              "mime_type": "OuivZNaVcTkiYjlSIfjD",
-              "filename": "qkQNwKNrDcXTnrBjipOn",
-              "title": "kkOFQVPWsnIJkFEdlmQF",
-              "snippet": "auAZEyQJJBxXnHBmAeOI"
-            },
-            "data_text": "kkOFQVPWsnIJkFEdlmQF (qLjWSQtReJZUEWUETJjO)\n  auAZEyQJJBxXnHBmAeOI\n",
-            "data_html": "<a href=\"aZDNpYUoispSfPGwwymj\" class=\"msg-document\">kkOFQVPWsnIJkFEdlmQF</a><br/><small>auAZEyQJJBxXnHBmAeOI</small>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "cv_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "e6udi",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "azure-document-intelligence",
-        "document_stuff_name": "cv_pdf",
-        "should_caption_images": false,
-        "should_include_page_views": false
-      }
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
-      "kind": "operator",
-      "pipe_code": "analyze_one_cv",
-      "pipe_type": "PipeLLM",
-      "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
-      "domain_code": "cv_batch_screening",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:55.762476Z",
-        "ended_at": "2026-05-15T12:39:55.774044Z",
-        "duration": 0.011568
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "cv_pages",
-            "concept": "Page",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "e6udi",
-            "data": {
-              "items": [
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                },
-                {
-                  "text_and_images": {
-                    "text": {
-                      "text": "DRY RUN: OCR text"
-                    },
-                    "images": [],
-                    "raw_html": null
-                  },
-                  "page_view": null
-                }
-              ]
-            },
-            "data_text": "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "candidate_profile",
-            "concept": "CandidateProfile",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "WGw2x",
-            "data": {
-              "skills": "ejQPSvEnqKldZLUFiWJl",
-              "experience": "hlZAyzDPzZwqewCrBkFQ",
-              "education": "orvmDHGhuGjUySCVicHz",
-              "achievements": "fwgLWuGNXqOiKifwiGcP"
-            },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ejQPSvEnqKldZLUFiWJl                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ hlZAyzDPzZwqewCrBkFQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ orvmDHGhuGjUySCVicHz                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ fwgLWuGNXqOiKifwiGcP                           \n",
-            "data_html": "<table><tr><th>skills</th><td>ejQPSvEnqKldZLUFiWJl</td></tr><tr><th>experience</th><td>hlZAyzDPzZwqewCrBkFQ</td></tr><tr><th>education</th><td>orvmDHGhuGjUySCVicHz</td></tr><tr><th>achievements</th><td>fwgLWuGNXqOiKifwiGcP</td></tr></table>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "@default-premium",
-        "resolved_model_for_object": "@default-premium",
-        "is_multiple_output": false,
-        "rendered_system_prompt": "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.",
-        "rendered_user_prompt": "Analyze the following CV content and extract the candidate's professional profile.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateProfile(StructuredContent):\n    \"\"\"A structured summary of a job candidate's professional background extracted from their CV.\"\"\"\n    skills: str  # Technical and soft skills possessed by the candidate\n    experience: str  # Work history and professional experience\n    education: str  # Educational background and qualifications\n    achievements: str | None = None  # Notable accomplishments and certifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
-        "structuring_path": "object_direct"
-      }
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
-      "kind": "operator",
-      "pipe_code": "analyze_match",
-      "pipe_type": "PipeLLM",
-      "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
-      "domain_code": "cv_batch_screening",
-      "status": "succeeded",
-      "timing": {
-        "started_at": "2026-05-15T12:39:55.778546Z",
-        "ended_at": "2026-05-15T12:39:55.789938Z",
-        "duration": 0.011392
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "candidate_profile",
-            "concept": "CandidateProfile",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "WGw2x",
-            "data": {
-              "skills": "ejQPSvEnqKldZLUFiWJl",
-              "experience": "hlZAyzDPzZwqewCrBkFQ",
-              "education": "orvmDHGhuGjUySCVicHz",
-              "achievements": "fwgLWuGNXqOiKifwiGcP"
-            },
-            "data_text": " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills                        │ ejQPSvEnqKldZLUFiWJl                           \n───────────────────────────────┼────────────────────────────────────────────────\n experience                    │ hlZAyzDPzZwqewCrBkFQ                           \n───────────────────────────────┼────────────────────────────────────────────────\n education                     │ orvmDHGhuGjUySCVicHz                           \n───────────────────────────────┼────────────────────────────────────────────────\n achievements                  │ fwgLWuGNXqOiKifwiGcP                           \n",
-            "data_html": "<table><tr><th>skills</th><td>ejQPSvEnqKldZLUFiWJl</td></tr><tr><th>experience</th><td>hlZAyzDPzZwqewCrBkFQ</td></tr><tr><th>education</th><td>orvmDHGhuGjUySCVicHz</td></tr><tr><th>achievements</th><td>fwgLWuGNXqOiKifwiGcP</td></tr></table>",
-            "extra": {}
-          },
-          {
-            "name": "job_requirements",
-            "concept": "JobRequirements",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "AZaJm",
-            "data": {
-              "required_skills": "VvLbVnPKtbcWSOwQlQWt",
-              "responsibilities": "tpjUGNodbjCLtgfXaaKf",
-              "qualifications": "MKNGOrJDzkMSdoEOuGXv",
-              "nice_to_haves": "dcvqFIzXBTbWDZEcsNyr"
-            },
-            "data_text": " Attribute                          ┃ Value                                     \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills                    │ VvLbVnPKtbcWSOwQlQWt                      \n────────────────────────────────────┼───────────────────────────────────────────\n responsibilities                   │ tpjUGNodbjCLtgfXaaKf                      \n────────────────────────────────────┼───────────────────────────────────────────\n qualifications                     │ MKNGOrJDzkMSdoEOuGXv                      \n────────────────────────────────────┼───────────────────────────────────────────\n nice_to_haves                      │ dcvqFIzXBTbWDZEcsNyr                      \n",
-            "data_html": "<table><tr><th>required_skills</th><td>VvLbVnPKtbcWSOwQlQWt</td></tr><tr><th>responsibilities</th><td>tpjUGNodbjCLtgfXaaKf</td></tr><tr><th>qualifications</th><td>MKNGOrJDzkMSdoEOuGXv</td></tr><tr><th>nice_to_haves</th><td>dcvqFIzXBTbWDZEcsNyr</td></tr></table>",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "match_analysis",
-            "concept": "CandidateMatch",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "XDMLj-branch-2",
-            "data": {
-              "match_score": 308.596122362541,
-              "strengths": "RPGssLScWPXjQagFYgkM",
-              "gaps": "GVnzWxRukreNgNBpUAKn",
-              "overall_assessment": "VmltLQKrevgdJFsboaMa"
-            },
-            "data_text": " Attribute                            ┃ Value                                   \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score                          │ 308.596122362541                        \n──────────────────────────────────────┼─────────────────────────────────────────\n strengths                            │ RPGssLScWPXjQagFYgkM                    \n──────────────────────────────────────┼─────────────────────────────────────────\n gaps                                 │ GVnzWxRukreNgNBpUAKn                    \n──────────────────────────────────────┼─────────────────────────────────────────\n overall_assessment                   │ VmltLQKrevgdJFsboaMa                    \n",
-            "data_html": "<table><tr><th>match_score</th><td>308.596122362541</td></tr><tr><th>strengths</th><td>RPGssLScWPXjQagFYgkM</td></tr><tr><th>gaps</th><td>GVnzWxRukreNgNBpUAKn</td></tr><tr><th>overall_assessment</th><td>VmltLQKrevgdJFsboaMa</td></tr></table>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "execution_data": {
-        "resolved_model": "@default-premium",
-        "resolved_model_for_object": "@default-premium",
-        "is_multiple_output": false,
-        "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: ejQPSvEnqKldZLUFiWJl\n\n# experience: hlZAyzDPzZwqewCrBkFQ\n\n# education: orvmDHGhuGjUySCVicHz\n\n# achievements: fwgLWuGNXqOiKifwiGcP\n</candidate_profile>\n\n<job_requirements>\n# required_skills: VvLbVnPKtbcWSOwQlQWt\n\n# responsibilities: tpjUGNodbjCLtgfXaaKf\n\n# qualifications: MKNGOrJDzkMSdoEOuGXv\n\n# nice_to_haves: dcvqFIzXBTbWDZEcsNyr\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: mdUsNcSavtYfdGtdJxAk\n\n# experience: jMxCJhcCOfFdsGYOYHBG\n\n# education: GfuLLhTgShcJsqrVORzp\n\n# achievements: xeuZdsWspZcZsUyLNsWp\n</candidate_profile>\n\n<job_requirements>\n# required_skills: EAyKvEBUiJzQMCRFlkav\n\n# responsibilities: koGWegVFqnOQVtarbfoc\n\n# qualifications: VUjXgolihOOMqmPhsjfp\n\n# nice_to_haves: shjaAPEoQYpGESrTYssA\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     }
   ],
   "edges": [
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_0",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_0",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_0",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_1",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_1",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_2",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_2",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_3",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_0",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_3",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_0",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_4",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_4",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_5",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_5",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_6",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_6",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_7",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_7",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_7",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_8",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_8",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_8",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_9",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_9",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_10",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_10",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_10",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_11",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_11",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:edge_11",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_12",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_12",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_13",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_14",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:edge_15",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
-      "kind": "contains",
-      "label": null,
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_0",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_2",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_3",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_0",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_2",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_3",
       "kind": "data",
+      "optional": false,
       "label": "job_offer_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_1",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_1",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
       "kind": "data",
+      "optional": false,
       "label": "job_requirements",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_2",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_2",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_6",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_7",
       "kind": "data",
+      "optional": false,
       "label": "cv_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_3",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_7",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_3",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_7",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_8",
       "kind": "data",
+      "optional": false,
       "label": "candidate_profile",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_4",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_8",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_4",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_8",
       "kind": "data",
+      "optional": false,
       "label": "job_requirements",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_5",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_5",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
       "kind": "data",
+      "optional": false,
       "label": "job_requirements",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_6",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_6",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_10",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_11",
       "kind": "data",
+      "optional": false,
       "label": "cv_pages",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_7",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_11",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_7",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_11",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_12",
       "kind": "data",
+      "optional": false,
       "label": "candidate_profile",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_8",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_12",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_8",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_1",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_12",
       "kind": "data",
+      "optional": false,
       "label": "job_requirements",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_9",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "kind": "data",
-      "label": "job_requirements",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_10",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
-      "kind": "data",
-      "label": "cv_pages",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_11",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_15",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
-      "kind": "data",
-      "label": "candidate_profile",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_12",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_1",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_16",
-      "kind": "data",
-      "label": "job_requirements",
-      "source_stuff_digest": null,
-      "target_stuff_digest": null,
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_13",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_9",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-0",
+      "source_stuff_digest": "BToD8",
+      "target_stuff_digest": "BToD8-branch-0",
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_14",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_6",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_10",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_6",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-0",
+      "source_stuff_digest": "BToD8",
+      "target_stuff_digest": "BToD8-branch-0",
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_15",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_11",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-1",
+      "source_stuff_digest": "BToD8",
+      "target_stuff_digest": "BToD8-branch-1",
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_16",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_10",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_12",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_10",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-1",
+      "source_stuff_digest": "BToD8",
+      "target_stuff_digest": "BToD8-branch-1",
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_17",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "kind": "batch_item",
-      "label": "[2]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-2",
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_18",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_14",
-      "kind": "batch_item",
-      "label": "[2]",
-      "source_stuff_digest": "V5vae",
-      "target_stuff_digest": "V5vae-branch-2",
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_19",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_5",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_13",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_5",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "XDMLj-branch-0",
-      "target_stuff_digest": "LMiEK",
+      "source_stuff_digest": "RVkRp-branch-0",
+      "target_stuff_digest": "AxLkk",
       "meta": {}
     },
     {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_20",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_9",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
+      "id": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:asm_edge_14",
+      "source": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_9",
+      "target": "38f2c0d7-ab5f-4eeb-9a72-e46f96a1cae8:node_4",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "XDMLj-branch-1",
-      "target_stuff_digest": "LMiEK",
-      "meta": {}
-    },
-    {
-      "id": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:asm_edge_21",
-      "source": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_13",
-      "target": "f61ae949-1aaa-4b23-9b93-4197dd897c5f:node_4",
-      "kind": "batch_aggregate",
-      "label": "[2]",
-      "source_stuff_digest": "XDMLj-branch-2",
-      "target_stuff_digest": "LMiEK",
+      "source_stuff_digest": "RVkRp-branch-1",
+      "target_stuff_digest": "AxLkk",
       "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "cv_batch_screening.batch_analyze_cvs_for_job_offer": {
@@ -1994,7 +1530,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         },
         "job_offer_pdf": {
           "concept": {
@@ -2004,7 +1541,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2015,7 +1553,8 @@
           "structure_class_name": "cv_batch_screening__CandidateMatch",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -2050,7 +1589,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2061,7 +1601,8 @@
           "structure_class_name": "cv_batch_screening__JobRequirements",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -2093,7 +1634,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2104,7 +1646,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": "@default-extract-document",
       "should_caption_images": false,
@@ -2131,7 +1674,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2142,7 +1686,8 @@
           "structure_class_name": "cv_batch_screening__JobRequirements",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -2167,7 +1712,6 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "cv_batch_screening.process_cv_batch": {
@@ -2185,7 +1729,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2196,7 +1741,8 @@
           "structure_class_name": "cv_batch_screening__CandidateMatch",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "branch_pipe_code": "process_cv",
       "batch_params": {
@@ -2219,7 +1765,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "job_requirements": {
           "concept": {
@@ -2229,7 +1776,8 @@
             "structure_class_name": "cv_batch_screening__JobRequirements",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2240,7 +1788,8 @@
           "structure_class_name": "cv_batch_screening__CandidateMatch",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -2278,7 +1827,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2289,7 +1839,8 @@
           "structure_class_name": "PageContent",
           "refines": null
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "extract_choice": "@default-extract-document",
       "should_caption_images": false,
@@ -2316,7 +1867,8 @@
             "structure_class_name": "PageContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2327,7 +1879,8 @@
           "structure_class_name": "cv_batch_screening__CandidateProfile",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -2352,7 +1905,6 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     },
     "cv_batch_screening.analyze_match": {
@@ -2370,7 +1922,8 @@
             "structure_class_name": "cv_batch_screening__CandidateProfile",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "job_requirements": {
           "concept": {
@@ -2380,7 +1933,8 @@
             "structure_class_name": "cv_batch_screening__JobRequirements",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -2391,7 +1945,8 @@
           "structure_class_name": "cv_batch_screening__CandidateMatch",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -2416,7 +1971,6 @@
         "for_text": "$writing-factual",
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": null
     }
   },
@@ -2709,10 +2263,12 @@
           "ImageSize": {
             "properties": {
               "width": {
+                "exclusiveMinimum": 0,
                 "title": "Width",
                 "type": "integer"
               },
               "height": {
+                "exclusiveMinimum": 0,
                 "title": "Height",
                 "type": "integer"
               }

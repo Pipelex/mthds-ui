@@ -4,7 +4,7 @@ import { DRY_SIMPLE_BATCH } from "./specs/_generated/dry/pipeline_08";
 import { LIVE_SIMPLE_BATCH } from "./specs/_generated/live/pipeline_08";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/08 Simple Batch",
+  title: "Graph - from run/08 Simple Batch",
   component: GraphViewer,
   decorators: [
     (Story) => (

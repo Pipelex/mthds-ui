@@ -60,6 +60,9 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const isRunning = data.status === "running";
   const isController = isControllerType(data.pipeType);
   const isSignature = data.pipeType === "PipeSignature";
+  const isStatic = data.graphMode === "static";
+  const outcome = isStatic ? data.tags?.outcome : undefined;
+  const batchMultiplicity = isStatic ? data.tags?.batch_multiplicity : undefined;
   const [inputsExpanded, setInputsExpanded] = useState(false);
 
   const hasMany = data.inputs.length > MAX_VISIBLE_INPUTS;
@@ -70,6 +73,7 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
   const dirClass = data.direction === "TB" ? "pipe-card--tb" : "pipe-card--lr";
   const controllerClass = isController ? " pipe-card--controller" : "";
   const signatureClass = isSignature ? " pipe-card--signature" : "";
+  const staticClass = isStatic ? " pipe-card--static" : "";
   const badgeClass = isController
     ? "pipe-card-badge pipe-card-badge--controller"
     : isSignature
@@ -77,23 +81,25 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
       : "pipe-card-badge";
 
   return (
-    <div className={`pipe-card ${dirClass}${controllerClass}${signatureClass}`}>
+    <div className={`pipe-card ${dirClass}${controllerClass}${signatureClass}${staticClass}`}>
       {/* Header: badge + pipe code + status + (optional) expand */}
       <div className="pipe-card-header">
         <span className={badgeClass}>{badge}</span>
         <span className="pipe-card-code" title={data.pipeCode}>
           {data.pipeCode}
         </span>
-        <span
-          className="pipe-card-status"
-          style={{ color: statusConfig.color }}
-          title={statusConfig.label}
-        >
+        {!isStatic && (
           <span
-            className={`pipe-card-status-dot ${isRunning ? "pipe-card-status-dot--pulse" : ""}`}
-            style={{ background: statusConfig.color }}
-          />
-        </span>
+            className="pipe-card-status"
+            style={{ color: statusConfig.color }}
+            title={statusConfig.label}
+          >
+            <span
+              className={`pipe-card-status-dot ${isRunning ? "pipe-card-status-dot--pulse" : ""}`}
+              style={{ background: statusConfig.color }}
+            />
+          </span>
+        )}
         {data.onExpand && (
           <button
             type="button"
@@ -109,6 +115,21 @@ export function PipeCardBase({ data, children }: PipeCardBaseProps) {
           </button>
         )}
       </div>
+
+      {(outcome || batchMultiplicity) && (
+        <div className="pipe-card-annotations">
+          {outcome && (
+            <span className="pipe-card-annotation pipe-card-annotation--outcome">
+              outcome: {outcome}
+            </span>
+          )}
+          {batchMultiplicity && (
+            <span className="pipe-card-annotation pipe-card-annotation--batch">
+              {batchMultiplicity}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Description — clamped via CSS */}
       {data.description && (

@@ -1,6 +1,6 @@
 {
-  "graph_id": "87571344-619c-4d20-b691-1d53c6d1da9b",
-  "created_at": "2026-05-15T12:39:23.661720Z",
+  "graph_id": "c14c6777-19c7-4792-b936-3217634cd63e",
+  "created_at": "2026-07-09T11:02:39.680225Z",
   "pipeline_ref": {
     "domain": "data_enrichment",
     "main_pipe": "batch_enrich",
@@ -8,37 +8,38 @@
   },
   "nodes": [
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_0",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_0",
       "kind": "controller",
       "pipe_code": "batch_enrich",
       "pipe_type": "PipeSequence",
       "description": "Load records, batch-enrich each, then export",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.661720Z",
-        "ended_at": "2026-05-15T12:39:23.795601Z",
-        "duration": 0.133881
+        "started_at": "2026-07-09T11:02:39.680225Z",
+        "ended_at": "2026-07-09T11:02:39.882868Z",
+        "duration": 0.202643
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "TqOMqnLVZFxzaYzphTuk",
+            "content_type": "AXPRXquIaRxucaxgmxzp",
             "preview": null,
             "size": null,
-            "digest": "3q85H",
+            "digest": "K7Rwo",
             "data": {
-              "url": "cErVGazEmFQEoJFKEvFw",
-              "public_url": "ZgOYlwTXOGKPKvOdbxHM",
-              "mime_type": "TqOMqnLVZFxzaYzphTuk",
-              "filename": "qYvsxCfoFMyuKalAqYdB",
-              "title": "FpuMFWwaIvUCIgolewZh",
-              "snippet": "SUBVKrMuBXNAUpyaPqmM"
+              "url": "fBOMmtSZcIvDwVvFKsQb",
+              "public_url": "ufohuQCNRpLmlldMjTcO",
+              "mime_type": "AXPRXquIaRxucaxgmxzp",
+              "filename": "gCVCQtmMKbWBtdoLZIPE",
+              "title": "kIDTJAnjcTAGkZzkmHGi",
+              "snippet": "ytnqmLSKcSuwRjUxWnnN"
             },
-            "data_text": "FpuMFWwaIvUCIgolewZh (cErVGazEmFQEoJFKEvFw)\n  SUBVKrMuBXNAUpyaPqmM\n",
-            "data_html": "<a href=\"ZgOYlwTXOGKPKvOdbxHM\" class=\"msg-document\">FpuMFWwaIvUCIgolewZh</a><br/><small>SUBVKrMuBXNAUpyaPqmM</small>",
+            "data_text": "kIDTJAnjcTAGkZzkmHGi (fBOMmtSZcIvDwVvFKsQb)\n  ytnqmLSKcSuwRjUxWnnN\n",
+            "data_html": "<a href=\"ufohuQCNRpLmlldMjTcO\" class=\"msg-document\">kIDTJAnjcTAGkZzkmHGi</a><br/><small>ytnqmLSKcSuwRjUxWnnN</small>",
             "extra": {}
           }
         ],
@@ -49,12 +50,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "F4gaE",
+            "digest": "EyMnY",
             "data": {
-              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```\n\n```"
+              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```\n\n```"
             },
-            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n tDIgIugqIykljwFwHSKE                                                                               \n                                                                                                    \n Sources:                                                                                           \n - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                                                       \n   lcFubbbizjkPUsGbFxsJ                                                                             \n - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                                                       \n   RlYvNSFvGOolwakcGmBz                                                                             \n - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                                                       \n   MPuORvpWxccGTOrCmTTh                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n GcVsLALarvtQlgezxxoH                                                                               \n                                                                                                    \n Sources:                                                                                           \n - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                                                       \n   ZaDWFyaEMzJJAOVQQsyK                                                                             \n - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                                                       \n   HcMCccJFGKClocCPBwiE                                                                             \n - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                                                       \n   ufHGCQgvGBoLwcVivWVj                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                                                       \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n PNOxqgftIWUXdolmxCws                                                                               \n                                                                                                    \n Sources:                                                                                           \n - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                                                       \n   fOHyCGpALqGWikojplND                                                                             \n - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                                                       \n   XdKGehWWAUUlQrrfKGEB                                                                             \n - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                                                       \n   HAdCyzXEMMdvSnvJamSf                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```\n\n```",
+            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FNVxEOvlIYghOgjTZqMW                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                                                       \n   xIqQdVXtugVrvTYWEjVo                                                                             \n - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                                                       \n   YePpKZhrMUXWvzwhlpQq                                                                             \n - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                                                       \n   FgfjVcRUiZAxtEBJEXPm                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n UqusNYyYJdnFLCurxGhP                                                                               \n                                                                                                    \n Sources:                                                                                           \n - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                                                       \n   VzpfrRSDCznEBnDiqYGH                                                                             \n - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                                                       \n   zrPSFMStaEeNxnhxFzVd                                                                             \n - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                                                       \n   XviTriCtpjtAUxxvIjEx                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n KvfCaszEevWqkqxSHcEx                                                                               \n                                                                                                    \n Sources:                                                                                           \n - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                                                       \n   WgrdoGeIcHcSRICrjQnq                                                                             \n - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                                                       \n   eJySKMJkEXonfwjvRPYW                                                                             \n - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                                                       \n   KUpjdNapMyJfodBZAhWC                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```\n\n```",
             "extra": {}
           }
         ]
@@ -67,37 +68,38 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_1",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_1",
       "kind": "operator",
       "pipe_code": "load_records",
       "pipe_type": "PipeLLM",
       "description": "Extract structured records from document",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.667301Z",
-        "ended_at": "2026-05-15T12:39:23.684857Z",
-        "duration": 0.017556
+        "started_at": "2026-07-09T11:02:39.685071Z",
+        "ended_at": "2026-07-09T11:02:39.783350Z",
+        "duration": 0.098279
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "TqOMqnLVZFxzaYzphTuk",
+            "content_type": "AXPRXquIaRxucaxgmxzp",
             "preview": null,
             "size": null,
-            "digest": "3q85H",
+            "digest": "K7Rwo",
             "data": {
-              "url": "cErVGazEmFQEoJFKEvFw",
-              "public_url": "ZgOYlwTXOGKPKvOdbxHM",
-              "mime_type": "TqOMqnLVZFxzaYzphTuk",
-              "filename": "qYvsxCfoFMyuKalAqYdB",
-              "title": "FpuMFWwaIvUCIgolewZh",
-              "snippet": "SUBVKrMuBXNAUpyaPqmM"
+              "url": "fBOMmtSZcIvDwVvFKsQb",
+              "public_url": "ufohuQCNRpLmlldMjTcO",
+              "mime_type": "AXPRXquIaRxucaxgmxzp",
+              "filename": "gCVCQtmMKbWBtdoLZIPE",
+              "title": "kIDTJAnjcTAGkZzkmHGi",
+              "snippet": "ytnqmLSKcSuwRjUxWnnN"
             },
-            "data_text": "FpuMFWwaIvUCIgolewZh (cErVGazEmFQEoJFKEvFw)\n  SUBVKrMuBXNAUpyaPqmM\n",
-            "data_html": "<a href=\"ZgOYlwTXOGKPKvOdbxHM\" class=\"msg-document\">FpuMFWwaIvUCIgolewZh</a><br/><small>SUBVKrMuBXNAUpyaPqmM</small>",
+            "data_text": "kIDTJAnjcTAGkZzkmHGi (fBOMmtSZcIvDwVvFKsQb)\n  ytnqmLSKcSuwRjUxWnnN\n",
+            "data_html": "<a href=\"ufohuQCNRpLmlldMjTcO\" class=\"msg-document\">kIDTJAnjcTAGkZzkmHGi</a><br/><small>ytnqmLSKcSuwRjUxWnnN</small>",
             "extra": {}
           }
         ],
@@ -108,28 +110,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw",
+            "digest": "dy745",
             "data": {
               "items": [
                 {
                   "json_obj": {
-                    "JYrZJlwpcodKChFnioZd": "864149b2f"
+                    "oXkMgsgTMZgOPqTSvyvZ": "ef5c"
                   }
                 },
                 {
                   "json_obj": {
-                    "NmNWQxgZrGnEvwmKdaEE": "9d7dc7"
+                    "vbDKrNTjXuFjEOheGKzc": "2f22"
                   }
                 },
                 {
                   "json_obj": {
-                    "ZhBtgHpULbwDCdxTDPsN": "dcc"
+                    "GrArcCQLIYsoMyVSTtxF": "a20de0cac"
                   }
                 }
               ]
             },
-            "data_text": "      1      │ {                                                                \n             │     \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"                          \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"                             \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"                                \n             │ }                                                                \n",
-            "data_html": "<ul><li><table ><tr><th>JYrZJlwpcodKChFnioZd</th><td>864149b2f</td></tr></table></li><li><table ><tr><th>NmNWQxgZrGnEvwmKdaEE</th><td>9d7dc7</td></tr></table></li><li><table ><tr><th>ZhBtgHpULbwDCdxTDPsN</th><td>dcc</td></tr></table></li></ul>",
+            "data_text": "      1      │ {                                                                \n             │     \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"                               \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"                               \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"                          \n             │ }                                                                \n",
+            "data_html": "<ul><li><table ><tr><th>oXkMgsgTMZgOPqTSvyvZ</th><td>ef5c</td></tr></table></li><li><table ><tr><th>vbDKrNTjXuFjEOheGKzc</th><td>2f22</td></tr></table></li><li><table ><tr><th>GrArcCQLIYsoMyVSTtxF</th><td>a20de0cac</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -147,17 +149,18 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "controller",
       "pipe_code": "enrich_single_batch",
       "pipe_type": "PipeBatch",
       "description": "Batch processing for enrich_single",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.688613Z",
-        "ended_at": "2026-05-15T12:39:23.777987Z",
-        "duration": 0.089374
+        "started_at": "2026-07-09T11:02:39.783616Z",
+        "ended_at": "2026-07-09T11:02:39.867267Z",
+        "duration": 0.083651
       },
       "io": {
         "inputs": [
@@ -167,28 +170,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw",
+            "digest": "dy745",
             "data": {
               "items": [
                 {
                   "json_obj": {
-                    "JYrZJlwpcodKChFnioZd": "864149b2f"
+                    "oXkMgsgTMZgOPqTSvyvZ": "ef5c"
                   }
                 },
                 {
                   "json_obj": {
-                    "NmNWQxgZrGnEvwmKdaEE": "9d7dc7"
+                    "vbDKrNTjXuFjEOheGKzc": "2f22"
                   }
                 },
                 {
                   "json_obj": {
-                    "ZhBtgHpULbwDCdxTDPsN": "dcc"
+                    "GrArcCQLIYsoMyVSTtxF": "a20de0cac"
                   }
                 }
               ]
             },
-            "data_text": "      1      │ {                                                                \n             │     \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"                          \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"                             \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"                                \n             │ }                                                                \n",
-            "data_html": "<ul><li><table ><tr><th>JYrZJlwpcodKChFnioZd</th><td>864149b2f</td></tr></table></li><li><table ><tr><th>NmNWQxgZrGnEvwmKdaEE</th><td>9d7dc7</td></tr></table></li><li><table ><tr><th>ZhBtgHpULbwDCdxTDPsN</th><td>dcc</td></tr></table></li></ul>",
+            "data_text": "      1      │ {                                                                \n             │     \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"                               \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      2      │ {                                                                \n             │     \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"                               \n             │ }                                                                \n─────────────┼──────────────────────────────────────────────────────────────────\n      3      │ {                                                                \n             │     \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"                          \n             │ }                                                                \n",
+            "data_html": "<ul><li><table ><tr><th>oXkMgsgTMZgOPqTSvyvZ</th><td>ef5c</td></tr></table></li><li><table ><tr><th>vbDKrNTjXuFjEOheGKzc</th><td>2f22</td></tr></table></li><li><table ><tr><th>GrArcCQLIYsoMyVSTtxF</th><td>a20de0cac</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -199,22 +202,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TURS9",
+            "digest": "izv8u",
             "data": {
               "items": [
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```"
                 },
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```"
                 },
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```"
                 }
               ]
             },
-            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                   \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  tDIgIugqIykljwFwHSKE                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                         \n        │    lcFubbbizjkPUsGbFxsJ                                               \n        │  - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                         \n        │    RlYvNSFvGOolwakcGmBz                                               \n        │  - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                         \n        │    MPuORvpWxccGTOrCmTTh                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                      \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  GcVsLALarvtQlgezxxoH                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                         \n        │    ZaDWFyaEMzJJAOVQQsyK                                               \n        │  - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                         \n        │    HcMCccJFGKClocCPBwiE                                               \n        │  - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                         \n        │    ufHGCQgvGBoLwcVivWVj                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                         \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  PNOxqgftIWUXdolmxCws                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                         \n        │    fOHyCGpALqGWikojplND                                               \n        │  - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                         \n        │    XdKGehWWAUUlQrrfKGEB                                               \n        │  - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                         \n        │    HAdCyzXEMMdvSnvJamSf                                               \n        │                                                                       \n",
-            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```</li><li>## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```</li><li>## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```</li></ul>",
+            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                        \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  FNVxEOvlIYghOgjTZqMW                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                         \n        │    xIqQdVXtugVrvTYWEjVo                                               \n        │  - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                         \n        │    YePpKZhrMUXWvzwhlpQq                                               \n        │  - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                         \n        │    FgfjVcRUiZAxtEBJEXPm                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                        \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  UqusNYyYJdnFLCurxGhP                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                         \n        │    VzpfrRSDCznEBnDiqYGH                                               \n        │  - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                         \n        │    zrPSFMStaEeNxnhxFzVd                                               \n        │  - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                         \n        │    XviTriCtpjtAUxxvIjEx                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                   \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  KvfCaszEevWqkqxSHcEx                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                         \n        │    WgrdoGeIcHcSRICrjQnq                                               \n        │  - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                         \n        │    eJySKMJkEXonfwjvRPYW                                               \n        │  - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                         \n        │    KUpjdNapMyJfodBZAhWC                                               \n        │                                                                       \n",
+            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```</li><li>## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```</li><li>## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```</li></ul>",
             "extra": {}
           }
         ]
@@ -228,17 +231,18 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
       "kind": "controller",
       "pipe_code": "enrich_single",
       "pipe_type": "PipeSequence",
       "description": "Lookup details and format a single record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.694201Z",
-        "ended_at": "2026-05-15T12:39:23.719890Z",
-        "duration": 0.025689
+        "started_at": "2026-07-09T11:02:39.787401Z",
+        "ended_at": "2026-07-09T11:02:39.814920Z",
+        "duration": 0.027519
       },
       "io": {
         "inputs": [
@@ -248,14 +252,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-0",
+            "digest": "dy745-branch-0",
             "data": {
               "json_obj": {
-                "JYrZJlwpcodKChFnioZd": "864149b2f"
+                "oXkMgsgTMZgOPqTSvyvZ": "ef5c"
               }
             },
-            "data_text": "{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n",
-            "data_html": "<table ><tr><th>JYrZJlwpcodKChFnioZd</th><td>864149b2f</td></tr></table>",
+            "data_text": "{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n",
+            "data_html": "<table ><tr><th>oXkMgsgTMZgOPqTSvyvZ</th><td>ef5c</td></tr></table>",
             "extra": {}
           }
         ],
@@ -266,12 +270,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7rqLq",
+            "digest": "mtukW",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n tDIgIugqIykljwFwHSKE                                                                               \n                                                                                                    \n Sources:                                                                                           \n - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                                                       \n   lcFubbbizjkPUsGbFxsJ                                                                             \n - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                                                       \n   RlYvNSFvGOolwakcGmBz                                                                             \n - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                                                       \n   MPuORvpWxccGTOrCmTTh                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FNVxEOvlIYghOgjTZqMW                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                                                       \n   xIqQdVXtugVrvTYWEjVo                                                                             \n - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                                                       \n   YePpKZhrMUXWvzwhlpQq                                                                             \n - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                                                       \n   FgfjVcRUiZAxtEBJEXPm                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```",
             "extra": {}
           }
         ]
@@ -284,17 +288,18 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_4",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_4",
       "kind": "operator",
       "pipe_code": "lookup_details",
       "pipe_type": "PipeSearch",
       "description": "Search for additional details about a record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.697898Z",
-        "ended_at": "2026-05-15T12:39:23.704613Z",
-        "duration": 0.006715
+        "started_at": "2026-07-09T11:02:39.789994Z",
+        "ended_at": "2026-07-09T11:02:39.802358Z",
+        "duration": 0.012364
       },
       "io": {
         "inputs": [
@@ -304,14 +309,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-0",
+            "digest": "dy745-branch-0",
             "data": {
               "json_obj": {
-                "JYrZJlwpcodKChFnioZd": "864149b2f"
+                "oXkMgsgTMZgOPqTSvyvZ": "ef5c"
               }
             },
-            "data_text": "{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n",
-            "data_html": "<table ><tr><th>JYrZJlwpcodKChFnioZd</th><td>864149b2f</td></tr></table>",
+            "data_text": "{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n",
+            "data_html": "<table ><tr><th>oXkMgsgTMZgOPqTSvyvZ</th><td>ef5c</td></tr></table>",
             "extra": {}
           }
         ],
@@ -322,38 +327,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "oAMB3",
+            "digest": "eF2Gg",
             "data": {
-              "answer": "tDIgIugqIykljwFwHSKE",
+              "answer": "FNVxEOvlIYghOgjTZqMW",
               "sources": [
                 {
-                  "url": "xyIKElDvrzQqJlOiuUUs",
-                  "public_url": "bietdlmXpivsKFswRMmS",
-                  "mime_type": "mmuZDrbRDdrbDEDjMfgt",
-                  "filename": "fRnBaMMmHDfxMCcCGqwZ",
-                  "title": "gFxhVDFvEpelIbcsTRHB",
-                  "snippet": "lcFubbbizjkPUsGbFxsJ"
+                  "url": "wOgsjgHqpgABImRNhABN",
+                  "public_url": "SFttsCQoAhTVjDifuOpX",
+                  "mime_type": "VqtykNXCGJHilwOjYVLn",
+                  "filename": "iudCMxkBmxANAoocYIlY",
+                  "title": "wEGhmyYyzaojIHPzLkgU",
+                  "snippet": "xIqQdVXtugVrvTYWEjVo"
                 },
                 {
-                  "url": "tFgyrIRBFVivsXNEcXYm",
-                  "public_url": "BnihBVVKrQJLXbiRxogz",
-                  "mime_type": "iEOyiNrhSSYNNznAtNzI",
-                  "filename": "DfSKvMQdBlWBxXgZBnlQ",
-                  "title": "eaVUucQPbPCSVnrSvUDd",
-                  "snippet": "RlYvNSFvGOolwakcGmBz"
+                  "url": "OhndGbaaMSpqjljFfJNd",
+                  "public_url": "rQveQEZPKKnfhhMnuWEx",
+                  "mime_type": "GxHjRlRTZQSAdGeQkTvn",
+                  "filename": "ctHTJgzHYfnzGrhCHhzW",
+                  "title": "vzNGsfnvWPaFQwblSkSA",
+                  "snippet": "YePpKZhrMUXWvzwhlpQq"
                 },
                 {
-                  "url": "NeIDzHwVTxADMlLrxSAa",
-                  "public_url": "PBMaDOuyPbrGgVrfvAkP",
-                  "mime_type": "pWKotWUDRIWgSHXNrBPW",
-                  "filename": "XsTIcpIIPcNQHiZxswHN",
-                  "title": "KRZMjHsQHrtqJtBXqiwr",
-                  "snippet": "MPuORvpWxccGTOrCmTTh"
+                  "url": "FVpheJGYxtmHSsSFHxwS",
+                  "public_url": "vfLtKZrdNlviVenLgikY",
+                  "mime_type": "coRXQlYRkDOFuvhBHqrL",
+                  "filename": "XSOunBtzBNbGqsBWSYLP",
+                  "title": "PghRFcMRMhLiMGLgTjAl",
+                  "snippet": "FgfjVcRUiZAxtEBJEXPm"
                 }
               ]
             },
-            "data_text": "Search Result:\ntDIgIugqIykljwFwHSKE                                                                                \n\nSources (3):\ngFxhVDFvEpelIbcsTRHB (xyIKElDvrzQqJlOiuUUs)\n  lcFubbbizjkPUsGbFxsJ\n\neaVUucQPbPCSVnrSvUDd (tFgyrIRBFVivsXNEcXYm)\n  RlYvNSFvGOolwakcGmBz\n\nKRZMjHsQHrtqJtBXqiwr (NeIDzHwVTxADMlLrxSAa)\n  MPuORvpWxccGTOrCmTTh\n",
-            "data_html": "<div><p>tDIgIugqIykljwFwHSKE</p><h4>Sources</h4><ul><li><a href=\"bietdlmXpivsKFswRMmS\" class=\"msg-document\">gFxhVDFvEpelIbcsTRHB</a><br/><small>lcFubbbizjkPUsGbFxsJ</small></li><li><a href=\"BnihBVVKrQJLXbiRxogz\" class=\"msg-document\">eaVUucQPbPCSVnrSvUDd</a><br/><small>RlYvNSFvGOolwakcGmBz</small></li><li><a href=\"PBMaDOuyPbrGgVrfvAkP\" class=\"msg-document\">KRZMjHsQHrtqJtBXqiwr</a><br/><small>MPuORvpWxccGTOrCmTTh</small></li></ul></div>",
+            "data_text": "Search Result:\nFNVxEOvlIYghOgjTZqMW                                                                                \n\nSources (3):\nwEGhmyYyzaojIHPzLkgU (wOgsjgHqpgABImRNhABN)\n  xIqQdVXtugVrvTYWEjVo\n\nvzNGsfnvWPaFQwblSkSA (OhndGbaaMSpqjljFfJNd)\n  YePpKZhrMUXWvzwhlpQq\n\nPghRFcMRMhLiMGLgTjAl (FVpheJGYxtmHSsSFHxwS)\n  FgfjVcRUiZAxtEBJEXPm\n",
+            "data_html": "<div><p>FNVxEOvlIYghOgjTZqMW</p><h4>Sources</h4><ul><li><a href=\"SFttsCQoAhTVjDifuOpX\" class=\"msg-document\">wEGhmyYyzaojIHPzLkgU</a><br/><small>xIqQdVXtugVrvTYWEjVo</small></li><li><a href=\"rQveQEZPKKnfhhMnuWEx\" class=\"msg-document\">vzNGsfnvWPaFQwblSkSA</a><br/><small>YePpKZhrMUXWvzwhlpQq</small></li><li><a href=\"vfLtKZrdNlviVenLgikY\" class=\"msg-document\">PghRFcMRMhLiMGLgTjAl</a><br/><small>FgfjVcRUiZAxtEBJEXPm</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -362,23 +367,24 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "rendered_query": "mock",
-        "resolved_model": "mock",
+        "rendered_query": "Find more information about {\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}",
+        "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_5",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_5",
       "kind": "operator",
       "pipe_code": "format_entry",
       "pipe_type": "PipeCompose",
       "description": "Format enriched record entry",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.708981Z",
-        "ended_at": "2026-05-15T12:39:23.717052Z",
-        "duration": 0.008071
+        "started_at": "2026-07-09T11:02:39.803726Z",
+        "ended_at": "2026-07-09T11:02:39.813764Z",
+        "duration": 0.010038
       },
       "io": {
         "inputs": [
@@ -388,14 +394,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-0",
+            "digest": "dy745-branch-0",
             "data": {
               "json_obj": {
-                "JYrZJlwpcodKChFnioZd": "864149b2f"
+                "oXkMgsgTMZgOPqTSvyvZ": "ef5c"
               }
             },
-            "data_text": "{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n",
-            "data_html": "<table ><tr><th>JYrZJlwpcodKChFnioZd</th><td>864149b2f</td></tr></table>",
+            "data_text": "{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n",
+            "data_html": "<table ><tr><th>oXkMgsgTMZgOPqTSvyvZ</th><td>ef5c</td></tr></table>",
             "extra": {}
           },
           {
@@ -404,38 +410,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "oAMB3",
+            "digest": "eF2Gg",
             "data": {
-              "answer": "tDIgIugqIykljwFwHSKE",
+              "answer": "FNVxEOvlIYghOgjTZqMW",
               "sources": [
                 {
-                  "url": "xyIKElDvrzQqJlOiuUUs",
-                  "public_url": "bietdlmXpivsKFswRMmS",
-                  "mime_type": "mmuZDrbRDdrbDEDjMfgt",
-                  "filename": "fRnBaMMmHDfxMCcCGqwZ",
-                  "title": "gFxhVDFvEpelIbcsTRHB",
-                  "snippet": "lcFubbbizjkPUsGbFxsJ"
+                  "url": "wOgsjgHqpgABImRNhABN",
+                  "public_url": "SFttsCQoAhTVjDifuOpX",
+                  "mime_type": "VqtykNXCGJHilwOjYVLn",
+                  "filename": "iudCMxkBmxANAoocYIlY",
+                  "title": "wEGhmyYyzaojIHPzLkgU",
+                  "snippet": "xIqQdVXtugVrvTYWEjVo"
                 },
                 {
-                  "url": "tFgyrIRBFVivsXNEcXYm",
-                  "public_url": "BnihBVVKrQJLXbiRxogz",
-                  "mime_type": "iEOyiNrhSSYNNznAtNzI",
-                  "filename": "DfSKvMQdBlWBxXgZBnlQ",
-                  "title": "eaVUucQPbPCSVnrSvUDd",
-                  "snippet": "RlYvNSFvGOolwakcGmBz"
+                  "url": "OhndGbaaMSpqjljFfJNd",
+                  "public_url": "rQveQEZPKKnfhhMnuWEx",
+                  "mime_type": "GxHjRlRTZQSAdGeQkTvn",
+                  "filename": "ctHTJgzHYfnzGrhCHhzW",
+                  "title": "vzNGsfnvWPaFQwblSkSA",
+                  "snippet": "YePpKZhrMUXWvzwhlpQq"
                 },
                 {
-                  "url": "NeIDzHwVTxADMlLrxSAa",
-                  "public_url": "PBMaDOuyPbrGgVrfvAkP",
-                  "mime_type": "pWKotWUDRIWgSHXNrBPW",
-                  "filename": "XsTIcpIIPcNQHiZxswHN",
-                  "title": "KRZMjHsQHrtqJtBXqiwr",
-                  "snippet": "MPuORvpWxccGTOrCmTTh"
+                  "url": "FVpheJGYxtmHSsSFHxwS",
+                  "public_url": "vfLtKZrdNlviVenLgikY",
+                  "mime_type": "coRXQlYRkDOFuvhBHqrL",
+                  "filename": "XSOunBtzBNbGqsBWSYLP",
+                  "title": "PghRFcMRMhLiMGLgTjAl",
+                  "snippet": "FgfjVcRUiZAxtEBJEXPm"
                 }
               ]
             },
-            "data_text": "Search Result:\ntDIgIugqIykljwFwHSKE                                                                                \n\nSources (3):\ngFxhVDFvEpelIbcsTRHB (xyIKElDvrzQqJlOiuUUs)\n  lcFubbbizjkPUsGbFxsJ\n\neaVUucQPbPCSVnrSvUDd (tFgyrIRBFVivsXNEcXYm)\n  RlYvNSFvGOolwakcGmBz\n\nKRZMjHsQHrtqJtBXqiwr (NeIDzHwVTxADMlLrxSAa)\n  MPuORvpWxccGTOrCmTTh\n",
-            "data_html": "<div><p>tDIgIugqIykljwFwHSKE</p><h4>Sources</h4><ul><li><a href=\"bietdlmXpivsKFswRMmS\" class=\"msg-document\">gFxhVDFvEpelIbcsTRHB</a><br/><small>lcFubbbizjkPUsGbFxsJ</small></li><li><a href=\"BnihBVVKrQJLXbiRxogz\" class=\"msg-document\">eaVUucQPbPCSVnrSvUDd</a><br/><small>RlYvNSFvGOolwakcGmBz</small></li><li><a href=\"PBMaDOuyPbrGgVrfvAkP\" class=\"msg-document\">KRZMjHsQHrtqJtBXqiwr</a><br/><small>MPuORvpWxccGTOrCmTTh</small></li></ul></div>",
+            "data_text": "Search Result:\nFNVxEOvlIYghOgjTZqMW                                                                                \n\nSources (3):\nwEGhmyYyzaojIHPzLkgU (wOgsjgHqpgABImRNhABN)\n  xIqQdVXtugVrvTYWEjVo\n\nvzNGsfnvWPaFQwblSkSA (OhndGbaaMSpqjljFfJNd)\n  YePpKZhrMUXWvzwhlpQq\n\nPghRFcMRMhLiMGLgTjAl (FVpheJGYxtmHSsSFHxwS)\n  FgfjVcRUiZAxtEBJEXPm\n",
+            "data_html": "<div><p>FNVxEOvlIYghOgjTZqMW</p><h4>Sources</h4><ul><li><a href=\"SFttsCQoAhTVjDifuOpX\" class=\"msg-document\">wEGhmyYyzaojIHPzLkgU</a><br/><small>xIqQdVXtugVrvTYWEjVo</small></li><li><a href=\"rQveQEZPKKnfhhMnuWEx\" class=\"msg-document\">vzNGsfnvWPaFQwblSkSA</a><br/><small>YePpKZhrMUXWvzwhlpQq</small></li><li><a href=\"vfLtKZrdNlviVenLgikY\" class=\"msg-document\">PghRFcMRMhLiMGLgTjAl</a><br/><small>FgfjVcRUiZAxtEBJEXPm</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -446,12 +452,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7rqLq",
+            "digest": "mtukW",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n tDIgIugqIykljwFwHSKE                                                                               \n                                                                                                    \n Sources:                                                                                           \n - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                                                       \n   lcFubbbizjkPUsGbFxsJ                                                                             \n - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                                                       \n   RlYvNSFvGOolwakcGmBz                                                                             \n - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                                                       \n   MPuORvpWxccGTOrCmTTh                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FNVxEOvlIYghOgjTZqMW                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                                                       \n   xIqQdVXtugVrvTYWEjVo                                                                             \n - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                                                       \n   YePpKZhrMUXWvzwhlpQq                                                                             \n - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                                                       \n   FgfjVcRUiZAxtEBJEXPm                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```",
             "extra": {}
           }
         ]
@@ -461,21 +467,22 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```"
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```"
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
       "kind": "controller",
       "pipe_code": "enrich_single",
       "pipe_type": "PipeSequence",
       "description": "Lookup details and format a single record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.722816Z",
-        "ended_at": "2026-05-15T12:39:23.746963Z",
-        "duration": 0.024147
+        "started_at": "2026-07-09T11:02:39.815632Z",
+        "ended_at": "2026-07-09T11:02:39.838968Z",
+        "duration": 0.023336
       },
       "io": {
         "inputs": [
@@ -485,14 +492,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-1",
+            "digest": "dy745-branch-1",
             "data": {
               "json_obj": {
-                "NmNWQxgZrGnEvwmKdaEE": "9d7dc7"
+                "vbDKrNTjXuFjEOheGKzc": "2f22"
               }
             },
-            "data_text": "{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n",
-            "data_html": "<table ><tr><th>NmNWQxgZrGnEvwmKdaEE</th><td>9d7dc7</td></tr></table>",
+            "data_text": "{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n",
+            "data_html": "<table ><tr><th>vbDKrNTjXuFjEOheGKzc</th><td>2f22</td></tr></table>",
             "extra": {}
           }
         ],
@@ -503,12 +510,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "W4Fgd",
+            "digest": "Rmkyi",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n GcVsLALarvtQlgezxxoH                                                                               \n                                                                                                    \n Sources:                                                                                           \n - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                                                       \n   ZaDWFyaEMzJJAOVQQsyK                                                                             \n - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                                                       \n   HcMCccJFGKClocCPBwiE                                                                             \n - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                                                       \n   ufHGCQgvGBoLwcVivWVj                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n UqusNYyYJdnFLCurxGhP                                                                               \n                                                                                                    \n Sources:                                                                                           \n - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                                                       \n   VzpfrRSDCznEBnDiqYGH                                                                             \n - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                                                       \n   zrPSFMStaEeNxnhxFzVd                                                                             \n - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                                                       \n   XviTriCtpjtAUxxvIjEx                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```",
             "extra": {}
           }
         ]
@@ -521,17 +528,18 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_7",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_7",
       "kind": "operator",
       "pipe_code": "lookup_details",
       "pipe_type": "PipeSearch",
       "description": "Search for additional details about a record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.726574Z",
-        "ended_at": "2026-05-15T12:39:23.732674Z",
-        "duration": 0.0061
+        "started_at": "2026-07-09T11:02:39.817706Z",
+        "ended_at": "2026-07-09T11:02:39.828370Z",
+        "duration": 0.010664
       },
       "io": {
         "inputs": [
@@ -541,14 +549,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-1",
+            "digest": "dy745-branch-1",
             "data": {
               "json_obj": {
-                "NmNWQxgZrGnEvwmKdaEE": "9d7dc7"
+                "vbDKrNTjXuFjEOheGKzc": "2f22"
               }
             },
-            "data_text": "{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n",
-            "data_html": "<table ><tr><th>NmNWQxgZrGnEvwmKdaEE</th><td>9d7dc7</td></tr></table>",
+            "data_text": "{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n",
+            "data_html": "<table ><tr><th>vbDKrNTjXuFjEOheGKzc</th><td>2f22</td></tr></table>",
             "extra": {}
           }
         ],
@@ -559,38 +567,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dnMb7",
+            "digest": "bsvED",
             "data": {
-              "answer": "GcVsLALarvtQlgezxxoH",
+              "answer": "UqusNYyYJdnFLCurxGhP",
               "sources": [
                 {
-                  "url": "GRLZKIuxSXAzTbBFogea",
-                  "public_url": "JKAvchYrYIMDeetnnHKK",
-                  "mime_type": "ClTogeOZGQxYJNLkTSqR",
-                  "filename": "GHEOpWILQRcsOiczsCHK",
-                  "title": "LwBAiYYGFdefCUVBefRP",
-                  "snippet": "ZaDWFyaEMzJJAOVQQsyK"
+                  "url": "BPxkHGRUvPpHZfZunYWa",
+                  "public_url": "DJlTWyhFmNMdStjHqRCw",
+                  "mime_type": "DTzobGmjuwokWfBUgWpU",
+                  "filename": "juZPNtSRQaYEiMvjYqHi",
+                  "title": "UDjbDUfMPmCiqIEFksxX",
+                  "snippet": "VzpfrRSDCznEBnDiqYGH"
                 },
                 {
-                  "url": "raExMeywFJqthdJQqhFl",
-                  "public_url": "xBsheqKMRlwCEepPQYPb",
-                  "mime_type": "tMiQOnMtXkcwfWbRmhbl",
-                  "filename": "loAfViefkCaiuGYBcaBv",
-                  "title": "xZLhozAHgsouabDTobzE",
-                  "snippet": "HcMCccJFGKClocCPBwiE"
+                  "url": "YSnooLWBeKRgByLfpclv",
+                  "public_url": "vJaTiOIBQUqGGqPdrGLq",
+                  "mime_type": "zMzZyJcEDqHfbMHgtgTK",
+                  "filename": "XDNQArPvsUciyPEgyGYC",
+                  "title": "JZiqDSieRBfffMWcNYNQ",
+                  "snippet": "zrPSFMStaEeNxnhxFzVd"
                 },
                 {
-                  "url": "chQwBTVwWDOoGDykekbw",
-                  "public_url": "OdVSCtGjNVXHZwHcQiix",
-                  "mime_type": "tzmjHLDBvReymmjgMJeI",
-                  "filename": "ItqEmBataDVrSfDuAmdn",
-                  "title": "UclQlIysPPcdEeOKqUaH",
-                  "snippet": "ufHGCQgvGBoLwcVivWVj"
+                  "url": "YSabQdmFKuGwZwddGCeX",
+                  "public_url": "cuIzzZCIoGJBqrUfTGdg",
+                  "mime_type": "ATWHSJqQwDidxqKcEOsK",
+                  "filename": "pgebpWWYrmKgyplzwrXb",
+                  "title": "jUMtZGLpPBmAKVCPFsud",
+                  "snippet": "XviTriCtpjtAUxxvIjEx"
                 }
               ]
             },
-            "data_text": "Search Result:\nGcVsLALarvtQlgezxxoH                                                                                \n\nSources (3):\nLwBAiYYGFdefCUVBefRP (GRLZKIuxSXAzTbBFogea)\n  ZaDWFyaEMzJJAOVQQsyK\n\nxZLhozAHgsouabDTobzE (raExMeywFJqthdJQqhFl)\n  HcMCccJFGKClocCPBwiE\n\nUclQlIysPPcdEeOKqUaH (chQwBTVwWDOoGDykekbw)\n  ufHGCQgvGBoLwcVivWVj\n",
-            "data_html": "<div><p>GcVsLALarvtQlgezxxoH</p><h4>Sources</h4><ul><li><a href=\"JKAvchYrYIMDeetnnHKK\" class=\"msg-document\">LwBAiYYGFdefCUVBefRP</a><br/><small>ZaDWFyaEMzJJAOVQQsyK</small></li><li><a href=\"xBsheqKMRlwCEepPQYPb\" class=\"msg-document\">xZLhozAHgsouabDTobzE</a><br/><small>HcMCccJFGKClocCPBwiE</small></li><li><a href=\"OdVSCtGjNVXHZwHcQiix\" class=\"msg-document\">UclQlIysPPcdEeOKqUaH</a><br/><small>ufHGCQgvGBoLwcVivWVj</small></li></ul></div>",
+            "data_text": "Search Result:\nUqusNYyYJdnFLCurxGhP                                                                                \n\nSources (3):\nUDjbDUfMPmCiqIEFksxX (BPxkHGRUvPpHZfZunYWa)\n  VzpfrRSDCznEBnDiqYGH\n\nJZiqDSieRBfffMWcNYNQ (YSnooLWBeKRgByLfpclv)\n  zrPSFMStaEeNxnhxFzVd\n\njUMtZGLpPBmAKVCPFsud (YSabQdmFKuGwZwddGCeX)\n  XviTriCtpjtAUxxvIjEx\n",
+            "data_html": "<div><p>UqusNYyYJdnFLCurxGhP</p><h4>Sources</h4><ul><li><a href=\"DJlTWyhFmNMdStjHqRCw\" class=\"msg-document\">UDjbDUfMPmCiqIEFksxX</a><br/><small>VzpfrRSDCznEBnDiqYGH</small></li><li><a href=\"vJaTiOIBQUqGGqPdrGLq\" class=\"msg-document\">JZiqDSieRBfffMWcNYNQ</a><br/><small>zrPSFMStaEeNxnhxFzVd</small></li><li><a href=\"cuIzzZCIoGJBqrUfTGdg\" class=\"msg-document\">jUMtZGLpPBmAKVCPFsud</a><br/><small>XviTriCtpjtAUxxvIjEx</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -599,23 +607,24 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "rendered_query": "mock",
-        "resolved_model": "mock",
+        "rendered_query": "Find more information about {\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}",
+        "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_8",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_8",
       "kind": "operator",
       "pipe_code": "format_entry",
       "pipe_type": "PipeCompose",
       "description": "Format enriched record entry",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.737018Z",
-        "ended_at": "2026-05-15T12:39:23.744452Z",
-        "duration": 0.007434
+        "started_at": "2026-07-09T11:02:39.829721Z",
+        "ended_at": "2026-07-09T11:02:39.837801Z",
+        "duration": 0.00808
       },
       "io": {
         "inputs": [
@@ -625,14 +634,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-1",
+            "digest": "dy745-branch-1",
             "data": {
               "json_obj": {
-                "NmNWQxgZrGnEvwmKdaEE": "9d7dc7"
+                "vbDKrNTjXuFjEOheGKzc": "2f22"
               }
             },
-            "data_text": "{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n",
-            "data_html": "<table ><tr><th>NmNWQxgZrGnEvwmKdaEE</th><td>9d7dc7</td></tr></table>",
+            "data_text": "{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n",
+            "data_html": "<table ><tr><th>vbDKrNTjXuFjEOheGKzc</th><td>2f22</td></tr></table>",
             "extra": {}
           },
           {
@@ -641,38 +650,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dnMb7",
+            "digest": "bsvED",
             "data": {
-              "answer": "GcVsLALarvtQlgezxxoH",
+              "answer": "UqusNYyYJdnFLCurxGhP",
               "sources": [
                 {
-                  "url": "GRLZKIuxSXAzTbBFogea",
-                  "public_url": "JKAvchYrYIMDeetnnHKK",
-                  "mime_type": "ClTogeOZGQxYJNLkTSqR",
-                  "filename": "GHEOpWILQRcsOiczsCHK",
-                  "title": "LwBAiYYGFdefCUVBefRP",
-                  "snippet": "ZaDWFyaEMzJJAOVQQsyK"
+                  "url": "BPxkHGRUvPpHZfZunYWa",
+                  "public_url": "DJlTWyhFmNMdStjHqRCw",
+                  "mime_type": "DTzobGmjuwokWfBUgWpU",
+                  "filename": "juZPNtSRQaYEiMvjYqHi",
+                  "title": "UDjbDUfMPmCiqIEFksxX",
+                  "snippet": "VzpfrRSDCznEBnDiqYGH"
                 },
                 {
-                  "url": "raExMeywFJqthdJQqhFl",
-                  "public_url": "xBsheqKMRlwCEepPQYPb",
-                  "mime_type": "tMiQOnMtXkcwfWbRmhbl",
-                  "filename": "loAfViefkCaiuGYBcaBv",
-                  "title": "xZLhozAHgsouabDTobzE",
-                  "snippet": "HcMCccJFGKClocCPBwiE"
+                  "url": "YSnooLWBeKRgByLfpclv",
+                  "public_url": "vJaTiOIBQUqGGqPdrGLq",
+                  "mime_type": "zMzZyJcEDqHfbMHgtgTK",
+                  "filename": "XDNQArPvsUciyPEgyGYC",
+                  "title": "JZiqDSieRBfffMWcNYNQ",
+                  "snippet": "zrPSFMStaEeNxnhxFzVd"
                 },
                 {
-                  "url": "chQwBTVwWDOoGDykekbw",
-                  "public_url": "OdVSCtGjNVXHZwHcQiix",
-                  "mime_type": "tzmjHLDBvReymmjgMJeI",
-                  "filename": "ItqEmBataDVrSfDuAmdn",
-                  "title": "UclQlIysPPcdEeOKqUaH",
-                  "snippet": "ufHGCQgvGBoLwcVivWVj"
+                  "url": "YSabQdmFKuGwZwddGCeX",
+                  "public_url": "cuIzzZCIoGJBqrUfTGdg",
+                  "mime_type": "ATWHSJqQwDidxqKcEOsK",
+                  "filename": "pgebpWWYrmKgyplzwrXb",
+                  "title": "jUMtZGLpPBmAKVCPFsud",
+                  "snippet": "XviTriCtpjtAUxxvIjEx"
                 }
               ]
             },
-            "data_text": "Search Result:\nGcVsLALarvtQlgezxxoH                                                                                \n\nSources (3):\nLwBAiYYGFdefCUVBefRP (GRLZKIuxSXAzTbBFogea)\n  ZaDWFyaEMzJJAOVQQsyK\n\nxZLhozAHgsouabDTobzE (raExMeywFJqthdJQqhFl)\n  HcMCccJFGKClocCPBwiE\n\nUclQlIysPPcdEeOKqUaH (chQwBTVwWDOoGDykekbw)\n  ufHGCQgvGBoLwcVivWVj\n",
-            "data_html": "<div><p>GcVsLALarvtQlgezxxoH</p><h4>Sources</h4><ul><li><a href=\"JKAvchYrYIMDeetnnHKK\" class=\"msg-document\">LwBAiYYGFdefCUVBefRP</a><br/><small>ZaDWFyaEMzJJAOVQQsyK</small></li><li><a href=\"xBsheqKMRlwCEepPQYPb\" class=\"msg-document\">xZLhozAHgsouabDTobzE</a><br/><small>HcMCccJFGKClocCPBwiE</small></li><li><a href=\"OdVSCtGjNVXHZwHcQiix\" class=\"msg-document\">UclQlIysPPcdEeOKqUaH</a><br/><small>ufHGCQgvGBoLwcVivWVj</small></li></ul></div>",
+            "data_text": "Search Result:\nUqusNYyYJdnFLCurxGhP                                                                                \n\nSources (3):\nUDjbDUfMPmCiqIEFksxX (BPxkHGRUvPpHZfZunYWa)\n  VzpfrRSDCznEBnDiqYGH\n\nJZiqDSieRBfffMWcNYNQ (YSnooLWBeKRgByLfpclv)\n  zrPSFMStaEeNxnhxFzVd\n\njUMtZGLpPBmAKVCPFsud (YSabQdmFKuGwZwddGCeX)\n  XviTriCtpjtAUxxvIjEx\n",
+            "data_html": "<div><p>UqusNYyYJdnFLCurxGhP</p><h4>Sources</h4><ul><li><a href=\"DJlTWyhFmNMdStjHqRCw\" class=\"msg-document\">UDjbDUfMPmCiqIEFksxX</a><br/><small>VzpfrRSDCznEBnDiqYGH</small></li><li><a href=\"vJaTiOIBQUqGGqPdrGLq\" class=\"msg-document\">JZiqDSieRBfffMWcNYNQ</a><br/><small>zrPSFMStaEeNxnhxFzVd</small></li><li><a href=\"cuIzzZCIoGJBqrUfTGdg\" class=\"msg-document\">jUMtZGLpPBmAKVCPFsud</a><br/><small>XviTriCtpjtAUxxvIjEx</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -683,12 +692,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "W4Fgd",
+            "digest": "Rmkyi",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n GcVsLALarvtQlgezxxoH                                                                               \n                                                                                                    \n Sources:                                                                                           \n - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                                                       \n   ZaDWFyaEMzJJAOVQQsyK                                                                             \n - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                                                       \n   HcMCccJFGKClocCPBwiE                                                                             \n - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                                                       \n   ufHGCQgvGBoLwcVivWVj                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n UqusNYyYJdnFLCurxGhP                                                                               \n                                                                                                    \n Sources:                                                                                           \n - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                                                       \n   VzpfrRSDCznEBnDiqYGH                                                                             \n - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                                                       \n   zrPSFMStaEeNxnhxFzVd                                                                             \n - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                                                       \n   XviTriCtpjtAUxxvIjEx                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```",
             "extra": {}
           }
         ]
@@ -698,21 +707,22 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```"
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```"
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
       "kind": "controller",
       "pipe_code": "enrich_single",
       "pipe_type": "PipeSequence",
       "description": "Lookup details and format a single record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.749556Z",
-        "ended_at": "2026-05-15T12:39:23.772569Z",
-        "duration": 0.023013
+        "started_at": "2026-07-09T11:02:39.839756Z",
+        "ended_at": "2026-07-09T11:02:39.862139Z",
+        "duration": 0.022383
       },
       "io": {
         "inputs": [
@@ -722,14 +732,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-2",
+            "digest": "dy745-branch-2",
             "data": {
               "json_obj": {
-                "ZhBtgHpULbwDCdxTDPsN": "dcc"
+                "GrArcCQLIYsoMyVSTtxF": "a20de0cac"
               }
             },
-            "data_text": "{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n",
-            "data_html": "<table ><tr><th>ZhBtgHpULbwDCdxTDPsN</th><td>dcc</td></tr></table>",
+            "data_text": "{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n",
+            "data_html": "<table ><tr><th>GrArcCQLIYsoMyVSTtxF</th><td>a20de0cac</td></tr></table>",
             "extra": {}
           }
         ],
@@ -740,12 +750,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "aQx3G",
+            "digest": "nPey3",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                                                       \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n PNOxqgftIWUXdolmxCws                                                                               \n                                                                                                    \n Sources:                                                                                           \n - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                                                       \n   fOHyCGpALqGWikojplND                                                                             \n - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                                                       \n   XdKGehWWAUUlQrrfKGEB                                                                             \n - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                                                       \n   HAdCyzXEMMdvSnvJamSf                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n KvfCaszEevWqkqxSHcEx                                                                               \n                                                                                                    \n Sources:                                                                                           \n - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                                                       \n   WgrdoGeIcHcSRICrjQnq                                                                             \n - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                                                       \n   eJySKMJkEXonfwjvRPYW                                                                             \n - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                                                       \n   KUpjdNapMyJfodBZAhWC                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```",
             "extra": {}
           }
         ]
@@ -758,17 +768,18 @@
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_10",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_10",
       "kind": "operator",
       "pipe_code": "lookup_details",
       "pipe_type": "PipeSearch",
       "description": "Search for additional details about a record",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.752950Z",
-        "ended_at": "2026-05-15T12:39:23.758762Z",
-        "duration": 0.005812
+        "started_at": "2026-07-09T11:02:39.841968Z",
+        "ended_at": "2026-07-09T11:02:39.851852Z",
+        "duration": 0.009884
       },
       "io": {
         "inputs": [
@@ -778,14 +789,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-2",
+            "digest": "dy745-branch-2",
             "data": {
               "json_obj": {
-                "ZhBtgHpULbwDCdxTDPsN": "dcc"
+                "GrArcCQLIYsoMyVSTtxF": "a20de0cac"
               }
             },
-            "data_text": "{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n",
-            "data_html": "<table ><tr><th>ZhBtgHpULbwDCdxTDPsN</th><td>dcc</td></tr></table>",
+            "data_text": "{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n",
+            "data_html": "<table ><tr><th>GrArcCQLIYsoMyVSTtxF</th><td>a20de0cac</td></tr></table>",
             "extra": {}
           }
         ],
@@ -796,38 +807,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e5pQA",
+            "digest": "iNpyc",
             "data": {
-              "answer": "PNOxqgftIWUXdolmxCws",
+              "answer": "KvfCaszEevWqkqxSHcEx",
               "sources": [
                 {
-                  "url": "TguCOnbQCsOmmenhnyjG",
-                  "public_url": "XvXwVowawPVFnpmPTCKM",
-                  "mime_type": "EHlrZuExPNDYcZoXXrhE",
-                  "filename": "EtbuIqYhykHzBexuHjCN",
-                  "title": "ABixoYJwLDiBjlGZZokA",
-                  "snippet": "fOHyCGpALqGWikojplND"
+                  "url": "rfhtgKpFJdOvdXRiGqwO",
+                  "public_url": "mGNbKxhoSrgIqEsTUhbN",
+                  "mime_type": "oZowVSgsoscUCLzfWbed",
+                  "filename": "SnmPeHiSVulyeELrEKHL",
+                  "title": "RFsaPyMGwOTdpvOBVTjO",
+                  "snippet": "WgrdoGeIcHcSRICrjQnq"
                 },
                 {
-                  "url": "OuEkdKBjNKXjnUDUuyzV",
-                  "public_url": "xHJyhIMclNMZFaYzYkPS",
-                  "mime_type": "LkEfqPRPtaDVGBCWPKvM",
-                  "filename": "gAEHJmFasABYbHvwexAu",
-                  "title": "VobOjGalWWbzWOuUWeah",
-                  "snippet": "XdKGehWWAUUlQrrfKGEB"
+                  "url": "DSVOpojxcJjjYDWxZrWE",
+                  "public_url": "kWeOmlvKwfysUrhveDEV",
+                  "mime_type": "oiNTnpqKixiGZiUpMoCo",
+                  "filename": "qjQecwlDqnTwMJaKYrgx",
+                  "title": "wRwCqWJYiLTGycsrHOGR",
+                  "snippet": "eJySKMJkEXonfwjvRPYW"
                 },
                 {
-                  "url": "JRshhDqtMZuZfzJtOiYs",
-                  "public_url": "bJDWySPxtdbgltCYSvAM",
-                  "mime_type": "wBSVQrDhlOvkDQCcyNBC",
-                  "filename": "eIWzPczcdvdhrtRRNlft",
-                  "title": "dtoKCrgVZKBdmZdTXltT",
-                  "snippet": "HAdCyzXEMMdvSnvJamSf"
+                  "url": "oOFnBygXOHgGQrWueYkA",
+                  "public_url": "MsjFWkwtXePLtEsNEKhc",
+                  "mime_type": "yfEqvujIitsAbPfNILaB",
+                  "filename": "BoGVkPYvBXUxItZsTUTN",
+                  "title": "NKdjjRAXoxvdRzzRYrWr",
+                  "snippet": "KUpjdNapMyJfodBZAhWC"
                 }
               ]
             },
-            "data_text": "Search Result:\nPNOxqgftIWUXdolmxCws                                                                                \n\nSources (3):\nABixoYJwLDiBjlGZZokA (TguCOnbQCsOmmenhnyjG)\n  fOHyCGpALqGWikojplND\n\nVobOjGalWWbzWOuUWeah (OuEkdKBjNKXjnUDUuyzV)\n  XdKGehWWAUUlQrrfKGEB\n\ndtoKCrgVZKBdmZdTXltT (JRshhDqtMZuZfzJtOiYs)\n  HAdCyzXEMMdvSnvJamSf\n",
-            "data_html": "<div><p>PNOxqgftIWUXdolmxCws</p><h4>Sources</h4><ul><li><a href=\"XvXwVowawPVFnpmPTCKM\" class=\"msg-document\">ABixoYJwLDiBjlGZZokA</a><br/><small>fOHyCGpALqGWikojplND</small></li><li><a href=\"xHJyhIMclNMZFaYzYkPS\" class=\"msg-document\">VobOjGalWWbzWOuUWeah</a><br/><small>XdKGehWWAUUlQrrfKGEB</small></li><li><a href=\"bJDWySPxtdbgltCYSvAM\" class=\"msg-document\">dtoKCrgVZKBdmZdTXltT</a><br/><small>HAdCyzXEMMdvSnvJamSf</small></li></ul></div>",
+            "data_text": "Search Result:\nKvfCaszEevWqkqxSHcEx                                                                                \n\nSources (3):\nRFsaPyMGwOTdpvOBVTjO (rfhtgKpFJdOvdXRiGqwO)\n  WgrdoGeIcHcSRICrjQnq\n\nwRwCqWJYiLTGycsrHOGR (DSVOpojxcJjjYDWxZrWE)\n  eJySKMJkEXonfwjvRPYW\n\nNKdjjRAXoxvdRzzRYrWr (oOFnBygXOHgGQrWueYkA)\n  KUpjdNapMyJfodBZAhWC\n",
+            "data_html": "<div><p>KvfCaszEevWqkqxSHcEx</p><h4>Sources</h4><ul><li><a href=\"mGNbKxhoSrgIqEsTUhbN\" class=\"msg-document\">RFsaPyMGwOTdpvOBVTjO</a><br/><small>WgrdoGeIcHcSRICrjQnq</small></li><li><a href=\"kWeOmlvKwfysUrhveDEV\" class=\"msg-document\">wRwCqWJYiLTGycsrHOGR</a><br/><small>eJySKMJkEXonfwjvRPYW</small></li><li><a href=\"MsjFWkwtXePLtEsNEKhc\" class=\"msg-document\">NKdjjRAXoxvdRzzRYrWr</a><br/><small>KUpjdNapMyJfodBZAhWC</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -836,23 +847,24 @@
       "tags": {},
       "metrics": {},
       "execution_data": {
-        "rendered_query": "mock",
-        "resolved_model": "mock",
+        "rendered_query": "Find more information about {\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}",
+        "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_11",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_11",
       "kind": "operator",
       "pipe_code": "format_entry",
       "pipe_type": "PipeCompose",
       "description": "Format enriched record entry",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.763312Z",
-        "ended_at": "2026-05-15T12:39:23.770152Z",
-        "duration": 0.00684
+        "started_at": "2026-07-09T11:02:39.853007Z",
+        "ended_at": "2026-07-09T11:02:39.860822Z",
+        "duration": 0.007815
       },
       "io": {
         "inputs": [
@@ -862,14 +874,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "neyRw-branch-2",
+            "digest": "dy745-branch-2",
             "data": {
               "json_obj": {
-                "ZhBtgHpULbwDCdxTDPsN": "dcc"
+                "GrArcCQLIYsoMyVSTtxF": "a20de0cac"
               }
             },
-            "data_text": "{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n",
-            "data_html": "<table ><tr><th>ZhBtgHpULbwDCdxTDPsN</th><td>dcc</td></tr></table>",
+            "data_text": "{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n",
+            "data_html": "<table ><tr><th>GrArcCQLIYsoMyVSTtxF</th><td>a20de0cac</td></tr></table>",
             "extra": {}
           },
           {
@@ -878,38 +890,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e5pQA",
+            "digest": "iNpyc",
             "data": {
-              "answer": "PNOxqgftIWUXdolmxCws",
+              "answer": "KvfCaszEevWqkqxSHcEx",
               "sources": [
                 {
-                  "url": "TguCOnbQCsOmmenhnyjG",
-                  "public_url": "XvXwVowawPVFnpmPTCKM",
-                  "mime_type": "EHlrZuExPNDYcZoXXrhE",
-                  "filename": "EtbuIqYhykHzBexuHjCN",
-                  "title": "ABixoYJwLDiBjlGZZokA",
-                  "snippet": "fOHyCGpALqGWikojplND"
+                  "url": "rfhtgKpFJdOvdXRiGqwO",
+                  "public_url": "mGNbKxhoSrgIqEsTUhbN",
+                  "mime_type": "oZowVSgsoscUCLzfWbed",
+                  "filename": "SnmPeHiSVulyeELrEKHL",
+                  "title": "RFsaPyMGwOTdpvOBVTjO",
+                  "snippet": "WgrdoGeIcHcSRICrjQnq"
                 },
                 {
-                  "url": "OuEkdKBjNKXjnUDUuyzV",
-                  "public_url": "xHJyhIMclNMZFaYzYkPS",
-                  "mime_type": "LkEfqPRPtaDVGBCWPKvM",
-                  "filename": "gAEHJmFasABYbHvwexAu",
-                  "title": "VobOjGalWWbzWOuUWeah",
-                  "snippet": "XdKGehWWAUUlQrrfKGEB"
+                  "url": "DSVOpojxcJjjYDWxZrWE",
+                  "public_url": "kWeOmlvKwfysUrhveDEV",
+                  "mime_type": "oiNTnpqKixiGZiUpMoCo",
+                  "filename": "qjQecwlDqnTwMJaKYrgx",
+                  "title": "wRwCqWJYiLTGycsrHOGR",
+                  "snippet": "eJySKMJkEXonfwjvRPYW"
                 },
                 {
-                  "url": "JRshhDqtMZuZfzJtOiYs",
-                  "public_url": "bJDWySPxtdbgltCYSvAM",
-                  "mime_type": "wBSVQrDhlOvkDQCcyNBC",
-                  "filename": "eIWzPczcdvdhrtRRNlft",
-                  "title": "dtoKCrgVZKBdmZdTXltT",
-                  "snippet": "HAdCyzXEMMdvSnvJamSf"
+                  "url": "oOFnBygXOHgGQrWueYkA",
+                  "public_url": "MsjFWkwtXePLtEsNEKhc",
+                  "mime_type": "yfEqvujIitsAbPfNILaB",
+                  "filename": "BoGVkPYvBXUxItZsTUTN",
+                  "title": "NKdjjRAXoxvdRzzRYrWr",
+                  "snippet": "KUpjdNapMyJfodBZAhWC"
                 }
               ]
             },
-            "data_text": "Search Result:\nPNOxqgftIWUXdolmxCws                                                                                \n\nSources (3):\nABixoYJwLDiBjlGZZokA (TguCOnbQCsOmmenhnyjG)\n  fOHyCGpALqGWikojplND\n\nVobOjGalWWbzWOuUWeah (OuEkdKBjNKXjnUDUuyzV)\n  XdKGehWWAUUlQrrfKGEB\n\ndtoKCrgVZKBdmZdTXltT (JRshhDqtMZuZfzJtOiYs)\n  HAdCyzXEMMdvSnvJamSf\n",
-            "data_html": "<div><p>PNOxqgftIWUXdolmxCws</p><h4>Sources</h4><ul><li><a href=\"XvXwVowawPVFnpmPTCKM\" class=\"msg-document\">ABixoYJwLDiBjlGZZokA</a><br/><small>fOHyCGpALqGWikojplND</small></li><li><a href=\"xHJyhIMclNMZFaYzYkPS\" class=\"msg-document\">VobOjGalWWbzWOuUWeah</a><br/><small>XdKGehWWAUUlQrrfKGEB</small></li><li><a href=\"bJDWySPxtdbgltCYSvAM\" class=\"msg-document\">dtoKCrgVZKBdmZdTXltT</a><br/><small>HAdCyzXEMMdvSnvJamSf</small></li></ul></div>",
+            "data_text": "Search Result:\nKvfCaszEevWqkqxSHcEx                                                                                \n\nSources (3):\nRFsaPyMGwOTdpvOBVTjO (rfhtgKpFJdOvdXRiGqwO)\n  WgrdoGeIcHcSRICrjQnq\n\nwRwCqWJYiLTGycsrHOGR (DSVOpojxcJjjYDWxZrWE)\n  eJySKMJkEXonfwjvRPYW\n\nNKdjjRAXoxvdRzzRYrWr (oOFnBygXOHgGQrWueYkA)\n  KUpjdNapMyJfodBZAhWC\n",
+            "data_html": "<div><p>KvfCaszEevWqkqxSHcEx</p><h4>Sources</h4><ul><li><a href=\"mGNbKxhoSrgIqEsTUhbN\" class=\"msg-document\">RFsaPyMGwOTdpvOBVTjO</a><br/><small>WgrdoGeIcHcSRICrjQnq</small></li><li><a href=\"kWeOmlvKwfysUrhveDEV\" class=\"msg-document\">wRwCqWJYiLTGycsrHOGR</a><br/><small>eJySKMJkEXonfwjvRPYW</small></li><li><a href=\"MsjFWkwtXePLtEsNEKhc\" class=\"msg-document\">NKdjjRAXoxvdRzzRYrWr</a><br/><small>KUpjdNapMyJfodBZAhWC</small></li></ul></div>",
             "extra": {}
           }
         ],
@@ -920,12 +932,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "aQx3G",
+            "digest": "nPey3",
             "data": {
-              "text": "## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```"
+              "text": "## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```"
             },
-            "data_text": "Record                                                                                              \n\nrecord: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                                                       \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n PNOxqgftIWUXdolmxCws                                                                               \n                                                                                                    \n Sources:                                                                                           \n - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                                                       \n   fOHyCGpALqGWikojplND                                                                             \n - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                                                       \n   XdKGehWWAUUlQrrfKGEB                                                                             \n - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                                                       \n   HAdCyzXEMMdvSnvJamSf                                                                             \n                                                                                                    \n",
-            "data_html": "## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```",
+            "data_text": "Record                                                                                              \n\nrecord: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n KvfCaszEevWqkqxSHcEx                                                                               \n                                                                                                    \n Sources:                                                                                           \n - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                                                       \n   WgrdoGeIcHcSRICrjQnq                                                                             \n - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                                                       \n   eJySKMJkEXonfwjvRPYW                                                                             \n - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                                                       \n   KUpjdNapMyJfodBZAhWC                                                                             \n                                                                                                    \n",
+            "data_html": "## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```",
             "extra": {}
           }
         ]
@@ -935,21 +947,22 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```"
+        "rendered_text": "## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```"
       }
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:node_12",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:node_12",
       "kind": "operator",
       "pipe_code": "export_results",
       "pipe_type": "PipeCompose",
       "description": "Compile all enriched records into report",
       "domain_code": "data_enrichment",
       "status": "succeeded",
+      "skip_reason": null,
       "timing": {
-        "started_at": "2026-05-15T12:39:23.782478Z",
-        "ended_at": "2026-05-15T12:39:23.791794Z",
-        "duration": 0.009316
+        "started_at": "2026-07-09T11:02:39.868511Z",
+        "ended_at": "2026-07-09T11:02:39.879600Z",
+        "duration": 0.011089
       },
       "io": {
         "inputs": [
@@ -959,22 +972,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TURS9",
+            "digest": "izv8u",
             "data": {
               "items": [
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```"
                 },
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```"
                 },
                 {
-                  "text": "## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```"
+                  "text": "## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```"
                 }
               ]
             },
-            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                   \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  tDIgIugqIykljwFwHSKE                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                         \n        │    lcFubbbizjkPUsGbFxsJ                                               \n        │  - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                         \n        │    RlYvNSFvGOolwakcGmBz                                               \n        │  - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                         \n        │    MPuORvpWxccGTOrCmTTh                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                      \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  GcVsLALarvtQlgezxxoH                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                         \n        │    ZaDWFyaEMzJJAOVQQsyK                                               \n        │  - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                         \n        │    HcMCccJFGKClocCPBwiE                                               \n        │  - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                         \n        │    ufHGCQgvGBoLwcVivWVj                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                         \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  PNOxqgftIWUXdolmxCws                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                         \n        │    fOHyCGpALqGWikojplND                                               \n        │  - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                         \n        │    XdKGehWWAUUlQrrfKGEB                                               \n        │  - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                         \n        │    HAdCyzXEMMdvSnvJamSf                                               \n        │                                                                       \n",
-            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```</li><li>## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```</li><li>## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```</li></ul>",
+            "data_text": "   1    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                        \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  FNVxEOvlIYghOgjTZqMW                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                         \n        │    xIqQdVXtugVrvTYWEjVo                                               \n        │  - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                         \n        │    YePpKZhrMUXWvzwhlpQq                                               \n        │  - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                         \n        │    FgfjVcRUiZAxtEBJEXPm                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                        \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  UqusNYyYJdnFLCurxGhP                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                         \n        │    VzpfrRSDCznEBnDiqYGH                                               \n        │  - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                         \n        │    zrPSFMStaEeNxnhxFzVd                                               \n        │  - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                         \n        │    XviTriCtpjtAUxxvIjEx                                               \n        │                                                                       \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ Record                                                                \n        │                                                                       \n        │ record: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                   \n        │                                                                       \n        │                                                                       \n        │                                                                       \n        │  ### Additional Details                                               \n        │  search_result: ```                                                   \n        │  KvfCaszEevWqkqxSHcEx                                                 \n        │                                                                       \n        │  Sources:                                                             \n        │  - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                         \n        │    WgrdoGeIcHcSRICrjQnq                                               \n        │  - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                         \n        │    eJySKMJkEXonfwjvRPYW                                               \n        │  - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                         \n        │    KUpjdNapMyJfodBZAhWC                                               \n        │                                                                       \n",
+            "data_html": "<ul><li>## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```</li><li>## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```</li><li>## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```</li></ul>",
             "extra": {}
           }
         ],
@@ -985,12 +998,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "F4gaE",
+            "digest": "EyMnY",
             "data": {
-              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```\n\n```"
+              "text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```\n\n```"
             },
-            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"JYrZJlwpcodKChFnioZd\": \"864149b2f\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n tDIgIugqIykljwFwHSKE                                                                               \n                                                                                                    \n Sources:                                                                                           \n - gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs                                                       \n   lcFubbbizjkPUsGbFxsJ                                                                             \n - eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm                                                       \n   RlYvNSFvGOolwakcGmBz                                                                             \n - KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa                                                       \n   MPuORvpWxccGTOrCmTTh                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\" }                                                    \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n GcVsLALarvtQlgezxxoH                                                                               \n                                                                                                    \n Sources:                                                                                           \n - LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea                                                       \n   ZaDWFyaEMzJJAOVQQsyK                                                                             \n - xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl                                                       \n   HcMCccJFGKClocCPBwiE                                                                             \n - UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw                                                       \n   ufHGCQgvGBoLwcVivWVj                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\" }                                                       \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n PNOxqgftIWUXdolmxCws                                                                               \n                                                                                                    \n Sources:                                                                                           \n - ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG                                                       \n   fOHyCGpALqGWikojplND                                                                             \n - VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV                                                       \n   XdKGehWWAUUlQrrfKGEB                                                                             \n - dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs                                                       \n   HAdCyzXEMMdvSnvJamSf                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;JYrZJlwpcodKChFnioZd&quot;: &quot;864149b2f&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;NmNWQxgZrGnEvwmKdaEE&quot;: &quot;9d7dc7&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;ZhBtgHpULbwDCdxTDPsN&quot;: &quot;dcc&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```\n\n```",
+            "data_text": "                                         Enrichment Report                                          \n\nenriched_records: ```                                                                               \n\n• item #1:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n FNVxEOvlIYghOgjTZqMW                                                                               \n                                                                                                    \n Sources:                                                                                           \n - wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN                                                       \n   xIqQdVXtugVrvTYWEjVo                                                                             \n - vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd                                                       \n   YePpKZhrMUXWvzwhlpQq                                                                             \n - PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS                                                       \n   FgfjVcRUiZAxtEBJEXPm                                                                             \n                                                                                                    \n\n• item #2:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"vbDKrNTjXuFjEOheGKzc\": \"2f22\" }                                                      \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n UqusNYyYJdnFLCurxGhP                                                                               \n                                                                                                    \n Sources:                                                                                           \n - UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa                                                       \n   VzpfrRSDCznEBnDiqYGH                                                                             \n - JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv                                                       \n   zrPSFMStaEeNxnhxFzVd                                                                             \n - jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX                                                       \n   XviTriCtpjtAUxxvIjEx                                                                             \n                                                                                                    \n\n• item #3:                                                                                          \n\nRecord                                                                                              \n\nrecord: ``` { \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\" }                                                 \n\n                                                                                                    \n                                                                                                    \n ### Additional Details                                                                             \n search_result: ```                                                                                 \n KvfCaszEevWqkqxSHcEx                                                                               \n                                                                                                    \n Sources:                                                                                           \n - RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO                                                       \n   WgrdoGeIcHcSRICrjQnq                                                                             \n - wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE                                                       \n   eJySKMJkEXonfwjvRPYW                                                                             \n - NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA                                                       \n   KUpjdNapMyJfodBZAhWC                                                                             \n                                                                                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    &quot;oXkMgsgTMZgOPqTSvyvZ&quot;: &quot;ef5c&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    &quot;vbDKrNTjXuFjEOheGKzc&quot;: &quot;2f22&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    &quot;GrArcCQLIYsoMyVSTtxF&quot;: &quot;a20de0cac&quot;\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```\n\n```",
             "extra": {}
           }
         ]
@@ -1000,304 +1013,334 @@
       "metrics": {},
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"JYrZJlwpcodKChFnioZd\": \"864149b2f\"\n}\n```\n\n### Additional Details\nsearch_result: ```\ntDIgIugqIykljwFwHSKE\n\nSources:\n- gFxhVDFvEpelIbcsTRHB: xyIKElDvrzQqJlOiuUUs\n  lcFubbbizjkPUsGbFxsJ\n- eaVUucQPbPCSVnrSvUDd: tFgyrIRBFVivsXNEcXYm\n  RlYvNSFvGOolwakcGmBz\n- KRZMjHsQHrtqJtBXqiwr: NeIDzHwVTxADMlLrxSAa\n  MPuORvpWxccGTOrCmTTh\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"NmNWQxgZrGnEvwmKdaEE\": \"9d7dc7\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nGcVsLALarvtQlgezxxoH\n\nSources:\n- LwBAiYYGFdefCUVBefRP: GRLZKIuxSXAzTbBFogea\n  ZaDWFyaEMzJJAOVQQsyK\n- xZLhozAHgsouabDTobzE: raExMeywFJqthdJQqhFl\n  HcMCccJFGKClocCPBwiE\n- UclQlIysPPcdEeOKqUaH: chQwBTVwWDOoGDykekbw\n  ufHGCQgvGBoLwcVivWVj\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"ZhBtgHpULbwDCdxTDPsN\": \"dcc\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nPNOxqgftIWUXdolmxCws\n\nSources:\n- ABixoYJwLDiBjlGZZokA: TguCOnbQCsOmmenhnyjG\n  fOHyCGpALqGWikojplND\n- VobOjGalWWbzWOuUWeah: OuEkdKBjNKXjnUDUuyzV\n  XdKGehWWAUUlQrrfKGEB\n- dtoKCrgVZKBdmZdTXltT: JRshhDqtMZuZfzJtOiYs\n  HAdCyzXEMMdvSnvJamSf\n```\n\n```"
+        "rendered_text": "# Enrichment Report\n\nenriched_records: ```\n\n • item #1:\n\n## Record\nrecord: ```\n{\n    \"oXkMgsgTMZgOPqTSvyvZ\": \"ef5c\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nFNVxEOvlIYghOgjTZqMW\n\nSources:\n- wEGhmyYyzaojIHPzLkgU: wOgsjgHqpgABImRNhABN\n  xIqQdVXtugVrvTYWEjVo\n- vzNGsfnvWPaFQwblSkSA: OhndGbaaMSpqjljFfJNd\n  YePpKZhrMUXWvzwhlpQq\n- PghRFcMRMhLiMGLgTjAl: FVpheJGYxtmHSsSFHxwS\n  FgfjVcRUiZAxtEBJEXPm\n```\n\n • item #2:\n\n## Record\nrecord: ```\n{\n    \"vbDKrNTjXuFjEOheGKzc\": \"2f22\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nUqusNYyYJdnFLCurxGhP\n\nSources:\n- UDjbDUfMPmCiqIEFksxX: BPxkHGRUvPpHZfZunYWa\n  VzpfrRSDCznEBnDiqYGH\n- JZiqDSieRBfffMWcNYNQ: YSnooLWBeKRgByLfpclv\n  zrPSFMStaEeNxnhxFzVd\n- jUMtZGLpPBmAKVCPFsud: YSabQdmFKuGwZwddGCeX\n  XviTriCtpjtAUxxvIjEx\n```\n\n • item #3:\n\n## Record\nrecord: ```\n{\n    \"GrArcCQLIYsoMyVSTtxF\": \"a20de0cac\"\n}\n```\n\n### Additional Details\nsearch_result: ```\nKvfCaszEevWqkqxSHcEx\n\nSources:\n- RFsaPyMGwOTdpvOBVTjO: rfhtgKpFJdOvdXRiGqwO\n  WgrdoGeIcHcSRICrjQnq\n- wRwCqWJYiLTGycsrHOGR: DSVOpojxcJjjYDWxZrWE\n  eJySKMJkEXonfwjvRPYW\n- NKdjjRAXoxvdRzzRYrWr: oOFnBygXOHgGQrWueYkA\n  KUpjdNapMyJfodBZAhWC\n```\n\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_0",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_0",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_1",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_0",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_0",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_1",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_1",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_0",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_1",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_0",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_2",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_2",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_3",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_4",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_3",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_4",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_4",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_5",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_4",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_5",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_5",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_5",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_6",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_7",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_6",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_7",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_7",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_8",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_7",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_8",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_8",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_8",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_9",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_10",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_9",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_10",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_10",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_11",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_10",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_11",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:edge_11",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_0",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_12",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:edge_11",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_0",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_12",
       "kind": "contains",
+      "optional": false,
       "label": null,
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_0",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_1",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_0",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_1",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "data",
+      "optional": false,
       "label": "records",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_1",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_4",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_5",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_1",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_4",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_5",
       "kind": "data",
+      "optional": false,
       "label": "search_result",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_2",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_7",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_8",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_2",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_7",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_8",
       "kind": "data",
+      "optional": false,
       "label": "search_result",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_3",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_10",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_11",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_3",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_10",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_11",
       "kind": "data",
+      "optional": false,
       "label": "search_result",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_4",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_12",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_4",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_12",
       "kind": "data",
+      "optional": false,
       "label": "enriched_records",
       "source_stuff_digest": null,
       "target_stuff_digest": null,
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_5",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_5",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-0",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-0",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_6",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_4",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_6",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_4",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-0",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-0",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_7",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_5",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_7",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_5",
       "kind": "batch_item",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-0",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-0",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_8",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_8",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-1",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-1",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_9",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_7",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_9",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_7",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-1",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-1",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_10",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_8",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_10",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_8",
       "kind": "batch_item",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-1",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-1",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_11",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_11",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
       "kind": "batch_item",
+      "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-2",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-2",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_12",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_10",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_12",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_10",
       "kind": "batch_item",
+      "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-2",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-2",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_13",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_11",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_13",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_11",
       "kind": "batch_item",
+      "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "neyRw",
-      "target_stuff_digest": "neyRw-branch-2",
+      "source_stuff_digest": "dy745",
+      "target_stuff_digest": "dy745-branch-2",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_14",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_3",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_14",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_3",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "7rqLq",
-      "target_stuff_digest": "TURS9",
+      "source_stuff_digest": "mtukW",
+      "target_stuff_digest": "izv8u",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_15",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_6",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_15",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_6",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "W4Fgd",
-      "target_stuff_digest": "TURS9",
+      "source_stuff_digest": "Rmkyi",
+      "target_stuff_digest": "izv8u",
       "meta": {}
     },
     {
-      "id": "87571344-619c-4d20-b691-1d53c6d1da9b:asm_edge_16",
-      "source": "87571344-619c-4d20-b691-1d53c6d1da9b:node_9",
-      "target": "87571344-619c-4d20-b691-1d53c6d1da9b:node_2",
+      "id": "c14c6777-19c7-4792-b936-3217634cd63e:asm_edge_16",
+      "source": "c14c6777-19c7-4792-b936-3217634cd63e:node_9",
+      "target": "c14c6777-19c7-4792-b936-3217634cd63e:node_2",
       "kind": "batch_aggregate",
+      "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "aQx3G",
-      "target_stuff_digest": "TURS9",
+      "source_stuff_digest": "nPey3",
+      "target_stuff_digest": "izv8u",
       "meta": {}
     }
   ],
   "meta": {
-    "format": "mthds"
+    "format": "mthds",
+    "mode": "dry"
   },
   "pipe_registry": {
     "data_enrichment.batch_enrich": {
@@ -1315,7 +1358,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1326,7 +1370,8 @@
           "structure_class_name": "data_enrichment__EnrichmentReport",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -1367,7 +1412,8 @@
             "structure_class_name": "DocumentContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1378,7 +1424,8 @@
           "structure_class_name": "data_enrichment__Record",
           "refines": "native.JSON"
         },
-        "multiplicity": true
+        "multiplicity": true,
+        "presence": "plain"
       },
       "llm_prompt_spec": {
         "templating_style": null,
@@ -1403,7 +1450,6 @@
         "for_text": null,
         "for_object": null
       },
-      "structuring_method": null,
       "output_multiplicity": true
     },
     "data_enrichment.enrich_single_batch": {
@@ -1421,7 +1467,8 @@
             "structure_class_name": "data_enrichment__Record",
             "refines": "native.JSON"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1432,7 +1479,8 @@
           "structure_class_name": "data_enrichment__EnrichedRecord",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "branch_pipe_code": "enrich_single",
       "batch_params": {
@@ -1455,7 +1503,8 @@
             "structure_class_name": "data_enrichment__Record",
             "refines": "native.JSON"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1466,7 +1515,8 @@
           "structure_class_name": "data_enrichment__EnrichedRecord",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "sequential_sub_pipes": [
         {
@@ -1498,7 +1548,8 @@
             "structure_class_name": "data_enrichment__Record",
             "refines": "native.JSON"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1509,7 +1560,8 @@
           "structure_class_name": "SearchResultContent",
           "refines": null
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
       "search_choice": null,
       "prompt_blueprint": {
@@ -1541,7 +1593,8 @@
             "structure_class_name": "data_enrichment__Record",
             "refines": "native.JSON"
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         },
         "search_result": {
           "concept": {
@@ -1551,7 +1604,8 @@
             "structure_class_name": "SearchResultContent",
             "refines": null
           },
-          "multiplicity": null
+          "multiplicity": null,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1562,9 +1616,10 @@
           "structure_class_name": "data_enrichment__EnrichedRecord",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "## Record\n{{ record|tag(\"record\") }}\n\n### Additional Details\n{{ search_result|tag(\"search_result\") }}\n",
+      "template": "## Record\n@record\n\n### Additional Details\n@search_result\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,
@@ -1585,7 +1640,8 @@
             "structure_class_name": "data_enrichment__EnrichedRecord",
             "refines": "native.Text"
           },
-          "multiplicity": true
+          "multiplicity": true,
+          "presence": "plain"
         }
       },
       "output": {
@@ -1596,9 +1652,10 @@
           "structure_class_name": "data_enrichment__EnrichmentReport",
           "refines": "native.Text"
         },
-        "multiplicity": null
+        "multiplicity": null,
+        "presence": "plain"
       },
-      "template": "# Enrichment Report\n\n{{ enriched_records|tag(\"enriched_records\") }}\n",
+      "template": "# Enrichment Report\n\n@enriched_records\n",
       "templating_style": null,
       "category": "basic",
       "extra_context": null,

@@ -5,7 +5,7 @@ import { DRY_RUN_CATALOG } from "./mockGraphSpec";
 import type { GraphSpec } from "@graph/types";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/Smoke Tests/Pipeline Smoke",
+  title: "Misc/Smoke Tests/Pipeline Smoke",
   component: GraphViewer,
   decorators: [
     (Story) => (

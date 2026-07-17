@@ -3,7 +3,7 @@ import { GraphViewer } from "../../GraphViewer";
 import { makeWideParallel } from "../extremeGraphSpecs";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/26 Wide Parallel (15 branches)",
+  title: "Graph - from run/26 Wide Parallel (15 branches)",
   component: GraphViewer,
   decorators: [
     (Story) => (

@@ -4,7 +4,7 @@ import { ENRICHED_SPEC, NODE_SEARCH_CANDIDATE } from "../../enrichedMockData";
 import { PipeStory, detailPanelDecorator, detailPanelParameters } from "../../_shared";
 
 const meta: Meta = {
-  title: "Graph/Detail Panel/Pipes/PipeSearch",
+  title: "Misc/Detail Panel/Pipes/PipeSearch",
   parameters: detailPanelParameters,
   decorators: [detailPanelDecorator],
 };

@@ -4,7 +4,7 @@ import { DRY_RFP_QUALIFIER } from "./specs/_generated/dry/pipeline_31";
 import { LIVE_RFP_QUALIFIER } from "./specs/_generated/live/pipeline_31";
 
 const meta: Meta<typeof GraphViewer> = {
-  title: "Graph/GraphViewer/31 RFP Qualifier (Structured Concepts)",
+  title: "Graph - from run/31 RFP Qualifier (Structured Concepts)",
   component: GraphViewer,
   decorators: [
     (Story) => (

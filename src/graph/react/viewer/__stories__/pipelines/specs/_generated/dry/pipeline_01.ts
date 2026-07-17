@@ -5,22 +5,23 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SINGLE_PIPE = {
-  graph_id: "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee",
-  created_at: "2026-05-15T12:39:00.347267Z",
+  graph_id: "dac3605f-298c-4113-9669-25faaa3fad33",
+  created_at: "2026-07-09T10:59:37.633368Z",
   pipeline_ref: { domain: "text_processing", main_pipe: "summarize", entrypoint: null },
   nodes: [
     {
-      id: "ed272d2b-6bd6-43fc-b8b2-185fa9be3eee:node_0",
+      id: "dac3605f-298c-4113-9669-25faaa3fad33:node_0",
       kind: "operator",
       pipe_code: "summarize",
       pipe_type: "PipeLLM",
       description: "Summarize input text",
       domain_code: "text_processing",
       status: "succeeded",
+      skip_reason: null,
       timing: {
-        started_at: "2026-05-15T12:39:00.347267Z",
-        ended_at: "2026-05-15T12:39:00.357668Z",
-        duration: 0.010401,
+        started_at: "2026-07-09T10:59:37.633368Z",
+        ended_at: "2026-07-09T10:59:37.648764Z",
+        duration: 0.015396,
       },
       io: {
         inputs: [
@@ -30,11 +31,11 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Z9PB2",
-            data: { text: "hDmpZxGDrpbvmWOMHFlh" },
+            digest: "a2FND",
+            data: { text: "OnBMblONJuzqdBaEqAKR" },
             data_text:
-              "hDmpZxGDrpbvmWOMHFlh                                                                                \n",
-            data_html: "hDmpZxGDrpbvmWOMHFlh",
+              "OnBMblONJuzqdBaEqAKR                                                                                \n",
+            data_html: "OnBMblONJuzqdBaEqAKR",
             extra: {},
           },
         ],
@@ -45,14 +46,14 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "R3tU5",
+            digest: "NipXJ",
             data: {
-              text: "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>\n    ",
             },
             data_text:
-              "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
             data_html:
-              "DRY RUN: make_llm_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nhDmpZxGDrpbvmWOMHFlh\n&lt;/text&gt;\n    ",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nOnBMblONJuzqdBaEqAKR\n&lt;/text&gt;\n    ",
             extra: {},
           },
         ],
@@ -66,13 +67,13 @@ export const DRY_SINGLE_PIPE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Summarize the following text concisely:\n\n<text>\nhDmpZxGDrpbvmWOMHFlh\n</text>",
+          "Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>",
         structuring_path: "text",
       },
     },
   ],
   edges: [],
-  meta: { format: "mthds" },
+  meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "text_processing.summarize": {
       pipe_category: "PipeOperator",
@@ -90,6 +91,7 @@ export const DRY_SINGLE_PIPE = {
             refines: null,
           },
           multiplicity: null,
+          presence: "plain",
         },
       },
       output: {
@@ -101,6 +103,7 @@ export const DRY_SINGLE_PIPE = {
           refines: "native.Text",
         },
         multiplicity: null,
+        presence: "plain",
       },
       llm_prompt_spec: {
         templating_style: null,
@@ -117,7 +120,6 @@ export const DRY_SINGLE_PIPE = {
         system_document_references: null,
       },
       llm_choices: { for_text: null, for_object: null },
-      structuring_method: null,
       output_multiplicity: null,
     },
   },

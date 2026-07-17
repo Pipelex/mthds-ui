@@ -5,7 +5,7 @@ import { StuffViewer } from "../StuffViewer";
 import type { StuffViewerData } from "../stuffViewerTypes";
 
 const meta: Meta<typeof StuffViewer> = {
-  title: "Graph/StuffViewer",
+  title: "Misc/StuffViewer",
   component: StuffViewer,
   decorators: [
     (Story) => (
