@@ -423,6 +423,7 @@ function bindInputs(
             `${conceptKey(spec.concept)} here but was first seen as ` +
             `${conceptKey(bound.concept)} — keeping the first`,
           path: `pipe.${blueprint.code}.inputs.${name}`,
+          domain_code: blueprint.domain_code,
         });
       }
     }
@@ -504,6 +505,9 @@ function walkPipe(
       code: "unresolved-pipe-ref",
       message: `pipe ref "${ref}" cannot be resolved — node skipped`,
       path: nodeId,
+      // The uttering file's domain: a bare ref belongs to the namespace that
+      // wrote it, mirroring the runtime's `_qualify_pipe_ref` inference.
+      domain_code: currentDomain,
     });
     return null;
   }
@@ -532,6 +536,7 @@ function walkPipe(
       code: "cyclic-pipe-ref",
       message: `pipe "${qualified}" is invoked recursively — rendered as a leaf`,
       path: nodeId,
+      domain_code: domain,
     });
     return finishLeaf(ctx, node, blueprint, nodeId, inv);
   }

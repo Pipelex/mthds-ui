@@ -61,6 +61,7 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
           code: "duplicate-concept",
           message: `concept "${domain}.${code}" declared more than once — keeping the first declaration`,
           path: `concept.${code}`,
+          domain_code: domain,
         });
         continue;
       }
@@ -73,6 +74,7 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
           code: "duplicate-pipe",
           message: `pipe "${domain}.${code}" declared more than once — keeping the first declaration`,
           path: `pipe.${code}`,
+          domain_code: domain,
         });
         continue;
       }

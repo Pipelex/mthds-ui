@@ -24,27 +24,27 @@ const validatorIssues: ValidationIssue[] = [
     context: "pipe.analyze_moodboard",
     suggestedFix: 'Change the pipe output to "GarmentSpec" to match the sequence output.',
     origin: "validator",
-    pipeCode: "analyze_moodboard",
+    pipeRef: "garments_from_moodboard.analyze_moodboard",
   },
   {
     severity: "error",
     message: 'Pipe "render_with_nano_banana" references an unknown model alias.',
     context: "pipe.render_with_nano_banana.model",
     origin: "validator",
-    pipeCode: "render_with_nano_banana",
+    pipeRef: "garments_from_moodboard.render_with_nano_banana",
   },
   {
     severity: "warning",
     message: "Pipe declares an input that no step consumes.",
     context: "pipe.compose_report.inputs",
     origin: "validator",
-    pipeCode: "compose_report",
+    pipeRef: "garments_from_moodboard.compose_report",
   },
 ];
 
 /**
  * Small authored bundle whose STATIC diagnostics carry auto-filled targets:
- * `pipe.summarize.output` decorates the summarize node (pipeCode), while the
+ * `pipe.summarize.output` decorates the summarize node (auto-qualified `pipeRef`), while the
  * unresolved third step's diagnostic points at a node that was skipped during
  * the walk — it stays panel-only, by design.
  */

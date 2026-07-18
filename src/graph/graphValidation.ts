@@ -6,18 +6,29 @@
 
 import type { GraphNodeData, GraphSpec, NodeValidationSummary, ValidationIssue } from "./types";
 import { outermostFoldedAncestor } from "./graphFolds";
+import { makePipeRef } from "./pipeRefs";
 
 /**
  * Resolve which GraphSpec node ids an issue targets:
- * - `nodeId` → that precise invocation (wins over `pipeCode` when both are set);
- * - `pipeCode` → every spec node invoking that pipe (a pipe can appear in
- *   several places in the graph);
+ * - `nodeId` → that precise invocation (wins over `pipeRef` when both are set);
+ * - `pipeRef` → every spec node invoking that exact `domain_code.pipe_code`
+ *   pipe (a pipe can appear in several places in the graph). The match is on
+ *   the qualified ref — never on the bare code — so two domains declaring the
+ *   same pipe code can never cross-decorate. A node missing either identity
+ *   field cannot be qualified and is never matched;
  * - neither → no targets (the issue stays panel-only).
  */
 function issueTargetIds(issue: ValidationIssue, graphspec: GraphSpec): string[] {
   if (issue.nodeId) return [issue.nodeId];
-  if (issue.pipeCode) {
-    return graphspec.nodes.filter((n) => n.pipe_code === issue.pipeCode).map((n) => n.id);
+  if (issue.pipeRef) {
+    return graphspec.nodes
+      .filter(
+        (n) =>
+          n.domain_code !== undefined &&
+          n.pipe_code !== undefined &&
+          makePipeRef(n.domain_code, n.pipe_code) === issue.pipeRef,
+      )
+      .map((n) => n.id);
   }
   return [];
 }

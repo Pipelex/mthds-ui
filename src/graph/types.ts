@@ -606,7 +606,7 @@ export type ValidationState = (typeof VALIDATION_STATE)[keyof typeof VALIDATION_
  * which issues to show for each state (its validator's errors, the static
  * analyzer's diagnostics, or a mix) and handles navigation on row click. The
  * only fields the viewer interprets are the optional targeting fields
- * (`pipeCode` / `nodeId`), which drive node decorations on the graph.
+ * (`pipeRef` / `nodeId`), which drive node decorations on the graph.
  */
 export interface ValidationIssue {
   severity: "error" | "warning";
@@ -620,13 +620,17 @@ export interface ValidationIssue {
   /** Which analyzer produced the issue: the host's validator or the static parser. */
   origin?: "validator" | "static";
   /**
-   * Pipe code this issue targets — decorates every rendered node invoking that
-   * pipe (a pipe can be invoked from several places in the graph).
+   * Fully-qualified pipe ref (`domain_code.pipe_code`, see `makePipeRef`) this
+   * issue targets — decorates every rendered node invoking that pipe (a pipe
+   * can be invoked from several places in the graph). Always qualified, never a
+   * bare code: two domains may declare the same pipe code, and a bare match
+   * would ring every same-code node. An emitter that cannot qualify must leave
+   * the issue untargeted (panel-only) rather than decorate by guess.
    */
-  pipeCode?: string;
+  pipeRef?: string;
   /**
    * Precise invocation this issue targets — a GraphSpec node id (e.g.
-   * `demo.main_flow/step_2`). Takes precedence over `pipeCode` when both are
+   * `demo.main_flow/step_2`). Takes precedence over `pipeRef` when both are
    * set. Issues with neither targeting field stay panel-only.
    */
   nodeId?: string;

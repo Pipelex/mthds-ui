@@ -13,11 +13,17 @@ import {
  * viewer builds from the dataflow analysis.
  */
 function makeSpec(): GraphSpec {
-  const node = (id: string, pipeCode: string, kind: "controller" | "operator") => ({
+  const node = (
+    id: string,
+    pipeCode: string,
+    kind: "controller" | "operator",
+    domainCode = "demo",
+  ) => ({
     id,
     kind,
     status: "scheduled" as const,
     pipe_code: pipeCode,
+    domain_code: domainCode,
     pipe_type: kind === "controller" ? ("PipeSequence" as const) : ("PipeLLM" as const),
     io: { inputs: [], outputs: [] },
   });
@@ -32,6 +38,46 @@ function makeSpec(): GraphSpec {
     meta: { format: "mthds", mode: "static" },
   };
 }
+
+/**
+ * Two domains declaring the same pipe code: the root sequence invokes
+ * `screening.analyze` twice (one under a nested controller) and
+ * `helpers.analyze` once. Only the qualified ref may separate them.
+ */
+function makeCollidingSpec(): GraphSpec {
+  const node = (
+    id: string,
+    pipeCode: string,
+    domainCode: string,
+    kind: "controller" | "operator" = "operator",
+  ) => ({
+    id,
+    kind,
+    status: "scheduled" as const,
+    pipe_code: pipeCode,
+    domain_code: domainCode,
+    pipe_type: kind === "controller" ? ("PipeSequence" as const) : ("PipeLLM" as const),
+    io: { inputs: [], outputs: [] },
+  });
+  return {
+    nodes: [
+      node("screening.main", "main", "screening", "controller"),
+      node("screening.main/step_1", "analyze", "screening"),
+      node("screening.main/step_2", "prep", "screening", "controller"),
+      node("screening.main/step_2/step_1", "analyze", "screening"),
+      node("screening.main/step_3", "analyze", "helpers"),
+    ],
+    edges: [],
+    meta: { format: "mthds", mode: "static" },
+  };
+}
+
+const COLLIDING_CHILD_TO_CTRL = {
+  "screening.main/step_1": "screening.main",
+  "screening.main/step_2": "screening.main",
+  "screening.main/step_2/step_1": "screening.main/step_2",
+  "screening.main/step_3": "screening.main",
+};
 
 const CHILD_TO_CTRL = {
   "demo.main/step_1": "demo.main",
@@ -61,9 +107,9 @@ describe("buildValidationDecorations", () => {
     });
   });
 
-  it("decorates every invocation for a pipeCode-targeted issue", () => {
+  it("decorates every invocation for a pipeRef-targeted issue", () => {
     const decorations = buildValidationDecorations(
-      [issue({ pipeCode: "analyze" })],
+      [issue({ pipeRef: "demo.analyze" })],
       makeSpec(),
       CHILD_TO_CTRL,
       NO_FOLDS,
@@ -71,9 +117,50 @@ describe("buildValidationDecorations", () => {
     expect([...decorations.keys()].sort()).toEqual(["demo.main/step_1", "demo.main/step_2"]);
   });
 
-  it("prefers nodeId over pipeCode when both are set", () => {
+  it("decorates only the matching domain's nodes when two domains share a pipe code", () => {
     const decorations = buildValidationDecorations(
-      [issue({ nodeId: "demo.main/step_3", pipeCode: "analyze" })],
+      [issue({ pipeRef: "screening.analyze" })],
+      makeCollidingSpec(),
+      COLLIDING_CHILD_TO_CTRL,
+      NO_FOLDS,
+    );
+    // `helpers.analyze` (step_3) shares the bare code but not the domain.
+    expect([...decorations.keys()].sort()).toEqual([
+      "screening.main/step_1",
+      "screening.main/step_2/step_1",
+    ]);
+  });
+
+  it("rolls a colliding-code issue up onto the right domain's controller only", () => {
+    const decorations = buildValidationDecorations(
+      [issue({ pipeRef: "screening.analyze" })],
+      makeCollidingSpec(),
+      COLLIDING_CHILD_TO_CTRL,
+      new Set(["screening.main/step_2"]),
+    );
+    // The nested invocation rolls up onto its folded controller; the sibling
+    // `helpers.analyze` stays undecorated.
+    expect([...decorations.keys()].sort()).toEqual([
+      "screening.main/step_1",
+      "screening.main/step_2",
+    ]);
+  });
+
+  it("never matches nodes that carry no domain_code", () => {
+    const spec = makeCollidingSpec();
+    for (const node of spec.nodes) delete node.domain_code;
+    const decorations = buildValidationDecorations(
+      [issue({ pipeRef: "screening.analyze" })],
+      spec,
+      COLLIDING_CHILD_TO_CTRL,
+      NO_FOLDS,
+    );
+    expect(decorations.size).toBe(0);
+  });
+
+  it("prefers nodeId over pipeRef when both are set", () => {
+    const decorations = buildValidationDecorations(
+      [issue({ nodeId: "demo.main/step_3", pipeRef: "demo.analyze" })],
       makeSpec(),
       CHILD_TO_CTRL,
       NO_FOLDS,
@@ -110,7 +197,10 @@ describe("buildValidationDecorations", () => {
 
   it("rolls descendants' issues up onto a folded ancestor", () => {
     const decorations = buildValidationDecorations(
-      [issue({ pipeCode: "analyze" }), issue({ nodeId: "demo.main/step_3", severity: "warning" })],
+      [
+        issue({ pipeRef: "demo.analyze" }),
+        issue({ nodeId: "demo.main/step_3", severity: "warning" }),
+      ],
       makeSpec(),
       CHILD_TO_CTRL,
       new Set(["demo.main"]),
@@ -125,7 +215,7 @@ describe("buildValidationDecorations", () => {
       [
         issue({}), // no target
         issue({ nodeId: "demo.main/step_9" }), // never became a node — maps to itself
-        issue({ pipeCode: "nonexistent" }),
+        issue({ pipeRef: "demo.nonexistent" }),
       ],
       makeSpec(),
       CHILD_TO_CTRL,
@@ -165,10 +255,10 @@ describe("resolveIssueTargetNodeId", () => {
     ).toBe("demo.main/step_2");
   });
 
-  it("resolves a pipeCode-targeted issue to the first rendered invocation", () => {
+  it("resolves a pipeRef-targeted issue to the first rendered invocation", () => {
     expect(
       resolveIssueTargetNodeId(
-        issue({ pipeCode: "analyze" }),
+        issue({ pipeRef: "demo.analyze" }),
         makeSpec(),
         CHILD_TO_CTRL,
         NO_FOLDS,

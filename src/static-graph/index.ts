@@ -19,3 +19,7 @@ export { mergeBundles } from "./mergeBundles";
 export type { StaticGraphOptions, StaticGraphResult } from "./buildStaticGraphSpec";
 export { buildStaticGraphSpec, buildStaticGraphSpecFromToml } from "./buildStaticGraphSpec";
 export { staticDiagnosticsToValidationIssues } from "./validationIssues";
+// Re-exported here so React-free hosts (e.g. the VS Code extension host) can
+// consume the canonical pipe-ref parsing without importing the graph module.
+export type { ParsedPipeRef } from "@graph/pipeRefs";
+export { makePipeRef, parsePipeRef } from "@graph/pipeRefs";
