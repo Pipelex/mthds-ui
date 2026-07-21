@@ -41,6 +41,19 @@ export interface Diagnostic {
   message: string;
   /** TOML-style locator for the offending entry, e.g. `pipe.analyze_candidate.output`. */
   path?: string;
+  /**
+   * Domain of the bundle namespace the diagnostic belongs to — the declaring-file
+   * identity a host needs to qualify a `pipe.<code>` locator into a full pipe ref
+   * (`domain_code.pipe_code`). Stamped wherever the owning namespace is known:
+   * per-file diagnostics get their bundle's domain ({@link UNKNOWN_DOMAIN} when
+   * the bundle declares none), merge/walk diagnostics the namespace being
+   * processed, and entry selection stamps the diagnostics it can attribute (a
+   * missing or unresolvable `main_pipe` names its declaring domain). Absent only
+   * when no owning bundle can be resolved: unparseable TOML, or entry selection
+   * with no resolvable owner (no bundles, no pipes anywhere, or a host-supplied
+   * entry ref that matches nothing).
+   */
+  domain_code?: string;
 }
 
 // ─── Parsed bundle ───────────────────────────────────────────────────────────

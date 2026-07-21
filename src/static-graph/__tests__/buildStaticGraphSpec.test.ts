@@ -936,8 +936,46 @@ output = "Text"
 steps = [{ pipe = "helper", result = "a" }]
 `;
     const { spec, diagnostics } = build(toml);
-    expect(diagnostics.some((diagnostic) => diagnostic.code === "missing-main-pipe")).toBe(true);
+    const missing = diagnostics.find((diagnostic) => diagnostic.code === "missing-main-pipe");
+    // The owner is known (the declaring namespace), so the warning is stamped —
+    // hosts can resolve it to its file, per the domain_code contract.
+    expect(missing).toMatchObject({ severity: "warning", domain_code: "nomain" });
     expect(spec.nodes[0].id).toBe("nomain.root_pipe");
+  });
+
+  it("stamps a declared-but-unresolvable main_pipe warning with its declaring domain", () => {
+    const toml = `
+domain = "nomain"
+main_pipe = "ghost"
+
+[pipe.root_pipe]
+type = "PipeLLM"
+description = "The real root"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`;
+    const { diagnostics } = build(toml);
+    const unresolved = diagnostics.find(
+      (diagnostic) =>
+        diagnostic.code === "unresolved-pipe-ref" && diagnostic.severity === "warning",
+    );
+    expect(unresolved).toMatchObject({ domain_code: "nomain" });
+  });
+
+  it("leaves genuinely ownerless entry-selection diagnostics unstamped", () => {
+    // Host-supplied entry ref that matches no pipe in any bundle: no single
+    // declaring bundle owns it, so it stays unstamped.
+    const hostRef = build(SEQUENCE, { entryPipe: "nope" }).diagnostics.find(
+      (diagnostic) => diagnostic.code === "unresolved-pipe-ref",
+    );
+    expect(hostRef?.severity).toBe("error");
+    expect(hostRef?.domain_code).toBeUndefined();
+    // No bundles at all: truly empty set.
+    const empty = buildStaticGraphSpec(mergeBundles([])).diagnostics.find(
+      (diagnostic) => diagnostic.code === "no-entry-pipe",
+    );
+    expect(empty?.domain_code).toBeUndefined();
   });
 
   it("treats same-domain qualified refs as referenced in the root heuristic", () => {
