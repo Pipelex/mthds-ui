@@ -8,7 +8,7 @@
 
 ### Added
 
-- **`Diagnostic.domain_code` — the declaring bundle's domain on every static diagnostic (additive).** `parseMthdsBundle` stamps each file's diagnostics with that file's namespace domain (`UNKNOWN_DOMAIN` when the bundle declares none), `mergeBundles` and the static walk stamp theirs with the namespace being processed; only ownerless diagnostics (unparseable TOML, empty-set entry selection) stay unstamped. This is the file identity `staticDiagnosticsToValidationIssues` needs to qualify a `pipe.<code>` locator into a `pipeRef` — and the hook hosts need to resolve a diagnostic to its declaring file when pipe codes collide across domains.
+- **`Diagnostic.domain_code` — the declaring bundle's domain on every static diagnostic (additive).** `parseMthdsBundle` stamps each file's diagnostics with that file's namespace domain (`UNKNOWN_DOMAIN` when the bundle declares none), `mergeBundles` and the static walk stamp theirs with the namespace being processed, and entry selection stamps the diagnostics it can attribute (a missing or unresolvable `main_pipe` names its declaring domain); only genuinely ownerless diagnostics stay unstamped (unparseable TOML, or entry selection with no resolvable owner). This is the file identity `staticDiagnosticsToValidationIssues` needs to qualify a `pipe.<code>` locator into a `pipeRef` — and the hook hosts need to resolve a diagnostic to its declaring file when pipe codes collide across domains.
 
 ## [v0.14.0] - 2026-07-17
 

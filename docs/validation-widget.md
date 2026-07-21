@@ -28,7 +28,7 @@ Constants and types are exported from the package root: `VALIDATION_STATE`, `Val
 
 - `validationState?: ValidationState` — drives the widget; reactive, so a host typically flips it `validating → valid | invalid | error` as its validator progresses.
 - `validationIssues?: ValidationIssue[]` — the rows listed in the dropdown; the badge shows their count. Each issue carries `severity` (`error`/`warning`), `message`, and optionally `context` (a locator chip such as `pipe.analyze_candidate` or a TOML path), `file` (owning-file basename), `suggestedFix` (human-readable fix line), `origin` (`validator` vs `static`), and the targeting fields below.
-- `onValidationIssueClick?: (index, issue) => void` — row-click handler; wire it to source navigation in the host. Rows are only interactive when this is set.
+- `onValidationIssueClick?: (index, issue) => void` — optional row-click handler; wire it to source navigation in the host. It's additive: clicking a row always pans/flashes to the issue's target node (see [Interactions](#interactions)), so rows stay interactive whether or not this is set — this handler just adds the host source-jump.
 
 The widget itself is **presentation-only**: the viewer never interprets issues, produces verdicts, or decides which issues to show per state — that policy belongs to the host (the VS Code extension, for instance, shows static diagnostics while `validating`, the validator's errors on `invalid`, and static warnings only on `valid`). The one exception is the pair of optional *targeting fields*, which the viewer resolves to graph nodes for the decorations below.
 
@@ -42,7 +42,7 @@ Issues can target graph nodes, and targeted issues decorate them — same `valid
 
 A decorated node renders a **severity ring** (outline — layout-neutral, node geometry never changes, so a verdict flip never re-runs layout or resets the viewport) and a **corner count badge** whose tooltip lists each issue's message and `Fix:` line. Worst severity wins per node (`error` over `warning`). **Folding rolls issues up**: a folded controller's badge aggregates its hidden descendants' issues, so folding never hides an error. Counts are per issue × invocation — a folded controller containing two invocations of a broken pipe shows 2, matching what expanding reveals.
 
-`staticDiagnosticsToValidationIssues` auto-fills the targeting fields from diagnostic paths (`pipe.<code>[...]` qualified by the diagnostic's `domain_code` → `pipeRef`; a walk-phase node-id path containing `/` → `nodeId`), so static diagnostics decorate the graph for free — the parser/merger/builder stamp each `Diagnostic` with its declaring bundle's `domain_code` exactly for this. A diagnostic without a `domain_code` stays panel-only. Validator-side hosts fill `pipeRef`/`nodeId` themselves when they can derive a target.
+`staticDiagnosticsToValidationIssues` auto-fills the targeting fields from diagnostic paths (`pipe.<code>[...]` qualified by the diagnostic's `domain_code` → `pipeRef`; a walk-phase node-id path containing `/` → `nodeId`), so static diagnostics decorate the graph for free — the parser/merger/builder stamp each `Diagnostic` with its declaring bundle's `domain_code` exactly for this. Only `pipe.<code>` paths need the `domain_code` — without it they can't be qualified into a `pipeRef` and stay panel-only; a node-id path (containing `/`) still targets `nodeId` regardless, and pathless or non-pipe diagnostics are panel-only either way. Validator-side hosts fill `pipeRef`/`nodeId` themselves when they can derive a target.
 
 ### Interactions
 

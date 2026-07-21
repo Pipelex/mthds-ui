@@ -267,12 +267,16 @@ function pickEntryPipe(
       severity: "warning",
       code: "unresolved-pipe-ref",
       message: `main_pipe "${set.mainPipe}" not found — falling back to a root heuristic`,
+      // The owning bundle is known (the namespace that declares this main_pipe),
+      // so stamp it — this is not an ownerless diagnostic.
+      domain_code: fallbackDomain,
     });
   } else {
     diagnostics.push({
       severity: "warning",
       code: "missing-main-pipe",
       message: "no main_pipe declared — falling back to a root heuristic",
+      domain_code: fallbackDomain,
     });
   }
 

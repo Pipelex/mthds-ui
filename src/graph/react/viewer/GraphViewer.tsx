@@ -1199,10 +1199,11 @@ export function GraphViewer(props: GraphViewerProps) {
             position={effectiveToolbarPosition}
             validationState={validationState}
             validationIssues={validationIssues}
-            // Wrapped handler (host source-jump + pan/flash), but only when the
-            // host wired row clicks — the panel renders rows as interactive
-            // exactly when a handler is present, per the documented contract.
-            onValidationIssueClick={onValidationIssueClick ? handleValidationIssueClick : undefined}
+            // Always the wrapped handler: it optionally calls the host's
+            // source-jump and, independently, pans/flashes to the issue's target
+            // node — a built-in that works without a host handler, so rows stay
+            // interactive whether or not the host wired `onValidationIssueClick`.
+            onValidationIssueClick={handleValidationIssueClick}
             validationOpen={validationOpen}
             onValidationOpenChange={setValidationOpen}
           />
