@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.15.0] - 2026-07-18
+
+### Changed
+
+- **Validation targeting is now domain-qualified: `ValidationIssue.pipeRef` replaces `pipeCode` (breaking).** Node decorations identify pipes the way the pipelex runtime does — by fully-qualified pipe ref (`domain_code.pipe_code`) — never by bare code. In a bundle where two domains declare the same pipe code, a bare-code match rang every same-code node; the matcher now compares `issue.pipeRef` against each node's `domain_code`/`pipe_code` pair, and a node missing either field is never matched. An emitter that cannot qualify a bare code must leave the issue untargeted (panel-only) rather than decorate by guess. `nodeId` targeting and its precedence are unchanged. New `makePipeRef` / `parsePipeRef` helpers (exported from the root and the `static-graph` entry point) mirror pipelex's `QualifiedRef` semantics — last-dot split, malformed dot-forms rejected, cross-package `alias->…` refs opaque — so hosts consume the canonical parsing instead of re-implementing it.
+
+### Added
+
+- **`Diagnostic.domain_code` — the declaring bundle's domain on every static diagnostic (additive).** `parseMthdsBundle` stamps each file's diagnostics with that file's namespace domain (`UNKNOWN_DOMAIN` when the bundle declares none), `mergeBundles` and the static walk stamp theirs with the namespace being processed; only ownerless diagnostics (unparseable TOML, empty-set entry selection) stay unstamped. This is the file identity `staticDiagnosticsToValidationIssues` needs to qualify a `pipe.<code>` locator into a `pipeRef` — and the hook hosts need to resolve a diagnostic to its declaring file when pipe codes collide across domains.
+
 ## [v0.14.0] - 2026-07-17
 
 ### Added

@@ -233,5 +233,12 @@ export function parseMthdsBundle(tomlText: string): ParseMthdsBundleResult {
     }
   }
 
+  // Stamp every diagnostic with the file's namespace domain — the declaring-file
+  // identity hosts need to qualify `pipe.<code>` locators into full pipe refs.
+  // (The toml-parse-error path returns above, before any domain exists.)
+  for (const diagnostic of diagnostics) {
+    diagnostic.domain_code ??= domain;
+  }
+
   return { bundle, diagnostics };
 }

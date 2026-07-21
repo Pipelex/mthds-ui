@@ -5,6 +5,7 @@ export * from "./graphBuilders";
 export * from "./pipeCardPayload";
 export * from "./graphFolds";
 export * from "./graphValidation";
+export * from "./pipeRefs";
 export * from "./elkGraphBuilder";
 export * from "./graphLayout";
 export * from "./graphControllers";
