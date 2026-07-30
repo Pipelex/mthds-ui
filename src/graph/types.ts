@@ -223,7 +223,6 @@ export interface PipeBlueprintBase {
 export interface PipeLLMBlueprint extends PipeBlueprintBase {
   type: "PipeLLM";
   llm_prompt_spec: {
-    templating_style: string | null;
     system_prompt_blueprint: TemplateBlueprint | null;
     prompt_blueprint: TemplateBlueprint | null;
     user_image_references: unknown[] | null;

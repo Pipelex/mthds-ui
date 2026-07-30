@@ -309,7 +309,6 @@ export function normalizePipe(
         type,
         pipe_category: "PipeOperator",
         llm_prompt_spec: {
-          templating_style: null,
           system_prompt_blueprint:
             systemPrompt === null ? null : makeTemplate(systemPrompt, "llm_prompt"),
           prompt_blueprint: prompt === null ? null : makeTemplate(prompt, "llm_prompt"),
