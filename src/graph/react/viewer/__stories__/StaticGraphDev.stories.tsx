@@ -78,7 +78,6 @@ output = "Scorecard"
 steps = [{ pipe = "build_scorecard", result = "scorecard" }]
 
 [pipe.build_scorecard]
-type = "PipeSignature"
 description = "Build a scorecard from the job offer"
 inputs = { job_offer = "Text" }
 output = "Scorecard"

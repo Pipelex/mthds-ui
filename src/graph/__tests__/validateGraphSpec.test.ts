@@ -114,6 +114,54 @@ describe("GraphSpec — PipeSignature registry blueprint", () => {
   });
 });
 
+// ─── GraphSpec type — PipeParallel registry blueprint ────────────────────
+// pipelex 0.41 deleted `combined_output` from PipeParallel (a parallel always
+// combines now), so a 0.41 `pipe_registry` entry carries exactly the keys
+// below and no `combined_output`. The `: GraphSpec` annotation is the real
+// guard — tsc checks the entry against `PipeBlueprintUnion`, so this fails to
+// compile if `PipeParallelBlueprint` reverts to requiring `combined_output`.
+// Deliberately un-cast: a `satisfies`/`as` would defeat the whole point.
+
+describe("GraphSpec — PipeParallel registry blueprint", () => {
+  it("represents a 0.41 parallel blueprint serialized without combined_output", () => {
+    const spec: GraphSpec = {
+      meta: { format: "mthds" },
+      nodes: [],
+      edges: [],
+      pipe_registry: {
+        "demo.fan_out": {
+          type: "PipeParallel",
+          pipe_category: "PipeController",
+          code: "fan_out",
+          domain_code: "demo",
+          description: "Run two analyses in parallel.",
+          inputs: {},
+          output: {
+            concept: {
+              code: "Composite",
+              domain_code: "native",
+              description: "A named composition of contents",
+              structure_class_name: "CompositeContent",
+              refines: null,
+            },
+            multiplicity: null,
+          },
+          parallel_sub_pipes: [
+            {
+              pipe_code: "analyze_a",
+              output_name: "a",
+              output_multiplicity: null,
+              batch_params: null,
+            },
+          ],
+          add_each_output: true,
+        },
+      },
+    };
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+  });
+});
+
 // ─── GraphSpec type — PipeStructure registry blueprint ───────────────────
 // PipeStructure is a real operator, so pipelex serializes its `pipe_registry`
 // entry from the runtime pipe: the base fields plus `llm_choice`,

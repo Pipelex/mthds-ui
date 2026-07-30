@@ -2,7 +2,14 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- **The static graph now recognizes a type-less `PipeSignature`, the only spelling pipelex 0.41.0 accepts.** A signature has no `type` in `.mthds` — omitting the type _is_ the signature — but `normalizePipe` still required a `type` from the known-classes set, so it reported `unknown-pipe-type` and dropped the pipe. The step that called it then failed to resolve and **vanished from the graph entirely**, edges included: a hole plus two panel errors, on exactly the half-written methods the static graph exists to render. The retired `type = "PipeSignature"` spelling still renders, now with a `retired-signature-tag` warning carrying pipelex's migration wording — tolerated rather than rejected, since erroring would re-open the same hole for anyone who has not migrated. `signature_for = "PipeSignature"` is dropped to `null`, matching pipelex's `PipeType`, which no longer has that member.
+  - `KNOWN_PIPE_TYPES` keeps `PipeSignature`: the GraphSpec `pipe_type` / `pipe_registry` surface genuinely does carry it (the _runtime_ `PipeSignature` serializes its tag normally; only the _blueprint_ excludes it). The two surfaces disagree from 0.41.0 on, so the authored-surface split now lives in `normalizePipe`, its only reader.
+
 ### Changed
+
+- **`PipeParallelBlueprint.combined_output` is now optional (breaking for anyone constructing the type by hand).** pipelex 0.41.0 removed the field — a parallel always combines now — so it is absent from every registry dump; it was declared **required** here, the same defect as `templating_style` below. Made optional rather than removed because, unlike `templating_style`, it is still read: `buildStaticGraphSpec` uses it to name the combined stuff and `PipeParallelDetail` renders it, so the static builder keeps honoring it as a legacy authoring key. Whether it should keep doing so now that the bundled schema rejects the key is tracked in `wip/pr-63-review-notes.md`. No fixture regeneration is pending — the committed corpus never carried it.
 
 - **Updated the bundled MTHDS JSON Schema to pipelex v0.41.0.** The schema is generated from the pipelex blueprint models and gitignored there, so drift never shows up in a PR — this copy had fallen behind. Concept structure field types gain `datetime` and `time`: a `.mthds` declaring either was **valid at runtime but rejected by this copy**, which is the user-visible half of the drift. This copy was further behind than the other consumers' and also drops two members the language has since removed: `PipeParallelBlueprint.combined_output` and the `type` key on `PipeSignatureBlueprint` — a stale copy keeps accepting both. Refreshed from the released `pipelex` v0.41.0 tree via the same direct copy `make schema-refresh` performs (this consumer reads `pipelex/derived` directly and does not depend on the S3/`mthds.ai` release chain, which is still serving v0.27.0).
 

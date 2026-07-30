@@ -4,7 +4,8 @@
 // `@graph/types`) name things differently: `steps` vs `sequential_sub_pipes`,
 // `model` vs `llm_choices`, `prompt` vs `prompt_blueprint`, … This module maps
 // the former to the latter, leniently: uninterpretable pieces are skipped with
-// a diagnostic, and only a pipe without a usable `type` is dropped entirely.
+// a diagnostic, and a pipe is dropped entirely only when it names no usable
+// `type` and is not a signature (see `resolvePipeTypeTag`).
 
 import type {
   ConceptInfo,
@@ -206,29 +207,97 @@ function normalizeConstruct(raw: unknown): PipeComposeConstructBlueprint | null 
   return Object.keys(fields).length > 0 ? { fields } : null;
 }
 
+// ─── The signature contract: `type` on two different surfaces ────────────────
+//
+// `KNOWN_PIPE_TYPES` serves two masters, and pipelex 0.41 made them diverge:
+//
+//   - GraphSpec `pipe_type` / the `pipe_registry` dump — `PipeSignature` IS a
+//     member. The runtime `PipeSignature.type` serializes normally, so a
+//     registry entry does carry `type: "PipeSignature"`. `validateGraphSpec`
+//     checks against that set and must keep accepting it.
+//   - Authored `.mthds` — `PipeSignature` is NOT a member. `PipeSignatureBlueprint`
+//     sets `exclude=True` on its tag: a signature has no `type` in `.mthds`,
+//     because *omitting the type IS the signature*. It is the sole definition in
+//     `data/schema/mthds_schema.json` with no `type` property, which is exactly
+//     what discriminates it in the bundle-level `oneOf`.
+//
+// Only this module reads the authored surface, so the split lives here. Mirrors
+// `normalize_typeless_signature_section` in pipelex's `pipe_blueprint.py`.
+
+/**
+ * The only keys a typeless section may declare — `PipeSignatureBlueprint.properties`
+ * in `data/schema/mthds_schema.json`. Anything else means the author started an
+ * implementation and simply has not named its `type` yet.
+ */
+const SIGNATURE_ONLY_KEYS: ReadonlySet<string> = new Set([
+  "description",
+  "inputs",
+  "output",
+  "signature_for",
+]);
+
+/**
+ * Resolve the pipe class from the authored section, reconciling both spellings
+ * of a signature. Returns null (with a diagnostic) when the section names no
+ * usable class.
+ */
+function resolvePipeTypeTag(
+  code: string,
+  raw: Record<string, unknown>,
+  ctx: NormalizePipeContext,
+): PipeType | null {
+  const typeValue = raw.type;
+
+  if (typeValue === undefined) {
+    // A typeless section is a signature — but only if it declares nothing
+    // beyond the contract, and `output` is present (the schema requires it).
+    // Everything else keeps the plain unknown-type error: the schema rejects it too.
+    const isSignature =
+      raw.output !== undefined && Object.keys(raw).every((key) => SIGNATURE_ONLY_KEYS.has(key));
+    if (isSignature) return "PipeSignature";
+  } else if (typeValue === "PipeSignature") {
+    // Retired in 0.41. Tolerated with a warning rather than dropped: erroring
+    // would delete the pipe from the bundle — and with it the whole calling
+    // step — which is the exact hole the typeless branch above exists to close.
+    ctx.diagnostics.push({
+      severity: "warning",
+      code: "retired-signature-tag",
+      message:
+        `pipe "${code}": \`type = "PipeSignature"\` is no longer a pipe type — delete the ` +
+        "`type` line. A pipe with no `type` and no implementation is a signature (contract only).",
+      path: `pipe.${code}.type`,
+    });
+    return "PipeSignature";
+  }
+
+  if (typeof typeValue === "string" && KNOWN_PIPE_TYPES.has(typeValue)) {
+    return typeValue as PipeType;
+  }
+
+  ctx.diagnostics.push({
+    severity: "error",
+    code: "unknown-pipe-type",
+    message: `pipe "${code}": unknown pipe type ${JSON.stringify(typeValue)} — pipe skipped`,
+    path: `pipe.${code}.type`,
+  });
+  return null;
+}
+
 // ─── Per-type normalization ──────────────────────────────────────────────────
 
 /**
  * Normalize one `[pipe.<code>]` table to its registry blueprint shape.
- * Returns null (with a diagnostic) only when the `type` is missing or not a
- * known pipe class — everything else degrades field-by-field.
+ * Returns null (with a diagnostic) only when the section names no usable pipe
+ * class and is not a signature — everything else degrades field-by-field.
  */
 export function normalizePipe(
   code: string,
   raw: Record<string, unknown>,
   ctx: NormalizePipeContext,
 ): PipeBlueprintUnion | null {
-  const typeValue = raw.type;
-  if (typeof typeValue !== "string" || !KNOWN_PIPE_TYPES.has(typeValue)) {
-    ctx.diagnostics.push({
-      severity: "error",
-      code: "unknown-pipe-type",
-      message: `pipe "${code}": unknown pipe type ${JSON.stringify(typeValue)} — pipe skipped`,
-      path: `pipe.${code}.type`,
-    });
-    return null;
-  }
-  const type = typeValue as PipeType;
+  const typeValue = resolvePipeTypeTag(code, raw, ctx);
+  if (typeValue === null) return null;
+  const type = typeValue;
   const base = {
     code,
     domain_code: ctx.domain,
@@ -431,12 +500,16 @@ export function normalizePipe(
       return { ...base, type, pipe_category: "PipeOperator" };
     case "PipeSignature": {
       const signatureFor = strOrNull(raw.signature_for);
+      // `PipeSignature` itself is excluded: it is no longer a member of pipelex's
+      // `PipeType`, so `signature_for = "PipeSignature"` is rejected upstream.
       return {
         ...base,
         type,
         pipe_category: null,
         signature_for:
-          signatureFor !== null && KNOWN_PIPE_TYPES.has(signatureFor)
+          signatureFor !== null &&
+          signatureFor !== "PipeSignature" &&
+          KNOWN_PIPE_TYPES.has(signatureFor)
             ? (signatureFor as PipeType)
             : null,
       };
