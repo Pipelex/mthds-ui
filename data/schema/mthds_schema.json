@@ -322,6 +322,8 @@
         "boolean",
         "number",
         "date",
+        "datetime",
+        "time",
         "concept"
       ],
       "title": "ConceptStructureBlueprintFieldType",
@@ -1497,18 +1499,6 @@
           "default": false,
           "title": "Add Each Output",
           "type": "boolean"
-        },
-        "combined_output": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Combined Output"
         }
       },
       "required": [
@@ -1719,14 +1709,6 @@
       "additionalProperties": false,
       "description": "Contract-only pipe blueprint.\n\nA `PipeSignature` declares inputs and output but has no implementation. It exists so\nthat an in-progress pipeline can be validated (dry-run mocks the declared output)\nbefore all its pipes are implemented.",
       "properties": {
-        "type": {
-          "default": "PipeSignature",
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "PipeSignature"
-          ]
-        },
         "description": {
           "title": "Description",
           "type": "string"
@@ -1765,8 +1747,7 @@
       },
       "required": [
         "description",
-        "output",
-        "type"
+        "output"
       ],
       "title": "PipeSignatureBlueprint",
       "type": "object"
@@ -2137,7 +2118,7 @@
     }
   },
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "$comment": "Generated from PipelexBundleBlueprint v0.36.0. Do not edit manually.",
+  "$comment": "Generated from PipelexBundleBlueprint v0.41.0. Do not edit manually.",
   "x-taplo": {
     "initKeys": [
       "domain"
