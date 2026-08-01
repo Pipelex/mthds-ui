@@ -285,7 +285,7 @@ body = { template = "Report: {{ analysis }}" }
   });
 
   it("normalizes PipeStructure and PipeSignature", () => {
-    const { bundle } = parseMthdsBundle(`
+    const { bundle, diagnostics } = parseMthdsBundle(`
 domain = "d"
 [pipe.structure_it]
 type = "PipeStructure"
@@ -294,7 +294,6 @@ inputs = { draft = "Text" }
 output = "Text"
 
 [pipe.todo_pipe]
-type = "PipeSignature"
 description = "To be implemented"
 inputs = { text = "Text" }
 output = "Text"
@@ -303,8 +302,84 @@ signature_for = "PipeLLM"
     const structure = bundle.pipes.structure_it as PipeStructureBlueprint;
     expect(structure.text_input_name).toBe("draft");
     const signature = bundle.pipes.todo_pipe as PipeSignatureBlueprint;
+    expect(signature.type).toBe("PipeSignature");
     expect(signature.pipe_category).toBeNull();
     expect(signature.signature_for).toBe("PipeLLM");
+    // Current syntax: omitting `type` IS the signature — not a diagnostic.
+    expect(diagnostics).toEqual([]);
+  });
+});
+
+// ─── The v0.41 signature contract ───────────────────────────────────────────
+// pipelex 0.41 retired `type = "PipeSignature"`: a pipe with no `type` that
+// declares only the contract keys IS the signature (see
+// `normalize_typeless_signature_section` in pipelex's `pipe_blueprint.py`, and
+// `PipeSignatureBlueprint` in `data/schema/mthds_schema.json`, the sole pipe
+// definition with no `type` property).
+
+describe("parseMthdsBundle — typeless signature contract", () => {
+  it("infers PipeSignature for a typeless section declaring only contract keys", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.build_scorecard]
+description = "Build a scorecard"
+inputs = { job_offer = "Text" }
+output = "Text"
+`);
+    const signature = bundle.pipes.build_scorecard as PipeSignatureBlueprint;
+    expect(signature.type).toBe("PipeSignature");
+    expect(signature.pipe_category).toBeNull();
+    expect(signature.signature_for).toBeNull();
+    expect(diagnostics).toEqual([]);
+  });
+
+  it("still rejects a typeless section that declares more than the contract", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.half_written]
+description = "Started implementing"
+output = "Text"
+prompt = "Go"
+`);
+    expect(bundle.pipes).toEqual({});
+    expect(diagnostics).toEqual([
+      expect.objectContaining({ severity: "error", code: "unknown-pipe-type" }),
+    ]);
+  });
+
+  it("tolerates the retired explicit tag but warns to migrate", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.todo_pipe]
+type = "PipeSignature"
+description = "To be implemented"
+inputs = { text = "Text" }
+output = "Text"
+signature_for = "PipeLLM"
+`);
+    // Still rendered — dropping it would re-open the very hole this closes.
+    const signature = bundle.pipes.todo_pipe as PipeSignatureBlueprint;
+    expect(signature.type).toBe("PipeSignature");
+    expect(signature.signature_for).toBe("PipeLLM");
+    expect(diagnostics).toEqual([
+      expect.objectContaining({
+        severity: "warning",
+        code: "retired-signature-tag",
+        path: "pipe.todo_pipe.type",
+      }),
+    ]);
+  });
+
+  it("drops signature_for = PipeSignature, which is no longer a pipe type", () => {
+    const { bundle } = parseMthdsBundle(`
+domain = "d"
+[pipe.todo_pipe]
+description = "To be implemented"
+output = "Text"
+signature_for = "PipeSignature"
+`);
+    const signature = bundle.pipes.todo_pipe as PipeSignatureBlueprint;
+    expect(signature.signature_for).toBeNull();
   });
 });
 

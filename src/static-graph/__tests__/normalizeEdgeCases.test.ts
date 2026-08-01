@@ -328,7 +328,6 @@ model = { model = "structurer", temperature = 0.1 }
     const { bundle } = parseMthdsBundle(`
 domain = "d"
 [pipe.sig]
-type = "PipeSignature"
 description = "Sig"
 output = "Text"
 signature_for = "PipeTeleport"

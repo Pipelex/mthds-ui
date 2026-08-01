@@ -223,7 +223,6 @@ export interface PipeBlueprintBase {
 export interface PipeLLMBlueprint extends PipeBlueprintBase {
   type: "PipeLLM";
   llm_prompt_spec: {
-    templating_style: string | null;
     system_prompt_blueprint: TemplateBlueprint | null;
     prompt_blueprint: TemplateBlueprint | null;
     user_image_references: unknown[] | null;
@@ -384,7 +383,13 @@ export interface PipeParallelBlueprint extends PipeBlueprintBase {
   type: "PipeParallel";
   parallel_sub_pipes: SubPipeSpec[];
   add_each_output: boolean;
-  combined_output: string | null;
+  /**
+   * Removed from the language in pipelex 0.41 (a parallel always combines now),
+   * so 0.41 registry dumps omit the key entirely. Optional rather than deleted
+   * because the static builder still honors it as a legacy authoring key when
+   * naming the combined stuff — see `wip/pr-63-review-notes.md`.
+   */
+  combined_output?: string | null;
 }
 
 export interface PipeConditionBlueprint extends PipeBlueprintBase {
