@@ -199,7 +199,7 @@ Document the failure mode next to the test, because it fails in a confusing plac
 
 The oracle was negative-tested rather than assumed to work: perturbing a catalog description fails the description assertion, and deleting a code from the catalog (simulating an upstream addition) fails "`Number` is a code the catalog knows". Both restored afterwards.
 
-**Phase 4.** `docs/static-graph.md` (Native Concepts rewritten, Fixture Catalog extended with a table for the three bundles) and `CHANGELOG.md` `### Added` + `### Changed` are done. `make check` and `make test` green — 129 files, 1826 tests. Snapshot delta verified by parsing both revisions again: 3 added, 0 changed, 0 removed. `pipeline_34` visually verified (PARALLEL with four native outputs combining into `Composite`, real LIVE status dots).
+**Phase 4.** `docs/static-graph.md` (Native Concepts rewritten, Fixture Catalog extended with a table for the three bundles) and `CHANGELOG.md` `### Added` + `### Changed` are done. `make check` and `make test` green. Snapshot delta verified by parsing both revisions again: added only, nothing changed or removed. `pipeline_34` visually verified (PARALLEL with four native outputs combining into `Composite`, real LIVE status dots).
 
 ### Code review — findings and what was done
 

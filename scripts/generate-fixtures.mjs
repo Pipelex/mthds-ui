@@ -8,6 +8,7 @@
  *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
  *   node scripts/generate-fixtures.mjs --only pipeline_04,...     restrict to a comma-separated list
  *   node scripts/generate-fixtures.mjs --missing                  only pipelines lacking an on-disk spec
+ *   node scripts/generate-fixtures.mjs --from-disk                reassemble fixtures from on-disk specs, run nothing
  *   node scripts/generate-fixtures.mjs --check                    run + validate, write nothing
  *
  * DRY runs use --dry-run --mock-inputs (deterministic, no inference).
@@ -238,9 +239,9 @@ async function main() {
 
   // A partial/from-disk run only regenerated a subset; reuse every other
   // pipeline's on-disk spec so the emitted fixtures stay complete.
-  const omitted = [];
   if (PARTIAL || FROM_DISK) {
     const reused = [];
+    const omitted = [];
     for (const p of allPipelines) {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {

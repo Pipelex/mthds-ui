@@ -98,9 +98,12 @@ describe("native concept catalog vs the pipelex fixture corpus", () => {
     expect([...nativeEntries.keys()].sort()).toEqual([...CORPUS_NATIVE_CODES].sort());
   });
 
-  it.each(CORPUS_NATIVE_CODES)("%s is a code the catalog knows", (code) => {
-    // The upstream-addition detector: pipelex emitted this code, so our catalog
-    // must know it. See the failure guide at the top of this file.
+  // The upstream-addition detector. It iterates the codes found in the corpus,
+  // NOT CORPUS_NATIVE_CODES — driving it from the in-repo list would only fail
+  // after a human edited that list, which is the thing this test exists to stop
+  // depending on. A code pipelex emits that the catalog lacks fails here by name.
+  // See the failure guide at the top of this file.
+  it.each([...nativeEntries.keys()].sort())("%s is a code the catalog knows", (code) => {
     expect(isNativeConceptCode(code)).toBe(true);
   });
 

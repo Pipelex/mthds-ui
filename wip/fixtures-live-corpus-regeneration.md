@@ -27,6 +27,12 @@ Make the failure loud and early instead of half-way, and keep the decision in on
 
 Neither is required by the native-concepts work; both are worth doing before the next deliberate corpus regeneration, which is when this will actually bite.
 
+## Related — `scripts/` has no lint or format coverage
+
+`make lint` is `eslint src/` and `make format-check` is `prettier --check "src/**/*.{ts,tsx}"`, so nothing checks `scripts/generate-fixtures.mjs` at all — eslint cannot even parse it, since it is outside the tsconfig project. A dead `let` that should have been `const` survived a rework here and was only caught by review.
+
+Extending coverage to `scripts/` is not free: the file is a CLI and legitimately writes to stdout, so it needs a `no-console` override, which is a repo-tooling decision rather than part of any one change. Worth doing, worth deciding deliberately.
+
 ## Meanwhile
 
 `ONLY=` works correctly for every pipeline that can run live, and the barrel is now derived from the split modules on disk, so a partial run no longer drops the omitted pipelines' exports. `pipeline_32` and `pipeline_33` carry placeholder LIVE splits; `make fixtures-live ONLY=pipeline_32` is the regression check for the upstream fix.

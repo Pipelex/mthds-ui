@@ -47,6 +47,10 @@ st: storybook
 fixtures:
 	node scripts/generate-fixtures.mjs $(if $(ONLY),--only $(ONLY))
 
+# ALWAYS pass ONLY= here. A full-corpus live run cannot complete: pipeline_32/33
+# output native Date/Time, which pipelex cannot produce from a live model, so the
+# run aborts partway and leaves a half-swept tree.
+# See wip/fixtures-live-corpus-regeneration.md.
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
 
@@ -55,6 +59,8 @@ fixtures-live:
 fixtures-missing:
 	node scripts/generate-fixtures.mjs --missing
 
+# Currently selects exactly pipeline_32/33 (the only pipelines with no live spec)
+# and therefore always fails — see the fixtures-live note above. Use ONLY= instead.
 fixtures-live-missing:
 	node scripts/generate-fixtures.mjs --live --missing
 
