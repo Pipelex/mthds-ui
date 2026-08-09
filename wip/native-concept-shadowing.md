@@ -14,7 +14,7 @@ Adding `YesNo` / `Date` / `Time` widened the set of names an author can collide 
 
 Same root, other half. `parseConcepts` accepts `[concept.Date]` silently. The static graph renders it; `pipelex validate` rejects the file. The preview and the validator therefore disagree about whether the bundle is even legal, and the author gets no hint from the graph.
 
-`parseMthdsBundle` already emits `duplicate-concept` when a code is declared twice, so the lenient-diagnostic machinery exists and is simply not wired for reserved codes.
+`parseConcepts` already pushes `invalid-concept-entry` from inside the very loop over the declared codes where a reserved-code check would go, so the lenient-diagnostic machinery is right there and simply not wired for reserved codes. (Not `duplicate-concept` — that one lives in `mergeBundles.ts` and fires only when two bundles in the same domain declare the same code. A code declared twice inside one file never reaches it: `smol-toml` rejects the redefinition and `parseMthdsBundle` turns the whole file into a single `toml-parse-error`.)
 
 ## The choice between them
 
