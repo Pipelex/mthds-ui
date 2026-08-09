@@ -1,6 +1,6 @@
 # Deferred: native-concept shadowing, and the natives' pinned structures
 
-Three things the native-catalog fix (`feature/New-native-concepts`) deliberately left alone. All three were raised in that PR's review; none is a regression it introduced, and each needs a decision rather than a patch.
+What the native-catalog fix (`feature/New-native-concepts`) deliberately left alone. Each was raised in that PR's review; none is a regression it introduced, and each needs a decision rather than a patch.
 
 ## 1. Bare refs resolve local-before-native; the spec says the opposite
 
@@ -9,6 +9,8 @@ Three things the native-catalog fix (`feature/New-native-concepts`) deliberately
 The divergence is only reachable on a bundle that is **already invalid**: `mthds/docs/implementers/validation-rules.md` says a bundle MUST NOT declare a concept whose code is a native's, and a compliant implementation MUST reject it. So the disagreement is confined to files `pipelex validate` refuses. mthds-ui is at least internally consistent — both call sites resolve the same way — and there is a test pinning the behavior (`nativeConcepts.test.ts` → "a locally declared concept shadowing a native").
 
 Adding `YesNo` / `Date` / `Time` widened the set of names an author can collide with, which is what makes this worth writing down rather than shrugging at. `Date` in particular is a name a scheduling domain will reach for.
+
+The same two lines carry a separate, harder defect: the local lookup is a bare index, so a concept ref naming an `Object.prototype` member (`toString`, `constructor`, `__proto__`) resolves to a prototype value and crashes the builder rather than stubbing. Written up on its own in `static-graph-prototype-key-crash.md` — different failure class (a throw, not a wrong render), but whoever touches this block should fix both at once.
 
 ## 2. No diagnostic when a bundle declares a native-named concept
 
@@ -32,6 +34,8 @@ Recommendation: the diagnostic. It needs a new code in `src/static-graph/types.t
 The standard pins a structure for each native (`mthds/docs/spec/native-concepts.md`), and pipelex mirrors them in `pipelex/core/concepts/native/pinned_blueprints.py`, so the data exists and is copyable. Doing it for a subset would be worse than not doing it — the fix is the whole catalog at once, and it is a bigger copy than the description table: fields, types, required flags, and the `concept_ref` cross-links (`TextAndImages` → `Text` / `Image`, `Page` → `TextAndImages` / `Image`, `SearchResult` → `Document`).
 
 Worth pairing with a decision about the description strings too. `docs/static-graph.md` tells maintainers to copy the wording verbatim, and it currently is verbatim, but nothing mechanically holds it there. If the structures get copied, both they and the descriptions become large hand-copies of an upstream artifact — at which point generating the whole table from pipelex (the way `pipelex-js` drives its native table from an oracle script) beats maintaining it by hand. See `pipelex/wip/native-concept-codes-drift-invisible.md` for the tooling side of the same problem.
+
+There is a cheaper in-repo option worth considering first, raised in PR #64's review and deliberately not taken there. The committed pipeline fixtures are an **independent oracle for the wording**: `data/pipelines/*/dry_run_graph_spec.json` is pipelex output, so every `concept_registry` entry with `domain_code === "native"` carries pipelex's own description. A test in the `parity.test.ts` style (`PIPELINES_DIR` + `readdirSync`) could assert each one equals `nativeConceptInfo(code).description`, guarded by a non-empty count so it cannot go vacuous. Unlike pinning the fifteen strings in a second hand-written list — which PR #64 declined, correctly, as a copy of the copy — this compares against something the repo did not author, so it would also catch an upstream rewording the moment someone runs `make fixtures`. Two caveats decide whether it is worth it: coverage is incidental (only the natives that happen to appear in the corpus, currently `Anything`, `Composite`, `Document`, `Image`, `Page`, `SearchResult`, `Text` — none of the three this PR added), and it fails in a confusing place, since regenerating pipeline fixtures would break a native-concepts unit test. Take it as a stopgap only if the generated table in the paragraph above is not going to happen soon.
 
 ## 4. `SchemaTable` renders only a field's `type`, dropping everything that qualifies it
 
