@@ -319,6 +319,130 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_CONTROLLER_TYPES matc
 }
 `;
 
+exports[`snapshot regression — DRY catalog > DRY DRY_ALL_NATIVE_CONCEPTS matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_3",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_4",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "GID:node_3",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d0",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "GID:asm_edge_0",
+      "source": "stuff_d1",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_1",
+      "source": "stuff_d2",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_2",
+      "source": "stuff_d3",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_3",
+      "source": "stuff_d4",
+      "target": "stuff_d5",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+  ],
+}
+`;
+
 exports[`snapshot regression — DRY catalog > DRY DRY_ALL_PIPE_TYPES matches snapshot 1`] = `
 {
   "edges": [
@@ -5428,6 +5552,130 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_CONTROLLER_TYPES m
 }
 `;
 
+exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_NATIVE_CONCEPTS matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_3",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_4",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "GID:node_3",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d0",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "GID:asm_edge_0",
+      "source": "stuff_d1",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_1",
+      "source": "stuff_d2",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_2",
+      "source": "stuff_d3",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "GID:asm_edge_3",
+      "source": "stuff_d4",
+      "target": "stuff_d5",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+  ],
+}
+`;
+
 exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_PIPE_TYPES matches snapshot 1`] = `
 {
   "edges": [
@@ -10098,6 +10346,155 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_WIDE_PARALLEL matches 
       "id": "GID:node_6",
       "parentId": "GID:node_1",
       "type": "pipeCard",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_AVAILABILITY_ROUTING matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "availability.route_availability/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "availability.route_availability/step_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "availability.route_availability/step_3/batch_branch",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_3",
+      "source": "availability.route_availability/step_4/outcome_true",
+      "target": "stuff_d7",
+    },
+    {
+      "id": "edge_4",
+      "source": "availability.route_availability/step_4/outcome_false",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "availability.route_availability/step_1",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "availability.route_availability/step_2",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d5",
+      "target": "availability.route_availability/step_3/batch_branch",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d4",
+      "target": "availability.route_availability/step_4/outcome_true",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d4",
+      "target": "availability.route_availability/step_4/outcome_false",
+    },
+    {
+      "id": "static:edge_4",
+      "source": "stuff_d2",
+      "target": "stuff_d5",
+    },
+    {
+      "id": "static:edge_5",
+      "source": "stuff_d6",
+      "target": "stuff_d4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "availability.route_availability",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d7",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "availability.route_availability/step_3",
+      "parentId": "availability.route_availability",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "availability.route_availability/step_4",
+      "parentId": "availability.route_availability",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "availability.route_availability/step_1",
+      "parentId": "availability.route_availability",
+      "type": "pipeCard",
+    },
+    {
+      "id": "availability.route_availability/step_2",
+      "parentId": "availability.route_availability",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "availability.route_availability",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "availability.route_availability",
+      "type": "default",
+    },
+    {
+      "id": "availability.route_availability/step_3/batch_branch",
+      "parentId": "availability.route_availability/step_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "availability.route_availability/step_4/outcome_true",
+      "parentId": "availability.route_availability/step_4",
+      "type": "pipeCard",
+    },
+    {
+      "id": "availability.route_availability/step_4/outcome_false",
+      "parentId": "availability.route_availability/step_4",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "availability.route_availability/step_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d5",
+      "parentId": "availability.route_availability/step_3",
+      "type": "default",
     },
   ],
 }

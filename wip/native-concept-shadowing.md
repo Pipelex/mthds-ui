@@ -50,12 +50,20 @@ Raised by a review bot on PR #64 against the temporal-format fix, framed as "the
 
 Deliberately not fixed in that PR. The two-line version — append `format` to the type cell — is arbitrary: nothing justifies surfacing `format` while `enum` stays hidden. The non-arbitrary version is "the type column renders the field's derived shape", which is a design pass on that column and its CSS, changes rendering for every dry and live fixture rather than just static ones, and therefore needs the Storybook visual pass under Workflow Rule 2. It should also land after §3, not before: a panel that shows no schema at all for natives is the larger gap in the same component, and polishing the type column while that waits is out of order.
 
-### 4b. An `anyOf` field does not lose its type — it loses its whole row
+### 4b. A dry-run concept panel hides every optional field, so `native.Date` reads as date-only
 
-Found on the Storybook pass over `pipeline_32`, and worse than the type column above: the field disappears from the table entirely.
+Found on the Storybook pass over `pipeline_32`. Distinct from §4 — not a type-column problem, and **not** an `extractType` problem.
 
-`native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both in `concept_registry["native.Date"].json_schema`. The panel renders one row. `time` is `{"anyOf": [{"type": "string", "format": "time"}, {"type": "null"}], "default": null, ...}` — the standard pydantic shape for `X | None` — so it carries no top-level `type` key, and `extractType` reads only `schema.type`. The row is not rendered with a blank type; it is gone. A reader of that panel concludes `native.Date` is date-only, which is precisely the fidelity distinction the concept exists to make.
+`native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both in `concept_registry["native.Date"].json_schema`. The dry panel renders one row. The cause is `ConceptDetailPanel.tsx:188`:
 
-Narrow blast radius today, which is why this is a note and not a fix: authored optionals do not take this shape. `parseMthdsBundle`'s `fieldSchema` emits a plain `type` for an optional field (verified on `availability.SlotCheck.note` in `pipeline_33`), so `anyOf` only reaches the panel from pydantic-derived schemas — i.e. the natives, on dry and live specs. `native.Date.time` is currently the only instance in the corpus.
+```ts
+const visibleFields = isDryRun ? fields.filter(([name]) => required.has(name)) : fields;
+```
 
-Fix alongside §4, not separately: both are `extractType` reading one key where the schema offers a shape. Whatever renders the derived shape should unwrap a nullable `anyOf` to its non-null arm and mark it optional. Note this also argues §4 is not purely cosmetic — one of its cases silently omits data.
+`native.Date`'s schema carries `required: ["date"]`, so `time` is filtered out before rendering. This is a deliberate existing choice ("In dry run mode, only show required fields"), not a defect in type extraction — `extractType` already handles the `anyOf` shape that `time` uses (`ConceptDetailPanel.tsx:219` returns `"union"`), so the row would render if it reached the table.
+
+The question this raises is whether that filter belongs on the **Structure** tab at all. Hiding optional fields makes sense for a data view, where an absent optional has nothing to show; the structure table describes the _concept_, and an optional field is part of the concept. On `native.Date` the effect is that the panel asserts date-only, which is exactly the fidelity distinction the concept exists to make.
+
+Scope check, done rather than assumed: this is not native-specific — the filter applies to every concept in a dry spec. It is simply invisible on the rest of the corpus because pipelex marks authored structure fields required (`availability.SlotCheck.note` is authored optional and still comes back in `required`). So natives are where it currently shows.
+
+Decide it with §4, since both are "what should the structure table show", but note it is a separate line and a separate call: §4 is about enriching a cell, this is about a row that is deliberately withheld.

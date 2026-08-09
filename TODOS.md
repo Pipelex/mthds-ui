@@ -159,7 +159,9 @@ Storybook on 6006, checked `Graph - from run/32`, `Graph - from run/33`, `Graph 
 
 **Multiplicity is not shown on a stuff node**, so the `Date[]` node reads `dates Date`. Checked rather than assumed: this is existing behavior, not native-specific — `docs/static-graph.md` scopes multiplicity badges to batch representative branches and folded batch cards, which is exactly where `33` does show them. Nothing to fix.
 
-**New finding — an `anyOf` field loses its whole row in the concept panel.** `native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both; the panel renders only `date`. `time` is `{"anyOf": [{"type":"string","format":"time"}, {"type":"null"}], ...}` — the standard pydantic `X | None` shape — so it has no top-level `type`, and `extractType` reads only `schema.type`. The row does not render blank, it disappears, so the panel implies `native.Date` is date-only — the exact fidelity distinction the concept exists to make. Blast radius is narrow and was checked, not assumed: authored optionals emit a plain `type` (verified on `availability.SlotCheck.note`), so `anyOf` only reaches the panel from pydantic-derived native schemas, and `native.Date.time` is the only instance in the corpus. Recorded as §4b in `wip/native-concept-shadowing.md`, to be fixed with §4 — it is the same `extractType` line. Not fixed here: §3/§4 are explicitly out of scope, and these fixtures making the gap visible is the point.
+**New finding — a dry concept panel hides optional fields, so `native.Date` reads as date-only.** `native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both; the panel renders only `date`. The cause is `ConceptDetailPanel.tsx:188` — `isDryRun ? fields.filter(([name]) => required.has(name)) : fields` — a deliberate "dry mode shows required fields only" filter, and `native.Date` is `required: ["date"]`. Not native-specific: the filter applies to every concept in a dry spec, and only shows up here because pipelex marks authored structure fields required (checked on `availability.SlotCheck.note`, authored optional, still returned as required). Recorded as §4b in `wip/native-concept-shadowing.md`. Not fixed here: §3/§4 are explicitly out of scope, and these fixtures making the gap visible is the point.
+
+> Corrected after review. The first version of this note blamed `extractType` reading only `schema.type` and called the fix a one-line change there. That was wrong on both counts — `extractType` already handles the `anyOf` shape `time` uses (returns `"union"`), so the row never reaches it. Left visible rather than silently rewritten, because a wrong root cause in a deferred-work note sends the next person down a dead end.
 
 #### Observation, not acted on
 
@@ -188,6 +190,28 @@ Document the failure mode next to the test, because it fails in a confusing plac
 - `make check && make test`.
 - **Snapshots:** the DRY and LIVE catalogs are iterated whole, so new entries are _added_ on the first local run (vitest writes new snapshots unless `--ci`). Read the added fingerprints before committing rather than accepting them blind. Existing entries should not change — if one does, the 0.42.0-versus-0.41.0 sweep leaked in somewhere.
 - **Visual pass (Workflow Rule 2 applies — these are new graphs, not just logic):** `make storybook`, then check `Graph - from run/32`, `Graph - from run/33`, the matching `Graph - static/*` entries, and the new `Static vs Live` comparison. Specifically confirm: a `YesNo` stuff node's concept panel reads domain `native` with the pinned description; the `Date[]` node shows list multiplicity; the batch fan-out and the condition branches render; and look at how the mocked `{date, time}` payload renders in `StuffViewer` — that path has never had a native temporal payload to show, and whatever it does is worth recording here even if we do not act on it.
+
+---
+
+## Status — all four phases landed
+
+**Phase 3.** `pipeline_34` (`ALL_NATIVE_CONCEPTS`) is in, with a **real** LIVE fixture — it has no `Date`/`Time`, so pipelex can run it. The corpus oracle is `src/static-graph/__tests__/nativeConceptsCorpus.test.ts`, with the failure guide at the top of the file. The corpus now reaches 14 of the 15 catalog codes; only `Dynamic` is outside, exactly as predicted.
+
+The oracle was negative-tested rather than assumed to work: perturbing a catalog description fails the description assertion, and deleting a code from the catalog (simulating an upstream addition) fails "`Number` is a code the catalog knows". Both restored afterwards.
+
+**Phase 4.** `docs/static-graph.md` (Native Concepts rewritten, Fixture Catalog extended with a table for the three bundles) and `CHANGELOG.md` `### Added` + `### Changed` are done. `make check` and `make test` green — 129 files, 1826 tests. Snapshot delta verified by parsing both revisions again: 3 added, 0 changed, 0 removed. `pipeline_34` visually verified (PARALLEL with four native outputs combining into `Composite`, real LIVE status dots).
+
+### Code review — findings and what was done
+
+Reviewed with no inherited context. Seven findings; five fixed, one deferred, one corrected in the docs.
+
+- **Fixed — a partial run truncated the barrels.** The real one, and it had already broken my working tree: `make fixtures-live ONLY=pipeline_34` rewrote `_generated.live.ts` without `LIVE_MEETING_TRIAGE`/`LIVE_AVAILABILITY_ROUTING` and typecheck failed. My first guard covered one of three writes. Each barrel is now derived from the **split modules on disk** — which is what a barrel means — so a truncated `specs` list cannot drop an export. Verified in both modes, the LIVE path exercised for free with `--live --from-disk`.
+- **Fixed — `STATIC_AVAILABILITY_ROUTING` missing from `STATIC_SNAPSHOT_KEYS`.** `33` is the structurally interesting half; its STATIC topology was pinned nowhere.
+- **Fixed — the `StaticVsLive` pair was missing from `STATIC_LIVE_COUNTERPARTS`.** A registration the wiring checklist does not mention; that list exists to guard exactly those pairs.
+- **Fixed — the LIVE barrel header claimed "PLACEHOLDER barrel"** while 30 of 32 splits held real data, and flip-flopped between runs. The header is now neutral; the splits carry the marker where it is true.
+- **Fixed — `let omitted` never reassigned.** `scripts/` has no lint coverage (`make lint` is `eslint src/`), so nothing would have caught it.
+- **Corrected — my §4b root cause was wrong.** I recorded that `native.Date.time` vanishes because `extractType` reads only `schema.type`. It does not: `extractType` already handles `anyOf`. The row is filtered out earlier by `ConceptDetailPanel.tsx:188`, which shows required-only fields in dry mode. Corrected in `wip/native-concept-shadowing.md` and above, with the original error left visible — a wrong root cause in a deferred note sends the next person down a dead end.
+- **Deferred — a full-corpus `make fixtures-live` is now impossible** and aborts partway. Written up in `wip/fixtures-live-corpus-regeneration.md` with why the three cheap fixes (skip list, continue-on-error, deriving it from the corpus) are each wrong. The plan already mandates `ONLY=` for an unrelated reason, so the real question is whether the full form should refuse rather than succeed — a design call, not a thing to bolt on here. The generator header now warns.
 
 ## Observations, not part of this change
 

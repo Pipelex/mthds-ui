@@ -32,6 +32,7 @@ import {
   STATIC_RFP_QUALIFIER,
   STATIC_MEETING_TRIAGE,
   STATIC_AVAILABILITY_ROUTING,
+  STATIC_ALL_NATIVE_CONCEPTS,
 } from "./pipelines/specs/_generated.static";
 
 export {
@@ -66,6 +67,7 @@ export {
   STATIC_RFP_QUALIFIER,
   STATIC_MEETING_TRIAGE,
   STATIC_AVAILABILITY_ROUTING,
+  STATIC_ALL_NATIVE_CONCEPTS,
 };
 
 export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -135,5 +137,9 @@ export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec
   STATIC_AVAILABILITY_ROUTING: {
     label: "33 - Availability Routing (natives in controllers)",
     spec: STATIC_AVAILABILITY_ROUTING,
+  },
+  STATIC_ALL_NATIVE_CONCEPTS: {
+    label: "34 - All Native Concepts",
+    spec: STATIC_ALL_NATIVE_CONCEPTS,
   },
 };

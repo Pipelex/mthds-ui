@@ -1,0 +1,60 @@
+domain      = "native_sampler"
+description = "One PipeLLM per remaining native output, over a single Text input"
+main_pipe   = "sample_natives"
+
+[pipe.sample_natives]
+type = "PipeParallel"
+description = "Produce one of each remaining native concept from the same brief"
+inputs = { brief = "Text" }
+output = "Composite"
+add_each_output = true
+branches = [
+  { pipe = "count_words", result = "word_count" },
+  { pipe = "render_html", result = "html" },
+  { pipe = "illustrate", result = "illustrated" },
+  { pipe = "extract_facts", result = "facts" },
+]
+
+[pipe.count_words]
+type = "PipeLLM"
+description = "Count the words in the brief"
+inputs = { brief = "Text" }
+output = "Number"
+prompt = """
+How many words are in the brief below? Answer with the number alone.
+
+@brief
+"""
+
+[pipe.render_html]
+type = "PipeLLM"
+description = "Render the brief as an HTML fragment"
+inputs = { brief = "Text" }
+output = "Html"
+prompt = """
+Render the brief below as a small HTML fragment.
+
+@brief
+"""
+
+[pipe.illustrate]
+type = "PipeLLM"
+description = "Describe the brief as text with accompanying images"
+inputs = { brief = "Text" }
+output = "TextAndImages"
+prompt = """
+Summarize the brief below and describe one image that would illustrate it.
+
+@brief
+"""
+
+[pipe.extract_facts]
+type = "PipeLLM"
+description = "Extract the brief's facts as a JSON object"
+inputs = { brief = "Text" }
+output = "JSON"
+prompt = """
+Extract the key facts from the brief below as a JSON object.
+
+@brief
+"""

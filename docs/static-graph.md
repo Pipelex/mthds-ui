@@ -36,11 +36,11 @@ missing `mode`. Unknown modes are rejected.
 
 ## Static vs Dry vs Live
 
-| Mode | Source | Purpose | Runtime chrome |
-| --- | --- | --- | --- |
-| `static` | Authored `.mthds` TOML via `src/static-graph/` | Method structure preview | Hidden |
-| `dry` | Pipelex dry-run trace | Executability and mocked run structure | Shown |
-| `live` | Pipelex live trace | Actual run state and data | Shown |
+| Mode     | Source                                         | Purpose                                | Runtime chrome |
+| -------- | ---------------------------------------------- | -------------------------------------- | -------------- |
+| `static` | Authored `.mthds` TOML via `src/static-graph/` | Method structure preview               | Hidden         |
+| `dry`    | Pipelex dry-run trace                          | Executability and mocked run structure | Shown          |
+| `live`   | Pipelex live trace                             | Actual run state and data              | Shown          |
 
 Static cards do not show status dots, pulse animation, or status titles.
 Static pipe details hide status, duration, metrics, and execution-data dumps.
@@ -61,7 +61,16 @@ invocations can share a `pipe_code`.
 
 The catalog is what makes a native ref resolve as native: it decides whether a bare `YesNo` resolves into the `native` domain (description, `YesNoContent` structure class) or falls through to the authoring domain, and whether `refines = "YesNo"` qualifies to `native.YesNo`. A code the catalog does not know does not throw — it degrades into a stub with the wrong domain, an empty description, and a synthetic `<domain>__<Code>` structure class name.
 
-Nothing this repo diffs enumerates the codes (the bundled `data/schema/mthds_schema.json` does not list them), so a native added upstream reaches us silently. `src/static-graph/__tests__/nativeConcepts.test.ts` pins the expected code list, which makes any edit to the catalog a deliberate two-place change — but it cannot detect an upstream addition on its own, since both lists live here. Closing that needs tooling outside this repo; the brief is `pipelex/wip/native-concept-codes-drift-invisible.md`.
+Nothing this repo diffs enumerates the codes (the bundled `data/schema/mthds_schema.json` does not list them), so a native added upstream does not announce itself. Two tests cover this from opposite directions:
+
+- `src/static-graph/__tests__/nativeConcepts.test.ts` pins the expected code list and its canonical order, which makes any edit to the catalog a deliberate two-place change. Both lists live here, so it cannot see an upstream change on its own — it holds the ordering, and the codes the corpus does not reach.
+- `src/static-graph/__tests__/nativeConceptsCorpus.test.ts` compares the catalog against an oracle this repo did not author. Every `data/pipelines/*/dry_run_graph_spec.json` is pipelex output, so each `concept_registry` entry with `domain_code === "native"` carries pipelex's own code, description, and structure class name. **A native code pipelex emits that our catalog lacks fails this test**, as does a reworded description or a renamed structure class — so an upstream change becomes a failure here the moment someone runs `make fixtures`. The set of codes the corpus reaches is written out explicitly, so deleting a fixture fails the test rather than silently emptying it.
+
+Coverage is every catalog code except **`Dynamic`**, which has no authorable output position and therefore cannot appear in a corpus bundle. `Dynamic` remains covered only by the pinned-list test.
+
+That test fails in a confusing place — regenerating pipeline fixtures breaks a native-concepts unit test — so it carries a failure guide at the top of the file pointing at the catalog. Fix `conceptRefs.ts`, not the test.
+
+Making the drift visible _before_ it reaches a consumer still needs tooling outside this repo; the brief is `pipelex/wip/native-concept-codes-drift-invisible.md`.
 
 The catalog does not carry the natives' pinned _structures_: `ConceptInfo.json_schema` is optional and `nativeConceptInfo` has never populated it for any native, so a native's concept panel reads "Schema not available" where a pipelex-produced dry or live spec shows a field table.
 
@@ -94,6 +103,22 @@ Representative static-vs-live stories live in:
 - `StaticGraphDev.stories.tsx`
 - `StaticVsLive.stories.tsx`
 - `StaticGraphInvalid.stories.tsx`
+
+Three bundles exist specifically to give the native concepts fixture coverage, so
+that the sweeps which auto-discover `data/pipelines/pipeline_*` (parse, build,
+parity, and the corpus oracle above) actually see them:
+
+| Directory     | Catalog entry          | What it covers                                                                                                                              |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pipeline_32` | `MEETING_TRIAGE`       | `Date[]`, `Time`, and a bare `YesNo` as stuff nodes, plus a local concept refining a native — the four resolution paths, in one graph.      |
+| `pipeline_33` | `AVAILABILITY_ROUTING` | The natives through the controllers: `batch_over` a native `Date[]`, and a `PipeCondition` on a native's structure field (`urgent.yes_no`). |
+| `pipeline_34` | `ALL_NATIVE_CONCEPTS`  | One `PipeLLM` per remaining native output — `Number`, `Html`, `TextAndImages`, `JSON` — to lift the corpus oracle's coverage.               |
+
+`pipeline_32` and `pipeline_33` carry **placeholder** LIVE fixtures (the DRY spec
+re-tagged). pipelex cannot run them live: a `PipeLLM` outputting `Date`, `Date[]`,
+or `Time` fails validation because structured output delivers a date as a JSON
+string. See `pipelex/wip/native-date-time-live-run.md`; `make fixtures-live
+ONLY=pipeline_32` is the regression check once that is fixed.
 
 ## Limitations
 

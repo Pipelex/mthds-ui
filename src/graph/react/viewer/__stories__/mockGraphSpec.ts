@@ -36,6 +36,7 @@ import {
   DRY_RFP_QUALIFIER,
   DRY_MEETING_TRIAGE,
   DRY_AVAILABILITY_ROUTING,
+  DRY_ALL_NATIVE_CONCEPTS,
 } from "./pipelines/specs/_generated.dry";
 
 export {
@@ -70,6 +71,7 @@ export {
   DRY_RFP_QUALIFIER,
   DRY_MEETING_TRIAGE,
   DRY_AVAILABILITY_ROUTING,
+  DRY_ALL_NATIVE_CONCEPTS,
 };
 
 export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -118,5 +120,9 @@ export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }>
   DRY_AVAILABILITY_ROUTING: {
     label: "33 - Availability Routing (natives in controllers)",
     spec: DRY_AVAILABILITY_ROUTING,
+  },
+  DRY_ALL_NATIVE_CONCEPTS: {
+    label: "34 - All Native Concepts",
+    spec: DRY_ALL_NATIVE_CONCEPTS,
   },
 };
