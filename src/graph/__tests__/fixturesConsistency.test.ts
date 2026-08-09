@@ -57,6 +57,12 @@ describe("generated fixtures consistency", () => {
   });
 });
 
+/**
+ * Mirrors the pairs `StaticVsLive.stories.tsx` compares — one entry per
+ * `compare(...)` export, no more. It exists to guard those stories, so it is not
+ * "every static spec that has a live twin"; adding a pair with no story would
+ * change what the list means rather than widen coverage. Keep the two in sync.
+ */
 const STATIC_LIVE_COUNTERPARTS: Record<string, string> = {
   STATIC_SIMPLE_SEQUENCE: "LIVE_SIMPLE_SEQUENCE",
   STATIC_SIMPLE_CONDITION: "LIVE_SIMPLE_CONDITION",
