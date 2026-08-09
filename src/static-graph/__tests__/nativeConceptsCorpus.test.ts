@@ -57,9 +57,18 @@ const CORPUS_NATIVE_CODES = [
   "YesNo",
 ];
 
-/** Every native concept_registry entry in the corpus, keyed by code. */
-function collectNativeEntries(): Map<string, { pipeline: string; info: ConceptInfo }> {
-  const byCode = new Map<string, { pipeline: string; info: ConceptInfo }>();
+/**
+ * Every native concept_registry entry in the corpus, keyed by code — *all*
+ * occurrences, not just the first.
+ *
+ * Keeping only the first would leave most of the corpus outside the oracle:
+ * `Text` alone appears in most fixtures. That matters here specifically because
+ * the corpus is regenerated per-pipeline (`make fixtures ONLY=...`), so the
+ * committed specs are a mix of pipelex versions — a rewording between versions
+ * shows up in the pipelines regenerated since, and not in the rest.
+ */
+function collectNativeEntries(): Map<string, { pipeline: string; info: ConceptInfo }[]> {
+  const byCode = new Map<string, { pipeline: string; info: ConceptInfo }[]>();
   const pipelines = readdirSync(PIPELINES_DIR)
     .filter(
       (name) =>
@@ -74,7 +83,9 @@ function collectNativeEntries(): Map<string, { pipeline: string; info: ConceptIn
     ) as GraphSpec;
     for (const info of Object.values(spec.concept_registry ?? {})) {
       if (info.domain_code !== NATIVE_DOMAIN) continue;
-      if (!byCode.has(info.code)) byCode.set(info.code, { pipeline, info });
+      const occurrences = byCode.get(info.code);
+      if (occurrences) occurrences.push({ pipeline, info });
+      else byCode.set(info.code, [{ pipeline, info }]);
     }
   }
   return byCode;
@@ -93,19 +104,29 @@ describe("native concept catalog vs the pipelex fixture corpus", () => {
     expect(isNativeConceptCode(code)).toBe(true);
   });
 
-  it.each(CORPUS_NATIVE_CODES)("%s matches the catalog description exactly", (code) => {
-    const entry = nativeEntries.get(code);
-    expect(entry).toBeDefined();
-    expect(isNativeConceptCode(code)).toBe(true);
-    if (!isNativeConceptCode(code)) return;
-    expect(entry!.info.description).toBe(nativeConceptInfo(code).description);
-  });
+  it.each(CORPUS_NATIVE_CODES)(
+    "%s matches the catalog in every fixture that carries it",
+    (code) => {
+      const occurrences = nativeEntries.get(code) ?? [];
+      expect(occurrences.length).toBeGreaterThan(0);
+      expect(isNativeConceptCode(code)).toBe(true);
+      if (!isNativeConceptCode(code)) return;
+      const expected = nativeConceptInfo(code);
 
-  it.each(CORPUS_NATIVE_CODES)("%s matches the catalog structure class name", (code) => {
-    const entry = nativeEntries.get(code);
-    expect(entry).toBeDefined();
-    expect(isNativeConceptCode(code)).toBe(true);
-    if (!isNativeConceptCode(code)) return;
-    expect(entry!.info.structure_class_name).toBe(nativeConceptInfo(code).structure_class_name);
-  });
+      // Compared per pipeline so a failure names the fixture to regenerate or revert.
+      expect(
+        occurrences.map(({ pipeline, info }) => ({
+          pipeline,
+          description: info.description,
+          structure_class_name: info.structure_class_name,
+        })),
+      ).toEqual(
+        occurrences.map(({ pipeline }) => ({
+          pipeline,
+          description: expected.description,
+          structure_class_name: expected.structure_class_name,
+        })),
+      );
+    },
+  );
 });
