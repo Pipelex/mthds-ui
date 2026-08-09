@@ -16,7 +16,7 @@ Two of the three obvious fixes are cheap but wrong, and the third is a real desi
 - **`--continue-on-error`.** Turns a genuine credential or quota failure into a warning, which is exactly the failure mode fixture generation must not have.
 - **Derive it from the corpus.** A pipeline whose bundle contains a native the runtime cannot produce is knowable, but encoding "which natives are live-broken" in this repo duplicates a pipelex bug into the consumer, and it goes stale the same way a skip list does.
 
-There is also a real question of whether a full live sweep should be a supported operation at all. `TODOS.md` already forbids it for a different reason: the committed corpus was generated on pipelex 0.41.0 and the local CLI is 0.42.0, so a bare `make fixtures-live` would sweep every fixture onto a new pipelex version inside whatever change happens to be in flight. The house rule is already "always pass `ONLY=`". If that rule is right, the fix may be to make the full-corpus form _refuse_ rather than to make it succeed.
+There is also a real question of whether a full live sweep should be a supported operation at all. The plan that added these bundles ([`native-concepts-fixtures-archive.md`](native-concepts-fixtures-archive.md)) already forbids it for a different reason: the committed corpus was generated on pipelex 0.41.0 and the local CLI is 0.42.0, so a bare `make fixtures-live` would sweep every fixture onto a new pipelex version inside whatever change happens to be in flight. The house rule is already "always pass `ONLY=`". If that rule is right, the fix may be to make the full-corpus form _refuse_ rather than to make it succeed.
 
 ## Recommended shape
 

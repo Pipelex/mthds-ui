@@ -1,5 +1,13 @@
 # TODO — put the `YesNo` / `Date` / `Time` natives into the `data/pipelines/` corpus
 
+Archived from [`TODOS.md`](../TODOS.md) on 2026-08-09 — every phase landed. Branch: `feature/Native-concepts_stories`. Predecessor plan: [`native-concepts-archive.md`](native-concepts-archive.md) (PR #64).
+
+**Done. PR [#65](https://github.com/Pipelex/mthds-ui/pull/65) is finalized and awaiting a merge decision** — all four phases landed, the checkpoint code review, both bot rounds, and the pre-landing review are closed, all checks pass, no unresolved threads, `MERGEABLE`. Not merged: that needs explicit confirmation.
+
+Two follow-ups left open deliberately, each with its own note: [`fixtures-live-corpus-regeneration.md`](fixtures-live-corpus-regeneration.md) (a full-corpus `make fixtures-live` aborts partway; `scripts/` has no lint coverage) and [`native-concept-shadowing.md`](native-concept-shadowing.md) §4b (a dry concept panel hides optional fields, so `native.Date` reads as date-only). The upstream blocker is [`pipelex/wip/native-date-time-live-run.md`](../../pipelex/wip/native-date-time-live-run.md).
+
+---
+
 PR [#64](https://github.com/Pipelex/mthds-ui/pull/64) taught the static graph the three missing native codes, but the only place they appear is an inline-TOML Storybook story. Nothing in `data/pipelines/` uses them, so every fixture-driven sweep in the repo — and the one honest oracle we have for the catalog's wording — still never sees them. This plan adds real bundles.
 
 ## Why
@@ -234,7 +242,7 @@ Also fixed: `Makefile`, `CLAUDE.md`, and the generator docblock still advertised
 
 Deferred: `scripts/` has no lint or format coverage, which is why the dead `let` survived. It needs a `no-console` override, so it is a repo-tooling decision — noted in `wip/fixtures-live-corpus-regeneration.md`.
 
-**Open question for you:** this PR lands `TODOS.md` on `dev`. The house pattern — which the branch's own `tidy` commit just applied to PR #64's plan — is to archive the plan into `wip/*-archive.md` and delete it from the root when the line of work closes. Left in place for now since it is still the working doc; say the word and I will archive it before merge.
+**Resolved:** the plan was archived here rather than landing `TODOS.md` on `dev`, following the house pattern the branch's own `tidy` commit applied to PR #64's plan.
 
 ## Observations, not part of this change
 
