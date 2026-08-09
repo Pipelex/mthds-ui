@@ -32,3 +32,16 @@ Recommendation: the diagnostic. It needs a new code in `src/static-graph/types.t
 The standard pins a structure for each native (`mthds/docs/spec/native-concepts.md`), and pipelex mirrors them in `pipelex/core/concepts/native/pinned_blueprints.py`, so the data exists and is copyable. Doing it for a subset would be worse than not doing it — the fix is the whole catalog at once, and it is a bigger copy than the description table: fields, types, required flags, and the `concept_ref` cross-links (`TextAndImages` → `Text` / `Image`, `Page` → `TextAndImages` / `Image`, `SearchResult` → `Document`).
 
 Worth pairing with a decision about the description strings too. `docs/static-graph.md` tells maintainers to copy the wording verbatim, and it currently is verbatim, but nothing mechanically holds it there. If the structures get copied, both they and the descriptions become large hand-copies of an upstream artifact — at which point generating the whole table from pipelex (the way `pipelex-js` drives its native table from an oracle script) beats maintaining it by hand. See `pipelex/wip/native-concept-codes-drift-invisible.md` for the tooling side of the same problem.
+
+## 4. `SchemaTable` renders only a field's `type`, dropping everything that qualifies it
+
+Same panel, adjacent hole. `extractType` in `ConceptDetailPanel.tsx` returns `schema.type` and nothing else, so the type column shows a bare `string` / `array` / `object`. `parseMthdsBundle`'s `fieldSchema` emits four qualifiers the panel never reads:
+
+- `format` — `date`, `date-time`, and `time` all render as `string`, indistinguishable from `text`.
+- `enum` — an authored `choices = [...]` list is dropped entirely. Arguably the biggest information loss of the four: the author wrote a closed set and the panel shows an open one.
+- `items` — a `list` field renders as bare `array`, never `array<string>`.
+- `default` — an authored `default_value` never surfaces.
+
+Raised by a review bot on PR #64 against the temporal-format fix, framed as "the display fix is ineffective". Half right: the emitted data was genuinely wrong for `date` and missing for `datetime` / `time`, and correcting it is what a host consuming `GraphSpec.concept_registry` needs. But it does not change a pixel here, and the changelog was corrected to stop implying otherwise.
+
+Deliberately not fixed in that PR. The two-line version — append `format` to the type cell — is arbitrary: nothing justifies surfacing `format` while `enum` stays hidden. The non-arbitrary version is "the type column renders the field's derived shape", which is a design pass on that column and its CSS, changes rendering for every dry and live fixture rather than just static ones, and therefore needs the Storybook visual pass under Workflow Rule 2. It should also land after §3, not before: a panel that shows no schema at all for natives is the larger gap in the same component, and polishing the type column while that waits is out of order.
