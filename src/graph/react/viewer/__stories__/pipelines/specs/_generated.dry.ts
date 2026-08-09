@@ -59,3 +59,7 @@ export { DRY_CV_BATCH_SCREENING } from "./_generated/dry/pipeline_28";
 export { DRY_CV_ANALYZER } from "./_generated/dry/pipeline_30";
 
 export { DRY_RFP_QUALIFIER } from "./_generated/dry/pipeline_31";
+
+export { DRY_MEETING_TRIAGE } from "./_generated/dry/pipeline_32";
+
+export { DRY_AVAILABILITY_ROUTING } from "./_generated/dry/pipeline_33";

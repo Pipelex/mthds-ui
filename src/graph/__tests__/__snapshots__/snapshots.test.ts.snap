@@ -443,6 +443,225 @@ exports[`snapshot regression — DRY catalog > DRY DRY_ALL_PIPE_TYPES matches sn
 }
 `;
 
+exports[`snapshot regression — DRY catalog > DRY DRY_AVAILABILITY_ROUTING matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_4",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_5",
+      "target": "stuff_d8",
+    },
+    {
+      "id": "edge_4",
+      "source": "GID:node_6",
+      "target": "stuff_d10",
+    },
+    {
+      "id": "edge_5",
+      "source": "GID:node_8",
+      "target": "stuff_d11",
+    },
+    {
+      "id": "edge_6",
+      "source": "GID:node_9",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d2-branch-0",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_10",
+      "source": "stuff_d2-branch-1",
+      "target": "GID:node_5",
+    },
+    {
+      "id": "edge_11",
+      "source": "stuff_d2-branch-2",
+      "target": "GID:node_6",
+    },
+    {
+      "id": "edge_12",
+      "source": "stuff_d4",
+      "target": "GID:node_8",
+    },
+    {
+      "id": "edge_13",
+      "source": "stuff_d4",
+      "target": "GID:node_9",
+    },
+    {
+      "id": "GID:asm_edge_5",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-0",
+    },
+    {
+      "id": "GID:asm_edge_6",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-1",
+    },
+    {
+      "id": "GID:asm_edge_7",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-2",
+    },
+    {
+      "id": "GID:asm_edge_8",
+      "source": "stuff_d6",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "GID:asm_edge_9",
+      "source": "stuff_d8",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "GID:asm_edge_10",
+      "source": "stuff_d10",
+      "target": "stuff_d4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d11",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "GID:node_7",
+      "parentId": "GID:node_0",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_5",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_6",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_8",
+      "parentId": "GID:node_7",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_9",
+      "parentId": "GID:node_7",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-0",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d8",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-1",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d10",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-2",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+  ],
+}
+`;
+
 exports[`snapshot regression — DRY catalog > DRY DRY_BATCH_WITH_INNER_SEQ matches snapshot 1`] = `
 {
   "edges": [
@@ -2749,6 +2968,115 @@ exports[`snapshot regression — DRY catalog > DRY DRY_LONG_SEQUENCE matches sna
     },
     {
       "id": "stuff_d6",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — DRY catalog > DRY DRY_MEETING_TRIAGE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_3",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_4",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "GID:node_3",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d3",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d4",
+      "target": "GID:node_4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
       "parentId": "GID:node_0",
       "type": "default",
     },
@@ -5224,6 +5552,225 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_ALL_PIPE_TYPES matches
 }
 `;
 
+exports[`snapshot regression — LIVE catalog > LIVE LIVE_AVAILABILITY_ROUTING matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_4",
+      "target": "stuff_d6",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_5",
+      "target": "stuff_d8",
+    },
+    {
+      "id": "edge_4",
+      "source": "GID:node_6",
+      "target": "stuff_d10",
+    },
+    {
+      "id": "edge_5",
+      "source": "GID:node_8",
+      "target": "stuff_d11",
+    },
+    {
+      "id": "edge_6",
+      "source": "GID:node_9",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d2-branch-0",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_10",
+      "source": "stuff_d2-branch-1",
+      "target": "GID:node_5",
+    },
+    {
+      "id": "edge_11",
+      "source": "stuff_d2-branch-2",
+      "target": "GID:node_6",
+    },
+    {
+      "id": "edge_12",
+      "source": "stuff_d4",
+      "target": "GID:node_8",
+    },
+    {
+      "id": "edge_13",
+      "source": "stuff_d4",
+      "target": "GID:node_9",
+    },
+    {
+      "id": "GID:asm_edge_5",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-0",
+    },
+    {
+      "id": "GID:asm_edge_6",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-1",
+    },
+    {
+      "id": "GID:asm_edge_7",
+      "source": "stuff_d2",
+      "target": "stuff_d2-branch-2",
+    },
+    {
+      "id": "GID:asm_edge_8",
+      "source": "stuff_d6",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "GID:asm_edge_9",
+      "source": "stuff_d8",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "GID:asm_edge_10",
+      "source": "stuff_d10",
+      "target": "stuff_d4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d11",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "GID:node_7",
+      "parentId": "GID:node_0",
+      "type": "controllerGroup",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_5",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_6",
+      "parentId": "GID:node_3",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_8",
+      "parentId": "GID:node_7",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_9",
+      "parentId": "GID:node_7",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d6",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-0",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d8",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-1",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d10",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d2-branch-2",
+      "parentId": "GID:node_3",
+      "type": "default",
+    },
+  ],
+}
+`;
+
 exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ matches snapshot 1`] = `
 {
   "edges": [
@@ -7405,6 +7952,115 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_LONG_SEQUENCE matches 
     },
     {
       "id": "stuff_d6",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — LIVE catalog > LIVE LIVE_MEETING_TRIAGE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "GID:node_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "GID:node_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "GID:node_3",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "GID:node_4",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "GID:node_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "GID:node_2",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "GID:node_3",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d3",
+      "target": "GID:node_4",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d4",
+      "target": "GID:node_4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "GID:node_0",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "GID:node_1",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_2",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_3",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_4",
+      "parentId": "GID:node_0",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "GID:node_0",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
       "parentId": "GID:node_0",
       "type": "default",
     },
@@ -9789,6 +10445,115 @@ exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_DEEP_NE
     {
       "id": "stuff_d8",
       "parentId": "deep_processing.deep_nested_pipeline/step_2/branch_2",
+      "type": "default",
+    },
+  ],
+}
+`;
+
+exports[`snapshot regression — STATIC selected catalog > STATIC STATIC_MEETING_TRIAGE matches snapshot 1`] = `
+{
+  "edges": [
+    {
+      "id": "edge_0",
+      "source": "scheduling.triage_request/step_1",
+      "target": "stuff_d2",
+    },
+    {
+      "id": "edge_1",
+      "source": "scheduling.triage_request/step_2",
+      "target": "stuff_d3",
+    },
+    {
+      "id": "edge_2",
+      "source": "scheduling.triage_request/step_3",
+      "target": "stuff_d4",
+    },
+    {
+      "id": "edge_3",
+      "source": "scheduling.triage_request/step_4",
+      "target": "stuff_d1",
+    },
+    {
+      "id": "edge_4",
+      "source": "stuff_d0",
+      "target": "scheduling.triage_request/step_1",
+    },
+    {
+      "id": "edge_5",
+      "source": "stuff_d0",
+      "target": "scheduling.triage_request/step_2",
+    },
+    {
+      "id": "edge_6",
+      "source": "stuff_d0",
+      "target": "scheduling.triage_request/step_3",
+    },
+    {
+      "id": "edge_7",
+      "source": "stuff_d2",
+      "target": "scheduling.triage_request/step_4",
+    },
+    {
+      "id": "edge_8",
+      "source": "stuff_d3",
+      "target": "scheduling.triage_request/step_4",
+    },
+    {
+      "id": "edge_9",
+      "source": "stuff_d4",
+      "target": "scheduling.triage_request/step_4",
+    },
+  ],
+  "nodes": [
+    {
+      "id": "scheduling.triage_request",
+      "parentId": undefined,
+      "type": "controllerGroup",
+    },
+    {
+      "id": "stuff_d1",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "stuff_d0",
+      "parentId": undefined,
+      "type": "default",
+    },
+    {
+      "id": "scheduling.triage_request/step_1",
+      "parentId": "scheduling.triage_request",
+      "type": "pipeCard",
+    },
+    {
+      "id": "scheduling.triage_request/step_2",
+      "parentId": "scheduling.triage_request",
+      "type": "pipeCard",
+    },
+    {
+      "id": "scheduling.triage_request/step_3",
+      "parentId": "scheduling.triage_request",
+      "type": "pipeCard",
+    },
+    {
+      "id": "scheduling.triage_request/step_4",
+      "parentId": "scheduling.triage_request",
+      "type": "pipeCard",
+    },
+    {
+      "id": "stuff_d2",
+      "parentId": "scheduling.triage_request",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d3",
+      "parentId": "scheduling.triage_request",
+      "type": "default",
+    },
+    {
+      "id": "stuff_d4",
+      "parentId": "scheduling.triage_request",
       "type": "default",
     },
   ],

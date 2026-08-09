@@ -49,3 +49,13 @@ Same panel, adjacent hole. `extractType` in `ConceptDetailPanel.tsx` returns `sc
 Raised by a review bot on PR #64 against the temporal-format fix, framed as "the display fix is ineffective". Half right: the emitted data was genuinely wrong for `date` and missing for `datetime` / `time`, and correcting it is what a host consuming `GraphSpec.concept_registry` needs. But it does not change a pixel here, and the changelog was corrected to stop implying otherwise.
 
 Deliberately not fixed in that PR. The two-line version — append `format` to the type cell — is arbitrary: nothing justifies surfacing `format` while `enum` stays hidden. The non-arbitrary version is "the type column renders the field's derived shape", which is a design pass on that column and its CSS, changes rendering for every dry and live fixture rather than just static ones, and therefore needs the Storybook visual pass under Workflow Rule 2. It should also land after §3, not before: a panel that shows no schema at all for natives is the larger gap in the same component, and polishing the type column while that waits is out of order.
+
+### 4b. An `anyOf` field does not lose its type — it loses its whole row
+
+Found on the Storybook pass over `pipeline_32`, and worse than the type column above: the field disappears from the table entirely.
+
+`native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both in `concept_registry["native.Date"].json_schema`. The panel renders one row. `time` is `{"anyOf": [{"type": "string", "format": "time"}, {"type": "null"}], "default": null, ...}` — the standard pydantic shape for `X | None` — so it carries no top-level `type` key, and `extractType` reads only `schema.type`. The row is not rendered with a blank type; it is gone. A reader of that panel concludes `native.Date` is date-only, which is precisely the fidelity distinction the concept exists to make.
+
+Narrow blast radius today, which is why this is a note and not a fix: authored optionals do not take this shape. `parseMthdsBundle`'s `fieldSchema` emits a plain `type` for an optional field (verified on `availability.SlotCheck.note` in `pipeline_33`), so `anyOf` only reaches the panel from pydantic-derived schemas — i.e. the natives, on dry and live specs. `native.Date.time` is currently the only instance in the corpus.
+
+Fix alongside §4, not separately: both are `extractType` reading one key where the schema offers a shape. Whatever renders the derived shape should unwrap a nullable `anyOf` to its non-null arm and mark it optional. Note this also argues §4 is not purely cosmetic — one of its cases silently omits data.

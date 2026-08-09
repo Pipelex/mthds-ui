@@ -1,0 +1,1466 @@
+{
+  "graph_id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa",
+  "created_at": "2026-08-09T07:16:33.993726Z",
+  "pipeline_ref": {
+    "domain": "availability",
+    "main_pipe": "route_availability",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_0",
+      "kind": "controller",
+      "pipe_code": "route_availability",
+      "pipe_type": "PipeSequence",
+      "description": "Read the proposed dates, check each one, then route on urgency",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:33.993726Z",
+        "ended_at": "2026-08-09T07:16:34.174711Z",
+        "duration": 0.180985
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "request",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3N8wJ",
+            "data": {
+              "text": "ognnkTFKhZXjujANPxtz"
+            },
+            "data_text": "ognnkTFKhZXjujANPxtz                                                                                \n",
+            "data_html": "ognnkTFKhZXjujANPxtz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "reply",
+            "concept": "Reply",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rig8r",
+            "data": {
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    "
+            },
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n• item #1:                                                                                          \n\n                                     day: jRPmJiohxcpUcXsXaFLA                                      \n\n                                           is_free: True                                            \n\n                                     note: ygtmkWNoDJutsFJFYaiW                                     \n\n• item #2:                                                                                          \n\n                                     day: UXhUJufMLmzxmpuemFjJ                                      \n\n                                             is_free: T                                             \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "step_count": 4
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_1",
+      "kind": "operator",
+      "pipe_code": "read_dates",
+      "pipe_type": "PipeLLM",
+      "description": "Read the dates the request proposes",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.002426Z",
+        "ended_at": "2026-08-09T07:16:34.022943Z",
+        "duration": 0.020517
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "request",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3N8wJ",
+            "data": {
+              "text": "ognnkTFKhZXjujANPxtz"
+            },
+            "data_text": "ognnkTFKhZXjujANPxtz                                                                                \n",
+            "data_html": "ognnkTFKhZXjujANPxtz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "dates",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nM38A",
+            "data": {
+              "items": [
+                {
+                  "date": "2022-04-19",
+                  "time": "22:17:26.092898"
+                },
+                {
+                  "date": "2021-05-14",
+                  "time": "20:36:16.342882"
+                },
+                {
+                  "date": "2026-07-13",
+                  "time": "04:14:51.067294"
+                }
+              ]
+            },
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2022-04-19\",                                     \n                  │   \"time\": \"22:17:26.092898\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2021-05-14\",                                     \n                  │   \"time\": \"20:36:16.342882\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2026-07-13\",                                     \n                  │   \"time\": \"04:14:51.067294\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2022-04-19T22:17:26.092898</li><li>2021-05-14T20:36:16.342882</li><li>2026-07-13T04:14:51.067294</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "List every meeting date proposed in the request below.\n\n<request>\nognnkTFKhZXjujANPxtz\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass DateContent(StuffContent):\n    \"\"\"A calendar date, optionally with a time of day — as precise as its source states.\n\n    The optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). Invalid states are unrepresentable by construction: no time\n    without a date, no offset without a time.\n    \"\"\"\n    date: date  # The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.\n    time: time | None = None  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_2",
+      "kind": "operator",
+      "pipe_code": "is_urgent",
+      "pipe_type": "PipeLLM",
+      "description": "Judge whether the request is urgent",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.029316Z",
+        "ended_at": "2026-08-09T07:16:34.044356Z",
+        "duration": 0.01504
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "request",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "3N8wJ",
+            "data": {
+              "text": "ognnkTFKhZXjujANPxtz"
+            },
+            "data_text": "ognnkTFKhZXjujANPxtz                                                                                \n",
+            "data_html": "ognnkTFKhZXjujANPxtz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "urgent",
+            "concept": "YesNo",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VwSJY",
+            "data": {
+              "yes_no": false
+            },
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Is the meeting request below urgent?\n\n<request>\nognnkTFKhZXjujANPxtz\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass YesNoContent(StuffContent):\n    yes_no: bool  # Whether the answer is yes (true) or no (false).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "controller",
+      "pipe_code": "check_day_batch",
+      "pipe_type": "PipeBatch",
+      "description": "Batch processing for check_day",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.049527Z",
+        "ended_at": "2026-08-09T07:16:34.118705Z",
+        "duration": 0.069178
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "dates",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nM38A",
+            "data": {
+              "items": [
+                {
+                  "date": "2022-04-19",
+                  "time": "22:17:26.092898"
+                },
+                {
+                  "date": "2021-05-14",
+                  "time": "20:36:16.342882"
+                },
+                {
+                  "date": "2026-07-13",
+                  "time": "04:14:51.067294"
+                }
+              ]
+            },
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2022-04-19\",                                     \n                  │   \"time\": \"22:17:26.092898\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2021-05-14\",                                     \n                  │   \"time\": \"20:36:16.342882\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2026-07-13\",                                     \n                  │   \"time\": \"04:14:51.067294\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2022-04-19T22:17:26.092898</li><li>2021-05-14T20:36:16.342882</li><li>2026-07-13T04:14:51.067294</li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "checks",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rpm76",
+            "data": {
+              "items": [
+                {
+                  "day": "jRPmJiohxcpUcXsXaFLA",
+                  "is_free": true,
+                  "note": "ygtmkWNoDJutsFJFYaiW"
+                },
+                {
+                  "day": "UXhUJufMLmzxmpuemFjJ",
+                  "is_free": true,
+                  "note": "oSMyNhFGZAntmbVLUwZq"
+                },
+                {
+                  "day": "vBCVSZirEZpkvebzLkwD",
+                  "is_free": false,
+                  "note": "fscgbWgFOOMeNtjezIzO"
+                }
+              ]
+            },
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ jRPmJiohxcpUcXsXaFLA                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ ygtmkWNoDJutsFJFYaiW                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ UXhUJufMLmzxmpuemFjJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ oSMyNhFGZAntmbVLUwZq                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ vBCVSZirEZpkvebzLkwD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ fscgbWgFOOMeNtjezIzO                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>jRPmJiohxcpUcXsXaFLA</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>ygtmkWNoDJutsFJFYaiW</td></tr></table></li><li><table><tr><th>day</th><td>UXhUJufMLmzxmpuemFjJ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>oSMyNhFGZAntmbVLUwZq</td></tr></table></li><li><table><tr><th>day</th><td>vBCVSZirEZpkvebzLkwD</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>fscgbWgFOOMeNtjezIzO</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "item_count": 3,
+        "branch_pipe_code": "check_day"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_4",
+      "kind": "operator",
+      "pipe_code": "check_day",
+      "pipe_type": "PipeLLM",
+      "description": "Check the calendar for one proposed date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.055886Z",
+        "ended_at": "2026-08-09T07:16:34.068544Z",
+        "duration": 0.012658
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "day",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nM38A-branch-0",
+            "data": {
+              "date": "2022-04-19",
+              "time": "22:17:26.092898"
+            },
+            "data_text": "{\n  \"date\": \"2022-04-19\",\n  \"time\": \"22:17:26.092898\"\n}\n",
+            "data_html": "2022-04-19T22:17:26.092898",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "slot_check",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5BqDs-branch-0",
+            "data": {
+              "day": "jRPmJiohxcpUcXsXaFLA",
+              "is_free": true,
+              "note": "ygtmkWNoDJutsFJFYaiW"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ jRPmJiohxcpUcXsXaFLA                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ ygtmkWNoDJutsFJFYaiW                               \n",
+            "data_html": "<table><tr><th>day</th><td>jRPmJiohxcpUcXsXaFLA</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>ygtmkWNoDJutsFJFYaiW</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2022-04-19T22:17:26.092898\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_5",
+      "kind": "operator",
+      "pipe_code": "check_day",
+      "pipe_type": "PipeLLM",
+      "description": "Check the calendar for one proposed date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.072945Z",
+        "ended_at": "2026-08-09T07:16:34.089150Z",
+        "duration": 0.016205
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "day",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nM38A-branch-1",
+            "data": {
+              "date": "2021-05-14",
+              "time": "20:36:16.342882"
+            },
+            "data_text": "{\n  \"date\": \"2021-05-14\",\n  \"time\": \"20:36:16.342882\"\n}\n",
+            "data_html": "2021-05-14T20:36:16.342882",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "slot_check",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5BqDs-branch-1",
+            "data": {
+              "day": "UXhUJufMLmzxmpuemFjJ",
+              "is_free": true,
+              "note": "oSMyNhFGZAntmbVLUwZq"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ UXhUJufMLmzxmpuemFjJ                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ oSMyNhFGZAntmbVLUwZq                               \n",
+            "data_html": "<table><tr><th>day</th><td>UXhUJufMLmzxmpuemFjJ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>oSMyNhFGZAntmbVLUwZq</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2021-05-14T20:36:16.342882\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_6",
+      "kind": "operator",
+      "pipe_code": "check_day",
+      "pipe_type": "PipeLLM",
+      "description": "Check the calendar for one proposed date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.096160Z",
+        "ended_at": "2026-08-09T07:16:34.110554Z",
+        "duration": 0.014394
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "day",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nM38A-branch-2",
+            "data": {
+              "date": "2026-07-13",
+              "time": "04:14:51.067294"
+            },
+            "data_text": "{\n  \"date\": \"2026-07-13\",\n  \"time\": \"04:14:51.067294\"\n}\n",
+            "data_html": "2026-07-13T04:14:51.067294",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "slot_check",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "5BqDs-branch-2",
+            "data": {
+              "day": "vBCVSZirEZpkvebzLkwD",
+              "is_free": false,
+              "note": "fscgbWgFOOMeNtjezIzO"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ vBCVSZirEZpkvebzLkwD                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ fscgbWgFOOMeNtjezIzO                               \n",
+            "data_html": "<table><tr><th>day</th><td>vBCVSZirEZpkvebzLkwD</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>fscgbWgFOOMeNtjezIzO</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2026-07-13T04:14:51.067294\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "kind": "controller",
+      "pipe_code": "route_reply",
+      "pipe_type": "PipeCondition",
+      "description": "Reply immediately when urgent, otherwise propose alternatives",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.123490Z",
+        "ended_at": "2026-08-09T07:16:34.171420Z",
+        "duration": 0.04793
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "urgent",
+            "concept": "YesNo",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "VwSJY",
+            "data": {
+              "yes_no": false
+            },
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
+            "extra": {}
+          },
+          {
+            "name": "checks",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rpm76",
+            "data": {
+              "items": [
+                {
+                  "day": "jRPmJiohxcpUcXsXaFLA",
+                  "is_free": true,
+                  "note": "ygtmkWNoDJutsFJFYaiW"
+                },
+                {
+                  "day": "UXhUJufMLmzxmpuemFjJ",
+                  "is_free": true,
+                  "note": "oSMyNhFGZAntmbVLUwZq"
+                },
+                {
+                  "day": "vBCVSZirEZpkvebzLkwD",
+                  "is_free": false,
+                  "note": "fscgbWgFOOMeNtjezIzO"
+                }
+              ]
+            },
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ jRPmJiohxcpUcXsXaFLA                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ ygtmkWNoDJutsFJFYaiW                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ UXhUJufMLmzxmpuemFjJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ oSMyNhFGZAntmbVLUwZq                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ vBCVSZirEZpkvebzLkwD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ fscgbWgFOOMeNtjezIzO                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>jRPmJiohxcpUcXsXaFLA</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>ygtmkWNoDJutsFJFYaiW</td></tr></table></li><li><table><tr><th>day</th><td>UXhUJufMLmzxmpuemFjJ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>oSMyNhFGZAntmbVLUwZq</td></tr></table></li><li><table><tr><th>day</th><td>vBCVSZirEZpkvebzLkwD</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>fscgbWgFOOMeNtjezIzO</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "reply",
+            "concept": "Reply",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rig8r",
+            "data": {
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    "
+            },
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n• item #1:                                                                                          \n\n                                     day: jRPmJiohxcpUcXsXaFLA                                      \n\n                                           is_free: True                                            \n\n                                     note: ygtmkWNoDJutsFJFYaiW                                     \n\n• item #2:                                                                                          \n\n                                     day: UXhUJufMLmzxmpuemFjJ                                      \n\n                                             is_free: T                                             \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_8",
+      "kind": "operator",
+      "pipe_code": "reply_with_options",
+      "pipe_type": "PipeLLM",
+      "description": "Write a relaxed reply listing every free date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.129895Z",
+        "ended_at": "2026-08-09T07:16:34.148365Z",
+        "duration": 0.01847
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "checks",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rpm76",
+            "data": {
+              "items": [
+                {
+                  "day": "jRPmJiohxcpUcXsXaFLA",
+                  "is_free": true,
+                  "note": "ygtmkWNoDJutsFJFYaiW"
+                },
+                {
+                  "day": "UXhUJufMLmzxmpuemFjJ",
+                  "is_free": true,
+                  "note": "oSMyNhFGZAntmbVLUwZq"
+                },
+                {
+                  "day": "vBCVSZirEZpkvebzLkwD",
+                  "is_free": false,
+                  "note": "fscgbWgFOOMeNtjezIzO"
+                }
+              ]
+            },
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ jRPmJiohxcpUcXsXaFLA                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ ygtmkWNoDJutsFJFYaiW                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ UXhUJufMLmzxmpuemFjJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ oSMyNhFGZAntmbVLUwZq                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ vBCVSZirEZpkvebzLkwD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ fscgbWgFOOMeNtjezIzO                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>jRPmJiohxcpUcXsXaFLA</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>ygtmkWNoDJutsFJFYaiW</td></tr></table></li><li><table><tr><th>day</th><td>UXhUJufMLmzxmpuemFjJ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>oSMyNhFGZAntmbVLUwZq</td></tr></table></li><li><table><tr><th>day</th><td>vBCVSZirEZpkvebzLkwD</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>fscgbWgFOOMeNtjezIzO</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "reply",
+            "concept": "Reply",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "PPqNh",
+            "data": {
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_\n    "
+            },
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: jRPmJiohxcpUcXsXaFLA                                      \n\n                                           is_free: True                                            \n\n                                     note: ygtmkWNoDJutsFJFYaiW                                     \n\n• item #2:                                                                                          \n\n                                     day: UXhUJufMLmzxmpuemFjJ                                      \n\n                                                is_                                                 \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: True\n\n# note: oSMyNhFGZAntmbVLUwZq\n\n • item #3:\n\n# day: vBCVSZirEZpkvebzLkwD\n\n# is_free: False\n\n# note: fscgbWgFOOMeNtjezIzO\n\n</checks>",
+        "structuring_path": "text"
+      }
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_9",
+      "kind": "operator",
+      "pipe_code": "reply_now",
+      "pipe_type": "PipeLLM",
+      "description": "Write an urgent reply confirming the first free date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-09T07:16:34.148451Z",
+        "ended_at": "2026-08-09T07:16:34.170528Z",
+        "duration": 0.022077
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "checks",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rpm76",
+            "data": {
+              "items": [
+                {
+                  "day": "jRPmJiohxcpUcXsXaFLA",
+                  "is_free": true,
+                  "note": "ygtmkWNoDJutsFJFYaiW"
+                },
+                {
+                  "day": "UXhUJufMLmzxmpuemFjJ",
+                  "is_free": true,
+                  "note": "oSMyNhFGZAntmbVLUwZq"
+                },
+                {
+                  "day": "vBCVSZirEZpkvebzLkwD",
+                  "is_free": false,
+                  "note": "fscgbWgFOOMeNtjezIzO"
+                }
+              ]
+            },
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ jRPmJiohxcpUcXsXaFLA                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ ygtmkWNoDJutsFJFYaiW                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ UXhUJufMLmzxmpuemFjJ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ oSMyNhFGZAntmbVLUwZq                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ vBCVSZirEZpkvebzLkwD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ fscgbWgFOOMeNtjezIzO                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>jRPmJiohxcpUcXsXaFLA</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>ygtmkWNoDJutsFJFYaiW</td></tr></table></li><li><table><tr><th>day</th><td>UXhUJufMLmzxmpuemFjJ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>oSMyNhFGZAntmbVLUwZq</td></tr></table></li><li><table><tr><th>day</th><td>vBCVSZirEZpkvebzLkwD</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>fscgbWgFOOMeNtjezIzO</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "reply",
+            "concept": "Reply",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Rig8r",
+            "data": {
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    "
+            },
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n• item #1:                                                                                          \n\n                                     day: jRPmJiohxcpUcXsXaFLA                                      \n\n                                           is_free: True                                            \n\n                                     note: ygtmkWNoDJutsFJFYaiW                                     \n\n• item #2:                                                                                          \n\n                                     day: UXhUJufMLmzxmpuemFjJ                                      \n\n                                             is_free: T                                             \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: T\n    ",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: jRPmJiohxcpUcXsXaFLA\n\n# is_free: True\n\n# note: ygtmkWNoDJutsFJFYaiW\n\n • item #2:\n\n# day: UXhUJufMLmzxmpuemFjJ\n\n# is_free: True\n\n# note: oSMyNhFGZAntmbVLUwZq\n\n • item #3:\n\n# day: vBCVSZirEZpkvebzLkwD\n\n# is_free: False\n\n# note: fscgbWgFOOMeNtjezIzO\n\n</checks>",
+        "structuring_path": "text"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_0",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_0",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_1",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_0",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_2",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_0",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_3",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_4",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_4",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_5",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_5",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_6",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_6",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_0",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_7",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_8",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:edge_8",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_9",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_0",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_1",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "data",
+      "optional": false,
+      "label": "dates",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_1",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_2",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "kind": "data",
+      "optional": false,
+      "label": "urgent",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_2",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_7",
+      "kind": "data",
+      "optional": false,
+      "label": "checks",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_3",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_8",
+      "kind": "data",
+      "optional": false,
+      "label": "checks",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_4",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_9",
+      "kind": "data",
+      "optional": false,
+      "label": "checks",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_5",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_4",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "nM38A",
+      "target_stuff_digest": "nM38A-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_6",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_5",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "nM38A",
+      "target_stuff_digest": "nM38A-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_7",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_6",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[2]",
+      "source_stuff_digest": "nM38A",
+      "target_stuff_digest": "nM38A-branch-2",
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_8",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_4",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "5BqDs-branch-0",
+      "target_stuff_digest": "Rpm76",
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_9",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_5",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "5BqDs-branch-1",
+      "target_stuff_digest": "Rpm76",
+      "meta": {}
+    },
+    {
+      "id": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:asm_edge_10",
+      "source": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_6",
+      "target": "2bfa925a-8acc-4a69-a538-bdcf0e1481fa:node_3",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[2]",
+      "source_stuff_digest": "5BqDs-branch-2",
+      "target_stuff_digest": "Rpm76",
+      "meta": {}
+    }
+  ],
+  "meta": {
+    "format": "mthds",
+    "mode": "dry"
+  },
+  "pipe_registry": {
+    "availability.route_availability": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "route_availability",
+      "domain_code": "availability",
+      "description": "Read the proposed dates, check each one, then route on urgency",
+      "inputs": {
+        "request": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Reply",
+          "domain_code": "availability",
+          "description": "The reply to send back to the requester",
+          "structure_class_name": "availability__Reply",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "read_dates",
+          "output_name": "dates",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "is_urgent",
+          "output_name": "urgent",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "check_day",
+          "output_name": "checks",
+          "output_multiplicity": true,
+          "batch_params": {
+            "input_list_stuff_name": "dates",
+            "input_item_stuff_name": "day"
+          }
+        },
+        {
+          "pipe_code": "route_reply",
+          "output_name": "reply",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "availability.read_dates": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "read_dates",
+      "domain_code": "availability",
+      "description": "Read the dates the request proposes",
+      "inputs": {
+        "request": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Date",
+          "domain_code": "native",
+          "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+          "structure_class_name": "DateContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "List every meeting date proposed in the request below.\n\n@request\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": true
+    },
+    "availability.is_urgent": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "is_urgent",
+      "domain_code": "availability",
+      "description": "Judge whether the request is urgent",
+      "inputs": {
+        "request": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "YesNo",
+          "domain_code": "native",
+          "description": "The answer to a yes/no question",
+          "structure_class_name": "YesNoContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Is the meeting request below urgent?\n\n@request\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "availability.check_day_batch": {
+      "pipe_category": "PipeController",
+      "type": "PipeBatch",
+      "code": "check_day_batch",
+      "domain_code": "availability",
+      "description": "Batch processing for check_day",
+      "inputs": {
+        "dates": {
+          "concept": {
+            "code": "Date",
+            "domain_code": "native",
+            "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+            "structure_class_name": "DateContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SlotCheck",
+          "domain_code": "availability",
+          "description": "Whether one proposed date has a free slot",
+          "structure_class_name": "availability__SlotCheck",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "branch_pipe_code": "check_day",
+      "batch_params": {
+        "input_list_stuff_name": "dates",
+        "input_item_stuff_name": "day"
+      }
+    },
+    "availability.check_day": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "check_day",
+      "domain_code": "availability",
+      "description": "Check the calendar for one proposed date",
+      "inputs": {
+        "day": {
+          "concept": {
+            "code": "Date",
+            "domain_code": "native",
+            "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+            "structure_class_name": "DateContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "SlotCheck",
+          "domain_code": "availability",
+          "description": "Whether one proposed date has a free slot",
+          "structure_class_name": "availability__SlotCheck",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Check whether the calendar is free on the date below, and say what else is on it.\n\n@day\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "availability.route_reply": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_reply",
+      "domain_code": "availability",
+      "description": "Reply immediately when urgent, otherwise propose alternatives",
+      "inputs": {
+        "checks": {
+          "concept": {
+            "code": "SlotCheck",
+            "domain_code": "availability",
+            "description": "Whether one proposed date has a free slot",
+            "structure_class_name": "availability__SlotCheck",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        },
+        "urgent": {
+          "concept": {
+            "code": "YesNo",
+            "domain_code": "native",
+            "description": "The answer to a yes/no question",
+            "structure_class_name": "YesNoContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Reply",
+          "domain_code": "availability",
+          "description": "The reply to send back to the requester",
+          "structure_class_name": "availability__Reply",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "expression": "{{ urgent.yes_no }}",
+      "outcome_map": {
+        "true": "reply_now",
+        "false": "reply_with_options"
+      },
+      "default_outcome": "reply_with_options",
+      "add_alias_from_expression_to": null
+    },
+    "availability.reply_with_options": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "reply_with_options",
+      "domain_code": "availability",
+      "description": "Write a relaxed reply listing every free date",
+      "inputs": {
+        "checks": {
+          "concept": {
+            "code": "SlotCheck",
+            "domain_code": "availability",
+            "description": "Whether one proposed date has a free slot",
+            "structure_class_name": "availability__SlotCheck",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Reply",
+          "domain_code": "availability",
+          "description": "The reply to send back to the requester",
+          "structure_class_name": "availability__Reply",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n@checks\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "availability.reply_now": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "reply_now",
+      "domain_code": "availability",
+      "description": "Write an urgent reply confirming the first free date",
+      "inputs": {
+        "checks": {
+          "concept": {
+            "code": "SlotCheck",
+            "domain_code": "availability",
+            "description": "Whether one proposed date has a free slot",
+            "structure_class_name": "availability__SlotCheck",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Reply",
+          "domain_code": "availability",
+          "description": "The reply to send back to the requester",
+          "structure_class_name": "availability__Reply",
+          "refines": "native.Text"
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n@checks\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "availability.Reply": {
+      "code": "Reply",
+      "domain_code": "availability",
+      "description": "The reply to send back to the requester",
+      "structure_class_name": "availability__Reply",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "The reply to send back to the requester",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "availability__Reply",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.Date": {
+      "code": "Date",
+      "domain_code": "native",
+      "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+      "structure_class_name": "DateContent",
+      "refines": null,
+      "json_schema": {
+        "description": "A calendar date, optionally with a time of day — as precise as its source states.\n\nThe optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). Invalid states are unrepresentable by construction: no time\nwithout a date, no offset without a time.",
+        "properties": {
+          "date": {
+            "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
+            "format": "date",
+            "title": "Date",
+            "type": "string"
+          },
+          "time": {
+            "anyOf": [
+              {
+                "format": "time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.",
+            "title": "Time"
+          }
+        },
+        "required": [
+          "date"
+        ],
+        "title": "DateContent",
+        "type": "object"
+      }
+    },
+    "native.YesNo": {
+      "code": "YesNo",
+      "domain_code": "native",
+      "description": "The answer to a yes/no question",
+      "structure_class_name": "YesNoContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "yes_no": {
+            "description": "Whether the answer is yes (true) or no (false).",
+            "title": "Yes No",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "yes_no"
+        ],
+        "title": "YesNoContent",
+        "type": "object"
+      }
+    },
+    "availability.SlotCheck": {
+      "code": "SlotCheck",
+      "domain_code": "availability",
+      "description": "Whether one proposed date has a free slot",
+      "structure_class_name": "availability__SlotCheck",
+      "refines": null,
+      "json_schema": {
+        "description": "Whether one proposed date has a free slot",
+        "properties": {
+          "day": {
+            "description": "The date that was checked, in ISO 8601",
+            "title": "Day",
+            "type": "string"
+          },
+          "is_free": {
+            "description": "Whether the calendar is free that day",
+            "title": "Is Free",
+            "type": "boolean"
+          },
+          "note": {
+            "description": "What else is on the calendar that day",
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": [
+          "day",
+          "is_free",
+          "note"
+        ],
+        "title": "availability__SlotCheck",
+        "type": "object"
+      }
+    }
+  }
+}

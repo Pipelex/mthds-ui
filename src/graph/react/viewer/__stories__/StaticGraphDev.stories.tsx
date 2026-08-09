@@ -5,6 +5,7 @@ import { GraphViewer } from "../GraphViewer";
 import {
   STATIC_CV_SCREENING,
   STATIC_DEEP_NESTING,
+  STATIC_MEETING_TRIAGE,
   STATIC_SIMPLE_BATCH,
   STATIC_SIMPLE_CONDITION,
 } from "./staticGraphSpec";
@@ -84,47 +85,6 @@ output = "Scorecard"
 signature_for = "PipeLLM"
 `;
 
-const NATIVE_CONCEPTS_BUNDLE = `
-domain = "native_demo"
-main_pipe = "assess"
-
-[concept.Verdict]
-description = "A hiring verdict"
-refines = "YesNo"
-
-[pipe.assess]
-type = "PipeSequence"
-description = "Exercise the natives that carry no authored declaration"
-inputs = { cv = "Document" }
-output = "Verdict"
-steps = [
-  { pipe = "read_dates", result = "dates" },
-  { pipe = "read_slot", result = "slot" },
-  { pipe = "decide", result = "verdict" },
-]
-
-[pipe.read_dates]
-type = "PipeLLM"
-description = "Read the employment dates"
-inputs = { cv = "Document" }
-output = "Date[]"
-prompt = "List the employment dates in @cv"
-
-[pipe.read_slot]
-type = "PipeLLM"
-description = "Read the preferred interview time"
-inputs = { cv = "Document" }
-output = "Time"
-prompt = "What interview time does @cv ask for?"
-
-[pipe.decide]
-type = "PipeLLM"
-description = "Decide whether the candidate qualifies"
-inputs = { cv = "Document", dates = "Date[]", slot = "Time" }
-output = "Verdict"
-prompt = "Given @dates and @slot, does @cv qualify?"
-`;
-
 export const CvScreening: Story = {
   args: { graphspec: STATIC_CV_SCREENING, ...D },
 };
@@ -153,5 +113,5 @@ export const Signature: Story = {
 
 /** Natives with no authored declaration: detail panels must show `native` plus a description. */
 export const NativeConcepts: Story = {
-  args: { graphspec: buildStaticGraphSpecFromToml(NATIVE_CONCEPTS_BUNDLE).spec, ...D },
+  args: { graphspec: STATIC_MEETING_TRIAGE, ...D },
 };

@@ -81,3 +81,11 @@ export const SimpleBatch = compare("STATIC_SIMPLE_BATCH", "LIVE_SIMPLE_BATCH");
 export const CvScreening = compare("STATIC_CV_SCREENING", "LIVE_CV_SCREENING");
 export const DeepNesting = compare("STATIC_DEEP_NESTING", "LIVE_DEEP_NESTING");
 export const WideParallel = compare("STATIC_WIDE_PARALLEL", "LIVE_WIDE_PARALLEL");
+/**
+ * The natives side by side: static shows "Schema not available" for `Date` /
+ * `Time` / `YesNo`, the pipelex-produced spec shows their field tables. Its
+ * "Live" pane is a placeholder (the dry spec re-tagged) because pipelex cannot
+ * run this bundle live — see pipelex/wip/native-date-time-live-run.md — but the concept
+ * registry it carries is pipelex's own, which is what this comparison is for.
+ */
+export const MeetingTriage = compare("STATIC_MEETING_TRIAGE", "LIVE_MEETING_TRIAGE");

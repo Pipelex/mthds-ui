@@ -30,6 +30,8 @@ import {
   STATIC_CV_BATCH_SCREENING,
   STATIC_CV_ANALYZER,
   STATIC_RFP_QUALIFIER,
+  STATIC_MEETING_TRIAGE,
+  STATIC_AVAILABILITY_ROUTING,
 } from "./pipelines/specs/_generated.static";
 
 export {
@@ -62,6 +64,8 @@ export {
   STATIC_CV_BATCH_SCREENING,
   STATIC_CV_ANALYZER,
   STATIC_RFP_QUALIFIER,
+  STATIC_MEETING_TRIAGE,
+  STATIC_AVAILABILITY_ROUTING,
 };
 
 export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -123,5 +127,13 @@ export const STATIC_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec
   STATIC_RFP_QUALIFIER: {
     label: "31 - RFP Qualifier (Structured Concepts)",
     spec: STATIC_RFP_QUALIFIER,
+  },
+  STATIC_MEETING_TRIAGE: {
+    label: "32 - Meeting Triage (Date / Time / YesNo)",
+    spec: STATIC_MEETING_TRIAGE,
+  },
+  STATIC_AVAILABILITY_ROUTING: {
+    label: "33 - Availability Routing (natives in controllers)",
+    spec: STATIC_AVAILABILITY_ROUTING,
   },
 };

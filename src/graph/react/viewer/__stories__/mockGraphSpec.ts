@@ -34,6 +34,8 @@ import {
   DRY_CV_BATCH_SCREENING,
   DRY_CV_ANALYZER,
   DRY_RFP_QUALIFIER,
+  DRY_MEETING_TRIAGE,
+  DRY_AVAILABILITY_ROUTING,
 } from "./pipelines/specs/_generated.dry";
 
 export {
@@ -66,6 +68,8 @@ export {
   DRY_CV_BATCH_SCREENING,
   DRY_CV_ANALYZER,
   DRY_RFP_QUALIFIER,
+  DRY_MEETING_TRIAGE,
+  DRY_AVAILABILITY_ROUTING,
 };
 
 export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -107,4 +111,12 @@ export const DRY_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }>
   DRY_CV_BATCH_SCREENING: { label: "28 - CV Batch Screening", spec: DRY_CV_BATCH_SCREENING },
   DRY_CV_ANALYZER: { label: "30 - CV Analyzer (Concept Refinement)", spec: DRY_CV_ANALYZER },
   DRY_RFP_QUALIFIER: { label: "31 - RFP Qualifier (Structured Concepts)", spec: DRY_RFP_QUALIFIER },
+  DRY_MEETING_TRIAGE: {
+    label: "32 - Meeting Triage (Date / Time / YesNo)",
+    spec: DRY_MEETING_TRIAGE,
+  },
+  DRY_AVAILABILITY_ROUTING: {
+    label: "33 - Availability Routing (natives in controllers)",
+    spec: DRY_AVAILABILITY_ROUTING,
+  },
 };

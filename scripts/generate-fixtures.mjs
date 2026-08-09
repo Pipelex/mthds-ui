@@ -76,6 +76,8 @@ const NAME_MAP = {
   pipeline_28: "CV_BATCH_SCREENING",
   pipeline_30: "CV_ANALYZER",
   pipeline_31: "RFP_QUALIFIER",
+  pipeline_32: "MEETING_TRIAGE",
+  pipeline_33: "AVAILABILITY_ROUTING",
 };
 
 const LIVE = process.argv.includes("--live");
@@ -230,9 +232,9 @@ async function main() {
 
   // A partial/from-disk run only regenerated a subset; reuse every other
   // pipeline's on-disk spec so the emitted fixtures stay complete.
+  let omitted = [];
   if (PARTIAL || FROM_DISK) {
     const reused = [];
-    const omitted = [];
     for (const p of allPipelines) {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {
@@ -301,7 +303,12 @@ async function main() {
   // placeholder is not enough — we must emit a matching split for every pipeline
   // that lacks real LIVE data. Each write is guarded by existsSync so a real
   // `make fixtures-live` output is never clobbered.
-  if (!LIVE && !PARTIAL) {
+  //
+  // Partial runs bootstrap too: a newly added pipeline is generated with
+  // `--only`, and without this its story's LIVE import would not resolve. The
+  // barrel is only rewritten when nothing was omitted, so a partial run can
+  // never drop a pipeline's LIVE export.
+  if (!LIVE) {
     const liveDir = path.join(SPECS_DIR, "_generated", "live");
     mkdirSync(liveDir, { recursive: true });
 
@@ -331,7 +338,7 @@ async function main() {
     // re-exports the per-pipeline split modules, so this matches a real
     // `make fixtures-live` barrel in shape and never loses real LIVE data.
     const liveFile = path.join(SPECS_DIR, "_generated.live.ts");
-    if (!existsSync(liveFile) || placeholdersWritten > 0) {
+    if (omitted.length === 0 && (!existsSync(liveFile) || placeholdersWritten > 0)) {
       const barrelRaw =
         `/**\n` +
         ` * PLACEHOLDER barrel — re-exports the per-pipeline LIVE split modules.\n` +
