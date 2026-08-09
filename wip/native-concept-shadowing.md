@@ -1,0 +1,34 @@
+# Deferred: native-concept shadowing, and the natives' pinned structures
+
+Three things the native-catalog fix (`feature/New-native-concepts`) deliberately left alone. All three were raised in that PR's review; none is a regression it introduced, and each needs a decision rather than a patch.
+
+## 1. Bare refs resolve local-before-native; the spec says the opposite
+
+`conceptRefs.ts` `resolveConceptInfo` checks `localConcepts` before the native fallback, and `parseMthdsBundle.ts` `qualifyRefines` does the same. `mthds/docs/spec/namespace-resolution.md` ("Resolution Order for Bare Concept References") puts natives first: _"Native concepts always take priority."_
+
+The divergence is only reachable on a bundle that is **already invalid**: `mthds/docs/implementers/validation-rules.md` says a bundle MUST NOT declare a concept whose code is a native's, and a compliant implementation MUST reject it. So the disagreement is confined to files `pipelex validate` refuses. mthds-ui is at least internally consistent — both call sites resolve the same way — and there is a test pinning the behavior (`nativeConcepts.test.ts` → "a locally declared concept shadowing a native").
+
+Adding `YesNo` / `Date` / `Time` widened the set of names an author can collide with, which is what makes this worth writing down rather than shrugging at. `Date` in particular is a name a scheduling domain will reach for.
+
+## 2. No diagnostic when a bundle declares a native-named concept
+
+Same root, other half. `parseConcepts` accepts `[concept.Date]` silently. The static graph renders it; `pipelex validate` rejects the file. The preview and the validator therefore disagree about whether the bundle is even legal, and the author gets no hint from the graph.
+
+`parseMthdsBundle` already emits `duplicate-concept` when a code is declared twice, so the lenient-diagnostic machinery exists and is simply not wired for reserved codes.
+
+## The choice between them
+
+Two ways out, and they are not equivalent:
+
+- **Flip precedence to native-first.** Matches the spec's letter. But it makes the graph silently ignore something the author explicitly wrote, which is the worse failure for a preview surface — the whole point of the static graph is to render what is on the page.
+- **Emit a `shadows-native-concept` diagnostic and keep resolving local-first.** Tells the author their bundle is invalid _and_ keeps showing them what they wrote. This is the better of the two: the static graph is a preview, not a validator, and a diagnostic is exactly how it says "this will not survive `validate`".
+
+Recommendation: the diagnostic. It needs a new code in `src/static-graph/types.ts`, emission in `parseConcepts`, a test, and a line in `docs/static-graph.md`. Not large, but it changes what hosts see in `diagnostics[]`, so it wants its own change rather than riding along in a catalog fix.
+
+## 3. Natives carry no `json_schema`, so their panels read "Schema not available"
+
+`nativeConceptInfo` has never populated `ConceptInfo.json_schema`, for any native — so `ConceptDetailPanel` shows "Schema not available" on every native concept, while the same concept from a pipelex dry or live spec shows a full field table. On a static-vs-live comparison the two halves visibly disagree.
+
+The standard pins a structure for each native (`mthds/docs/spec/native-concepts.md`), and pipelex mirrors them in `pipelex/core/concepts/native/pinned_blueprints.py`, so the data exists and is copyable. Doing it for a subset would be worse than not doing it — the fix is the whole catalog at once, and it is a bigger copy than the description table: fields, types, required flags, and the `concept_ref` cross-links (`TextAndImages` → `Text` / `Image`, `Page` → `TextAndImages` / `Image`, `SearchResult` → `Document`).
+
+Worth pairing with a decision about the description strings too. `docs/static-graph.md` tells maintainers to copy the wording verbatim, and it currently is verbatim, but nothing mechanically holds it there. If the structures get copied, both they and the descriptions become large hand-copies of an upstream artifact — at which point generating the whole table from pipelex (the way `pipelex-js` drives its native table from an oracle script) beats maintaining it by hand. See `pipelex/wip/native-concept-codes-drift-invisible.md` for the tooling side of the same problem.
