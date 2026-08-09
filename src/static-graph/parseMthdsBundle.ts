@@ -12,7 +12,7 @@ import { parse as parseToml } from "smol-toml";
 import type { ConceptInfo, PipeBlueprintUnion } from "@graph/types";
 
 import {
-  NATIVE_CONCEPT_CODES,
+  isNativeConceptCode,
   NATIVE_DOMAIN,
   parseConceptRef,
   qualifiedStructureClassName,
@@ -28,7 +28,9 @@ const FIELD_TYPE_TO_JSON: Record<string, Record<string, unknown>> = {
   integer: { type: "integer" },
   number: { type: "number" },
   boolean: { type: "boolean" },
-  date: { type: "string", format: "date-time" },
+  date: { type: "string", format: "date" },
+  datetime: { type: "string", format: "date-time" },
+  time: { type: "string", format: "time" },
   list: { type: "array" },
   dict: { type: "object" },
   concept: { type: "object" },
@@ -97,7 +99,7 @@ function qualifyRefines(
   const parts = parseConceptRef(raw);
   if (parts === null) return null;
   if (parts.domain !== null) return `${parts.domain}.${parts.code}`;
-  if (!declaredCodes.has(parts.code) && NATIVE_CONCEPT_CODES.has(parts.code)) {
+  if (!declaredCodes.has(parts.code) && isNativeConceptCode(parts.code)) {
     return `${NATIVE_DOMAIN}.${parts.code}`;
   }
   return `${domain}.${parts.code}`;

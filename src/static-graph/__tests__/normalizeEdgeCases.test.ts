@@ -404,13 +404,15 @@ Bad = 42
     );
   });
 
-  it("maps date/dict field types and default values into the json schema", () => {
+  it("maps the temporal/dict field types and default values into the json schema", () => {
     const { bundle } = parseMthdsBundle(`
 domain = "d"
 [concept.Event]
 description = "An event"
 [concept.Event.structure]
-when = { type = "date", description = "When it happens" }
+on = { type = "date", description = "The day it happens" }
+when = { type = "datetime", description = "When it happens" }
+at = { type = "time", description = "The time of day" }
 extra = { type = "dict", description = "Extra data" }
 kind = { type = "text", description = "Kind", default_value = "meeting" }
 raw = { type = "unknown_type", description = "Odd" }
@@ -419,7 +421,11 @@ raw = { type = "unknown_type", description = "Odd" }
       string,
       Record<string, unknown>
     >;
+    // `datetime` and `time` arrived with pipelex 0.41.0; `date` narrowed to a
+    // plain calendar date once `datetime` existed as its own type.
+    expect(properties.on).toMatchObject({ type: "string", format: "date" });
     expect(properties.when).toMatchObject({ type: "string", format: "date-time" });
+    expect(properties.at).toMatchObject({ type: "string", format: "time" });
     expect(properties.extra).toMatchObject({ type: "object" });
     expect(properties.kind).toMatchObject({ default: "meeting" });
     expect(properties.raw).toMatchObject({ type: "string" });

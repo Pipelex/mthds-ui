@@ -55,6 +55,16 @@ show concept structure only, not the generated data created by the fixture run.
 static graph needs a separate identity-mapping design because repeated
 invocations can share a `pipe_code`.
 
+## Native Concepts
+
+`src/static-graph/conceptRefs.ts` carries a hand-kept catalog of the MTHDS native concept codes and their descriptions. Its authority is the standard's pinned set — `docs/spec/native-concepts.md` in the sibling `mthds/` repo — which pipelex mirrors in `pipelex/core/concepts/native/concept_native.py` (`NativeConceptCode`) and `native/pinned_blueprints.py` (the descriptions). Copy the code list and the wording from there, in the spec's canonical order; if the mirror and the spec page ever disagree, the spec page wins.
+
+The catalog is what makes a native ref resolve as native: it decides whether a bare `YesNo` resolves into the `native` domain (description, `YesNoContent` structure class) or falls through to the authoring domain, and whether `refines = "YesNo"` qualifies to `native.YesNo`. A code the catalog does not know does not throw — it degrades into a stub with the wrong domain, an empty description, and a synthetic `<domain>__<Code>` structure class name.
+
+Nothing this repo diffs enumerates the codes (the bundled `data/schema/mthds_schema.json` does not list them), so a native added upstream reaches us silently. `src/static-graph/__tests__/nativeConcepts.test.ts` pins the expected code list, which makes any edit to the catalog a deliberate two-place change — but it cannot detect an upstream addition on its own, since both lists live here. Closing that needs tooling outside this repo; the brief is `pipelex/wip/native-concept-codes-drift-invisible.md`.
+
+The catalog does not carry the natives' pinned _structures_: `ConceptInfo.json_schema` is optional and `nativeConceptInfo` has never populated it for any native, so a native's concept panel reads "Schema not available" where a pipelex-produced dry or live spec shows a field table.
+
 ## Authored Annotations
 
 Static condition children show an outcome badge from `node.tags.outcome`. This
