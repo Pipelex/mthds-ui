@@ -175,6 +175,8 @@ Storybook on 6006, checked `Graph - from run/32`, `Graph - from run/33`, `Graph 
 
 `PipelineSmoke.stories.tsx` stops at pipeline 25 — pipelines 26, 28, 30, and 31 were never added. Pre-existing drift from four prior changes, out of scope here. `32` and `33` were added per the checklist.
 
+**Addressed** in PR [#66](https://github.com/Pipelex/mthds-ui/pull/66) (stacked on #65): the four are backfilled, and `fixturesConsistency.test.ts` now fails when a catalog entry has no smoke story, so the file cannot drift again.
+
 ---
 
 ## Phase 3 — `pipeline_34` plus the corpus oracle
