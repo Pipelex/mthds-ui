@@ -25,6 +25,10 @@ const SPECS_DIR = path.resolve(
 const DRY_DIR = path.join(SPECS_DIR, "_generated", "dry");
 const LIVE_DIR = path.join(SPECS_DIR, "_generated", "live");
 const LIVE_BARREL = path.join(SPECS_DIR, "_generated.live.ts");
+const SMOKE_STORIES = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../react/viewer/__stories__/PipelineSmoke.stories.tsx",
+);
 
 const drySplits = readdirSync(DRY_DIR)
   .filter((f) => f.endsWith(".ts"))
@@ -45,6 +49,18 @@ describe("generated fixtures consistency", () => {
       const moduleRef = `./_generated/live/${file.replace(/\.ts$/, "")}`;
       expect(barrel).toContain(moduleRef);
     }
+  });
+
+  // PipelineSmoke.stories.tsx is hand-written — Storybook indexes static exports,
+  // so the stories cannot be generated from the catalog in a loop. That made it
+  // drift silently: pipelines 26, 28, 30 and 31 were each added to the catalog
+  // without a smoke story, across four separate changes, and nothing noticed.
+  it("has a smoke story for every DRY catalog entry", () => {
+    const source = readFileSync(SMOKE_STORIES, "utf-8");
+    const covered = new Set(
+      [...source.matchAll(/DRY_RUN_CATALOG\.(DRY_[A-Z0-9_]+)\.spec/g)].map((m) => m[1]),
+    );
+    expect([...Object.keys(DRY_RUN_CATALOG)].filter((key) => !covered.has(key))).toEqual([]);
   });
 
   it("stamps explicit graph modes on generated dry and live catalog specs", () => {
