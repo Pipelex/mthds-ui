@@ -49,3 +49,21 @@ Same panel, adjacent hole. `extractType` in `ConceptDetailPanel.tsx` returns `sc
 Raised by a review bot on PR #64 against the temporal-format fix, framed as "the display fix is ineffective". Half right: the emitted data was genuinely wrong for `date` and missing for `datetime` / `time`, and correcting it is what a host consuming `GraphSpec.concept_registry` needs. But it does not change a pixel here, and the changelog was corrected to stop implying otherwise.
 
 Deliberately not fixed in that PR. The two-line version — append `format` to the type cell — is arbitrary: nothing justifies surfacing `format` while `enum` stays hidden. The non-arbitrary version is "the type column renders the field's derived shape", which is a design pass on that column and its CSS, changes rendering for every dry and live fixture rather than just static ones, and therefore needs the Storybook visual pass under Workflow Rule 2. It should also land after §3, not before: a panel that shows no schema at all for natives is the larger gap in the same component, and polishing the type column while that waits is out of order.
+
+### 4b. A dry-run concept panel hides every optional field, so `native.Date` reads as date-only
+
+Found on the Storybook pass over `pipeline_32`. Distinct from §4 — not a type-column problem, and **not** an `extractType` problem.
+
+`native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both in `concept_registry["native.Date"].json_schema`. The dry panel renders one row. The cause is `ConceptDetailPanel.tsx:188`:
+
+```ts
+const visibleFields = isDryRun ? fields.filter(([name]) => required.has(name)) : fields;
+```
+
+`native.Date`'s schema carries `required: ["date"]`, so `time` is filtered out before rendering. This is a deliberate existing choice ("In dry run mode, only show required fields"), not a defect in type extraction — `extractType` already handles the `anyOf` shape that `time` uses (`ConceptDetailPanel.tsx:219` returns `"union"`), so the row would render if it reached the table.
+
+The question this raises is whether that filter belongs on the **Structure** tab at all. Hiding optional fields makes sense for a data view, where an absent optional has nothing to show; the structure table describes the _concept_, and an optional field is part of the concept. On `native.Date` the effect is that the panel asserts date-only, which is exactly the fidelity distinction the concept exists to make.
+
+Scope check, done rather than assumed: this is not native-specific — the filter applies to every concept in a dry spec. It is simply invisible on the rest of the corpus because pipelex marks authored structure fields required (`availability.SlotCheck.note` is authored optional and still comes back in `required`). So natives are where it currently shows.
+
+Decide it with §4, since both are "what should the structure table show", but note it is a separate line and a separate call: §4 is about enriching a cell, this is about a row that is deliberately withheld.

@@ -1,0 +1,91 @@
+domain      = "availability"
+description = "Check availability for each proposed date, then route the reply on urgency"
+main_pipe   = "route_availability"
+
+[concept.SlotCheck]
+description = "Whether one proposed date has a free slot"
+
+[concept.SlotCheck.structure]
+day     = { type = "text", description = "The date that was checked, in ISO 8601", required = true }
+is_free = { type = "boolean", description = "Whether the calendar is free that day", required = true }
+note    = "What else is on the calendar that day"
+
+[concept.Reply]
+description = "The reply to send back to the requester"
+refines     = "Text"
+
+[pipe.route_availability]
+type = "PipeSequence"
+description = "Read the proposed dates, check each one, then route on urgency"
+inputs = { request = "Text" }
+output = "Reply"
+steps = [
+  { pipe = "read_dates", result = "dates" },
+  { pipe = "is_urgent", result = "urgent" },
+  { pipe = "check_day", batch_over = "dates", batch_as = "day", result = "checks" },
+  { pipe = "route_reply", result = "reply" },
+]
+
+[pipe.read_dates]
+type = "PipeLLM"
+description = "Read the dates the request proposes"
+inputs = { request = "Text" }
+output = "Date[]"
+prompt = """
+List every meeting date proposed in the request below.
+
+@request
+"""
+
+[pipe.is_urgent]
+type = "PipeLLM"
+description = "Judge whether the request is urgent"
+inputs = { request = "Text" }
+output = "YesNo"
+prompt = """
+Is the meeting request below urgent?
+
+@request
+"""
+
+[pipe.check_day]
+type = "PipeLLM"
+description = "Check the calendar for one proposed date"
+inputs = { day = "Date" }
+output = "SlotCheck"
+prompt = """
+Check whether the calendar is free on the date below, and say what else is on it.
+
+@day
+"""
+
+[pipe.route_reply]
+type            = "PipeCondition"
+description     = "Reply immediately when urgent, otherwise propose alternatives"
+inputs          = { checks = "SlotCheck[]", urgent = "YesNo" }
+output          = "Reply"
+expression      = "urgent.yes_no"
+outcomes        = { true = "reply_now", false = "reply_with_options" }
+default_outcome = "reply_with_options"
+
+[pipe.reply_now]
+type = "PipeLLM"
+description = "Write an urgent reply confirming the first free date"
+inputs = { checks = "SlotCheck[]" }
+output = "Reply"
+prompt = """
+This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.
+
+@checks
+"""
+
+[pipe.reply_with_options]
+type = "PipeLLM"
+description = "Write a relaxed reply listing every free date"
+inputs = { checks = "SlotCheck[]" }
+output = "Reply"
+prompt = """
+This request is not urgent. List every free date from the checks below and invite the requester to pick one.
+
+@checks
+"""

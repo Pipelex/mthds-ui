@@ -33,6 +33,9 @@ import {
   LIVE_CV_BATCH_SCREENING,
   LIVE_CV_ANALYZER,
   LIVE_RFP_QUALIFIER,
+  LIVE_MEETING_TRIAGE,
+  LIVE_AVAILABILITY_ROUTING,
+  LIVE_ALL_NATIVE_CONCEPTS,
 } from "./pipelines/specs/_generated.live";
 
 export {
@@ -65,6 +68,9 @@ export {
   LIVE_CV_BATCH_SCREENING,
   LIVE_CV_ANALYZER,
   LIVE_RFP_QUALIFIER,
+  LIVE_MEETING_TRIAGE,
+  LIVE_AVAILABILITY_ROUTING,
+  LIVE_ALL_NATIVE_CONCEPTS,
 };
 
 export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }> = {
@@ -114,5 +120,17 @@ export const LIVE_RUN_CATALOG: Record<string, { label: string; spec: GraphSpec }
   LIVE_RFP_QUALIFIER: {
     label: "31 - RFP Qualifier (Structured Concepts)",
     spec: LIVE_RFP_QUALIFIER,
+  },
+  LIVE_MEETING_TRIAGE: {
+    label: "32 - Meeting Triage (Date / Time / YesNo)",
+    spec: LIVE_MEETING_TRIAGE,
+  },
+  LIVE_AVAILABILITY_ROUTING: {
+    label: "33 - Availability Routing (natives in controllers)",
+    spec: LIVE_AVAILABILITY_ROUTING,
+  },
+  LIVE_ALL_NATIVE_CONCEPTS: {
+    label: "34 - All Native Concepts",
+    spec: LIVE_ALL_NATIVE_CONCEPTS,
   },
 };

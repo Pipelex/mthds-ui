@@ -1,0 +1,71 @@
+domain      = "scheduling"
+description = "Triage a meeting request: proposed dates, preferred time, urgency, verdict"
+main_pipe   = "triage_request"
+
+[concept.Verdict]
+description = "Whether the meeting request is accepted"
+refines     = "YesNo"
+
+[pipe.triage_request]
+type = "PipeSequence"
+description = "Read a meeting request and decide whether to accept it"
+inputs = { request = "Text" }
+output = "Verdict"
+steps = [
+  { pipe = "read_dates", result = "dates" },
+  { pipe = "read_slot", result = "slot" },
+  { pipe = "is_urgent", result = "urgent" },
+  { pipe = "decide", result = "verdict" },
+]
+
+[pipe.read_dates]
+type = "PipeLLM"
+description = "Read the dates the request proposes"
+inputs = { request = "Text" }
+output = "Date[]"
+prompt = """
+List every meeting date proposed in the request below.
+
+@request
+"""
+
+[pipe.read_slot]
+type = "PipeLLM"
+description = "Read the time of day the request prefers"
+inputs = { request = "Text" }
+output = "Time"
+prompt = """
+What time of day does the request below ask for?
+
+@request
+"""
+
+[pipe.is_urgent]
+type = "PipeLLM"
+description = "Judge whether the request is urgent"
+inputs = { request = "Text" }
+output = "YesNo"
+prompt = """
+Is the meeting request below urgent?
+
+@request
+"""
+
+[pipe.decide]
+type = "PipeLLM"
+description = "Decide whether to accept the meeting request"
+inputs = { dates = "Date[]", slot = "Time", urgent = "YesNo" }
+output = "Verdict"
+prompt = """
+Decide whether to accept this meeting request. Accept it when it is urgent, or when it proposes at least one workable date.
+
+Urgent: $urgent.yes_no
+
+## Proposed dates
+
+@dates
+
+## Preferred time
+
+@slot
+"""
