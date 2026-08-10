@@ -57,8 +57,16 @@ describe("generated fixtures consistency", () => {
   // without a smoke story, across four separate changes, and nothing noticed.
   it("has a smoke story for every DRY catalog entry", () => {
     const source = readFileSync(SMOKE_STORIES, "utf-8");
+    // Match the exported story declaration, not a bare mention of the key: a
+    // story that loses its `export` or gets commented out stops being indexed
+    // and run, which is precisely the drift this guards. Anchored to the line
+    // start so a commented-out export cannot satisfy it.
     const covered = new Set(
-      [...source.matchAll(/DRY_RUN_CATALOG\.(DRY_[A-Z0-9_]+)\.spec/g)].map((m) => m[1]),
+      [
+        ...source.matchAll(
+          /^export const \w+:\s*Story\s*=\s*makeStory\(DRY_RUN_CATALOG\.(DRY_[A-Z0-9_]+)\.spec\)/gm,
+        ),
+      ].map((m) => m[1]),
     );
     expect([...Object.keys(DRY_RUN_CATALOG)].filter((key) => !covered.has(key))).toEqual([]);
   });
