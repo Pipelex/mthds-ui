@@ -4,7 +4,9 @@ Archived from [`TODOS.md`](../TODOS.md) on 2026-08-09 — every phase landed. Br
 
 **Done. PR [#65](https://github.com/Pipelex/mthds-ui/pull/65) is finalized and awaiting a merge decision** — all four phases landed, the checkpoint code review, both bot rounds, and the pre-landing review are closed, all checks pass, no unresolved threads, `MERGEABLE`. Not merged: that needs explicit confirmation.
 
-Two follow-ups left open deliberately, each with its own note: [`fixtures-live-corpus-regeneration.md`](fixtures-live-corpus-regeneration.md) (a full-corpus `make fixtures-live` aborts partway; `scripts/` has no lint coverage) and [`native-concept-shadowing.md`](native-concept-shadowing.md) §4b (a dry concept panel hides optional fields, so `native.Date` reads as date-only). The upstream blocker is [`pipelex/wip/native-date-time-live-run.md`](../../pipelex/wip/native-date-time-live-run.md).
+Two follow-ups left open deliberately, each with its own note: [`fixtures-live-corpus-regeneration.md`](fixtures-live-corpus-regeneration.md) (a full-corpus `make fixtures-live` leaves a half-swept tree on any failure; `scripts/` has no lint coverage) and [`native-concept-shadowing.md`](native-concept-shadowing.md) §4b (a dry concept panel hides optional fields, so `native.Date` reads as date-only).
+
+**Upstream blocker resolved (2026-08-11).** The `Date`/`Time` live-run bug filed from this work was fixed in [pipelex#1089](https://github.com/Pipelex/pipelex/pull/1089) — write-up in [`pipelex/wip/native-date-time/`](../../pipelex/wip/native-date-time/README.md), which supersedes the `native-date-time-live-run.md` brief referenced below. `pipeline_32` and `pipeline_33` were regenerated with `make fixtures-live ONLY=…` and now carry real LIVE fixtures; no placeholder LIVE split remains in the repo. Everything below is the record as written at the time.
 
 ---
 

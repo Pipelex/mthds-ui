@@ -29,10 +29,11 @@ export const DryRun: Story = {
 };
 
 /**
- * Placeholder LIVE spec (the DRY spec re-tagged). pipelex cannot run this
- * bundle live: `DateContent.date` and `TimeContent.time` are strict pydantic
- * date/time fields, so a structured LLM response — where a date can only be a
- * JSON string — fails validation. See pipelex/wip/native-date-time-live-run.md.
+ * Real LIVE data, and the end-to-end check for the temporal natives: this
+ * bundle produces `Date[]` and `Time` from a live model, which failed
+ * validation until pipelex#1089 (a `mode="before"` validator forfeited
+ * pydantic's strict-JSON acceptance of ISO strings). Regenerate with
+ * `make fixtures-live ONLY=pipeline_32`.
  */
 export const LiveRun: Story = {
   args: { graphspec: LIVE_MEETING_TRIAGE, ...D },

@@ -1,22 +1,22 @@
-# `make fixtures-live` over the whole corpus is now impossible
+# `make fixtures-live` over the whole corpus leaves a half-swept tree on any failure
+
+> **Update (2026-08-11).** The deterministic blocker is gone: `Date`/`Time` from a live `PipeLLM` was fixed in [pipelex#1089](https://github.com/Pipelex/pipelex/pull/1089), and `pipeline_32`/`33` now carry real LIVE fixtures. What remains is the partial-write property below, which was always there and is now the whole of the issue. Downgraded from "impossible" to "unsafe".
 
 ## What happens
 
-`make fixtures-live` with no `ONLY=` walks the pipelines in sorted order, writing each `live_run_graph_spec.json` as it goes. It now reaches `pipeline_32` and dies: a `PipeLLM` outputting `Date`, `Date[]`, or `Time` fails pydantic validation on a real model response (`pipelex/wip/native-date-time-live-run.md`). `generateSpec` calls `die()` → `process.exit(1)`, with no skip path.
+`make fixtures-live` with no `ONLY=` walks the pipelines in sorted order, writing each `live_run_graph_spec.json` as it goes. Any failure — network, quota, a provider hiccup, a model that will not produce a given output shape — makes `generateSpec` call `die()` → `process.exit(1)`, with no skip path. The pipelines before the failure are already rewritten, so the tree is left half-swept: part of the corpus on the new pipelex, the rest on the old one, and nothing recording which is which.
 
-So a full live sweep rewrites the earlier pipelines' spec JSONs, then aborts partway, leaving a half-swept tree. `make fixtures-live-missing` — the documented recovery for a partial or failed run — selects exactly `pipeline_32` and `pipeline_33` and dies immediately.
-
-The partial-write property is not new: any live failure (network, quota, a provider hiccup) has always left the pipelines before it rewritten. What is new is a **deterministic** failure that makes the full command unusable rather than flaky.
+`make fixtures-live-missing` is the documented recovery, and it only works if the failure was transient. A pipeline the runtime genuinely cannot produce makes it die immediately every time — which is exactly what `pipeline_32`/`33` did until #1089 landed.
 
 ## Why it was not fixed alongside the bundles
 
-Two of the three obvious fixes are cheap but wrong, and the third is a real design call:
+The obvious per-pipeline escapes are cheap and wrong:
 
-- **Skip list in the generator.** Small, but it hard-codes "these pipelines have no live data" in a place nobody re-reads. When pipelex is fixed, the entries become silent lies — the pipelines still get skipped and nobody notices they could now run.
+- **Skip list in the generator.** Small, but it hard-codes "these pipelines have no live data" in a place nobody re-reads. When the upstream bug is fixed, the entries become silent lies — the pipelines still get skipped and nobody notices they could now run. #1089 is the proof: the skip list would still be there.
 - **`--continue-on-error`.** Turns a genuine credential or quota failure into a warning, which is exactly the failure mode fixture generation must not have.
 - **Derive it from the corpus.** A pipeline whose bundle contains a native the runtime cannot produce is knowable, but encoding "which natives are live-broken" in this repo duplicates a pipelex bug into the consumer, and it goes stale the same way a skip list does.
 
-There is also a real question of whether a full live sweep should be a supported operation at all. The plan that added these bundles ([`native-concepts-fixtures-archive.md`](native-concepts-fixtures-archive.md)) already forbids it for a different reason: the committed corpus was generated on pipelex 0.41.0 and the local CLI is 0.42.0, so a bare `make fixtures-live` would sweep every fixture onto a new pipelex version inside whatever change happens to be in flight. The house rule is already "always pass `ONLY=`". If that rule is right, the fix may be to make the full-corpus form _refuse_ rather than to make it succeed.
+There is also a real question of whether a full live sweep should be a supported operation at all. The plan that added these bundles ([`native-concepts-fixtures-archive.md`](native-concepts-fixtures-archive.md)) forbids it for an independent reason: the committed corpus was generated on pipelex 0.41.0 and the local CLI is 0.42.0, so a bare `make fixtures-live` would sweep every fixture onto a new pipelex version inside whatever change happens to be in flight. The house rule is already "always pass `ONLY=`". If that rule is right, the fix may be to make the full-corpus form _refuse_ rather than to make it succeed.
 
 ## Recommended shape
 
@@ -35,4 +35,4 @@ Extending coverage to `scripts/` is not free: the file is a CLI and legitimately
 
 ## Meanwhile
 
-`ONLY=` works correctly for every pipeline that can run live, and the barrel is now derived from the split modules on disk, so a partial run no longer drops the omitted pipelines' exports. `pipeline_32` and `pipeline_33` carry placeholder LIVE splits; `make fixtures-live ONLY=pipeline_32` is the regression check for the upstream fix.
+`ONLY=` works correctly for every pipeline, and the barrel is now derived from the split modules on disk, so a partial run no longer drops the omitted pipelines' exports. No pipeline carries a placeholder LIVE split any more.

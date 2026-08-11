@@ -29,9 +29,8 @@ export const DryRun: Story = {
 };
 
 /**
- * Placeholder LIVE spec (the DRY spec re-tagged), for the same reason as
- * pipeline_32: `read_dates` outputs `Date[]`, which pipelex cannot produce from
- * a live model. See pipelex/wip/native-date-time-live-run.md.
+ * Real LIVE data, same upstream fix as pipeline_32 (`read_dates` outputs
+ * `Date[]`), and here the batch fans out over live-produced dates.
  */
 export const LiveRun: Story = {
   args: { graphspec: LIVE_AVAILABILITY_ROUTING, ...D },

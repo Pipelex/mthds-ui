@@ -5831,75 +5831,65 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_AVAILABILITY_ROUTING m
     {
       "id": "edge_5",
       "source": "GID:node_8",
-      "target": "stuff_d11",
-    },
-    {
-      "id": "edge_6",
-      "source": "GID:node_9",
       "target": "stuff_d1",
     },
     {
-      "id": "edge_7",
+      "id": "edge_6",
       "source": "stuff_d0",
       "target": "GID:node_1",
     },
     {
-      "id": "edge_8",
+      "id": "edge_7",
       "source": "stuff_d0",
       "target": "GID:node_2",
     },
     {
-      "id": "edge_9",
+      "id": "edge_8",
       "source": "stuff_d2-branch-0",
       "target": "GID:node_4",
     },
     {
-      "id": "edge_10",
+      "id": "edge_9",
       "source": "stuff_d2-branch-1",
       "target": "GID:node_5",
     },
     {
-      "id": "edge_11",
+      "id": "edge_10",
       "source": "stuff_d2-branch-2",
       "target": "GID:node_6",
     },
     {
-      "id": "edge_12",
+      "id": "edge_11",
       "source": "stuff_d4",
       "target": "GID:node_8",
     },
     {
-      "id": "edge_13",
-      "source": "stuff_d4",
-      "target": "GID:node_9",
-    },
-    {
-      "id": "GID:asm_edge_5",
+      "id": "GID:asm_edge_4",
       "source": "stuff_d2",
       "target": "stuff_d2-branch-0",
     },
     {
-      "id": "GID:asm_edge_6",
+      "id": "GID:asm_edge_5",
       "source": "stuff_d2",
       "target": "stuff_d2-branch-1",
     },
     {
-      "id": "GID:asm_edge_7",
+      "id": "GID:asm_edge_6",
       "source": "stuff_d2",
       "target": "stuff_d2-branch-2",
     },
     {
-      "id": "GID:asm_edge_8",
+      "id": "GID:asm_edge_7",
       "source": "stuff_d6",
       "target": "stuff_d4",
     },
     {
-      "id": "GID:asm_edge_9",
+      "id": "GID:asm_edge_8",
       "source": "stuff_d8",
       "target": "stuff_d4",
     },
     {
-      "id": "GID:asm_edge_10",
+      "id": "GID:asm_edge_9",
       "source": "stuff_d10",
       "target": "stuff_d4",
     },
@@ -5922,11 +5912,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_AVAILABILITY_ROUTING m
     },
     {
       "id": "stuff_d3",
-      "parentId": undefined,
-      "type": "default",
-    },
-    {
-      "id": "stuff_d11",
       "parentId": undefined,
       "type": "default",
     },
@@ -5977,11 +5962,6 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_AVAILABILITY_ROUTING m
     },
     {
       "id": "GID:node_8",
-      "parentId": "GID:node_7",
-      "type": "pipeCard",
-    },
-    {
-      "id": "GID:node_9",
       "parentId": "GID:node_7",
       "type": "pipeCard",
     },
