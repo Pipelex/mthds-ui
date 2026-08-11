@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Native types &amp; optional fields — what we fixed (mthds-ui v0.16.0)</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --fg: #1b1f24;
+        --fg-dim: #57606a;
+        --fg-faint: #8b949e;
+        --line: #d8dee4;
+        --line-soft: #eaeef2;
+        --box: #f6f8fa;
+        --box-2: #ffffff;
+        --accent: #0550ae;
+        --accent-soft: #ddf4ff;
+        --red: #cf222e;
+        --red-bg: #ffebe9;
+        --red-line: #ffc1bc;
+        --green: #1a7f37;
+        --green-bg: #e6ffec;
+        --green-line: #aceebb;
+        --amber: #9a6700;
+        --amber-bg: #fff8c5;
+        --amber-line: #f0e08a;
+        --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117;
+          --fg: #e6edf3;
+          --fg-dim: #9198a1;
+          --fg-faint: #6e7681;
+          --line: #30363d;
+          --line-soft: #21262d;
+          --box: #161b22;
+          --box-2: #0d1117;
+          --accent: #6cb6ff;
+          --accent-soft: #121d2f;
+          --red: #ff7b72;
+          --red-bg: #2d1214;
+          --red-line: #5d2226;
+          --green: #57ab5a;
+          --green-bg: #0f2417;
+          --green-line: #24512e;
+          --amber: #d29922;
+          --amber-bg: #2b2412;
+          --amber-line: #57451a;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 24px 96px;
+      }
+
+      /* ── Header ─────────────────────────────────────────────── */
+
+      header {
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 28px;
+        margin-bottom: 36px;
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--fg-faint);
+        margin: 0 0 10px;
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 1.2;
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+      }
+
+      .lede {
+        font-size: 18px;
+        color: var(--fg-dim);
+        margin: 0 0 20px;
+        max-width: 68ch;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        font-family: var(--mono);
+        font-size: 12px;
+        border: 1px solid var(--line);
+        background: var(--box);
+        color: var(--fg-dim);
+        border-radius: 999px;
+        padding: 3px 11px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      a.chip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* ── TL;DR ──────────────────────────────────────────────── */
+
+      .tldr {
+        border: 1px solid var(--accent);
+        border-left-width: 4px;
+        background: var(--accent-soft);
+        border-radius: 8px;
+        padding: 22px 26px;
+        margin: 0 0 44px;
+      }
+
+      .tldr h2 {
+        margin: 0 0 12px;
+        font-size: 14px;
+        font-family: var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 0;
+        padding: 0;
+      }
+
+      .tldr ol {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .tldr li {
+        margin-bottom: 9px;
+      }
+
+      .tldr li:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ── Structure ──────────────────────────────────────────── */
+
+      h2 {
+        font-size: 24px;
+        margin: 52px 0 6px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line-soft);
+        letter-spacing: -0.01em;
+      }
+
+      h3 {
+        font-size: 17px;
+        margin: 32px 0 8px;
+      }
+
+      h4 {
+        font-size: 14px;
+        margin: 24px 0 6px;
+        color: var(--fg-dim);
+        font-family: var(--mono);
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 0 14px;
+        max-width: 74ch;
+      }
+
+      ul,
+      ol {
+        max-width: 74ch;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      code {
+        font-family: var(--mono);
+        font-size: 0.875em;
+        background: var(--box);
+        border: 1px solid var(--line-soft);
+        border-radius: 4px;
+        padding: 1px 5px;
+        white-space: nowrap;
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      strong {
+        font-weight: 650;
+      }
+
+      .sub {
+        color: var(--fg-dim);
+        font-size: 15px;
+      }
+
+      /* ── Callouts ───────────────────────────────────────────── */
+
+      .note {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--fg-faint);
+        background: var(--box);
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin: 20px 0;
+        font-size: 15px;
+      }
+
+      .note.warn {
+        border-left-color: var(--amber);
+        background: var(--amber-bg);
+        border-color: var(--amber-line);
+      }
+
+      .note.bad {
+        border-left-color: var(--red);
+        background: var(--red-bg);
+        border-color: var(--red-line);
+      }
+
+      .note.good {
+        border-left-color: var(--green);
+        background: var(--green-bg);
+        border-color: var(--green-line);
+      }
+
+      .note p:last-child {
+        margin-bottom: 0;
+      }
+
+      .note-title {
+        font-weight: 650;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      /* ── Code / diffs ───────────────────────────────────────── */
+
+      pre {
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.6;
+        background: var(--box);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px 16px;
+        overflow-x: auto;
+        margin: 14px 0 18px;
+      }
+
+      pre code {
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: inherit;
+        white-space: pre;
+      }
+
+      .diff .del {
+        display: block;
+        background: var(--red-bg);
+        color: var(--red);
+        margin: 0 -16px;
+        padding: 0 16px;
+      }
+
+      .diff .add {
+        display: block;
+        background: var(--green-bg);
+        color: var(--green);
+        margin: 0 -16px;
+        padding: 0 16px;
+      }
+
+      .diff .cmt {
+        color: var(--fg-faint);
+      }
+
+      .filename {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--fg-dim);
+        background: var(--box);
+        border: 1px solid var(--line);
+        border-bottom: 0;
+        border-radius: 8px 8px 0 0;
+        padding: 6px 14px;
+        display: inline-block;
+        margin: 16px 0 0;
+      }
+
+      .filename + pre {
+        margin-top: 0;
+        border-radius: 0 8px 8px 8px;
+      }
+
+      /* ── Tables ─────────────────────────────────────────────── */
+
+      .table-scroll {
+        overflow-x: auto;
+        margin: 18px 0 22px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14.5px;
+        min-width: 520px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 9px 14px;
+        border: 1px solid var(--line);
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--box);
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+
+      td.bad {
+        color: var(--red);
+      }
+
+      td.good {
+        color: var(--green);
+      }
+
+      /* ── Figures ────────────────────────────────────────────── */
+
+      figure {
+        margin: 26px 0 30px;
+      }
+
+      figure svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+      }
+
+      figcaption {
+        font-size: 13.5px;
+        color: var(--fg-dim);
+        margin-top: 10px;
+        text-align: left;
+        max-width: 74ch;
+      }
+
+      .svg-label {
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .svg-title {
+        font-family: var(--sans);
+        font-size: 13.5px;
+        font-weight: 650;
+      }
+
+      .svg-small {
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      /* ── Details / folds ────────────────────────────────────── */
+
+      details {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 0;
+        margin: 18px 0;
+        background: var(--box-2);
+      }
+
+      summary {
+        cursor: pointer;
+        padding: 12px 18px;
+        font-weight: 600;
+        font-size: 15px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        border-radius: 8px;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      summary::before {
+        content: "▸";
+        color: var(--fg-faint);
+        font-size: 12px;
+        transition: transform 0.12s ease;
+        display: inline-block;
+      }
+
+      details[open] > summary {
+        border-bottom: 1px solid var(--line);
+        border-radius: 8px 8px 0 0;
+      }
+
+      details[open] > summary::before {
+        transform: rotate(90deg);
+      }
+
+      .details-body {
+        padding: 4px 18px 16px;
+      }
+
+      .details-body > :first-child {
+        margin-top: 12px;
+      }
+
+      /* ── Tabs (CSS-only) ────────────────────────────────────── */
+
+      .tabs {
+        margin: 22px 0 28px;
+      }
+
+      .tabs input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .tab-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tab-labels label {
+        cursor: pointer;
+        padding: 9px 16px;
+        font-size: 14px;
+        font-family: var(--mono);
+        color: var(--fg-dim);
+        border: 1px solid transparent;
+        border-bottom: 0;
+        border-radius: 7px 7px 0 0;
+        margin-bottom: -1px;
+      }
+
+      .tab-labels label:hover {
+        color: var(--fg);
+      }
+
+      .tab-panel {
+        display: none;
+        padding: 18px 2px 0;
+      }
+
+      .tab-panel > :first-child {
+        margin-top: 0;
+      }
+
+      #t1:checked ~ .tab-labels label[for="t1"],
+      #t2:checked ~ .tab-labels label[for="t2"],
+      #t3:checked ~ .tab-labels label[for="t3"] {
+        color: var(--fg);
+        background: var(--bg);
+        border-color: var(--line);
+        font-weight: 650;
+      }
+
+      #t1:checked ~ .tab-panel[data-tab="1"],
+      #t2:checked ~ .tab-panel[data-tab="2"],
+      #t3:checked ~ .tab-panel[data-tab="3"] {
+        display: block;
+      }
+
+      /* ── PR index ───────────────────────────────────────────── */
+
+      .pr-list {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 0;
+        max-width: 100%;
+      }
+
+      .pr-list li {
+        display: flex;
+        gap: 14px;
+        align-items: baseline;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line-soft);
+        margin: 0;
+      }
+
+      .pr-list a {
+        font-family: var(--mono);
+        font-size: 13px;
+        white-space: nowrap;
+        text-decoration: none;
+        font-weight: 650;
+      }
+
+      .pr-list a:hover {
+        text-decoration: underline;
+      }
+
+      .pr-list span {
+        color: var(--fg-dim);
+        font-size: 14.5px;
+      }
+
+      footer {
+        margin-top: 56px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        color: var(--fg-faint);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- shared arrowhead markers for every inline SVG below -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <marker
+          id="ahGray"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--fg-faint)" />
+        </marker>
+        <marker
+          id="ahRed"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--red)" />
+        </marker>
+        <marker
+          id="ahGreen"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--green)" />
+        </marker>
+      </defs>
+    </svg>
+
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">mthds-ui · engineering note</p>
+        <h1>Native types &amp; optional fields</h1>
+        <p class="lede">
+          Two independent rendering bugs, both discovered while giving the temporal native concepts
+          real coverage, both of which made a concept panel quietly describe the wrong thing. Plus
+          the sweep onto pipelex 0.41.0 that surfaced them.
+        </p>
+        <div class="meta">
+          <span class="chip">release v0.16.0</span>
+          <span class="chip">2026-08-11</span>
+          <a class="chip" href="https://github.com/Pipelex/mthds-ui/pull/64">#64 catalog</a>
+          <a class="chip" href="https://github.com/Pipelex/mthds-ui/pull/69">#69 optional fields</a>
+          <a class="chip" href="https://github.com/Pipelex/pipelex/pull/1089">pipelex#1089</a>
+        </div>
+      </header>
+
+      <!-- ═══════════════════════ TL;DR ═══════════════════════ -->
+
+      <section class="tldr">
+        <h2>TL;DR</h2>
+        <ol>
+          <li>
+            <strong
+              >The static graph did not know <code>YesNo</code>, <code>Date</code> and
+              <code>Time</code> exist.</strong
+            >
+            Our hand-kept native catalog was missing three codes, so a <code>.mthds</code> typing an
+            output as <code>Date</code> got it resolved as an ordinary concept of the
+            <em>authoring</em> domain — blank description, wrong domain, synthetic structure class,
+            and a <code>refines</code> chain pointing at nothing. Nothing threw. Static mode only.
+            Fixed by adding the three codes and copying the standard's wording verbatim.
+          </li>
+          <li>
+            <strong>The dry-run concept panel hid every optional field.</strong>
+            <code>SchemaTable</code> filtered the structure table down to required fields whenever
+            <code>isDryRun</code> was set. In dry mode that table is the <em>only</em> view, so the
+            filter landed on a concept <em>description</em> and made it lie:
+            <code>native.Date</code> is <code>date</code> + optional <code>time</code>, and the
+            panel asserted date-only. It also made the <code>req</code> badge column vacuous.
+            Deleted.
+          </li>
+          <li>
+            <strong>The blast radius of #2 was much bigger than first thought.</strong> It was
+            noticed on the natives, but it applied to most of the dry corpus — any concept with an
+            optional property. Roughly a dozen authored concepts across the fixtures rendered
+            incorrectly.
+          </li>
+          <li>
+            <strong>Both are now guarded by tests that point in opposite directions:</strong> a
+            pinned code list (catches <em>our</em> edits) and a corpus oracle that checks our
+            catalog against pipelex's own output (catches <em>upstream</em> drift, for any native a
+            fixture actually references).
+          </li>
+          <li>
+            <strong>Supporting work:</strong> swept onto pipelex 0.41.0 (two breaking blueprint-type
+            changes), fixed the <code>date</code>/<code>datetime</code>/<code>time</code>
+            JSON-schema mapping, taught the parser the type-less <code>PipeSignature</code>, and
+            added three fixture pipelines so all of this is exercised by the sweeps that
+            auto-discover <code>data/pipelines/pipeline_*</code>.
+          </li>
+        </ol>
+      </section>
+
+      <!-- ═══════════════════ Orientation ═══════════════════ -->
+
+      <h2>Where each bug lives</h2>
+      <p>
+        The two bugs sit on <strong>different rendering paths</strong>, which is why they went
+        unseen independently and why fixing one did not reveal the other. Worth holding in your head
+        before the details:
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%">Path</th>
+              <th style="width: 32%">Where the concept metadata comes from</th>
+              <th style="width: 48%">Which bug applied</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>static</code></td>
+              <td>
+                Our own parser — <code>src/static-graph/</code> reads the <code>.mthds</code> TOML.
+                No Python, no run.
+              </td>
+              <td class="bad">
+                <strong>Bug A</strong> — our catalog was the only authority, and it was wrong.
+              </td>
+            </tr>
+            <tr>
+              <td><code>dry</code></td>
+              <td>
+                pipelex's own <code>concept_registry</code>, emitted by a dry run. Always correct.
+              </td>
+              <td class="bad">
+                <strong>Bug B</strong> — the data was right; the panel filtered it before rendering.
+              </td>
+            </tr>
+            <tr>
+              <td><code>live</code></td>
+              <td>Same as dry, plus real payloads.</td>
+              <td class="good">Neither. Non-dry rendering never filtered.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══════════════════ Bug A ═══════════════════ -->
+
+      <h2>Bug A — three natives missing from the catalog</h2>
+      <p class="sub">
+        <a href="https://github.com/Pipelex/mthds-ui/pull/64">PR #64</a> ·
+        <code>src/static-graph/conceptRefs.ts</code>
+      </p>
+
+      <p>
+        <code>conceptRefs.ts</code> carries a hand-kept mirror of the MTHDS native concept set. That
+        table is what decides whether a bare <code>Date</code> resolves into the
+        <code>native</code> domain or falls through to the domain being authored.
+        <code>YesNo</code>, <code>Date</code> and <code>Time</code> were never added to it — so
+        every one of those refs silently degraded into a stub.
+      </p>
+
+      <figure>
+        <svg viewBox="0 0 900 330" role="img" aria-label="Concept resolution: before and after adding the codes to the catalog">
+          <rect x="10" y="132" width="164" height="52" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-label" x="92" y="153" text-anchor="middle" fill="var(--fg-dim)">.mthds declares</text>
+          <text class="svg-label" x="92" y="171" text-anchor="middle" fill="var(--fg)">output = "Date"</text>
+
+          <path d="M 178 158 L 214 158" stroke="var(--fg-faint)" stroke-width="1.5" fill="none" marker-end="url(#ahGray)" />
+
+          <rect x="218" y="126" width="192" height="64" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-label" x="314" y="147" text-anchor="middle" fill="var(--fg)">isNativeConceptCode</text>
+          <text class="svg-label" x="314" y="164" text-anchor="middle" fill="var(--fg)">("Date")</text>
+          <text class="svg-small" x="314" y="181" text-anchor="middle" fill="var(--fg-faint)">&#8592; the catalog</text>
+
+          <path d="M 412 142 C 442 142, 442 78, 470 78" stroke="var(--red)" stroke-width="1.5" fill="none" marker-end="url(#ahRed)" />
+          <text class="svg-small" x="424" y="102" fill="var(--red)">false</text>
+
+          <rect x="474" y="20" width="416" height="116" rx="7" fill="var(--red-bg)" stroke="var(--red-line)" />
+          <text class="svg-title" x="490" y="42" fill="var(--red)">BEFORE &#8212; code absent from the catalog</text>
+          <text class="svg-small" x="490" y="64" fill="var(--fg)">domain_code      scheduling   &#8592; the authoring domain</text>
+          <text class="svg-small" x="490" y="82" fill="var(--fg)">description      ""           &#8592; blank in the panel</text>
+          <text class="svg-small" x="490" y="100" fill="var(--fg)">structure_class  scheduling__Date</text>
+          <text class="svg-small" x="490" y="118" fill="var(--fg)">refines "YesNo"  &#8594; scheduling.YesNo (does not exist)</text>
+
+          <path d="M 412 174 C 442 174, 442 238, 470 238" stroke="var(--green)" stroke-width="1.5" fill="none" marker-end="url(#ahGreen)" />
+          <text class="svg-small" x="424" y="230" fill="var(--green)">true</text>
+
+          <rect x="474" y="180" width="416" height="116" rx="7" fill="var(--green-bg)" stroke="var(--green-line)" />
+          <text class="svg-title" x="490" y="202" fill="var(--green)">AFTER &#8212; code in the catalog</text>
+          <text class="svg-small" x="490" y="224" fill="var(--fg)">domain_code      native</text>
+          <text class="svg-small" x="490" y="242" fill="var(--fg)">description      "A calendar date, optionally&#8230;"</text>
+          <text class="svg-small" x="490" y="260" fill="var(--fg)">structure_class  DateContent</text>
+          <text class="svg-small" x="490" y="278" fill="var(--fg)">refines "YesNo"  &#8594; native.YesNo &#10003;</text>
+
+          <text class="svg-small" x="10" y="318" fill="var(--fg-faint)">Neither path throws &#8212; which is why the drift survived several releases unnoticed.</text>
+        </svg>
+        <figcaption>
+          Resolution of a bare concept ref in the static path. The catalog is the only thing
+          standing between a correct native and a plausible-looking stub.
+        </figcaption>
+      </figure>
+
+      <h3>The change</h3>
+
+      <div class="filename">src/static-graph/conceptRefs.ts</div>
+      <pre
+        class="diff"
+      ><code><span class="cmt">-const NATIVE_CONCEPT_DESCRIPTIONS: Record&lt;string, string&gt; = {</span>
+<span class="add">+const NATIVE_CONCEPT_DESCRIPTIONS = {</span>
+   Dynamic: "A dynamic concept",
+   Text: "A text",
+   …
+<span class="add">+  YesNo: "The answer to a yes/no question",</span>
+<span class="add">+  Date: "A calendar date, optionally with a time of day — as precise as its source states.",</span>
+<span class="add">+  Time: "A time of day, optionally with a UTC offset — as precise as its source states.",</span>
+   …
+<span class="add">+} satisfies Record&lt;string, string&gt;;</span>
+
+<span class="add">+/** A code the catalog knows. Derived from the catalog so the two cannot disagree. */</span>
+<span class="add">+export type NativeConceptCode = keyof typeof NATIVE_CONCEPT_DESCRIPTIONS;</span>
+<span class="add">+</span>
+<span class="add">+export function isNativeConceptCode(code: string): code is NativeConceptCode {</span>
+<span class="add">+  return Object.hasOwn(NATIVE_CONCEPT_DESCRIPTIONS, code);</span>
+<span class="add">+}</span>
+
+<span class="cmt"> // …and the lookup can no longer silently miss:</span>
+<span class="cmt">-export function nativeConceptInfo(code: string): ConceptInfo {</span>
+<span class="add">+export function nativeConceptInfo(code: NativeConceptCode): ConceptInfo {</span>
+   return {
+     …
+<span class="del">-    description: NATIVE_CONCEPT_DESCRIPTIONS[code] ?? code,</span>
+<span class="add">+    description: NATIVE_CONCEPT_DESCRIPTIONS[code],</span>
+   };
+ }</code></pre>
+
+      <p>
+        The <code>satisfies</code> + <code>keyof</code> pair is the load-bearing part beyond the
+        three new rows. The old signature took a bare <code>string</code> with a
+        <code>?? code</code> fallback, so <em>any</em> string could be passed in and would produce a
+        plausible-looking native with its code as the description. Now a caller cannot mint a native
+        the catalog lacks — the compiler stops it.
+      </p>
+
+      <details>
+        <summary>Also fixed here: six descriptions had drifted into paraphrases</summary>
+        <div class="details-body">
+          <p>
+            The catalog's wording is display-only, but it is <em>copied</em> from the standard's
+            pinned set, and the copies had rotted. These are now verbatim:
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 20%">Code</th>
+                  <th style="width: 40%">Was (paraphrase)</th>
+                  <th style="width: 40%">Now (verbatim)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Dynamic</code></td>
+                  <td>Dynamically typed content</td>
+                  <td>A dynamic concept</td>
+                </tr>
+                <tr>
+                  <td><code>TextAndImages</code></td>
+                  <td>A text with images</td>
+                  <td>A text and an image</td>
+                </tr>
+                <tr>
+                  <td><code>Page</code></td>
+                  <td>The content of a page of a document</td>
+                  <td>
+                    The content of a page of a document, comprising text and linked images and an
+                    optional page view image
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>JSON</code></td>
+                  <td>JSON content</td>
+                  <td>A JSON object</td>
+                </tr>
+                <tr>
+                  <td><code>SearchResult</code></td>
+                  <td>A search result</td>
+                  <td>A search result with answer and sources</td>
+                </tr>
+                <tr>
+                  <td><code>Composite</code></td>
+                  <td>A named composition of multiple contents</td>
+                  <td>A named composition of contents</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The authority chain is now written down in the file header: the standard's
+            <code>docs/spec/native-concepts.md</code> wins, pipelex mirrors it, we copy pipelex. If
+            the mirror and the spec page disagree, the spec page wins.
+          </p>
+        </div>
+      </details>
+
+      <div class="note warn">
+        <span class="note-title">Known gap, deliberately left open</span>
+        <p>
+          The catalog still does not carry the natives' pinned <em>structures</em>.
+          <code>nativeConceptInfo</code> has never populated <code>json_schema</code>, so in
+          <strong>static</strong> mode a native's concept panel reads "Schema not available" where a
+          dry or live spec shows a field table. That is why Bug B below is a dry-mode story, not a
+          static one.
+        </p>
+      </div>
+
+      <!-- ═══════════════════ Bug B ═══════════════════ -->
+
+      <h2>Bug B — the dry-run panel hid every optional field</h2>
+      <p class="sub">
+        <a href="https://github.com/Pipelex/mthds-ui/pull/69">PR #69</a> ·
+        <code>src/graph/react/detail/ConceptDetailPanel.tsx</code>
+      </p>
+
+      <p>
+        <code>SchemaTable</code> filtered its rows down to required fields whenever
+        <code>isDryRun</code> was set. The filter has been there since the original "pipe cards"
+        commit (<code>943dbfe</code>) and was never touched.
+      </p>
+
+      <p>
+        The rationale a required-only filter would need is
+        <em>"an absent optional value has nothing to show"</em> — which is an argument about a
+        <strong>data</strong> view. In dry mode there is no data view:
+        <code>ConceptBody</code> computes
+        <code>hasData = Boolean(ioData) &amp;&amp; !isDryRun</code>, so the panel deliberately
+        suppresses pipelex's fabricated dry payloads and returns the structure view directly. The
+        filter therefore landed on a <em>concept description</em>, where an optional field is not
+        missing data — it is the single most important thing the concept has to say.
+      </p>
+
+      <figure>
+        <svg viewBox="0 0 900 250" role="img" aria-label="SchemaTable render path before and after removing the dry-run filter">
+          <rect x="10" y="96" width="160" height="58" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-label" x="90" y="118" text-anchor="middle" fill="var(--fg)">native.Date</text>
+          <text class="svg-small" x="90" y="136" text-anchor="middle" fill="var(--fg-dim)">json_schema</text>
+
+          <path d="M 174 125 L 210 125" stroke="var(--fg-faint)" stroke-width="1.5" fill="none" marker-end="url(#ahGray)" />
+
+          <rect x="214" y="88" width="200" height="74" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-small" x="228" y="110" fill="var(--fg)">properties: [date, time]</text>
+          <text class="svg-small" x="228" y="130" fill="var(--fg)">required:   [date]</text>
+          <text class="svg-small" x="228" y="150" fill="var(--fg-faint)">&#8212; pipelex's own output</text>
+
+          <path d="M 416 105 C 446 105, 446 56, 474 56" stroke="var(--red)" stroke-width="1.5" fill="none" marker-end="url(#ahRed)" />
+          <rect x="478" y="26" width="228" height="60" rx="7" fill="var(--red-bg)" stroke="var(--red-line)" />
+          <text class="svg-small" x="492" y="48" fill="var(--red)">isDryRun ? fields.filter(</text>
+          <text class="svg-small" x="492" y="66" fill="var(--red)">  ([n]) =&gt; required.has(n))</text>
+          <text class="svg-small" x="492" y="81" fill="var(--fg-faint)">deleted in #69</text>
+
+          <path d="M 708 56 L 752 56" stroke="var(--red)" stroke-width="1.5" fill="none" marker-end="url(#ahRed)" />
+          <rect x="756" y="26" width="134" height="60" rx="7" fill="var(--box)" stroke="var(--red-line)" />
+          <text class="svg-small" x="770" y="52" fill="var(--fg)">date  req</text>
+          <text class="svg-small" x="770" y="72" fill="var(--red)">(time gone)</text>
+
+          <path d="M 416 146 C 540 146, 620 190, 752 190" stroke="var(--green)" stroke-width="1.5" fill="none" marker-end="url(#ahGreen)" />
+          <text class="svg-small" x="470" y="182" fill="var(--green)">no filter &#8212; every field renders</text>
+          <rect x="756" y="160" width="134" height="60" rx="7" fill="var(--box)" stroke="var(--green-line)" />
+          <text class="svg-small" x="770" y="186" fill="var(--fg)">date  req</text>
+          <text class="svg-small" x="770" y="206" fill="var(--green)">time</text>
+
+          <text class="svg-small" x="10" y="238" fill="var(--fg-faint)">The `req` badge column only carries information once optionals are visible &#8212; with the filter, 100% of rows were badged.</text>
+        </svg>
+        <figcaption>
+          <code>native.Date</code> is the motivating case: the concept exists precisely to say "a
+          date, and optionally a time". The dry panel asserted date-only.
+        </figcaption>
+      </figure>
+
+      <h3>The change</h3>
+      <p>
+        Almost entirely a deletion. Note what is <em>not</em> touched: <code>isDryRun</code> keeps
+        its other job on <code>ConceptDetailPanel</code> — suppressing fabricated dry payloads — and
+        the <code>GraphViewer</code> plumbing that passes it in is unchanged. Only the
+        <code>SchemaTable</code> prop goes away.
+      </p>
+
+      <div class="filename">src/graph/react/detail/ConceptDetailPanel.tsx</div>
+      <pre class="diff"><code><span class="cmt"> // ConceptBody — the call site</span>
+<span class="del">-  &lt;SchemaTable schema={concept.json_schema} isDryRun={isDryRun} /&gt;</span>
+<span class="add">+  &lt;SchemaTable schema={concept.json_schema} /&gt;</span>
+
+<span class="cmt"> // …and the component itself</span>
+<span class="del">-function SchemaTable({ schema, isDryRun }: {</span>
+<span class="del">-  schema: Record&lt;string, unknown&gt;;</span>
+<span class="del">-  isDryRun?: boolean;</span>
+<span class="del">-}) {</span>
+<span class="add">+function SchemaTable({ schema }: { schema: Record&lt;string, unknown&gt; }) {</span>
+   const properties = schema.properties as …;
+   const required = new Set&lt;string&gt;((schema.required as string[]) ?? []);
+
+   const fields = Object.entries(properties);
+<span class="del">-  // In dry run mode, only show required fields</span>
+<span class="del">-  const visibleFields = isDryRun ? fields.filter(([name]) =&gt; required.has(name)) : fields;</span>
+
+   …
+<span class="del">-        {visibleFields.map(([fieldName, fieldSchema]) =&gt; (</span>
+<span class="add">+        {fields.map(([fieldName, fieldSchema]) =&gt; (</span>
+
+<span class="cmt"> // UNCHANGED — dry-run data suppression stays exactly as it was:</span>
+<span class="cmt">   const hasData = Boolean(ioData) &amp;&amp; !isDryRun;</span></code></pre>
+
+      <div class="note bad">
+        <span class="note-title">The scope was bigger than the first analysis claimed</span>
+        <p>
+          The original write-up asserted this was "only invisible for authored concepts, because
+          pipelex marks authored structure fields required".
+          <strong>That is wrong.</strong> Sweeping the committed dry corpus turned up optional
+          properties on <code>recruitment.CandidateProfile</code>,
+          <code>recruitment.MatchScore</code>, <code>content_moderation.SafetyScore</code>,
+          <code>cv_matching.CvEvaluation</code>, <code>cv_batch_screening.JobRequirements</code> and
+          <code>CandidateProfile</code>, and <code>rfp_qualification.CapabilityMatch</code>. The
+          natives are where it was <em>noticed</em>, not where it <em>applied</em> — this fix
+          changes rendering across most of the dry corpus.
+        </p>
+      </div>
+
+      <details>
+        <summary>War story: the test that passed for the wrong reason</summary>
+        <div class="details-body">
+          <p>
+            <code>ConceptDetailPanel.test.ts</code> looked like it protected dry-run data
+            suppression. It did not. The fixture's <em>schema</em> declared an optional field named
+            <code>generated_summary</code>, and the fixture's <em>data payload</em> had a key
+            spelled the same way. The assertion was:
+          </p>
+          <pre><code>expect(html).not.toContain("generated_summary");</code></pre>
+          <p>
+            …which was satisfied by <strong>the schema-field filter</strong>, not by the data
+            suppression it claimed to test. Deleting the filter made the optional schema field
+            correctly render — and the test failed. That failure <em>was the fix working</em>.
+          </p>
+          <p>
+            The fixture was restructured so schema field names and payload strings are disjoint, and
+            the dry-mode test now asserts all three things it should: structure renders, the
+            optional field <em>is</em> visible, and fabricated payload values are <em>not</em>.
+          </p>
+          <p>
+            A second pass caught the same trap one field over: the payload's <em>key</em> was
+            <code>summary</code>, spelled exactly like the optional schema field the new regression
+            case asserts on — and <code>StuffViewer</code> renders payloads via
+            <code>JSON.stringify</code>, so keys reach the same HTML the schema assertions read.
+            Payload keys are disjoint now too.
+          </p>
+          <p class="sub">
+            Lesson worth keeping: when an assertion is <code>not.toContain</code>, make sure exactly
+            one mechanism can satisfy it.
+          </p>
+        </div>
+      </details>
+
+      <!-- ═══════════════════ Supporting ═══════════════════ -->
+
+      <h2>What else moved</h2>
+
+      <details>
+        <summary>The 0.41.0 sweep — two breaking blueprint-type changes</summary>
+        <div class="details-body">
+          <p class="sub"><a href="https://github.com/Pipelex/mthds-ui/pull/63">PR #63</a></p>
+          <p>
+            The bundled MTHDS JSON Schema is generated from pipelex's blueprint models and
+            gitignored
+            <em>there</em>, so drift never shows up in a PR — our copy had fallen behind. Refreshed
+            to 0.41.0, which added <code>datetime</code> and <code>time</code> to concept structure
+            field types: a <code>.mthds</code> declaring either was
+            <strong>valid at runtime but rejected by our copy</strong>.
+          </p>
+          <p>Two type declarations were wrong in the same way — both declared <em>required</em>:</p>
+          <ul>
+            <li>
+              <code>PipeLLMBlueprint.llm_prompt_spec.templating_style</code> —
+              <strong>removed</strong>. It cached a derived value; the style now travels as a
+              <code>make_llm_prompt</code>
+              parameter, so the key is absent from every dump. No component ever read it. Careful:
+              <code>TemplateBlueprint.templating_style</code> is a <em>different</em> field, still
+              live, easy to confuse when grepping.
+            </li>
+            <li>
+              <code>PipeParallelBlueprint.combined_output</code> — made <strong>optional</strong>,
+              not removed. A parallel always combines now, so 0.41 omits the key — but the static
+              builder still reads it as a legacy authoring key when naming the combined stuff.
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Temporal field types were mapped to the wrong JSON schema</summary>
+        <div class="details-body">
+          <p>
+            Squarely the natives' business: <code>native.Date</code>'s pinned structure is
+            <code>date</code> + <code>time</code>, and <code>native.Time</code>'s is
+            <code>time</code>. Our TOML→JSON-schema derivation had no entry for either, so both fell
+            through to an untyped string — and <code>date</code> still carried
+            <code>date-time</code> from before <code>datetime</code> existed as its own type.
+          </p>
+          <div class="filename">src/static-graph/parseMthdsBundle.ts</div>
+          <pre
+            class="diff"
+          ><code> const FIELD_TYPE_TO_JSON: Record&lt;string, Record&lt;string, unknown&gt;&gt; = {
+   …
+<span class="del">-  date: { type: "string", format: "date-time" },</span>
+<span class="add">+  date: { type: "string", format: "date" },</span>
+<span class="add">+  datetime: { type: "string", format: "date-time" },</span>
+<span class="add">+  time: { type: "string", format: "time" },</span>
+   …
+ };</code></pre>
+          <p class="sub">
+            This corrects the <code>json_schema</code> a static <code>GraphSpec</code> hands to
+            hosts. It changes nothing on screen in this repo — our type column reads
+            <code>type</code> and ignores <code>format</code> (along with <code>enum</code>,
+            <code>items</code> and <code>default</code>). That reader gap is still open.
+          </p>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          The type-less <code>PipeSignature</code>, and the hole it was leaving in the graph
+        </summary>
+        <div class="details-body">
+          <p>
+            A signature has no <code>type</code> in <code>.mthds</code> —
+            <em>omitting the type is the signature</em>. But <code>normalizePipe</code> still
+            demanded a <code>type</code> from the known-classes set, so it reported
+            <code>unknown-pipe-type</code> and dropped the pipe. The step that called it then failed
+            to resolve and <strong>vanished from the graph entirely, edges included</strong> — a
+            hole plus two panel errors, on exactly the half-written methods the static graph exists
+            to render.
+          </p>
+          <pre class="diff"><code><span class="add">+  if (typeValue === undefined) {</span>
+<span class="add">+    // A typeless section is a signature — but only if it declares nothing</span>
+<span class="add">+    // beyond the contract, and `output` is present (the schema requires it).</span>
+<span class="add">+    const isSignature =</span>
+<span class="add">+      raw.output !== undefined &amp;&amp;</span>
+<span class="add">+      Object.keys(raw).every((key) =&gt; SIGNATURE_ONLY_KEYS.has(key));</span>
+<span class="add">+    if (isSignature) return "PipeSignature";</span>
+<span class="add">+  } else if (typeValue === "PipeSignature") {</span>
+<span class="add">+    // Retired in 0.41. Tolerated with a warning rather than dropped: erroring</span>
+<span class="add">+    // would delete the pipe — and with it the whole calling step.</span>
+<span class="add">+    ctx.diagnostics.push({ severity: "warning", code: "retired-signature-tag", … });</span>
+<span class="add">+    return "PipeSignature";</span>
+<span class="add">+  }</span></code></pre>
+          <div class="note">
+            <span class="note-title">The subtlety worth internalizing</span>
+            <p>
+              <code>KNOWN_PIPE_TYPES</code> now serves two surfaces that <strong>disagree</strong>:
+              the GraphSpec <code>pipe_type</code> / registry dump <em>does</em> carry
+              <code>PipeSignature</code> (the runtime class serializes its tag normally), while the
+              <em>authored</em> <code>.mthds</code> surface does not (the blueprint excludes the
+              tag). Only <code>normalizePipe</code> reads the authored surface, so the split lives
+              there — <code>validateGraphSpec</code> must keep accepting the type.
+            </p>
+          </div>
+          <p>
+            The retired <code>type = "PipeSignature"</code> spelling still renders, now with a
+            <code>retired-signature-tag</code> warning carrying pipelex's own migration wording.
+            Tolerated, not supported — rejecting it would re-open the exact hole above for anyone
+            mid-migration.
+          </p>
+        </div>
+      </details>
+
+      <!-- ═══════════════════ Coverage ═══════════════════ -->
+
+      <h2>Making it hard to break again</h2>
+
+      <h3>Three fixture pipelines, so the sweeps actually see the natives</h3>
+      <p>
+        Before this, the only bundle exercising these natives was an inline Storybook string —
+        invisible to every fixture-driven sweep in the repo, and not even runnable by pipelex. Three
+        real bundles in <code>data/pipelines/</code> replace it, which means they are picked up with
+        <strong>no wiring</strong> by the sweeps that auto-discover <code>pipeline_*</code>: parse,
+        static build, static↔dry parity, and the new corpus oracle.
+      </p>
+
+      <div class="tabs">
+        <input type="radio" name="fixtures" id="t1" checked />
+        <input type="radio" name="fixtures" id="t2" />
+        <input type="radio" name="fixtures" id="t3" />
+        <div class="tab-labels">
+          <label for="t1">pipeline_32</label>
+          <label for="t2">pipeline_33</label>
+          <label for="t3">pipeline_34</label>
+        </div>
+
+        <div class="tab-panel" data-tab="1">
+          <h4>Meeting Triage — the four resolution paths in one graph</h4>
+          <p>
+            <code>Date[]</code>, <code>Time</code> and a bare <code>YesNo</code> as stuff nodes,
+            plus a local concept refining a native. Exactly the paths Bug A touched.
+          </p>
+          <pre><code>domain      = "scheduling"
+main_pipe   = "triage_request"
+
+[concept.Verdict]
+description = "Whether the meeting request is accepted"
+refines     = "YesNo"          # ← the refinement chain that pointed at nothing
+
+[pipe.read_dates]
+type   = "PipeLLM"
+output = "Date[]"              # ← resolved as scheduling.Date before #64</code></pre>
+          <p class="sub">
+            Also the standing end-to-end check for the temporal natives:
+            <code>make fixtures-live ONLY=pipeline_32</code>.
+          </p>
+        </div>
+
+        <div class="tab-panel" data-tab="2">
+          <h4>Availability Routing — the natives through the controllers</h4>
+          <p>
+            Where the graph machinery has to actually operate on a native:
+            <code>batch_over</code> a native <code>Date[]</code> driving a
+            <code>PipeBatch</code> fan-out with per-item stuff, and a
+            <code>PipeCondition</code> branching on a native's structure field
+            (<code>urgent.yes_no</code>).
+          </p>
+          <p>Static↔dry parity holds for both, with no accepted divergences.</p>
+        </div>
+
+        <div class="tab-panel" data-tab="3">
+          <h4>All Native Concepts — breadth for the oracle</h4>
+          <p>
+            One <code>PipeLLM</code> per remaining native output — <code>Number</code>,
+            <code>Html</code>, <code>TextAndImages</code>, <code>JSON</code> — purely to lift the
+            corpus oracle's coverage to every catalog code except <code>Dynamic</code>, which has no
+            authorable output position.
+          </p>
+        </div>
+      </div>
+
+      <div class="note good">
+        <span class="note-title">Both bundles now run live, thanks to an upstream fix</span>
+        <p>
+          <code>pipeline_32</code> and <code>pipeline_33</code> shipped with <em>placeholder</em>
+          LIVE specs (the DRY spec re-tagged — the only two in the repo) because a
+          <code>PipeLLM</code> outputting <code>Date</code>, <code>Date[]</code> or
+          <code>Time</code> failed pydantic validation on every real model response. A
+          <code>mode="before"</code> field validator forfeited pydantic's strict-JSON acceptance of
+          ISO strings, and instructor validates structured output in strict mode. Fixed in
+          <a href="https://github.com/Pipelex/pipelex/pull/1089">pipelex#1089</a>; both were
+          regenerated against real inference in
+          <a href="https://github.com/Pipelex/mthds-ui/pull/68">PR #68</a>.
+        </p>
+      </div>
+
+      <h3>Two tests, pointing in opposite directions</h3>
+
+      <figure>
+        <svg viewBox="0 0 900 270" role="img" aria-label="Two tests guarding the native catalog from opposite directions">
+          <rect x="346" y="86" width="208" height="72" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" />
+          <text class="svg-title" x="450" y="112" text-anchor="middle" fill="var(--accent)">the catalog</text>
+          <text class="svg-small" x="450" y="132" text-anchor="middle" fill="var(--fg)">conceptRefs.ts</text>
+          <text class="svg-small" x="450" y="148" text-anchor="middle" fill="var(--fg-dim)">hand-kept mirror</text>
+
+          <rect x="10" y="86" width="250" height="72" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-label" x="135" y="110" text-anchor="middle" fill="var(--fg)">nativeConcepts</text>
+          <text class="svg-label" x="135" y="127" text-anchor="middle" fill="var(--fg)">.test.ts</text>
+          <text class="svg-small" x="135" y="146" text-anchor="middle" fill="var(--fg-dim)">pinned code list + order</text>
+          <path d="M 264 122 L 342 122" stroke="var(--fg-faint)" stroke-width="1.5" fill="none" marker-end="url(#ahGray)" />
+          <text class="svg-small" x="135" y="180" text-anchor="middle" fill="var(--fg-dim)">catches OUR edits</text>
+          <text class="svg-small" x="135" y="197" text-anchor="middle" fill="var(--fg-faint)">both lists live in-repo,</text>
+          <text class="svg-small" x="135" y="212" text-anchor="middle" fill="var(--fg-faint)">so it is blind to upstream</text>
+
+          <rect x="640" y="86" width="250" height="72" rx="7" fill="var(--box)" stroke="var(--line)" />
+          <text class="svg-label" x="765" y="110" text-anchor="middle" fill="var(--fg)">nativeConceptsCorpus</text>
+          <text class="svg-label" x="765" y="127" text-anchor="middle" fill="var(--fg)">.test.ts</text>
+          <text class="svg-small" x="765" y="146" text-anchor="middle" fill="var(--fg-dim)">vs dry_run_graph_spec.json</text>
+          <path d="M 636 122 L 558 122" stroke="var(--green)" stroke-width="1.5" fill="none" marker-end="url(#ahGreen)" />
+          <text class="svg-small" x="765" y="180" text-anchor="middle" fill="var(--green)">catches UPSTREAM drift</text>
+          <text class="svg-small" x="765" y="197" text-anchor="middle" fill="var(--fg-faint)">the specs are pipelex's own</text>
+          <text class="svg-small" x="765" y="212" text-anchor="middle" fill="var(--fg-faint)">output, not something we wrote</text>
+
+          <rect x="250" y="228" width="400" height="34" rx="7" fill="none" stroke="var(--amber)" stroke-dasharray="5 4" />
+          <text class="svg-small" x="450" y="250" text-anchor="middle" fill="var(--amber)">still blind: a new native that no bundle references</text>
+        </svg>
+        <figcaption>
+          The oracle narrows the gap rather than closing it — a dry spec's registry holds the
+          concepts <em>that spec references</em>, not every native pipelex knows.
+        </figcaption>
+      </figure>
+
+      <p>
+        The corpus oracle sweeps every <code>data/pipelines/*/dry_run_graph_spec.json</code> and,
+        for each <code>concept_registry</code> entry with <code>domain_code === "native"</code>,
+        asserts the code is one we know and that its description and structure class name match
+        <strong>exactly</strong>. Adding a bundle that uses a native is what brings that native into
+        scope — which is what the three new pipelines do.
+      </p>
+
+      <div class="note warn">
+        <span class="note-title">It fails in a confusing place — this is expected</span>
+        <p>
+          Regenerating pipeline fixtures can break a <em>native-concepts unit test</em>. That is the
+          oracle doing its job: pipelex reworded a description or renamed a structure class. Fix
+          <code>conceptRefs.ts</code>, not the test. The file carries a failure guide at the top
+          saying so.
+        </p>
+      </div>
+
+      <details>
+        <summary>Check any spec yourself in one command</summary>
+        <div class="details-body">
+          <pre><code>python3 -c "
+import json
+d = json.load(open('data/pipelines/pipeline_32/dry_run_graph_spec.json'))
+for k, v in d['concept_registry'].items():
+    if v.get('domain_code') == 'native':
+        js = v.get('json_schema') or {}
+        print(k, '|', v['structure_class_name'],
+              '| required:', js.get('required'),
+              '| props:', list((js.get('properties') or {}).keys()))
+"</code></pre>
+          <pre><code>native.Text | TextContent | required: ['text'] | props: ['text']
+native.Date | DateContent | required: ['date'] | props: ['date', 'time']   ← the motivating case
+native.Time | TimeContent | required: ['time'] | props: ['time']
+native.YesNo | YesNoContent | required: ['yes_no'] | props: ['yes_no']</code></pre>
+        </div>
+      </details>
+
+      <details>
+        <summary>Smoke-story drift, caught in passing</summary>
+        <div class="details-body">
+          <p>
+            <code>PipelineSmoke.stories.tsx</code> renders each fixture through
+            <code>GraphViewer</code> in a real browser and asserts nodes appear — but it is
+            hand-written (Storybook indexes static exports, so the stories cannot be generated in a
+            loop), and it had drifted. Pipelines 26, 28, 30 and 31 were each added to the catalog
+            without a smoke story, across four separate changes, with nothing to notice.
+          </p>
+          <p>
+            All four are added, and <code>fixturesConsistency.test.ts</code> now fails — naming the
+            missing key — when a catalog entry has no smoke story.
+            <a href="https://github.com/Pipelex/mthds-ui/pull/66">PR #66</a>
+          </p>
+        </div>
+      </details>
+
+      <!-- ═══════════════════ Takeaways ═══════════════════ -->
+
+      <h2>What to carry forward</h2>
+      <ol>
+        <li>
+          <strong>A hand-kept mirror needs an oracle, not just a pinned test.</strong> Pinning our
+          own list against our own list catches typos, never drift. The corpus oracle works because
+          the specs are <em>pipelex's output</em> — something we did not author.
+        </li>
+        <li>
+          <strong>"Dry mode" is not "a run with no data" — it is a different view entirely.</strong>
+          Any rendering branch keyed on <code>isDryRun</code> deserves the question: is this about
+          the <em>data</em>, or the <em>description</em>? A filter that makes sense for one is a lie
+          in the other.
+        </li>
+        <li>
+          <strong
+            >If a UI column exists to convey a distinction, never filter on that
+            distinction.</strong
+          >
+          The <code>req</code> badge and the required-only filter cannot both be right.
+        </li>
+        <li>
+          <strong>Inline test bundles don't get swept.</strong> If a feature is only exercised by a
+          string inside a story, none of the repo's fixture-driven checks can see it. Put it in
+          <code>data/pipelines/</code>.
+        </li>
+        <li>
+          <strong>Two surfaces can share a name and disagree.</strong> <code>PipeSignature</code> is
+          a member of the registry <code>pipe_type</code> set and <em>not</em> of the authored
+          <code>.mthds</code> set. Check which surface you are validating.
+        </li>
+      </ol>
+
+      <!-- ═══════════════════ Index ═══════════════════ -->
+
+      <h2>PRs</h2>
+      <ul class="pr-list">
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/63">mthds-ui#63</a>
+          <span
+            >Sweep onto pipelex 0.41.0 — drop <code>llm_prompt_spec.templating_style</code>, refresh
+            the bundled schema</span
+          >
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/64">mthds-ui#64</a>
+          <span
+            >Add the missing <code>YesNo</code> / <code>Date</code> / <code>Time</code> natives to
+            the static graph <strong>(Bug A)</strong></span
+          >
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/65">mthds-ui#65</a>
+          <span>Real fixture coverage for the natives, plus the corpus oracle</span>
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/66">mthds-ui#66</a>
+          <span
+            >Backfill the missing <code>PipelineSmoke</code> stories and guard the invariant</span
+          >
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/68">mthds-ui#68</a>
+          <span>Real LIVE fixtures for pipeline_32 / 33 now that the temporal natives run</span>
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/69">mthds-ui#69</a>
+          <span
+            >Stop hiding optional fields in the dry-run concept panel <strong>(Bug B)</strong></span
+          >
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/mthds-ui/pull/70">mthds-ui#70</a>
+          <span>Release v0.16.0 — ships everything above</span>
+        </li>
+        <li>
+          <a href="https://github.com/Pipelex/pipelex/pull/1089">pipelex#1089</a>
+          <span
+            >Upstream: <code>Date</code> / <code>Time</code> structured output failed strict-mode
+            validation</span
+          >
+        </li>
+      </ul>
+
+      <footer>
+        mthds-ui · wip note · written for the v0.16.0 release. Everything here is verified against
+        the tree at <code>release/v0.16.0</code>.
+      </footer>
+    </div>
+  </body>
+</html>
