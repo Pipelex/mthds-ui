@@ -14,21 +14,28 @@ const CANDIDATE_CONCEPT: ConceptInfo = {
   json_schema: {
     type: "object",
     required: ["name"],
+    // `summary` is optional on purpose: the dry panel must still describe it.
     properties: {
       name: { type: "string", description: "Candidate name" },
-      generated_summary: { type: "string", description: "Synthetic summary" },
+      summary: { type: "string", description: "Short pitch" },
     },
   },
 };
 
+// Schema field names, payload keys, and payload values are all deliberately
+// disjoint, so an assertion on a schema field name can never be satisfied by
+// the data, or the reverse. Payload *keys* matter as much as values here:
+// StuffViewer renders the payload as escaped `JSON.stringify` output, so a key
+// spelled like a schema field would land in the same HTML the schema
+// assertions read.
 const GENERATED_IO_DATA = {
   digest: "candidate",
   name: "candidate",
   concept: "Candidate",
   contentType: "application/json",
   data: {
-    name: "Polyfactory Jane",
-    generated_summary: "Generated dry-run payload that should not display",
+    who: "Polyfactory Jane",
+    blurb: "Generated dry-run payload that should not display",
   },
 };
 
@@ -44,9 +51,21 @@ describe("ConceptDetailPanel dry mode", () => {
 
     expect(html).toContain("Structure");
     expect(html).toContain("name");
-    expect(html).not.toContain("generated_summary");
     expect(html).not.toContain("Polyfactory Jane");
     expect(html).not.toContain("Generated dry-run payload");
+  });
+
+  it("describes optional schema fields too", () => {
+    const html = renderToStaticMarkup(
+      React.createElement(ConceptDetailPanel, {
+        concept: CANDIDATE_CONCEPT,
+        ioData: GENERATED_IO_DATA,
+        isDryRun: true,
+      }),
+    );
+
+    expect(html).toContain("summary");
+    expect(html).toContain("Short pitch");
   });
 
   it("shows data by default for non-dry concept instances", () => {

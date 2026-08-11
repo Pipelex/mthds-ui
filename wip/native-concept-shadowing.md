@@ -52,6 +52,8 @@ Deliberately not fixed in that PR. The two-line version — append `format` to t
 
 ### 4b. A dry-run concept panel hides every optional field, so `native.Date` reads as date-only
 
+> **Fixed (2026-08-11)** in [PR #69](https://github.com/Pipelex/mthds-ui/pull/69). The filter quoted below is gone: `SchemaTable` renders every field in every mode, and dry-run payload suppression (`hasData`) is untouched. The question this section raised — does a required-only filter belong on the Structure tab — was answered no, and it was answered on its own rather than with §4, since §4 is about enriching a cell and this was about a row withheld outright. §4 is still open. Everything below is the record as written at the time — including one claim that does not survive checking: the scope paragraph says the filter is invisible outside the natives "because pipelex marks authored structure fields required", and it is not. Sweeping every `data/pipelines/*/dry_run_graph_spec.json`, authored concepts carry optional properties too (`recruitment.CandidateProfile`, `recruitment.MatchScore`, `content_moderation.SafetyScore`, `cv_matching.CvEvaluation`, `cv_batch_screening.JobRequirements` / `CandidateProfile`, `rfp_qualification.CapabilityMatch`). The natives were where it was _noticed_, not where it applied. So this fix changes what renders for concepts across most of the dry corpus, not a native-only touch-up.
+
 Found on the Storybook pass over `pipeline_32`. Distinct from §4 — not a type-column problem, and **not** an `extractType` problem.
 
 `native.Date`'s pinned structure is `date` **plus an optional `time`**, and pipelex emits both in `concept_registry["native.Date"].json_schema`. The dry panel renders one row. The cause is `ConceptDetailPanel.tsx:188`:

@@ -96,7 +96,7 @@ function ConceptBody({
   const structure = concept.json_schema ? (
     <div>
       <div className="detail-section-label">Structure</div>
-      <SchemaTable schema={concept.json_schema} isDryRun={isDryRun} />
+      <SchemaTable schema={concept.json_schema} />
     </div>
   ) : (
     <div className="detail-not-available">Schema not available</div>
@@ -169,13 +169,7 @@ type TabId = "data" | "structure";
 
 // ─── Schema table renderer ──────────────────────────────────────────────
 
-function SchemaTable({
-  schema,
-  isDryRun,
-}: {
-  schema: Record<string, unknown>;
-  isDryRun?: boolean;
-}) {
+function SchemaTable({ schema }: { schema: Record<string, unknown> }) {
   const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
   const required = new Set<string>((schema.required as string[]) ?? []);
 
@@ -184,8 +178,6 @@ function SchemaTable({
   }
 
   const fields = Object.entries(properties);
-  // In dry run mode, only show required fields
-  const visibleFields = isDryRun ? fields.filter(([name]) => required.has(name)) : fields;
 
   return (
     <table className="detail-schema-table">
@@ -198,7 +190,7 @@ function SchemaTable({
         </tr>
       </thead>
       <tbody>
-        {visibleFields.map(([fieldName, fieldSchema]) => (
+        {fields.map(([fieldName, fieldSchema]) => (
           <tr key={fieldName}>
             <td className="detail-schema-field">{fieldName}</td>
             <td className="detail-schema-type">{extractType(fieldSchema)}</td>
