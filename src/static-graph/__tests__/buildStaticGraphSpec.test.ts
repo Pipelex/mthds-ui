@@ -318,6 +318,136 @@ describe("buildStaticGraphSpec — PipeParallel combined_output", () => {
       "par2.fan_out/branch_2",
     ]);
   });
+
+  it("names the combined stuff from the step result when combined_output is absent", () => {
+    const { spec, diagnostics } = build(`
+domain = "par3"
+main_pipe = "run"
+
+[concept.Combined]
+description = "Combined result"
+
+[pipe.run]
+type = "PipeSequence"
+description = "Run the fan-out"
+inputs = { text = "Text" }
+output = "Combined"
+steps = [{ pipe = "fan_out", result = "merged" }]
+
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Two analyses"
+inputs = { text = "Text" }
+output = "Combined"
+branches = [
+  { pipe = "analyze_a", result = "a" },
+  { pipe = "analyze_b", result = "b" },
+]
+
+[pipe.analyze_a]
+type = "PipeLLM"
+description = "A"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.analyze_b]
+type = "PipeLLM"
+description = "B"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`);
+    expect(diagnostics).toEqual([]);
+    expect(nodeById(spec, "par3.run/step_1").io.outputs).toEqual([
+      { name: "merged", digest: "par3.run/step_1:merged", concept: "Combined" },
+    ]);
+  });
+
+  it("falls back to the output concept name for a top-level parallel", () => {
+    const { spec, diagnostics } = build(`
+domain = "par4"
+main_pipe = "fan_out"
+
+[concept.Combined]
+description = "Combined result"
+
+[pipe.fan_out]
+type = "PipeParallel"
+description = "Two analyses"
+inputs = { text = "Text" }
+output = "Combined"
+branches = [
+  { pipe = "analyze_a", result = "a" },
+  { pipe = "analyze_b", result = "b" },
+]
+
+[pipe.analyze_a]
+type = "PipeLLM"
+description = "A"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+
+[pipe.analyze_b]
+type = "PipeLLM"
+description = "B"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "p"
+`);
+    expect(diagnostics).toEqual([]);
+    expect(nodeById(spec, "par4.fan_out").io.outputs).toEqual([
+      { name: "combined", digest: "par4.fan_out:combined", concept: "Combined" },
+    ]);
+  });
+});
+
+// ─── Typeless signature (pipelex 0.41 contract) ──────────────────────────────
+// Regression guard for the user-visible half: before the fix `normalizePipe`
+// dropped a typeless signature, so `resolvePipeRef` returned unresolved,
+// `walkPipe` returned null, and `finishSequence` made the whole step — node and
+// edges — vanish from the graph.
+
+describe("buildStaticGraphSpec — typeless signature", () => {
+  it("renders a step whose target is a typeless signature", () => {
+    const { spec, diagnostics } = build(`
+domain = "sig"
+main_pipe = "screen"
+
+[concept.Scorecard]
+description = "A scorecard"
+
+[pipe.screen]
+type = "PipeSequence"
+description = "Run a method with a declared-but-unimplemented step"
+inputs = { job_offer = "Text" }
+output = "Scorecard"
+steps = [{ pipe = "build_scorecard", result = "scorecard" }]
+
+[pipe.build_scorecard]
+description = "Build a scorecard from the job offer"
+inputs = { job_offer = "Text" }
+output = "Scorecard"
+signature_for = "PipeLLM"
+`);
+    expect(diagnostics).toEqual([]);
+
+    const step = nodeById(spec, "sig.screen/step_1");
+    expect(step.pipe_type).toBe("PipeSignature");
+    expect(step.pipe_code).toBe("build_scorecard");
+    expect(step.io.outputs).toEqual([
+      { name: "scorecard", digest: "sig.screen/step_1:scorecard", concept: "Scorecard" },
+    ]);
+
+    // The containing sequence still owns the step.
+    expect(
+      spec.edges.some(
+        (edge) =>
+          edge.kind === "contains" && edge.source === "sig.screen" && edge.target === step.id,
+      ),
+    ).toBe(true);
+  });
 });
 
 // ─── Condition ───────────────────────────────────────────────────────────────

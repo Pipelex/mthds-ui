@@ -18,6 +18,7 @@ export type DiagnosticCode =
   | "invalid-concept-entry"
   | "invalid-pipe-entry"
   | "unknown-pipe-type"
+  | "retired-signature-tag"
   | "invalid-concept-ref"
   | "missing-pipe-output"
   | "invalid-sub-pipe"

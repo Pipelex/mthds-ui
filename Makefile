@@ -47,6 +47,10 @@ st: storybook
 fixtures:
 	node scripts/generate-fixtures.mjs $(if $(ONLY),--only $(ONLY))
 
+# ALWAYS pass ONLY= here. A full-corpus live run sweeps every fixture onto
+# whatever pipelex the local CLI happens to be, and has no skip path — any
+# failure aborts partway, leaving a half-swept, mixed-version tree.
+# See wip/fixtures-live-corpus-regeneration.md.
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
 
@@ -55,6 +59,8 @@ fixtures-live:
 fixtures-missing:
 	node scripts/generate-fixtures.mjs --missing
 
+# Every pipeline has a live spec on disk, so this is currently a no-op. It earns
+# its keep after a partial or failed sweep — see the fixtures-live note above.
 fixtures-live-missing:
 	node scripts/generate-fixtures.mjs --live --missing
 

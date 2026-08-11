@@ -49,7 +49,7 @@ export const WithRefinement: Story = {
 };
 
 export const DryRunSchemaOnly: Story = {
-  name: "Dry Run (Required Fields Only)",
+  name: "Dry Run (Schema Only)",
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
       <ConceptDetailPanel concept={CONCEPT_CANDIDATEPROFILE} isDryRun={true} />

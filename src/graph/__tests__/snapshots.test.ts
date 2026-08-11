@@ -95,6 +95,8 @@ const STATIC_SNAPSHOT_KEYS = [
   "STATIC_CV_SCREENING",
   "STATIC_DEEP_NESTING",
   "STATIC_WIDE_PARALLEL",
+  "STATIC_MEETING_TRIAGE",
+  "STATIC_AVAILABILITY_ROUTING",
 ] as const;
 
 describe("snapshot regression — STATIC selected catalog", () => {

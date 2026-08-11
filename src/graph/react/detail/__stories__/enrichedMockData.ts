@@ -911,7 +911,6 @@ export const PIPE_ANALYZE_CANDIDATE: PipeBlueprintUnion = {
     multiplicity: null,
   },
   llm_prompt_spec: {
-    templating_style: null,
     system_prompt_blueprint: null,
     prompt_blueprint: {
       template: "Analyze this CV and extract a structured candidate profile:\n\n@pages\n",
@@ -1222,7 +1221,6 @@ export const PIPE_SCORE_MATCH: PipeBlueprintUnion = {
     multiplicity: null,
   },
   llm_prompt_spec: {
-    templating_style: null,
     system_prompt_blueprint: null,
     prompt_blueprint: {
       template:
@@ -3091,7 +3089,6 @@ export const ENRICHED_SPEC: GraphSpec = {
         multiplicity: null,
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Analyze this CV and extract a structured candidate profile:\n\n@pages\n",
@@ -3284,7 +3281,6 @@ export const ENRICHED_SPEC: GraphSpec = {
         multiplicity: null,
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:

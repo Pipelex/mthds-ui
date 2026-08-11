@@ -5,6 +5,7 @@ import { GraphViewer } from "../GraphViewer";
 import {
   STATIC_CV_SCREENING,
   STATIC_DEEP_NESTING,
+  STATIC_MEETING_TRIAGE,
   STATIC_SIMPLE_BATCH,
   STATIC_SIMPLE_CONDITION,
 } from "./staticGraphSpec";
@@ -78,7 +79,6 @@ output = "Scorecard"
 steps = [{ pipe = "build_scorecard", result = "scorecard" }]
 
 [pipe.build_scorecard]
-type = "PipeSignature"
 description = "Build a scorecard from the job offer"
 inputs = { job_offer = "Text" }
 output = "Scorecard"
@@ -109,4 +109,9 @@ export const WipBrokenBundle: Story = {
 /** Contract-only pipe: distinct signature badge/card and detail copy. */
 export const Signature: Story = {
   args: { graphspec: buildStaticGraphSpecFromToml(SIGNATURE_BUNDLE).spec, ...D },
+};
+
+/** Natives with no authored declaration: detail panels must show `native` plus a description. */
+export const NativeConcepts: Story = {
+  args: { graphspec: STATIC_MEETING_TRIAGE, ...D },
 };
