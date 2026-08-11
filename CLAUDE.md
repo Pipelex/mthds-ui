@@ -231,7 +231,7 @@ make fixtures-live ONLY=pipeline_NN # LIVE specs -> _generated.live.ts (real inf
 make fixtures-live-test            # smoke-test the live path on 3 small bundles, writes nothing
 ```
 
-**Always pass `ONLY=` to `make fixtures-live`.** A full-corpus live run cannot complete: `pipeline_32`/`33` output native `Date`/`Time`, which pipelex cannot produce from a live model, so the run aborts partway and leaves a half-swept tree. `make fixtures-live-missing` selects exactly those two and always fails for the same reason. See `wip/fixtures-live-corpus-regeneration.md`.
+**Always pass `ONLY=` to `make fixtures-live`.** A full-corpus live run sweeps every fixture onto whatever pipelex the local CLI happens to be, inside whatever change is in flight, and it has no skip path — any failure (network, quota, a model that will not produce a given output shape) aborts partway and leaves a half-swept, mixed-version tree. `make fixtures-live-missing` is the recovery, and only works when the failure was transient. See `wip/fixtures-live-corpus-regeneration.md`.
 
 `make fixtures` also bootstraps the LIVE placeholder layer so a DRY-only run is enough to build Storybook: the stories import LIVE specs from the per-pipeline split modules (`_generated/live/pipeline_NN.ts`), not the barrel, so for every pipeline lacking real LIVE data it emits a placeholder split (re-exporting the DRY spec as LIVE) and re-exports them all from `_generated.live.ts`. Each placeholder is guarded by `existsSync`, so `make fixtures-live` (real inference) is never clobbered by a later DRY run. Adding/removing a pipeline means adding its `data/pipelines/pipeline_NN/` directory and an entry in the generator's `NAME_MAP`.
 

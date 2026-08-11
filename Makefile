@@ -47,9 +47,9 @@ st: storybook
 fixtures:
 	node scripts/generate-fixtures.mjs $(if $(ONLY),--only $(ONLY))
 
-# ALWAYS pass ONLY= here. A full-corpus live run cannot complete: pipeline_32/33
-# output native Date/Time, which pipelex cannot produce from a live model, so the
-# run aborts partway and leaves a half-swept tree.
+# ALWAYS pass ONLY= here. A full-corpus live run sweeps every fixture onto
+# whatever pipelex the local CLI happens to be, and has no skip path — any
+# failure aborts partway, leaving a half-swept, mixed-version tree.
 # See wip/fixtures-live-corpus-regeneration.md.
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
@@ -59,8 +59,8 @@ fixtures-live:
 fixtures-missing:
 	node scripts/generate-fixtures.mjs --missing
 
-# Currently selects exactly pipeline_32/33 (the only pipelines with no live spec)
-# and therefore always fails — see the fixtures-live note above. Use ONLY= instead.
+# Every pipeline has a live spec on disk, so this is currently a no-op. It earns
+# its keep after a partial or failed sweep — see the fixtures-live note above.
 fixtures-live-missing:
 	node scripts/generate-fixtures.mjs --live --missing
 

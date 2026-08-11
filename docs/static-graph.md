@@ -114,7 +114,7 @@ Three bundles exist specifically to give the native concepts fixture coverage, s
 | `pipeline_33` | `AVAILABILITY_ROUTING` | The natives through the controllers: `batch_over` a native `Date[]`, and a `PipeCondition` on a native's structure field (`urgent.yes_no`). |
 | `pipeline_34` | `ALL_NATIVE_CONCEPTS`  | One `PipeLLM` per remaining native output — `Number`, `Html`, `TextAndImages`, `JSON` — to lift the corpus oracle's coverage.               |
 
-`pipeline_32` and `pipeline_33` carry **placeholder** LIVE fixtures (the DRY spec re-tagged). pipelex cannot run them live: a `PipeLLM` outputting `Date`, `Date[]`, or `Time` fails validation because structured output delivers a date as a JSON string. See `pipelex/wip/native-date-time-live-run.md`; `make fixtures-live ONLY=pipeline_32` is the regression check once that is fixed.
+`pipeline_32` and `pipeline_33` carry real LIVE fixtures. They briefly could not: a `PipeLLM` outputting `Date`, `Date[]`, or `Time` failed validation because structured output delivers a date as a JSON string, so both shipped a placeholder LIVE spec (the DRY spec re-tagged). Fixed upstream in [pipelex#1089](https://github.com/Pipelex/pipelex/pull/1089) (see `pipelex/wip/native-date-time/`) and regenerated; `make fixtures-live ONLY=pipeline_32` remains the end-to-end check that the temporal natives survive a live run.
 
 ## Limitations
 
