@@ -22,16 +22,20 @@ const CANDIDATE_CONCEPT: ConceptInfo = {
   },
 };
 
-// Field names and payload values are deliberately disjoint, so an assertion on
-// a schema field name can never be satisfied by the data, or the reverse.
+// Schema field names, payload keys, and payload values are all deliberately
+// disjoint, so an assertion on a schema field name can never be satisfied by
+// the data, or the reverse. Payload *keys* matter as much as values here:
+// StuffViewer renders the payload as escaped `JSON.stringify` output, so a key
+// spelled like a schema field would land in the same HTML the schema
+// assertions read.
 const GENERATED_IO_DATA = {
   digest: "candidate",
   name: "candidate",
   concept: "Candidate",
   contentType: "application/json",
   data: {
-    name: "Polyfactory Jane",
-    summary: "Generated dry-run payload that should not display",
+    who: "Polyfactory Jane",
+    blurb: "Generated dry-run payload that should not display",
   },
 };
 
