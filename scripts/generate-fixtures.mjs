@@ -17,10 +17,10 @@
  * --check is a smoke test: useful with --live --only to confirm the live path
  * works before committing to a full regeneration.
  *
- * ALWAYS pass --only for a LIVE run. A full-corpus `make fixtures-live` cannot
- * complete today — pipeline_32/33 output native Date/Time, which pipelex cannot
- * produce from a live model — and it aborts partway, leaving a half-swept tree.
- * See wip/fixtures-live-corpus-regeneration.md.
+ * ALWAYS pass --only for a LIVE run. A full-corpus `make fixtures-live` sweeps
+ * every fixture onto whatever pipelex the local CLI happens to be, and has no
+ * skip path — any failure aborts partway, leaving a half-swept, mixed-version
+ * tree. See wip/fixtures-live-corpus-regeneration.md.
  *
  * --only and --missing are partial runs: they regenerate just the selected
  * pipelines and reuse every other pipeline's existing *_run_graph_spec.json
