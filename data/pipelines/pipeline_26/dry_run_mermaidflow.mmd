@@ -1,0 +1,78 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_90a0325c95["screen_cvs"]
+        subgraph sg_n_0a95612e17["screen_single_cv_batch"]
+            subgraph sg_n_1786d573ed["screen_single_cv"]
+                subgraph sg_n_ac6b76262c["route_by_match"]
+                    n_5023d2a1fb["generate_interview_questions"]
+                    s_aff28034d1(["output<br/>InterviewQuestion"]):::stuff
+                    n_ad73874828["write_refusal_email"]
+                    s_f99969d667(["output<br/>Text"]):::stuff
+                end
+                n_4689f8e3c0["evaluate_cv"]
+                s_e2eceb2456(["evaluation<br/>CvEvaluation"]):::stuff
+                n_2ff1803d07["extract_cv_pages"]
+                s_ee4e3b3993(["cv<br/>Document"]):::stuff
+                s_df29e97981(["cv_pages<br/>Page"]):::stuff
+            end
+            subgraph sg_n_0cc20343d9["screen_single_cv"]
+                subgraph sg_n_edaeff7c1a["route_by_match"]
+                    n_6c810aabb1["generate_interview_questions"]
+                    s_1dc69969a6(["output<br/>InterviewQuestion"]):::stuff
+                    n_65517cdf3b["write_refusal_email"]
+                    s_f038ed2a50(["output<br/>Text"]):::stuff
+                end
+                n_57827f239f["evaluate_cv"]
+                s_c4db9e2d53(["evaluation<br/>CvEvaluation"]):::stuff
+                n_8e13a9555c["extract_cv_pages"]
+                s_531e1faefd(["cv<br/>Document"]):::stuff
+                s_f4f64839e1(["cv_pages<br/>Page"]):::stuff
+            end
+        end
+        n_34db0c4a42["extract_job_pages"]
+        s_954d350d8f(["job_pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_ea2c81442c(["job_offer<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_ad73874828 --> s_f99969d667
+    n_34db0c4a42 --> s_954d350d8f
+    n_65517cdf3b --> s_f038ed2a50
+    n_2ff1803d07 --> s_df29e97981
+    n_57827f239f --> s_c4db9e2d53
+    n_5023d2a1fb --> s_aff28034d1
+    n_6c810aabb1 --> s_1dc69969a6
+    n_8e13a9555c --> s_f4f64839e1
+    n_4689f8e3c0 --> s_e2eceb2456
+    s_954d350d8f --> n_57827f239f
+    s_954d350d8f --> n_4689f8e3c0
+    s_df29e97981 --> n_4689f8e3c0
+    s_ee4e3b3993 --> n_2ff1803d07
+    s_531e1faefd --> n_8e13a9555c
+    s_c4db9e2d53 --> n_6c810aabb1
+    s_c4db9e2d53 --> n_65517cdf3b
+    s_ea2c81442c --> n_34db0c4a42
+    s_f4f64839e1 --> n_57827f239f
+    s_e2eceb2456 --> n_5023d2a1fb
+    s_e2eceb2456 --> n_ad73874828
+
+    %% Batch edges: list-item relationships
+    s_fc755f35bc(["results<br/>Anything"]):::stuff
+    s_f99969d667 -."[0]".-> s_fc755f35bc
+    s_f038ed2a50 -."[1]".-> s_fc755f35bc
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_0a95612e17 fill:#e6ffe6
+    style sg_n_0cc20343d9 fill:#fffde6
+    style sg_n_1786d573ed fill:#fffde6
+    style sg_n_90a0325c95 fill:#e6f3ff
+    style sg_n_ac6b76262c fill:#ffe6f0
+    style sg_n_edaeff7c1a fill:#ffe6f0

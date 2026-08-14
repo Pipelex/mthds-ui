@@ -1,0 +1,46 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_386747951c["moderation_pipeline"]
+        subgraph sg_n_15d5d16e39["parallel_checks"]
+            n_eea91b5c66["check_image_safety"]
+            s_4648e3b440(["image_score<br/>SafetyScore"]):::stuff
+            n_b459165bdc["check_text_safety"]
+            s_0abe798f2c(["text_score<br/>SafetyScore"]):::stuff
+            s_fe4fe8d3ea(["safety_scores_bundle<br/>Composite"]):::stuff
+        end
+        subgraph sg_n_3e4731d97c["route_action"]
+            n_e06f9a29c0["approve_content"]
+            s_8cb95e77dd(["result<br/>ModerationResult"]):::stuff
+        end
+        n_967f3267ae["make_decision"]
+        s_56a5dcb319(["decision<br/>Decision"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_b5e08c4967(["content<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_967f3267ae --> s_56a5dcb319
+    n_e06f9a29c0 --> s_8cb95e77dd
+    n_eea91b5c66 --> s_4648e3b440
+    n_b459165bdc --> s_0abe798f2c
+    s_56a5dcb319 --> n_e06f9a29c0
+    s_b5e08c4967 --> n_b459165bdc
+    s_b5e08c4967 --> n_eea91b5c66
+    s_4648e3b440 --> n_967f3267ae
+    s_0abe798f2c --> n_967f3267ae
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_0abe798f2c -.-> s_fe4fe8d3ea
+    s_4648e3b440 -.-> s_fe4fe8d3ea
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_15d5d16e39 fill:#e6ffe6
+    style sg_n_386747951c fill:#e6f3ff
+    style sg_n_3e4731d97c fill:#e6ffe6

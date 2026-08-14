@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_IMAGE_PIPELINE = {
-  graph_id: "bc964810-b717-49a2-9e89-cd45e5db6cda",
-  created_at: "2026-08-13T12:59:36.941209Z",
+  graph_id: "481aeed4-416e-4311-a709-f87950e2d6a1",
+  created_at: "2026-08-14T10:35:12.475714Z",
   pipeline_ref: { domain: "image_catalog", main_pipe: "image_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_0",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
       kind: "controller",
       pipe_code: "image_pipeline",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:36.941209Z",
-        ended_at: "2026-08-13T12:59:45.247269Z",
-        duration: 8.30606,
+        started_at: "2026-08-14T10:35:12.475714Z",
+        ended_at: "2026-08-14T10:35:21.254922Z",
+        duration: 8.779208,
       },
       io: {
         inputs: [
@@ -31,11 +31,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "8kvnP",
+            digest: "Riu8G",
             data: {
-              url: "pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+              url: "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -45,9 +45,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: "image.jpg",
             },
             data_text:
-              "Image:\nURL: pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+              "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -58,14 +58,14 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ayRqD",
+            digest: "fVTh6",
             data: {
-              text: "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
+              text: "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
             },
             data_text:
               "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` It seems like no image was successfully shared in your message. Could you please   \ntry uploading the image again? I'd be happy to describe it in detail once I can see it! 😊          \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {}                                                                                                 \n                                                                                                    \n",
             data_html:
-              "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
+              "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
             extra: {},
           },
         ],
@@ -86,7 +86,7 @@ export const LIVE_IMAGE_PIPELINE = {
         subtree_rated_inference_calls: 3,
         subtree_nb_tokens_by_category: {
           input: 802,
-          output: 1380,
+          output: 1382,
           input_audio: 0,
           input_cached: 0,
           output_audio: 0,
@@ -94,10 +94,10 @@ export const LIVE_IMAGE_PIPELINE = {
           output_accepted_prediction: 0,
           output_rejected_prediction: 0,
         },
-        subtree_total_tokens: 2182,
-        subtree_cost: 0.0425847,
+        subtree_total_tokens: 2184,
+        subtree_cost: 0.042614700000000005,
         subtree_cost_input: 0.0023547,
-        subtree_cost_output: 0.04023,
+        subtree_cost_output: 0.040260000000000004,
         subtree_by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -105,7 +105,7 @@ export const LIVE_IMAGE_PIPELINE = {
             model_type: "llm",
             inference_calls: 2,
             rated_inference_calls: 2,
-            cost: 0.003519,
+            cost: 0.003549,
           },
           {
             inference_model_name: "nano-banana",
@@ -120,7 +120,7 @@ export const LIVE_IMAGE_PIPELINE = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       kind: "controller",
       pipe_code: "parallel_analyze",
       pipe_type: "PipeParallel",
@@ -129,9 +129,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:36.949920Z",
-        ended_at: "2026-08-13T12:59:45.222242Z",
-        duration: 8.272322,
+        started_at: "2026-08-14T10:35:12.485194Z",
+        ended_at: "2026-08-14T10:35:21.231757Z",
+        duration: 8.746563,
       },
       io: {
         inputs: [
@@ -141,11 +141,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "8kvnP",
+            digest: "Riu8G",
             data: {
-              url: "pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+              url: "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -155,9 +155,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: "image.jpg",
             },
             data_text:
-              "Image:\nURL: pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+              "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -168,14 +168,14 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RYhBa",
+            digest: "KR3bB",
             data: {
-              text: "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊",
+              text: "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊",
             },
             data_text:
               "It seems like no image was successfully shared in your message. Could you please try uploading the  \nimage again? I'd be happy to describe it in detail once I can see it! 😊                            \n",
             data_html:
-              "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊",
+              "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊",
             extra: {},
           },
           {
@@ -184,7 +184,7 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8Zc6b",
+            digest: "TRP2F",
             data: { json_obj: {} },
             data_text: "{}\n",
             data_html: "",
@@ -196,11 +196,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/png",
             preview: null,
             size: null,
-            digest: "mSYph",
+            digest: "LzpbE",
             data: {
-              url: "pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+              url: "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               source_prompt:
                 "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
               source_negative_prompt: null,
@@ -211,9 +211,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: null,
             },
             data_text:
-              "Image:\nURL: pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
+              "Image:\nURL: pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png" class="msg-img">',
             extra: {},
           },
           {
@@ -222,16 +222,16 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "JP9mA",
+            digest: "aQCKM",
             data: {
               description: {
-                text: "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊",
+                text: "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊",
               },
               tags: { json_obj: {} },
               thumbnail: {
-                url: "pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+                url: "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
                 public_url:
-                  "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+                  "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
                 source_prompt:
                   "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
                 source_negative_prompt: null,
@@ -243,9 +243,9 @@ export const LIVE_IMAGE_PIPELINE = {
               },
             },
             data_text:
-              '{\n    "description": {\n        "text": "It seems like no image was successfully shared in your message. Could you please \ntry uploading the image again? I\'d be happy to describe it in detail once I can see it! 😊"\n    },\n    "tags": {\n        "json_obj": {}\n    },\n    "thumbnail": {\n        "url": \n"pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",\n        "public_url": \n"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc96481\n0-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",\n        "source_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a \nclean, minimal style.",\n        "source_negative_prompt": null,\n        "caption": null,\n        "mime_type": "image/png",\n        "width": null,\n        "height": null,\n        "filename": null\n    }\n}\n',
+              '{\n    "description": {\n        "text": "It seems like no image was successfully shared in your message. Could you please \n**try uploading the image again**? I\'d be happy to describe it in detail once I can see it! 😊"\n    },\n    "tags": {\n        "json_obj": {}\n    },\n    "thumbnail": {\n        "url": \n"pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",\n        "public_url": \n"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed\n4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",\n        "source_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a \nclean, minimal style.",\n        "source_negative_prompt": null,\n        "caption": null,\n        "mime_type": "image/png",\n        "width": null,\n        "height": null,\n        "filename": null\n    }\n}\n',
             data_html:
-              '<table><tr><th>description</th><td>It seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊</td></tr><tr><th>tags</th><td></td></tr><tr><th>thumbnail</th><td><img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png" class="msg-img"></td></tr></table>',
+              '<table><tr><th>description</th><td>It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊</td></tr><tr><th>tags</th><td></td></tr><tr><th>thumbnail</th><td><img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png" class="msg-img"></td></tr></table>',
             extra: {},
           },
         ],
@@ -266,7 +266,7 @@ export const LIVE_IMAGE_PIPELINE = {
         subtree_rated_inference_calls: 3,
         subtree_nb_tokens_by_category: {
           input: 802,
-          output: 1380,
+          output: 1382,
           input_audio: 0,
           input_cached: 0,
           output_audio: 0,
@@ -274,10 +274,10 @@ export const LIVE_IMAGE_PIPELINE = {
           output_accepted_prediction: 0,
           output_rejected_prediction: 0,
         },
-        subtree_total_tokens: 2182,
-        subtree_cost: 0.0425847,
+        subtree_total_tokens: 2184,
+        subtree_cost: 0.042614700000000005,
         subtree_cost_input: 0.0023547,
-        subtree_cost_output: 0.04023,
+        subtree_cost_output: 0.040260000000000004,
         subtree_by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -285,7 +285,7 @@ export const LIVE_IMAGE_PIPELINE = {
             model_type: "llm",
             inference_calls: 2,
             rated_inference_calls: 2,
-            cost: 0.003519,
+            cost: 0.003549,
           },
           {
             inference_model_name: "nano-banana",
@@ -304,7 +304,7 @@ export const LIVE_IMAGE_PIPELINE = {
       },
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_2",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
       kind: "operator",
       pipe_code: "describe_image",
       pipe_type: "PipeLLM",
@@ -313,9 +313,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:36.955134Z",
-        ended_at: "2026-08-13T12:59:42.046968Z",
-        duration: 5.091834,
+        started_at: "2026-08-14T10:35:12.490614Z",
+        ended_at: "2026-08-14T10:35:16.907354Z",
+        duration: 4.41674,
       },
       io: {
         inputs: [
@@ -325,11 +325,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "8kvnP",
+            digest: "Riu8G",
             data: {
-              url: "pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+              url: "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -339,9 +339,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: "image.jpg",
             },
             data_text:
-              "Image:\nURL: pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+              "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -352,14 +352,14 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RYhBa",
+            digest: "KR3bB",
             data: {
-              text: "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊",
+              text: "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊",
             },
             data_text:
               "It seems like no image was successfully shared in your message. Could you please try uploading the  \nimage again? I'd be happy to describe it in detail once I can see it! 😊                            \n",
             data_html:
-              "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊",
+              "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊",
             extra: {},
           },
         ],
@@ -370,11 +370,11 @@ export const LIVE_IMAGE_PIPELINE = {
       usage: {
         inference_calls: 1,
         rated_inference_calls: 1,
-        nb_tokens_by_category: { input: 16, output: 43, input_audio: 0, input_cached: 0 },
-        total_tokens: 59,
-        cost: 0.000693,
+        nb_tokens_by_category: { input: 16, output: 45, input_audio: 0, input_cached: 0 },
+        total_tokens: 61,
+        cost: 0.000723,
         cost_input: 0.000048,
-        cost_output: 0.0006450000000000001,
+        cost_output: 0.000675,
         by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -382,16 +382,16 @@ export const LIVE_IMAGE_PIPELINE = {
             model_type: "llm",
             inference_calls: 1,
             rated_inference_calls: 1,
-            cost: 0.000693,
+            cost: 0.000723,
           },
         ],
         subtree_inference_calls: 1,
         subtree_rated_inference_calls: 1,
-        subtree_nb_tokens_by_category: { input: 16, output: 43, input_audio: 0, input_cached: 0 },
-        subtree_total_tokens: 59,
-        subtree_cost: 0.000693,
+        subtree_nb_tokens_by_category: { input: 16, output: 45, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 61,
+        subtree_cost: 0.000723,
         subtree_cost_input: 0.000048,
-        subtree_cost_output: 0.0006450000000000001,
+        subtree_cost_output: 0.000675,
         subtree_by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -399,7 +399,7 @@ export const LIVE_IMAGE_PIPELINE = {
             model_type: "llm",
             inference_calls: 1,
             rated_inference_calls: 1,
-            cost: 0.000693,
+            cost: 0.000723,
           },
         ],
       },
@@ -413,7 +413,7 @@ export const LIVE_IMAGE_PIPELINE = {
       },
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_3",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
       kind: "operator",
       pipe_code: "classify_image",
       pipe_type: "PipeLLM",
@@ -422,9 +422,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:38.735471Z",
-        ended_at: "2026-08-13T12:59:41.810487Z",
-        duration: 3.075016,
+        started_at: "2026-08-14T10:35:14.362068Z",
+        ended_at: "2026-08-14T10:35:16.895042Z",
+        duration: 2.532974,
       },
       io: {
         inputs: [
@@ -434,11 +434,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "8kvnP",
+            digest: "Riu8G",
             data: {
-              url: "pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+              url: "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -448,9 +448,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: "image.jpg",
             },
             data_text:
-              "Image:\nURL: pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+              "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -461,7 +461,7 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8Zc6b",
+            digest: "TRP2F",
             data: { json_obj: {} },
             data_text: "{}\n",
             data_html: "",
@@ -537,7 +537,7 @@ export const LIVE_IMAGE_PIPELINE = {
       },
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_4",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
       kind: "operator",
       pipe_code: "generate_thumbnail",
       pipe_type: "PipeImgGen",
@@ -546,9 +546,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:38.753093Z",
-        ended_at: "2026-08-13T12:59:45.207613Z",
-        duration: 6.45452,
+        started_at: "2026-08-14T10:35:14.385850Z",
+        ended_at: "2026-08-14T10:35:21.213691Z",
+        duration: 6.827841,
       },
       io: {
         inputs: [
@@ -558,11 +558,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "8kvnP",
+            digest: "Riu8G",
             data: {
-              url: "pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+              url: "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               source_prompt: null,
               source_negative_prompt: null,
               caption: null,
@@ -572,9 +572,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: "image.jpg",
             },
             data_text:
-              "Image:\nURL: pipelex-storage://normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+              "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/LNcSWMGTxVyV3CTUjTLzLc.jpg" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg" class="msg-img">',
             extra: {},
           },
         ],
@@ -585,11 +585,11 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: "image/png",
             preview: null,
             size: null,
-            digest: "mSYph",
+            digest: "LzpbE",
             data: {
-              url: "pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+              url: "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               public_url:
-                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               source_prompt:
                 "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
               source_negative_prompt: null,
@@ -600,9 +600,9 @@ export const LIVE_IMAGE_PIPELINE = {
               filename: null,
             },
             data_text:
-              "Image:\nURL: pipelex-storage://anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
+              "Image:\nURL: pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
             data_html:
-              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/bc964810-b717-49a2-9e89-cd45e5db6cda/1e54aa48c2f3ad1b.png" class="msg-img">',
+              '<img src="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png" class="msg-img">',
             extra: {},
           },
         ],
@@ -674,7 +674,7 @@ export const LIVE_IMAGE_PIPELINE = {
       },
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_5",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       kind: "operator",
       pipe_code: "build_catalog",
       pipe_type: "PipeCompose",
@@ -683,9 +683,9 @@ export const LIVE_IMAGE_PIPELINE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T12:59:45.229391Z",
-        ended_at: "2026-08-13T12:59:45.243466Z",
-        duration: 0.014075,
+        started_at: "2026-08-14T10:35:21.237472Z",
+        ended_at: "2026-08-14T10:35:21.250860Z",
+        duration: 0.013388,
       },
       io: {
         inputs: [
@@ -695,14 +695,14 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RYhBa",
+            digest: "KR3bB",
             data: {
-              text: "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊",
+              text: "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊",
             },
             data_text:
               "It seems like no image was successfully shared in your message. Could you please try uploading the  \nimage again? I'd be happy to describe it in detail once I can see it! 😊                            \n",
             data_html:
-              "It seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊",
+              "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊",
             extra: {},
           },
           {
@@ -711,7 +711,7 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8Zc6b",
+            digest: "TRP2F",
             data: { json_obj: {} },
             data_text: "{}\n",
             data_html: "",
@@ -725,14 +725,14 @@ export const LIVE_IMAGE_PIPELINE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ayRqD",
+            digest: "fVTh6",
             data: {
-              text: "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
+              text: "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
             },
             data_text:
               "Catalog Entry                                                                                       \n\nDescription                                                                                         \n\ndescription: ``` It seems like no image was successfully shared in your message. Could you please   \ntry uploading the image again? I'd be happy to describe it in detail once I can see it! 😊          \n\n                                                                                                    \n                                                                                                    \n ### Tags                                                                                           \n tags: ```                                                                                          \n {}                                                                                                 \n                                                                                                    \n",
             data_html:
-              "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please try uploading the image again? I&#x27;d be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
+              "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
             extra: {},
           },
         ],
@@ -761,15 +761,15 @@ export const LIVE_IMAGE_PIPELINE = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please try uploading the image again? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
+          "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```",
       },
     },
   ],
   edges: [
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:edge_0",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_0",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:edge_0",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -778,9 +778,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:edge_1",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_2",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:edge_1",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -789,9 +789,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:edge_2",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_3",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:edge_2",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -800,9 +800,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:edge_3",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_4",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:edge_3",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -811,9 +811,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:edge_4",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_0",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_5",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:edge_4",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -822,9 +822,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:asm_edge_0",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_5",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_0",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       kind: "data",
       optional: false,
       label: "description",
@@ -833,9 +833,9 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:asm_edge_1",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_5",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_1",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       kind: "data",
       optional: false,
       label: "tags",
@@ -844,36 +844,36 @@ export const LIVE_IMAGE_PIPELINE = {
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:asm_edge_2",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_2",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_2",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "RYhBa",
-      target_stuff_digest: "JP9mA",
+      source_stuff_digest: "KR3bB",
+      target_stuff_digest: "aQCKM",
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:asm_edge_3",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_3",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_3",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "8Zc6b",
-      target_stuff_digest: "JP9mA",
+      source_stuff_digest: "TRP2F",
+      target_stuff_digest: "aQCKM",
       meta: {},
     },
     {
-      id: "bc964810-b717-49a2-9e89-cd45e5db6cda:asm_edge_4",
-      source: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_4",
-      target: "bc964810-b717-49a2-9e89-cd45e5db6cda:node_1",
+      id: "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_4",
+      source: "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
+      target: "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "mSYph",
-      target_stuff_digest: "JP9mA",
+      source_stuff_digest: "LzpbE",
+      target_stuff_digest: "aQCKM",
       meta: {},
     },
   ],
@@ -883,7 +883,7 @@ export const LIVE_IMAGE_PIPELINE = {
       rated_inference_calls: 3,
       nb_tokens_by_category: {
         input: 802,
-        output: 1380,
+        output: 1382,
         input_audio: 0,
         input_cached: 0,
         output_audio: 0,
@@ -891,10 +891,10 @@ export const LIVE_IMAGE_PIPELINE = {
         output_accepted_prediction: 0,
         output_rejected_prediction: 0,
       },
-      total_tokens: 2182,
-      cost: 0.0425847,
+      total_tokens: 2184,
+      cost: 0.042614700000000005,
       cost_input: 0.0023547,
-      cost_output: 0.04023,
+      cost_output: 0.040260000000000004,
       by_model: [
         {
           inference_model_name: "claude-4.6-sonnet",
@@ -902,7 +902,7 @@ export const LIVE_IMAGE_PIPELINE = {
           model_type: "llm",
           inference_calls: 2,
           rated_inference_calls: 2,
-          cost: 0.003519,
+          cost: 0.003549,
         },
         {
           inference_model_name: "nano-banana",
@@ -917,7 +917,7 @@ export const LIVE_IMAGE_PIPELINE = {
       subtree_rated_inference_calls: 3,
       subtree_nb_tokens_by_category: {
         input: 802,
-        output: 1380,
+        output: 1382,
         input_audio: 0,
         input_cached: 0,
         output_audio: 0,
@@ -925,10 +925,10 @@ export const LIVE_IMAGE_PIPELINE = {
         output_accepted_prediction: 0,
         output_rejected_prediction: 0,
       },
-      subtree_total_tokens: 2182,
-      subtree_cost: 0.0425847,
+      subtree_total_tokens: 2184,
+      subtree_cost: 0.042614700000000005,
       subtree_cost_input: 0.0023547,
-      subtree_cost_output: 0.04023,
+      subtree_cost_output: 0.040260000000000004,
       subtree_by_model: [
         {
           inference_model_name: "claude-4.6-sonnet",
@@ -936,7 +936,7 @@ export const LIVE_IMAGE_PIPELINE = {
           model_type: "llm",
           inference_calls: 2,
           rated_inference_calls: 2,
-          cost: 0.003519,
+          cost: 0.003549,
         },
         {
           inference_model_name: "nano-banana",

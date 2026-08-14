@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<!--
+  External (loaded from jsDelivr with Subresource Integrity):
+    React (MIT), @xyflow/react (MIT), DOMPurify (MPL-2.0/Apache-2.0),
+    @pipelex/mthds-ui (MIT), elkjs (EPL-2.0).
+  Nothing is bundled into this file — all viewer code is fetched at view time
+  from cdn.jsdelivr.net with sha384 hashes that pin tamper-evident content.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Sample Natives</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.css" integrity="sha384-+RAnunPv8/gJkU2A4kO1jjx56ZMIdtJP2FC8yoYAfXJGOZWgWHnqz9EWVAho6/HZ" crossorigin="anonymous">
+</head>
+<body data-theme="dark">
+<div id="app-container">
+  <div id="root"></div>
+</div>
+
+<script type="application/json" id="pipelex-graphspec">{
+  "graph_id": "dc19a29e-0647-448e-b27a-b31225db446c",
+  "created_at": "2026-08-14T10:47:25.856576Z",
+  "pipeline_ref": {
+    "domain": "native_sampler",
+    "main_pipe": "sample_natives",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "kind": "controller",
+      "pipe_code": "sample_natives",
+      "pipe_type": "PipeParallel",
+      "description": "Produce one of each remaining native concept from the same brief",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:47:25.856576Z",
+        "ended_at": "2026-08-14T10:47:33.862496Z",
+        "duration": 8.00592
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DDpdx",
+            "data": {
+              "text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve."
+            },
+            "data_text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing \noff the legacy provider. Engineering headcount stays flat at twelve.                                \n",
+            "data_html": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "word_count",
+            "concept": "Number",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QYJpx",
+            "data": {
+              "number": 36
+            },
+            "data_text": "{\n    \"number\": 36\n}\n",
+            "data_html": "36",
+            "extra": {}
+          },
+          {
+            "name": "html",
+            "concept": "Html",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LUT84",
+            "data": {
+              "inner_html": "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
+              "css_class": "brief"
+            },
+            "data_text": "{\n    \"inner_html\": \"<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>twelve</strong>.</p>\",\n    \"css_class\": \"brief\"\n}\n",
+            "data_html": "<div class=\"brief\"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div>",
+            "extra": {}
+          },
+          {
+            "name": "illustrated",
+            "concept": "TextAndImages",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "89Puy",
+            "data": {
+              "text": {
+                "text": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people."
+              },
+              "images": [
+                {
+                  "url": "<UNKNOWN>",
+                  "public_url": null,
+                  "source_prompt": "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
+                  "source_negative_prompt": null,
+                  "caption": "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
+                  "mime_type": null,
+                  "width": null,
+                  "height": null,
+                  "filename": "<UNKNOWN>"
+                }
+              ],
+              "raw_html": null
+            },
+            "data_text": "Text:\nThe Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public   \nAPI, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering    \nteam steady at 12 people.                                                                           \n\nImages (1):                                                                                         \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Index \u2503 URL                                        \u2503 Caption                                     \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 img-0 \u2502                                            \u2502 A visual roadmap illustration showing three \u2502\n\u2502       \u2502                                            \u2502 parallel tracks labeled 'Onboarding',       \u2502\n\u2502       \u2502                                            \u2502 'Public API', and 'Billing Migration',      \u2502\n\u2502       \u2502                                            \u2502 arranged as a timeline across Q3, with a    \u2502\n\u2502       \u2502                                            \u2502 small team-of-twelve icon anchored at the   \u2502\n\u2502       \u2502                                            \u2502 side to represent stable headcount.         \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n",
+            "data_html": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people.",
+            "extra": {}
+          },
+          {
+            "name": "facts",
+            "concept": "JSON",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DAw3c",
+            "data": {
+              "json_obj": {
+                "quarter": "Q3",
+                "roadmap_themes": [
+                  "Cut onboarding time in half",
+                  "Ship the public API",
+                  "Move billing off the legacy provider"
+                ],
+                "engineering_headcount": 12,
+                "headcount_change": "flat"
+              }
+            },
+            "data_text": "{\n    \"quarter\": \"Q3\",\n    \"roadmap_themes\": [\n        \"Cut onboarding time in half\",\n        \"Ship the public API\",\n        \"Move billing off the legacy provider\"\n    ],\n    \"engineering_headcount\": 12,\n    \"headcount_change\": \"flat\"\n}\n",
+            "data_html": "<table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "composite",
+            "concept": "Composite",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "S7xdy",
+            "data": {
+              "word_count": {
+                "number": 36
+              },
+              "html": {
+                "inner_html": "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
+                "css_class": "brief"
+              },
+              "illustrated": {
+                "text": {
+                  "text": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people."
+                },
+                "images": [
+                  {
+                    "url": "<UNKNOWN>",
+                    "public_url": null,
+                    "source_prompt": "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
+                    "source_negative_prompt": null,
+                    "caption": "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
+                    "mime_type": null,
+                    "width": null,
+                    "height": null,
+                    "filename": "<UNKNOWN>"
+                  }
+                ],
+                "raw_html": null
+              },
+              "facts": {
+                "json_obj": {
+                  "quarter": "Q3",
+                  "roadmap_themes": [
+                    "Cut onboarding time in half",
+                    "Ship the public API",
+                    "Move billing off the legacy provider"
+                  ],
+                  "engineering_headcount": 12,
+                  "headcount_change": "flat"
+                }
+              }
+            },
+            "data_text": "{\n    \"word_count\": {\n        \"number\": 36\n    },\n    \"html\": {\n        \"inner_html\": \"<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship\nthe public API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering \nheadcount stays flat at <strong>twelve</strong>.</p>\",\n        \"css_class\": \"brief\"\n    },\n    \"illustrated\": {\n        \"text\": {\n            \"text\": \"The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) \nlaunching the public API, and (3) migrating billing away from the legacy provider \u2014 all while \nkeeping the engineering team steady at 12 people.\"\n        },\n        \"images\": [\n            {\n                \"url\": \"<UNKNOWN>\",\n                \"public_url\": null,\n                \"source_prompt\": \"A clean, modern product roadmap diagram for Q3 with three \nhorizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and \none for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, \nblue and white color palette\",\n                \"source_negative_prompt\": null,\n                \"caption\": \"A visual roadmap illustration showing three parallel tracks labeled \n'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small \nteam-of-twelve icon anchored at the side to represent stable headcount.\",\n                \"mime_type\": null,\n                \"width\": null,\n                \"height\": null,\n                \"filename\": \"<UNKNOWN>\"\n            }\n        ],\n        \"raw_html\": null\n    },\n    \"facts\": {\n        \"json_obj\": {\n            \"quarter\": \"Q3\",\n            \"roadmap_themes\": [\n                \"Cut onboarding time in half\",\n                \"Ship the public API\",\n                \"Move billing off the legacy provider\"\n            ],\n            \"engineering_headcount\": 12,\n            \"headcount_change\": \"flat\"\n        }\n    }\n}\n",
+            "data_html": "<table><tr><th>word_count</th><td>36</td></tr><tr><th>html</th><td><div class=\"brief\"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div></td></tr><tr><th>illustrated</th><td>The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people.</td></tr><tr><th>facts</th><td><table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table></td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 4,
+        "subtree_nb_tokens_by_category": {
+          "input": 4247,
+          "output": 522,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 4769,
+        "subtree_cost": 0.020571,
+        "subtree_cost_input": 0.012741,
+        "subtree_cost_output": 0.00783,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 4,
+            "cost": 0.020571
+          }
+        ]
+      },
+      "execution_data": {
+        "branch_count": 4,
+        "add_each_output": true,
+        "combined_output_concept": "native.Composite"
+      }
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
+      "kind": "operator",
+      "pipe_code": "count_words",
+      "pipe_type": "PipeLLM",
+      "description": "Count the words in the brief",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:47:25.863155Z",
+        "ended_at": "2026-08-14T10:47:29.932049Z",
+        "duration": 4.068894
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DDpdx",
+            "data": {
+              "text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve."
+            },
+            "data_text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing \noff the legacy provider. Engineering headcount stays flat at twelve.                                \n",
+            "data_html": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "word_count",
+            "concept": "Number",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "QYJpx",
+            "data": {
+              "number": 36
+            },
+            "data_text": "{\n    \"number\": 36\n}\n",
+            "data_html": "36",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 816,
+          "output": 33,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 849,
+        "cost": 0.0029430000000000003,
+        "cost_input": 0.002448,
+        "cost_output": 0.000495,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0029430000000000003
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 816,
+          "output": 33,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 849,
+        "subtree_cost": 0.0029430000000000003,
+        "subtree_cost_input": 0.002448,
+        "subtree_cost_output": 0.000495,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0029430000000000003
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "How many words are in the brief below? Answer with the number alone.\n\n<brief>\nThe Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass NumberContent(StuffContent):\n    number: int | float  # The number\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
+      "kind": "operator",
+      "pipe_code": "render_html",
+      "pipe_type": "PipeLLM",
+      "description": "Render the brief as an HTML fragment",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:47:27.583553Z",
+        "ended_at": "2026-08-14T10:47:30.428016Z",
+        "duration": 2.844463
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DDpdx",
+            "data": {
+              "text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve."
+            },
+            "data_text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing \noff the legacy provider. Engineering headcount stays flat at twelve.                                \n",
+            "data_html": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "html",
+            "concept": "Html",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LUT84",
+            "data": {
+              "inner_html": "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
+              "css_class": "brief"
+            },
+            "data_text": "{\n    \"inner_html\": \"<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>twelve</strong>.</p>\",\n    \"css_class\": \"brief\"\n}\n",
+            "data_html": "<div class=\"brief\"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 867,
+          "output": 134,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 1001,
+        "cost": 0.0046110000000000005,
+        "cost_input": 0.002601,
+        "cost_output": 0.00201,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0046110000000000005
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 867,
+          "output": 134,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 1001,
+        "subtree_cost": 0.0046110000000000005,
+        "subtree_cost_input": 0.002601,
+        "subtree_cost_output": 0.00201,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0046110000000000005
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Render the brief below as a small HTML fragment.\n\n<brief>\nThe Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass HtmlContent(StuffContent):\n    inner_html: str  # The inner HTML of the content\n    css_class: str  # The CSS class of the content\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
+      "kind": "operator",
+      "pipe_code": "illustrate",
+      "pipe_type": "PipeLLM",
+      "description": "Describe the brief as text with accompanying images",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:47:27.597973Z",
+        "ended_at": "2026-08-14T10:47:33.849173Z",
+        "duration": 6.2512
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DDpdx",
+            "data": {
+              "text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve."
+            },
+            "data_text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing \noff the legacy provider. Engineering headcount stays flat at twelve.                                \n",
+            "data_html": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "illustrated",
+            "concept": "TextAndImages",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "89Puy",
+            "data": {
+              "text": {
+                "text": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people."
+              },
+              "images": [
+                {
+                  "url": "<UNKNOWN>",
+                  "public_url": null,
+                  "source_prompt": "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
+                  "source_negative_prompt": null,
+                  "caption": "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
+                  "mime_type": null,
+                  "width": null,
+                  "height": null,
+                  "filename": "<UNKNOWN>"
+                }
+              ],
+              "raw_html": null
+            },
+            "data_text": "Text:\nThe Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public   \nAPI, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering    \nteam steady at 12 people.                                                                           \n\nImages (1):                                                                                         \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Index \u2503 URL                                        \u2503 Caption                                     \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 img-0 \u2502                                            \u2502 A visual roadmap illustration showing three \u2502\n\u2502       \u2502                                            \u2502 parallel tracks labeled 'Onboarding',       \u2502\n\u2502       \u2502                                            \u2502 'Public API', and 'Billing Migration',      \u2502\n\u2502       \u2502                                            \u2502 arranged as a timeline across Q3, with a    \u2502\n\u2502       \u2502                                            \u2502 small team-of-twelve icon anchored at the   \u2502\n\u2502       \u2502                                            \u2502 side to represent stable headcount.         \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n",
+            "data_html": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people.",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 1743,
+          "output": 247,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 1990,
+        "cost": 0.008934000000000001,
+        "cost_input": 0.005229,
+        "cost_output": 0.003705,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.008934000000000001
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 1743,
+          "output": 247,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 1990,
+        "subtree_cost": 0.008934000000000001,
+        "subtree_cost_input": 0.005229,
+        "subtree_cost_output": 0.003705,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.008934000000000001
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Summarize the brief below and describe one image that would illustrate it.\n\n<brief>\nThe Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass TextAndImagesContent(StuffContent):\n    text: TextContent | None = None  # A text content\n    images: List[ImageContent] | None = None  # A list of images that were extracted from the text\n    raw_html: str | None = None  # The raw HTML of the fetched page, if requested\n\nclass TextContent(StuffContent):\n    text: str  # The text\n\nclass ImageContent(StuffContent):\n    url: str  # The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL\n    public_url: str | None = None  # The public URL of the image\n    source_prompt: str | None = None  # The source prompt of the image\n    source_negative_prompt: str | None = None  # The source negative prompt of the image\n    caption: str | None = None  # The caption of the image\n    mime_type: str | None = None  # The MIME type of the image\n    width: int | None = None  # The width of the image, in pixels\n    height: int | None = None  # The height of the image, in pixels\n    filename: str | None = None  # The original filename of the image\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
+      "kind": "operator",
+      "pipe_code": "extract_facts",
+      "pipe_type": "PipeLLM",
+      "description": "Extract the brief's facts as a JSON object",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:47:27.612368Z",
+        "ended_at": "2026-08-14T10:47:30.440846Z",
+        "duration": 2.828478
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DDpdx",
+            "data": {
+              "text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve."
+            },
+            "data_text": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing \noff the legacy provider. Engineering headcount stays flat at twelve.                                \n",
+            "data_html": "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "facts",
+            "concept": "JSON",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "DAw3c",
+            "data": {
+              "json_obj": {
+                "quarter": "Q3",
+                "roadmap_themes": [
+                  "Cut onboarding time in half",
+                  "Ship the public API",
+                  "Move billing off the legacy provider"
+                ],
+                "engineering_headcount": 12,
+                "headcount_change": "flat"
+              }
+            },
+            "data_text": "{\n    \"quarter\": \"Q3\",\n    \"roadmap_themes\": [\n        \"Cut onboarding time in half\",\n        \"Ship the public API\",\n        \"Move billing off the legacy provider\"\n    ],\n    \"engineering_headcount\": 12,\n    \"headcount_change\": \"flat\"\n}\n",
+            "data_html": "<table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 821,
+          "output": 108,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 929,
+        "cost": 0.004083,
+        "cost_input": 0.002463,
+        "cost_output": 0.0016200000000000001,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.004083
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 821,
+          "output": 108,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 929,
+        "subtree_cost": 0.004083,
+        "subtree_cost_input": 0.002463,
+        "subtree_cost_output": 0.0016200000000000001,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.004083
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Extract the key facts from the brief below as a JSON object.\n\n<brief>\nThe Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass JSONContent(StuffContent):\n    json_obj: Dict[str, Any]  # The JSON object\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:edge_0",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:edge_1",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:edge_2",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:edge_3",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_0",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "QYJpx",
+      "target_stuff_digest": "S7xdy",
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_1",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "LUT84",
+      "target_stuff_digest": "S7xdy",
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_2",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "89Puy",
+      "target_stuff_digest": "S7xdy",
+      "meta": {}
+    },
+    {
+      "id": "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_3",
+      "source": "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
+      "target": "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "DAw3c",
+      "target_stuff_digest": "S7xdy",
+      "meta": {}
+    }
+  ],
+  "usage": {
+    "total": {
+      "inference_calls": 4,
+      "rated_inference_calls": 4,
+      "nb_tokens_by_category": {
+        "input": 4247,
+        "output": 522,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "total_tokens": 4769,
+      "cost": 0.020571,
+      "cost_input": 0.012741,
+      "cost_output": 0.00783,
+      "by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 4,
+          "cost": 0.020571
+        }
+      ],
+      "subtree_inference_calls": 4,
+      "subtree_rated_inference_calls": 4,
+      "subtree_nb_tokens_by_category": {
+        "input": 4247,
+        "output": 522,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "subtree_total_tokens": 4769,
+      "subtree_cost": 0.020571,
+      "subtree_cost_input": 0.012741,
+      "subtree_cost_output": 0.00783,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 4,
+          "cost": 0.020571
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
+  "meta": {
+    "format": "mthds",
+    "mode": "live"
+  },
+  "pipe_registry": {
+    "native_sampler.sample_natives": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "sample_natives",
+      "domain_code": "native_sampler",
+      "description": "Produce one of each remaining native concept from the same brief",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Composite",
+          "domain_code": "native",
+          "description": "A named composition of contents",
+          "structure_class_name": "CompositeContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "count_words",
+          "output_name": "word_count",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "render_html",
+          "output_name": "html",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "illustrate",
+          "output_name": "illustrated",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "extract_facts",
+          "output_name": "facts",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true
+    },
+    "native_sampler.count_words": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "count_words",
+      "domain_code": "native_sampler",
+      "description": "Count the words in the brief",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Number",
+          "domain_code": "native",
+          "description": "A number",
+          "structure_class_name": "NumberContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "How many words are in the brief below? Answer with the number alone.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.render_html": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "render_html",
+      "domain_code": "native_sampler",
+      "description": "Render the brief as an HTML fragment",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Html",
+          "domain_code": "native",
+          "description": "HTML content",
+          "structure_class_name": "HtmlContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Render the brief below as a small HTML fragment.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.illustrate": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "illustrate",
+      "domain_code": "native_sampler",
+      "description": "Describe the brief as text with accompanying images",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TextAndImages",
+          "domain_code": "native",
+          "description": "A text and an image",
+          "structure_class_name": "TextAndImagesContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Summarize the brief below and describe one image that would illustrate it.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.extract_facts": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "extract_facts",
+      "domain_code": "native_sampler",
+      "description": "Extract the brief's facts as a JSON object",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "JSON",
+          "domain_code": "native",
+          "description": "A JSON object",
+          "structure_class_name": "JSONContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Extract the key facts from the brief below as a JSON object.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "native.Composite": {
+      "code": "Composite",
+      "domain_code": "native",
+      "description": "A named composition of contents",
+      "structure_class_name": "CompositeContent",
+      "refines": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "Untyped named composition of contents \u2014 the structure class of `native.Composite`.\n\nHolds its named sub-contents as top-level fields (pydantic `extra=\"allow\"`), so the\nserialized shape matches a bespoke structured concept: `{name: content, ...}` with no\nwrapper key. This is the combination vehicle for a `PipeParallel` whose author does not\nwant to declare a bespoke concept: each branch's `result` name becomes a field.",
+        "properties": {},
+        "title": "CompositeContent",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.Number": {
+      "code": "Number",
+      "domain_code": "native",
+      "description": "A number",
+      "structure_class_name": "NumberContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "description": "The number",
+            "title": "Number"
+          }
+        },
+        "required": [
+          "number"
+        ],
+        "title": "NumberContent",
+        "type": "object"
+      }
+    },
+    "native.Html": {
+      "code": "Html",
+      "domain_code": "native",
+      "description": "HTML content",
+      "structure_class_name": "HtmlContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "inner_html": {
+            "description": "The inner HTML of the content",
+            "title": "Inner Html",
+            "type": "string"
+          },
+          "css_class": {
+            "description": "The CSS class of the content",
+            "title": "Css Class",
+            "type": "string"
+          }
+        },
+        "required": [
+          "inner_html",
+          "css_class"
+        ],
+        "title": "HtmlContent",
+        "type": "object"
+      }
+    },
+    "native.TextAndImages": {
+      "code": "TextAndImages",
+      "domain_code": "native",
+      "description": "A text and an image",
+      "structure_class_name": "TextAndImagesContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TextContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text content"
+          },
+          "images": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/ImageContent"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of images that were extracted from the text",
+            "title": "Images"
+          },
+          "raw_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The raw HTML of the fetched page, if requested",
+            "title": "Raw Html"
+          }
+        },
+        "title": "TextAndImagesContent",
+        "type": "object"
+      }
+    },
+    "native.JSON": {
+      "code": "JSON",
+      "domain_code": "native",
+      "description": "A JSON object",
+      "structure_class_name": "JSONContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "JSONContent",
+        "type": "object"
+      }
+    }
+  }
+}</script>
+<script type="application/json" id="pipelex-config">{"direction": "LR", "showControllers": true, "nodesep": 50, "ranksep": 30, "edgeType": "bezier", "initialZoom": 1.0, "panToTop": true, "palette": "dracula"}</script>
+
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js" integrity="sha384-k7OFwtsMfFyYU75zZhPkC8VRASnGrW1pxavUnozOiO2B5M5gv6PYGOkEYZTrVtvo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.js" integrity="sha384-bn4wTUdVghyTZThZlUwPknWCtiDDDSnB94AH9/WS7P6Zb2O7x2Fu8bE1G8nPlz5y" crossorigin="anonymous"></script>
+</body>
+</html>

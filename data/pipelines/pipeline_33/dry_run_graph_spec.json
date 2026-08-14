@@ -1,6 +1,6 @@
 {
-  "graph_id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd",
-  "created_at": "2026-08-14T09:51:04.114801Z",
+  "graph_id": "1007132a-ac41-422b-a62d-daa5faa9225a",
+  "created_at": "2026-08-14T10:50:17.636548Z",
   "pipeline_ref": {
     "domain": "availability",
     "main_pipe": "route_availability",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_0",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_0",
       "kind": "controller",
       "pipe_code": "route_availability",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.114801Z",
-        "ended_at": "2026-08-14T09:51:04.284744Z",
-        "duration": 0.169943
+        "started_at": "2026-08-14T10:50:17.636548Z",
+        "ended_at": "2026-08-14T10:50:17.843519Z",
+        "duration": 0.206971
       },
       "io": {
         "inputs": [
@@ -29,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2dfGD",
+            "digest": "h8Pgx",
             "data": {
-              "text": "NdNHVLNnhURwdaEVcfgX"
+              "text": "IjnBddoUWWIRwQfzwPQI"
             },
-            "data_text": "NdNHVLNnhURwdaEVcfgX                                                                                \n",
-            "data_html": "NdNHVLNnhURwdaEVcfgX",
+            "data_text": "IjnBddoUWWIRwQfzwPQI                                                                                \n",
+            "data_html": "IjnBddoUWWIRwQfzwPQI",
             "extra": {}
           }
         ],
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e8jqC",
+            "digest": "8gdAG",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: EhIDqHUIbtobXxWmBOiq                                      \n\n                                           is_free: False                                           \n\n                                     note: xnfrUtlvKgYINDhyaulJ                                     \n\n• item #2:                                                                                          \n\n                                     day: WPnAWqHGOySjtcuxxAyD                                      \n\n                                                 is                                                 \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n• item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                                is_                                                 \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    ",
             "extra": {}
           }
         ]
@@ -90,7 +90,7 @@
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_1",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_1",
       "kind": "operator",
       "pipe_code": "read_dates",
       "pipe_type": "PipeLLM",
@@ -99,9 +99,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.119593Z",
-        "ended_at": "2026-08-14T09:51:04.132351Z",
-        "duration": 0.012758
+        "started_at": "2026-08-14T10:50:17.641955Z",
+        "ended_at": "2026-08-14T10:50:17.660725Z",
+        "duration": 0.01877
       },
       "io": {
         "inputs": [
@@ -111,12 +111,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2dfGD",
+            "digest": "h8Pgx",
             "data": {
-              "text": "NdNHVLNnhURwdaEVcfgX"
+              "text": "IjnBddoUWWIRwQfzwPQI"
             },
-            "data_text": "NdNHVLNnhURwdaEVcfgX                                                                                \n",
-            "data_html": "NdNHVLNnhURwdaEVcfgX",
+            "data_text": "IjnBddoUWWIRwQfzwPQI                                                                                \n",
+            "data_html": "IjnBddoUWWIRwQfzwPQI",
             "extra": {}
           }
         ],
@@ -127,25 +127,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "eS4Gg",
+            "digest": "nbhzH",
             "data": {
               "items": [
                 {
-                  "date": "2020-01-31",
-                  "time": "02:16:12.691612"
+                  "date": "2026-06-07",
+                  "time": "02:30:30.536101"
                 },
                 {
-                  "date": "2020-05-02",
-                  "time": "11:10:53.290882"
+                  "date": "2021-03-30",
+                  "time": "19:33:12.833996"
                 },
                 {
-                  "date": "2022-02-23",
-                  "time": "20:32:49.542672"
+                  "date": "2026-02-12",
+                  "time": "18:59:47.662836"
                 }
               ]
             },
-            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2020-01-31\",                                     \n                  │   \"time\": \"02:16:12.691612\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2020-05-02\",                                     \n                  │   \"time\": \"11:10:53.290882\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2022-02-23\",                                     \n                  │   \"time\": \"20:32:49.542672\"                                 \n                  │ }                                                           \n",
-            "data_html": "<ul><li>2020-01-31T02:16:12.691612</li><li>2020-05-02T11:10:53.290882</li><li>2022-02-23T20:32:49.542672</li></ul>",
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2026-06-07\",                                     \n                  │   \"time\": \"02:30:30.536101\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2021-03-30\",                                     \n                  │   \"time\": \"19:33:12.833996\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2026-02-12\",                                     \n                  │   \"time\": \"18:59:47.662836\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2026-06-07T02:30:30.536101</li><li>2021-03-30T19:33:12.833996</li><li>2026-02-12T18:59:47.662836</li></ul>",
             "extra": {}
           }
         ]
@@ -194,12 +194,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "List every meeting date proposed in the request below.\n\n<request>\nNdNHVLNnhURwdaEVcfgX\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass DateContent(StuffContent):\n    \"\"\"A calendar date, optionally with a time of day — as precise as its source states.\n\n    The optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). Invalid states are unrepresentable by construction: no time\n    without a date, no offset without a time.\n    \"\"\"\n    date: date  # The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.\n    time: time | None = None  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "List every meeting date proposed in the request below.\n\n<request>\nIjnBddoUWWIRwQfzwPQI\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass DateContent(StuffContent):\n    \"\"\"A calendar date, optionally with a time of day — as precise as its source states.\n\n    The optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). Invalid states are unrepresentable by construction: no time\n    without a date, no offset without a time.\n    \"\"\"\n    date: date  # The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.\n    time: time | None = None  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_2",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_2",
       "kind": "operator",
       "pipe_code": "is_urgent",
       "pipe_type": "PipeLLM",
@@ -208,9 +208,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.137229Z",
-        "ended_at": "2026-08-14T09:51:04.147335Z",
-        "duration": 0.010106
+        "started_at": "2026-08-14T10:50:17.665363Z",
+        "ended_at": "2026-08-14T10:50:17.675710Z",
+        "duration": 0.010347
       },
       "io": {
         "inputs": [
@@ -220,12 +220,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2dfGD",
+            "digest": "h8Pgx",
             "data": {
-              "text": "NdNHVLNnhURwdaEVcfgX"
+              "text": "IjnBddoUWWIRwQfzwPQI"
             },
-            "data_text": "NdNHVLNnhURwdaEVcfgX                                                                                \n",
-            "data_html": "NdNHVLNnhURwdaEVcfgX",
+            "data_text": "IjnBddoUWWIRwQfzwPQI                                                                                \n",
+            "data_html": "IjnBddoUWWIRwQfzwPQI",
             "extra": {}
           }
         ],
@@ -236,7 +236,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PsnNg",
+            "digest": "X5pjT",
             "data": {
               "yes_no": false
             },
@@ -290,12 +290,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Is the meeting request below urgent?\n\n<request>\nNdNHVLNnhURwdaEVcfgX\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass YesNoContent(StuffContent):\n    yes_no: bool  # Whether the answer is yes (true) or no (false).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Is the meeting request below urgent?\n\n<request>\nIjnBddoUWWIRwQfzwPQI\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass YesNoContent(StuffContent):\n    yes_no: bool  # Whether the answer is yes (true) or no (false).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "controller",
       "pipe_code": "check_day_batch",
       "pipe_type": "PipeBatch",
@@ -304,9 +304,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.150919Z",
-        "ended_at": "2026-08-14T09:51:04.193854Z",
-        "duration": 0.042935
+        "started_at": "2026-08-14T10:50:17.679457Z",
+        "ended_at": "2026-08-14T10:50:17.719896Z",
+        "duration": 0.040439
       },
       "io": {
         "inputs": [
@@ -316,25 +316,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "eS4Gg",
+            "digest": "nbhzH",
             "data": {
               "items": [
                 {
-                  "date": "2020-01-31",
-                  "time": "02:16:12.691612"
+                  "date": "2026-06-07",
+                  "time": "02:30:30.536101"
                 },
                 {
-                  "date": "2020-05-02",
-                  "time": "11:10:53.290882"
+                  "date": "2021-03-30",
+                  "time": "19:33:12.833996"
                 },
                 {
-                  "date": "2022-02-23",
-                  "time": "20:32:49.542672"
+                  "date": "2026-02-12",
+                  "time": "18:59:47.662836"
                 }
               ]
             },
-            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2020-01-31\",                                     \n                  │   \"time\": \"02:16:12.691612\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2020-05-02\",                                     \n                  │   \"time\": \"11:10:53.290882\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2022-02-23\",                                     \n                  │   \"time\": \"20:32:49.542672\"                                 \n                  │ }                                                           \n",
-            "data_html": "<ul><li>2020-01-31T02:16:12.691612</li><li>2020-05-02T11:10:53.290882</li><li>2022-02-23T20:32:49.542672</li></ul>",
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2026-06-07\",                                     \n                  │   \"time\": \"02:30:30.536101\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2021-03-30\",                                     \n                  │   \"time\": \"19:33:12.833996\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2026-02-12\",                                     \n                  │   \"time\": \"18:59:47.662836\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2026-06-07T02:30:30.536101</li><li>2021-03-30T19:33:12.833996</li><li>2026-02-12T18:59:47.662836</li></ul>",
             "extra": {}
           }
         ],
@@ -345,28 +345,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jPV8r",
+            "digest": "R3Zwn",
             "data": {
               "items": [
                 {
-                  "day": "EhIDqHUIbtobXxWmBOiq",
-                  "is_free": false,
-                  "note": "xnfrUtlvKgYINDhyaulJ"
+                  "day": "YeImXCCxuaevsYziCsYG",
+                  "is_free": true,
+                  "note": "IpJxwsJLFHAZhGNynapT"
                 },
                 {
-                  "day": "WPnAWqHGOySjtcuxxAyD",
+                  "day": "DEbKRcsCWfYqDvgEZxcZ",
                   "is_free": true,
-                  "note": "KtRrbDcXZhdNVwwGxCVC"
+                  "note": "GzSSIZMxtCgsUiGMSjJG"
                 },
                 {
-                  "day": "VpCQAXyQvFufFutetXTT",
+                  "day": "ylcqPjJyKgmCJaCkvztu",
                   "is_free": true,
-                  "note": "PVfpkMURLwJGokAIXCrV"
+                  "note": "NqkoZxvTkTyqDYYRAgIe"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ EhIDqHUIbtobXxWmBOiq                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ xnfrUtlvKgYINDhyaulJ                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ WPnAWqHGOySjtcuxxAyD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ KtRrbDcXZhdNVwwGxCVC                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ VpCQAXyQvFufFutetXTT                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ PVfpkMURLwJGokAIXCrV                        \n",
-            "data_html": "<ul><li><table><tr><th>day</th><td>EhIDqHUIbtobXxWmBOiq</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>xnfrUtlvKgYINDhyaulJ</td></tr></table></li><li><table><tr><th>day</th><td>WPnAWqHGOySjtcuxxAyD</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>KtRrbDcXZhdNVwwGxCVC</td></tr></table></li><li><table><tr><th>day</th><td>VpCQAXyQvFufFutetXTT</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>PVfpkMURLwJGokAIXCrV</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ YeImXCCxuaevsYziCsYG                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ IpJxwsJLFHAZhGNynapT                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ DEbKRcsCWfYqDvgEZxcZ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ GzSSIZMxtCgsUiGMSjJG                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ ylcqPjJyKgmCJaCkvztu                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ NqkoZxvTkTyqDYYRAgIe                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table></li><li><table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table></li><li><table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table></li></ul>",
             "extra": {}
           }
         ]
@@ -407,7 +407,7 @@
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_4",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_4",
       "kind": "operator",
       "pipe_code": "check_day",
       "pipe_type": "PipeLLM",
@@ -416,9 +416,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.154966Z",
-        "ended_at": "2026-08-14T09:51:04.165275Z",
-        "duration": 0.010309
+        "started_at": "2026-08-14T10:50:17.683519Z",
+        "ended_at": "2026-08-14T10:50:17.693646Z",
+        "duration": 0.010127
       },
       "io": {
         "inputs": [
@@ -428,13 +428,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "eS4Gg-branch-0",
+            "digest": "nbhzH-branch-0",
             "data": {
-              "date": "2020-01-31",
-              "time": "02:16:12.691612"
+              "date": "2026-06-07",
+              "time": "02:30:30.536101"
             },
-            "data_text": "{\n  \"date\": \"2020-01-31\",\n  \"time\": \"02:16:12.691612\"\n}\n",
-            "data_html": "2020-01-31T02:16:12.691612",
+            "data_text": "{\n  \"date\": \"2026-06-07\",\n  \"time\": \"02:30:30.536101\"\n}\n",
+            "data_html": "2026-06-07T02:30:30.536101",
             "extra": {}
           }
         ],
@@ -445,113 +445,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9tD4-branch-0",
+            "digest": "fXzXB-branch-0",
             "data": {
-              "day": "EhIDqHUIbtobXxWmBOiq",
-              "is_free": false,
-              "note": "xnfrUtlvKgYINDhyaulJ"
-            },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ EhIDqHUIbtobXxWmBOiq                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ xnfrUtlvKgYINDhyaulJ                               \n",
-            "data_html": "<table><tr><th>day</th><td>EhIDqHUIbtobXxWmBOiq</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>xnfrUtlvKgYINDhyaulJ</td></tr></table>",
-            "extra": {}
-          }
-        ]
-      },
-      "error": null,
-      "tags": {},
-      "metrics": {},
-      "usage": {
-        "inference_calls": 1,
-        "rated_inference_calls": 0,
-        "nb_tokens_by_category": {},
-        "total_tokens": 0,
-        "cost": null,
-        "cost_input": null,
-        "cost_output": null,
-        "by_model": [
-          {
-            "inference_model_name": "dry_run",
-            "inference_model_id": "dry_run",
-            "model_type": "llm",
-            "inference_calls": 1,
-            "rated_inference_calls": 0,
-            "cost": null
-          }
-        ],
-        "subtree_inference_calls": 1,
-        "subtree_rated_inference_calls": 0,
-        "subtree_nb_tokens_by_category": {},
-        "subtree_total_tokens": 0,
-        "subtree_cost": null,
-        "subtree_cost_input": null,
-        "subtree_cost_output": null,
-        "subtree_by_model": [
-          {
-            "inference_model_name": "dry_run",
-            "inference_model_id": "dry_run",
-            "model_type": "llm",
-            "inference_calls": 1,
-            "rated_inference_calls": 0,
-            "cost": null
-          }
-        ]
-      },
-      "execution_data": {
-        "resolved_model": "claude-4.6-sonnet",
-        "resolved_model_for_object": "claude-4.6-sonnet",
-        "is_multiple_output": false,
-        "rendered_system_prompt": null,
-        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2020-01-31T02:16:12.691612\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
-        "structuring_path": "object_direct"
-      }
-    },
-    {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_5",
-      "kind": "operator",
-      "pipe_code": "check_day",
-      "pipe_type": "PipeLLM",
-      "description": "Check the calendar for one proposed date",
-      "domain_code": "availability",
-      "status": "succeeded",
-      "skip_reason": null,
-      "timing": {
-        "started_at": "2026-08-14T09:51:04.168538Z",
-        "ended_at": "2026-08-14T09:51:04.177285Z",
-        "duration": 0.008747
-      },
-      "io": {
-        "inputs": [
-          {
-            "name": "day",
-            "concept": "Date",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "eS4Gg-branch-1",
-            "data": {
-              "date": "2020-05-02",
-              "time": "11:10:53.290882"
-            },
-            "data_text": "{\n  \"date\": \"2020-05-02\",\n  \"time\": \"11:10:53.290882\"\n}\n",
-            "data_html": "2020-05-02T11:10:53.290882",
-            "extra": {}
-          }
-        ],
-        "outputs": [
-          {
-            "name": "slot_check",
-            "concept": "SlotCheck",
-            "content_type": null,
-            "preview": null,
-            "size": null,
-            "digest": "A9tD4-branch-1",
-            "data": {
-              "day": "WPnAWqHGOySjtcuxxAyD",
+              "day": "YeImXCCxuaevsYziCsYG",
               "is_free": true,
-              "note": "KtRrbDcXZhdNVwwGxCVC"
+              "note": "IpJxwsJLFHAZhGNynapT"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ WPnAWqHGOySjtcuxxAyD                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ KtRrbDcXZhdNVwwGxCVC                               \n",
-            "data_html": "<table><tr><th>day</th><td>WPnAWqHGOySjtcuxxAyD</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>KtRrbDcXZhdNVwwGxCVC</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ YeImXCCxuaevsYziCsYG                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ IpJxwsJLFHAZhGNynapT                               \n",
+            "data_html": "<table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table>",
             "extra": {}
           }
         ]
@@ -600,12 +501,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2020-05-02T11:10:53.290882\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2026-06-07T02:30:30.536101\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_6",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_5",
       "kind": "operator",
       "pipe_code": "check_day",
       "pipe_type": "PipeLLM",
@@ -614,9 +515,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.180458Z",
-        "ended_at": "2026-08-14T09:51:04.189436Z",
-        "duration": 0.008978
+        "started_at": "2026-08-14T10:50:17.697043Z",
+        "ended_at": "2026-08-14T10:50:17.705161Z",
+        "duration": 0.008118
       },
       "io": {
         "inputs": [
@@ -626,13 +527,13 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "eS4Gg-branch-2",
+            "digest": "nbhzH-branch-1",
             "data": {
-              "date": "2022-02-23",
-              "time": "20:32:49.542672"
+              "date": "2021-03-30",
+              "time": "19:33:12.833996"
             },
-            "data_text": "{\n  \"date\": \"2022-02-23\",\n  \"time\": \"20:32:49.542672\"\n}\n",
-            "data_html": "2022-02-23T20:32:49.542672",
+            "data_text": "{\n  \"date\": \"2021-03-30\",\n  \"time\": \"19:33:12.833996\"\n}\n",
+            "data_html": "2021-03-30T19:33:12.833996",
             "extra": {}
           }
         ],
@@ -643,14 +544,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "A9tD4-branch-2",
+            "digest": "fXzXB-branch-1",
             "data": {
-              "day": "VpCQAXyQvFufFutetXTT",
+              "day": "DEbKRcsCWfYqDvgEZxcZ",
               "is_free": true,
-              "note": "PVfpkMURLwJGokAIXCrV"
+              "note": "GzSSIZMxtCgsUiGMSjJG"
             },
-            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ VpCQAXyQvFufFutetXTT                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ PVfpkMURLwJGokAIXCrV                               \n",
-            "data_html": "<table><tr><th>day</th><td>VpCQAXyQvFufFutetXTT</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>PVfpkMURLwJGokAIXCrV</td></tr></table>",
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ DEbKRcsCWfYqDvgEZxcZ                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ GzSSIZMxtCgsUiGMSjJG                               \n",
+            "data_html": "<table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table>",
             "extra": {}
           }
         ]
@@ -699,12 +600,111 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2022-02-23T20:32:49.542672\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2021-03-30T19:33:12.833996\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_6",
+      "kind": "operator",
+      "pipe_code": "check_day",
+      "pipe_type": "PipeLLM",
+      "description": "Check the calendar for one proposed date",
+      "domain_code": "availability",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:17.708223Z",
+        "ended_at": "2026-08-14T10:50:17.715759Z",
+        "duration": 0.007536
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "day",
+            "concept": "Date",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "nbhzH-branch-2",
+            "data": {
+              "date": "2026-02-12",
+              "time": "18:59:47.662836"
+            },
+            "data_text": "{\n  \"date\": \"2026-02-12\",\n  \"time\": \"18:59:47.662836\"\n}\n",
+            "data_html": "2026-02-12T18:59:47.662836",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "slot_check",
+            "concept": "SlotCheck",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "fXzXB-branch-2",
+            "data": {
+              "day": "ylcqPjJyKgmCJaCkvztu",
+              "is_free": true,
+              "note": "NqkoZxvTkTyqDYYRAgIe"
+            },
+            "data_text": " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n day                       │ ylcqPjJyKgmCJaCkvztu                               \n───────────────────────────┼────────────────────────────────────────────────────\n is_free                   │ True                                               \n───────────────────────────┼────────────────────────────────────────────────────\n note                      │ NqkoZxvTkTyqDYYRAgIe                               \n",
+            "data_html": "<table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Check whether the calendar is free on the date below, and say what else is on it.\n\n<day>\n2026-02-12T18:59:47.662836\n</day>\n\n---\nThe instance we want to generate will be for the following class:\nclass availability__SlotCheck(StructuredContent):\n    \"\"\"Whether one proposed date has a free slot\"\"\"\n    day: str  # The date that was checked, in ISO 8601\n    is_free: bool  # Whether the calendar is free that day\n    note: str  # What else is on the calendar that day\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
       "kind": "controller",
       "pipe_code": "route_reply",
       "pipe_type": "PipeCondition",
@@ -713,9 +713,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.197256Z",
-        "ended_at": "2026-08-14T09:51:04.281744Z",
-        "duration": 0.084488
+        "started_at": "2026-08-14T10:50:17.723258Z",
+        "ended_at": "2026-08-14T10:50:17.841178Z",
+        "duration": 0.11792
       },
       "io": {
         "inputs": [
@@ -725,7 +725,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "PsnNg",
+            "digest": "X5pjT",
             "data": {
               "yes_no": false
             },
@@ -739,28 +739,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jPV8r",
+            "digest": "R3Zwn",
             "data": {
               "items": [
                 {
-                  "day": "EhIDqHUIbtobXxWmBOiq",
-                  "is_free": false,
-                  "note": "xnfrUtlvKgYINDhyaulJ"
+                  "day": "YeImXCCxuaevsYziCsYG",
+                  "is_free": true,
+                  "note": "IpJxwsJLFHAZhGNynapT"
                 },
                 {
-                  "day": "WPnAWqHGOySjtcuxxAyD",
+                  "day": "DEbKRcsCWfYqDvgEZxcZ",
                   "is_free": true,
-                  "note": "KtRrbDcXZhdNVwwGxCVC"
+                  "note": "GzSSIZMxtCgsUiGMSjJG"
                 },
                 {
-                  "day": "VpCQAXyQvFufFutetXTT",
+                  "day": "ylcqPjJyKgmCJaCkvztu",
                   "is_free": true,
-                  "note": "PVfpkMURLwJGokAIXCrV"
+                  "note": "NqkoZxvTkTyqDYYRAgIe"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ EhIDqHUIbtobXxWmBOiq                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ xnfrUtlvKgYINDhyaulJ                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ WPnAWqHGOySjtcuxxAyD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ KtRrbDcXZhdNVwwGxCVC                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ VpCQAXyQvFufFutetXTT                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ PVfpkMURLwJGokAIXCrV                        \n",
-            "data_html": "<ul><li><table><tr><th>day</th><td>EhIDqHUIbtobXxWmBOiq</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>xnfrUtlvKgYINDhyaulJ</td></tr></table></li><li><table><tr><th>day</th><td>WPnAWqHGOySjtcuxxAyD</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>KtRrbDcXZhdNVwwGxCVC</td></tr></table></li><li><table><tr><th>day</th><td>VpCQAXyQvFufFutetXTT</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>PVfpkMURLwJGokAIXCrV</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ YeImXCCxuaevsYziCsYG                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ IpJxwsJLFHAZhGNynapT                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ DEbKRcsCWfYqDvgEZxcZ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ GzSSIZMxtCgsUiGMSjJG                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ ylcqPjJyKgmCJaCkvztu                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ NqkoZxvTkTyqDYYRAgIe                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table></li><li><table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table></li><li><table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -771,12 +771,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e8jqC",
+            "digest": "8gdAG",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: EhIDqHUIbtobXxWmBOiq                                      \n\n                                           is_free: False                                           \n\n                                     note: xnfrUtlvKgYINDhyaulJ                                     \n\n• item #2:                                                                                          \n\n                                     day: WPnAWqHGOySjtcuxxAyD                                      \n\n                                                 is                                                 \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n• item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                                is_                                                 \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    ",
             "extra": {}
           }
         ]
@@ -817,7 +817,7 @@
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_8",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_8",
       "kind": "operator",
       "pipe_code": "reply_now",
       "pipe_type": "PipeLLM",
@@ -826,9 +826,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.202531Z",
-        "ended_at": "2026-08-14T09:51:04.262674Z",
-        "duration": 0.060143
+        "started_at": "2026-08-14T10:50:17.728079Z",
+        "ended_at": "2026-08-14T10:50:17.825086Z",
+        "duration": 0.097007
       },
       "io": {
         "inputs": [
@@ -838,28 +838,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jPV8r",
+            "digest": "R3Zwn",
             "data": {
               "items": [
                 {
-                  "day": "EhIDqHUIbtobXxWmBOiq",
-                  "is_free": false,
-                  "note": "xnfrUtlvKgYINDhyaulJ"
+                  "day": "YeImXCCxuaevsYziCsYG",
+                  "is_free": true,
+                  "note": "IpJxwsJLFHAZhGNynapT"
                 },
                 {
-                  "day": "WPnAWqHGOySjtcuxxAyD",
+                  "day": "DEbKRcsCWfYqDvgEZxcZ",
                   "is_free": true,
-                  "note": "KtRrbDcXZhdNVwwGxCVC"
+                  "note": "GzSSIZMxtCgsUiGMSjJG"
                 },
                 {
-                  "day": "VpCQAXyQvFufFutetXTT",
+                  "day": "ylcqPjJyKgmCJaCkvztu",
                   "is_free": true,
-                  "note": "PVfpkMURLwJGokAIXCrV"
+                  "note": "NqkoZxvTkTyqDYYRAgIe"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ EhIDqHUIbtobXxWmBOiq                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ xnfrUtlvKgYINDhyaulJ                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ WPnAWqHGOySjtcuxxAyD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ KtRrbDcXZhdNVwwGxCVC                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ VpCQAXyQvFufFutetXTT                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ PVfpkMURLwJGokAIXCrV                        \n",
-            "data_html": "<ul><li><table><tr><th>day</th><td>EhIDqHUIbtobXxWmBOiq</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>xnfrUtlvKgYINDhyaulJ</td></tr></table></li><li><table><tr><th>day</th><td>WPnAWqHGOySjtcuxxAyD</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>KtRrbDcXZhdNVwwGxCVC</td></tr></table></li><li><table><tr><th>day</th><td>VpCQAXyQvFufFutetXTT</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>PVfpkMURLwJGokAIXCrV</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ YeImXCCxuaevsYziCsYG                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ IpJxwsJLFHAZhGNynapT                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ DEbKRcsCWfYqDvgEZxcZ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ GzSSIZMxtCgsUiGMSjJG                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ ylcqPjJyKgmCJaCkvztu                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ NqkoZxvTkTyqDYYRAgIe                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table></li><li><table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table></li><li><table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -870,12 +870,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "NCarp",
+            "digest": "Mdvq5",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is_free: \n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: T\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n• item #1:                                                                                          \n\n                                     day: EhIDqHUIbtobXxWmBOiq                                      \n\n                                           is_free: False                                           \n\n                                     note: xnfrUtlvKgYINDhyaulJ                                     \n\n• item #2:                                                                                          \n\n                                     day: WPnAWqHGOySjtcuxxAyD                                      \n\n                                              is_free:                                              \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is_free: \n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is urgent.     \nConfirm the earliest free date from the checks below, in one short paragraph.                       \n\n\n• item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n• item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                             is_free: T                                             \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: T\n    ",
             "extra": {}
           }
         ]
@@ -924,12 +924,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is_free: True\n\n# note: KtRrbDcXZhdNVwwGxCVC\n\n • item #3:\n\n# day: VpCQAXyQvFufFutetXTT\n\n# is_free: True\n\n# note: PVfpkMURLwJGokAIXCrV\n\n</checks>",
+        "rendered_user_prompt": "This request is urgent. Confirm the earliest free date from the checks below, in one short paragraph.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: True\n\n# note: GzSSIZMxtCgsUiGMSjJG\n\n • item #3:\n\n# day: ylcqPjJyKgmCJaCkvztu\n\n# is_free: True\n\n# note: NqkoZxvTkTyqDYYRAgIe\n\n</checks>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_9",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:node_9",
       "kind": "operator",
       "pipe_code": "reply_with_options",
       "pipe_type": "PipeLLM",
@@ -938,9 +938,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:51:04.262750Z",
-        "ended_at": "2026-08-14T09:51:04.280164Z",
-        "duration": 0.017414
+        "started_at": "2026-08-14T10:50:17.825144Z",
+        "ended_at": "2026-08-14T10:50:17.840451Z",
+        "duration": 0.015307
       },
       "io": {
         "inputs": [
@@ -950,28 +950,28 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jPV8r",
+            "digest": "R3Zwn",
             "data": {
               "items": [
                 {
-                  "day": "EhIDqHUIbtobXxWmBOiq",
-                  "is_free": false,
-                  "note": "xnfrUtlvKgYINDhyaulJ"
+                  "day": "YeImXCCxuaevsYziCsYG",
+                  "is_free": true,
+                  "note": "IpJxwsJLFHAZhGNynapT"
                 },
                 {
-                  "day": "WPnAWqHGOySjtcuxxAyD",
+                  "day": "DEbKRcsCWfYqDvgEZxcZ",
                   "is_free": true,
-                  "note": "KtRrbDcXZhdNVwwGxCVC"
+                  "note": "GzSSIZMxtCgsUiGMSjJG"
                 },
                 {
-                  "day": "VpCQAXyQvFufFutetXTT",
+                  "day": "ylcqPjJyKgmCJaCkvztu",
                   "is_free": true,
-                  "note": "PVfpkMURLwJGokAIXCrV"
+                  "note": "NqkoZxvTkTyqDYYRAgIe"
                 }
               ]
             },
-            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ EhIDqHUIbtobXxWmBOiq                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ False                                       \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ xnfrUtlvKgYINDhyaulJ                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ WPnAWqHGOySjtcuxxAyD                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ KtRrbDcXZhdNVwwGxCVC                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ VpCQAXyQvFufFutetXTT                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ PVfpkMURLwJGokAIXCrV                        \n",
-            "data_html": "<ul><li><table><tr><th>day</th><td>EhIDqHUIbtobXxWmBOiq</td></tr><tr><th>is_free</th><td>False</td></tr><tr><th>note</th><td>xnfrUtlvKgYINDhyaulJ</td></tr></table></li><li><table><tr><th>day</th><td>WPnAWqHGOySjtcuxxAyD</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>KtRrbDcXZhdNVwwGxCVC</td></tr></table></li><li><table><tr><th>day</th><td>VpCQAXyQvFufFutetXTT</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>PVfpkMURLwJGokAIXCrV</td></tr></table></li></ul>",
+            "data_text": "   1    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ YeImXCCxuaevsYziCsYG                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ IpJxwsJLFHAZhGNynapT                        \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ DEbKRcsCWfYqDvgEZxcZ                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ GzSSIZMxtCgsUiGMSjJG                        \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute              ┃ Value                                       \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  day                    │ ylcqPjJyKgmCJaCkvztu                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  is_free                │ True                                        \n        │ ────────────────────────┼──────────────────────────────────────────── \n        │  note                   │ NqkoZxvTkTyqDYYRAgIe                        \n",
+            "data_html": "<ul><li><table><tr><th>day</th><td>YeImXCCxuaevsYziCsYG</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>IpJxwsJLFHAZhGNynapT</td></tr></table></li><li><table><tr><th>day</th><td>DEbKRcsCWfYqDvgEZxcZ</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>GzSSIZMxtCgsUiGMSjJG</td></tr></table></li><li><table><tr><th>day</th><td>ylcqPjJyKgmCJaCkvztu</td></tr><tr><th>is_free</th><td>True</td></tr><tr><th>note</th><td>NqkoZxvTkTyqDYYRAgIe</td></tr></table></li></ul>",
             "extra": {}
           }
         ],
@@ -982,12 +982,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "e8jqC",
+            "digest": "8gdAG",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: EhIDqHUIbtobXxWmBOiq                                      \n\n                                           is_free: False                                           \n\n                                     note: xnfrUtlvKgYINDhyaulJ                                     \n\n• item #2:                                                                                          \n\n                                     day: WPnAWqHGOySjtcuxxAyD                                      \n\n                                                 is                                                 \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: This request is not urgent. \nList every free date from the checks below and invite the requester to pick one.                    \n\n\n• item #1:                                                                                          \n\n                                     day: YeImXCCxuaevsYziCsYG                                      \n\n                                           is_free: True                                            \n\n                                     note: IpJxwsJLFHAZhGNynapT                                     \n\n• item #2:                                                                                          \n\n                                     day: DEbKRcsCWfYqDvgEZxcZ                                      \n\n                                                is_                                                 \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n&lt;checks&gt;\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_\n    ",
             "extra": {}
           }
         ]
@@ -1036,16 +1036,16 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: EhIDqHUIbtobXxWmBOiq\n\n# is_free: False\n\n# note: xnfrUtlvKgYINDhyaulJ\n\n • item #2:\n\n# day: WPnAWqHGOySjtcuxxAyD\n\n# is_free: True\n\n# note: KtRrbDcXZhdNVwwGxCVC\n\n • item #3:\n\n# day: VpCQAXyQvFufFutetXTT\n\n# is_free: True\n\n# note: PVfpkMURLwJGokAIXCrV\n\n</checks>",
+        "rendered_user_prompt": "This request is not urgent. List every free date from the checks below and invite the requester to pick one.\n\n<checks>\n\n • item #1:\n\n# day: YeImXCCxuaevsYziCsYG\n\n# is_free: True\n\n# note: IpJxwsJLFHAZhGNynapT\n\n • item #2:\n\n# day: DEbKRcsCWfYqDvgEZxcZ\n\n# is_free: True\n\n# note: GzSSIZMxtCgsUiGMSjJG\n\n • item #3:\n\n# day: ylcqPjJyKgmCJaCkvztu\n\n# is_free: True\n\n# note: NqkoZxvTkTyqDYYRAgIe\n\n</checks>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_0",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_0",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_1",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_0",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_0",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1054,9 +1054,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_1",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_0",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_2",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_1",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_0",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1065,9 +1065,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_2",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_0",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_2",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_0",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1076,9 +1076,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_3",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_4",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_3",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1087,9 +1087,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_4",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_5",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_4",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1098,9 +1098,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_5",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_6",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_5",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_6",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1109,9 +1109,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_6",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_0",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_6",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_0",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1120,9 +1120,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_7",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_8",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_7",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_8",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1131,9 +1131,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:edge_8",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_9",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:edge_8",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_9",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -1142,9 +1142,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_0",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_1",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_0",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_1",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "data",
       "optional": false,
       "label": "dates",
@@ -1153,9 +1153,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_1",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_2",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_1",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_2",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
       "kind": "data",
       "optional": false,
       "label": "urgent",
@@ -1164,9 +1164,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_2",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_7",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_2",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_7",
       "kind": "data",
       "optional": false,
       "label": "checks",
@@ -1175,9 +1175,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_3",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_8",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_3",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_8",
       "kind": "data",
       "optional": false,
       "label": "checks",
@@ -1186,9 +1186,9 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_4",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_9",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_4",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_9",
       "kind": "data",
       "optional": false,
       "label": "checks",
@@ -1197,69 +1197,69 @@
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_5",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_4",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_5",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_4",
       "kind": "batch_item",
       "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "eS4Gg",
-      "target_stuff_digest": "eS4Gg-branch-0",
+      "source_stuff_digest": "nbhzH",
+      "target_stuff_digest": "nbhzH-branch-0",
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_6",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_5",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_6",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_5",
       "kind": "batch_item",
       "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "eS4Gg",
-      "target_stuff_digest": "eS4Gg-branch-1",
+      "source_stuff_digest": "nbhzH",
+      "target_stuff_digest": "nbhzH-branch-1",
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_7",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_6",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_7",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_6",
       "kind": "batch_item",
       "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "eS4Gg",
-      "target_stuff_digest": "eS4Gg-branch-2",
+      "source_stuff_digest": "nbhzH",
+      "target_stuff_digest": "nbhzH-branch-2",
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_8",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_4",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_8",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_4",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "batch_aggregate",
       "optional": false,
       "label": "[0]",
-      "source_stuff_digest": "A9tD4-branch-0",
-      "target_stuff_digest": "jPV8r",
+      "source_stuff_digest": "fXzXB-branch-0",
+      "target_stuff_digest": "R3Zwn",
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_9",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_5",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_9",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_5",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "batch_aggregate",
       "optional": false,
       "label": "[1]",
-      "source_stuff_digest": "A9tD4-branch-1",
-      "target_stuff_digest": "jPV8r",
+      "source_stuff_digest": "fXzXB-branch-1",
+      "target_stuff_digest": "R3Zwn",
       "meta": {}
     },
     {
-      "id": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:asm_edge_10",
-      "source": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_6",
-      "target": "935ba2ac-57dc-4b26-b2e6-c322bcf186cd:node_3",
+      "id": "1007132a-ac41-422b-a62d-daa5faa9225a:asm_edge_10",
+      "source": "1007132a-ac41-422b-a62d-daa5faa9225a:node_6",
+      "target": "1007132a-ac41-422b-a62d-daa5faa9225a:node_3",
       "kind": "batch_aggregate",
       "optional": false,
       "label": "[2]",
-      "source_stuff_digest": "A9tD4-branch-2",
-      "target_stuff_digest": "jPV8r",
+      "source_stuff_digest": "fXzXB-branch-2",
+      "target_stuff_digest": "R3Zwn",
       "meta": {}
     }
   ],

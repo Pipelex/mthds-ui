@@ -1,6 +1,6 @@
 {
-  "graph_id": "e316d672-c240-4578-81a1-f315cdd42a0e",
-  "created_at": "2026-08-13T12:10:15.765017Z",
+  "graph_id": "913072ed-cea8-4d82-b802-42c119ea9a0d",
+  "created_at": "2026-08-14T10:28:18.078268Z",
   "pipeline_ref": {
     "domain": "translation",
     "main_pipe": "translate_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_0",
       "kind": "controller",
       "pipe_code": "translate_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-13T12:10:15.765017Z",
-        "ended_at": "2026-08-13T12:10:22.797403Z",
-        "duration": 7.032386
+        "started_at": "2026-08-14T10:28:18.078268Z",
+        "ended_at": "2026-08-14T10:28:29.213913Z",
+        "duration": 11.135645
       },
       "io": {
         "inputs": [
@@ -29,7 +29,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "g7RLU",
+            "digest": "nP7jp",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
             },
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U6Dxf",
+            "digest": "nd2ih",
             "data": {
-              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
+              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.\""
             },
-            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance.\"                                                \n",
-            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
+            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.\"                                              \n",
+            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
             "extra": {}
           }
         ]
@@ -99,7 +99,7 @@
       }
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_1",
       "kind": "operator",
       "pipe_code": "detect_language",
       "pipe_type": "PipeLLM",
@@ -108,9 +108,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-13T12:10:15.773261Z",
-        "ended_at": "2026-08-13T12:10:20.676155Z",
-        "duration": 4.902894
+        "started_at": "2026-08-14T10:28:18.093770Z",
+        "ended_at": "2026-08-14T10:28:26.159668Z",
+        "duration": 8.065898
       },
       "io": {
         "inputs": [
@@ -120,7 +120,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "g7RLU",
+            "digest": "nP7jp",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
             },
@@ -136,7 +136,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B47H5",
+            "digest": "9bdnv",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -214,7 +214,7 @@
       }
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_2",
       "kind": "controller",
       "pipe_code": "route_translation",
       "pipe_type": "PipeCondition",
@@ -223,9 +223,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-13T12:10:20.681234Z",
-        "ended_at": "2026-08-13T12:10:22.794838Z",
-        "duration": 2.113604
+        "started_at": "2026-08-14T10:28:26.163443Z",
+        "ended_at": "2026-08-14T10:28:29.210549Z",
+        "duration": 3.047106
       },
       "io": {
         "inputs": [
@@ -235,7 +235,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B47H5",
+            "digest": "9bdnv",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -252,12 +252,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U6Dxf",
+            "digest": "nd2ih",
             "data": {
-              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
+              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.\""
             },
-            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance.\"                                                \n",
-            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
+            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.\"                                              \n",
+            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
             "extra": {}
           }
         ]
@@ -303,7 +303,7 @@
       }
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_3",
       "kind": "operator",
       "pipe_code": "translate_french",
       "pipe_type": "PipeLLM",
@@ -312,9 +312,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-13T12:10:20.688926Z",
-        "ended_at": "2026-08-13T12:10:22.791669Z",
-        "duration": 2.102743
+        "started_at": "2026-08-14T10:28:26.171858Z",
+        "ended_at": "2026-08-14T10:28:29.206314Z",
+        "duration": 3.034456
       },
       "io": {
         "inputs": [
@@ -324,7 +324,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B47H5",
+            "digest": "9bdnv",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -341,12 +341,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "U6Dxf",
+            "digest": "nd2ih",
             "data": {
-              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
+              "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.\""
             },
-            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin machine translation and multilingual assistance.\"                                                \n",
-            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.&quot;",
+            "data_text": "Here is the English translation of the French text:                                                 \n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models   \ncan now understand and generate text in many languages. This capability opens up new possibilities  \nin automatic translation and multilingual assistance.\"                                              \n",
+            "data_html": "Here is the English translation of the French text:\n\n&quot;Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in automatic translation and multilingual assistance.&quot;",
             "extra": {}
           }
         ]
@@ -412,9 +412,9 @@
   ],
   "edges": [
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_0",
-      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
-      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:edge_0",
+      "source": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_0",
+      "target": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -423,9 +423,9 @@
       "meta": {}
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_1",
-      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
-      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:edge_1",
+      "source": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_0",
+      "target": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -434,9 +434,9 @@
       "meta": {}
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_2",
-      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
-      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:edge_2",
+      "source": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_2",
+      "target": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -445,9 +445,9 @@
       "meta": {}
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:asm_edge_0",
-      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
-      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:asm_edge_0",
+      "source": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_1",
+      "target": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_2",
       "kind": "data",
       "optional": false,
       "label": "classified",
@@ -456,9 +456,9 @@
       "meta": {}
     },
     {
-      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:asm_edge_1",
-      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
-      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
+      "id": "913072ed-cea8-4d82-b802-42c119ea9a0d:asm_edge_1",
+      "source": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_1",
+      "target": "913072ed-cea8-4d82-b802-42c119ea9a0d:node_3",
       "kind": "data",
       "optional": false,
       "label": "classified",

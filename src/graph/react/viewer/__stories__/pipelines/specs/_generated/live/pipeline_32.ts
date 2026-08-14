@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_MEETING_TRIAGE = {
-  graph_id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df",
-  created_at: "2026-08-13T13:47:57.392332Z",
+  graph_id: "7bb3e01d-e3ce-41c0-95a1-a54068773027",
+  created_at: "2026-08-14T10:46:50.209640Z",
   pipeline_ref: { domain: "scheduling", main_pipe: "triage_request", entrypoint: null },
   nodes: [
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_0",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_0",
       kind: "controller",
       pipe_code: "triage_request",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const LIVE_MEETING_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:47:57.392332Z",
-        ended_at: "2026-08-13T13:48:11.416210Z",
-        duration: 14.023878,
+        started_at: "2026-08-14T10:46:50.209640Z",
+        ended_at: "2026-08-14T10:47:00.033057Z",
+        duration: 9.823417,
       },
       io: {
         inputs: [
@@ -31,7 +31,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kCrZp",
+            digest: "Api7Q",
             data: {
               text: "Hi — could we meet to review the Q3 roadmap? I can do either March 12 or March 14, ideally early afternoon around 2pm. This is fairly urgent: the board packet is due the following Monday.",
             },
@@ -49,7 +49,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "V57dm",
+            digest: "EBGqc",
             data: { yes_no: true },
             data_text: '{\n    "yes_no": true\n}\n',
             data_html: "yes",
@@ -99,7 +99,7 @@ export const LIVE_MEETING_TRIAGE = {
       execution_data: { step_count: 4 },
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_1",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_1",
       kind: "operator",
       pipe_code: "read_dates",
       pipe_type: "PipeLLM",
@@ -108,9 +108,9 @@ export const LIVE_MEETING_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:47:57.400294Z",
-        ended_at: "2026-08-13T13:48:03.787961Z",
-        duration: 6.387667,
+        started_at: "2026-08-14T10:46:50.218053Z",
+        ended_at: "2026-08-14T10:46:54.661129Z",
+        duration: 4.443076,
       },
       io: {
         inputs: [
@@ -120,7 +120,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kCrZp",
+            digest: "Api7Q",
             data: {
               text: "Hi — could we meet to review the Q3 roadmap? I can do either March 12 or March 14, ideally early afternoon around 2pm. This is fairly urgent: the board packet is due the following Monday.",
             },
@@ -138,7 +138,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NtuGB",
+            digest: "nLm6v",
             data: {
               items: [
                 { date: "2025-03-12", time: "14:00:00" },
@@ -220,7 +220,7 @@ export const LIVE_MEETING_TRIAGE = {
       },
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_2",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_2",
       kind: "operator",
       pipe_code: "read_slot",
       pipe_type: "PipeLLM",
@@ -229,9 +229,9 @@ export const LIVE_MEETING_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:48:03.792356Z",
-        ended_at: "2026-08-13T13:48:05.903298Z",
-        duration: 2.110942,
+        started_at: "2026-08-14T10:46:54.668602Z",
+        ended_at: "2026-08-14T10:46:56.391362Z",
+        duration: 1.72276,
       },
       io: {
         inputs: [
@@ -241,7 +241,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kCrZp",
+            digest: "Api7Q",
             data: {
               text: "Hi — could we meet to review the Q3 roadmap? I can do either March 12 or March 14, ideally early afternoon around 2pm. This is fairly urgent: the board packet is due the following Monday.",
             },
@@ -259,7 +259,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KG7dL",
+            digest: "FjUro",
             data: { time: "14:00:00" },
             data_text: '{\n  "time": "14:00:00"\n}\n',
             data_html: "14:00:00",
@@ -335,7 +335,7 @@ export const LIVE_MEETING_TRIAGE = {
       },
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_3",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_3",
       kind: "operator",
       pipe_code: "is_urgent",
       pipe_type: "PipeLLM",
@@ -344,9 +344,9 @@ export const LIVE_MEETING_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:48:05.907616Z",
-        ended_at: "2026-08-13T13:48:08.744779Z",
-        duration: 2.837163,
+        started_at: "2026-08-14T10:46:56.401063Z",
+        ended_at: "2026-08-14T10:46:57.927209Z",
+        duration: 1.526146,
       },
       io: {
         inputs: [
@@ -356,7 +356,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kCrZp",
+            digest: "Api7Q",
             data: {
               text: "Hi — could we meet to review the Q3 roadmap? I can do either March 12 or March 14, ideally early afternoon around 2pm. This is fairly urgent: the board packet is due the following Monday.",
             },
@@ -374,7 +374,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "QZsYc",
+            digest: "nZzAB",
             data: { yes_no: true },
             data_text: '{\n    "yes_no": true\n}\n',
             data_html: "yes",
@@ -450,7 +450,7 @@ export const LIVE_MEETING_TRIAGE = {
       },
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_4",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_4",
       kind: "operator",
       pipe_code: "decide",
       pipe_type: "PipeLLM",
@@ -459,9 +459,9 @@ export const LIVE_MEETING_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:48:08.752873Z",
-        ended_at: "2026-08-13T13:48:11.410449Z",
-        duration: 2.657576,
+        started_at: "2026-08-14T10:46:57.937024Z",
+        ended_at: "2026-08-14T10:47:00.026544Z",
+        duration: 2.08952,
       },
       io: {
         inputs: [
@@ -471,7 +471,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NtuGB",
+            digest: "nLm6v",
             data: {
               items: [
                 { date: "2025-03-12", time: "14:00:00" },
@@ -489,7 +489,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KG7dL",
+            digest: "FjUro",
             data: { time: "14:00:00" },
             data_text: '{\n  "time": "14:00:00"\n}\n',
             data_html: "14:00:00",
@@ -501,7 +501,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "QZsYc",
+            digest: "nZzAB",
             data: { yes_no: true },
             data_text: '{\n    "yes_no": true\n}\n',
             data_html: "yes",
@@ -515,7 +515,7 @@ export const LIVE_MEETING_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "V57dm",
+            digest: "EBGqc",
             data: { yes_no: true },
             data_text: '{\n    "yes_no": true\n}\n',
             data_html: "yes",
@@ -593,9 +593,9 @@ export const LIVE_MEETING_TRIAGE = {
   ],
   edges: [
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:edge_0",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_0",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_1",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:edge_0",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_0",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -604,9 +604,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:edge_1",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_0",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_2",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:edge_1",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_0",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -615,9 +615,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:edge_2",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_0",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_3",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:edge_2",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_0",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -626,9 +626,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:edge_3",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_0",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_4",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:edge_3",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_0",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -637,9 +637,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:asm_edge_0",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_1",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_4",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:asm_edge_0",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_1",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_4",
       kind: "data",
       optional: false,
       label: "dates",
@@ -648,9 +648,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:asm_edge_1",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_2",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_4",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:asm_edge_1",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_2",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_4",
       kind: "data",
       optional: false,
       label: "slot",
@@ -659,9 +659,9 @@ export const LIVE_MEETING_TRIAGE = {
       meta: {},
     },
     {
-      id: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:asm_edge_2",
-      source: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_3",
-      target: "5c470a2a-c894-4597-bd24-6d4a8e9d68df:node_4",
+      id: "7bb3e01d-e3ce-41c0-95a1-a54068773027:asm_edge_2",
+      source: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_3",
+      target: "7bb3e01d-e3ce-41c0-95a1-a54068773027:node_4",
       kind: "data",
       optional: false,
       label: "urgent",

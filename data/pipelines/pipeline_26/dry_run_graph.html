@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<!--
+  External (loaded from jsDelivr with Subresource Integrity):
+    React (MIT), @xyflow/react (MIT), DOMPurify (MPL-2.0/Apache-2.0),
+    @pipelex/mthds-ui (MIT), elkjs (EPL-2.0).
+  Nothing is bundled into this file — all viewer code is fetched at view time
+  from cdn.jsdelivr.net with sha384 hashes that pin tamper-evident content.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Screen Cvs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.css" integrity="sha384-+RAnunPv8/gJkU2A4kO1jjx56ZMIdtJP2FC8yoYAfXJGOZWgWHnqz9EWVAho6/HZ" crossorigin="anonymous">
+</head>
+<body data-theme="dark">
+<div id="app-container">
+  <div id="root"></div>
+</div>
+
+<script type="application/json" id="pipelex-graphspec">{
+  "graph_id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd",
+  "created_at": "2026-08-14T10:49:57.034470Z",
+  "pipeline_ref": {
+    "domain": "cv_matching",
+    "main_pipe": "screen_cvs",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_0",
+      "kind": "controller",
+      "pipe_code": "screen_cvs",
+      "pipe_type": "PipeSequence",
+      "description": "Screen multiple CVs against a job offer",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.034470Z",
+        "ended_at": "2026-08-14T10:49:57.218981Z",
+        "duration": 0.184511
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer",
+            "concept": "Document",
+            "content_type": "jtiaPyWsSveVbYJZJceR",
+            "preview": null,
+            "size": null,
+            "digest": "cPpmF",
+            "data": {
+              "url": "gxnoaUWYKEUluzJeZzrY",
+              "public_url": "ozikitXCKvRZggeFYpDa",
+              "mime_type": "jtiaPyWsSveVbYJZJceR",
+              "filename": "LFfBZdSVebaqwapXkJFv",
+              "title": "DnKopegkZQZmsgTldmKa",
+              "snippet": "OIwWEweEqRYVWPvcAjrB"
+            },
+            "data_text": "DnKopegkZQZmsgTldmKa (gxnoaUWYKEUluzJeZzrY)\n  OIwWEweEqRYVWPvcAjrB\n",
+            "data_html": "<a href=\"ozikitXCKvRZggeFYpDa\" class=\"msg-document\">DnKopegkZQZmsgTldmKa</a><br/><small>OIwWEweEqRYVWPvcAjrB</small>",
+            "extra": {}
+          },
+          {
+            "name": "cvs",
+            "concept": "Document",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN",
+            "data": {
+              "items": [
+                {
+                  "url": "HKmLEDbVvlzXulMKeIwG",
+                  "public_url": "VdpPxcOYWsJVmIbNJyco",
+                  "mime_type": "QgLFDwNsxGJwbAtLHuzO",
+                  "filename": "ukidVMNMyBkwFAGHiJhb",
+                  "title": "wLcxhnYkWWzuHiKhPyfv",
+                  "snippet": "LtSpACEJNnnVvMSOuhsl"
+                },
+                {
+                  "url": "RuzmgjxQIHnBAhSKJCzz",
+                  "public_url": "YKbaDiAdfoZdQEhBjZOF",
+                  "mime_type": "bnBELATiBVCmKpNfVMXH",
+                  "filename": "EDKwkSBWfLeSzRutBOtQ",
+                  "title": "EFyBalfqjJaEoWJiiGUA",
+                  "snippet": "PVotoIaeUSSNQyiGHKOb"
+                }
+              ]
+            },
+            "data_text": "     1      \u2502 wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)                       \n            \u2502   LtSpACEJNnnVvMSOuhsl                                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n     2      \u2502 EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)                       \n            \u2502   PVotoIaeUSSNQyiGHKOb                                            \n",
+            "data_html": "<ul><li><a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small></li><li><a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "results",
+            "concept": "Anything",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GCwvx",
+            "data": {
+              "items": [
+                {
+                  "text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                },
+                {
+                  "text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 Dear jsajZQPCAkFngAOjCuWE,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 fruPtXOzKfJpWgwKksgm                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 Dear vjXGCmGpSvVhMCAOKdid,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 TlkItpoNkYxdbtaFaJIw                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n",
+            "data_html": "<ul><li>Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "kind": "operator",
+      "pipe_code": "extract_job_pages",
+      "pipe_type": "PipeExtract",
+      "description": "Extract text pages from the job offer document",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.040993Z",
+        "ended_at": "2026-08-14T10:49:57.050400Z",
+        "duration": 0.009407
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer",
+            "concept": "Document",
+            "content_type": "jtiaPyWsSveVbYJZJceR",
+            "preview": null,
+            "size": null,
+            "digest": "cPpmF",
+            "data": {
+              "url": "gxnoaUWYKEUluzJeZzrY",
+              "public_url": "ozikitXCKvRZggeFYpDa",
+              "mime_type": "jtiaPyWsSveVbYJZJceR",
+              "filename": "LFfBZdSVebaqwapXkJFv",
+              "title": "DnKopegkZQZmsgTldmKa",
+              "snippet": "OIwWEweEqRYVWPvcAjrB"
+            },
+            "data_text": "DnKopegkZQZmsgTldmKa (gxnoaUWYKEUluzJeZzrY)\n  OIwWEweEqRYVWPvcAjrB\n",
+            "data_html": "<a href=\"ozikitXCKvRZggeFYpDa\" class=\"msg-document\">DnKopegkZQZmsgTldmKa</a><br/><small>OIwWEweEqRYVWPvcAjrB</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "job_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Bhn5U",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "job_offer",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "kind": "controller",
+      "pipe_code": "screen_single_cv_batch",
+      "pipe_type": "PipeBatch",
+      "description": "Batch processing for screen_single_cv",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.054434Z",
+        "ended_at": "2026-08-14T10:49:57.216446Z",
+        "duration": 0.162012
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cvs",
+            "concept": "Document",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN",
+            "data": {
+              "items": [
+                {
+                  "url": "HKmLEDbVvlzXulMKeIwG",
+                  "public_url": "VdpPxcOYWsJVmIbNJyco",
+                  "mime_type": "QgLFDwNsxGJwbAtLHuzO",
+                  "filename": "ukidVMNMyBkwFAGHiJhb",
+                  "title": "wLcxhnYkWWzuHiKhPyfv",
+                  "snippet": "LtSpACEJNnnVvMSOuhsl"
+                },
+                {
+                  "url": "RuzmgjxQIHnBAhSKJCzz",
+                  "public_url": "YKbaDiAdfoZdQEhBjZOF",
+                  "mime_type": "bnBELATiBVCmKpNfVMXH",
+                  "filename": "EDKwkSBWfLeSzRutBOtQ",
+                  "title": "EFyBalfqjJaEoWJiiGUA",
+                  "snippet": "PVotoIaeUSSNQyiGHKOb"
+                }
+              ]
+            },
+            "data_text": "     1      \u2502 wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)                       \n            \u2502   LtSpACEJNnnVvMSOuhsl                                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n     2      \u2502 EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)                       \n            \u2502   PVotoIaeUSSNQyiGHKOb                                            \n",
+            "data_html": "<ul><li><a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small></li><li><a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "results",
+            "concept": "Anything",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GCwvx",
+            "data": {
+              "items": [
+                {
+                  "text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                },
+                {
+                  "text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 Dear jsajZQPCAkFngAOjCuWE,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 fruPtXOzKfJpWgwKksgm                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 Dear vjXGCmGpSvVhMCAOKdid,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 TlkItpoNkYxdbtaFaJIw                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n",
+            "data_html": "<ul><li>Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "item_count": 2,
+        "branch_pipe_code": "screen_single_cv"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "kind": "controller",
+      "pipe_code": "screen_single_cv",
+      "pipe_type": "PipeSequence",
+      "description": "Screen a single CV against a job offer",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.058644Z",
+        "ended_at": "2026-08-14T10:49:57.153367Z",
+        "duration": 0.094723
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "QgLFDwNsxGJwbAtLHuzO",
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN-branch-0",
+            "data": {
+              "url": "HKmLEDbVvlzXulMKeIwG",
+              "public_url": "VdpPxcOYWsJVmIbNJyco",
+              "mime_type": "QgLFDwNsxGJwbAtLHuzO",
+              "filename": "ukidVMNMyBkwFAGHiJhb",
+              "title": "wLcxhnYkWWzuHiKhPyfv",
+              "snippet": "LtSpACEJNnnVvMSOuhsl"
+            },
+            "data_text": "wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)\n  LtSpACEJNnnVvMSOuhsl\n",
+            "data_html": "<a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small>",
+            "extra": {}
+          },
+          {
+            "name": "job_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Bhn5U",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "BaRVZ",
+            "data": {
+              "text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear jsajZQPCAkFngAOjCuWE,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nfruPtXOzKfJpWgwKksgm                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_4",
+      "kind": "operator",
+      "pipe_code": "extract_cv_pages",
+      "pipe_type": "PipeExtract",
+      "description": "Extract text pages from a CV document",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.064035Z",
+        "ended_at": "2026-08-14T10:49:57.069719Z",
+        "duration": 0.005684
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "QgLFDwNsxGJwbAtLHuzO",
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN-branch-0",
+            "data": {
+              "url": "HKmLEDbVvlzXulMKeIwG",
+              "public_url": "VdpPxcOYWsJVmIbNJyco",
+              "mime_type": "QgLFDwNsxGJwbAtLHuzO",
+              "filename": "ukidVMNMyBkwFAGHiJhb",
+              "title": "wLcxhnYkWWzuHiKhPyfv",
+              "snippet": "LtSpACEJNnnVvMSOuhsl"
+            },
+            "data_text": "wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)\n  LtSpACEJNnnVvMSOuhsl\n",
+            "data_html": "<a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LBMWF",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "cv",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "kind": "operator",
+      "pipe_code": "evaluate_cv",
+      "pipe_type": "PipeLLM",
+      "description": "Evaluate how well the CV matches the job offer requirements",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.074251Z",
+        "ended_at": "2026-08-14T10:49:57.124326Z",
+        "duration": 0.050075
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "LBMWF",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Bhn5U",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "m2YiV",
+            "data": {
+              "candidate_name": "jsajZQPCAkFngAOjCuWE",
+              "match": "yes",
+              "match_score": -58345834.734892,
+              "strengths": [
+                "b451"
+              ],
+              "gaps": [
+                "4b56105f88"
+              ],
+              "summary": "fruPtXOzKfJpWgwKksgm"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 jsajZQPCAkFngAOjCuWE                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 yes                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 -58345834.734892                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 b451                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 4b56105f88                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 fruPtXOzKfJpWgwKksgm                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>jsajZQPCAkFngAOjCuWE</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58345834.734892</td></tr><tr><th>strengths</th><td><ul><li>b451</li></ul></td></tr><tr><th>gaps</th><td><ul><li>4b56105f88</li></ul></td></tr><tr><th>summary</th><td>fruPtXOzKfJpWgwKksgm</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "You are an experienced HR recruiter. Analyze the following CV and job offer, then evaluate how well the candidate matches the position.\n\n## Job Offer\n<job_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_pages>\n\n## Candidate CV\n<cv_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n## Instructions\n- Extract the candidate name from the CV\n- Assess whether the candidate is a good match (yes/no) based on required qualifications, experience, and skills\n- Provide a match score from 0 to 100\n- List key strengths relevant to the position\n- List gaps or missing qualifications\n- Write a concise overall summary of the evaluation\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__CvEvaluation(StructuredContent):\n    \"\"\"Evaluation of a CV against a job offer\"\"\"\n    candidate_name: str  # Name of the candidate\n    match: Literal[\n        \"yes\",\n        \"no\",\n    ]  # Whether the CV matches: yes or no\n    match_score: float  # Match score from 0 to 100\n    strengths: List[Any] | None = None  # Key strengths relative to the job\n    gaps: List[Any] | None = None  # Missing qualifications relative to the job\n    summary: str  # Overall evaluation summary\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_6",
+      "kind": "controller",
+      "pipe_code": "route_by_match",
+      "pipe_type": "PipeCondition",
+      "description": "Route based on whether the CV matches the job offer",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.127652Z",
+        "ended_at": "2026-08-14T10:49:57.151251Z",
+        "duration": 0.023599
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "m2YiV",
+            "data": {
+              "candidate_name": "jsajZQPCAkFngAOjCuWE",
+              "match": "yes",
+              "match_score": -58345834.734892,
+              "strengths": [
+                "b451"
+              ],
+              "gaps": [
+                "4b56105f88"
+              ],
+              "summary": "fruPtXOzKfJpWgwKksgm"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 jsajZQPCAkFngAOjCuWE                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 yes                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 -58345834.734892                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 b451                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 4b56105f88                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 fruPtXOzKfJpWgwKksgm                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>jsajZQPCAkFngAOjCuWE</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58345834.734892</td></tr><tr><th>strengths</th><td><ul><li>b451</li></ul></td></tr><tr><th>gaps</th><td><ul><li>4b56105f88</li></ul></td></tr><tr><th>summary</th><td>fruPtXOzKfJpWgwKksgm</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "BaRVZ",
+            "data": {
+              "text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear jsajZQPCAkFngAOjCuWE,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nfruPtXOzKfJpWgwKksgm                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_7",
+      "kind": "operator",
+      "pipe_code": "generate_interview_questions",
+      "pipe_type": "PipeLLM",
+      "description": "Generate tailored interview questions for a matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.131145Z",
+        "ended_at": "2026-08-14T10:49:57.142082Z",
+        "duration": 0.010937
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "m2YiV",
+            "data": {
+              "candidate_name": "jsajZQPCAkFngAOjCuWE",
+              "match": "yes",
+              "match_score": -58345834.734892,
+              "strengths": [
+                "b451"
+              ],
+              "gaps": [
+                "4b56105f88"
+              ],
+              "summary": "fruPtXOzKfJpWgwKksgm"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 jsajZQPCAkFngAOjCuWE                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 yes                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 -58345834.734892                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 b451                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 4b56105f88                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 fruPtXOzKfJpWgwKksgm                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>jsajZQPCAkFngAOjCuWE</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58345834.734892</td></tr><tr><th>strengths</th><td><ul><li>b451</li></ul></td></tr><tr><th>gaps</th><td><ul><li>4b56105f88</li></ul></td></tr><tr><th>summary</th><td>fruPtXOzKfJpWgwKksgm</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "InterviewQuestion",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "drK9Z-branch-0",
+            "data": {
+              "items": [
+                {
+                  "text": "IpjKgBTBnNdXdsjAaCsP"
+                },
+                {
+                  "text": "ntSauPEaDHZxBSTiSDsH"
+                },
+                {
+                  "text": "FxPUeLjeKbzzWPWUZzIn"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 IpjKgBTBnNdXdsjAaCsP                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 ntSauPEaDHZxBSTiSDsH                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 FxPUeLjeKbzzWPWUZzIn                                                  \n",
+            "data_html": "<ul><li>IpjKgBTBnNdXdsjAaCsP</li><li>ntSauPEaDHZxBSTiSDsH</li><li>FxPUeLjeKbzzWPWUZzIn</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: jsajZQPCAkFngAOjCuWE\n\n# match: yes\n\n# match_score: -58345834.734892\n\n# strengths: - b451\n\n# gaps: - 4b56105f88\n\n# summary: fruPtXOzKfJpWgwKksgm\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_8",
+      "kind": "operator",
+      "pipe_code": "write_refusal_email",
+      "pipe_type": "PipeCompose",
+      "description": "Write a professional refusal email for a non-matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.142132Z",
+        "ended_at": "2026-08-14T10:49:57.150732Z",
+        "duration": 0.0086
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "m2YiV",
+            "data": {
+              "candidate_name": "jsajZQPCAkFngAOjCuWE",
+              "match": "yes",
+              "match_score": -58345834.734892,
+              "strengths": [
+                "b451"
+              ],
+              "gaps": [
+                "4b56105f88"
+              ],
+              "summary": "fruPtXOzKfJpWgwKksgm"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 jsajZQPCAkFngAOjCuWE                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 yes                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 -58345834.734892                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 b451                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 4b56105f88                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 fruPtXOzKfJpWgwKksgm                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>jsajZQPCAkFngAOjCuWE</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58345834.734892</td></tr><tr><th>strengths</th><td><ul><li>b451</li></ul></td></tr><tr><th>gaps</th><td><ul><li>4b56105f88</li></ul></td></tr><tr><th>summary</th><td>fruPtXOzKfJpWgwKksgm</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "BaRVZ",
+            "data": {
+              "text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear jsajZQPCAkFngAOjCuWE,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nfruPtXOzKfJpWgwKksgm                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "kind": "controller",
+      "pipe_code": "screen_single_cv",
+      "pipe_type": "PipeSequence",
+      "description": "Screen a single CV against a job offer",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.156520Z",
+        "ended_at": "2026-08-14T10:49:57.213393Z",
+        "duration": 0.056873
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "bnBELATiBVCmKpNfVMXH",
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN-branch-1",
+            "data": {
+              "url": "RuzmgjxQIHnBAhSKJCzz",
+              "public_url": "YKbaDiAdfoZdQEhBjZOF",
+              "mime_type": "bnBELATiBVCmKpNfVMXH",
+              "filename": "EDKwkSBWfLeSzRutBOtQ",
+              "title": "EFyBalfqjJaEoWJiiGUA",
+              "snippet": "PVotoIaeUSSNQyiGHKOb"
+            },
+            "data_text": "EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)\n  PVotoIaeUSSNQyiGHKOb\n",
+            "data_html": "<a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small>",
+            "extra": {}
+          },
+          {
+            "name": "job_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Bhn5U",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "KoPS9",
+            "data": {
+              "text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear vjXGCmGpSvVhMCAOKdid,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nTlkItpoNkYxdbtaFaJIw                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_10",
+      "kind": "operator",
+      "pipe_code": "extract_cv_pages",
+      "pipe_type": "PipeExtract",
+      "description": "Extract text pages from a CV document",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.163325Z",
+        "ended_at": "2026-08-14T10:49:57.170126Z",
+        "duration": 0.006801
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv",
+            "concept": "Document",
+            "content_type": "bnBELATiBVCmKpNfVMXH",
+            "preview": null,
+            "size": null,
+            "digest": "YXNtN-branch-1",
+            "data": {
+              "url": "RuzmgjxQIHnBAhSKJCzz",
+              "public_url": "YKbaDiAdfoZdQEhBjZOF",
+              "mime_type": "bnBELATiBVCmKpNfVMXH",
+              "filename": "EDKwkSBWfLeSzRutBOtQ",
+              "title": "EFyBalfqjJaEoWJiiGUA",
+              "snippet": "PVotoIaeUSSNQyiGHKOb"
+            },
+            "data_text": "EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)\n  PVotoIaeUSSNQyiGHKOb\n",
+            "data_html": "<a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kM27e",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "cv",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "kind": "operator",
+      "pipe_code": "evaluate_cv",
+      "pipe_type": "PipeLLM",
+      "description": "Evaluate how well the CV matches the job offer requirements",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.174491Z",
+        "ended_at": "2026-08-14T10:49:57.187692Z",
+        "duration": 0.013201
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kM27e",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          },
+          {
+            "name": "job_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Bhn5U",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "apMgU",
+            "data": {
+              "candidate_name": "vjXGCmGpSvVhMCAOKdid",
+              "match": "no",
+              "match_score": 890768.493114,
+              "strengths": [
+                "0e4a30c616"
+              ],
+              "gaps": [
+                "c3c"
+              ],
+              "summary": "TlkItpoNkYxdbtaFaJIw"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 vjXGCmGpSvVhMCAOKdid                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 no                                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 890768.493114                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 0e4a30c616                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 c3c                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 TlkItpoNkYxdbtaFaJIw                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>vjXGCmGpSvVhMCAOKdid</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>890768.493114</td></tr><tr><th>strengths</th><td><ul><li>0e4a30c616</li></ul></td></tr><tr><th>gaps</th><td><ul><li>c3c</li></ul></td></tr><tr><th>summary</th><td>TlkItpoNkYxdbtaFaJIw</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "You are an experienced HR recruiter. Analyze the following CV and job offer, then evaluate how well the candidate matches the position.\n\n## Job Offer\n<job_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_pages>\n\n## Candidate CV\n<cv_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n## Instructions\n- Extract the candidate name from the CV\n- Assess whether the candidate is a good match (yes/no) based on required qualifications, experience, and skills\n- Provide a match score from 0 to 100\n- List key strengths relevant to the position\n- List gaps or missing qualifications\n- Write a concise overall summary of the evaluation\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__CvEvaluation(StructuredContent):\n    \"\"\"Evaluation of a CV against a job offer\"\"\"\n    candidate_name: str  # Name of the candidate\n    match: Literal[\n        \"yes\",\n        \"no\",\n    ]  # Whether the CV matches: yes or no\n    match_score: float  # Match score from 0 to 100\n    strengths: List[Any] | None = None  # Key strengths relative to the job\n    gaps: List[Any] | None = None  # Missing qualifications relative to the job\n    summary: str  # Overall evaluation summary\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_12",
+      "kind": "controller",
+      "pipe_code": "route_by_match",
+      "pipe_type": "PipeCondition",
+      "description": "Route based on whether the CV matches the job offer",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.190946Z",
+        "ended_at": "2026-08-14T10:49:57.211449Z",
+        "duration": 0.020503
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "apMgU",
+            "data": {
+              "candidate_name": "vjXGCmGpSvVhMCAOKdid",
+              "match": "no",
+              "match_score": 890768.493114,
+              "strengths": [
+                "0e4a30c616"
+              ],
+              "gaps": [
+                "c3c"
+              ],
+              "summary": "TlkItpoNkYxdbtaFaJIw"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 vjXGCmGpSvVhMCAOKdid                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 no                                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 890768.493114                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 0e4a30c616                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 c3c                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 TlkItpoNkYxdbtaFaJIw                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>vjXGCmGpSvVhMCAOKdid</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>890768.493114</td></tr><tr><th>strengths</th><td><ul><li>0e4a30c616</li></ul></td></tr><tr><th>gaps</th><td><ul><li>c3c</li></ul></td></tr><tr><th>summary</th><td>TlkItpoNkYxdbtaFaJIw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "KoPS9",
+            "data": {
+              "text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear vjXGCmGpSvVhMCAOKdid,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nTlkItpoNkYxdbtaFaJIw                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "evaluated_expression": "dry_run",
+        "selected_outcome": "all_outcomes"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_13",
+      "kind": "operator",
+      "pipe_code": "generate_interview_questions",
+      "pipe_type": "PipeLLM",
+      "description": "Generate tailored interview questions for a matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.193778Z",
+        "ended_at": "2026-08-14T10:49:57.203705Z",
+        "duration": 0.009927
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "apMgU",
+            "data": {
+              "candidate_name": "vjXGCmGpSvVhMCAOKdid",
+              "match": "no",
+              "match_score": 890768.493114,
+              "strengths": [
+                "0e4a30c616"
+              ],
+              "gaps": [
+                "c3c"
+              ],
+              "summary": "TlkItpoNkYxdbtaFaJIw"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 vjXGCmGpSvVhMCAOKdid                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 no                                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 890768.493114                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 0e4a30c616                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 c3c                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 TlkItpoNkYxdbtaFaJIw                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>vjXGCmGpSvVhMCAOKdid</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>890768.493114</td></tr><tr><th>strengths</th><td><ul><li>0e4a30c616</li></ul></td></tr><tr><th>gaps</th><td><ul><li>c3c</li></ul></td></tr><tr><th>summary</th><td>TlkItpoNkYxdbtaFaJIw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "InterviewQuestion",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "drK9Z-branch-1",
+            "data": {
+              "items": [
+                {
+                  "text": "KEGFgcBAJaNveDmRbohI"
+                },
+                {
+                  "text": "bBFVBRQTdAqkODcfzuba"
+                },
+                {
+                  "text": "MQPZLrjlUTKyCEuEVhoN"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 KEGFgcBAJaNveDmRbohI                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 bBFVBRQTdAqkODcfzuba                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 MQPZLrjlUTKyCEuEVhoN                                                  \n",
+            "data_html": "<ul><li>KEGFgcBAJaNveDmRbohI</li><li>bBFVBRQTdAqkODcfzuba</li><li>MQPZLrjlUTKyCEuEVhoN</li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": true,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n<evaluation>\n# candidate_name: vjXGCmGpSvVhMCAOKdid\n\n# match: no\n\n# match_score: 890768.493114\n\n# strengths: - 0e4a30c616\n\n# gaps: - c3c\n\n# summary: TlkItpoNkYxdbtaFaJIw\n</evaluation>\n\nGenerate 5 insightful, role-specific interview questions.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_matching__InterviewQuestion(TextContent):\n    \"\"\"A tailored interview question for a candidate\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_list"
+      }
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_14",
+      "kind": "operator",
+      "pipe_code": "write_refusal_email",
+      "pipe_type": "PipeCompose",
+      "description": "Write a professional refusal email for a non-matching candidate",
+      "domain_code": "cv_matching",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:49:57.203740Z",
+        "ended_at": "2026-08-14T10:49:57.210993Z",
+        "duration": 0.007253
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "evaluation",
+            "concept": "CvEvaluation",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "apMgU",
+            "data": {
+              "candidate_name": "vjXGCmGpSvVhMCAOKdid",
+              "match": "no",
+              "match_score": 890768.493114,
+              "strengths": [
+                "0e4a30c616"
+              ],
+              "gaps": [
+                "c3c"
+              ],
+              "summary": "TlkItpoNkYxdbtaFaJIw"
+            },
+            "data_text": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 vjXGCmGpSvVhMCAOKdid                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 no                                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 890768.493114                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 0e4a30c616                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 c3c                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 TlkItpoNkYxdbtaFaJIw                        \n",
+            "data_html": "<table><tr><th>candidate_name</th><td>vjXGCmGpSvVhMCAOKdid</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>890768.493114</td></tr><tr><th>strengths</th><td><ul><li>0e4a30c616</li></ul></td></tr><tr><th>gaps</th><td><ul><li>c3c</li></ul></td></tr><tr><th>summary</th><td>TlkItpoNkYxdbtaFaJIw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "output",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "KoPS9",
+            "data": {
+              "text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+            },
+            "data_text": "Dear vjXGCmGpSvVhMCAOKdid,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nTlkItpoNkYxdbtaFaJIw                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n",
+            "data_html": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "compose_mode": "template",
+        "rendered_text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_0",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_0",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_1",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_0",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_2",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_3",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_4",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_4",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_5",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_6",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_6",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_6",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_7",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_7",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_6",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_8",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_8",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_9",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_10",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_10",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_11",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_12",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_12",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_12",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_13",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:edge_13",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_12",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_14",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_0",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "kind": "data",
+      "optional": false,
+      "label": "job_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_1",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_4",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "kind": "data",
+      "optional": false,
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_2",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "kind": "data",
+      "optional": false,
+      "label": "job_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_3",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_6",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_4",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_7",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_5",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_5",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_8",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_6",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "kind": "data",
+      "optional": false,
+      "label": "job_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_7",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_10",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "kind": "data",
+      "optional": false,
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_8",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_1",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "kind": "data",
+      "optional": false,
+      "label": "job_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_9",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_12",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_10",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_13",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_11",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_11",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_14",
+      "kind": "data",
+      "optional": false,
+      "label": "evaluation",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_12",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "YXNtN",
+      "target_stuff_digest": "YXNtN-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_13",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_4",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "YXNtN",
+      "target_stuff_digest": "YXNtN-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_14",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "YXNtN",
+      "target_stuff_digest": "YXNtN-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_15",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_10",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "YXNtN",
+      "target_stuff_digest": "YXNtN-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_16",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_3",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "BaRVZ",
+      "target_stuff_digest": "GCwvx",
+      "meta": {}
+    },
+    {
+      "id": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:asm_edge_17",
+      "source": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_9",
+      "target": "7a459c3c-1945-4af4-a6d9-d11863bd1afd:node_2",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "KoPS9",
+      "target_stuff_digest": "GCwvx",
+      "meta": {}
+    }
+  ],
+  "usage": {
+    "total": {
+      "inference_calls": 4,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 4,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
+  "meta": {
+    "format": "mthds",
+    "mode": "dry"
+  },
+  "pipe_registry": {
+    "cv_matching.screen_cvs": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "screen_cvs",
+      "domain_code": "cv_matching",
+      "description": "Screen multiple CVs against a job offer",
+      "inputs": {
+        "cvs": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        },
+        "job_offer": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_job_pages",
+          "output_name": "job_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "screen_single_cv",
+          "output_name": "results",
+          "output_multiplicity": true,
+          "batch_params": {
+            "input_list_stuff_name": "cvs",
+            "input_item_stuff_name": "cv"
+          }
+        }
+      ]
+    },
+    "cv_matching.extract_job_pages": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_job_pages",
+      "domain_code": "cv_matching",
+      "description": "Extract text pages from the job offer document",
+      "inputs": {
+        "job_offer": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "job_offer"
+    },
+    "cv_matching.screen_single_cv_batch": {
+      "pipe_category": "PipeController",
+      "type": "PipeBatch",
+      "code": "screen_single_cv_batch",
+      "domain_code": "cv_matching",
+      "description": "Batch processing for screen_single_cv",
+      "inputs": {
+        "cvs": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "branch_pipe_code": "screen_single_cv",
+      "batch_params": {
+        "input_list_stuff_name": "cvs",
+        "input_item_stuff_name": "cv"
+      }
+    },
+    "cv_matching.screen_single_cv": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "screen_single_cv",
+      "domain_code": "cv_matching",
+      "description": "Screen a single CV against a job offer",
+      "inputs": {
+        "cv": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        },
+        "job_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_cv_pages",
+          "output_name": "cv_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "evaluate_cv",
+          "output_name": "evaluation",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "route_by_match",
+          "output_name": "output",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "cv_matching.extract_cv_pages": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_cv_pages",
+      "domain_code": "cv_matching",
+      "description": "Extract text pages from a CV document",
+      "inputs": {
+        "cv": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "extract_choice": null,
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "cv"
+    },
+    "cv_matching.evaluate_cv": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "evaluate_cv",
+      "domain_code": "cv_matching",
+      "description": "Evaluate how well the CV matches the job offer requirements",
+      "inputs": {
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        },
+        "job_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CvEvaluation",
+          "domain_code": "cv_matching",
+          "description": "Evaluation of a CV against a job offer",
+          "structure_class_name": "cv_matching__CvEvaluation",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "You are an experienced HR recruiter. Analyze the following CV and job offer, then evaluate how well the candidate matches the position.\n\n## Job Offer\n@job_pages\n\n## Candidate CV\n@cv_pages\n\n## Instructions\n- Extract the candidate name from the CV\n- Assess whether the candidate is a good match (yes/no) based on required qualifications, experience, and skills\n- Provide a match score from 0 to 100\n- List key strengths relevant to the position\n- List gaps or missing qualifications\n- Write a concise overall summary of the evaluation\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "cv_matching.route_by_match": {
+      "pipe_category": "PipeController",
+      "type": "PipeCondition",
+      "code": "route_by_match",
+      "domain_code": "cv_matching",
+      "description": "Route based on whether the CV matches the job offer",
+      "inputs": {
+        "evaluation": {
+          "concept": {
+            "code": "CvEvaluation",
+            "domain_code": "cv_matching",
+            "description": "Evaluation of a CV against a job offer",
+            "structure_class_name": "cv_matching__CvEvaluation",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Anything",
+          "domain_code": "native",
+          "description": "Anything",
+          "structure_class_name": "AnythingContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "expression": "{{ evaluation.match }}",
+      "outcome_map": {
+        "yes": "generate_interview_questions",
+        "no": "write_refusal_email"
+      },
+      "default_outcome": "write_refusal_email",
+      "add_alias_from_expression_to": null
+    },
+    "cv_matching.generate_interview_questions": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "generate_interview_questions",
+      "domain_code": "cv_matching",
+      "description": "Generate tailored interview questions for a matching candidate",
+      "inputs": {
+        "evaluation": {
+          "concept": {
+            "code": "CvEvaluation",
+            "domain_code": "cv_matching",
+            "description": "Evaluation of a CV against a job offer",
+            "structure_class_name": "cv_matching__CvEvaluation",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "InterviewQuestion",
+          "domain_code": "cv_matching",
+          "description": "A tailored interview question for a candidate",
+          "structure_class_name": "cv_matching__InterviewQuestion",
+          "refines": "native.Text"
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Based on the following CV evaluation, generate exactly 5 tailored interview questions that:\n- Probe the candidate's strengths to verify depth of expertise\n- Explore the identified gaps to assess if they can be overcome\n- Are specific to this candidate and role, not generic\n\n## Evaluation\n@evaluation\n\nGenerate 5 insightful, role-specific interview questions.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": true
+    },
+    "cv_matching.write_refusal_email": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeCompose",
+      "code": "write_refusal_email",
+      "domain_code": "cv_matching",
+      "description": "Write a professional refusal email for a non-matching candidate",
+      "inputs": {
+        "evaluation": {
+          "concept": {
+            "code": "CvEvaluation",
+            "domain_code": "cv_matching",
+            "description": "Evaluation of a CV against a job offer",
+            "structure_class_name": "cv_matching__CvEvaluation",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Text",
+          "domain_code": "native",
+          "description": "A text",
+          "structure_class_name": "TextContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "template": "Dear {{ evaluation.candidate_name }},\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\n{{ evaluation.summary }}\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team\n",
+      "templating_style": null,
+      "category": "basic",
+      "extra_context": null,
+      "construct_blueprint": null
+    }
+  },
+  "concept_registry": {
+    "native.Anything": {
+      "code": "Anything",
+      "domain_code": "native",
+      "description": "Anything",
+      "structure_class_name": "AnythingContent",
+      "refines": null,
+      "json_schema": null
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "cv_matching.CvEvaluation": {
+      "code": "CvEvaluation",
+      "domain_code": "cv_matching",
+      "description": "Evaluation of a CV against a job offer",
+      "structure_class_name": "cv_matching__CvEvaluation",
+      "refines": null,
+      "json_schema": {
+        "description": "Evaluation of a CV against a job offer",
+        "properties": {
+          "candidate_name": {
+            "description": "Name of the candidate",
+            "title": "Candidate Name",
+            "type": "string"
+          },
+          "match": {
+            "description": "Whether the CV matches: yes or no",
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "title": "Match",
+            "type": "string"
+          },
+          "match_score": {
+            "description": "Match score from 0 to 100",
+            "title": "Match Score",
+            "type": "number"
+          },
+          "strengths": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Key strengths relative to the job",
+            "title": "Strengths"
+          },
+          "gaps": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Missing qualifications relative to the job",
+            "title": "Gaps"
+          },
+          "summary": {
+            "description": "Overall evaluation summary",
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_name",
+          "match",
+          "match_score",
+          "summary"
+        ],
+        "title": "cv_matching__CvEvaluation",
+        "type": "object"
+      }
+    },
+    "cv_matching.InterviewQuestion": {
+      "code": "InterviewQuestion",
+      "domain_code": "cv_matching",
+      "description": "A tailored interview question for a candidate",
+      "structure_class_name": "cv_matching__InterviewQuestion",
+      "refines": "native.Text",
+      "json_schema": {
+        "description": "A tailored interview question for a candidate",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "cv_matching__InterviewQuestion",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    }
+  }
+}</script>
+<script type="application/json" id="pipelex-config">{"direction": "LR", "showControllers": true, "nodesep": 50, "ranksep": 30, "edgeType": "bezier", "initialZoom": 1.0, "panToTop": true, "palette": "dracula"}</script>
+
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js" integrity="sha384-k7OFwtsMfFyYU75zZhPkC8VRASnGrW1pxavUnozOiO2B5M5gv6PYGOkEYZTrVtvo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.js" integrity="sha384-bn4wTUdVghyTZThZlUwPknWCtiDDDSnB94AH9/WS7P6Zb2O7x2Fu8bE1G8nPlz5y" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_TWO_PIPE_CHAIN = {
-  graph_id: "8d11054b-3203-45f7-b288-b03b897df14f",
-  created_at: "2026-08-14T09:49:05.399814Z",
+  graph_id: "a00ada8c-412a-410a-8b4a-1e08496be5b7",
+  created_at: "2026-08-14T10:48:05.980301Z",
   pipeline_ref: { domain: "document_analysis", main_pipe: "extract_and_analyze", entrypoint: null },
   nodes: [
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
       kind: "controller",
       pipe_code: "extract_and_analyze",
       pipe_type: "PipeSequence",
@@ -19,30 +19,30 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:05.399814Z",
-        ended_at: "2026-08-14T09:49:05.458477Z",
-        duration: 0.058663,
+        started_at: "2026-08-14T10:48:05.980301Z",
+        ended_at: "2026-08-14T10:48:06.011543Z",
+        duration: 0.031242,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "fZtIBIgJTudaxzRqYXMY",
+            content_type: "txJCFHDLZrLPDTxoFsyx",
             preview: null,
             size: null,
-            digest: "5fBGC",
+            digest: "WY8GG",
             data: {
-              url: "fTRXUcFmRaerbfhEmWVB",
-              public_url: "kNMGqFwbjMYZcFPsxbhc",
-              mime_type: "fZtIBIgJTudaxzRqYXMY",
-              filename: "DCFrJpbOzKAjcmmJSjuO",
-              title: "ooHpTNcpDQSrWhmEEusT",
-              snippet: "yWlmMPmcYfYzhNHcFvFz",
+              url: "QuPYScYqxtdPDZjcfoaZ",
+              public_url: "USPTaqIWAubKDnGoGLnu",
+              mime_type: "txJCFHDLZrLPDTxoFsyx",
+              filename: "SVbTXpZgpWDuoHYxYNra",
+              title: "NGIsYaeZOrgEOhTeLAex",
+              snippet: "cGHbsNFcLjOXSrVFPeVk",
             },
-            data_text: "ooHpTNcpDQSrWhmEEusT (fTRXUcFmRaerbfhEmWVB)\n  yWlmMPmcYfYzhNHcFvFz\n",
+            data_text: "NGIsYaeZOrgEOhTeLAex (QuPYScYqxtdPDZjcfoaZ)\n  cGHbsNFcLjOXSrVFPeVk\n",
             data_html:
-              '<a href="kNMGqFwbjMYZcFPsxbhc" class="msg-document">ooHpTNcpDQSrWhmEEusT</a><br/><small>yWlmMPmcYfYzhNHcFvFz</small>',
+              '<a href="USPTaqIWAubKDnGoGLnu" class="msg-document">NGIsYaeZOrgEOhTeLAex</a><br/><small>cGHbsNFcLjOXSrVFPeVk</small>',
             extra: {},
           },
         ],
@@ -53,7 +53,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9aKFk",
+            digest: "K4HuG",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -98,7 +98,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
       kind: "operator",
       pipe_code: "extract_document",
       pipe_type: "PipeExtract",
@@ -107,30 +107,30 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:05.407486Z",
-        ended_at: "2026-08-14T09:49:05.417046Z",
-        duration: 0.00956,
+        started_at: "2026-08-14T10:48:05.986028Z",
+        ended_at: "2026-08-14T10:48:05.993521Z",
+        duration: 0.007493,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "fZtIBIgJTudaxzRqYXMY",
+            content_type: "txJCFHDLZrLPDTxoFsyx",
             preview: null,
             size: null,
-            digest: "5fBGC",
+            digest: "WY8GG",
             data: {
-              url: "fTRXUcFmRaerbfhEmWVB",
-              public_url: "kNMGqFwbjMYZcFPsxbhc",
-              mime_type: "fZtIBIgJTudaxzRqYXMY",
-              filename: "DCFrJpbOzKAjcmmJSjuO",
-              title: "ooHpTNcpDQSrWhmEEusT",
-              snippet: "yWlmMPmcYfYzhNHcFvFz",
+              url: "QuPYScYqxtdPDZjcfoaZ",
+              public_url: "USPTaqIWAubKDnGoGLnu",
+              mime_type: "txJCFHDLZrLPDTxoFsyx",
+              filename: "SVbTXpZgpWDuoHYxYNra",
+              title: "NGIsYaeZOrgEOhTeLAex",
+              snippet: "cGHbsNFcLjOXSrVFPeVk",
             },
-            data_text: "ooHpTNcpDQSrWhmEEusT (fTRXUcFmRaerbfhEmWVB)\n  yWlmMPmcYfYzhNHcFvFz\n",
+            data_text: "NGIsYaeZOrgEOhTeLAex (QuPYScYqxtdPDZjcfoaZ)\n  cGHbsNFcLjOXSrVFPeVk\n",
             data_html:
-              '<a href="kNMGqFwbjMYZcFPsxbhc" class="msg-document">ooHpTNcpDQSrWhmEEusT</a><br/><small>yWlmMPmcYfYzhNHcFvFz</small>',
+              '<a href="USPTaqIWAubKDnGoGLnu" class="msg-document">NGIsYaeZOrgEOhTeLAex</a><br/><small>cGHbsNFcLjOXSrVFPeVk</small>',
             extra: {},
           },
         ],
@@ -141,7 +141,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jsDXh",
+            digest: "3WopS",
             data: {
               items: [
                 {
@@ -215,7 +215,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       },
     },
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
       kind: "operator",
       pipe_code: "analyze_pages",
       pipe_type: "PipeLLM",
@@ -224,9 +224,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:05.424410Z",
-        ended_at: "2026-08-14T09:49:05.454027Z",
-        duration: 0.029617,
+        started_at: "2026-08-14T10:48:05.997599Z",
+        ended_at: "2026-08-14T10:48:06.009069Z",
+        duration: 0.01147,
       },
       io: {
         inputs: [
@@ -236,7 +236,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jsDXh",
+            digest: "3WopS",
             data: {
               items: [
                 {
@@ -287,7 +287,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9aKFk",
+            digest: "K4HuG",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -351,9 +351,9 @@ export const DRY_TWO_PIPE_CHAIN = {
   ],
   edges: [
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:edge_0",
-      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
-      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:edge_0",
+      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
+      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -362,9 +362,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:edge_1",
-      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
-      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:edge_1",
+      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_0",
+      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -373,9 +373,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "8d11054b-3203-45f7-b288-b03b897df14f:asm_edge_0",
-      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
-      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
+      id: "a00ada8c-412a-410a-8b4a-1e08496be5b7:asm_edge_0",
+      source: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_1",
+      target: "a00ada8c-412a-410a-8b4a-1e08496be5b7:node_2",
       kind: "data",
       optional: false,
       label: "pages",

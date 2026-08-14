@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<!--
+  External (loaded from jsDelivr with Subresource Integrity):
+    React (MIT), @xyflow/react (MIT), DOMPurify (MPL-2.0/Apache-2.0),
+    @pipelex/mthds-ui (MIT), elkjs (EPL-2.0).
+  Nothing is bundled into this file — all viewer code is fetched at view time
+  from cdn.jsdelivr.net with sha384 hashes that pin tamper-evident content.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Sample Natives</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.css" integrity="sha384-+RAnunPv8/gJkU2A4kO1jjx56ZMIdtJP2FC8yoYAfXJGOZWgWHnqz9EWVAho6/HZ" crossorigin="anonymous">
+</head>
+<body data-theme="dark">
+<div id="app-container">
+  <div id="root"></div>
+</div>
+
+<script type="application/json" id="pipelex-graphspec">{
+  "graph_id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4",
+  "created_at": "2026-08-14T10:50:21.229564Z",
+  "pipeline_ref": {
+    "domain": "native_sampler",
+    "main_pipe": "sample_natives",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "kind": "controller",
+      "pipe_code": "sample_natives",
+      "pipe_type": "PipeParallel",
+      "description": "Produce one of each remaining native concept from the same brief",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:21.229564Z",
+        "ended_at": "2026-08-14T10:50:21.291887Z",
+        "duration": 0.062323
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "AcphV",
+            "data": {
+              "text": "BndTRaMqnqEtstEVQjwz"
+            },
+            "data_text": "BndTRaMqnqEtstEVQjwz                                                                                \n",
+            "data_html": "BndTRaMqnqEtstEVQjwz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "word_count",
+            "concept": "Number",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hiTcU",
+            "data": {
+              "number": -800431529.54947
+            },
+            "data_text": "{\n    \"number\": -800431529.54947\n}\n",
+            "data_html": "-800431529.54947",
+            "extra": {}
+          },
+          {
+            "name": "html",
+            "concept": "Html",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ePMZp",
+            "data": {
+              "inner_html": "KBSctMOjafNDAKYYrRwy",
+              "css_class": "ZLDCgcJHmonKTXropvyZ"
+            },
+            "data_text": "{\n    \"inner_html\": \"KBSctMOjafNDAKYYrRwy\",\n    \"css_class\": \"ZLDCgcJHmonKTXropvyZ\"\n}\n",
+            "data_html": "<div class=\"ZLDCgcJHmonKTXropvyZ\">KBSctMOjafNDAKYYrRwy</div>",
+            "extra": {}
+          },
+          {
+            "name": "illustrated",
+            "concept": "TextAndImages",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GXc6u",
+            "data": {
+              "text": {
+                "text": "NGOFdnFDQXfkJrUZBoAz"
+              },
+              "images": [
+                {
+                  "url": "QqfXZknQGljmVFNfSNvs",
+                  "public_url": "KWnzluSEqUzdgtEEAwaT",
+                  "source_prompt": "wUiSYvYDvRCGcNDZuJDa",
+                  "source_negative_prompt": "LepQxNoYMWPcKESLuMOr",
+                  "caption": "nrcTMZjBUneFnSUVDxgm",
+                  "mime_type": "qahtaRuQRLrgRuhwfdsG",
+                  "width": 6,
+                  "height": 7,
+                  "filename": "kYMDIVaJnjNEyhuQwThi"
+                }
+              ],
+              "raw_html": "anZhDNTYpDnisalRRAiE"
+            },
+            "data_text": "Text:\nNGOFdnFDQXfkJrUZBoAz                                                                                \n\nImages (1):                                                                                         \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Index \u2503 URL                                                     \u2503         \u2503 Caption              \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 img-0 \u2502 QqfXZknQGljmVFNfSNvs                                    \u2502 Display \u2502 nrcTMZjBUneFnSUVDxgm \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n",
+            "data_html": "anZhDNTYpDnisalRRAiE",
+            "extra": {}
+          },
+          {
+            "name": "facts",
+            "concept": "JSON",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ERv6P",
+            "data": {
+              "json_obj": {
+                "RzeZzbniAIXuETaLixBf": "d3a534898c"
+              }
+            },
+            "data_text": "{\n    \"RzeZzbniAIXuETaLixBf\": \"d3a534898c\"\n}\n",
+            "data_html": "<table ><tr><th>RzeZzbniAIXuETaLixBf</th><td>d3a534898c</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "composite",
+            "concept": "Composite",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ZyEcS",
+            "data": {
+              "word_count": {
+                "number": -800431529.54947
+              },
+              "html": {
+                "inner_html": "KBSctMOjafNDAKYYrRwy",
+                "css_class": "ZLDCgcJHmonKTXropvyZ"
+              },
+              "illustrated": {
+                "text": {
+                  "text": "NGOFdnFDQXfkJrUZBoAz"
+                },
+                "images": [
+                  {
+                    "url": "QqfXZknQGljmVFNfSNvs",
+                    "public_url": "KWnzluSEqUzdgtEEAwaT",
+                    "source_prompt": "wUiSYvYDvRCGcNDZuJDa",
+                    "source_negative_prompt": "LepQxNoYMWPcKESLuMOr",
+                    "caption": "nrcTMZjBUneFnSUVDxgm",
+                    "mime_type": "qahtaRuQRLrgRuhwfdsG",
+                    "width": 6,
+                    "height": 7,
+                    "filename": "kYMDIVaJnjNEyhuQwThi"
+                  }
+                ],
+                "raw_html": "anZhDNTYpDnisalRRAiE"
+              },
+              "facts": {
+                "json_obj": {
+                  "RzeZzbniAIXuETaLixBf": "d3a534898c"
+                }
+              }
+            },
+            "data_text": "{\n    \"word_count\": {\n        \"number\": -800431529.54947\n    },\n    \"html\": {\n        \"inner_html\": \"KBSctMOjafNDAKYYrRwy\",\n        \"css_class\": \"ZLDCgcJHmonKTXropvyZ\"\n    },\n    \"illustrated\": {\n        \"text\": {\n            \"text\": \"NGOFdnFDQXfkJrUZBoAz\"\n        },\n        \"images\": [\n            {\n                \"url\": \"QqfXZknQGljmVFNfSNvs\",\n                \"public_url\": \"KWnzluSEqUzdgtEEAwaT\",\n                \"source_prompt\": \"wUiSYvYDvRCGcNDZuJDa\",\n                \"source_negative_prompt\": \"LepQxNoYMWPcKESLuMOr\",\n                \"caption\": \"nrcTMZjBUneFnSUVDxgm\",\n                \"mime_type\": \"qahtaRuQRLrgRuhwfdsG\",\n                \"width\": 6,\n                \"height\": 7,\n                \"filename\": \"kYMDIVaJnjNEyhuQwThi\"\n            }\n        ],\n        \"raw_html\": \"anZhDNTYpDnisalRRAiE\"\n    },\n    \"facts\": {\n        \"json_obj\": {\n            \"RzeZzbniAIXuETaLixBf\": \"d3a534898c\"\n        }\n    }\n}\n",
+            "data_html": "<table><tr><th>word_count</th><td>-800431529.54947</td></tr><tr><th>html</th><td><div class=\"ZLDCgcJHmonKTXropvyZ\">KBSctMOjafNDAKYYrRwy</div></td></tr><tr><th>illustrated</th><td>anZhDNTYpDnisalRRAiE</td></tr><tr><th>facts</th><td><table ><tr><th>RzeZzbniAIXuETaLixBf</th><td>d3a534898c</td></tr></table></td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "branch_count": 4,
+        "add_each_output": true,
+        "combined_output_concept": "native.Composite"
+      }
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_1",
+      "kind": "operator",
+      "pipe_code": "count_words",
+      "pipe_type": "PipeLLM",
+      "description": "Count the words in the brief",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:21.233487Z",
+        "ended_at": "2026-08-14T10:50:21.242793Z",
+        "duration": 0.009306
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "AcphV",
+            "data": {
+              "text": "BndTRaMqnqEtstEVQjwz"
+            },
+            "data_text": "BndTRaMqnqEtstEVQjwz                                                                                \n",
+            "data_html": "BndTRaMqnqEtstEVQjwz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "word_count",
+            "concept": "Number",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "hiTcU",
+            "data": {
+              "number": -800431529.54947
+            },
+            "data_text": "{\n    \"number\": -800431529.54947\n}\n",
+            "data_html": "-800431529.54947",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "How many words are in the brief below? Answer with the number alone.\n\n<brief>\nBndTRaMqnqEtstEVQjwz\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass NumberContent(StuffContent):\n    number: int | float  # The number\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_2",
+      "kind": "operator",
+      "pipe_code": "render_html",
+      "pipe_type": "PipeLLM",
+      "description": "Render the brief as an HTML fragment",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:21.246138Z",
+        "ended_at": "2026-08-14T10:50:21.254871Z",
+        "duration": 0.008733
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "AcphV",
+            "data": {
+              "text": "BndTRaMqnqEtstEVQjwz"
+            },
+            "data_text": "BndTRaMqnqEtstEVQjwz                                                                                \n",
+            "data_html": "BndTRaMqnqEtstEVQjwz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "html",
+            "concept": "Html",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ePMZp",
+            "data": {
+              "inner_html": "KBSctMOjafNDAKYYrRwy",
+              "css_class": "ZLDCgcJHmonKTXropvyZ"
+            },
+            "data_text": "{\n    \"inner_html\": \"KBSctMOjafNDAKYYrRwy\",\n    \"css_class\": \"ZLDCgcJHmonKTXropvyZ\"\n}\n",
+            "data_html": "<div class=\"ZLDCgcJHmonKTXropvyZ\">KBSctMOjafNDAKYYrRwy</div>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Render the brief below as a small HTML fragment.\n\n<brief>\nBndTRaMqnqEtstEVQjwz\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass HtmlContent(StuffContent):\n    inner_html: str  # The inner HTML of the content\n    css_class: str  # The CSS class of the content\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_3",
+      "kind": "operator",
+      "pipe_code": "illustrate",
+      "pipe_type": "PipeLLM",
+      "description": "Describe the brief as text with accompanying images",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:21.258213Z",
+        "ended_at": "2026-08-14T10:50:21.272279Z",
+        "duration": 0.014066
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "AcphV",
+            "data": {
+              "text": "BndTRaMqnqEtstEVQjwz"
+            },
+            "data_text": "BndTRaMqnqEtstEVQjwz                                                                                \n",
+            "data_html": "BndTRaMqnqEtstEVQjwz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "illustrated",
+            "concept": "TextAndImages",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "GXc6u",
+            "data": {
+              "text": {
+                "text": "NGOFdnFDQXfkJrUZBoAz"
+              },
+              "images": [
+                {
+                  "url": "QqfXZknQGljmVFNfSNvs",
+                  "public_url": "KWnzluSEqUzdgtEEAwaT",
+                  "source_prompt": "wUiSYvYDvRCGcNDZuJDa",
+                  "source_negative_prompt": "LepQxNoYMWPcKESLuMOr",
+                  "caption": "nrcTMZjBUneFnSUVDxgm",
+                  "mime_type": "qahtaRuQRLrgRuhwfdsG",
+                  "width": 6,
+                  "height": 7,
+                  "filename": "kYMDIVaJnjNEyhuQwThi"
+                }
+              ],
+              "raw_html": "anZhDNTYpDnisalRRAiE"
+            },
+            "data_text": "Text:\nNGOFdnFDQXfkJrUZBoAz                                                                                \n\nImages (1):                                                                                         \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Index \u2503 URL                                                     \u2503         \u2503 Caption              \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 img-0 \u2502 QqfXZknQGljmVFNfSNvs                                    \u2502 Display \u2502 nrcTMZjBUneFnSUVDxgm \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n",
+            "data_html": "anZhDNTYpDnisalRRAiE",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Summarize the brief below and describe one image that would illustrate it.\n\n<brief>\nBndTRaMqnqEtstEVQjwz\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass TextAndImagesContent(StuffContent):\n    text: TextContent | None = None  # A text content\n    images: List[ImageContent] | None = None  # A list of images that were extracted from the text\n    raw_html: str | None = None  # The raw HTML of the fetched page, if requested\n\nclass TextContent(StuffContent):\n    text: str  # The text\n\nclass ImageContent(StuffContent):\n    url: str  # The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL\n    public_url: str | None = None  # The public URL of the image\n    source_prompt: str | None = None  # The source prompt of the image\n    source_negative_prompt: str | None = None  # The source negative prompt of the image\n    caption: str | None = None  # The caption of the image\n    mime_type: str | None = None  # The MIME type of the image\n    width: int | None = None  # The width of the image, in pixels\n    height: int | None = None  # The height of the image, in pixels\n    filename: str | None = None  # The original filename of the image\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_4",
+      "kind": "operator",
+      "pipe_code": "extract_facts",
+      "pipe_type": "PipeLLM",
+      "description": "Extract the brief's facts as a JSON object",
+      "domain_code": "native_sampler",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:21.275654Z",
+        "ended_at": "2026-08-14T10:50:21.283385Z",
+        "duration": 0.007731
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "brief",
+            "concept": "Text",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "AcphV",
+            "data": {
+              "text": "BndTRaMqnqEtstEVQjwz"
+            },
+            "data_text": "BndTRaMqnqEtstEVQjwz                                                                                \n",
+            "data_html": "BndTRaMqnqEtstEVQjwz",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "facts",
+            "concept": "JSON",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "ERv6P",
+            "data": {
+              "json_obj": {
+                "RzeZzbniAIXuETaLixBf": "d3a534898c"
+              }
+            },
+            "data_text": "{\n    \"RzeZzbniAIXuETaLixBf\": \"d3a534898c\"\n}\n",
+            "data_html": "<table ><tr><th>RzeZzbniAIXuETaLixBf</th><td>d3a534898c</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.6-sonnet",
+        "resolved_model_for_object": "claude-4.6-sonnet",
+        "is_multiple_output": false,
+        "rendered_system_prompt": null,
+        "rendered_user_prompt": "Extract the key facts from the brief below as a JSON object.\n\n<brief>\nBndTRaMqnqEtstEVQjwz\n</brief>\n\n---\nThe instance we want to generate will be for the following class:\nclass JSONContent(StuffContent):\n    json_obj: Dict[str, Any]  # The JSON object\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:edge_0",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:edge_1",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:edge_2",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_3",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:edge_3",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_4",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:asm_edge_0",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_1",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "hiTcU",
+      "target_stuff_digest": "ZyEcS",
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:asm_edge_1",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_2",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "ePMZp",
+      "target_stuff_digest": "ZyEcS",
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:asm_edge_2",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_3",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "GXc6u",
+      "target_stuff_digest": "ZyEcS",
+      "meta": {}
+    },
+    {
+      "id": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:asm_edge_3",
+      "source": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_4",
+      "target": "4ff0cb29-77b0-4eba-8e8b-159061c9cdf4:node_0",
+      "kind": "parallel_combine",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": "ERv6P",
+      "target_stuff_digest": "ZyEcS",
+      "meta": {}
+    }
+  ],
+  "usage": {
+    "total": {
+      "inference_calls": 4,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 4,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
+  "meta": {
+    "format": "mthds",
+    "mode": "dry"
+  },
+  "pipe_registry": {
+    "native_sampler.sample_natives": {
+      "pipe_category": "PipeController",
+      "type": "PipeParallel",
+      "code": "sample_natives",
+      "domain_code": "native_sampler",
+      "description": "Produce one of each remaining native concept from the same brief",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Composite",
+          "domain_code": "native",
+          "description": "A named composition of contents",
+          "structure_class_name": "CompositeContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "parallel_sub_pipes": [
+        {
+          "pipe_code": "count_words",
+          "output_name": "word_count",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "render_html",
+          "output_name": "html",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "illustrate",
+          "output_name": "illustrated",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "extract_facts",
+          "output_name": "facts",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ],
+      "add_each_output": true
+    },
+    "native_sampler.count_words": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "count_words",
+      "domain_code": "native_sampler",
+      "description": "Count the words in the brief",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Number",
+          "domain_code": "native",
+          "description": "A number",
+          "structure_class_name": "NumberContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "How many words are in the brief below? Answer with the number alone.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.render_html": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "render_html",
+      "domain_code": "native_sampler",
+      "description": "Render the brief as an HTML fragment",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Html",
+          "domain_code": "native",
+          "description": "HTML content",
+          "structure_class_name": "HtmlContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Render the brief below as a small HTML fragment.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.illustrate": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "illustrate",
+      "domain_code": "native_sampler",
+      "description": "Describe the brief as text with accompanying images",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "TextAndImages",
+          "domain_code": "native",
+          "description": "A text and an image",
+          "structure_class_name": "TextAndImagesContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Summarize the brief below and describe one image that would illustrate it.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "native_sampler.extract_facts": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "extract_facts",
+      "domain_code": "native_sampler",
+      "description": "Extract the brief's facts as a JSON object",
+      "inputs": {
+        "brief": {
+          "concept": {
+            "code": "Text",
+            "domain_code": "native",
+            "description": "A text",
+            "structure_class_name": "TextContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "JSON",
+          "domain_code": "native",
+          "description": "A JSON object",
+          "structure_class_name": "JSONContent",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": null,
+        "prompt_blueprint": {
+          "template": "Extract the key facts from the brief below as a JSON object.\n\n@brief\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": null,
+        "for_object": null
+      },
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "native.Composite": {
+      "code": "Composite",
+      "domain_code": "native",
+      "description": "A named composition of contents",
+      "structure_class_name": "CompositeContent",
+      "refines": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "Untyped named composition of contents \u2014 the structure class of `native.Composite`.\n\nHolds its named sub-contents as top-level fields (pydantic `extra=\"allow\"`), so the\nserialized shape matches a bespoke structured concept: `{name: content, ...}` with no\nwrapper key. This is the combination vehicle for a `PipeParallel` whose author does not\nwant to declare a bespoke concept: each branch's `result` name becomes a field.",
+        "properties": {},
+        "title": "CompositeContent",
+        "type": "object"
+      }
+    },
+    "native.Text": {
+      "code": "Text",
+      "domain_code": "native",
+      "description": "A text",
+      "structure_class_name": "TextContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextContent",
+        "type": "object"
+      }
+    },
+    "native.Number": {
+      "code": "Number",
+      "domain_code": "native",
+      "description": "A number",
+      "structure_class_name": "NumberContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "description": "The number",
+            "title": "Number"
+          }
+        },
+        "required": [
+          "number"
+        ],
+        "title": "NumberContent",
+        "type": "object"
+      }
+    },
+    "native.Html": {
+      "code": "Html",
+      "domain_code": "native",
+      "description": "HTML content",
+      "structure_class_name": "HtmlContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "inner_html": {
+            "description": "The inner HTML of the content",
+            "title": "Inner Html",
+            "type": "string"
+          },
+          "css_class": {
+            "description": "The CSS class of the content",
+            "title": "Css Class",
+            "type": "string"
+          }
+        },
+        "required": [
+          "inner_html",
+          "css_class"
+        ],
+        "title": "HtmlContent",
+        "type": "object"
+      }
+    },
+    "native.TextAndImages": {
+      "code": "TextAndImages",
+      "domain_code": "native",
+      "description": "A text and an image",
+      "structure_class_name": "TextAndImagesContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TextContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text content"
+          },
+          "images": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/ImageContent"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A list of images that were extracted from the text",
+            "title": "Images"
+          },
+          "raw_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The raw HTML of the fetched page, if requested",
+            "title": "Raw Html"
+          }
+        },
+        "title": "TextAndImagesContent",
+        "type": "object"
+      }
+    },
+    "native.JSON": {
+      "code": "JSON",
+      "domain_code": "native",
+      "description": "A JSON object",
+      "structure_class_name": "JSONContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "JSONContent",
+        "type": "object"
+      }
+    }
+  }
+}</script>
+<script type="application/json" id="pipelex-config">{"direction": "LR", "showControllers": true, "nodesep": 50, "ranksep": 30, "edgeType": "bezier", "initialZoom": 1.0, "panToTop": true, "palette": "dracula"}</script>
+
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js" integrity="sha384-k7OFwtsMfFyYU75zZhPkC8VRASnGrW1pxavUnozOiO2B5M5gv6PYGOkEYZTrVtvo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.js" integrity="sha384-bn4wTUdVghyTZThZlUwPknWCtiDDDSnB94AH9/WS7P6Zb2O7x2Fu8bE1G8nPlz5y" crossorigin="anonymous"></script>
+</body>
+</html>

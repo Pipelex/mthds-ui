@@ -5,8 +5,8 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SIMPLE_SEQUENCE = {
-  graph_id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60",
-  created_at: "2026-08-14T09:49:12.201951Z",
+  graph_id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04",
+  created_at: "2026-08-14T10:48:09.870987Z",
   pipeline_ref: {
     domain: "document_processing",
     main_pipe: "extract_analyze_report",
@@ -14,7 +14,7 @@ export const DRY_SIMPLE_SEQUENCE = {
   },
   nodes: [
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_0",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_0",
       kind: "controller",
       pipe_code: "extract_analyze_report",
       pipe_type: "PipeSequence",
@@ -23,30 +23,30 @@ export const DRY_SIMPLE_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:12.201951Z",
-        ended_at: "2026-08-14T09:49:12.249531Z",
-        duration: 0.04758,
+        started_at: "2026-08-14T10:48:09.870987Z",
+        ended_at: "2026-08-14T10:48:09.914351Z",
+        duration: 0.043364,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "jDqckmOByZSnbTmZCKyc",
+            content_type: "wBzVmQBEPrWqmrSpbpwV",
             preview: null,
             size: null,
-            digest: "Mz5Aw",
+            digest: "9YVPA",
             data: {
-              url: "ZEhfbvefkiBMABuyCZmP",
-              public_url: "sBezGAllGTjfvYxYetym",
-              mime_type: "jDqckmOByZSnbTmZCKyc",
-              filename: "ylUsdtdenAUUDviZPhyI",
-              title: "PqIyCXXqiQvViKIvVRLc",
-              snippet: "qKSwETAIqLQYKMPfeTEk",
+              url: "hYLMKLCKwRKqXqsiNNky",
+              public_url: "gYGdRQKHUkumOTbfOBJW",
+              mime_type: "wBzVmQBEPrWqmrSpbpwV",
+              filename: "HsUzOtgwSzINmFjUVnaM",
+              title: "lfCsVWaPPwuCDoKGGNpO",
+              snippet: "QNmrhPLvutBNTUwUCSUy",
             },
-            data_text: "PqIyCXXqiQvViKIvVRLc (ZEhfbvefkiBMABuyCZmP)\n  qKSwETAIqLQYKMPfeTEk\n",
+            data_text: "lfCsVWaPPwuCDoKGGNpO (hYLMKLCKwRKqXqsiNNky)\n  QNmrhPLvutBNTUwUCSUy\n",
             data_html:
-              '<a href="sBezGAllGTjfvYxYetym" class="msg-document">PqIyCXXqiQvViKIvVRLc</a><br/><small>qKSwETAIqLQYKMPfeTEk</small>',
+              '<a href="gYGdRQKHUkumOTbfOBJW" class="msg-document">lfCsVWaPPwuCDoKGGNpO</a><br/><small>QNmrhPLvutBNTUwUCSUy</small>',
             extra: {},
           },
         ],
@@ -57,7 +57,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AfpGn",
+            digest: "ZxBg6",
             data: {
               text: "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
             },
@@ -102,7 +102,7 @@ export const DRY_SIMPLE_SEQUENCE = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_1",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_1",
       kind: "operator",
       pipe_code: "extract_pages",
       pipe_type: "PipeExtract",
@@ -111,30 +111,30 @@ export const DRY_SIMPLE_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:12.208058Z",
-        ended_at: "2026-08-14T09:49:12.216622Z",
-        duration: 0.008564,
+        started_at: "2026-08-14T10:48:09.876617Z",
+        ended_at: "2026-08-14T10:48:09.883768Z",
+        duration: 0.007151,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "jDqckmOByZSnbTmZCKyc",
+            content_type: "wBzVmQBEPrWqmrSpbpwV",
             preview: null,
             size: null,
-            digest: "Mz5Aw",
+            digest: "9YVPA",
             data: {
-              url: "ZEhfbvefkiBMABuyCZmP",
-              public_url: "sBezGAllGTjfvYxYetym",
-              mime_type: "jDqckmOByZSnbTmZCKyc",
-              filename: "ylUsdtdenAUUDviZPhyI",
-              title: "PqIyCXXqiQvViKIvVRLc",
-              snippet: "qKSwETAIqLQYKMPfeTEk",
+              url: "hYLMKLCKwRKqXqsiNNky",
+              public_url: "gYGdRQKHUkumOTbfOBJW",
+              mime_type: "wBzVmQBEPrWqmrSpbpwV",
+              filename: "HsUzOtgwSzINmFjUVnaM",
+              title: "lfCsVWaPPwuCDoKGGNpO",
+              snippet: "QNmrhPLvutBNTUwUCSUy",
             },
-            data_text: "PqIyCXXqiQvViKIvVRLc (ZEhfbvefkiBMABuyCZmP)\n  qKSwETAIqLQYKMPfeTEk\n",
+            data_text: "lfCsVWaPPwuCDoKGGNpO (hYLMKLCKwRKqXqsiNNky)\n  QNmrhPLvutBNTUwUCSUy\n",
             data_html:
-              '<a href="sBezGAllGTjfvYxYetym" class="msg-document">PqIyCXXqiQvViKIvVRLc</a><br/><small>qKSwETAIqLQYKMPfeTEk</small>',
+              '<a href="gYGdRQKHUkumOTbfOBJW" class="msg-document">lfCsVWaPPwuCDoKGGNpO</a><br/><small>QNmrhPLvutBNTUwUCSUy</small>',
             extra: {},
           },
         ],
@@ -145,7 +145,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kWnVw",
+            digest: "Hb4iS",
             data: {
               items: [
                 {
@@ -219,7 +219,7 @@ export const DRY_SIMPLE_SEQUENCE = {
       },
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_2",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_2",
       kind: "operator",
       pipe_code: "analyze_content",
       pipe_type: "PipeLLM",
@@ -228,9 +228,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:12.221962Z",
-        ended_at: "2026-08-14T09:49:12.235887Z",
-        duration: 0.013925,
+        started_at: "2026-08-14T10:48:09.888019Z",
+        ended_at: "2026-08-14T10:48:09.900098Z",
+        duration: 0.012079,
       },
       io: {
         inputs: [
@@ -240,7 +240,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kWnVw",
+            digest: "Hb4iS",
             data: {
               items: [
                 {
@@ -291,7 +291,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "WTaDC",
+            digest: "7Qprx",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
             },
@@ -353,7 +353,7 @@ export const DRY_SIMPLE_SEQUENCE = {
       },
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_3",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_3",
       kind: "operator",
       pipe_code: "compose_report",
       pipe_type: "PipeCompose",
@@ -362,9 +362,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:12.240188Z",
-        ended_at: "2026-08-14T09:49:12.246659Z",
-        duration: 0.006471,
+        started_at: "2026-08-14T10:48:09.904577Z",
+        ended_at: "2026-08-14T10:48:09.911642Z",
+        duration: 0.007065,
       },
       io: {
         inputs: [
@@ -374,7 +374,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "WTaDC",
+            digest: "7Qprx",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    ",
             },
@@ -392,7 +392,7 @@ export const DRY_SIMPLE_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AfpGn",
+            digest: "ZxBg6",
             data: {
               text: "# Document Analysis Report\n\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document content thoroughly:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## i\n    \n```",
             },
@@ -434,9 +434,9 @@ export const DRY_SIMPLE_SEQUENCE = {
   ],
   edges: [
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:edge_0",
-      source: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_0",
-      target: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_1",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:edge_0",
+      source: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_0",
+      target: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -445,9 +445,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       meta: {},
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:edge_1",
-      source: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_0",
-      target: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_2",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:edge_1",
+      source: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_0",
+      target: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -456,9 +456,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       meta: {},
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:edge_2",
-      source: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_0",
-      target: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_3",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:edge_2",
+      source: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_0",
+      target: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -467,9 +467,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       meta: {},
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:asm_edge_0",
-      source: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_1",
-      target: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_2",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:asm_edge_0",
+      source: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_1",
+      target: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -478,9 +478,9 @@ export const DRY_SIMPLE_SEQUENCE = {
       meta: {},
     },
     {
-      id: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:asm_edge_1",
-      source: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_2",
-      target: "bd4cbbbb-4903-4c22-8c70-aaec1b03db60:node_3",
+      id: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:asm_edge_1",
+      source: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_2",
+      target: "65c372bb-cb49-4b1d-97ab-e75ccf6b6a04:node_3",
       kind: "data",
       optional: false,
       label: "analysis",

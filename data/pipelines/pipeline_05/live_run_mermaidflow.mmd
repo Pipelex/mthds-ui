@@ -1,0 +1,39 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_e9404988c9["dual_analysis_pipeline"]
+        subgraph sg_n_077ba1ceb4["parallel_analyze"]
+            n_e7dca04e2c["analyze_sentiment"]
+            s_dd3c90a12d(["sentiment<br/>Sentiment"]):::stuff
+            n_b499ed67c4["extract_keywords"]
+            s_b8eb5126ac(["keywords<br/>Keyword"]):::stuff
+            s_2aef14f460(["analysis_bundle<br/>Composite"]):::stuff
+        end
+        n_d033ec7af9["merge_results"]
+        s_e6b4e3cad1(["report<br/>AnalysisReport"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_5346f5171d(["text<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_b499ed67c4 --> s_b8eb5126ac
+    n_d033ec7af9 --> s_e6b4e3cad1
+    n_e7dca04e2c --> s_dd3c90a12d
+    s_b8eb5126ac --> n_d033ec7af9
+    s_dd3c90a12d --> n_d033ec7af9
+    s_5346f5171d --> n_e7dca04e2c
+    s_5346f5171d --> n_b499ed67c4
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_dd3c90a12d -.-> s_2aef14f460
+    s_b8eb5126ac -.-> s_2aef14f460
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_077ba1ceb4 fill:#e6ffe6
+    style sg_n_e9404988c9 fill:#e6f3ff

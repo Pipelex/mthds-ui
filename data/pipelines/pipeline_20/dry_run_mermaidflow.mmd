@@ -1,0 +1,57 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_c1e41bed0b["wide_pipeline"]
+        subgraph sg_n_71288545ce["five_way_split"]
+            n_9b57c7a4b4["process_alpha"]
+            s_7531b5cc83(["alpha<br/>ProcessedData"]):::stuff
+            n_21d6ce7cb1["process_beta"]
+            s_2ca2051049(["beta<br/>SearchResult"]):::stuff
+            n_238863fff2["process_delta"]
+            s_dd2ed1d736(["delta<br/>ProcessedData"]):::stuff
+            n_bd5d63dd38["process_epsilon"]
+            s_990a3e139c(["epsilon<br/>ProcessedData"]):::stuff
+            n_943d7c941c["process_gamma"]
+            s_8e1e1d0287(["gamma<br/>Image"]):::stuff
+            s_f924e23ab8(["parallel_results<br/>Composite"]):::stuff
+        end
+        n_88f786a029["collect_all"]
+        s_e1e0b5d9c6(["collected<br/>CollectedResults"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_2532c5aa20(["data<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_238863fff2 --> s_dd2ed1d736
+    n_943d7c941c --> s_8e1e1d0287
+    n_21d6ce7cb1 --> s_2ca2051049
+    n_9b57c7a4b4 --> s_7531b5cc83
+    n_88f786a029 --> s_e1e0b5d9c6
+    n_bd5d63dd38 --> s_990a3e139c
+    s_dd2ed1d736 --> n_88f786a029
+    s_8e1e1d0287 --> n_88f786a029
+    s_2ca2051049 --> n_88f786a029
+    s_7531b5cc83 --> n_88f786a029
+    s_2532c5aa20 --> n_9b57c7a4b4
+    s_2532c5aa20 --> n_21d6ce7cb1
+    s_2532c5aa20 --> n_943d7c941c
+    s_2532c5aa20 --> n_238863fff2
+    s_2532c5aa20 --> n_bd5d63dd38
+    s_990a3e139c --> n_88f786a029
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_7531b5cc83 -.-> s_f924e23ab8
+    s_2ca2051049 -.-> s_f924e23ab8
+    s_8e1e1d0287 -.-> s_f924e23ab8
+    s_dd2ed1d736 -.-> s_f924e23ab8
+    s_990a3e139c -.-> s_f924e23ab8
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_71288545ce fill:#e6ffe6
+    style sg_n_c1e41bed0b fill:#e6f3ff

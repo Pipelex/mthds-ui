@@ -1,0 +1,26 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_8667478ca1["extract_and_analyze"]
+        n_2606043115["analyze_pages"]
+        s_76c823a01d(["analysis<br/>Analysis"]):::stuff
+        n_bfb02100bf["extract_document"]
+        s_84fd27ca89(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_8109d1bfa3(["document<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_bfb02100bf --> s_84fd27ca89
+    n_2606043115 --> s_76c823a01d
+    s_84fd27ca89 --> n_2606043115
+    s_8109d1bfa3 --> n_bfb02100bf
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_8667478ca1 fill:#e6f3ff

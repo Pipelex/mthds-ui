@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Screen Cvs</title>
+<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
+<!-- DOMPurify for HTML sanitization (XSS prevention) -->
+<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
+    <style nonce="PIPELEX_CSP_NONCE">
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color, #f5f5f5);
+    transition: background-color 0.3s;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+h1 {
+    color: var(--text-color, #333);
+    margin: 0;
+    transition: color 0.3s;
+}
+.theme-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.theme-selector label {
+    font-size: 14px;
+    color: var(--label-color, #666);
+    transition: color 0.3s;
+}
+.theme-selector select {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #ccc);
+    background: var(--select-bg, white);
+    color: var(--text-color, #333);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.theme-selector select:hover {
+    border-color: var(--border-hover, #999);
+}
+.mermaid-container {
+    background-color: var(--container-bg, white);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+.mermaid {
+    display: flex;
+    justify-content: center;
+}
+.hint {
+    color: var(--label-color, #666);
+    font-size: 14px;
+    margin-top: 16px;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+/* Define CSS variables for the modal context (used by shared styles) */
+.data-modal {
+    --color-surface-hover: #333;
+    --color-text-muted: #888;
+    --color-text: #d4d4d4;
+    --color-accent: #3b82f6;
+    --color-border: #444;
+    --color-bg: #1e1e1e;
+    --color-success-bg: rgba(16, 185, 129, 0.2);
+    --color-success: #10b981;
+    --radius-sm: 4px;
+    --radius-md: 4px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 20px;
+    border-radius: 12px;
+    width: 80vw;
+    max-width: 1200px;
+    max-height: 80vh;
+    overflow: auto;
+    z-index: 1000;
+    display: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    min-width: 600px;
+}
+.data-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #444;
+}
+.data-modal-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.data-modal-title-primary {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+.data-modal-title-secondary {
+    font-size: 11px;
+    font-weight: 400;
+    color: #666;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+.data-modal-close {
+    cursor: pointer;
+    color: #888;
+    font-size: 24px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.data-modal-close:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Include shared format toolbar and tabs styling */
+/* ============================================================
+   Shared Format Toolbar & Tabs Styling
+   Uses CSS variables with fallbacks for both implementations
+   ============================================================ */
+
+.format-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.format-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.format-tab {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--color-surface-hover, #333);
+    color: var(--color-text-muted, #888);
+    border: none;
+    transition: all 0.2s;
+}
+
+.format-tab:hover {
+    background: var(--color-border, #444);
+    color: var(--color-text, #ccc);
+}
+
+.format-tab.active {
+    background: var(--color-accent, #3b82f6);
+    color: #fff;
+}
+
+.format-tab:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.format-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    font-size: 14px;
+    background: var(--color-surface-hover, #333);
+    color: var(--color-text-muted, #888);
+    border: none;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--color-border, #444);
+    color: var(--color-text, #fff);
+}
+
+.action-btn.copied {
+    background: var(--color-success-bg, rgba(16, 185, 129, 0.2));
+    color: var(--color-success, #10b981);
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+/* Modal content area */
+.data-modal-content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+.data-modal-content.text-content {
+    line-height: 1;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: auto;
+    padding-right: 20px;
+}
+.data-modal-content.html-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 12px;
+    border-radius: 4px;
+}
+.data-modal-content.html-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.data-modal-content.html-content th,
+.data-modal-content.html-content td {
+    border: 1px solid #444;
+    padding: 8px 12px;
+    text-align: left;
+}
+.data-modal-content.html-content th {
+    background: #252a30;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+.data-modal-content.html-content tr:hover {
+    background: #2a2530;
+}
+.data-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+.clickable-stuff {
+    cursor: pointer !important;
+}
+.clickable-stuff:hover {
+    filter: brightness(1.1);
+}
+.data-modal-content.pdf-content {
+    min-height: 500px;
+}
+.data-modal-content.pdf-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    min-height: 500px;
+}
+.data-modal-content.image-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+.data-modal-content.image-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Pipeline: Screen Cvs</h1>
+    <div class="theme-selector">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="forest">Forest</option>
+            <option value="neutral">Neutral</option>
+            <option value="base">Base</option>
+        </select>
+    </div>
+</div>
+<div class="mermaid-container">
+    <div class="mermaid" id="mermaid-diagram"></div>
+</div>
+<p class="hint">Click on data nodes (rounded pills) to view their full content</p>
+<div class="data-modal-overlay" id="modal-overlay"></div>
+<div class="data-modal" id="data-modal">
+    <div class="data-modal-header">
+        <span class="data-modal-title" id="modal-title">Data Content</span>
+        <span class="data-modal-close" onclick="hideModal()">&times;</span>
+    </div>
+    <div class="format-toolbar">
+        <div class="format-tabs" id="format-tabs">
+            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab" data-format="json" id="tab-json">JSON</button>
+            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
+        </div>
+        <div class="format-actions">
+            <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </button>
+            <button class="action-btn" id="copy-btn" onclick="copyContent()" title="Copy">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+            <button class="action-btn" id="download-btn" onclick="downloadContent()" title="Download">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            </button>
+        </div>
+    </div>
+    <div class="data-modal-content" id="modal-content"></div>
+</div>
+    <script nonce="PIPELEX_CSP_NONCE">
+// Embedded stuff data from graph (all formats)
+const stuffDataJson = {"s_fc755f35bc": {"items": [{"text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"}, {"text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"}]}, "s_ea2c81442c": {"url": "gxnoaUWYKEUluzJeZzrY", "public_url": "ozikitXCKvRZggeFYpDa", "mime_type": "jtiaPyWsSveVbYJZJceR", "filename": "LFfBZdSVebaqwapXkJFv", "title": "DnKopegkZQZmsgTldmKa", "snippet": "OIwWEweEqRYVWPvcAjrB"}, "s_9671cd86a9": {"items": [{"url": "HKmLEDbVvlzXulMKeIwG", "public_url": "VdpPxcOYWsJVmIbNJyco", "mime_type": "QgLFDwNsxGJwbAtLHuzO", "filename": "ukidVMNMyBkwFAGHiJhb", "title": "wLcxhnYkWWzuHiKhPyfv", "snippet": "LtSpACEJNnnVvMSOuhsl"}, {"url": "RuzmgjxQIHnBAhSKJCzz", "public_url": "YKbaDiAdfoZdQEhBjZOF", "mime_type": "bnBELATiBVCmKpNfVMXH", "filename": "EDKwkSBWfLeSzRutBOtQ", "title": "EFyBalfqjJaEoWJiiGUA", "snippet": "PVotoIaeUSSNQyiGHKOb"}]}, "s_954d350d8f": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_f99969d667": {"text": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"}, "s_ee4e3b3993": {"url": "HKmLEDbVvlzXulMKeIwG", "public_url": "VdpPxcOYWsJVmIbNJyco", "mime_type": "QgLFDwNsxGJwbAtLHuzO", "filename": "ukidVMNMyBkwFAGHiJhb", "title": "wLcxhnYkWWzuHiKhPyfv", "snippet": "LtSpACEJNnnVvMSOuhsl"}, "s_df29e97981": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_e2eceb2456": {"candidate_name": "jsajZQPCAkFngAOjCuWE", "match": "yes", "match_score": -58345834.734892, "strengths": ["b451"], "gaps": ["4b56105f88"], "summary": "fruPtXOzKfJpWgwKksgm"}, "s_aff28034d1": {"items": [{"text": "IpjKgBTBnNdXdsjAaCsP"}, {"text": "ntSauPEaDHZxBSTiSDsH"}, {"text": "FxPUeLjeKbzzWPWUZzIn"}]}, "s_f038ed2a50": {"text": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team"}, "s_531e1faefd": {"url": "RuzmgjxQIHnBAhSKJCzz", "public_url": "YKbaDiAdfoZdQEhBjZOF", "mime_type": "bnBELATiBVCmKpNfVMXH", "filename": "EDKwkSBWfLeSzRutBOtQ", "title": "EFyBalfqjJaEoWJiiGUA", "snippet": "PVotoIaeUSSNQyiGHKOb"}, "s_f4f64839e1": {"items": [{"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}, {"text_and_images": {"text": {"text": "DRY RUN: OCR text"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_c4db9e2d53": {"candidate_name": "vjXGCmGpSvVhMCAOKdid", "match": "no", "match_score": 890768.493114, "strengths": ["0e4a30c616"], "gaps": ["c3c"], "summary": "TlkItpoNkYxdbtaFaJIw"}, "s_1dc69969a6": {"items": [{"text": "KEGFgcBAJaNveDmRbohI"}, {"text": "bBFVBRQTdAqkODcfzuba"}, {"text": "MQPZLrjlUTKyCEuEVhoN"}]}};
+const stuffDataText = {"s_fc755f35bc": "   1    \u2502 Dear jsajZQPCAkFngAOjCuWE,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 fruPtXOzKfJpWgwKksgm                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 Dear vjXGCmGpSvVhMCAOKdid,                                            \n        \u2502                                                                       \n        \u2502 Thank you for your interest in the position and for taking the time   \n        \u2502 to submit your application.                                           \n        \u2502                                                                       \n        \u2502 After careful review, we regret to inform you that your profile does  \n        \u2502 not fully align with the requirements for this role at this time.     \n        \u2502                                                                       \n        \u2502 TlkItpoNkYxdbtaFaJIw                                                  \n        \u2502                                                                       \n        \u2502 We encourage you to apply for future openings that may better match   \n        \u2502 your qualifications.                                                  \n        \u2502                                                                       \n        \u2502 Best regards, HR Team                                                 \n", "s_ea2c81442c": "DnKopegkZQZmsgTldmKa (gxnoaUWYKEUluzJeZzrY)\n  OIwWEweEqRYVWPvcAjrB\n", "s_9671cd86a9": "     1      \u2502 wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)                       \n            \u2502   LtSpACEJNnnVvMSOuhsl                                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n     2      \u2502 EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)                       \n            \u2502   PVotoIaeUSSNQyiGHKOb                                            \n", "s_954d350d8f": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n", "s_f99969d667": "Dear jsajZQPCAkFngAOjCuWE,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nfruPtXOzKfJpWgwKksgm                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n", "s_ee4e3b3993": "wLcxhnYkWWzuHiKhPyfv (HKmLEDbVvlzXulMKeIwG)\n  LtSpACEJNnnVvMSOuhsl\n", "s_df29e97981": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n", "s_e2eceb2456": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 jsajZQPCAkFngAOjCuWE                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 yes                                         \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 -58345834.734892                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 b451                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 4b56105f88                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 fruPtXOzKfJpWgwKksgm                        \n", "s_aff28034d1": "   1    \u2502 IpjKgBTBnNdXdsjAaCsP                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 ntSauPEaDHZxBSTiSDsH                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 FxPUeLjeKbzzWPWUZzIn                                                  \n", "s_f038ed2a50": "Dear vjXGCmGpSvVhMCAOKdid,                                                                          \n\nThank you for your interest in the position and for taking the time to submit your application.     \n\nAfter careful review, we regret to inform you that your profile does not fully align with the       \nrequirements for this role at this time.                                                            \n\nTlkItpoNkYxdbtaFaJIw                                                                                \n\nWe encourage you to apply for future openings that may better match your qualifications.            \n\nBest regards, HR Team                                                                               \n", "s_531e1faefd": "EFyBalfqjJaEoWJiiGUA (RuzmgjxQIHnBAhSKJCzz)\n  PVotoIaeUSSNQyiGHKOb\n", "s_f4f64839e1": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n", "s_c4db9e2d53": " Attribute                        \u2503 Value                                       \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n candidate_name                   \u2502 vjXGCmGpSvVhMCAOKdid                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match                            \u2502 no                                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n match_score                      \u2502 890768.493114                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                        \u2502   1   \u2502 0e4a30c616                          \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                             \u2502   1   \u2502 c3c                                 \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n summary                          \u2502 TlkItpoNkYxdbtaFaJIw                        \n", "s_1dc69969a6": "   1    \u2502 KEGFgcBAJaNveDmRbohI                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 bBFVBRQTdAqkODcfzuba                                                  \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 MQPZLrjlUTKyCEuEVhoN                                                  \n"};
+const stuffDataHtml = {"s_fc755f35bc": "<ul><li>Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li><li>Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team</li></ul>", "s_ea2c81442c": "<a href=\"ozikitXCKvRZggeFYpDa\" class=\"msg-document\">DnKopegkZQZmsgTldmKa</a><br/><small>OIwWEweEqRYVWPvcAjrB</small>", "s_9671cd86a9": "<ul><li><a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small></li><li><a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small></li></ul>", "s_954d350d8f": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>", "s_f99969d667": "Dear jsajZQPCAkFngAOjCuWE,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nfruPtXOzKfJpWgwKksgm\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team", "s_ee4e3b3993": "<a href=\"VdpPxcOYWsJVmIbNJyco\" class=\"msg-document\">wLcxhnYkWWzuHiKhPyfv</a><br/><small>LtSpACEJNnnVvMSOuhsl</small>", "s_df29e97981": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>", "s_e2eceb2456": "<table><tr><th>candidate_name</th><td>jsajZQPCAkFngAOjCuWE</td></tr><tr><th>match</th><td>yes</td></tr><tr><th>match_score</th><td>-58345834.734892</td></tr><tr><th>strengths</th><td><ul><li>b451</li></ul></td></tr><tr><th>gaps</th><td><ul><li>4b56105f88</li></ul></td></tr><tr><th>summary</th><td>fruPtXOzKfJpWgwKksgm</td></tr></table>", "s_aff28034d1": "<ul><li>IpjKgBTBnNdXdsjAaCsP</li><li>ntSauPEaDHZxBSTiSDsH</li><li>FxPUeLjeKbzzWPWUZzIn</li></ul>", "s_f038ed2a50": "Dear vjXGCmGpSvVhMCAOKdid,\n\nThank you for your interest in the position and for taking the time to submit your application.\n\nAfter careful review, we regret to inform you that your profile does not fully align with the requirements for this role at this time.\n\nTlkItpoNkYxdbtaFaJIw\n\nWe encourage you to apply for future openings that may better match your qualifications.\n\nBest regards,\nHR Team", "s_531e1faefd": "<a href=\"YKbaDiAdfoZdQEhBjZOF\" class=\"msg-document\">EFyBalfqjJaEoWJiiGUA</a><br/><small>PVotoIaeUSSNQyiGHKOb</small>", "s_f4f64839e1": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>", "s_c4db9e2d53": "<table><tr><th>candidate_name</th><td>vjXGCmGpSvVhMCAOKdid</td></tr><tr><th>match</th><td>no</td></tr><tr><th>match_score</th><td>890768.493114</td></tr><tr><th>strengths</th><td><ul><li>0e4a30c616</li></ul></td></tr><tr><th>gaps</th><td><ul><li>c3c</li></ul></td></tr><tr><th>summary</th><td>TlkItpoNkYxdbtaFaJIw</td></tr></table>", "s_1dc69969a6": "<ul><li>KEGFgcBAJaNveDmRbohI</li><li>bBFVBRQTdAqkODcfzuba</li><li>MQPZLrjlUTKyCEuEVhoN</li></ul>"};
+const stuffMetadata = {"s_fc755f35bc": {"name": "results", "concept": "Anything"}, "s_ea2c81442c": {"name": "job_offer", "concept": "Document"}, "s_9671cd86a9": {"name": "cvs", "concept": "Document"}, "s_954d350d8f": {"name": "job_pages", "concept": "Page"}, "s_f99969d667": {"name": "output", "concept": "Text"}, "s_ee4e3b3993": {"name": "cv", "concept": "Document"}, "s_df29e97981": {"name": "cv_pages", "concept": "Page"}, "s_e2eceb2456": {"name": "evaluation", "concept": "CvEvaluation"}, "s_aff28034d1": {"name": "output", "concept": "InterviewQuestion"}, "s_f038ed2a50": {"name": "output", "concept": "Text"}, "s_531e1faefd": {"name": "cv", "concept": "Document"}, "s_f4f64839e1": {"name": "cv_pages", "concept": "Page"}, "s_c4db9e2d53": {"name": "evaluation", "concept": "CvEvaluation"}, "s_1dc69969a6": {"name": "output", "concept": "InterviewQuestion"}};
+const stuffContentType = {"s_ea2c81442c": "jtiaPyWsSveVbYJZJceR", "s_ee4e3b3993": "QgLFDwNsxGJwbAtLHuzO", "s_531e1faefd": "bnBELATiBVCmKpNfVMXH"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_90a0325c95[\"screen_cvs\"]\n        subgraph sg_n_0a95612e17[\"screen_single_cv_batch\"]\n            subgraph sg_n_1786d573ed[\"screen_single_cv\"]\n                subgraph sg_n_ac6b76262c[\"route_by_match\"]\n                    n_5023d2a1fb[\"generate_interview_questions\"]\n                    s_aff28034d1([\"output\u003cbr/\u003eInterviewQuestion\"]):::stuff\n                    n_ad73874828[\"write_refusal_email\"]\n                    s_f99969d667([\"output\u003cbr/\u003eText\"]):::stuff\n                end\n                n_4689f8e3c0[\"evaluate_cv\"]\n                s_e2eceb2456([\"evaluation\u003cbr/\u003eCvEvaluation\"]):::stuff\n                n_2ff1803d07[\"extract_cv_pages\"]\n                s_ee4e3b3993([\"cv\u003cbr/\u003eDocument\"]):::stuff\n                s_df29e97981([\"cv_pages\u003cbr/\u003ePage\"]):::stuff\n            end\n            subgraph sg_n_0cc20343d9[\"screen_single_cv\"]\n                subgraph sg_n_edaeff7c1a[\"route_by_match\"]\n                    n_6c810aabb1[\"generate_interview_questions\"]\n                    s_1dc69969a6([\"output\u003cbr/\u003eInterviewQuestion\"]):::stuff\n                    n_65517cdf3b[\"write_refusal_email\"]\n                    s_f038ed2a50([\"output\u003cbr/\u003eText\"]):::stuff\n                end\n                n_57827f239f[\"evaluate_cv\"]\n                s_c4db9e2d53([\"evaluation\u003cbr/\u003eCvEvaluation\"]):::stuff\n                n_8e13a9555c[\"extract_cv_pages\"]\n                s_531e1faefd([\"cv\u003cbr/\u003eDocument\"]):::stuff\n                s_f4f64839e1([\"cv_pages\u003cbr/\u003ePage\"]):::stuff\n            end\n        end\n        n_34db0c4a42[\"extract_job_pages\"]\n        s_954d350d8f([\"job_pages\u003cbr/\u003ePage\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_ea2c81442c([\"job_offer\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_ad73874828 --\u003e s_f99969d667\n    n_34db0c4a42 --\u003e s_954d350d8f\n    n_65517cdf3b --\u003e s_f038ed2a50\n    n_2ff1803d07 --\u003e s_df29e97981\n    n_57827f239f --\u003e s_c4db9e2d53\n    n_5023d2a1fb --\u003e s_aff28034d1\n    n_6c810aabb1 --\u003e s_1dc69969a6\n    n_8e13a9555c --\u003e s_f4f64839e1\n    n_4689f8e3c0 --\u003e s_e2eceb2456\n    s_954d350d8f --\u003e n_57827f239f\n    s_954d350d8f --\u003e n_4689f8e3c0\n    s_df29e97981 --\u003e n_4689f8e3c0\n    s_ee4e3b3993 --\u003e n_2ff1803d07\n    s_531e1faefd --\u003e n_8e13a9555c\n    s_c4db9e2d53 --\u003e n_6c810aabb1\n    s_c4db9e2d53 --\u003e n_65517cdf3b\n    s_ea2c81442c --\u003e n_34db0c4a42\n    s_f4f64839e1 --\u003e n_57827f239f\n    s_e2eceb2456 --\u003e n_5023d2a1fb\n    s_e2eceb2456 --\u003e n_ad73874828\n\n    %% Batch edges: list-item relationships\n    s_fc755f35bc([\"results\u003cbr/\u003eAnything\"]):::stuff\n    s_f99969d667 -.\"[0]\".-\u003e s_fc755f35bc\n    s_f038ed2a50 -.\"[1]\".-\u003e s_fc755f35bc\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_0a95612e17 fill:#e6ffe6\n    style sg_n_0cc20343d9 fill:#fffde6\n    style sg_n_1786d573ed fill:#fffde6\n    style sg_n_90a0325c95 fill:#e6f3ff\n    style sg_n_ac6b76262c fill:#ffe6f0\n    style sg_n_edaeff7c1a fill:#ffe6f0";
+
+// Track current state
+let currentStuffId = null;
+let currentFormat = 'html';
+let currentTheme = "dark";
+
+// Include shared utility functions
+// ============================================================
+// Shared Stuff Display Utilities
+// Used by both mermaidflow and reactflow implementations
+// ============================================================
+
+// XSS-safe HTML escaping
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Make all links in a container open in new windows
+function makeLinksOpenInNewWindow(container) {
+    if (!container) return;
+    const links = container.querySelectorAll('a');
+    links.forEach(link => {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+    });
+}
+
+// Validate that a URL is safe for display (prevents javascript: and data: URL injection)
+function isSafeDisplayUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    return url.startsWith('https://') || url.startsWith('http://') || url.startsWith('file://');
+}
+
+// Extract URL from stuff data (handles various data structures)
+// Returns null for invalid/unsafe URLs (javascript:, data:, etc.)
+function extractUrl(jsonData) {
+    if (!jsonData) return null;
+    // Check if data itself is a URL string
+    if (typeof jsonData === 'string') {
+        return isSafeDisplayUrl(jsonData) ? jsonData : null;
+    }
+    // Prefer public_url (pre-signed S3 URL or file:// URI) over url (internal pipelex-storage:// URL)
+    const candidates = [jsonData.public_url, jsonData.src, jsonData.href, jsonData.uri, jsonData.url];
+    for (const candidate of candidates) {
+        if (isSafeDisplayUrl(candidate)) return candidate;
+    }
+    return null;
+}
+
+// Get appropriate tab label based on content type
+function getHtmlTabLabel(contentType) {
+    if (contentType === 'application/pdf') return 'PDF';
+    if (contentType?.startsWith('image/')) return 'Image';
+    return 'HTML';
+}
+// Theme-specific color palettes for custom node styling
+const themePalettes = {
+    default: {
+        page: { bg: '#f8fafc', text: '#1e293b', label: '#64748b', border: '#cbd5e1',
+                borderHover: '#94a3b8', selectBg: 'white', containerBg: 'white' },
+        failed: { fill: '#fee2e2', stroke: '#dc2626' },
+        controller: { fill: '#dbeafe', stroke: '#2563eb' },
+        pipe: { fill: '#dbeafe', stroke: '#2563eb' },
+        stuff: { fill: '#fef3c7', stroke: '#d97706' },
+        subgraph: ['#eff6ff', '#ecfdf5', '#fefce8', '#fdf4ff', '#f0fdfa']
+    },
+    dark: {
+        page: { bg: '#1a1a2e', text: '#e0f7fa', label: '#80deea', border: '#2d4a5a',
+                borderHover: '#00bcd4', selectBg: '#2d4a5a', containerBg: '#16213e' },
+        failed: { fill: '#3a1a1a', stroke: '#ff5252' },
+        controller: { fill: '#1a3a4a', stroke: '#00e5ff' },
+        pipe: { fill: '#1a3a4a', stroke: '#00e5ff' },
+        stuff: { fill: '#2a1a3a', stroke: '#ff4081' },
+        subgraph: ['#1e3a4a', '#1a3a3a', '#2a3a4a', '#1a2a4a', '#2a4a4a']
+    },
+    forest: {
+        page: { bg: '#f0fdf4', text: '#14532d', label: '#166534', border: '#86efac',
+                borderHover: '#4ade80', selectBg: 'white', containerBg: '#fafffe' },
+        failed: { fill: '#fecaca', stroke: '#b91c1c' },
+        controller: { fill: '#dcfce7', stroke: '#16a34a' },
+        pipe: { fill: '#dcfce7', stroke: '#16a34a' },
+        stuff: { fill: '#fef9c3', stroke: '#ca8a04' },
+        subgraph: ['#d1fae5', '#bbf7d0', '#d9f99d', '#fef08a', '#a7f3d0']
+    },
+    neutral: {
+        page: { bg: '#fafafa', text: '#171717', label: '#525252', border: '#d4d4d4',
+                borderHover: '#a3a3a3', selectBg: 'white', containerBg: 'white' },
+        failed: { fill: '#fecaca', stroke: '#991b1b' },
+        controller: { fill: '#e5e5e5', stroke: '#525252' },
+        pipe: { fill: '#e5e5e5', stroke: '#525252' },
+        stuff: { fill: '#fef3c7', stroke: '#92400e' },
+        subgraph: ['#f5f5f5', '#e5e5e5', '#fafaf9', '#f5f5f4', '#fafafa']
+    },
+    base: {
+        page: { bg: '#fff', text: '#18181b', label: '#52525b', border: '#e4e4e7',
+                borderHover: '#a1a1aa', selectBg: 'white', containerBg: '#fafafa' },
+        failed: { fill: '#ffe4e6', stroke: '#e11d48' },
+        controller: { fill: '#e0f2fe', stroke: '#0284c7' },
+        pipe: { fill: '#e0f2fe', stroke: '#0284c7' },
+        stuff: { fill: '#ffedd5', stroke: '#ea580c' },
+        subgraph: ['#f0f9ff', '#f0fdf4', '#fffbeb', '#fdf4ff', '#ecfeff']
+    }
+};
+
+function applyPageTheme(theme) {
+    const palette = themePalettes[theme]?.page || themePalettes.default.page;
+    document.documentElement.style.setProperty('--bg-color', palette.bg);
+    document.documentElement.style.setProperty('--text-color', palette.text);
+    document.documentElement.style.setProperty('--label-color', palette.label);
+    document.documentElement.style.setProperty('--border-color', palette.border);
+    document.documentElement.style.setProperty('--border-hover', palette.borderHover);
+    document.documentElement.style.setProperty('--select-bg', palette.selectBg);
+    document.documentElement.style.setProperty('--container-bg', palette.containerBg);
+}
+
+function applyThemeColors(code, theme) {
+    const palette = themePalettes[theme] || themePalettes.default;
+    let result = code;
+
+    // Replace classDef colors
+    result = result.replace(
+        /classDef\s+failed\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef failed fill:${palette.failed.fill},stroke:${palette.failed.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+controller\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef controller fill:${palette.controller.fill},stroke:${palette.controller.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+pipe\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef pipe fill:${palette.pipe.fill},stroke:${palette.pipe.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+pipe_failed\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef pipe_failed fill:${palette.failed.fill},stroke:${palette.failed.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+stuff\s+fill:[^,]+,stroke:[^,]+/g,
+        `classDef stuff fill:${palette.stuff.fill},stroke:${palette.stuff.stroke}`
+    );
+
+    // Replace subgraph fill colors (style sg_xxx fill:#xxx)
+    const subgraphColors = palette.subgraph;
+    let colorIndex = 0;
+    result = result.replace(
+        /style\s+(sg_[^\s]+)\s+fill:#[a-fA-F0-9]+/g,
+        (match, subgraphId) => {
+            const color = subgraphColors[colorIndex % subgraphColors.length];
+            colorIndex++;
+            return `style ${subgraphId} fill:${color}`;
+        }
+    );
+
+    return result;
+}
+
+function initMermaid(theme) {
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: theme,
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        }
+    });
+}
+
+function attachClickHandlers() {
+    // Wait for mermaid to render, then attach click handlers
+    setTimeout(() => {
+        const svgContainer = document.querySelector('.mermaid svg');
+        if (!svgContainer) return;
+
+        // Find nodes by their flowchart IDs - use any available data source
+        const allStuffIds = new Set([
+            ...Object.keys(stuffDataJson || {}),
+            ...Object.keys(stuffDataText || {}),
+            ...Object.keys(stuffDataHtml || {})
+        ]);
+
+        for (const stuffId of allStuffIds) {
+            // Mermaid generates IDs like 'flowchart-s_xxx-123'
+            const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
+            nodes.forEach(node => {
+                node.classList.add('clickable-stuff');
+                node.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showModal(stuffId);
+                });
+            });
+        }
+    }, 500);
+}
+
+async function renderDiagram(theme) {
+    const container = document.getElementById('mermaid-diagram');
+    const themedCode = applyThemeColors(mermaidCode, theme);
+    container.innerHTML = themedCode;
+    container.removeAttribute('data-processed');
+    applyPageTheme(theme);
+    initMermaid(theme);
+    await mermaid.run({ nodes: [container] });
+    attachClickHandlers();
+}
+
+// Set initial theme in dropdown
+document.getElementById('theme-select').value = currentTheme;
+
+// Handle theme change
+document.getElementById('theme-select').addEventListener('change', async (e) => {
+    currentTheme = e.target.value;
+    await renderDiagram(currentTheme);
+});
+
+// Initial render on page load
+renderDiagram(currentTheme);
+
+// Set up format tab handlers
+document.querySelectorAll('.format-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        if (tab.disabled) return;
+        const format = tab.dataset.format;
+        setFormat(format);
+    });
+});
+
+function setFormat(format) {
+    currentFormat = format;
+    // Update tab styling
+    document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${format}`).classList.add('active');
+    // Re-render content if modal is open
+    if (currentStuffId) {
+        renderContent(currentStuffId, format);
+    }
+}
+
+function renderContent(stuffId, format) {
+    const content = document.getElementById('modal-content');
+    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+
+    // Handle PDF content type with embedded viewer
+    const contentType = stuffContentType?.[stuffId];
+    const jsonData = stuffDataJson?.[stuffId];
+
+    if (format === 'html' && contentType === 'application/pdf') {
+        const pdfUrl = extractUrl(jsonData);
+        if (pdfUrl) {
+            content.classList.add('pdf-content');
+            content.innerHTML = '';
+            const embed = document.createElement('embed');
+            embed.src = pdfUrl;
+            embed.type = 'application/pdf';
+            embed.style.cssText = 'width:100%; height:100%; border:none; min-height:500px;';
+            content.appendChild(embed);
+            updateOpenExternalButton(stuffId, contentType, jsonData);
+            return;
+        }
+    }
+
+    // Handle image content type
+    if (format === 'html' && contentType?.startsWith('image/')) {
+        const imageUrl = extractUrl(jsonData);
+        if (imageUrl) {
+            content.classList.add('image-content');
+            content.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain;';
+            img.alt = 'Image content';
+            content.appendChild(img);
+            updateOpenExternalButton(stuffId, contentType, jsonData);
+            return;
+        }
+    }
+
+    if (format === 'json') {
+        const data = stuffDataJson?.[stuffId];
+        content.innerHTML = '';
+        content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
+    } else if (format === 'text') {
+        const data = stuffDataText?.[stuffId];
+        content.classList.add('text-content');
+        content.innerHTML = '';
+        content.textContent = data || 'No text data available';
+    } else if (format === 'html') {
+        const data = stuffDataHtml?.[stuffId];
+        if (data) {
+            content.classList.add('html-content');
+            content.innerHTML = DOMPurify.sanitize(data);
+            makeLinksOpenInNewWindow(content);
+        } else {
+            content.innerHTML = '';
+            content.textContent = 'No HTML data available';
+        }
+    }
+
+    updateOpenExternalButton(stuffId, contentType, jsonData);
+}
+
+// Update visibility of the "open in new window" button (PDF only)
+function updateOpenExternalButton(stuffId, contentType, jsonData) {
+    const openExternalBtn = document.getElementById('open-external-btn');
+    if (!openExternalBtn) return;
+
+    const url = extractUrl(jsonData);
+    // Only show for PDFs (images are handled by the download button)
+    const shouldShow = contentType === 'application/pdf' && !!url;
+    openExternalBtn.style.display = shouldShow ? '' : 'none';
+}
+
+function updateTabAvailability(stuffId) {
+    const jsonTab = document.getElementById('tab-json');
+    const textTab = document.getElementById('tab-text');
+    const htmlTab = document.getElementById('tab-html');
+
+    jsonTab.disabled = !stuffDataJson?.[stuffId];
+    textTab.disabled = !stuffDataText?.[stuffId];
+
+    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    const contentType = stuffContentType?.[stuffId];
+    const jsonData = stuffDataJson?.[stuffId];
+    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
+    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+
+    // Update HTML tab label based on content type
+    if (contentType === 'application/pdf') {
+        htmlTab.textContent = 'PDF';
+    } else if (contentType?.startsWith('image/')) {
+        htmlTab.textContent = 'Image';
+    } else {
+        htmlTab.textContent = 'HTML';
+    }
+
+    // Find first available format (HTML -> JSON -> Pretty)
+    if (!htmlTab.disabled) return 'html';
+    if (!jsonTab.disabled) return 'json';
+    if (!textTab.disabled) return 'text';
+    return 'html';
+}
+
+function showModal(stuffId) {
+    currentStuffId = stuffId;
+    const modal = document.getElementById('data-modal');
+    const overlay = document.getElementById('modal-overlay');
+    const title = document.getElementById('modal-title');
+
+    // Build title from metadata (name + concept as primary, ID as secondary)
+    const meta = stuffMetadata?.[stuffId];
+    if (meta && (meta.name || meta.concept)) {
+        const primaryParts = [];
+        if (meta.name) primaryParts.push(escapeHtml(meta.name));
+        if (meta.concept) primaryParts.push(`(${escapeHtml(meta.concept)})`);
+        const primary = `<span class="data-modal-title-primary">${primaryParts.join(' ')}</span>`;
+        const secondary = `<span class="data-modal-title-secondary">${escapeHtml(stuffId)}</span>`;
+        title.innerHTML = primary + secondary;
+    } else {
+        title.innerHTML = `<span class="data-modal-title-primary">${escapeHtml(stuffId)}</span>`;
+    }
+
+    // Update tab availability and select best format
+    const availableFormat = updateTabAvailability(stuffId);
+
+    // If current format is not available, switch to available one
+    const currentTab = document.getElementById(`tab-${currentFormat}`);
+    if (currentTab.disabled) {
+        setFormat(availableFormat);
+    } else {
+        renderContent(stuffId, currentFormat);
+    }
+
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
+function hideModal() {
+    document.getElementById('data-modal').style.display = 'none';
+    document.getElementById('modal-overlay').style.display = 'none';
+    currentStuffId = null;
+}
+
+// Get current content based on format
+function getCurrentContent() {
+    if (!currentStuffId) return null;
+
+    if (currentFormat === 'json') {
+        const data = stuffDataJson?.[currentStuffId];
+        if (!data) return null;
+        return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
+    } else if (currentFormat === 'text') {
+        const data = stuffDataText?.[currentStuffId];
+        if (!data) return null;
+        return { content: data, ext: 'txt', mime: 'text/plain' };
+    } else if (currentFormat === 'html') {
+        const data = stuffDataHtml?.[currentStuffId];
+        if (!data) return null;
+        return { content: data, ext: 'html', mime: 'text/html' };
+    }
+    return null;
+}
+
+// Copy content to clipboard
+function copyContent() {
+    const data = getCurrentContent();
+    if (!data) return;
+
+    navigator.clipboard.writeText(data.content).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const checkIcon = '<svg viewBox="0 0 24 24">' +
+            '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+        const copyIcon = '<svg viewBox="0 0 24 24">' +
+            '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1z' +
+            'm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z' +
+            'm0 16H8V7h11v14z"/></svg>';
+        btn.innerHTML = checkIcon;
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = copyIcon;
+            btn.classList.remove('copied');
+        }, 1500);
+    });
+}
+
+// Download content as file
+function downloadContent() {
+    if (!currentStuffId) return;
+
+    // Get name from metadata or use ID
+    const meta = stuffMetadata?.[currentStuffId];
+    const baseName = meta?.name || currentStuffId || 'data';
+    const contentType = stuffContentType?.[currentStuffId];
+    const jsonData = stuffDataJson?.[currentStuffId];
+
+    // For images, download the actual image file directly
+    if (contentType?.startsWith('image/')) {
+        const imageUrl = extractUrl(jsonData);
+        if (imageUrl) {
+            const ext = contentType.split('/')[1] || 'png';
+            const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.${ext}`;
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            return;
+        }
+    }
+
+    // For PDFs, download the actual PDF file directly
+    if (contentType === 'application/pdf') {
+        const pdfUrl = extractUrl(jsonData);
+        if (pdfUrl) {
+            const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`;
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = filename;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            return;
+        }
+    }
+
+    const data = getCurrentContent();
+    if (!data) return;
+
+    const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.${data.ext}`;
+    const blob = new Blob([data.content], { type: data.mime });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// Close modal when clicking overlay
+document.getElementById('modal-overlay').addEventListener('click', hideModal);
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideModal();
+});
+
+// Open external URL for PDF content
+function openExternal() {
+    if (!currentStuffId) return;
+    const contentType = stuffContentType?.[currentStuffId];
+    const jsonData = stuffDataJson?.[currentStuffId];
+
+    if (contentType === 'application/pdf') {
+        const url = extractUrl(jsonData);
+        if (url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    }
+}
+    </script>
+</body>
+</html>

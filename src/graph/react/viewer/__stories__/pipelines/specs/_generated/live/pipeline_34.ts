@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_ALL_NATIVE_CONCEPTS = {
-  graph_id: "a83021cf-b654-4858-9438-0464562cab44",
-  created_at: "2026-08-13T13:53:01.884614Z",
+  graph_id: "dc19a29e-0647-448e-b27a-b31225db446c",
+  created_at: "2026-08-14T10:47:25.856576Z",
   pipeline_ref: { domain: "native_sampler", main_pipe: "sample_natives", entrypoint: null },
   nodes: [
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:node_0",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
       kind: "controller",
       pipe_code: "sample_natives",
       pipe_type: "PipeParallel",
@@ -19,9 +19,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:53:01.884614Z",
-        ended_at: "2026-08-13T13:53:11.501185Z",
-        duration: 9.616571,
+        started_at: "2026-08-14T10:47:25.856576Z",
+        ended_at: "2026-08-14T10:47:33.862496Z",
+        duration: 8.00592,
       },
       io: {
         inputs: [
@@ -31,7 +31,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LE6xJ",
+            digest: "DDpdx",
             data: {
               text: "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
             },
@@ -49,10 +49,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "mKFRL",
-            data: { number: 37 },
-            data_text: '{\n    "number": 37\n}\n',
-            data_html: "37",
+            digest: "QYJpx",
+            data: { number: 36 },
+            data_text: '{\n    "number": 36\n}\n',
+            data_html: "36",
             extra: {},
           },
           {
@@ -61,16 +61,16 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "L8YXj",
+            digest: "LUT84",
             data: {
               inner_html:
-                "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p>",
+                "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
               css_class: "brief",
             },
             data_text:
-              '{\n    "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>12</strong>.</p>",\n    "css_class": "brief"\n}\n',
+              '{\n    "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>twelve</strong>.</p>",\n    "css_class": "brief"\n}\n',
             data_html:
-              '<div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p></div>',
+              '<div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div>',
             extra: {},
           },
           {
@@ -79,20 +79,20 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "hT5DR",
+            digest: "89Puy",
             data: {
               text: {
-                text: "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.",
+                text: "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.",
               },
               images: [
                 {
                   url: "<UNKNOWN>",
                   public_url: null,
                   source_prompt:
-                    "A clean, modern product roadmap diagram with three themed tracks — 'Cut Onboarding Time in Half', 'Ship the Public API', and 'Move Billing Off Legacy Provider' — displayed on a Q3 timeline, with a small flat engineering team of twelve illustrated as icons, flat design style, professional and minimal",
+                    "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
                   source_negative_prompt: null,
                   caption:
-                    "A roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', with a small team of twelve icons working across them, symbolizing Q3 priorities and a flat headcount.",
+                    "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
                   mime_type: null,
                   width: null,
                   height: null,
@@ -102,9 +102,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               raw_html: null,
             },
             data_text:
-              "Text:\nThe Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the  \npublic API, and (3) migrating billing away from the legacy provider. The engineering team will      \nremain at its current size of twelve people throughout the quarter.                                 \n\nImages (1):                                                                                         \n┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n┃ Index ┃ URL                                        ┃ Caption                                     ┃\n┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩\n│ img-0 │                                            │ A roadmap illustration showing three        │\n│       │                                            │ parallel tracks labeled 'Onboarding',       │\n│       │                                            │ 'Public API', and 'Billing Migration', with │\n│       │                                            │ a small team of twelve icons working across │\n│       │                                            │ them, symbolizing Q3 priorities and a flat  │\n│       │                                            │ headcount.                                  │\n└───────┴────────────────────────────────────────────┴─────────────────────────────────────────────┘\n",
+              "Text:\nThe Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public   \nAPI, and (3) migrating billing away from the legacy provider — all while keeping the engineering    \nteam steady at 12 people.                                                                           \n\nImages (1):                                                                                         \n┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n┃ Index ┃ URL                                        ┃ Caption                                     ┃\n┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩\n│ img-0 │                                            │ A visual roadmap illustration showing three │\n│       │                                            │ parallel tracks labeled 'Onboarding',       │\n│       │                                            │ 'Public API', and 'Billing Migration',      │\n│       │                                            │ arranged as a timeline across Q3, with a    │\n│       │                                            │ small team-of-twelve icon anchored at the   │\n│       │                                            │ side to represent stable headcount.         │\n└───────┴────────────────────────────────────────────┴─────────────────────────────────────────────┘\n",
             data_html:
-              "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.",
+              "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.",
             extra: {},
           },
           {
@@ -113,11 +113,11 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SdZ8h",
+            digest: "DAw3c",
             data: {
               json_obj: {
-                roadmap_quarter: "Q3",
-                themes: [
+                quarter: "Q3",
+                roadmap_themes: [
                   "Cut onboarding time in half",
                   "Ship the public API",
                   "Move billing off the legacy provider",
@@ -127,9 +127,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               },
             },
             data_text:
-              '{\n    "roadmap_quarter": "Q3",\n    "themes": [\n        "Cut onboarding time in half",\n        "Ship the public API",\n        "Move billing off the legacy provider"\n    ],\n    "engineering_headcount": 12,\n    "headcount_change": "flat"\n}\n',
+              '{\n    "quarter": "Q3",\n    "roadmap_themes": [\n        "Cut onboarding time in half",\n        "Ship the public API",\n        "Move billing off the legacy provider"\n    ],\n    "engineering_headcount": 12,\n    "headcount_change": "flat"\n}\n',
             data_html:
-              "<table ><tr><th>roadmap_quarter</th><td>Q3</td></tr><tr><th>themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
+              "<table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
             extra: {},
           },
           {
@@ -138,27 +138,27 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "XRSGv",
+            digest: "S7xdy",
             data: {
-              word_count: { number: 37 },
+              word_count: { number: 36 },
               html: {
                 inner_html:
-                  "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p>",
+                  "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
                 css_class: "brief",
               },
               illustrated: {
                 text: {
-                  text: "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.",
+                  text: "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.",
                 },
                 images: [
                   {
                     url: "<UNKNOWN>",
                     public_url: null,
                     source_prompt:
-                      "A clean, modern product roadmap diagram with three themed tracks — 'Cut Onboarding Time in Half', 'Ship the Public API', and 'Move Billing Off Legacy Provider' — displayed on a Q3 timeline, with a small flat engineering team of twelve illustrated as icons, flat design style, professional and minimal",
+                      "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
                     source_negative_prompt: null,
                     caption:
-                      "A roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', with a small team of twelve icons working across them, symbolizing Q3 priorities and a flat headcount.",
+                      "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
                     mime_type: null,
                     width: null,
                     height: null,
@@ -169,8 +169,8 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               },
               facts: {
                 json_obj: {
-                  roadmap_quarter: "Q3",
-                  themes: [
+                  quarter: "Q3",
+                  roadmap_themes: [
                     "Cut onboarding time in half",
                     "Ship the public API",
                     "Move billing off the legacy provider",
@@ -181,9 +181,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               },
             },
             data_text:
-              '{\n    "word_count": {\n        "number": 37\n    },\n    "html": {\n        "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship\nthe public API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering \nheadcount stays flat at <strong>12</strong>.</p>",\n        "css_class": "brief"\n    },\n    "illustrated": {\n        "text": {\n            "text": "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by \n50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The \nengineering team will remain at its current size of twelve people throughout the quarter."\n        },\n        "images": [\n            {\n                "url": "<UNKNOWN>",\n                "public_url": null,\n                "source_prompt": "A clean, modern product roadmap diagram with three themed tracks —\n\'Cut Onboarding Time in Half\', \'Ship the Public API\', and \'Move Billing Off Legacy Provider\' — \ndisplayed on a Q3 timeline, with a small flat engineering team of twelve illustrated as icons, flat \ndesign style, professional and minimal",\n                "source_negative_prompt": null,\n                "caption": "A roadmap illustration showing three parallel tracks labeled \n\'Onboarding\', \'Public API\', and \'Billing Migration\', with a small team of twelve icons working \nacross them, symbolizing Q3 priorities and a flat headcount.",\n                "mime_type": null,\n                "width": null,\n                "height": null,\n                "filename": "<UNKNOWN>"\n            }\n        ],\n        "raw_html": null\n    },\n    "facts": {\n        "json_obj": {\n            "roadmap_quarter": "Q3",\n            "themes": [\n                "Cut onboarding time in half",\n                "Ship the public API",\n                "Move billing off the legacy provider"\n            ],\n            "engineering_headcount": 12,\n            "headcount_change": "flat"\n        }\n    }\n}\n',
+              '{\n    "word_count": {\n        "number": 36\n    },\n    "html": {\n        "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship\nthe public API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering \nheadcount stays flat at <strong>twelve</strong>.</p>",\n        "css_class": "brief"\n    },\n    "illustrated": {\n        "text": {\n            "text": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) \nlaunching the public API, and (3) migrating billing away from the legacy provider — all while \nkeeping the engineering team steady at 12 people."\n        },\n        "images": [\n            {\n                "url": "<UNKNOWN>",\n                "public_url": null,\n                "source_prompt": "A clean, modern product roadmap diagram for Q3 with three \nhorizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and \none for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, \nblue and white color palette",\n                "source_negative_prompt": null,\n                "caption": "A visual roadmap illustration showing three parallel tracks labeled \n\'Onboarding\', \'Public API\', and \'Billing Migration\', arranged as a timeline across Q3, with a small \nteam-of-twelve icon anchored at the side to represent stable headcount.",\n                "mime_type": null,\n                "width": null,\n                "height": null,\n                "filename": "<UNKNOWN>"\n            }\n        ],\n        "raw_html": null\n    },\n    "facts": {\n        "json_obj": {\n            "quarter": "Q3",\n            "roadmap_themes": [\n                "Cut onboarding time in half",\n                "Ship the public API",\n                "Move billing off the legacy provider"\n            ],\n            "engineering_headcount": 12,\n            "headcount_change": "flat"\n        }\n    }\n}\n',
             data_html:
-              '<table><tr><th>word_count</th><td>37</td></tr><tr><th>html</th><td><div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p></div></td></tr><tr><th>illustrated</th><td>The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.</td></tr><tr><th>facts</th><td><table ><tr><th>roadmap_quarter</th><td>Q3</td></tr><tr><th>themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table></td></tr></table>',
+              '<table><tr><th>word_count</th><td>36</td></tr><tr><th>html</th><td><div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div></td></tr><tr><th>illustrated</th><td>The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.</td></tr><tr><th>facts</th><td><table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table></td></tr></table>',
             extra: {},
           },
         ],
@@ -204,7 +204,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
         subtree_rated_inference_calls: 4,
         subtree_nb_tokens_by_category: {
           input: 4247,
-          output: 529,
+          output: 522,
           input_audio: 0,
           input_cached: 0,
           output_audio: 0,
@@ -212,10 +212,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
           output_accepted_prediction: 0,
           output_rejected_prediction: 0,
         },
-        subtree_total_tokens: 4776,
-        subtree_cost: 0.020676,
+        subtree_total_tokens: 4769,
+        subtree_cost: 0.020571,
         subtree_cost_input: 0.012741,
-        subtree_cost_output: 0.007935000000000001,
+        subtree_cost_output: 0.00783,
         subtree_by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -223,7 +223,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             model_type: "llm",
             inference_calls: 4,
             rated_inference_calls: 4,
-            cost: 0.020676,
+            cost: 0.020571,
           },
         ],
       },
@@ -234,7 +234,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       },
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:node_1",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
       kind: "operator",
       pipe_code: "count_words",
       pipe_type: "PipeLLM",
@@ -243,9 +243,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:53:01.891543Z",
-        ended_at: "2026-08-13T13:53:07.475846Z",
-        duration: 5.584303,
+        started_at: "2026-08-14T10:47:25.863155Z",
+        ended_at: "2026-08-14T10:47:29.932049Z",
+        duration: 4.068894,
       },
       io: {
         inputs: [
@@ -255,7 +255,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LE6xJ",
+            digest: "DDpdx",
             data: {
               text: "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
             },
@@ -273,10 +273,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "mKFRL",
-            data: { number: 37 },
-            data_text: '{\n    "number": 37\n}\n',
-            data_html: "37",
+            digest: "QYJpx",
+            data: { number: 36 },
+            data_text: '{\n    "number": 36\n}\n',
+            data_html: "36",
             extra: {},
           },
         ],
@@ -349,7 +349,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       },
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:node_2",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
       kind: "operator",
       pipe_code: "render_html",
       pipe_type: "PipeLLM",
@@ -358,9 +358,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:53:03.741284Z",
-        ended_at: "2026-08-13T13:53:06.963581Z",
-        duration: 3.222297,
+        started_at: "2026-08-14T10:47:27.583553Z",
+        ended_at: "2026-08-14T10:47:30.428016Z",
+        duration: 2.844463,
       },
       io: {
         inputs: [
@@ -370,7 +370,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LE6xJ",
+            digest: "DDpdx",
             data: {
               text: "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
             },
@@ -388,16 +388,16 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "L8YXj",
+            digest: "LUT84",
             data: {
               inner_html:
-                "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p>",
+                "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
               css_class: "brief",
             },
             data_text:
-              '{\n    "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>12</strong>.</p>",\n    "css_class": "brief"\n}\n',
+              '{\n    "inner_html": "<h3>Q3 Roadmap</h3>\\n<ul>\\n  <li>Cut onboarding time in half</li>\\n  <li>Ship the\npublic API</li>\\n  <li>Move billing off the legacy provider</li>\\n</ul>\\n<p>Engineering headcount \nstays flat at <strong>twelve</strong>.</p>",\n    "css_class": "brief"\n}\n',
             data_html:
-              '<div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>12</strong>.</p></div>',
+              '<div class="brief"><h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p></div>',
             extra: {},
           },
         ],
@@ -470,7 +470,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       },
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:node_3",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
       kind: "operator",
       pipe_code: "illustrate",
       pipe_type: "PipeLLM",
@@ -479,9 +479,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:53:03.755963Z",
-        ended_at: "2026-08-13T13:53:11.479758Z",
-        duration: 7.723795,
+        started_at: "2026-08-14T10:47:27.597973Z",
+        ended_at: "2026-08-14T10:47:33.849173Z",
+        duration: 6.2512,
       },
       io: {
         inputs: [
@@ -491,7 +491,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LE6xJ",
+            digest: "DDpdx",
             data: {
               text: "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
             },
@@ -509,20 +509,20 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "hT5DR",
+            digest: "89Puy",
             data: {
               text: {
-                text: "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.",
+                text: "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.",
               },
               images: [
                 {
                   url: "<UNKNOWN>",
                   public_url: null,
                   source_prompt:
-                    "A clean, modern product roadmap diagram with three themed tracks — 'Cut Onboarding Time in Half', 'Ship the Public API', and 'Move Billing Off Legacy Provider' — displayed on a Q3 timeline, with a small flat engineering team of twelve illustrated as icons, flat design style, professional and minimal",
+                    "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
                   source_negative_prompt: null,
                   caption:
-                    "A roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', with a small team of twelve icons working across them, symbolizing Q3 priorities and a flat headcount.",
+                    "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
                   mime_type: null,
                   width: null,
                   height: null,
@@ -532,9 +532,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               raw_html: null,
             },
             data_text:
-              "Text:\nThe Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the  \npublic API, and (3) migrating billing away from the legacy provider. The engineering team will      \nremain at its current size of twelve people throughout the quarter.                                 \n\nImages (1):                                                                                         \n┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n┃ Index ┃ URL                                        ┃ Caption                                     ┃\n┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩\n│ img-0 │                                            │ A roadmap illustration showing three        │\n│       │                                            │ parallel tracks labeled 'Onboarding',       │\n│       │                                            │ 'Public API', and 'Billing Migration', with │\n│       │                                            │ a small team of twelve icons working across │\n│       │                                            │ them, symbolizing Q3 priorities and a flat  │\n│       │                                            │ headcount.                                  │\n└───────┴────────────────────────────────────────────┴─────────────────────────────────────────────┘\n",
+              "Text:\nThe Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public   \nAPI, and (3) migrating billing away from the legacy provider — all while keeping the engineering    \nteam steady at 12 people.                                                                           \n\nImages (1):                                                                                         \n┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n┃ Index ┃ URL                                        ┃ Caption                                     ┃\n┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩\n│ img-0 │                                            │ A visual roadmap illustration showing three │\n│       │                                            │ parallel tracks labeled 'Onboarding',       │\n│       │                                            │ 'Public API', and 'Billing Migration',      │\n│       │                                            │ arranged as a timeline across Q3, with a    │\n│       │                                            │ small team-of-twelve icon anchored at the   │\n│       │                                            │ side to represent stable headcount.         │\n└───────┴────────────────────────────────────────────┴─────────────────────────────────────────────┘\n",
             data_html:
-              "The Q3 roadmap focuses on three key themes: (1) reducing onboarding time by 50%, (2) launching the public API, and (3) migrating billing away from the legacy provider. The engineering team will remain at its current size of twelve people throughout the quarter.",
+              "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider — all while keeping the engineering team steady at 12 people.",
             extra: {},
           },
         ],
@@ -547,7 +547,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
         rated_inference_calls: 1,
         nb_tokens_by_category: {
           input: 1743,
-          output: 254,
+          output: 247,
           input_audio: 0,
           input_cached: 0,
           output_audio: 0,
@@ -555,10 +555,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
           output_accepted_prediction: 0,
           output_rejected_prediction: 0,
         },
-        total_tokens: 1997,
-        cost: 0.009039,
+        total_tokens: 1990,
+        cost: 0.008934000000000001,
         cost_input: 0.005229,
-        cost_output: 0.00381,
+        cost_output: 0.003705,
         by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -566,14 +566,14 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             model_type: "llm",
             inference_calls: 1,
             rated_inference_calls: 1,
-            cost: 0.009039,
+            cost: 0.008934000000000001,
           },
         ],
         subtree_inference_calls: 1,
         subtree_rated_inference_calls: 1,
         subtree_nb_tokens_by_category: {
           input: 1743,
-          output: 254,
+          output: 247,
           input_audio: 0,
           input_cached: 0,
           output_audio: 0,
@@ -581,10 +581,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
           output_accepted_prediction: 0,
           output_rejected_prediction: 0,
         },
-        subtree_total_tokens: 1997,
-        subtree_cost: 0.009039,
+        subtree_total_tokens: 1990,
+        subtree_cost: 0.008934000000000001,
         subtree_cost_input: 0.005229,
-        subtree_cost_output: 0.00381,
+        subtree_cost_output: 0.003705,
         subtree_by_model: [
           {
             inference_model_name: "claude-4.6-sonnet",
@@ -592,7 +592,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             model_type: "llm",
             inference_calls: 1,
             rated_inference_calls: 1,
-            cost: 0.009039,
+            cost: 0.008934000000000001,
           },
         ],
       },
@@ -607,7 +607,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       },
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:node_4",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
       kind: "operator",
       pipe_code: "extract_facts",
       pipe_type: "PipeLLM",
@@ -616,9 +616,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:53:03.770927Z",
-        ended_at: "2026-08-13T13:53:07.492613Z",
-        duration: 3.721686,
+        started_at: "2026-08-14T10:47:27.612368Z",
+        ended_at: "2026-08-14T10:47:30.440846Z",
+        duration: 2.828478,
       },
       io: {
         inputs: [
@@ -628,7 +628,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "LE6xJ",
+            digest: "DDpdx",
             data: {
               text: "The Q3 roadmap has three themes: cut onboarding time in half, ship the public API, and move billing off the legacy provider. Engineering headcount stays flat at twelve.",
             },
@@ -646,11 +646,11 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SdZ8h",
+            digest: "DAw3c",
             data: {
               json_obj: {
-                roadmap_quarter: "Q3",
-                themes: [
+                quarter: "Q3",
+                roadmap_themes: [
                   "Cut onboarding time in half",
                   "Ship the public API",
                   "Move billing off the legacy provider",
@@ -660,9 +660,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
               },
             },
             data_text:
-              '{\n    "roadmap_quarter": "Q3",\n    "themes": [\n        "Cut onboarding time in half",\n        "Ship the public API",\n        "Move billing off the legacy provider"\n    ],\n    "engineering_headcount": 12,\n    "headcount_change": "flat"\n}\n',
+              '{\n    "quarter": "Q3",\n    "roadmap_themes": [\n        "Cut onboarding time in half",\n        "Ship the public API",\n        "Move billing off the legacy provider"\n    ],\n    "engineering_headcount": 12,\n    "headcount_change": "flat"\n}\n',
             data_html:
-              "<table ><tr><th>roadmap_quarter</th><td>Q3</td></tr><tr><th>themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
+              "<table ><tr><th>quarter</th><td>Q3</td></tr><tr><th>roadmap_themes</th><td><ul><li>Cut onboarding time in half</li><li>Ship the public API</li><li>Move billing off the legacy provider</li></ul></td></tr><tr><th>engineering_headcount</th><td>12</td></tr><tr><th>headcount_change</th><td>flat</td></tr></table>",
             extra: {},
           },
         ],
@@ -737,9 +737,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
   ],
   edges: [
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:edge_0",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_0",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_1",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:edge_0",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -748,9 +748,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:edge_1",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_0",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_2",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:edge_1",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -759,9 +759,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:edge_2",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_0",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_3",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:edge_2",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -770,9 +770,9 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:edge_3",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_0",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_4",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:edge_3",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -781,47 +781,47 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:asm_edge_0",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_1",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_0",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_0",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_1",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "mKFRL",
-      target_stuff_digest: "XRSGv",
+      source_stuff_digest: "QYJpx",
+      target_stuff_digest: "S7xdy",
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:asm_edge_1",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_2",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_0",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_1",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_2",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "L8YXj",
-      target_stuff_digest: "XRSGv",
+      source_stuff_digest: "LUT84",
+      target_stuff_digest: "S7xdy",
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:asm_edge_2",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_3",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_0",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_2",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_3",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "hT5DR",
-      target_stuff_digest: "XRSGv",
+      source_stuff_digest: "89Puy",
+      target_stuff_digest: "S7xdy",
       meta: {},
     },
     {
-      id: "a83021cf-b654-4858-9438-0464562cab44:asm_edge_3",
-      source: "a83021cf-b654-4858-9438-0464562cab44:node_4",
-      target: "a83021cf-b654-4858-9438-0464562cab44:node_0",
+      id: "dc19a29e-0647-448e-b27a-b31225db446c:asm_edge_3",
+      source: "dc19a29e-0647-448e-b27a-b31225db446c:node_4",
+      target: "dc19a29e-0647-448e-b27a-b31225db446c:node_0",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "SdZ8h",
-      target_stuff_digest: "XRSGv",
+      source_stuff_digest: "DAw3c",
+      target_stuff_digest: "S7xdy",
       meta: {},
     },
   ],
@@ -831,7 +831,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
       rated_inference_calls: 4,
       nb_tokens_by_category: {
         input: 4247,
-        output: 529,
+        output: 522,
         input_audio: 0,
         input_cached: 0,
         output_audio: 0,
@@ -839,10 +839,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
         output_accepted_prediction: 0,
         output_rejected_prediction: 0,
       },
-      total_tokens: 4776,
-      cost: 0.020676,
+      total_tokens: 4769,
+      cost: 0.020571,
       cost_input: 0.012741,
-      cost_output: 0.007935000000000001,
+      cost_output: 0.00783,
       by_model: [
         {
           inference_model_name: "claude-4.6-sonnet",
@@ -850,14 +850,14 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
           model_type: "llm",
           inference_calls: 4,
           rated_inference_calls: 4,
-          cost: 0.020676,
+          cost: 0.020571,
         },
       ],
       subtree_inference_calls: 4,
       subtree_rated_inference_calls: 4,
       subtree_nb_tokens_by_category: {
         input: 4247,
-        output: 529,
+        output: 522,
         input_audio: 0,
         input_cached: 0,
         output_audio: 0,
@@ -865,10 +865,10 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
         output_accepted_prediction: 0,
         output_rejected_prediction: 0,
       },
-      subtree_total_tokens: 4776,
-      subtree_cost: 0.020676,
+      subtree_total_tokens: 4769,
+      subtree_cost: 0.020571,
       subtree_cost_input: 0.012741,
-      subtree_cost_output: 0.007935000000000001,
+      subtree_cost_output: 0.00783,
       subtree_by_model: [
         {
           inference_model_name: "claude-4.6-sonnet",
@@ -876,7 +876,7 @@ export const LIVE_ALL_NATIVE_CONCEPTS = {
           model_type: "llm",
           inference_calls: 4,
           rated_inference_calls: 4,
-          cost: 0.020676,
+          cost: 0.020571,
         },
       ],
     },

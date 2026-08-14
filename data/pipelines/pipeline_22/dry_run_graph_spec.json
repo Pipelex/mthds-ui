@@ -1,6 +1,6 @@
 {
-  "graph_id": "bc98aed8-82f1-4eba-bea9-54286988a94f",
-  "created_at": "2026-08-14T09:50:36.103836Z",
+  "graph_id": "6a4ae474-93c9-487a-94f1-c4c723c837a8",
+  "created_at": "2026-08-14T10:49:39.424191Z",
   "pipeline_ref": {
     "domain": "content_distribution",
     "main_pipe": "fanout_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_0",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_0",
       "kind": "controller",
       "pipe_code": "fanout_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,29 +17,29 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.103836Z",
-        "ended_at": "2026-08-14T09:50:36.189770Z",
-        "duration": 0.085934
+        "started_at": "2026-08-14T10:49:39.424191Z",
+        "ended_at": "2026-08-14T10:49:39.503170Z",
+        "duration": 0.078979
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "oZHiLZutQDFomTxQvogk",
+            "content_type": "kHgcxYTUUFBftLvRsviw",
             "preview": null,
             "size": null,
-            "digest": "hWG4r",
+            "digest": "gARsU",
             "data": {
-              "url": "BVYyVDWWIUtSmfLTSPAO",
-              "public_url": "NacmjBthRdzGqddEeBal",
-              "mime_type": "oZHiLZutQDFomTxQvogk",
-              "filename": "ZJPrnzDHZznCZLrPxjfB",
-              "title": "FcWfbjmNfrALtvOWLdgR",
-              "snippet": "yQQEHxwmyNjVEibbgJvX"
+              "url": "VoKnJRDPoArWRXazPAiX",
+              "public_url": "AvSCCfyNJbrPjbwXQXdt",
+              "mime_type": "kHgcxYTUUFBftLvRsviw",
+              "filename": "ergfBiNgsncHtOCjMdJx",
+              "title": "fnMvfKbnzCrOyjSRAWtR",
+              "snippet": "VrMGGXdLimfFCxmWOnku"
             },
-            "data_text": "FcWfbjmNfrALtvOWLdgR (BVYyVDWWIUtSmfLTSPAO)\n  yQQEHxwmyNjVEibbgJvX\n",
-            "data_html": "<a href=\"NacmjBthRdzGqddEeBal\" class=\"msg-document\">FcWfbjmNfrALtvOWLdgR</a><br/><small>yQQEHxwmyNjVEibbgJvX</small>",
+            "data_text": "fnMvfKbnzCrOyjSRAWtR (VoKnJRDPoArWRXazPAiX)\n  VrMGGXdLimfFCxmWOnku\n",
+            "data_html": "<a href=\"AvSCCfyNJbrPjbwXQXdt\" class=\"msg-document\">fnMvfKbnzCrOyjSRAWtR</a><br/><small>VrMGGXdLimfFCxmWOnku</small>",
             "extra": {}
           }
         ],
@@ -50,12 +50,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "iyEsQ",
+            "digest": "hKewy",
             "data": {
-              "text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
+              "text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
             },
-            "data_text": "                                        Distribution Report                                         \n\nSummary Stored                                                                                      \n\nsummary: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nconcise executive summary:                                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Entities Indexed                                                                                \n index_entry: ```                                                                                   \n {                                                                                                  \n     \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"                                                             \n }                                                                                                  \n                                                                                                    \n\nSentiment Logged                                                                                    \n\nsentiment_log: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,     \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Log the    \nsentiment trends:                                                                                   \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    &quot;XLKLltIJEOGVPpHEMDcW&quot;: &quot;85c58788&quot;\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```",
+            "data_text": "                                        Distribution Report                                         \n\nSummary Stored                                                                                      \n\nsummary: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nconcise executive summary:                                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Entities Indexed                                                                                \n index_entry: ```                                                                                   \n {                                                                                                  \n     \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"                                                           \n }                                                                                                  \n                                                                                                    \n\nSentiment Logged                                                                                    \n\nsentiment_log: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,     \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Log the    \nsentiment trends:                                                                                   \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    &quot;TkjvrsIAaAhuQEYALtUi&quot;: &quot;abe11c835a&quot;\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```",
             "extra": {}
           }
         ]
@@ -95,7 +95,7 @@
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
       "kind": "operator",
       "pipe_code": "deep_analyze",
       "pipe_type": "PipeLLM",
@@ -104,29 +104,29 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.109689Z",
-        "ended_at": "2026-08-14T09:50:36.122177Z",
-        "duration": 0.012488
+        "started_at": "2026-08-14T10:49:39.429813Z",
+        "ended_at": "2026-08-14T10:49:39.441683Z",
+        "duration": 0.01187
       },
       "io": {
         "inputs": [
           {
             "name": "document",
             "concept": "Document",
-            "content_type": "oZHiLZutQDFomTxQvogk",
+            "content_type": "kHgcxYTUUFBftLvRsviw",
             "preview": null,
             "size": null,
-            "digest": "hWG4r",
+            "digest": "gARsU",
             "data": {
-              "url": "BVYyVDWWIUtSmfLTSPAO",
-              "public_url": "NacmjBthRdzGqddEeBal",
-              "mime_type": "oZHiLZutQDFomTxQvogk",
-              "filename": "ZJPrnzDHZznCZLrPxjfB",
-              "title": "FcWfbjmNfrALtvOWLdgR",
-              "snippet": "yQQEHxwmyNjVEibbgJvX"
+              "url": "VoKnJRDPoArWRXazPAiX",
+              "public_url": "AvSCCfyNJbrPjbwXQXdt",
+              "mime_type": "kHgcxYTUUFBftLvRsviw",
+              "filename": "ergfBiNgsncHtOCjMdJx",
+              "title": "fnMvfKbnzCrOyjSRAWtR",
+              "snippet": "VrMGGXdLimfFCxmWOnku"
             },
-            "data_text": "FcWfbjmNfrALtvOWLdgR (BVYyVDWWIUtSmfLTSPAO)\n  yQQEHxwmyNjVEibbgJvX\n",
-            "data_html": "<a href=\"NacmjBthRdzGqddEeBal\" class=\"msg-document\">FcWfbjmNfrALtvOWLdgR</a><br/><small>yQQEHxwmyNjVEibbgJvX</small>",
+            "data_text": "fnMvfKbnzCrOyjSRAWtR (VoKnJRDPoArWRXazPAiX)\n  VrMGGXdLimfFCxmWOnku\n",
+            "data_html": "<a href=\"AvSCCfyNJbrPjbwXQXdt\" class=\"msg-document\">fnMvfKbnzCrOyjSRAWtR</a><br/><small>VrMGGXdLimfFCxmWOnku</small>",
             "extra": {}
           }
         ],
@@ -137,12 +137,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "P24od",
+            "digest": "4dypP",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n"
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')                                       \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;BVYyVDWWIUtSmfLTSPAO&#x27;)\n",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n",
             "extra": {}
           }
         ]
@@ -196,7 +196,7 @@
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "controller",
       "pipe_code": "distribute",
       "pipe_type": "PipeParallel",
@@ -205,9 +205,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.126638Z",
-        "ended_at": "2026-08-14T09:50:36.172875Z",
-        "duration": 0.046237
+        "started_at": "2026-08-14T10:49:39.446049Z",
+        "ended_at": "2026-08-14T10:49:39.489042Z",
+        "duration": 0.042993
       },
       "io": {
         "inputs": [
@@ -217,12 +217,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "P24od",
+            "digest": "4dypP",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n"
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')                                       \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;BVYyVDWWIUtSmfLTSPAO&#x27;)\n",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n",
             "extra": {}
           }
         ],
@@ -233,7 +233,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6YyEg",
+            "digest": "ksQ6R",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "
             },
@@ -247,14 +247,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "X44rA",
+            "digest": "4ywer",
             "data": {
               "json_obj": {
-                "XLKLltIJEOGVPpHEMDcW": "85c58788"
+                "TkjvrsIAaAhuQEYALtUi": "abe11c835a"
               }
             },
-            "data_text": "{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n",
-            "data_html": "<table ><tr><th>XLKLltIJEOGVPpHEMDcW</th><td>85c58788</td></tr></table>",
+            "data_text": "{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n",
+            "data_html": "<table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table>",
             "extra": {}
           },
           {
@@ -263,7 +263,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jMpbo",
+            "digest": "9u9S5",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "
             },
@@ -277,22 +277,22 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "T65rx",
+            "digest": "RTVPA",
             "data": {
               "summary": {
                 "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "
               },
               "index_entry": {
                 "json_obj": {
-                  "XLKLltIJEOGVPpHEMDcW": "85c58788"
+                  "TkjvrsIAaAhuQEYALtUi": "abe11c835a"
                 }
               },
               "sentiment_log": {
                 "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "
               }
             },
-            "data_text": "{\n    \"summary\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nCreate a concise executive summary:\\n\\n<analysis>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndo\\n    \"\n    },\n    \"index_entry\": {\n        \"json_obj\": {\n            \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n        }\n    },\n    \"sentiment_log\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nLog the sentiment trends:\\n\\n<analysis>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndocument cov\\n    \"\n    }\n}\n",
-            "data_html": "<table><tr><th>summary</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    </td></tr><tr><th>index_entry</th><td><table ><tr><th>XLKLltIJEOGVPpHEMDcW</th><td>85c58788</td></tr></table></td></tr><tr><th>sentiment_log</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    </td></tr></table>",
+            "data_text": "{\n    \"summary\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nCreate a concise executive summary:\\n\\n<analysis>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndo\\n    \"\n    },\n    \"index_entry\": {\n        \"json_obj\": {\n            \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n        }\n    },\n    \"sentiment_log\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nLog the sentiment trends:\\n\\n<analysis>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndocument cov\\n    \"\n    }\n}\n",
+            "data_html": "<table><tr><th>summary</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    </td></tr><tr><th>index_entry</th><td><table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table></td></tr><tr><th>sentiment_log</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    </td></tr></table>",
             "extra": {}
           }
         ]
@@ -334,7 +334,7 @@
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_3",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_3",
       "kind": "operator",
       "pipe_code": "store_summary",
       "pipe_type": "PipeLLM",
@@ -343,9 +343,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.131023Z",
-        "ended_at": "2026-08-14T09:50:36.139100Z",
-        "duration": 0.008077
+        "started_at": "2026-08-14T10:49:39.450299Z",
+        "ended_at": "2026-08-14T10:49:39.457740Z",
+        "duration": 0.007441
       },
       "io": {
         "inputs": [
@@ -355,12 +355,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "P24od",
+            "digest": "4dypP",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n"
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')                                       \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;BVYyVDWWIUtSmfLTSPAO&#x27;)\n",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n",
             "extra": {}
           }
         ],
@@ -371,7 +371,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6YyEg",
+            "digest": "ksQ6R",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "
             },
@@ -425,12 +425,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n\n</analysis>",
+        "rendered_user_prompt": "Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n\n</analysis>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_4",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_4",
       "kind": "operator",
       "pipe_code": "index_entities",
       "pipe_type": "PipeLLM",
@@ -439,9 +439,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.142629Z",
-        "ended_at": "2026-08-14T09:50:36.151363Z",
-        "duration": 0.008734
+        "started_at": "2026-08-14T10:49:39.460991Z",
+        "ended_at": "2026-08-14T10:49:39.469532Z",
+        "duration": 0.008541
       },
       "io": {
         "inputs": [
@@ -451,12 +451,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "P24od",
+            "digest": "4dypP",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n"
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')                                       \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;BVYyVDWWIUtSmfLTSPAO&#x27;)\n",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n",
             "extra": {}
           }
         ],
@@ -467,14 +467,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "X44rA",
+            "digest": "4ywer",
             "data": {
               "json_obj": {
-                "XLKLltIJEOGVPpHEMDcW": "85c58788"
+                "TkjvrsIAaAhuQEYALtUi": "abe11c835a"
               }
             },
-            "data_text": "{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n",
-            "data_html": "<table ><tr><th>XLKLltIJEOGVPpHEMDcW</th><td>85c58788</td></tr></table>",
+            "data_text": "{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n",
+            "data_html": "<table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table>",
             "extra": {}
           }
         ]
@@ -523,12 +523,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Extract named entities for indexing:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n\n</analysis>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_distribution__IndexEntry(JSONContent):\n    \"\"\"Search index entry\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Extract named entities for indexing:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n\n</analysis>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_distribution__IndexEntry(JSONContent):\n    \"\"\"Search index entry\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_5",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_5",
       "kind": "operator",
       "pipe_code": "log_sentiment",
       "pipe_type": "PipeLLM",
@@ -537,9 +537,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.154877Z",
-        "ended_at": "2026-08-14T09:50:36.162860Z",
-        "duration": 0.007983
+        "started_at": "2026-08-14T10:49:39.472829Z",
+        "ended_at": "2026-08-14T10:49:39.480235Z",
+        "duration": 0.007406
       },
       "io": {
         "inputs": [
@@ -549,12 +549,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "P24od",
+            "digest": "4dypP",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n"
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')                                       \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;BVYyVDWWIUtSmfLTSPAO&#x27;)\n",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n",
             "extra": {}
           }
         ],
@@ -565,7 +565,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jMpbo",
+            "digest": "9u9S5",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "
             },
@@ -619,12 +619,12 @@
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='BVYyVDWWIUtSmfLTSPAO')\n\n</analysis>",
+        "rendered_user_prompt": "Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n\n</analysis>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_6",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_6",
       "kind": "operator",
       "pipe_code": "report",
       "pipe_type": "PipeCompose",
@@ -633,9 +633,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-14T09:50:36.177732Z",
-        "ended_at": "2026-08-14T09:50:36.185708Z",
-        "duration": 0.007976
+        "started_at": "2026-08-14T10:49:39.493597Z",
+        "ended_at": "2026-08-14T10:49:39.499901Z",
+        "duration": 0.006304
       },
       "io": {
         "inputs": [
@@ -645,7 +645,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6YyEg",
+            "digest": "ksQ6R",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "
             },
@@ -659,14 +659,14 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "X44rA",
+            "digest": "4ywer",
             "data": {
               "json_obj": {
-                "XLKLltIJEOGVPpHEMDcW": "85c58788"
+                "TkjvrsIAaAhuQEYALtUi": "abe11c835a"
               }
             },
-            "data_text": "{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n",
-            "data_html": "<table ><tr><th>XLKLltIJEOGVPpHEMDcW</th><td>85c58788</td></tr></table>",
+            "data_text": "{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n",
+            "data_html": "<table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table>",
             "extra": {}
           },
           {
@@ -675,7 +675,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jMpbo",
+            "digest": "9u9S5",
             "data": {
               "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "
             },
@@ -691,12 +691,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "iyEsQ",
+            "digest": "hKewy",
             "data": {
-              "text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
+              "text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
             },
-            "data_text": "                                        Distribution Report                                         \n\nSummary Stored                                                                                      \n\nsummary: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nconcise executive summary:                                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Entities Indexed                                                                                \n index_entry: ```                                                                                   \n {                                                                                                  \n     \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"                                                             \n }                                                                                                  \n                                                                                                    \n\nSentiment Logged                                                                                    \n\nsentiment_log: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,     \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Log the    \nsentiment trends:                                                                                   \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    &quot;XLKLltIJEOGVPpHEMDcW&quot;: &quot;85c58788&quot;\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```",
+            "data_text": "                                        Distribution Report                                         \n\nSummary Stored                                                                                      \n\nsummary: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Create a   \nconcise executive summary:                                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Entities Indexed                                                                                \n index_entry: ```                                                                                   \n {                                                                                                  \n     \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"                                                           \n }                                                                                                  \n                                                                                                    \n\nSentiment Logged                                                                                    \n\nsentiment_log: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,     \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Log the    \nsentiment trends:                                                                                   \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    &quot;TkjvrsIAaAhuQEYALtUi&quot;: &quot;abe11c835a&quot;\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```",
             "extra": {}
           }
         ]
@@ -724,15 +724,15 @@
       },
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"XLKLltIJEOGVPpHEMDcW\": \"85c58788\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
+        "rendered_text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_0",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_0",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_0",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_0",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -741,9 +741,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_1",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_0",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_1",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_0",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -752,9 +752,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_2",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_3",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_2",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -763,9 +763,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_3",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_4",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_3",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -774,9 +774,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_4",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_5",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_4",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -785,9 +785,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:edge_5",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_0",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_6",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:edge_5",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_0",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_6",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -796,9 +796,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_0",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_0",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "data",
       "optional": false,
       "label": "analysis",
@@ -807,9 +807,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_1",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_3",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_1",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_3",
       "kind": "data",
       "optional": false,
       "label": "analysis",
@@ -818,9 +818,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_2",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_4",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_2",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_4",
       "kind": "data",
       "optional": false,
       "label": "analysis",
@@ -829,9 +829,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_3",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_1",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_5",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_3",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_1",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_5",
       "kind": "data",
       "optional": false,
       "label": "analysis",
@@ -840,9 +840,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_4",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_6",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_4",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_6",
       "kind": "data",
       "optional": false,
       "label": "summary",
@@ -851,9 +851,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_5",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_6",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_5",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_6",
       "kind": "data",
       "optional": false,
       "label": "index_entry",
@@ -862,9 +862,9 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_6",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_6",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_6",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_6",
       "kind": "data",
       "optional": false,
       "label": "sentiment_log",
@@ -873,36 +873,36 @@
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_7",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_3",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_7",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_3",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "6YyEg",
-      "target_stuff_digest": "T65rx",
+      "source_stuff_digest": "ksQ6R",
+      "target_stuff_digest": "RTVPA",
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_8",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_4",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_8",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_4",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "X44rA",
-      "target_stuff_digest": "T65rx",
+      "source_stuff_digest": "4ywer",
+      "target_stuff_digest": "RTVPA",
       "meta": {}
     },
     {
-      "id": "bc98aed8-82f1-4eba-bea9-54286988a94f:asm_edge_9",
-      "source": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_5",
-      "target": "bc98aed8-82f1-4eba-bea9-54286988a94f:node_2",
+      "id": "6a4ae474-93c9-487a-94f1-c4c723c837a8:asm_edge_9",
+      "source": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_5",
+      "target": "6a4ae474-93c9-487a-94f1-c4c723c837a8:node_2",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "jMpbo",
-      "target_stuff_digest": "T65rx",
+      "source_stuff_digest": "9u9S5",
+      "target_stuff_digest": "RTVPA",
       "meta": {}
     }
   ],

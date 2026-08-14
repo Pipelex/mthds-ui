@@ -1,6 +1,0 @@
-{
-  "text": "## Catalog Entry\n\n### Description\ndescription: ```\nI don't see any image in your message. It appears that no image was successfully uploaded or attached to your question. \n\nCould you please try uploading the image again? Once you share the image, I'll be happy to provide you with a detailed description of it.\n```\n\n### Tags\ntags: ```\n{}\n```",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_16/live_run.html"
-  }
-}

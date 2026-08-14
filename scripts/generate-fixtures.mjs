@@ -1,8 +1,20 @@
 /**
- * Regenerate Storybook GraphSpec fixtures from the pipelex bundles in
- * data/pipelines/. Each bundle is run through the sibling `../pipelex`
- * checkout and the resulting graphspec.json is emitted as a typed fixture consumed by
- * mockGraphSpec.ts.
+ * Regenerate every generated artifact in data/pipelines/ from the bundles that live
+ * there. Each bundle is run through the sibling `../pipelex` checkout; the resulting
+ * graphspec.json becomes a typed Storybook fixture, and the rest of the run's output
+ * is committed next to the bundle.
+ *
+ * Per pipeline, per mode (`dry_` / `live_` prefix):
+ *
+ *   <mode>_run_graph_spec.json    the GraphSpec — the contract the fixtures are built from
+ *   <mode>_run_graph.html         standalone ReactFlow viewer for that run
+ *   <mode>_run_mermaidflow.mmd    Mermaid source
+ *   <mode>_run_mermaidflow.html   rendered Mermaid page
+ *   live_run_main_stuff.json      what the live run actually produced (LIVE only)
+ *   inputs_template.json          fill-in inputs template (offline, refreshed on DRY)
+ *
+ * This script is the ONLY writer of those files. Anything else in a pipeline directory
+ * (bundle.mthds, inputs.json, inputs/, structures/) is hand-authored input.
  *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
  *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
@@ -30,6 +42,7 @@
  */
 import { execFileSync } from "node:child_process";
 import {
+  copyFileSync,
   mkdtempSync,
   mkdirSync,
   rmSync,
@@ -103,6 +116,28 @@ const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : nu
 const SPEC_JSON_NAME = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
 const specJsonPath = (pipelineDir) => path.join(PIPELINES_DIR, pipelineDir, SPEC_JSON_NAME);
 
+/**
+ * The rest of the run's output, kept alongside the spec: CLI filename -> local name.
+ *
+ * The graphspec is the contract (it is what the Storybook fixtures are built from);
+ * these are the human-facing renders of the same run, committed so a reviewer can open
+ * a pipeline's graph without a pipelex checkout. Every name is mode-prefixed, so a DRY
+ * and a LIVE regeneration of the same pipeline never overwrite each other.
+ *
+ * `main_stuff.json` is LIVE-only on purpose: a dry run's main stuff is the mock string
+ * the runtime invented for `--mock-inputs`, so committing it would be pure diff churn
+ * over a value that carries no information about the pipeline.
+ */
+const RUN_ARTIFACTS = [
+  { from: "reactflow.html", to: "graph.html" },
+  { from: "mermaidflow.mmd", to: "mermaidflow.mmd" },
+  { from: "mermaidflow.html", to: "mermaidflow.html" },
+  ...(LIVE ? [{ from: "main_stuff.json", to: "main_stuff.json" }] : []),
+];
+
+/** Mode-independent: the inputs template a caller fills in to run this pipeline. */
+const INPUTS_TEMPLATE_NAME = "inputs_template.json";
+
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
   process.exit(1);
@@ -117,12 +152,20 @@ function assertPipelexCliAvailable() {
   }
 }
 
-/** Run one bundle through pipelex and return the parsed graphspec.json. */
-function generateSpec(pipelineDir) {
+/**
+ * Run one bundle through pipelex.
+ *
+ * Returns the parsed graphspec plus the run's output directory and a `cleanup()` the
+ * caller MUST call. The temp dir outlives this function on purpose: the caller validates
+ * the spec first and only then copies the rest of the run's artifacts, so a spec that
+ * fails validation never leaves a refreshed graph.html next to a rejected spec.
+ */
+function runBundle(pipelineDir) {
   const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
   if (!existsSync(bundle)) die(`${pipelineDir}: missing bundle.mthds`);
 
   const tmp = mkdtempSync(path.join(tmpdir(), `fixtures-${pipelineDir}-`));
+  const cleanup = () => rmSync(tmp, { recursive: true, force: true });
   try {
     const args = ["run", "bundle", bundle, "--graph", "-o", tmp];
     if (LIVE) {
@@ -163,12 +206,61 @@ function generateSpec(pipelineDir) {
           `(${outputDirs.join(", ")}) — cannot pick the graphspec unambiguously`,
       );
     }
-    const specPath = path.join(tmp, outputDirs[0], "graphspec.json");
+    const outDir = path.join(tmp, outputDirs[0]);
+    const specPath = path.join(outDir, "graphspec.json");
     if (!existsSync(specPath)) die(`${pipelineDir}: no graphspec.json at ${specPath}`);
 
-    return JSON.parse(readFileSync(specPath, "utf-8"));
-  } finally {
-    rmSync(tmp, { recursive: true, force: true });
+    return { spec: JSON.parse(readFileSync(specPath, "utf-8")), outDir, cleanup };
+  } catch (err) {
+    cleanup();
+    throw err;
+  }
+}
+
+/**
+ * Copy the run's non-spec artifacts next to the bundle under their mode-prefixed names.
+ *
+ * Every entry in RUN_ARTIFACTS must be present: the CLI emits them from one config
+ * (`graphs_inclusion` in .pipelex/pipelex.toml), so a missing file means that config
+ * drifted, not that this pipeline is special. Failing loudly here beats silently
+ * committing a pipeline with half its renders.
+ */
+function copyRunArtifacts(pipelineDir, outDir) {
+  for (const { from, to } of RUN_ARTIFACTS) {
+    const src = path.join(outDir, from);
+    if (!existsSync(src)) {
+      die(
+        `${pipelineDir}: pipelex emitted no ${from} — check graphs_inclusion in ` +
+          `.pipelex/pipelex.toml (all outputs must stay enabled for fixture generation)`,
+      );
+    }
+    copyFileSync(src, path.join(PIPELINES_DIR, pipelineDir, `${MODE_VALUE}_run_${to}`));
+  }
+}
+
+/**
+ * Write the pipe's inputs template alongside the bundle.
+ *
+ * Offline projection from the resolved crate — no engine, no inference — so it is
+ * regenerated on the free DRY pass and left untouched by a paid LIVE one.
+ */
+function writeInputsTemplate(pipelineDir) {
+  const out = path.join(PIPELINES_DIR, pipelineDir, INPUTS_TEMPLATE_NAME);
+  try {
+    execFileSync(
+      PIPELEX_BIN,
+      ["codegen", "inputs", path.join(PIPELINES_DIR, pipelineDir), "--explicit", "-o", out],
+      {
+        cwd: REPO,
+        env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
+        stdio: ["ignore", "pipe", "pipe"],
+        maxBuffer: 16 * 1024 * 1024,
+      },
+    );
+  } catch (err) {
+    console.error(err.stdout?.toString() ?? "");
+    console.error(err.stderr?.toString() ?? "");
+    die(`${pipelineDir}: pipelex codegen inputs failed`);
   }
 }
 
@@ -330,13 +422,20 @@ async function main() {
   const specByName = new Map();
   for (const pipelineDir of toProcess) {
     process.stdout.write(`  ${pipelineDir} ... `);
-    const spec = generateSpec(pipelineDir);
-    assertValid(spec, pipelineDir);
-    specByName.set(NAME_MAP[pipelineDir], spec);
+    const { spec, outDir, cleanup } = runBundle(pipelineDir);
+    try {
+      assertValid(spec, pipelineDir);
+      specByName.set(NAME_MAP[pipelineDir], spec);
 
-    // Keep the data/pipelines JSON in sync with the emitted fixture.
-    if (!CHECK) {
-      writeFileSync(specJsonPath(pipelineDir), JSON.stringify(spec, null, 2) + "\n");
+      // Keep the on-disk artifacts in sync with the emitted fixture: the spec is the
+      // contract, the rest of the run's output is the reviewable render of it.
+      if (!CHECK) {
+        writeFileSync(specJsonPath(pipelineDir), JSON.stringify(spec, null, 2) + "\n");
+        copyRunArtifacts(pipelineDir, outDir);
+        if (!LIVE) writeInputsTemplate(pipelineDir);
+      }
+    } finally {
+      cleanup();
     }
     console.log(`ok (${spec.nodes.length} nodes)`);
   }

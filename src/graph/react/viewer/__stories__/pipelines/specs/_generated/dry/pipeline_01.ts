@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SINGLE_PIPE = {
-  graph_id: "c8ed9d41-a0ee-458b-96ce-6f99c75097c9",
-  created_at: "2026-08-14T09:49:02.620661Z",
+  graph_id: "279ea720-95fd-4cc8-b362-8c066c373178",
+  created_at: "2026-08-14T10:48:01.382377Z",
   pipeline_ref: { domain: "text_processing", main_pipe: "summarize", entrypoint: null },
   nodes: [
     {
-      id: "c8ed9d41-a0ee-458b-96ce-6f99c75097c9:node_0",
+      id: "279ea720-95fd-4cc8-b362-8c066c373178:node_0",
       kind: "operator",
       pipe_code: "summarize",
       pipe_type: "PipeLLM",
@@ -19,9 +19,9 @@ export const DRY_SINGLE_PIPE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T09:49:02.620661Z",
-        ended_at: "2026-08-14T09:49:02.636976Z",
-        duration: 0.016315,
+        started_at: "2026-08-14T10:48:01.382377Z",
+        ended_at: "2026-08-14T10:48:01.395211Z",
+        duration: 0.012834,
       },
       io: {
         inputs: [
@@ -31,11 +31,11 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Uekn5",
-            data: { text: "fJpMMkANSVOtjUiKiabB" },
+            digest: "Kxwim",
+            data: { text: "HvJKyZUyGXWyYMZDNdPw" },
             data_text:
-              "fJpMMkANSVOtjUiKiabB                                                                                \n",
-            data_html: "fJpMMkANSVOtjUiKiabB",
+              "HvJKyZUyGXWyYMZDNdPw                                                                                \n",
+            data_html: "HvJKyZUyGXWyYMZDNdPw",
             extra: {},
           },
         ],
@@ -46,14 +46,14 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NRVfW",
+            digest: "b9Jgv",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nfJpMMkANSVOtjUiKiabB\n</text>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>\n    ",
             },
             data_text:
               "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
             data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nfJpMMkANSVOtjUiKiabB\n&lt;/text&gt;\n    ",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nHvJKyZUyGXWyYMZDNdPw\n&lt;/text&gt;\n    ",
             extra: {},
           },
         ],
@@ -103,7 +103,7 @@ export const DRY_SINGLE_PIPE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Summarize the following text concisely:\n\n<text>\nfJpMMkANSVOtjUiKiabB\n</text>",
+          "Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>",
         structuring_path: "text",
       },
     },

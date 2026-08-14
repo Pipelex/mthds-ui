@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'data': StuffArtefact(data), 'alpha_result': StuffArtefact(alpha_result), 'beta_result': StuffArtefact(beta_result), 'gamma_result': StuffArtefact(gamma_result), 'delta_result': StuffArtefact(delta_result)} \u2022 jinja2=# Merged Analysis\n\n## Technical Analysis\n{{ alpha_result|tag(\"alpha_result\") }}\n\n## Related Context\n{{ beta_result|tag(\"beta_result\") }}\n\n## Risk Assessment\n{{ gamma_result|tag(\"gamma_result\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_13/dry_run.html"
-  }
-}

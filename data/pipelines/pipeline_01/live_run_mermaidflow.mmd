@@ -1,0 +1,17 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    n_6d662d7bcd["summarize"]
+    s_19c2b4f4c4(["summary<br/>Summary"]):::stuff
+
+    %% Pipeline input stuff nodes (no producer)
+    s_ab38ed59bc(["text<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_6d662d7bcd --> s_19c2b4f4c4
+    s_ab38ed59bc --> n_6d662d7bcd
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc

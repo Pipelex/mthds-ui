@@ -1,0 +1,36 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_1387bcb432["triage_request"]
+        n_b8e798cec8["decide"]
+        s_382d6edcd2(["verdict<br/>Verdict"]):::stuff
+        n_bc371f22ed["is_urgent"]
+        s_b14ec8c3c1(["urgent<br/>YesNo"]):::stuff
+        n_970a9d28ec["read_dates"]
+        s_643915afd8(["dates<br/>Date"]):::stuff
+        n_bf10398490["read_slot"]
+        s_6073011d69(["slot<br/>Time"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_31ee7537b7(["request<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_b8e798cec8 --> s_382d6edcd2
+    n_bf10398490 --> s_6073011d69
+    n_970a9d28ec --> s_643915afd8
+    n_bc371f22ed --> s_b14ec8c3c1
+    s_31ee7537b7 --> n_970a9d28ec
+    s_31ee7537b7 --> n_bf10398490
+    s_31ee7537b7 --> n_bc371f22ed
+    s_6073011d69 --> n_b8e798cec8
+    s_643915afd8 --> n_b8e798cec8
+    s_b14ec8c3c1 --> n_b8e798cec8
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_1387bcb432 fill:#e6f3ff

@@ -5,8 +5,8 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_CONTENT_MODERATION = {
-  graph_id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979",
-  created_at: "2026-08-13T13:07:00.609337Z",
+  graph_id: "14695e79-0d64-40a6-ab5c-72b04a0d9602",
+  created_at: "2026-08-14T10:36:13.491288Z",
   pipeline_ref: {
     domain: "content_moderation",
     main_pipe: "moderation_pipeline",
@@ -14,7 +14,7 @@ export const LIVE_CONTENT_MODERATION = {
   },
   nodes: [
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_0",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_0",
       kind: "controller",
       pipe_code: "moderation_pipeline",
       pipe_type: "PipeSequence",
@@ -23,9 +23,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:00.609337Z",
-        ended_at: "2026-08-13T13:07:07.338622Z",
-        duration: 6.729285,
+        started_at: "2026-08-14T10:36:13.491288Z",
+        ended_at: "2026-08-14T10:36:21.757128Z",
+        duration: 8.26584,
       },
       io: {
         inputs: [
@@ -35,7 +35,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Tvgv7",
+            digest: "K2Uwa",
             data: {
               text: "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.",
             },
@@ -53,7 +53,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X7y9t",
+            digest: "7bUck",
             data: {
               text: "APPROVED: Both text and image content passed safety checks with high safety scores (0.95 each). No categories were flagged in either text or image analysis.",
             },
@@ -107,7 +107,7 @@ export const LIVE_CONTENT_MODERATION = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
       kind: "controller",
       pipe_code: "parallel_checks",
       pipe_type: "PipeParallel",
@@ -116,9 +116,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:00.617521Z",
-        ended_at: "2026-08-13T13:07:04.993385Z",
-        duration: 4.375864,
+        started_at: "2026-08-14T10:36:13.512222Z",
+        ended_at: "2026-08-14T10:36:18.450308Z",
+        duration: 4.938086,
       },
       io: {
         inputs: [
@@ -128,7 +128,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Tvgv7",
+            digest: "K2Uwa",
             data: {
               text: "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.",
             },
@@ -146,7 +146,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "3xwem",
+            digest: "ftzd3",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -160,7 +160,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TdF2c",
+            digest: "LTHRR",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -174,7 +174,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dzouS",
+            digest: "7UN4K",
             data: {
               text_score: { score: 0.95, flagged_categories: null, safe: true },
               image_score: { score: 0.95, flagged_categories: null, safe: true },
@@ -233,7 +233,7 @@ export const LIVE_CONTENT_MODERATION = {
       },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_2",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_2",
       kind: "operator",
       pipe_code: "check_text_safety",
       pipe_type: "PipeLLM",
@@ -242,9 +242,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:00.621994Z",
-        ended_at: "2026-08-13T13:07:04.982435Z",
-        duration: 4.360441,
+        started_at: "2026-08-14T10:36:13.517137Z",
+        ended_at: "2026-08-14T10:36:17.635059Z",
+        duration: 4.117922,
       },
       io: {
         inputs: [
@@ -254,7 +254,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Tvgv7",
+            digest: "K2Uwa",
             data: {
               text: "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.",
             },
@@ -272,7 +272,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "3xwem",
+            digest: "ftzd3",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -350,7 +350,7 @@ export const LIVE_CONTENT_MODERATION = {
       },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_3",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_3",
       kind: "operator",
       pipe_code: "check_image_safety",
       pipe_type: "PipeLLM",
@@ -359,9 +359,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:02.387099Z",
-        ended_at: "2026-08-13T13:07:04.968204Z",
-        duration: 2.581105,
+        started_at: "2026-08-14T10:36:15.724473Z",
+        ended_at: "2026-08-14T10:36:18.440765Z",
+        duration: 2.716292,
       },
       io: {
         inputs: [
@@ -371,7 +371,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Tvgv7",
+            digest: "K2Uwa",
             data: {
               text: "This product is absolutely terrible! The customer service was rude and unhelpful. I demand a refund immediately or I will report this company to the Better Business Bureau. The delivery was late and the item arrived damaged.",
             },
@@ -389,7 +389,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TdF2c",
+            digest: "LTHRR",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -467,7 +467,7 @@ export const LIVE_CONTENT_MODERATION = {
       },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
       kind: "operator",
       pipe_code: "make_decision",
       pipe_type: "PipeLLM",
@@ -476,9 +476,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:04.999076Z",
-        ended_at: "2026-08-13T13:07:07.298428Z",
-        duration: 2.299352,
+        started_at: "2026-08-14T10:36:18.456012Z",
+        ended_at: "2026-08-14T10:36:21.731827Z",
+        duration: 3.275815,
       },
       io: {
         inputs: [
@@ -488,7 +488,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "3xwem",
+            digest: "ftzd3",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -502,7 +502,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TdF2c",
+            digest: "LTHRR",
             data: { score: 0.95, flagged_categories: null, safe: true },
             data_text:
               " Attribute                                       ┃ Value                        \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                           │ 0.95                         \n─────────────────────────────────────────────────┼──────────────────────────────\n safe                                            │ True                         \n",
@@ -518,7 +518,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "e7Pqn",
+            digest: "3g5tV",
             data: {
               approved: true,
               reason:
@@ -601,7 +601,7 @@ export const LIVE_CONTENT_MODERATION = {
       },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_5",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_5",
       kind: "controller",
       pipe_code: "route_action",
       pipe_type: "PipeCondition",
@@ -610,9 +610,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:07.304764Z",
-        ended_at: "2026-08-13T13:07:07.335837Z",
-        duration: 0.031073,
+        started_at: "2026-08-14T10:36:21.735197Z",
+        ended_at: "2026-08-14T10:36:21.754630Z",
+        duration: 0.019433,
       },
       io: {
         inputs: [
@@ -622,7 +622,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "e7Pqn",
+            digest: "3g5tV",
             data: {
               approved: true,
               reason:
@@ -643,7 +643,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X7y9t",
+            digest: "7bUck",
             data: {
               text: "APPROVED: Both text and image content passed safety checks with high safety scores (0.95 each). No categories were flagged in either text or image analysis.",
             },
@@ -679,7 +679,7 @@ export const LIVE_CONTENT_MODERATION = {
       execution_data: { evaluated_expression: "approve", selected_outcome: "approve_content" },
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_6",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_6",
       kind: "operator",
       pipe_code: "approve_content",
       pipe_type: "PipeCompose",
@@ -688,9 +688,9 @@ export const LIVE_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-13T13:07:07.317692Z",
-        ended_at: "2026-08-13T13:07:07.331209Z",
-        duration: 0.013517,
+        started_at: "2026-08-14T10:36:21.742342Z",
+        ended_at: "2026-08-14T10:36:21.751482Z",
+        duration: 0.00914,
       },
       io: {
         inputs: [
@@ -700,7 +700,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "e7Pqn",
+            digest: "3g5tV",
             data: {
               approved: true,
               reason:
@@ -721,7 +721,7 @@ export const LIVE_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X7y9t",
+            digest: "7bUck",
             data: {
               text: "APPROVED: Both text and image content passed safety checks with high safety scores (0.95 each). No categories were flagged in either text or image analysis.",
             },
@@ -763,9 +763,9 @@ export const LIVE_CONTENT_MODERATION = {
   ],
   edges: [
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_0",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_0",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_0",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_0",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -774,9 +774,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_1",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_2",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_1",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -785,9 +785,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_2",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_3",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_2",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -796,9 +796,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_3",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_0",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_3",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_0",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -807,9 +807,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_4",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_0",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_5",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_4",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_0",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -818,9 +818,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:edge_5",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_5",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_6",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:edge_5",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_5",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -829,9 +829,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_0",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_0",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
       kind: "data",
       optional: false,
       label: "text_score",
@@ -840,9 +840,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_1",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_1",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
       kind: "data",
       optional: false,
       label: "image_score",
@@ -851,9 +851,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_2",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_5",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_2",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_5",
       kind: "data",
       optional: false,
       label: "decision",
@@ -862,9 +862,9 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_3",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_4",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_6",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_3",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_4",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_6",
       kind: "data",
       optional: false,
       label: "decision",
@@ -873,25 +873,25 @@ export const LIVE_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_4",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_2",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_4",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_2",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "3xwem",
-      target_stuff_digest: "dzouS",
+      source_stuff_digest: "ftzd3",
+      target_stuff_digest: "7UN4K",
       meta: {},
     },
     {
-      id: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:asm_edge_5",
-      source: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_3",
-      target: "5b0e0fb7-eee5-4967-aa74-5c90aefd4979:node_1",
+      id: "14695e79-0d64-40a6-ab5c-72b04a0d9602:asm_edge_5",
+      source: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_3",
+      target: "14695e79-0d64-40a6-ab5c-72b04a0d9602:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "TdF2c",
-      target_stuff_digest: "dzouS",
+      source_stuff_digest: "LTHRR",
+      target_stuff_digest: "7UN4K",
       meta: {},
     },
   ],
