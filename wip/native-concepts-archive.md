@@ -45,7 +45,7 @@ The user-visible symptom is in the detail panels: an input/output typed `YesNo`,
 
 ## Scope
 
-**In scope**
+**In scope** — as originally planned. The checkpoint review widened this: it also fixed the stale `FIELD_TYPE_TO_JSON` mapping in `parseMthdsBundle.ts` (`time` / `datetime` / `date`), which shipped as part of the change. See `## Status` above for that entry and its rationale; the bullets below are left as authored.
 
 - The catalog in `conceptRefs.ts` (one edit, everything else follows from it — `NATIVE_CONCEPT_CODES` is derived via `Object.keys`).
 - Unit tests covering the three resolution paths above.
