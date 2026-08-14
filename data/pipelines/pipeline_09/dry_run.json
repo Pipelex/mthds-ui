@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'cv': StuffArtefact(cv), 'pages': StuffArtefact(pages), 'profile': StuffArtefact(profile), 'search_result': StuffArtefact(search_result), 'card_image': StuffArtefact(card_image), 'match': StuffArtefact(match), 'main_stuff': StuffArtefact(match)} \u2022 jinja2=# Candidate Screening Report\n\n## Candidate: {{ profile.name|format() }}\n{{ profile.summary|format() }}\n\n## Match Score: {{ match.score|format() }}/100\n{{ match.recommendation|format() }}\n\n## Strengths\n{{ match.strengths|tag(\"match.strengths\") }}\n\n## Gaps\n{ \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_09/dry_run.html"
-  }
-}

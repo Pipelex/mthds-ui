@@ -1,6 +1,6 @@
 {
-  "graph_id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c",
-  "created_at": "2026-07-09T11:04:51.967244Z",
+  "graph_id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee",
+  "created_at": "2026-08-14T10:49:31.901076Z",
   "pipeline_ref": {
     "domain": "wide_processing",
     "main_pipe": "wide_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_0",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_0",
       "kind": "controller",
       "pipe_code": "wide_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:51.967244Z",
-        "ended_at": "2026-07-09T11:04:52.071317Z",
-        "duration": 0.104073
+        "started_at": "2026-08-14T10:49:31.901076Z",
+        "ended_at": "2026-08-14T10:49:32.105513Z",
+        "duration": 0.204437
       },
       "io": {
         "inputs": [
@@ -29,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "358Hp",
+            "digest": "ZCxAo",
             "data": {
-              "text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Market:\nbeta: ```\nUjILaoTzatAWeQLrhXwl\n\nSources:\n- CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA\n  NuoMAhGcAeRoFWvTgeXz\n- zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc\n  ykiDPoeKFcQWUURWkJxm\n- BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd\n  kHqpNBlrbzzRmopWBUAO\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```"
+              "text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Market:\nbeta: ```\nKbRbFxgIoOTUqFwQWBPt\n\nSources:\n- HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv\n  PGZCVksMbXCxMjcDlBeY\n- TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak\n  BIfLFfQMuTPAQySErAID\n- furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec\n  JVLUIvivtOGRdNOfMfaW\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```"
             },
-            "data_text": "                                         Collected Results                                          \n\nTechnical:                                                                                          \n\nalpha: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform    \ntechnical analysis:                                                                                 \n\n\n                                                                                                    \n ## Market:                                                                                         \n beta: ```                                                                                          \n UjILaoTzatAWeQLrhXwl                                                                               \n                                                                                                    \n Sources:                                                                                           \n - CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA                                                       \n   NuoMAhGcAeRoFWvTgeXz                                                                             \n - zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc                                                       \n   ykiDPoeKFcQWUURWkJxm                                                                             \n - BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd                                                       \n   kHqpNBlrbzzRmopWBUAO                                                                             \n                                                                                                    \n\nRisk:                                                                                               \n\ndelta: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess     \nrisks:                                                                                              \n\n\n                                                                                                    \n ## Compliance:                                                                                     \n epsilon: ```                                                                                       \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n oPQtumKuNyNpvQmYpjcl                                                                               \n </data>                                                                                            \n                                                                                                    \n",
-            "data_html": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```\n## Market:\nbeta: ```\nUjILaoTzatAWeQLrhXwl\n\nSources:\n- CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA\n  NuoMAhGcAeRoFWvTgeXz\n- zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc\n  ykiDPoeKFcQWUURWkJxm\n- BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd\n  kHqpNBlrbzzRmopWBUAO\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```",
+            "data_text": "                                         Collected Results                                          \n\nTechnical:                                                                                          \n\nalpha: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform    \ntechnical analysis:                                                                                 \n\n\n                                                                                                    \n ## Market:                                                                                         \n beta: ```                                                                                          \n KbRbFxgIoOTUqFwQWBPt                                                                               \n                                                                                                    \n Sources:                                                                                           \n - HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv                                                       \n   PGZCVksMbXCxMjcDlBeY                                                                             \n - TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak                                                       \n   BIfLFfQMuTPAQySErAID                                                                             \n - furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec                                                       \n   JVLUIvivtOGRdNOfMfaW                                                                             \n                                                                                                    \n\nRisk:                                                                                               \n\ndelta: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess     \nrisks:                                                                                              \n\n\n                                                                                                    \n ## Compliance:                                                                                     \n epsilon: ```                                                                                       \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n ZRjoAOYArNPDzxywZPIy                                                                               \n </data>                                                                                            \n                                                                                                    \n",
+            "data_html": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```\n## Market:\nbeta: ```\nKbRbFxgIoOTUqFwQWBPt\n\nSources:\n- HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv\n  PGZCVksMbXCxMjcDlBeY\n- TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak\n  BIfLFfQMuTPAQySErAID\n- furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec\n  JVLUIvivtOGRdNOfMfaW\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```",
             "extra": {}
           }
         ]
@@ -58,12 +58,39 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 3,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 3,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 2
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "controller",
       "pipe_code": "five_way_split",
       "pipe_type": "PipeParallel",
@@ -72,9 +99,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:51.971266Z",
-        "ended_at": "2026-07-09T11:04:52.053169Z",
-        "duration": 0.081903
+        "started_at": "2026-08-14T10:49:31.905889Z",
+        "ended_at": "2026-08-14T10:49:31.984810Z",
+        "duration": 0.078921
       },
       "io": {
         "inputs": [
@@ -84,12 +111,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -100,12 +127,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hrJsg",
+            "digest": "SQAWZ",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           },
           {
@@ -114,38 +141,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TpuuQ",
+            "digest": "Lyp6Q",
             "data": {
-              "answer": "UjILaoTzatAWeQLrhXwl",
+              "answer": "KbRbFxgIoOTUqFwQWBPt",
               "sources": [
                 {
-                  "url": "DVwtaECpqhHYYaMMCApA",
-                  "public_url": "ZYdnOBWVzmSSZAROjvPk",
-                  "mime_type": "ffjFyRTuQmYcFSUNdxlf",
-                  "filename": "cblkszxGKuYSwYCHKmBO",
-                  "title": "CBSyBrHpEtGPSzTsMTNb",
-                  "snippet": "NuoMAhGcAeRoFWvTgeXz"
+                  "url": "EioVJUkLzIjxxOQdPqpv",
+                  "public_url": "hDWCDYlUYkITmdjsxzLB",
+                  "mime_type": "PhcQLGXxfFZOWTGubMWN",
+                  "filename": "FPvTmdCoNkinoWjuzcgT",
+                  "title": "HwDujLdenxgFCTaYGuAx",
+                  "snippet": "PGZCVksMbXCxMjcDlBeY"
                 },
                 {
-                  "url": "EkaHbkrHxDMxbUpleZpc",
-                  "public_url": "LgMscTZkJcXFbZpRoogP",
-                  "mime_type": "bNlXxPhVOBUhaACiPDlL",
-                  "filename": "xyrljMVQFEQLAioeJyap",
-                  "title": "zuoPGQCHisDxVkTPTHnj",
-                  "snippet": "ykiDPoeKFcQWUURWkJxm"
+                  "url": "ZLhpCqjpAXowAWmDHsak",
+                  "public_url": "ejSpWBDYxFRtUXJLeECR",
+                  "mime_type": "JWPbgKLkjggAvYPAegxG",
+                  "filename": "YcYImiEJMYCiCbztwIQb",
+                  "title": "TLpHiKCdUIoYnhBVekVO",
+                  "snippet": "BIfLFfQMuTPAQySErAID"
                 },
                 {
-                  "url": "BlMnbtADVGvWFAGtjEgd",
-                  "public_url": "hIHOKDsStrndnDLeiSUN",
-                  "mime_type": "hheeZJPTWrWPEQaRyXUm",
-                  "filename": "zVUCsYAVyfLodhTnoFGc",
-                  "title": "BlbajYkaWABbDoGmnQgU",
-                  "snippet": "kHqpNBlrbzzRmopWBUAO"
+                  "url": "jdFCwzFRRFzjJXAYMIec",
+                  "public_url": "YkzTRKlPATofTScoLcaQ",
+                  "mime_type": "EqXcJckwrftwnYlLLmLo",
+                  "filename": "yYmAdSxextmfdlDaHNgV",
+                  "title": "furMtlZFptefCRTkNZeP",
+                  "snippet": "JVLUIvivtOGRdNOfMfaW"
                 }
               ]
             },
-            "data_text": "Search Result:\nUjILaoTzatAWeQLrhXwl                                                                                \n\nSources (3):\nCBSyBrHpEtGPSzTsMTNb (DVwtaECpqhHYYaMMCApA)\n  NuoMAhGcAeRoFWvTgeXz\n\nzuoPGQCHisDxVkTPTHnj (EkaHbkrHxDMxbUpleZpc)\n  ykiDPoeKFcQWUURWkJxm\n\nBlbajYkaWABbDoGmnQgU (BlMnbtADVGvWFAGtjEgd)\n  kHqpNBlrbzzRmopWBUAO\n",
-            "data_html": "<div><p>UjILaoTzatAWeQLrhXwl</p><h4>Sources</h4><ul><li><a href=\"ZYdnOBWVzmSSZAROjvPk\" class=\"msg-document\">CBSyBrHpEtGPSzTsMTNb</a><br/><small>NuoMAhGcAeRoFWvTgeXz</small></li><li><a href=\"LgMscTZkJcXFbZpRoogP\" class=\"msg-document\">zuoPGQCHisDxVkTPTHnj</a><br/><small>ykiDPoeKFcQWUURWkJxm</small></li><li><a href=\"hIHOKDsStrndnDLeiSUN\" class=\"msg-document\">BlbajYkaWABbDoGmnQgU</a><br/><small>kHqpNBlrbzzRmopWBUAO</small></li></ul></div>",
+            "data_text": "Search Result:\nKbRbFxgIoOTUqFwQWBPt                                                                                \n\nSources (3):\nHwDujLdenxgFCTaYGuAx (EioVJUkLzIjxxOQdPqpv)\n  PGZCVksMbXCxMjcDlBeY\n\nTLpHiKCdUIoYnhBVekVO (ZLhpCqjpAXowAWmDHsak)\n  BIfLFfQMuTPAQySErAID\n\nfurMtlZFptefCRTkNZeP (jdFCwzFRRFzjJXAYMIec)\n  JVLUIvivtOGRdNOfMfaW\n",
+            "data_html": "<div><p>KbRbFxgIoOTUqFwQWBPt</p><h4>Sources</h4><ul><li><a href=\"hDWCDYlUYkITmdjsxzLB\" class=\"msg-document\">HwDujLdenxgFCTaYGuAx</a><br/><small>PGZCVksMbXCxMjcDlBeY</small></li><li><a href=\"ejSpWBDYxFRtUXJLeECR\" class=\"msg-document\">TLpHiKCdUIoYnhBVekVO</a><br/><small>BIfLFfQMuTPAQySErAID</small></li><li><a href=\"YkzTRKlPATofTScoLcaQ\" class=\"msg-document\">furMtlZFptefCRTkNZeP</a><br/><small>JVLUIvivtOGRdNOfMfaW</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -154,21 +181,19 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "5sUNt",
+            "digest": "3i7V9",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Infographic for: oPQtumKuNyNpvQmYpjcl",
+              "source_prompt": "Infographic for: ZRjoAOYArNPDzxywZPIy",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": {
-                "width": 1024,
-                "height": 1024
-              },
+              "width": 1024,
+              "height": 1024,
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: oPQtumKuNyNpvQmYpjcl\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: ZRjoAOYArNPDzxywZPIy\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           },
@@ -178,12 +203,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3d2w6",
+            "digest": "2HS5D",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           },
           {
@@ -192,12 +217,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6nFWM",
+            "digest": "bbcY3",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           },
           {
@@ -206,62 +231,60 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "M6PFu",
+            "digest": "f94dB",
             "data": {
               "alpha": {
-                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
               },
               "beta": {
-                "answer": "UjILaoTzatAWeQLrhXwl",
+                "answer": "KbRbFxgIoOTUqFwQWBPt",
                 "sources": [
                   {
-                    "url": "DVwtaECpqhHYYaMMCApA",
-                    "public_url": "ZYdnOBWVzmSSZAROjvPk",
-                    "mime_type": "ffjFyRTuQmYcFSUNdxlf",
-                    "filename": "cblkszxGKuYSwYCHKmBO",
-                    "title": "CBSyBrHpEtGPSzTsMTNb",
-                    "snippet": "NuoMAhGcAeRoFWvTgeXz"
+                    "url": "EioVJUkLzIjxxOQdPqpv",
+                    "public_url": "hDWCDYlUYkITmdjsxzLB",
+                    "mime_type": "PhcQLGXxfFZOWTGubMWN",
+                    "filename": "FPvTmdCoNkinoWjuzcgT",
+                    "title": "HwDujLdenxgFCTaYGuAx",
+                    "snippet": "PGZCVksMbXCxMjcDlBeY"
                   },
                   {
-                    "url": "EkaHbkrHxDMxbUpleZpc",
-                    "public_url": "LgMscTZkJcXFbZpRoogP",
-                    "mime_type": "bNlXxPhVOBUhaACiPDlL",
-                    "filename": "xyrljMVQFEQLAioeJyap",
-                    "title": "zuoPGQCHisDxVkTPTHnj",
-                    "snippet": "ykiDPoeKFcQWUURWkJxm"
+                    "url": "ZLhpCqjpAXowAWmDHsak",
+                    "public_url": "ejSpWBDYxFRtUXJLeECR",
+                    "mime_type": "JWPbgKLkjggAvYPAegxG",
+                    "filename": "YcYImiEJMYCiCbztwIQb",
+                    "title": "TLpHiKCdUIoYnhBVekVO",
+                    "snippet": "BIfLFfQMuTPAQySErAID"
                   },
                   {
-                    "url": "BlMnbtADVGvWFAGtjEgd",
-                    "public_url": "hIHOKDsStrndnDLeiSUN",
-                    "mime_type": "hheeZJPTWrWPEQaRyXUm",
-                    "filename": "zVUCsYAVyfLodhTnoFGc",
-                    "title": "BlbajYkaWABbDoGmnQgU",
-                    "snippet": "kHqpNBlrbzzRmopWBUAO"
+                    "url": "jdFCwzFRRFzjJXAYMIec",
+                    "public_url": "YkzTRKlPATofTScoLcaQ",
+                    "mime_type": "EqXcJckwrftwnYlLLmLo",
+                    "filename": "yYmAdSxextmfdlDaHNgV",
+                    "title": "furMtlZFptefCRTkNZeP",
+                    "snippet": "JVLUIvivtOGRdNOfMfaW"
                   }
                 ]
               },
               "gamma": {
                 "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
                 "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-                "source_prompt": "Infographic for: oPQtumKuNyNpvQmYpjcl",
+                "source_prompt": "Infographic for: ZRjoAOYArNPDzxywZPIy",
                 "source_negative_prompt": null,
                 "caption": null,
                 "mime_type": "image/jpeg",
-                "size": {
-                  "width": 1024,
-                  "height": 1024
-                },
+                "width": 1024,
+                "height": 1024,
                 "filename": null
               },
               "delta": {
-                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
               },
               "epsilon": {
-                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+                "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
               }
             },
-            "data_text": "{\n    \"alpha\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nPerform technical analysis:\\n\\n<data>\\noPQtumKuNyNpvQmYpjcl\\n</data>\\n    \"\n    },\n    \"beta\": {\n        \"answer\": \"UjILaoTzatAWeQLrhXwl\",\n        \"sources\": [\n            {\n                \"url\": \"DVwtaECpqhHYYaMMCApA\",\n                \"public_url\": \"ZYdnOBWVzmSSZAROjvPk\",\n                \"mime_type\": \"ffjFyRTuQmYcFSUNdxlf\",\n                \"filename\": \"cblkszxGKuYSwYCHKmBO\",\n                \"title\": \"CBSyBrHpEtGPSzTsMTNb\",\n                \"snippet\": \"NuoMAhGcAeRoFWvTgeXz\"\n            },\n            {\n                \"url\": \"EkaHbkrHxDMxbUpleZpc\",\n                \"public_url\": \"LgMscTZkJcXFbZpRoogP\",\n                \"mime_type\": \"bNlXxPhVOBUhaACiPDlL\",\n                \"filename\": \"xyrljMVQFEQLAioeJyap\",\n                \"title\": \"zuoPGQCHisDxVkTPTHnj\",\n                \"snippet\": \"ykiDPoeKFcQWUURWkJxm\"\n            },\n            {\n                \"url\": \"BlMnbtADVGvWFAGtjEgd\",\n                \"public_url\": \"hIHOKDsStrndnDLeiSUN\",\n                \"mime_type\": \"hheeZJPTWrWPEQaRyXUm\",\n                \"filename\": \"zVUCsYAVyfLodhTnoFGc\",\n                \"title\": \"BlbajYkaWABbDoGmnQgU\",\n                \"snippet\": \"kHqpNBlrbzzRmopWBUAO\"\n            }\n        ]\n    },\n    \"gamma\": {\n        \"url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"public_url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"source_prompt\": \"Infographic for: oPQtumKuNyNpvQmYpjcl\",\n        \"source_negative_prompt\": null,\n        \"caption\": null,\n        \"mime_type\": \"image/jpeg\",\n        \"size\": {\n            \"width\": 1024,\n            \"height\": 1024\n        },\n        \"filename\": null\n    },\n    \"delta\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nAssess risks:\\n\\n<data>\\noPQtumKuNyNpvQmYpjcl\\n</data>\\n    \"\n    },\n    \"epsilon\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nCheck compliance:\\n\\n<data>\\noPQtumKuNyNpvQmYpjcl\\n</data>\\n    \"\n    }\n}\n",
-            "data_html": "<table><tr><th>alpha</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    </td></tr><tr><th>beta</th><td><div><p>UjILaoTzatAWeQLrhXwl</p><h4>Sources</h4><ul><li><a href=\"ZYdnOBWVzmSSZAROjvPk\" class=\"msg-document\">CBSyBrHpEtGPSzTsMTNb</a><br/><small>NuoMAhGcAeRoFWvTgeXz</small></li><li><a href=\"LgMscTZkJcXFbZpRoogP\" class=\"msg-document\">zuoPGQCHisDxVkTPTHnj</a><br/><small>ykiDPoeKFcQWUURWkJxm</small></li><li><a href=\"hIHOKDsStrndnDLeiSUN\" class=\"msg-document\">BlbajYkaWABbDoGmnQgU</a><br/><small>kHqpNBlrbzzRmopWBUAO</small></li></ul></div></td></tr><tr><th>gamma</th><td><img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\"></td></tr><tr><th>delta</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    </td></tr><tr><th>epsilon</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    </td></tr></table>",
+            "data_text": "{\n    \"alpha\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nPerform technical analysis:\\n\\n<data>\\nZRjoAOYArNPDzxywZPIy\\n</data>\\n    \"\n    },\n    \"beta\": {\n        \"answer\": \"KbRbFxgIoOTUqFwQWBPt\",\n        \"sources\": [\n            {\n                \"url\": \"EioVJUkLzIjxxOQdPqpv\",\n                \"public_url\": \"hDWCDYlUYkITmdjsxzLB\",\n                \"mime_type\": \"PhcQLGXxfFZOWTGubMWN\",\n                \"filename\": \"FPvTmdCoNkinoWjuzcgT\",\n                \"title\": \"HwDujLdenxgFCTaYGuAx\",\n                \"snippet\": \"PGZCVksMbXCxMjcDlBeY\"\n            },\n            {\n                \"url\": \"ZLhpCqjpAXowAWmDHsak\",\n                \"public_url\": \"ejSpWBDYxFRtUXJLeECR\",\n                \"mime_type\": \"JWPbgKLkjggAvYPAegxG\",\n                \"filename\": \"YcYImiEJMYCiCbztwIQb\",\n                \"title\": \"TLpHiKCdUIoYnhBVekVO\",\n                \"snippet\": \"BIfLFfQMuTPAQySErAID\"\n            },\n            {\n                \"url\": \"jdFCwzFRRFzjJXAYMIec\",\n                \"public_url\": \"YkzTRKlPATofTScoLcaQ\",\n                \"mime_type\": \"EqXcJckwrftwnYlLLmLo\",\n                \"filename\": \"yYmAdSxextmfdlDaHNgV\",\n                \"title\": \"furMtlZFptefCRTkNZeP\",\n                \"snippet\": \"JVLUIvivtOGRdNOfMfaW\"\n            }\n        ]\n    },\n    \"gamma\": {\n        \"url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"public_url\": \n\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\",\n        \"source_prompt\": \"Infographic for: ZRjoAOYArNPDzxywZPIy\",\n        \"source_negative_prompt\": null,\n        \"caption\": null,\n        \"mime_type\": \"image/jpeg\",\n        \"width\": 1024,\n        \"height\": 1024,\n        \"filename\": null\n    },\n    \"delta\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nAssess risks:\\n\\n<data>\\nZRjoAOYArNPDzxywZPIy\\n</data>\\n    \"\n    },\n    \"epsilon\": {\n        \"text\": \"DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nCheck compliance:\\n\\n<data>\\nZRjoAOYArNPDzxywZPIy\\n</data>\\n    \"\n    }\n}\n",
+            "data_html": "<table><tr><th>alpha</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    </td></tr><tr><th>beta</th><td><div><p>KbRbFxgIoOTUqFwQWBPt</p><h4>Sources</h4><ul><li><a href=\"hDWCDYlUYkITmdjsxzLB\" class=\"msg-document\">HwDujLdenxgFCTaYGuAx</a><br/><small>PGZCVksMbXCxMjcDlBeY</small></li><li><a href=\"ejSpWBDYxFRtUXJLeECR\" class=\"msg-document\">TLpHiKCdUIoYnhBVekVO</a><br/><small>BIfLFfQMuTPAQySErAID</small></li><li><a href=\"YkzTRKlPATofTScoLcaQ\" class=\"msg-document\">furMtlZFptefCRTkNZeP</a><br/><small>JVLUIvivtOGRdNOfMfaW</small></li></ul></div></td></tr><tr><th>gamma</th><td><img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\"></td></tr><tr><th>delta</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    </td></tr><tr><th>epsilon</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    </td></tr></table>",
             "extra": {}
           }
         ]
@@ -269,6 +292,33 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 3,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 3,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "branch_count": 5,
         "add_each_output": true,
@@ -276,7 +326,7 @@
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_2",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_2",
       "kind": "operator",
       "pipe_code": "process_alpha",
       "pipe_type": "PipeLLM",
@@ -285,9 +335,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:51.974712Z",
-        "ended_at": "2026-07-09T11:04:51.988277Z",
-        "duration": 0.013565
+        "started_at": "2026-08-14T10:49:31.909390Z",
+        "ended_at": "2026-08-14T10:49:31.920180Z",
+        "duration": 0.01079
       },
       "io": {
         "inputs": [
@@ -297,12 +347,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -313,12 +363,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hrJsg",
+            "digest": "SQAWZ",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           }
         ]
@@ -326,17 +376,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>",
+        "rendered_user_prompt": "Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_3",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_3",
       "kind": "operator",
       "pipe_code": "process_beta",
       "pipe_type": "PipeSearch",
@@ -345,9 +431,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:51.989252Z",
-        "ended_at": "2026-07-09T11:04:51.999836Z",
-        "duration": 0.010584
+        "started_at": "2026-08-14T10:49:31.924118Z",
+        "ended_at": "2026-08-14T10:49:31.933332Z",
+        "duration": 0.009214
       },
       "io": {
         "inputs": [
@@ -357,12 +443,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -373,38 +459,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TpuuQ",
+            "digest": "Lyp6Q",
             "data": {
-              "answer": "UjILaoTzatAWeQLrhXwl",
+              "answer": "KbRbFxgIoOTUqFwQWBPt",
               "sources": [
                 {
-                  "url": "DVwtaECpqhHYYaMMCApA",
-                  "public_url": "ZYdnOBWVzmSSZAROjvPk",
-                  "mime_type": "ffjFyRTuQmYcFSUNdxlf",
-                  "filename": "cblkszxGKuYSwYCHKmBO",
-                  "title": "CBSyBrHpEtGPSzTsMTNb",
-                  "snippet": "NuoMAhGcAeRoFWvTgeXz"
+                  "url": "EioVJUkLzIjxxOQdPqpv",
+                  "public_url": "hDWCDYlUYkITmdjsxzLB",
+                  "mime_type": "PhcQLGXxfFZOWTGubMWN",
+                  "filename": "FPvTmdCoNkinoWjuzcgT",
+                  "title": "HwDujLdenxgFCTaYGuAx",
+                  "snippet": "PGZCVksMbXCxMjcDlBeY"
                 },
                 {
-                  "url": "EkaHbkrHxDMxbUpleZpc",
-                  "public_url": "LgMscTZkJcXFbZpRoogP",
-                  "mime_type": "bNlXxPhVOBUhaACiPDlL",
-                  "filename": "xyrljMVQFEQLAioeJyap",
-                  "title": "zuoPGQCHisDxVkTPTHnj",
-                  "snippet": "ykiDPoeKFcQWUURWkJxm"
+                  "url": "ZLhpCqjpAXowAWmDHsak",
+                  "public_url": "ejSpWBDYxFRtUXJLeECR",
+                  "mime_type": "JWPbgKLkjggAvYPAegxG",
+                  "filename": "YcYImiEJMYCiCbztwIQb",
+                  "title": "TLpHiKCdUIoYnhBVekVO",
+                  "snippet": "BIfLFfQMuTPAQySErAID"
                 },
                 {
-                  "url": "BlMnbtADVGvWFAGtjEgd",
-                  "public_url": "hIHOKDsStrndnDLeiSUN",
-                  "mime_type": "hheeZJPTWrWPEQaRyXUm",
-                  "filename": "zVUCsYAVyfLodhTnoFGc",
-                  "title": "BlbajYkaWABbDoGmnQgU",
-                  "snippet": "kHqpNBlrbzzRmopWBUAO"
+                  "url": "jdFCwzFRRFzjJXAYMIec",
+                  "public_url": "YkzTRKlPATofTScoLcaQ",
+                  "mime_type": "EqXcJckwrftwnYlLLmLo",
+                  "filename": "yYmAdSxextmfdlDaHNgV",
+                  "title": "furMtlZFptefCRTkNZeP",
+                  "snippet": "JVLUIvivtOGRdNOfMfaW"
                 }
               ]
             },
-            "data_text": "Search Result:\nUjILaoTzatAWeQLrhXwl                                                                                \n\nSources (3):\nCBSyBrHpEtGPSzTsMTNb (DVwtaECpqhHYYaMMCApA)\n  NuoMAhGcAeRoFWvTgeXz\n\nzuoPGQCHisDxVkTPTHnj (EkaHbkrHxDMxbUpleZpc)\n  ykiDPoeKFcQWUURWkJxm\n\nBlbajYkaWABbDoGmnQgU (BlMnbtADVGvWFAGtjEgd)\n  kHqpNBlrbzzRmopWBUAO\n",
-            "data_html": "<div><p>UjILaoTzatAWeQLrhXwl</p><h4>Sources</h4><ul><li><a href=\"ZYdnOBWVzmSSZAROjvPk\" class=\"msg-document\">CBSyBrHpEtGPSzTsMTNb</a><br/><small>NuoMAhGcAeRoFWvTgeXz</small></li><li><a href=\"LgMscTZkJcXFbZpRoogP\" class=\"msg-document\">zuoPGQCHisDxVkTPTHnj</a><br/><small>ykiDPoeKFcQWUURWkJxm</small></li><li><a href=\"hIHOKDsStrndnDLeiSUN\" class=\"msg-document\">BlbajYkaWABbDoGmnQgU</a><br/><small>kHqpNBlrbzzRmopWBUAO</small></li></ul></div>",
+            "data_text": "Search Result:\nKbRbFxgIoOTUqFwQWBPt                                                                                \n\nSources (3):\nHwDujLdenxgFCTaYGuAx (EioVJUkLzIjxxOQdPqpv)\n  PGZCVksMbXCxMjcDlBeY\n\nTLpHiKCdUIoYnhBVekVO (ZLhpCqjpAXowAWmDHsak)\n  BIfLFfQMuTPAQySErAID\n\nfurMtlZFptefCRTkNZeP (jdFCwzFRRFzjJXAYMIec)\n  JVLUIvivtOGRdNOfMfaW\n",
+            "data_html": "<div><p>KbRbFxgIoOTUqFwQWBPt</p><h4>Sources</h4><ul><li><a href=\"hDWCDYlUYkITmdjsxzLB\" class=\"msg-document\">HwDujLdenxgFCTaYGuAx</a><br/><small>PGZCVksMbXCxMjcDlBeY</small></li><li><a href=\"ejSpWBDYxFRtUXJLeECR\" class=\"msg-document\">TLpHiKCdUIoYnhBVekVO</a><br/><small>BIfLFfQMuTPAQySErAID</small></li><li><a href=\"YkzTRKlPATofTScoLcaQ\" class=\"msg-document\">furMtlZFptefCRTkNZeP</a><br/><small>JVLUIvivtOGRdNOfMfaW</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -412,14 +498,32 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
-        "rendered_query": "Market research for: oPQtumKuNyNpvQmYpjcl",
+        "rendered_query": "Market research for: ZRjoAOYArNPDzxywZPIy",
         "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_4",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_4",
       "kind": "operator",
       "pipe_code": "process_gamma",
       "pipe_type": "PipeImgGen",
@@ -428,9 +532,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:52.001145Z",
-        "ended_at": "2026-07-09T11:04:52.012720Z",
-        "duration": 0.011575
+        "started_at": "2026-08-14T10:49:31.936552Z",
+        "ended_at": "2026-08-14T10:49:31.947036Z",
+        "duration": 0.010484
       },
       "io": {
         "inputs": [
@@ -440,12 +544,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -456,21 +560,19 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "5sUNt",
+            "digest": "3i7V9",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Infographic for: oPQtumKuNyNpvQmYpjcl",
+              "source_prompt": "Infographic for: ZRjoAOYArNPDzxywZPIy",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": {
-                "width": 1024,
-                "height": 1024
-              },
+              "width": 1024,
+              "height": 1024,
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: oPQtumKuNyNpvQmYpjcl\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: ZRjoAOYArNPDzxywZPIy\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           }
@@ -479,16 +581,34 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
         "resolved_model": "@default-general",
-        "rendered_prompt": "Infographic for: oPQtumKuNyNpvQmYpjcl",
+        "rendered_prompt": "Infographic for: ZRjoAOYArNPDzxywZPIy",
         "rendered_negative_prompt": null,
         "aspect_ratio": "square",
         "nb_images": 1
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_5",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_5",
       "kind": "operator",
       "pipe_code": "process_delta",
       "pipe_type": "PipeLLM",
@@ -497,9 +617,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:52.013889Z",
-        "ended_at": "2026-07-09T11:04:52.024419Z",
-        "duration": 0.01053
+        "started_at": "2026-08-14T10:49:31.950476Z",
+        "ended_at": "2026-08-14T10:49:31.958359Z",
+        "duration": 0.007883
       },
       "io": {
         "inputs": [
@@ -509,12 +629,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -525,12 +645,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3d2w6",
+            "digest": "2HS5D",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           }
         ]
@@ -538,17 +658,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>",
+        "rendered_user_prompt": "Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_6",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_6",
       "kind": "operator",
       "pipe_code": "process_epsilon",
       "pipe_type": "PipeLLM",
@@ -557,9 +713,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:52.025294Z",
-        "ended_at": "2026-07-09T11:04:52.036897Z",
-        "duration": 0.011603
+        "started_at": "2026-08-14T10:49:31.961694Z",
+        "ended_at": "2026-08-14T10:49:31.971728Z",
+        "duration": 0.010034
       },
       "io": {
         "inputs": [
@@ -569,12 +725,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3fPGU",
+            "digest": "V9g9k",
             "data": {
-              "text": "oPQtumKuNyNpvQmYpjcl"
+              "text": "ZRjoAOYArNPDzxywZPIy"
             },
-            "data_text": "oPQtumKuNyNpvQmYpjcl                                                                                \n",
-            "data_html": "oPQtumKuNyNpvQmYpjcl",
+            "data_text": "ZRjoAOYArNPDzxywZPIy                                                                                \n",
+            "data_html": "ZRjoAOYArNPDzxywZPIy",
             "extra": {}
           }
         ],
@@ -585,12 +741,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6nFWM",
+            "digest": "bbcY3",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           }
         ]
@@ -598,17 +754,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>",
+        "rendered_user_prompt": "Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "operator",
       "pipe_code": "collect_all",
       "pipe_type": "PipeCompose",
@@ -617,9 +809,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:04:52.054838Z",
-        "ended_at": "2026-07-09T11:04:52.069151Z",
-        "duration": 0.014313
+        "started_at": "2026-08-14T10:49:31.989603Z",
+        "ended_at": "2026-08-14T10:49:32.101571Z",
+        "duration": 0.111968
       },
       "io": {
         "inputs": [
@@ -629,12 +821,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "hrJsg",
+            "digest": "SQAWZ",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform technical analysis: \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           },
           {
@@ -643,38 +835,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "TpuuQ",
+            "digest": "Lyp6Q",
             "data": {
-              "answer": "UjILaoTzatAWeQLrhXwl",
+              "answer": "KbRbFxgIoOTUqFwQWBPt",
               "sources": [
                 {
-                  "url": "DVwtaECpqhHYYaMMCApA",
-                  "public_url": "ZYdnOBWVzmSSZAROjvPk",
-                  "mime_type": "ffjFyRTuQmYcFSUNdxlf",
-                  "filename": "cblkszxGKuYSwYCHKmBO",
-                  "title": "CBSyBrHpEtGPSzTsMTNb",
-                  "snippet": "NuoMAhGcAeRoFWvTgeXz"
+                  "url": "EioVJUkLzIjxxOQdPqpv",
+                  "public_url": "hDWCDYlUYkITmdjsxzLB",
+                  "mime_type": "PhcQLGXxfFZOWTGubMWN",
+                  "filename": "FPvTmdCoNkinoWjuzcgT",
+                  "title": "HwDujLdenxgFCTaYGuAx",
+                  "snippet": "PGZCVksMbXCxMjcDlBeY"
                 },
                 {
-                  "url": "EkaHbkrHxDMxbUpleZpc",
-                  "public_url": "LgMscTZkJcXFbZpRoogP",
-                  "mime_type": "bNlXxPhVOBUhaACiPDlL",
-                  "filename": "xyrljMVQFEQLAioeJyap",
-                  "title": "zuoPGQCHisDxVkTPTHnj",
-                  "snippet": "ykiDPoeKFcQWUURWkJxm"
+                  "url": "ZLhpCqjpAXowAWmDHsak",
+                  "public_url": "ejSpWBDYxFRtUXJLeECR",
+                  "mime_type": "JWPbgKLkjggAvYPAegxG",
+                  "filename": "YcYImiEJMYCiCbztwIQb",
+                  "title": "TLpHiKCdUIoYnhBVekVO",
+                  "snippet": "BIfLFfQMuTPAQySErAID"
                 },
                 {
-                  "url": "BlMnbtADVGvWFAGtjEgd",
-                  "public_url": "hIHOKDsStrndnDLeiSUN",
-                  "mime_type": "hheeZJPTWrWPEQaRyXUm",
-                  "filename": "zVUCsYAVyfLodhTnoFGc",
-                  "title": "BlbajYkaWABbDoGmnQgU",
-                  "snippet": "kHqpNBlrbzzRmopWBUAO"
+                  "url": "jdFCwzFRRFzjJXAYMIec",
+                  "public_url": "YkzTRKlPATofTScoLcaQ",
+                  "mime_type": "EqXcJckwrftwnYlLLmLo",
+                  "filename": "yYmAdSxextmfdlDaHNgV",
+                  "title": "furMtlZFptefCRTkNZeP",
+                  "snippet": "JVLUIvivtOGRdNOfMfaW"
                 }
               ]
             },
-            "data_text": "Search Result:\nUjILaoTzatAWeQLrhXwl                                                                                \n\nSources (3):\nCBSyBrHpEtGPSzTsMTNb (DVwtaECpqhHYYaMMCApA)\n  NuoMAhGcAeRoFWvTgeXz\n\nzuoPGQCHisDxVkTPTHnj (EkaHbkrHxDMxbUpleZpc)\n  ykiDPoeKFcQWUURWkJxm\n\nBlbajYkaWABbDoGmnQgU (BlMnbtADVGvWFAGtjEgd)\n  kHqpNBlrbzzRmopWBUAO\n",
-            "data_html": "<div><p>UjILaoTzatAWeQLrhXwl</p><h4>Sources</h4><ul><li><a href=\"ZYdnOBWVzmSSZAROjvPk\" class=\"msg-document\">CBSyBrHpEtGPSzTsMTNb</a><br/><small>NuoMAhGcAeRoFWvTgeXz</small></li><li><a href=\"LgMscTZkJcXFbZpRoogP\" class=\"msg-document\">zuoPGQCHisDxVkTPTHnj</a><br/><small>ykiDPoeKFcQWUURWkJxm</small></li><li><a href=\"hIHOKDsStrndnDLeiSUN\" class=\"msg-document\">BlbajYkaWABbDoGmnQgU</a><br/><small>kHqpNBlrbzzRmopWBUAO</small></li></ul></div>",
+            "data_text": "Search Result:\nKbRbFxgIoOTUqFwQWBPt                                                                                \n\nSources (3):\nHwDujLdenxgFCTaYGuAx (EioVJUkLzIjxxOQdPqpv)\n  PGZCVksMbXCxMjcDlBeY\n\nTLpHiKCdUIoYnhBVekVO (ZLhpCqjpAXowAWmDHsak)\n  BIfLFfQMuTPAQySErAID\n\nfurMtlZFptefCRTkNZeP (jdFCwzFRRFzjJXAYMIec)\n  JVLUIvivtOGRdNOfMfaW\n",
+            "data_html": "<div><p>KbRbFxgIoOTUqFwQWBPt</p><h4>Sources</h4><ul><li><a href=\"hDWCDYlUYkITmdjsxzLB\" class=\"msg-document\">HwDujLdenxgFCTaYGuAx</a><br/><small>PGZCVksMbXCxMjcDlBeY</small></li><li><a href=\"ejSpWBDYxFRtUXJLeECR\" class=\"msg-document\">TLpHiKCdUIoYnhBVekVO</a><br/><small>BIfLFfQMuTPAQySErAID</small></li><li><a href=\"YkzTRKlPATofTScoLcaQ\" class=\"msg-document\">furMtlZFptefCRTkNZeP</a><br/><small>JVLUIvivtOGRdNOfMfaW</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -683,21 +875,19 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "5sUNt",
+            "digest": "3i7V9",
             "data": {
               "url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               "public_url": "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              "source_prompt": "Infographic for: oPQtumKuNyNpvQmYpjcl",
+              "source_prompt": "Infographic for: ZRjoAOYArNPDzxywZPIy",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": {
-                "width": 1024,
-                "height": 1024
-              },
+              "width": 1024,
+              "height": 1024,
               "filename": null
             },
-            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: oPQtumKuNyNpvQmYpjcl\n",
+            "data_text": "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic for: ZRjoAOYArNPDzxywZPIy\n",
             "data_html": "<img src=\"https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg\" class=\"msg-img\">",
             "extra": {}
           },
@@ -707,12 +897,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "3d2w6",
+            "digest": "2HS5D",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess risks:               \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           },
           {
@@ -721,12 +911,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "6nFWM",
+            "digest": "bbcY3",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Check compliance:           \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    ",
             "extra": {}
           }
         ],
@@ -737,12 +927,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "358Hp",
+            "digest": "ZCxAo",
             "data": {
-              "text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Market:\nbeta: ```\nUjILaoTzatAWeQLrhXwl\n\nSources:\n- CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA\n  NuoMAhGcAeRoFWvTgeXz\n- zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc\n  ykiDPoeKFcQWUURWkJxm\n- BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd\n  kHqpNBlrbzzRmopWBUAO\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```"
+              "text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Market:\nbeta: ```\nKbRbFxgIoOTUqFwQWBPt\n\nSources:\n- HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv\n  PGZCVksMbXCxMjcDlBeY\n- TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak\n  BIfLFfQMuTPAQySErAID\n- furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec\n  JVLUIvivtOGRdNOfMfaW\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```"
             },
-            "data_text": "                                         Collected Results                                          \n\nTechnical:                                                                                          \n\nalpha: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform    \ntechnical analysis:                                                                                 \n\n\n                                                                                                    \n ## Market:                                                                                         \n beta: ```                                                                                          \n UjILaoTzatAWeQLrhXwl                                                                               \n                                                                                                    \n Sources:                                                                                           \n - CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA                                                       \n   NuoMAhGcAeRoFWvTgeXz                                                                             \n - zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc                                                       \n   ykiDPoeKFcQWUURWkJxm                                                                             \n - BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd                                                       \n   kHqpNBlrbzzRmopWBUAO                                                                             \n                                                                                                    \n\nRisk:                                                                                               \n\ndelta: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess     \nrisks:                                                                                              \n\n\n                                                                                                    \n ## Compliance:                                                                                     \n epsilon: ```                                                                                       \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n oPQtumKuNyNpvQmYpjcl                                                                               \n </data>                                                                                            \n                                                                                                    \n",
-            "data_html": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```\n## Market:\nbeta: ```\nUjILaoTzatAWeQLrhXwl\n\nSources:\n- CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA\n  NuoMAhGcAeRoFWvTgeXz\n- zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc\n  ykiDPoeKFcQWUURWkJxm\n- BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd\n  kHqpNBlrbzzRmopWBUAO\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\noPQtumKuNyNpvQmYpjcl\n&lt;/data&gt;\n    \n```",
+            "data_text": "                                         Collected Results                                          \n\nTechnical:                                                                                          \n\nalpha: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Perform    \ntechnical analysis:                                                                                 \n\n\n                                                                                                    \n ## Market:                                                                                         \n beta: ```                                                                                          \n KbRbFxgIoOTUqFwQWBPt                                                                               \n                                                                                                    \n Sources:                                                                                           \n - HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv                                                       \n   PGZCVksMbXCxMjcDlBeY                                                                             \n - TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak                                                       \n   BIfLFfQMuTPAQySErAID                                                                             \n - furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec                                                       \n   JVLUIvivtOGRdNOfMfaW                                                                             \n                                                                                                    \n\nRisk:                                                                                               \n\ndelta: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,             \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Assess     \nrisks:                                                                                              \n\n\n                                                                                                    \n ## Compliance:                                                                                     \n epsilon: ```                                                                                       \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Check compliance:                                                                              \n                                                                                                    \n <data>                                                                                             \n ZRjoAOYArNPDzxywZPIy                                                                               \n </data>                                                                                            \n                                                                                                    \n",
+            "data_html": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```\n## Market:\nbeta: ```\nKbRbFxgIoOTUqFwQWBPt\n\nSources:\n- HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv\n  PGZCVksMbXCxMjcDlBeY\n- TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak\n  BIfLFfQMuTPAQySErAID\n- furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec\n  JVLUIvivtOGRdNOfMfaW\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n&lt;data&gt;\nZRjoAOYArNPDzxywZPIy\n&lt;/data&gt;\n    \n```",
             "extra": {}
           }
         ]
@@ -750,17 +940,35 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Market:\nbeta: ```\nUjILaoTzatAWeQLrhXwl\n\nSources:\n- CBSyBrHpEtGPSzTsMTNb: DVwtaECpqhHYYaMMCApA\n  NuoMAhGcAeRoFWvTgeXz\n- zuoPGQCHisDxVkTPTHnj: EkaHbkrHxDMxbUpleZpc\n  ykiDPoeKFcQWUURWkJxm\n- BlbajYkaWABbDoGmnQgU: BlMnbtADVGvWFAGtjEgd\n  kHqpNBlrbzzRmopWBUAO\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\noPQtumKuNyNpvQmYpjcl\n</data>\n    \n```"
+        "rendered_text": "# Collected Results\n\n## Technical:\nalpha: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Perform technical analysis:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Market:\nbeta: ```\nKbRbFxgIoOTUqFwQWBPt\n\nSources:\n- HwDujLdenxgFCTaYGuAx: EioVJUkLzIjxxOQdPqpv\n  PGZCVksMbXCxMjcDlBeY\n- TLpHiKCdUIoYnhBVekVO: ZLhpCqjpAXowAWmDHsak\n  BIfLFfQMuTPAQySErAID\n- furMtlZFptefCRTkNZeP: jdFCwzFRRFzjJXAYMIec\n  JVLUIvivtOGRdNOfMfaW\n```\n## Risk:\ndelta: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Assess risks:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```\n## Compliance:\nepsilon: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Check compliance:\n\n<data>\nZRjoAOYArNPDzxywZPIy\n</data>\n    \n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_0",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_0",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_0",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_0",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -769,9 +977,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_1",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_2",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_1",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -780,9 +988,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_2",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_3",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_2",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -791,9 +999,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_3",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_4",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_3",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -802,9 +1010,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_4",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_5",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_4",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -813,9 +1021,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_5",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_6",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_5",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_6",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -824,9 +1032,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:edge_6",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_0",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:edge_6",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_0",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -835,9 +1043,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_0",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_0",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "data",
       "optional": false,
       "label": "alpha",
@@ -846,9 +1054,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_1",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_1",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "data",
       "optional": false,
       "label": "beta",
@@ -857,9 +1065,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_2",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_2",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "data",
       "optional": false,
       "label": "gamma",
@@ -868,9 +1076,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_3",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_3",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "data",
       "optional": false,
       "label": "delta",
@@ -879,9 +1087,9 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_4",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_7",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_4",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_7",
       "kind": "data",
       "optional": false,
       "label": "epsilon",
@@ -890,61 +1098,117 @@
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_5",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_2",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_5",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_2",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "hrJsg",
-      "target_stuff_digest": "M6PFu",
+      "source_stuff_digest": "SQAWZ",
+      "target_stuff_digest": "f94dB",
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_6",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_3",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_6",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_3",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "TpuuQ",
-      "target_stuff_digest": "M6PFu",
+      "source_stuff_digest": "Lyp6Q",
+      "target_stuff_digest": "f94dB",
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_7",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_4",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_7",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_4",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "5sUNt",
-      "target_stuff_digest": "M6PFu",
+      "source_stuff_digest": "3i7V9",
+      "target_stuff_digest": "f94dB",
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_8",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_5",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_8",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_5",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "3d2w6",
-      "target_stuff_digest": "M6PFu",
+      "source_stuff_digest": "2HS5D",
+      "target_stuff_digest": "f94dB",
       "meta": {}
     },
     {
-      "id": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:asm_edge_9",
-      "source": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_6",
-      "target": "36e7b548-2641-40f9-8eac-7fe2c56d6b1c:node_1",
+      "id": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:asm_edge_9",
+      "source": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_6",
+      "target": "50efdad5-f1e6-4d03-afe3-bcd468f9dcee:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "6nFWM",
-      "target_stuff_digest": "M6PFu",
+      "source_stuff_digest": "bbcY3",
+      "target_stuff_digest": "f94dB",
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 3,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 3,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 3,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 3,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "dry"
@@ -1090,7 +1354,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Perform technical analysis:\n\n@data",
@@ -1234,7 +1497,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Assess risks:\n\n@data",
@@ -1284,7 +1546,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Check compliance:\n\n@data",
@@ -1395,6 +1656,7 @@
         "description": "All results collected from parallel paths",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1415,6 +1677,7 @@
       "json_schema": {
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1450,6 +1713,7 @@
         "description": "Data processed through a specific pathway",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1472,7 +1736,7 @@
           "DocumentContent": {
             "properties": {
               "url": {
-                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 "title": "Url",
                 "type": "string"
               },
@@ -1552,10 +1816,12 @@
         "description": "Represents the result of a search query with an answer and list of sources.",
         "properties": {
           "answer": {
+            "description": "The answer to the search query",
             "title": "Answer",
             "type": "string"
           },
           "sources": {
+            "description": "The source documents supporting the answer",
             "items": {
               "$ref": "#/$defs/DocumentContent"
             },
@@ -1577,31 +1843,9 @@
       "structure_class_name": "ImageContent",
       "refines": null,
       "json_schema": {
-        "$defs": {
-          "ImageSize": {
-            "properties": {
-              "width": {
-                "exclusiveMinimum": 0,
-                "title": "Width",
-                "type": "integer"
-              },
-              "height": {
-                "exclusiveMinimum": 0,
-                "title": "Height",
-                "type": "integer"
-              }
-            },
-            "required": [
-              "width",
-              "height"
-            ],
-            "title": "ImageSize",
-            "type": "object"
-          }
-        },
         "properties": {
           "url": {
-            "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             "title": "Url",
             "type": "string"
           },
@@ -1670,17 +1914,33 @@
             "description": "The MIME type of the image",
             "title": "Mime Type"
           },
-          "size": {
+          "width": {
             "anyOf": [
               {
-                "$ref": "#/$defs/ImageSize"
+                "exclusiveMinimum": 0,
+                "type": "integer"
               },
               {
                 "type": "null"
               }
             ],
             "default": null,
-            "description": "The size in pixels (width and height) of the image"
+            "description": "The width of the image, in pixels",
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The height of the image, in pixels",
+            "title": "Height"
           },
           "filename": {
             "anyOf": [

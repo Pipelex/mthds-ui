@@ -1,0 +1,33 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_565a038b1d["email_triage"]
+        subgraph sg_n_7ab41f6d9c["route_email"]
+            n_e465375c18["flag_for_review"]
+            s_f6a4d54d2e(["digest<br/>InboxDigest"]):::stuff
+        end
+        n_4f228c2459["classify_email"]
+        s_6cdaba09ca(["classified<br/>EmailClassification"]):::stuff
+        n_99c56a1d66["search_inbox"]
+        s_52c1fcfb35(["search_result<br/>SearchResult"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_c0e75fa450(["query<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_e465375c18 --> s_f6a4d54d2e
+    n_4f228c2459 --> s_6cdaba09ca
+    n_99c56a1d66 --> s_52c1fcfb35
+    s_c0e75fa450 --> n_99c56a1d66
+    s_6cdaba09ca --> n_e465375c18
+    s_52c1fcfb35 --> n_4f228c2459
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_565a038b1d fill:#e6f3ff
+    style sg_n_7ab41f6d9c fill:#e6ffe6

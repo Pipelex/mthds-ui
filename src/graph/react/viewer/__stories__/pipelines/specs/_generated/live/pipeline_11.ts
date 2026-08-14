@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_NESTED_SEQ_COND_SEQ = {
-  graph_id: "677d7e21-3210-493c-a729-66254d3a3c0f",
-  created_at: "2026-07-09T11:17:04.323130Z",
+  graph_id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97",
+  created_at: "2026-08-14T10:30:33.781161Z",
   pipeline_ref: { domain: "customer_support", main_pipe: "smart_responder", entrypoint: null },
   nodes: [
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_0",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_0",
       kind: "controller",
       pipe_code: "smart_responder",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:04.323130Z",
-        ended_at: "2026-07-09T11:17:30.441010Z",
-        duration: 26.11788,
+        started_at: "2026-08-14T10:30:33.781161Z",
+        ended_at: "2026-08-14T10:31:05.613148Z",
+        duration: 31.831987,
       },
       io: {
         inputs: [
@@ -31,7 +31,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "D2Rcp",
+            digest: "UDtHK",
             data: {
               text: "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
             },
@@ -49,14 +49,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VQtLS",
+            digest: "2fysZ",
             data: {
-              text: '# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic "Valued Customer" opening** — using the customer\'s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like "I want to address" and "I\'ll ensure" were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n> ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.',
+              text: "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             },
             data_text:
-              '                                     Polished Customer Response                                     \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and        \nreceiving no response to three separate emails falls well below the standard you deserve, and I take\nfull responsibility for getting this resolved today.                                                \n\nHere is exactly what I am doing to address each issue:                                              \n\nDuplicate Charge I have located your account and am escalating the refund as a priority. You will   \nreceive the full amount back within 3–5 business days, depending on your bank. I will confirm once  \nthe refund has been initiated on our end.                                                           \n\nUnanswered Emails Three missed contacts is a serious failure, and I have flagged this directly with \nour support leadership. You should never have had to wait this long for help.                       \n\nCancellation Your subscription has been cancelled effective today. You will not be charged again,   \nand a confirmation will arrive in your inbox shortly.                                               \n\nWhat to Expect Next                                                                                 \n\n                                                        \n Action                           Timeline              \n ────────────────────────────────────────────────────── \n Refund initiated                 Within 24 hours       \n Cancellation confirmation email  Today                 \n Personal follow-up from me       Within 1 business day \n                                                        \n\nPlease reply directly to this email with any questions. I will personally make sure you hear back   \npromptly.                                                                                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nKey Changes Made                                                                                    \n\n • Removed the generic "Valued Customer" opening — using the customer\'s actual name is warmer and   \n   more personal                                                                                    \n • Tightened the apology — the original was slightly repetitive; this version acknowledges fault    \n   once, clearly, then moves forward                                                                \n • Replaced bullet lists with a summary table — the timeline information is now scannable at a      \n   glance, which is more useful for an anxious customer                                             \n • Removed hedging language — phrases like "I want to address" and "I\'ll ensure" were replaced with \n   direct commitments                                                                               \n • Kept the closing personal — the direct reply invitation reinforces accountability without        \n   sounding formulaic                                                                               \n\n▌ ⚠️ Before sending: Confirm the refund timeline and cancellation policy with your billing team to\n▌ ensure accuracy.                                                                                \n',
+              "Here is the polished version with improved clarity, tone, and structure:                            \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration \ncaused by our delayed responses. Neither is acceptable, and I want to resolve this for you right    \naway.                                                                                               \n\nWhat I am doing now:                                                                                \n\n • Reviewing your account (ACCT-2025-8842) as a priority case                                       \n • Opening a formal investigation into the duplicate charge                                         \n • Escalating your refund request directly to our billing team                                      \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge processed within 3–5 business days                        \n • Written confirmation of your cancellation sent to your email address within 24 hours             \n\nI also want to address the lack of response to your previous emails directly. Three unanswered      \nmessages is a serious failure on our part, and I am flagging this internally to prevent it from     \nhappening again.                                                                                    \n\nAs a gesture of goodwill for the inconvenience caused, [insert applicable offer, e.g., a one-month  \nservice credit].                                                                                    \n\nPlease reply to this email or contact me directly at [direct contact information] if you have any   \nquestions or concerns. I will personally follow up with you once the refund has been confirmed.     \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nImplementation notes:                                                                               \n\n • Verify the refund timeline aligns with your current billing policy before sending                \n • Replace all bracketed placeholders with accurate information                                     \n • Confirm any goodwill offer with your manager before including it                                 \n • Keep a record of this case for internal follow-up on the response delay issue                    \n",
             data_html:
-              "# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic &quot;Valued Customer&quot; opening** — using the customer&#x27;s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like &quot;I want to address&quot; and &quot;I&#x27;ll ensure&quot; were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n&gt; ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.",
+              "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             extra: {},
           },
         ],
@@ -64,10 +64,46 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 3,
+        subtree_rated_inference_calls: 3,
+        subtree_nb_tokens_by_category: {
+          input: 1421,
+          output: 918,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2339,
+        subtree_cost: 0.018033,
+        subtree_cost_input: 0.004263,
+        subtree_cost_output: 0.01377,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 3,
+            rated_inference_calls: 3,
+            cost: 0.018033,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_1",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_1",
       kind: "operator",
       pipe_code: "classify_request",
       pipe_type: "PipeLLM",
@@ -76,9 +112,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:04.333736Z",
-        ended_at: "2026-07-09T11:17:08.995455Z",
-        duration: 4.661719,
+        started_at: "2026-08-14T10:30:33.790316Z",
+        ended_at: "2026-08-14T10:30:42.848742Z",
+        duration: 9.058426,
       },
       io: {
         inputs: [
@@ -88,7 +124,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "D2Rcp",
+            digest: "UDtHK",
             data: {
               text: "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
             },
@@ -106,7 +142,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "axJjy",
+            digest: "SrvYJ",
             data: {
               request_text:
                 "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
@@ -123,6 +159,60 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 918,
+          output: 114,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 1032,
+        cost: 0.004464,
+        cost_input: 0.002754,
+        cost_output: 0.0017100000000000001,
+        by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.004464,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 918,
+          output: 114,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 1032,
+        subtree_cost: 0.004464,
+        subtree_cost_input: 0.002754,
+        subtree_cost_output: 0.0017100000000000001,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.004464,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -134,7 +224,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       },
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_2",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_2",
       kind: "controller",
       pipe_code: "route_response",
       pipe_type: "PipeCondition",
@@ -143,9 +233,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:09.000728Z",
-        ended_at: "2026-07-09T11:17:30.434725Z",
-        duration: 21.433997,
+        started_at: "2026-08-14T10:30:42.853357Z",
+        ended_at: "2026-08-14T10:31:05.608574Z",
+        duration: 22.755217,
       },
       io: {
         inputs: [
@@ -155,7 +245,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "axJjy",
+            digest: "SrvYJ",
             data: {
               request_text:
                 "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
@@ -175,14 +265,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VQtLS",
+            digest: "2fysZ",
             data: {
-              text: '# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic "Valued Customer" opening** — using the customer\'s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like "I want to address" and "I\'ll ensure" were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n> ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.',
+              text: "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             },
             data_text:
-              '                                     Polished Customer Response                                     \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and        \nreceiving no response to three separate emails falls well below the standard you deserve, and I take\nfull responsibility for getting this resolved today.                                                \n\nHere is exactly what I am doing to address each issue:                                              \n\nDuplicate Charge I have located your account and am escalating the refund as a priority. You will   \nreceive the full amount back within 3–5 business days, depending on your bank. I will confirm once  \nthe refund has been initiated on our end.                                                           \n\nUnanswered Emails Three missed contacts is a serious failure, and I have flagged this directly with \nour support leadership. You should never have had to wait this long for help.                       \n\nCancellation Your subscription has been cancelled effective today. You will not be charged again,   \nand a confirmation will arrive in your inbox shortly.                                               \n\nWhat to Expect Next                                                                                 \n\n                                                        \n Action                           Timeline              \n ────────────────────────────────────────────────────── \n Refund initiated                 Within 24 hours       \n Cancellation confirmation email  Today                 \n Personal follow-up from me       Within 1 business day \n                                                        \n\nPlease reply directly to this email with any questions. I will personally make sure you hear back   \npromptly.                                                                                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nKey Changes Made                                                                                    \n\n • Removed the generic "Valued Customer" opening — using the customer\'s actual name is warmer and   \n   more personal                                                                                    \n • Tightened the apology — the original was slightly repetitive; this version acknowledges fault    \n   once, clearly, then moves forward                                                                \n • Replaced bullet lists with a summary table — the timeline information is now scannable at a      \n   glance, which is more useful for an anxious customer                                             \n • Removed hedging language — phrases like "I want to address" and "I\'ll ensure" were replaced with \n   direct commitments                                                                               \n • Kept the closing personal — the direct reply invitation reinforces accountability without        \n   sounding formulaic                                                                               \n\n▌ ⚠️ Before sending: Confirm the refund timeline and cancellation policy with your billing team to\n▌ ensure accuracy.                                                                                \n',
+              "Here is the polished version with improved clarity, tone, and structure:                            \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration \ncaused by our delayed responses. Neither is acceptable, and I want to resolve this for you right    \naway.                                                                                               \n\nWhat I am doing now:                                                                                \n\n • Reviewing your account (ACCT-2025-8842) as a priority case                                       \n • Opening a formal investigation into the duplicate charge                                         \n • Escalating your refund request directly to our billing team                                      \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge processed within 3–5 business days                        \n • Written confirmation of your cancellation sent to your email address within 24 hours             \n\nI also want to address the lack of response to your previous emails directly. Three unanswered      \nmessages is a serious failure on our part, and I am flagging this internally to prevent it from     \nhappening again.                                                                                    \n\nAs a gesture of goodwill for the inconvenience caused, [insert applicable offer, e.g., a one-month  \nservice credit].                                                                                    \n\nPlease reply to this email or contact me directly at [direct contact information] if you have any   \nquestions or concerns. I will personally follow up with you once the refund has been confirmed.     \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nImplementation notes:                                                                               \n\n • Verify the refund timeline aligns with your current billing policy before sending                \n • Replace all bracketed placeholders with accurate information                                     \n • Confirm any goodwill offer with your manager before including it                                 \n • Keep a record of this case for internal follow-up on the response delay issue                    \n",
             data_html:
-              "# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic &quot;Valued Customer&quot; opening** — using the customer&#x27;s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like &quot;I want to address&quot; and &quot;I&#x27;ll ensure&quot; were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n&gt; ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.",
+              "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             extra: {},
           },
         ],
@@ -190,13 +280,40 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 2,
+        subtree_nb_tokens_by_category: { input: 503, output: 804, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 1307,
+        subtree_cost: 0.013569,
+        subtree_cost_input: 0.001509,
+        subtree_cost_output: 0.01206,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 2,
+            cost: 0.013569,
+          },
+        ],
+      },
       execution_data: {
         evaluated_expression: "text_query",
         selected_outcome: "text_response_path",
       },
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_3",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_3",
       kind: "controller",
       pipe_code: "text_response_path",
       pipe_type: "PipeSequence",
@@ -205,9 +322,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:09.010768Z",
-        ended_at: "2026-07-09T11:17:30.427780Z",
-        duration: 21.417012,
+        started_at: "2026-08-14T10:30:42.862365Z",
+        ended_at: "2026-08-14T10:31:05.602967Z",
+        duration: 22.740602,
       },
       io: {
         inputs: [
@@ -217,7 +334,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "axJjy",
+            digest: "SrvYJ",
             data: {
               request_text:
                 "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
@@ -237,14 +354,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VQtLS",
+            digest: "2fysZ",
             data: {
-              text: '# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic "Valued Customer" opening** — using the customer\'s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like "I want to address" and "I\'ll ensure" were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n> ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.',
+              text: "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             },
             data_text:
-              '                                     Polished Customer Response                                     \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and        \nreceiving no response to three separate emails falls well below the standard you deserve, and I take\nfull responsibility for getting this resolved today.                                                \n\nHere is exactly what I am doing to address each issue:                                              \n\nDuplicate Charge I have located your account and am escalating the refund as a priority. You will   \nreceive the full amount back within 3–5 business days, depending on your bank. I will confirm once  \nthe refund has been initiated on our end.                                                           \n\nUnanswered Emails Three missed contacts is a serious failure, and I have flagged this directly with \nour support leadership. You should never have had to wait this long for help.                       \n\nCancellation Your subscription has been cancelled effective today. You will not be charged again,   \nand a confirmation will arrive in your inbox shortly.                                               \n\nWhat to Expect Next                                                                                 \n\n                                                        \n Action                           Timeline              \n ────────────────────────────────────────────────────── \n Refund initiated                 Within 24 hours       \n Cancellation confirmation email  Today                 \n Personal follow-up from me       Within 1 business day \n                                                        \n\nPlease reply directly to this email with any questions. I will personally make sure you hear back   \npromptly.                                                                                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nKey Changes Made                                                                                    \n\n • Removed the generic "Valued Customer" opening — using the customer\'s actual name is warmer and   \n   more personal                                                                                    \n • Tightened the apology — the original was slightly repetitive; this version acknowledges fault    \n   once, clearly, then moves forward                                                                \n • Replaced bullet lists with a summary table — the timeline information is now scannable at a      \n   glance, which is more useful for an anxious customer                                             \n • Removed hedging language — phrases like "I want to address" and "I\'ll ensure" were replaced with \n   direct commitments                                                                               \n • Kept the closing personal — the direct reply invitation reinforces accountability without        \n   sounding formulaic                                                                               \n\n▌ ⚠️ Before sending: Confirm the refund timeline and cancellation policy with your billing team to\n▌ ensure accuracy.                                                                                \n',
+              "Here is the polished version with improved clarity, tone, and structure:                            \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration \ncaused by our delayed responses. Neither is acceptable, and I want to resolve this for you right    \naway.                                                                                               \n\nWhat I am doing now:                                                                                \n\n • Reviewing your account (ACCT-2025-8842) as a priority case                                       \n • Opening a formal investigation into the duplicate charge                                         \n • Escalating your refund request directly to our billing team                                      \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge processed within 3–5 business days                        \n • Written confirmation of your cancellation sent to your email address within 24 hours             \n\nI also want to address the lack of response to your previous emails directly. Three unanswered      \nmessages is a serious failure on our part, and I am flagging this internally to prevent it from     \nhappening again.                                                                                    \n\nAs a gesture of goodwill for the inconvenience caused, [insert applicable offer, e.g., a one-month  \nservice credit].                                                                                    \n\nPlease reply to this email or contact me directly at [direct contact information] if you have any   \nquestions or concerns. I will personally follow up with you once the refund has been confirmed.     \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nImplementation notes:                                                                               \n\n • Verify the refund timeline aligns with your current billing policy before sending                \n • Replace all bracketed placeholders with accurate information                                     \n • Confirm any goodwill offer with your manager before including it                                 \n • Keep a record of this case for internal follow-up on the response delay issue                    \n",
             data_html:
-              "# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic &quot;Valued Customer&quot; opening** — using the customer&#x27;s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like &quot;I want to address&quot; and &quot;I&#x27;ll ensure&quot; were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n&gt; ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.",
+              "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             extra: {},
           },
         ],
@@ -252,10 +369,37 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 2,
+        subtree_nb_tokens_by_category: { input: 503, output: 804, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 1307,
+        subtree_cost: 0.013569,
+        subtree_cost_input: 0.001509,
+        subtree_cost_output: 0.01206,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 2,
+            cost: 0.013569,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_4",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_4",
       kind: "operator",
       pipe_code: "draft_text",
       pipe_type: "PipeLLM",
@@ -264,9 +408,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:09.020078Z",
-        ended_at: "2026-07-09T11:17:19.564761Z",
-        duration: 10.544683,
+        started_at: "2026-08-14T10:30:42.871508Z",
+        ended_at: "2026-08-14T10:30:57.330497Z",
+        duration: 14.458989,
       },
       io: {
         inputs: [
@@ -276,7 +420,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "axJjy",
+            digest: "SrvYJ",
             data: {
               request_text:
                 "I need to cancel my subscription immediately. I was charged twice for the same month and nobody from support has responded to my three previous emails. This is unacceptable and I want a full refund for the duplicate charge. My account number is ACCT-2025-8842.",
@@ -296,14 +440,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "anMMu",
+            digest: "AzxhL",
             data: {
-              text: "Here's a draft response to this frustrated customer:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I fully understand your frustration.\n\nI want to address everything you've raised right away:\n\n**Regarding the duplicate charge:**\nI have located your account (ACCT-2025-8842) and can confirm I am escalating the duplicate charge investigation immediately. You are absolutely entitled to a full refund for the duplicate payment, and we will process this as a priority. Refunds typically appear within **3-5 business days**, depending on your financial institution.\n\n**Regarding our support response failure:**\nThree unanswered emails is a serious failure on our part, and I am personally flagging this with our support team leadership. You deserved a response long before now, and I'm sorry we let you down.\n\n**Regarding your cancellation request:**\nYour cancellation has been processed effective today. You will **not** be charged going forward, and I'll ensure you receive a confirmation email shortly.\n\n**What happens next:**\n- Duplicate charge refund: processed within 24 hours\n- Cancellation confirmation: sent to your email on file today\n- You'll receive a follow-up from me directly within **one business day**\n\nAgain, I'm truly sorry for this experience. If you have any further questions, please reply directly to this email and I will personally ensure you receive a prompt response.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n**A few notes on this response:**\n- It **acknowledges all three issues** specifically rather than giving a generic apology\n- It **takes ownership** without making excuses\n- It provides **clear timelines** so the customer knows what to expect\n- The tone is **empathetic but professional** throughout\n- You should verify the actual refund timeline and policies before sending",
+              text: "Here's a draft response that addresses the customer's concerns with empathy and clear action steps:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I understand why you're upset.\n\nI want to assure you that I'm personally taking ownership of this right now.\n\n**Here's what I'm doing immediately:**\n\n- ✅ I've located your account (ACCT-2025-8842) and flagged it for priority review\n- ✅ I'm initiating an investigation into the duplicate charge\n- ✅ Your refund request has been escalated to our billing team\n\n**What you can expect:**\n- A **full refund** for the duplicate charge will be processed within **3–5 business days**\n- Confirmation of your cancellation will be sent to your email on file within **24 hours**\n\n**Regarding our delayed responses** – I'm genuinely sorry your three previous emails went unanswered. I'm escalating this as an internal issue so it doesn't happen to you or anyone else.\n\nIf you have any further questions, please reply directly to this email or reach me at **[direct contact]**.\n\nAgain, I apologize for this experience.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**A few notes on this draft:**\n- Adjust the refund timeline to match your actual processing policy\n- Fill in real contact details and escalation procedures\n- Consider offering a goodwill gesture like a free month if your policy allows",
             },
             data_text:
-              "Here's a draft response to this frustrated customer:                                                \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear Valued Customer,                                                                               \n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has\ncaused. Being charged twice and not receiving timely responses from our team is completely          \nunacceptable, and I fully understand your frustration.                                              \n\nI want to address everything you've raised right away:                                              \n\nRegarding the duplicate charge: I have located your account (ACCT-2025-8842) and can confirm I am   \nescalating the duplicate charge investigation immediately. You are absolutely entitled to a full    \nrefund for the duplicate payment, and we will process this as a priority. Refunds typically appear  \nwithin 3-5 business days, depending on your financial institution.                                  \n\nRegarding our support response failure: Three unanswered emails is a serious failure on our part,   \nand I am personally flagging this with our support team leadership. You deserved a response long    \nbefore now, and I'm sorry we let you down.                                                          \n\nRegarding your cancellation request: Your cancellation has been processed effective today. You will \nnot be charged going forward, and I'll ensure you receive a confirmation email shortly.             \n\nWhat happens next:                                                                                  \n\n • Duplicate charge refund: processed within 24 hours                                               \n • Cancellation confirmation: sent to your email on file today                                      \n • You'll receive a follow-up from me directly within one business day                              \n\nAgain, I'm truly sorry for this experience. If you have any further questions, please reply directly\nto this email and I will personally ensure you receive a prompt response.                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nA few notes on this response:                                                                       \n\n • It acknowledges all three issues specifically rather than giving a generic apology               \n • It takes ownership without making excuses                                                        \n • It provides clear timelines so the customer knows what to expect                                 \n • The tone is empathetic but professional throughout                                               \n • You should verify the actual refund timeline and policies before sending                         \n",
+              "Here's a draft response that addresses the customer's concerns with empathy and clear action steps: \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear Valued Customer,                                                                               \n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused.\nBeing charged twice and not receiving timely responses from our team is completely unacceptable, and\nI understand why you're upset.                                                                      \n\nI want to assure you that I'm personally taking ownership of this right now.                        \n\nHere's what I'm doing immediately:                                                                  \n\n • ✅ I've located your account (ACCT-2025-8842) and flagged it for priority review                 \n • ✅ I'm initiating an investigation into the duplicate charge                                     \n • ✅ Your refund request has been escalated to our billing team                                    \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge will be processed within 3–5 business days                \n • Confirmation of your cancellation will be sent to your email on file within 24 hours             \n\nRegarding our delayed responses – I'm genuinely sorry your three previous emails went unanswered.   \nI'm escalating this as an internal issue so it doesn't happen to you or anyone else.                \n\nIf you have any further questions, please reply directly to this email or reach me at [direct       \ncontact].                                                                                           \n\nAgain, I apologize for this experience.                                                             \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nA few notes on this draft:                                                                          \n\n • Adjust the refund timeline to match your actual processing policy                                \n • Fill in real contact details and escalation procedures                                           \n • Consider offering a goodwill gesture like a free month if your policy allows                     \n",
             data_html:
-              "Here&#x27;s a draft response to this frustrated customer:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I fully understand your frustration.\n\nI want to address everything you&#x27;ve raised right away:\n\n**Regarding the duplicate charge:**\nI have located your account (ACCT-2025-8842) and can confirm I am escalating the duplicate charge investigation immediately. You are absolutely entitled to a full refund for the duplicate payment, and we will process this as a priority. Refunds typically appear within **3-5 business days**, depending on your financial institution.\n\n**Regarding our support response failure:**\nThree unanswered emails is a serious failure on our part, and I am personally flagging this with our support team leadership. You deserved a response long before now, and I&#x27;m sorry we let you down.\n\n**Regarding your cancellation request:**\nYour cancellation has been processed effective today. You will **not** be charged going forward, and I&#x27;ll ensure you receive a confirmation email shortly.\n\n**What happens next:**\n- Duplicate charge refund: processed within 24 hours\n- Cancellation confirmation: sent to your email on file today\n- You&#x27;ll receive a follow-up from me directly within **one business day**\n\nAgain, I&#x27;m truly sorry for this experience. If you have any further questions, please reply directly to this email and I will personally ensure you receive a prompt response.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n**A few notes on this response:**\n- It **acknowledges all three issues** specifically rather than giving a generic apology\n- It **takes ownership** without making excuses\n- It provides **clear timelines** so the customer knows what to expect\n- The tone is **empathetic but professional** throughout\n- You should verify the actual refund timeline and policies before sending",
+              "Here&#x27;s a draft response that addresses the customer&#x27;s concerns with empathy and clear action steps:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I understand why you&#x27;re upset.\n\nI want to assure you that I&#x27;m personally taking ownership of this right now.\n\n**Here&#x27;s what I&#x27;m doing immediately:**\n\n- ✅ I&#x27;ve located your account (ACCT-2025-8842) and flagged it for priority review\n- ✅ I&#x27;m initiating an investigation into the duplicate charge\n- ✅ Your refund request has been escalated to our billing team\n\n**What you can expect:**\n- A **full refund** for the duplicate charge will be processed within **3–5 business days**\n- Confirmation of your cancellation will be sent to your email on file within **24 hours**\n\n**Regarding our delayed responses** – I&#x27;m genuinely sorry your three previous emails went unanswered. I&#x27;m escalating this as an internal issue so it doesn&#x27;t happen to you or anyone else.\n\nIf you have any further questions, please reply directly to this email or reach me at **[direct contact]**.\n\nAgain, I apologize for this experience.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**A few notes on this draft:**\n- Adjust the refund timeline to match your actual processing policy\n- Fill in real contact details and escalation procedures\n- Consider offering a goodwill gesture like a free month if your policy allows",
             extra: {},
           },
         ],
@@ -311,6 +455,42 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 76, output: 402, input_audio: 0, input_cached: 0 },
+        total_tokens: 478,
+        cost: 0.006258,
+        cost_input: 0.000228,
+        cost_output: 0.00603,
+        by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.006258,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 76, output: 402, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 478,
+        subtree_cost: 0.006258,
+        subtree_cost_input: 0.000228,
+        subtree_cost_output: 0.00603,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.006258,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -322,7 +502,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       },
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:node_5",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_5",
       kind: "operator",
       pipe_code: "polish_text",
       pipe_type: "PipeLLM",
@@ -331,9 +511,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:17:19.574728Z",
-        ended_at: "2026-07-09T11:17:30.419155Z",
-        duration: 10.844427,
+        started_at: "2026-08-14T10:30:57.337705Z",
+        ended_at: "2026-08-14T10:31:05.595130Z",
+        duration: 8.257425,
       },
       io: {
         inputs: [
@@ -343,14 +523,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "anMMu",
+            digest: "AzxhL",
             data: {
-              text: "Here's a draft response to this frustrated customer:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I fully understand your frustration.\n\nI want to address everything you've raised right away:\n\n**Regarding the duplicate charge:**\nI have located your account (ACCT-2025-8842) and can confirm I am escalating the duplicate charge investigation immediately. You are absolutely entitled to a full refund for the duplicate payment, and we will process this as a priority. Refunds typically appear within **3-5 business days**, depending on your financial institution.\n\n**Regarding our support response failure:**\nThree unanswered emails is a serious failure on our part, and I am personally flagging this with our support team leadership. You deserved a response long before now, and I'm sorry we let you down.\n\n**Regarding your cancellation request:**\nYour cancellation has been processed effective today. You will **not** be charged going forward, and I'll ensure you receive a confirmation email shortly.\n\n**What happens next:**\n- Duplicate charge refund: processed within 24 hours\n- Cancellation confirmation: sent to your email on file today\n- You'll receive a follow-up from me directly within **one business day**\n\nAgain, I'm truly sorry for this experience. If you have any further questions, please reply directly to this email and I will personally ensure you receive a prompt response.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n**A few notes on this response:**\n- It **acknowledges all three issues** specifically rather than giving a generic apology\n- It **takes ownership** without making excuses\n- It provides **clear timelines** so the customer knows what to expect\n- The tone is **empathetic but professional** throughout\n- You should verify the actual refund timeline and policies before sending",
+              text: "Here's a draft response that addresses the customer's concerns with empathy and clear action steps:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I understand why you're upset.\n\nI want to assure you that I'm personally taking ownership of this right now.\n\n**Here's what I'm doing immediately:**\n\n- ✅ I've located your account (ACCT-2025-8842) and flagged it for priority review\n- ✅ I'm initiating an investigation into the duplicate charge\n- ✅ Your refund request has been escalated to our billing team\n\n**What you can expect:**\n- A **full refund** for the duplicate charge will be processed within **3–5 business days**\n- Confirmation of your cancellation will be sent to your email on file within **24 hours**\n\n**Regarding our delayed responses** – I'm genuinely sorry your three previous emails went unanswered. I'm escalating this as an internal issue so it doesn't happen to you or anyone else.\n\nIf you have any further questions, please reply directly to this email or reach me at **[direct contact]**.\n\nAgain, I apologize for this experience.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**A few notes on this draft:**\n- Adjust the refund timeline to match your actual processing policy\n- Fill in real contact details and escalation procedures\n- Consider offering a goodwill gesture like a free month if your policy allows",
             },
             data_text:
-              "Here's a draft response to this frustrated customer:                                                \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear Valued Customer,                                                                               \n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has\ncaused. Being charged twice and not receiving timely responses from our team is completely          \nunacceptable, and I fully understand your frustration.                                              \n\nI want to address everything you've raised right away:                                              \n\nRegarding the duplicate charge: I have located your account (ACCT-2025-8842) and can confirm I am   \nescalating the duplicate charge investigation immediately. You are absolutely entitled to a full    \nrefund for the duplicate payment, and we will process this as a priority. Refunds typically appear  \nwithin 3-5 business days, depending on your financial institution.                                  \n\nRegarding our support response failure: Three unanswered emails is a serious failure on our part,   \nand I am personally flagging this with our support team leadership. You deserved a response long    \nbefore now, and I'm sorry we let you down.                                                          \n\nRegarding your cancellation request: Your cancellation has been processed effective today. You will \nnot be charged going forward, and I'll ensure you receive a confirmation email shortly.             \n\nWhat happens next:                                                                                  \n\n • Duplicate charge refund: processed within 24 hours                                               \n • Cancellation confirmation: sent to your email on file today                                      \n • You'll receive a follow-up from me directly within one business day                              \n\nAgain, I'm truly sorry for this experience. If you have any further questions, please reply directly\nto this email and I will personally ensure you receive a prompt response.                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nA few notes on this response:                                                                       \n\n • It acknowledges all three issues specifically rather than giving a generic apology               \n • It takes ownership without making excuses                                                        \n • It provides clear timelines so the customer knows what to expect                                 \n • The tone is empathetic but professional throughout                                               \n • You should verify the actual refund timeline and policies before sending                         \n",
+              "Here's a draft response that addresses the customer's concerns with empathy and clear action steps: \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear Valued Customer,                                                                               \n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused.\nBeing charged twice and not receiving timely responses from our team is completely unacceptable, and\nI understand why you're upset.                                                                      \n\nI want to assure you that I'm personally taking ownership of this right now.                        \n\nHere's what I'm doing immediately:                                                                  \n\n • ✅ I've located your account (ACCT-2025-8842) and flagged it for priority review                 \n • ✅ I'm initiating an investigation into the duplicate charge                                     \n • ✅ Your refund request has been escalated to our billing team                                    \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge will be processed within 3–5 business days                \n • Confirmation of your cancellation will be sent to your email on file within 24 hours             \n\nRegarding our delayed responses – I'm genuinely sorry your three previous emails went unanswered.   \nI'm escalating this as an internal issue so it doesn't happen to you or anyone else.                \n\nIf you have any further questions, please reply directly to this email or reach me at [direct       \ncontact].                                                                                           \n\nAgain, I apologize for this experience.                                                             \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nA few notes on this draft:                                                                          \n\n • Adjust the refund timeline to match your actual processing policy                                \n • Fill in real contact details and escalation procedures                                           \n • Consider offering a goodwill gesture like a free month if your policy allows                     \n",
             data_html:
-              "Here&#x27;s a draft response to this frustrated customer:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I fully understand your frustration.\n\nI want to address everything you&#x27;ve raised right away:\n\n**Regarding the duplicate charge:**\nI have located your account (ACCT-2025-8842) and can confirm I am escalating the duplicate charge investigation immediately. You are absolutely entitled to a full refund for the duplicate payment, and we will process this as a priority. Refunds typically appear within **3-5 business days**, depending on your financial institution.\n\n**Regarding our support response failure:**\nThree unanswered emails is a serious failure on our part, and I am personally flagging this with our support team leadership. You deserved a response long before now, and I&#x27;m sorry we let you down.\n\n**Regarding your cancellation request:**\nYour cancellation has been processed effective today. You will **not** be charged going forward, and I&#x27;ll ensure you receive a confirmation email shortly.\n\n**What happens next:**\n- Duplicate charge refund: processed within 24 hours\n- Cancellation confirmation: sent to your email on file today\n- You&#x27;ll receive a follow-up from me directly within **one business day**\n\nAgain, I&#x27;m truly sorry for this experience. If you have any further questions, please reply directly to this email and I will personally ensure you receive a prompt response.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n**A few notes on this response:**\n- It **acknowledges all three issues** specifically rather than giving a generic apology\n- It **takes ownership** without making excuses\n- It provides **clear timelines** so the customer knows what to expect\n- The tone is **empathetic but professional** throughout\n- You should verify the actual refund timeline and policies before sending",
+              "Here&#x27;s a draft response that addresses the customer&#x27;s concerns with empathy and clear action steps:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I understand why you&#x27;re upset.\n\nI want to assure you that I&#x27;m personally taking ownership of this right now.\n\n**Here&#x27;s what I&#x27;m doing immediately:**\n\n- ✅ I&#x27;ve located your account (ACCT-2025-8842) and flagged it for priority review\n- ✅ I&#x27;m initiating an investigation into the duplicate charge\n- ✅ Your refund request has been escalated to our billing team\n\n**What you can expect:**\n- A **full refund** for the duplicate charge will be processed within **3–5 business days**\n- Confirmation of your cancellation will be sent to your email on file within **24 hours**\n\n**Regarding our delayed responses** – I&#x27;m genuinely sorry your three previous emails went unanswered. I&#x27;m escalating this as an internal issue so it doesn&#x27;t happen to you or anyone else.\n\nIf you have any further questions, please reply directly to this email or reach me at **[direct contact]**.\n\nAgain, I apologize for this experience.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**A few notes on this draft:**\n- Adjust the refund timeline to match your actual processing policy\n- Fill in real contact details and escalation procedures\n- Consider offering a goodwill gesture like a free month if your policy allows",
             extra: {},
           },
         ],
@@ -361,14 +541,14 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VQtLS",
+            digest: "2fysZ",
             data: {
-              text: '# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic "Valued Customer" opening** — using the customer\'s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like "I want to address" and "I\'ll ensure" were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n> ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.',
+              text: "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             },
             data_text:
-              '                                     Polished Customer Response                                     \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and        \nreceiving no response to three separate emails falls well below the standard you deserve, and I take\nfull responsibility for getting this resolved today.                                                \n\nHere is exactly what I am doing to address each issue:                                              \n\nDuplicate Charge I have located your account and am escalating the refund as a priority. You will   \nreceive the full amount back within 3–5 business days, depending on your bank. I will confirm once  \nthe refund has been initiated on our end.                                                           \n\nUnanswered Emails Three missed contacts is a serious failure, and I have flagged this directly with \nour support leadership. You should never have had to wait this long for help.                       \n\nCancellation Your subscription has been cancelled effective today. You will not be charged again,   \nand a confirmation will arrive in your inbox shortly.                                               \n\nWhat to Expect Next                                                                                 \n\n                                                        \n Action                           Timeline              \n ────────────────────────────────────────────────────── \n Refund initiated                 Within 24 hours       \n Cancellation confirmation email  Today                 \n Personal follow-up from me       Within 1 business day \n                                                        \n\nPlease reply directly to this email with any questions. I will personally make sure you hear back   \npromptly.                                                                                           \n\nSincerely, [Your Name] Customer Experience Team                                                     \n\n----------------------------------------------------------------------------------------------------\n\nKey Changes Made                                                                                    \n\n • Removed the generic "Valued Customer" opening — using the customer\'s actual name is warmer and   \n   more personal                                                                                    \n • Tightened the apology — the original was slightly repetitive; this version acknowledges fault    \n   once, clearly, then moves forward                                                                \n • Replaced bullet lists with a summary table — the timeline information is now scannable at a      \n   glance, which is more useful for an anxious customer                                             \n • Removed hedging language — phrases like "I want to address" and "I\'ll ensure" were replaced with \n   direct commitments                                                                               \n • Kept the closing personal — the direct reply invitation reinforces accountability without        \n   sounding formulaic                                                                               \n\n▌ ⚠️ Before sending: Confirm the refund timeline and cancellation policy with your billing team to\n▌ ensure accuracy.                                                                                \n',
+              "Here is the polished version with improved clarity, tone, and structure:                            \n\n----------------------------------------------------------------------------------------------------\n\nSubject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842                     \n\nDear [Customer Name],                                                                               \n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration \ncaused by our delayed responses. Neither is acceptable, and I want to resolve this for you right    \naway.                                                                                               \n\nWhat I am doing now:                                                                                \n\n • Reviewing your account (ACCT-2025-8842) as a priority case                                       \n • Opening a formal investigation into the duplicate charge                                         \n • Escalating your refund request directly to our billing team                                      \n\nWhat you can expect:                                                                                \n\n • A full refund for the duplicate charge processed within 3–5 business days                        \n • Written confirmation of your cancellation sent to your email address within 24 hours             \n\nI also want to address the lack of response to your previous emails directly. Three unanswered      \nmessages is a serious failure on our part, and I am flagging this internally to prevent it from     \nhappening again.                                                                                    \n\nAs a gesture of goodwill for the inconvenience caused, [insert applicable offer, e.g., a one-month  \nservice credit].                                                                                    \n\nPlease reply to this email or contact me directly at [direct contact information] if you have any   \nquestions or concerns. I will personally follow up with you once the refund has been confirmed.     \n\nSincerely, [Your Name] Customer Support Team                                                        \n\n----------------------------------------------------------------------------------------------------\n\nImplementation notes:                                                                               \n\n • Verify the refund timeline aligns with your current billing policy before sending                \n • Replace all bracketed placeholders with accurate information                                     \n • Confirm any goodwill offer with your manager before including it                                 \n • Keep a record of this case for internal follow-up on the response delay issue                    \n",
             data_html:
-              "# Polished Customer Response\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nI sincerely apologize for the frustration this situation has caused. Being charged twice and receiving no response to three separate emails falls well below the standard you deserve, and I take full responsibility for getting this resolved today.\n\nHere is exactly what I am doing to address each issue:\n\n**Duplicate Charge**\nI have located your account and am escalating the refund as a priority. You will receive the full amount back within **3–5 business days**, depending on your bank. I will confirm once the refund has been initiated on our end.\n\n**Unanswered Emails**\nThree missed contacts is a serious failure, and I have flagged this directly with our support leadership. You should never have had to wait this long for help.\n\n**Cancellation**\nYour subscription has been cancelled effective today. You will not be charged again, and a confirmation will arrive in your inbox shortly.\n\n**What to Expect Next**\n| Action | Timeline |\n|---|---|\n| Refund initiated | Within 24 hours |\n| Cancellation confirmation email | Today |\n| Personal follow-up from me | Within 1 business day |\n\nPlease reply directly to this email with any questions. I will personally make sure you hear back promptly.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n## Key Changes Made\n\n- **Removed the generic &quot;Valued Customer&quot; opening** — using the customer&#x27;s actual name is warmer and more personal\n- **Tightened the apology** — the original was slightly repetitive; this version acknowledges fault once, clearly, then moves forward\n- **Replaced bullet lists with a summary table** — the timeline information is now scannable at a glance, which is more useful for an anxious customer\n- **Removed hedging language** — phrases like &quot;I want to address&quot; and &quot;I&#x27;ll ensure&quot; were replaced with direct commitments\n- **Kept the closing personal** — the direct reply invitation reinforces accountability without sounding formulaic\n\n&gt; ⚠️ **Before sending:** Confirm the refund timeline and cancellation policy with your billing team to ensure accuracy.",
+              "Here is the polished version with improved clarity, tone, and structure:\n\n---\n\n**Subject: Re: Your Subscription Cancellation &amp; Duplicate Charge – ACCT-2025-8842**\n\nDear [Customer Name],\n\nThank you for contacting us. I sincerely apologize for the duplicate charge and for the frustration caused by our delayed responses. Neither is acceptable, and I want to resolve this for you right away.\n\n**What I am doing now:**\n\n- Reviewing your account (ACCT-2025-8842) as a priority case\n- Opening a formal investigation into the duplicate charge\n- Escalating your refund request directly to our billing team\n\n**What you can expect:**\n\n- A **full refund** for the duplicate charge processed within **3–5 business days**\n- Written confirmation of your cancellation sent to your email address within **24 hours**\n\nI also want to address the lack of response to your previous emails directly. Three unanswered messages is a serious failure on our part, and I am flagging this internally to prevent it from happening again.\n\nAs a gesture of goodwill for the inconvenience caused, [**insert applicable offer, e.g., a one-month service credit**].\n\nPlease reply to this email or contact me directly at **[direct contact information]** if you have any questions or concerns. I will personally follow up with you once the refund has been confirmed.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**Implementation notes:**\n- Verify the refund timeline aligns with your current billing policy before sending\n- Replace all bracketed placeholders with accurate information\n- Confirm any goodwill offer with your manager before including it\n- Keep a record of this case for internal follow-up on the response delay issue",
             extra: {},
           },
         ],
@@ -376,22 +556,58 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 427, output: 402, input_audio: 0, input_cached: 0 },
+        total_tokens: 829,
+        cost: 0.007311,
+        cost_input: 0.001281,
+        cost_output: 0.00603,
+        by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.007311,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 427, output: 402, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 829,
+        subtree_cost: 0.007311,
+        subtree_cost_input: 0.001281,
+        subtree_cost_output: 0.00603,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.007311,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nHere's a draft response to this frustrated customer:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I want to sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I fully understand your frustration.\n\nI want to address everything you've raised right away:\n\n**Regarding the duplicate charge:**\nI have located your account (ACCT-2025-8842) and can confirm I am escalating the duplicate charge investigation immediately. You are absolutely entitled to a full refund for the duplicate payment, and we will process this as a priority. Refunds typically appear within **3-5 business days**, depending on your financial institution.\n\n**Regarding our support response failure:**\nThree unanswered emails is a serious failure on our part, and I am personally flagging this with our support team leadership. You deserved a response long before now, and I'm sorry we let you down.\n\n**Regarding your cancellation request:**\nYour cancellation has been processed effective today. You will **not** be charged going forward, and I'll ensure you receive a confirmation email shortly.\n\n**What happens next:**\n- Duplicate charge refund: processed within 24 hours\n- Cancellation confirmation: sent to your email on file today\n- You'll receive a follow-up from me directly within **one business day**\n\nAgain, I'm truly sorry for this experience. If you have any further questions, please reply directly to this email and I will personally ensure you receive a prompt response.\n\nSincerely,\n**[Your Name]**\nCustomer Experience Team\n\n---\n\n**A few notes on this response:**\n- It **acknowledges all three issues** specifically rather than giving a generic apology\n- It **takes ownership** without making excuses\n- It provides **clear timelines** so the customer knows what to expect\n- The tone is **empathetic but professional** throughout\n- You should verify the actual refund timeline and policies before sending\n</draft>",
+          "Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nHere's a draft response that addresses the customer's concerns with empathy and clear action steps:\n\n---\n\n**Subject: Re: Your Subscription Cancellation & Duplicate Charge – ACCT-2025-8842**\n\nDear Valued Customer,\n\nThank you for reaching out, and I sincerely apologize for the frustration this situation has caused. Being charged twice **and** not receiving timely responses from our team is completely unacceptable, and I understand why you're upset.\n\nI want to assure you that I'm personally taking ownership of this right now.\n\n**Here's what I'm doing immediately:**\n\n- ✅ I've located your account (ACCT-2025-8842) and flagged it for priority review\n- ✅ I'm initiating an investigation into the duplicate charge\n- ✅ Your refund request has been escalated to our billing team\n\n**What you can expect:**\n- A **full refund** for the duplicate charge will be processed within **3–5 business days**\n- Confirmation of your cancellation will be sent to your email on file within **24 hours**\n\n**Regarding our delayed responses** – I'm genuinely sorry your three previous emails went unanswered. I'm escalating this as an internal issue so it doesn't happen to you or anyone else.\n\nIf you have any further questions, please reply directly to this email or reach me at **[direct contact]**.\n\nAgain, I apologize for this experience.\n\nSincerely,\n**[Your Name]**\nCustomer Support Team\n\n---\n\n**A few notes on this draft:**\n- Adjust the refund timeline to match your actual processing policy\n- Fill in real contact details and escalation procedures\n- Consider offering a goodwill gesture like a free month if your policy allows\n</draft>",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:edge_0",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_0",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_1",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:edge_0",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_0",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -400,9 +616,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:edge_1",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_0",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_2",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:edge_1",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_0",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -411,9 +627,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:edge_2",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_2",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_3",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:edge_2",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_2",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -422,9 +638,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:edge_3",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_3",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_4",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:edge_3",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_3",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -433,9 +649,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:edge_4",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_3",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_5",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:edge_4",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_3",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -444,9 +660,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:asm_edge_0",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_1",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_2",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:asm_edge_0",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_1",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_2",
       kind: "data",
       optional: false,
       label: "classified",
@@ -455,9 +671,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:asm_edge_1",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_1",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_3",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:asm_edge_1",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_1",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_3",
       kind: "data",
       optional: false,
       label: "classified",
@@ -466,9 +682,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:asm_edge_2",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_1",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_4",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:asm_edge_2",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_1",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_4",
       kind: "data",
       optional: false,
       label: "classified",
@@ -477,9 +693,9 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "677d7e21-3210-493c-a729-66254d3a3c0f:asm_edge_3",
-      source: "677d7e21-3210-493c-a729-66254d3a3c0f:node_4",
-      target: "677d7e21-3210-493c-a729-66254d3a3c0f:node_5",
+      id: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:asm_edge_3",
+      source: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_4",
+      target: "3247b4d1-674f-4b4c-9e9a-c4a1b80d3e97:node_5",
       kind: "data",
       optional: false,
       label: "draft",
@@ -488,6 +704,80 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 3,
+      rated_inference_calls: 3,
+      nb_tokens_by_category: {
+        input: 1421,
+        output: 918,
+        input_audio: 0,
+        input_cached: 0,
+        output_audio: 0,
+        output_reasoning: 0,
+        output_accepted_prediction: 0,
+        output_rejected_prediction: 0,
+      },
+      total_tokens: 2339,
+      cost: 0.018033,
+      cost_input: 0.004263,
+      cost_output: 0.01377,
+      by_model: [
+        {
+          inference_model_name: "claude-4.6-sonnet",
+          inference_model_id: "global.anthropic.claude-sonnet-4-6",
+          model_type: "llm",
+          inference_calls: 3,
+          rated_inference_calls: 3,
+          cost: 0.018033,
+        },
+      ],
+      subtree_inference_calls: 3,
+      subtree_rated_inference_calls: 3,
+      subtree_nb_tokens_by_category: {
+        input: 1421,
+        output: 918,
+        input_audio: 0,
+        input_cached: 0,
+        output_audio: 0,
+        output_reasoning: 0,
+        output_accepted_prediction: 0,
+        output_rejected_prediction: 0,
+      },
+      subtree_total_tokens: 2339,
+      subtree_cost: 0.018033,
+      subtree_cost_input: 0.004263,
+      subtree_cost_output: 0.01377,
+      subtree_by_model: [
+        {
+          inference_model_name: "claude-4.6-sonnet",
+          inference_model_id: "global.anthropic.claude-sonnet-4-6",
+          model_type: "llm",
+          inference_calls: 3,
+          rated_inference_calls: 3,
+          cost: 0.018033,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "customer_support.smart_responder": {
@@ -566,7 +856,6 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -694,7 +983,6 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Draft a helpful response to this request:\n\n$classified.request_text\n",
@@ -741,7 +1029,6 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -768,7 +1055,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "Final delivered response",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "customer_support__Response",
         type: "object",
@@ -781,7 +1068,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
         type: "object",
@@ -817,7 +1104,7 @@ export const LIVE_NESTED_SEQ_COND_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "A draft response to the user",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "customer_support__DraftResponse",
         type: "object",

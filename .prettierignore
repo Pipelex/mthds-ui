@@ -1,0 +1,7 @@
+# Machine-generated GraphSpec fixtures (scripts/generate-fixtures.mjs), marked
+# DO NOT EDIT and never read by a human. Each is a single-line JSON.stringify of a
+# whole run graph; the largest are several MB, which prettier cannot even parse —
+# it overflows Node's call stack. The generator formats them when they are small
+# enough and writes them raw when they are not, so their formatting is not stable
+# and must not be checked.
+src/graph/react/viewer/__stories__/pipelines/specs/_generated/

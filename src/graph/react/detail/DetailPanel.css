@@ -582,3 +582,68 @@
   font-style: italic;
   padding: 8px 0;
 }
+
+/* ─── Usage (inline cost + disclosure) ──────────────────────────────────── */
+
+/* Cost sits on the status line, formatted exactly like the duration beside it:
+   they are two facts of the same kind about the same run. The button carries no
+   chrome of its own — only the chevron marks it as expandable. */
+.detail-usage-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.detail-usage-value {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-usage-inline:hover .detail-usage-value {
+  color: var(--text-muted);
+}
+
+/* Quieter than the number it follows: it is an affordance, not information. */
+.detail-usage-chevron {
+  color: var(--text-dim);
+  opacity: 0.55;
+  transition:
+    transform 120ms ease,
+    opacity 120ms ease;
+}
+
+.detail-usage-inline:hover .detail-usage-chevron {
+  opacity: 0.9;
+}
+
+.detail-usage-chevron--open {
+  transform: rotate(180deg);
+}
+
+.detail-usage-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Model row: request on top, what it resolved to underneath. The secondary line
+   is dimmer so the pair reads as one fact with its consequence, not two facts. */
+.detail-model-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.detail-model-resolved {
+  color: var(--text-dim);
+  font-size: 10px;
+}

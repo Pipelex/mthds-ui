@@ -1,0 +1,79 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_bce428acf7["qualify_rfp"]
+        subgraph sg_n_8877a6d23b["assess_all_requirements"]
+            n_3f1cef0e19["assess_single_requirement"]
+            s_46a8dbbf3c(["requirement<br/>RFPRequirement"]):::stuff
+            s_1ae7eaa69b(["capability_match<br/>CapabilityMatch"]):::stuff
+            n_64202665d1["assess_single_requirement"]
+            s_60a82f6bf8(["requirement<br/>RFPRequirement"]):::stuff
+            s_2afbd75d2e(["capability_match<br/>CapabilityMatch"]):::stuff
+            n_f7d4a4f28f["assess_single_requirement"]
+            s_b344b32183(["requirement<br/>RFPRequirement"]):::stuff
+            s_1b7448f146(["capability_match<br/>CapabilityMatch"]):::stuff
+        end
+        subgraph sg_n_307d42ebb8["extract_documents"]
+            n_553863372d["extract_capabilities"]
+            s_01bc5f8960(["capabilities_pages<br/>Page"]):::stuff
+            n_91c7e1eaf1["extract_rfp"]
+            s_5f84965c52(["rfp_pages<br/>Page"]):::stuff
+            s_9fca229a66(["all_pages<br/>Composite"]):::stuff
+        end
+        n_de715fbdfc["build_qualification_matrix"]
+        s_2cd37b8c7e(["qualification_matrix<br/>QualificationMatrix"]):::stuff
+        n_88335fb0d8["generate_executive_summary"]
+        s_9459c10ad9(["executive_summary<br/>BidSummary"]):::stuff
+        n_01ffa6e6fa["parse_requirements"]
+        s_8a5024cca6(["requirements<br/>RFPRequirement"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_683bc86e90(["capabilities<br/>Document"]):::stuff
+    s_7eee303e94(["capability_matches<br/>CapabilityMatch"]):::stuff
+    s_c9a8236c7d(["rfp<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_91c7e1eaf1 --> s_5f84965c52
+    n_88335fb0d8 --> s_9459c10ad9
+    n_553863372d --> s_01bc5f8960
+    n_01ffa6e6fa --> s_8a5024cca6
+    n_de715fbdfc --> s_2cd37b8c7e
+    n_3f1cef0e19 --> s_1ae7eaa69b
+    n_64202665d1 --> s_2afbd75d2e
+    n_f7d4a4f28f --> s_1b7448f146
+    s_5f84965c52 --> n_88335fb0d8
+    s_5f84965c52 --> n_01ffa6e6fa
+    s_5f84965c52 --> n_de715fbdfc
+    s_01bc5f8960 --> n_3f1cef0e19
+    s_01bc5f8960 --> n_64202665d1
+    s_01bc5f8960 --> n_f7d4a4f28f
+    s_46a8dbbf3c --> n_3f1cef0e19
+    s_60a82f6bf8 --> n_64202665d1
+    s_b344b32183 --> n_f7d4a4f28f
+    s_683bc86e90 --> n_553863372d
+    s_2cd37b8c7e --> n_88335fb0d8
+    s_c9a8236c7d --> n_91c7e1eaf1
+    s_7eee303e94 --> n_de715fbdfc
+
+    %% Batch edges: list-item relationships
+    s_8a5024cca6 -."[0]".-> s_46a8dbbf3c
+    s_8a5024cca6 -."[1]".-> s_60a82f6bf8
+    s_8a5024cca6 -."[2]".-> s_b344b32183
+    s_1ae7eaa69b -."[0]".-> s_7eee303e94
+    s_2afbd75d2e -."[1]".-> s_7eee303e94
+    s_1b7448f146 -."[2]".-> s_7eee303e94
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_5f84965c52 -.-> s_9fca229a66
+    s_01bc5f8960 -.-> s_9fca229a66
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_307d42ebb8 fill:#e6ffe6
+    style sg_n_8877a6d23b fill:#e6ffe6
+    style sg_n_bce428acf7 fill:#e6f3ff

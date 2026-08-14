@@ -1,0 +1,54 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_718050921a["double_parallel_pipeline"]
+        subgraph sg_n_e24fee3434["gather_phase"]
+            n_9a6fcb3350["gather_source_a"]
+            s_8c93dc62b5(["source_a<br/>SearchResult"]):::stuff
+            n_4d7a2e2f2e["gather_source_b"]
+            s_24c8620a25(["source_b<br/>SearchResult"]):::stuff
+            s_880f6555b1(["source_bundle<br/>Composite"]):::stuff
+        end
+        subgraph sg_n_efa7c5dadd["process_phase"]
+            n_2cd166746a["transform_x"]
+            s_6980387c5c(["result_x<br/>GatheredData"]):::stuff
+            n_6d91591004["transform_y"]
+            s_f36028477a(["result_y<br/>Image"]):::stuff
+            s_ad4d9ccf42(["process_bundle<br/>Composite"]):::stuff
+        end
+        n_e73ac26279["finalize"]
+        s_1bd0959a2a(["final<br/>ProcessedResult"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_4bb7562627(["query<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_6d91591004 --> s_f36028477a
+    n_2cd166746a --> s_6980387c5c
+    n_e73ac26279 --> s_1bd0959a2a
+    n_9a6fcb3350 --> s_8c93dc62b5
+    n_4d7a2e2f2e --> s_24c8620a25
+    s_f36028477a --> n_e73ac26279
+    s_6980387c5c --> n_e73ac26279
+    s_8c93dc62b5 --> n_2cd166746a
+    s_8c93dc62b5 --> n_6d91591004
+    s_4bb7562627 --> n_9a6fcb3350
+    s_4bb7562627 --> n_4d7a2e2f2e
+    s_24c8620a25 --> n_2cd166746a
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_8c93dc62b5 -.-> s_880f6555b1
+    s_24c8620a25 -.-> s_880f6555b1
+    s_6980387c5c -.-> s_ad4d9ccf42
+    s_f36028477a -.-> s_ad4d9ccf42
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_718050921a fill:#e6f3ff
+    style sg_n_e24fee3434 fill:#e6ffe6
+    style sg_n_efa7c5dadd fill:#e6ffe6

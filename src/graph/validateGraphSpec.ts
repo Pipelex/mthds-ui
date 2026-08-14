@@ -91,6 +91,118 @@ function validateIoItem(item: unknown, path: string): void {
   requireNonEmptyString(item.name, `${path}.name`);
 }
 
+function requireNumber(value: unknown, path: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    fail(path, `expected a finite number, got ${describe(value)}`);
+  }
+  return value;
+}
+
+function requireNullableNumber(value: unknown, path: string): void {
+  if (value === null) return;
+  requireNumber(value, path);
+}
+
+/**
+ * A nullable number that may also be absent, normalized to `null`.
+ *
+ * For fields added after specs were already being produced. The validator's job is
+ * to reject malformed data, not to insist the producer is the latest version: an
+ * absent key is unambiguous (the producer predates the field), while a wrong-typed
+ * one is not and still fails.
+ */
+function normalizeNullableNumber(value: unknown, path: string): number | null {
+  if (value === undefined || value === null) return null;
+  return requireNumber(value, path);
+}
+
+function requireNumberRecord(value: unknown, path: string): void {
+  if (!isPlainObject(value)) {
+    fail(path, `expected an object, got ${describe(value)}`);
+  }
+  for (const [key, entry] of Object.entries(value)) {
+    requireNumber(entry, `${path}.${key}`);
+  }
+}
+
+/**
+ * Validate a usage object (node-level or graph-level).
+ *
+ * This is the whole point of the boundary: types alone are a compile-time
+ * fiction, so a malformed `usage` from a stale or hostile spec would otherwise
+ * flow through as trusted data and be rendered as a dollar figure. In
+ * particular `cost` MUST be `number | null` and nothing else — an absent or
+ * string cost silently becoming "unrated" would understate what a run spent.
+ */
+function validateUsage(usage: unknown, path: string): void {
+  if (!isPlainObject(usage)) {
+    fail(path, `expected an object, got ${describe(usage)}`);
+  }
+  requireNumber(usage.inference_calls, `${path}.inference_calls`);
+  requireNumber(usage.rated_inference_calls, `${path}.rated_inference_calls`);
+  requireNumberRecord(usage.nb_tokens_by_category, `${path}.nb_tokens_by_category`);
+  requireNumber(usage.total_tokens, `${path}.total_tokens`);
+  requireNullableNumber(usage.cost, `${path}.cost`);
+  usage.cost_input = normalizeNullableNumber(usage.cost_input, `${path}.cost_input`);
+  usage.cost_output = normalizeNullableNumber(usage.cost_output, `${path}.cost_output`);
+  requireNumber(usage.subtree_inference_calls, `${path}.subtree_inference_calls`);
+  requireNumber(usage.subtree_rated_inference_calls, `${path}.subtree_rated_inference_calls`);
+  requireNumberRecord(usage.subtree_nb_tokens_by_category, `${path}.subtree_nb_tokens_by_category`);
+  requireNumber(usage.subtree_total_tokens, `${path}.subtree_total_tokens`);
+  requireNullableNumber(usage.subtree_cost, `${path}.subtree_cost`);
+  usage.subtree_cost_input = normalizeNullableNumber(
+    usage.subtree_cost_input,
+    `${path}.subtree_cost_input`,
+  );
+  usage.subtree_cost_output = normalizeNullableNumber(
+    usage.subtree_cost_output,
+    `${path}.subtree_cost_output`,
+  );
+  // Absent is tolerated and normalized to `[]` (mirroring the `io` treatment
+  // below): a spec produced before per-model attribution existed is legitimately
+  // missing it, and an absent list is unambiguous — no per-model data — unlike a
+  // malformed one, which is still rejected.
+  usage.by_model = normalizeModelUsageList(usage.by_model, `${path}.by_model`);
+  usage.subtree_by_model = normalizeModelUsageList(
+    usage.subtree_by_model,
+    `${path}.subtree_by_model`,
+  );
+}
+
+/**
+ * Validate a per-model usage list, normalizing an absent one to `[]`.
+ *
+ * The model names here are displayed as fact ("this is what ran"), so a malformed
+ * entry must fail loudly rather than render as an empty or partial attribution.
+ * Absence is not malformation, though: specs generated before per-model
+ * attribution existed simply have no such key.
+ */
+function normalizeModelUsageList(value: unknown, path: string): unknown[] {
+  if (value === undefined) return [];
+  if (!Array.isArray(value)) {
+    fail(path, `expected an array when present, got ${describe(value)}`);
+  }
+  value.forEach((entry, index) => {
+    const entryPath = `${path}[${index}]`;
+    if (!isPlainObject(entry)) {
+      fail(entryPath, `expected an object, got ${describe(entry)}`);
+    }
+    requireNonEmptyString(entry.inference_model_name, `${entryPath}.inference_model_name`);
+    requireNonEmptyString(entry.inference_model_id, `${entryPath}.inference_model_id`);
+    // Absent on specs predating the field. Normalized to a value that is not "llm",
+    // so token counts stay hidden rather than being shown on unverified grounds.
+    if (entry.model_type === undefined) {
+      entry.model_type = "unknown";
+    } else {
+      requireNonEmptyString(entry.model_type, `${entryPath}.model_type`);
+    }
+    requireNumber(entry.inference_calls, `${entryPath}.inference_calls`);
+    requireNumber(entry.rated_inference_calls, `${entryPath}.rated_inference_calls`);
+    requireNullableNumber(entry.cost, `${entryPath}.cost`);
+  });
+  return value;
+}
+
 function validateNode(node: unknown, path: string): void {
   if (!isPlainObject(node)) {
     fail(path, `expected an object, got ${describe(node)}`);
@@ -151,6 +263,16 @@ function validateNode(node: unknown, path: string): void {
   }
   (io.inputs as unknown[]).forEach((item, j) => validateIoItem(item, `${path}.io.inputs[${j}]`));
   (io.outputs as unknown[]).forEach((item, j) => validateIoItem(item, `${path}.io.outputs[${j}]`));
+
+  // `usage` is legitimately ABSENT OR NULL: pydantic serializes `usage=None` as an
+  // explicit `"usage": null` rather than omitting the key, and that is the normal
+  // shape for a run that collected no usage. Both mean the same thing, so null is
+  // normalized away here and downstream code only ever sees an object or undefined.
+  if (node.usage === null) {
+    delete node.usage;
+  } else if (node.usage !== undefined) {
+    validateUsage(node.usage, `${path}.usage`);
+  }
 }
 
 function validateEdge(edge: unknown, path: string): void {
@@ -222,6 +344,18 @@ export function validateGraphSpec(raw: unknown): GraphSpec {
       "concept_registry",
       `expected an object when present, got ${describe(raw.concept_registry)}`,
     );
+  }
+
+  // Same all-or-nothing rule as the node field, and the same null-vs-absent point:
+  // pydantic emits `"usage": null` for a run that collected none.
+  if (raw.usage === null) {
+    delete raw.usage;
+  } else if (raw.usage !== undefined) {
+    if (!isPlainObject(raw.usage)) {
+      fail("usage", `expected an object when present, got ${describe(raw.usage)}`);
+    }
+    validateUsage(raw.usage.total, "usage.total");
+    validateUsage(raw.usage.unattributed, "usage.unattributed");
   }
 
   raw.nodes.forEach((node, i) => validateNode(node, `nodes[${i}]`));

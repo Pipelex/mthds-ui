@@ -1,6 +1,6 @@
 {
-  "graph_id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4",
-  "created_at": "2026-08-09T07:11:02.301040Z",
+  "graph_id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8",
+  "created_at": "2026-08-14T10:50:14.039641Z",
   "pipeline_ref": {
     "domain": "scheduling",
     "main_pipe": "triage_request",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_0",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_0",
       "kind": "controller",
       "pipe_code": "triage_request",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-09T07:11:02.301040Z",
-        "ended_at": "2026-08-09T07:11:02.401738Z",
-        "duration": 0.100698
+        "started_at": "2026-08-14T10:50:14.039641Z",
+        "ended_at": "2026-08-14T10:50:14.100769Z",
+        "duration": 0.061128
       },
       "io": {
         "inputs": [
@@ -29,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "JxUF6",
+            "digest": "oF997",
             "data": {
-              "text": "sHPMJphrkkguSXDmJcGF"
+              "text": "bDvdggILYfHQcUmVSNyJ"
             },
-            "data_text": "sHPMJphrkkguSXDmJcGF                                                                                \n",
-            "data_html": "sHPMJphrkkguSXDmJcGF",
+            "data_text": "bDvdggILYfHQcUmVSNyJ                                                                                \n",
+            "data_html": "bDvdggILYfHQcUmVSNyJ",
             "extra": {}
           }
         ],
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8ocDC",
+            "digest": "Bomn5",
             "data": {
-              "yes_no": true
+              "yes_no": false
             },
-            "data_text": "{\n    \"yes_no\": true\n}\n",
-            "data_html": "yes",
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
             "extra": {}
           }
         ]
@@ -58,12 +58,39 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 4
       }
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_1",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_1",
       "kind": "operator",
       "pipe_code": "read_dates",
       "pipe_type": "PipeLLM",
@@ -72,9 +99,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-09T07:11:02.309620Z",
-        "ended_at": "2026-08-09T07:11:02.330012Z",
-        "duration": 0.020392
+        "started_at": "2026-08-14T10:50:14.044207Z",
+        "ended_at": "2026-08-14T10:50:14.055458Z",
+        "duration": 0.011251
       },
       "io": {
         "inputs": [
@@ -84,12 +111,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "JxUF6",
+            "digest": "oF997",
             "data": {
-              "text": "sHPMJphrkkguSXDmJcGF"
+              "text": "bDvdggILYfHQcUmVSNyJ"
             },
-            "data_text": "sHPMJphrkkguSXDmJcGF                                                                                \n",
-            "data_html": "sHPMJphrkkguSXDmJcGF",
+            "data_text": "bDvdggILYfHQcUmVSNyJ                                                                                \n",
+            "data_html": "bDvdggILYfHQcUmVSNyJ",
             "extra": {}
           }
         ],
@@ -100,25 +127,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Uf4Eo",
+            "digest": "KNvbU",
             "data": {
               "items": [
                 {
-                  "date": "2025-05-15",
-                  "time": "15:13:35.267211"
+                  "date": "2024-02-22",
+                  "time": "12:02:37.147752"
                 },
                 {
-                  "date": "2023-10-25",
-                  "time": "21:45:19.554640"
+                  "date": "2026-03-05",
+                  "time": "05:20:33.782851"
                 },
                 {
-                  "date": "2023-10-18",
-                  "time": "19:08:45.193169"
+                  "date": "2024-02-25",
+                  "time": "04:33:41.476106"
                 }
               ]
             },
-            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2025-05-15\",                                     \n                  │   \"time\": \"15:13:35.267211\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2023-10-25\",                                     \n                  │   \"time\": \"21:45:19.554640\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2023-10-18\",                                     \n                  │   \"time\": \"19:08:45.193169\"                                 \n                  │ }                                                           \n",
-            "data_html": "<ul><li>2025-05-15T15:13:35.267211</li><li>2023-10-25T21:45:19.554640</li><li>2023-10-18T19:08:45.193169</li></ul>",
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2024-02-22\",                                     \n                  │   \"time\": \"12:02:37.147752\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2026-03-05\",                                     \n                  │   \"time\": \"05:20:33.782851\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2024-02-25\",                                     \n                  │   \"time\": \"04:33:41.476106\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2024-02-22T12:02:37.147752</li><li>2026-03-05T05:20:33.782851</li><li>2024-02-25T04:33:41.476106</li></ul>",
             "extra": {}
           }
         ]
@@ -126,17 +153,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": true,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "List every meeting date proposed in the request below.\n\n<request>\nsHPMJphrkkguSXDmJcGF\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass DateContent(StuffContent):\n    \"\"\"A calendar date, optionally with a time of day — as precise as its source states.\n\n    The optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). Invalid states are unrepresentable by construction: no time\n    without a date, no offset without a time.\n    \"\"\"\n    date: date  # The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.\n    time: time | None = None  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "List every meeting date proposed in the request below.\n\n<request>\nbDvdggILYfHQcUmVSNyJ\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass DateContent(StuffContent):\n    \"\"\"A calendar date, optionally with a time of day — as precise as its source states.\n\n    The optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). Invalid states are unrepresentable by construction: no time\n    without a date, no offset without a time.\n    \"\"\"\n    date: date  # The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.\n    time: time | None = None  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_list"
       }
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_2",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_2",
       "kind": "operator",
       "pipe_code": "read_slot",
       "pipe_type": "PipeLLM",
@@ -145,9 +208,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-09T07:11:02.336229Z",
-        "ended_at": "2026-08-09T07:11:02.351721Z",
-        "duration": 0.015492
+        "started_at": "2026-08-14T10:50:14.059734Z",
+        "ended_at": "2026-08-14T10:50:14.069749Z",
+        "duration": 0.010015
       },
       "io": {
         "inputs": [
@@ -157,12 +220,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "JxUF6",
+            "digest": "oF997",
             "data": {
-              "text": "sHPMJphrkkguSXDmJcGF"
+              "text": "bDvdggILYfHQcUmVSNyJ"
             },
-            "data_text": "sHPMJphrkkguSXDmJcGF                                                                                \n",
-            "data_html": "sHPMJphrkkguSXDmJcGF",
+            "data_text": "bDvdggILYfHQcUmVSNyJ                                                                                \n",
+            "data_html": "bDvdggILYfHQcUmVSNyJ",
             "extra": {}
           }
         ],
@@ -173,12 +236,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B8nMx",
+            "digest": "J6R9f",
             "data": {
-              "time": "00:04:12.516216"
+              "time": "17:59:39.267490"
             },
-            "data_text": "{\n  \"time\": \"00:04:12.516216\"\n}\n",
-            "data_html": "00:04:12.516216",
+            "data_text": "{\n  \"time\": \"17:59:39.267490\"\n}\n",
+            "data_html": "17:59:39.267490",
             "extra": {}
           }
         ]
@@ -186,17 +249,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "What time of day does the request below ask for?\n\n<request>\nsHPMJphrkkguSXDmJcGF\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass TimeContent(StuffContent):\n    \"\"\"A time of day, optionally with a UTC offset — as precise as its source states.\n\n    The ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). A time of day is not an instant: it has no date to\n    attach to, so it never converts to a datetime on its own.\n    \"\"\"\n    time: time  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "What time of day does the request below ask for?\n\n<request>\nbDvdggILYfHQcUmVSNyJ\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass TimeContent(StuffContent):\n    \"\"\"A time of day, optionally with a UTC offset — as precise as its source states.\n\n    The ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n    (fidelity, not normalization). A time of day is not an instant: it has no date to\n    attach to, so it never converts to a datetime on its own.\n    \"\"\"\n    time: time  # The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_3",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_3",
       "kind": "operator",
       "pipe_code": "is_urgent",
       "pipe_type": "PipeLLM",
@@ -205,9 +304,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-09T07:11:02.357847Z",
-        "ended_at": "2026-08-09T07:11:02.374033Z",
-        "duration": 0.016186
+        "started_at": "2026-08-14T10:50:14.073837Z",
+        "ended_at": "2026-08-14T10:50:14.083217Z",
+        "duration": 0.00938
       },
       "io": {
         "inputs": [
@@ -217,12 +316,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "JxUF6",
+            "digest": "oF997",
             "data": {
-              "text": "sHPMJphrkkguSXDmJcGF"
+              "text": "bDvdggILYfHQcUmVSNyJ"
             },
-            "data_text": "sHPMJphrkkguSXDmJcGF                                                                                \n",
-            "data_html": "sHPMJphrkkguSXDmJcGF",
+            "data_text": "bDvdggILYfHQcUmVSNyJ                                                                                \n",
+            "data_html": "bDvdggILYfHQcUmVSNyJ",
             "extra": {}
           }
         ],
@@ -233,12 +332,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "4eNqE",
+            "digest": "Vtitd",
             "data": {
-              "yes_no": true
+              "yes_no": false
             },
-            "data_text": "{\n    \"yes_no\": true\n}\n",
-            "data_html": "yes",
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
             "extra": {}
           }
         ]
@@ -246,17 +345,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Is the meeting request below urgent?\n\n<request>\nsHPMJphrkkguSXDmJcGF\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass YesNoContent(StuffContent):\n    yes_no: bool  # Whether the answer is yes (true) or no (false).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Is the meeting request below urgent?\n\n<request>\nbDvdggILYfHQcUmVSNyJ\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass YesNoContent(StuffContent):\n    yes_no: bool  # Whether the answer is yes (true) or no (false).\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_4",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_4",
       "kind": "operator",
       "pipe_code": "decide",
       "pipe_type": "PipeLLM",
@@ -265,9 +400,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-08-09T07:11:02.380737Z",
-        "ended_at": "2026-08-09T07:11:02.399026Z",
-        "duration": 0.018289
+        "started_at": "2026-08-14T10:50:14.087727Z",
+        "ended_at": "2026-08-14T10:50:14.098880Z",
+        "duration": 0.011153
       },
       "io": {
         "inputs": [
@@ -277,25 +412,25 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Uf4Eo",
+            "digest": "KNvbU",
             "data": {
               "items": [
                 {
-                  "date": "2025-05-15",
-                  "time": "15:13:35.267211"
+                  "date": "2024-02-22",
+                  "time": "12:02:37.147752"
                 },
                 {
-                  "date": "2023-10-25",
-                  "time": "21:45:19.554640"
+                  "date": "2026-03-05",
+                  "time": "05:20:33.782851"
                 },
                 {
-                  "date": "2023-10-18",
-                  "time": "19:08:45.193169"
+                  "date": "2024-02-25",
+                  "time": "04:33:41.476106"
                 }
               ]
             },
-            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2025-05-15\",                                     \n                  │   \"time\": \"15:13:35.267211\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2023-10-25\",                                     \n                  │   \"time\": \"21:45:19.554640\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2023-10-18\",                                     \n                  │   \"time\": \"19:08:45.193169\"                                 \n                  │ }                                                           \n",
-            "data_html": "<ul><li>2025-05-15T15:13:35.267211</li><li>2023-10-25T21:45:19.554640</li><li>2023-10-18T19:08:45.193169</li></ul>",
+            "data_text": "        1         │ {                                                           \n                  │   \"date\": \"2024-02-22\",                                     \n                  │   \"time\": \"12:02:37.147752\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        2         │ {                                                           \n                  │   \"date\": \"2026-03-05\",                                     \n                  │   \"time\": \"05:20:33.782851\"                                 \n                  │ }                                                           \n──────────────────┼─────────────────────────────────────────────────────────────\n        3         │ {                                                           \n                  │   \"date\": \"2024-02-25\",                                     \n                  │   \"time\": \"04:33:41.476106\"                                 \n                  │ }                                                           \n",
+            "data_html": "<ul><li>2024-02-22T12:02:37.147752</li><li>2026-03-05T05:20:33.782851</li><li>2024-02-25T04:33:41.476106</li></ul>",
             "extra": {}
           },
           {
@@ -304,12 +439,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "B8nMx",
+            "digest": "J6R9f",
             "data": {
-              "time": "00:04:12.516216"
+              "time": "17:59:39.267490"
             },
-            "data_text": "{\n  \"time\": \"00:04:12.516216\"\n}\n",
-            "data_html": "00:04:12.516216",
+            "data_text": "{\n  \"time\": \"17:59:39.267490\"\n}\n",
+            "data_html": "17:59:39.267490",
             "extra": {}
           },
           {
@@ -318,12 +453,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "4eNqE",
+            "digest": "Vtitd",
             "data": {
-              "yes_no": true
+              "yes_no": false
             },
-            "data_text": "{\n    \"yes_no\": true\n}\n",
-            "data_html": "yes",
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
             "extra": {}
           }
         ],
@@ -334,12 +469,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8ocDC",
+            "digest": "Bomn5",
             "data": {
-              "yes_no": true
+              "yes_no": false
             },
-            "data_text": "{\n    \"yes_no\": true\n}\n",
-            "data_html": "yes",
+            "data_text": "{\n    \"yes_no\": false\n}\n",
+            "data_html": "no",
             "extra": {}
           }
         ]
@@ -347,21 +482,57 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Decide whether to accept this meeting request. Accept it when it is urgent, or when it proposes at least one workable date.\n\nUrgent: True\n\n## Proposed dates\n\n<dates>\n\n • item #1:\n\n2025-05-15T15:13:35.267211\n\n • item #2:\n\n2023-10-25T21:45:19.554640\n\n • item #3:\n\n2023-10-18T19:08:45.193169\n\n</dates>\n\n## Preferred time\n\n<slot>\n00:04:12.516216\n</slot>\n\n---\nThe instance we want to generate will be for the following class:\nclass scheduling__Verdict(YesNoContent):\n    \"\"\"Whether the meeting request is accepted\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "rendered_user_prompt": "Decide whether to accept this meeting request. Accept it when it is urgent, or when it proposes at least one workable date.\n\nUrgent: False\n\n## Proposed dates\n\n<dates>\n\n • item #1:\n\n2024-02-22T12:02:37.147752\n\n • item #2:\n\n2026-03-05T05:20:33.782851\n\n • item #3:\n\n2024-02-25T04:33:41.476106\n\n</dates>\n\n## Preferred time\n\n<slot>\n17:59:39.267490\n</slot>\n\n---\nThe instance we want to generate will be for the following class:\nclass scheduling__Verdict(YesNoContent):\n    \"\"\"Whether the meeting request is accepted\"\"\"\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
         "structuring_path": "object_direct"
       }
     }
   ],
   "edges": [
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:edge_0",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_0",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_1",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:edge_0",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_0",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -370,9 +541,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:edge_1",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_0",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_2",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:edge_1",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_0",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -381,9 +552,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:edge_2",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_0",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_3",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:edge_2",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_0",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -392,9 +563,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:edge_3",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_0",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_4",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:edge_3",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_0",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -403,9 +574,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:asm_edge_0",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_1",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_4",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:asm_edge_0",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_1",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_4",
       "kind": "data",
       "optional": false,
       "label": "dates",
@@ -414,9 +585,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:asm_edge_1",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_2",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_4",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:asm_edge_1",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_2",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_4",
       "kind": "data",
       "optional": false,
       "label": "slot",
@@ -425,9 +596,9 @@
       "meta": {}
     },
     {
-      "id": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:asm_edge_2",
-      "source": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_3",
-      "target": "eaf7676c-9e15-4022-acb8-5574f1fc6af4:node_4",
+      "id": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:asm_edge_2",
+      "source": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_3",
+      "target": "fe8a180f-7dd1-45e1-b39a-b8c83140f7c8:node_4",
       "kind": "data",
       "optional": false,
       "label": "urgent",
@@ -436,6 +607,62 @@
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 4,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 4,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 4,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "dry"

@@ -1,0 +1,40 @@
+{
+    "word_count": {
+        "number": 36
+    },
+    "html": {
+        "inner_html": "<h3>Q3 Roadmap</h3>\n<ul>\n  <li>Cut onboarding time in half</li>\n  <li>Ship the public API</li>\n  <li>Move billing off the legacy provider</li>\n</ul>\n<p>Engineering headcount stays flat at <strong>twelve</strong>.</p>",
+        "css_class": "brief"
+    },
+    "illustrated": {
+        "text": {
+            "text": "The Q3 roadmap focuses on three key themes: (1) halving onboarding time, (2) launching the public API, and (3) migrating billing away from the legacy provider \u2014 all while keeping the engineering team steady at 12 people."
+        },
+        "images": [
+            {
+                "url": "<UNKNOWN>",
+                "public_url": null,
+                "source_prompt": "A clean, modern product roadmap diagram for Q3 with three horizontal swim lanes: one for cutting onboarding time in half, one for shipping a public API, and one for migrating billing off a legacy provider, flat engineering team of twelve, minimalist style, blue and white color palette",
+                "source_negative_prompt": null,
+                "caption": "A visual roadmap illustration showing three parallel tracks labeled 'Onboarding', 'Public API', and 'Billing Migration', arranged as a timeline across Q3, with a small team-of-twelve icon anchored at the side to represent stable headcount.",
+                "mime_type": null,
+                "width": null,
+                "height": null,
+                "filename": "<UNKNOWN>"
+            }
+        ],
+        "raw_html": null
+    },
+    "facts": {
+        "json_obj": {
+            "quarter": "Q3",
+            "roadmap_themes": [
+                "Cut onboarding time in half",
+                "Ship the public API",
+                "Move billing off the legacy provider"
+            ],
+            "engineering_headcount": 12,
+            "headcount_change": "flat"
+        }
+    }
+}

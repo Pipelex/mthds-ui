@@ -35,6 +35,12 @@
 is_normalize_data_urls_to_storage = true
 # Set to false to disable generation of execution graphs
 is_generate_graph = true
+# Set to false to stop emitting usage (cost) tracing events
+is_generate_usage = true
+
+# Bounded fan-out concurrency for PipeBatch: at most this many branches run at once.
+# Set max_concurrency = "unbounded" to disable the bound.
+max_concurrency = 8
 
 [pipelex.pipeline_execution_config.graph_config.data_inclusion]
 # Control what data is included in graph outputs
@@ -64,7 +70,7 @@ theme = "dark"
 palette = "dracula"
 
 ####################################################################################################
-# Tracing Config (event log for distributed tracing across Temporal workers)
+# Tracing Config (event log for distributed tracing across workers)
 ####################################################################################################
 
 [pipelex.tracing_config]
@@ -114,6 +120,15 @@ project_id = ""
 signed_urls_lifespan_seconds = 3600                           # Set to "disabled" for public URLs
 
 ####################################################################################################
+# Secrets Config
+####################################################################################################
+
+[pipelex.secrets_config]
+# Secrets provider method: "env" (built-in, reads secrets from environment variables).
+# An external pipelex-secrets-<backend> plugin can add its own method (e.g. "vault").
+method = "env"
+
+####################################################################################################
 # Scan Config
 ####################################################################################################
 
@@ -153,7 +168,17 @@ default_directory_base_name = "pipeline"
 # Default logging level: "DEBUG", "INFO", "WARNING", "ERROR"
 default_log_level = "INFO"
 # Log output target: "stdout" or "stderr"
-console_log_target = "stdout"
+# console_log_target controls the RichHandler used by the logging system (log.debug/info/...).
+# Logs are diagnostics → stderr.
+console_log_target = "stderr"
+# console_print_target controls the Console returned by get_console(), used for banners,
+# deck notices, and the main `pipelex` CLI's data tables (`show backends`, `show models`,
+# `which`, `doctor`). Tables are data the user pipes to a file → stdout.
+# Note: the agent CLI (`pipelex-agent`) emits its actual JSON/markdown results via bare
+# builtin `print(...)` to sys.stdout, bypassing Rich entirely — so this knob does NOT
+# affect the agent CLI data channel. The agent CLI factory additionally forces both
+# targets to stderr internally to keep its stdout strictly reserved for the success
+# envelope.
 console_print_target = "stdout"
 
 [pipelex.log_config.package_log_levels]
@@ -166,7 +191,7 @@ pipelex = "INFO"
 
 [pipelex.reporting_config]
 # Cost reporting settings
-is_log_costs_to_console = false
+is_log_costs_to_console = true
 is_generate_cost_report_file_enabled = false
 cost_report_dir_path = "reports"
 cost_report_base_name = "cost_report"
@@ -193,3 +218,12 @@ is_dump_response_text_enabled = false
 is_dump_kwargs_enabled = false
 is_dump_response_enabled = false
 is_dump_error_enabled = false
+
+####################################################################################################
+# Plugins
+####################################################################################################
+
+[plugins]
+# Names of discovered plugins to skip at startup (a denylist). Discovery is the
+# source of truth for which plugins are present; this only turns one off.
+disabled = []

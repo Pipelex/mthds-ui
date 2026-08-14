@@ -1,0 +1,2862 @@
+<!DOCTYPE html>
+<!--
+  External (loaded from jsDelivr with Subresource Integrity):
+    React (MIT), @xyflow/react (MIT), DOMPurify (MPL-2.0/Apache-2.0),
+    @pipelex/mthds-ui (MIT), elkjs (EPL-2.0).
+  Nothing is bundled into this file — all viewer code is fetched at view time
+  from cdn.jsdelivr.net with sha384 hashes that pin tamper-evident content.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Batch Analyze Cvs For Job Offer</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.css" integrity="sha384-+RAnunPv8/gJkU2A4kO1jjx56ZMIdtJP2FC8yoYAfXJGOZWgWHnqz9EWVAho6/HZ" crossorigin="anonymous">
+</head>
+<body data-theme="dark">
+<div id="app-container">
+  <div id="root"></div>
+</div>
+
+<script type="application/json" id="pipelex-graphspec">{
+  "graph_id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d",
+  "created_at": "2026-08-14T10:50:01.910917Z",
+  "pipeline_ref": {
+    "domain": "cv_batch_screening",
+    "main_pipe": "batch_analyze_cvs_for_job_offer",
+    "entrypoint": null
+  },
+  "nodes": [
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
+      "kind": "controller",
+      "pipe_code": "batch_analyze_cvs_for_job_offer",
+      "pipe_type": "PipeSequence",
+      "description": "Main orchestrator pipe that takes a bunch of CVs and a job offer in PDF format,\nand analyzes how they match.\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:01.910917Z",
+        "ended_at": "2026-08-14T10:50:02.111630Z",
+        "duration": 0.200713
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer_pdf",
+            "concept": "Document",
+            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "preview": null,
+            "size": null,
+            "digest": "AL4nP",
+            "data": {
+              "url": "CIBantQVrLyfZLudZyFc",
+              "public_url": "quBETKwnXeuvmmLCTcLZ",
+              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
+              "filename": "rPohKmADPrhpVwOrLRls",
+              "title": "bZFqpYiRbVaLPdlUbMqy",
+              "snippet": "BVyYpJPKwUBNhunZbabh"
+            },
+            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
+            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "extra": {}
+          },
+          {
+            "name": "cvs",
+            "concept": "Document",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU",
+            "data": {
+              "items": [
+                {
+                  "url": "coIJfbhejVsxLzSDQpVC",
+                  "public_url": "sDjsxSHXrtSJiuewjipS",
+                  "mime_type": "jmWDSjotJhFIWoNzZOOp",
+                  "filename": "HuGfwllOJeEdmEDkGaKs",
+                  "title": "fugmRapvWxqxKLNWxTFX",
+                  "snippet": "mOoohaurcmroOtniqYuO"
+                },
+                {
+                  "url": "VWGQIIpZMczvNLrlUSLq",
+                  "public_url": "pXnmgUGkwXRyPEgDOjVc",
+                  "mime_type": "QNGcwPuXRCZumRZcxiBX",
+                  "filename": "KLHNVuhuqTUaWVOJyTVw",
+                  "title": "OTzyLeYAGIsRYoAVsxdF",
+                  "snippet": "qoiiXPmhdaPvpgKKFxXw"
+                }
+              ]
+            },
+            "data_text": "     1      \u2502 fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)                       \n            \u2502   mOoohaurcmroOtniqYuO                                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n     2      \u2502 OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)                       \n            \u2502   qoiiXPmhdaPvpgKKFxXw                                            \n",
+            "data_html": "<ul><li><a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small></li><li><a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analyses",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HGAnM",
+            "data": {
+              "items": [
+                {
+                  "match_score": 7.40731573284898,
+                  "strengths": "SiaTsJBDgGcuoRpLacuX",
+                  "gaps": "oVRYTuCmhABfWNDTwoDs",
+                  "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+                },
+                {
+                  "match_score": 7101155.35893388,
+                  "strengths": "yPyxPCQYNBJuMzXfmblv",
+                  "gaps": "KfxjkJjlvjRHnarOVYKL",
+                  "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502  Attribute                        \u2503 Value                             \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  match_score                      \u2502 7.40731573284898                  \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  strengths                        \u2502 SiaTsJBDgGcuoRpLacuX              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  gaps                             \u2502 oVRYTuCmhABfWNDTwoDs              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  overall_assessment               \u2502 txtFTPSkpkIqzsqhyKgc              \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502  Attribute                        \u2503 Value                             \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  match_score                      \u2502 7101155.35893388                  \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  strengths                        \u2502 yPyxPCQYNBJuMzXfmblv              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  gaps                             \u2502 KfxjkJjlvjRHnarOVYKL              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  overall_assessment               \u2502 KoTSKgnHwfznaGLRYTCp              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table></li><li><table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 5,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 5,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "kind": "controller",
+      "pipe_code": "prepare_job_offer",
+      "pipe_type": "PipeSequence",
+      "description": "Prepares the job offer by extracting text content and analyzing the job requirements.\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:01.919730Z",
+        "ended_at": "2026-08-14T10:50:02.002268Z",
+        "duration": 0.082538
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer_pdf",
+            "concept": "Document",
+            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "preview": null,
+            "size": null,
+            "digest": "AL4nP",
+            "data": {
+              "url": "CIBantQVrLyfZLudZyFc",
+              "public_url": "quBETKwnXeuvmmLCTcLZ",
+              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
+              "filename": "rPohKmADPrhpVwOrLRls",
+              "title": "bZFqpYiRbVaLPdlUbMqy",
+              "snippet": "BVyYpJPKwUBNhunZbabh"
+            },
+            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
+            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 2
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
+      "kind": "operator",
+      "pipe_code": "extract_one_job_offer",
+      "pipe_type": "PipeExtract",
+      "description": "Extracts text content from the job offer PDF document",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:01.928751Z",
+        "ended_at": "2026-08-14T10:50:01.936952Z",
+        "duration": 0.008201
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer_pdf",
+            "concept": "Document",
+            "content_type": "ycpGzUBOqOkYfCDFjTPX",
+            "preview": null,
+            "size": null,
+            "digest": "AL4nP",
+            "data": {
+              "url": "CIBantQVrLyfZLudZyFc",
+              "public_url": "quBETKwnXeuvmmLCTcLZ",
+              "mime_type": "ycpGzUBOqOkYfCDFjTPX",
+              "filename": "rPohKmADPrhpVwOrLRls",
+              "title": "bZFqpYiRbVaLPdlUbMqy",
+              "snippet": "BVyYpJPKwUBNhunZbabh"
+            },
+            "data_text": "bZFqpYiRbVaLPdlUbMqy (CIBantQVrLyfZLudZyFc)\n  BVyYpJPKwUBNhunZbabh\n",
+            "data_html": "<a href=\"quBETKwnXeuvmmLCTcLZ\" class=\"msg-document\">bZFqpYiRbVaLPdlUbMqy</a><br/><small>BVyYpJPKwUBNhunZbabh</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Ei6KG",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "job_offer_pdf",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "kind": "operator",
+      "pipe_code": "analyze_job_requirements",
+      "pipe_type": "PipeLLM",
+      "description": "Parses and summarizes the job requirements from the extracted job offer content, identifying required skills, responsibilities, qualifications, and nice-to-haves\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:01.942759Z",
+        "ended_at": "2026-08-14T10:50:01.999251Z",
+        "duration": 0.056492
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "job_offer_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Ei6KG",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.8-opus",
+        "resolved_model_for_object": "claude-4.8-opus",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an expert HR analyst specializing in parsing job descriptions. Your task is to extract and summarize job requirements into a structured format.",
+        "rendered_user_prompt": "Analyze the following job offer content and extract the key requirements for the position.\n\n<job_offer_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__JobRequirements(StructuredContent):\n    \"\"\"A structured summary of what a job position requires from candidates.\"\"\"\n    required_skills: str  # Skills that are mandatory for the position\n    responsibilities: str  # Main duties and tasks of the role\n    qualifications: str  # Required education, certifications, or experience levels\n    nice_to_haves: str | None = None  # Preferred but not mandatory qualifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "kind": "controller",
+      "pipe_code": "process_cv_batch",
+      "pipe_type": "PipeBatch",
+      "description": "Batch processing for process_cv",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.005940Z",
+        "ended_at": "2026-08-14T10:50:02.108465Z",
+        "duration": 0.102525
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cvs",
+            "concept": "Document",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU",
+            "data": {
+              "items": [
+                {
+                  "url": "coIJfbhejVsxLzSDQpVC",
+                  "public_url": "sDjsxSHXrtSJiuewjipS",
+                  "mime_type": "jmWDSjotJhFIWoNzZOOp",
+                  "filename": "HuGfwllOJeEdmEDkGaKs",
+                  "title": "fugmRapvWxqxKLNWxTFX",
+                  "snippet": "mOoohaurcmroOtniqYuO"
+                },
+                {
+                  "url": "VWGQIIpZMczvNLrlUSLq",
+                  "public_url": "pXnmgUGkwXRyPEgDOjVc",
+                  "mime_type": "QNGcwPuXRCZumRZcxiBX",
+                  "filename": "KLHNVuhuqTUaWVOJyTVw",
+                  "title": "OTzyLeYAGIsRYoAVsxdF",
+                  "snippet": "qoiiXPmhdaPvpgKKFxXw"
+                }
+              ]
+            },
+            "data_text": "     1      \u2502 fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)                       \n            \u2502   mOoohaurcmroOtniqYuO                                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n     2      \u2502 OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)                       \n            \u2502   qoiiXPmhdaPvpgKKFxXw                                            \n",
+            "data_html": "<ul><li><a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small></li><li><a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analyses",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "HGAnM",
+            "data": {
+              "items": [
+                {
+                  "match_score": 7.40731573284898,
+                  "strengths": "SiaTsJBDgGcuoRpLacuX",
+                  "gaps": "oVRYTuCmhABfWNDTwoDs",
+                  "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+                },
+                {
+                  "match_score": 7101155.35893388,
+                  "strengths": "yPyxPCQYNBJuMzXfmblv",
+                  "gaps": "KfxjkJjlvjRHnarOVYKL",
+                  "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+                }
+              ]
+            },
+            "data_text": "   1    \u2502  Attribute                        \u2503 Value                             \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  match_score                      \u2502 7.40731573284898                  \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  strengths                        \u2502 SiaTsJBDgGcuoRpLacuX              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  gaps                             \u2502 oVRYTuCmhABfWNDTwoDs              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  overall_assessment               \u2502 txtFTPSkpkIqzsqhyKgc              \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502  Attribute                        \u2503 Value                             \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  match_score                      \u2502 7101155.35893388                  \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  strengths                        \u2502 yPyxPCQYNBJuMzXfmblv              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  gaps                             \u2502 KfxjkJjlvjRHnarOVYKL              \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  overall_assessment               \u2502 KoTSKgnHwfznaGLRYTCp              \n",
+            "data_html": "<ul><li><table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table></li><li><table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 4,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 4,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "item_count": 2,
+        "branch_pipe_code": "process_cv"
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "kind": "controller",
+      "pipe_code": "process_cv",
+      "pipe_type": "PipeSequence",
+      "description": "Processes one application",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.010446Z",
+        "ended_at": "2026-08-14T10:50:02.057001Z",
+        "duration": 0.046555
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pdf",
+            "concept": "Document",
+            "content_type": "jmWDSjotJhFIWoNzZOOp",
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU-branch-0",
+            "data": {
+              "url": "coIJfbhejVsxLzSDQpVC",
+              "public_url": "sDjsxSHXrtSJiuewjipS",
+              "mime_type": "jmWDSjotJhFIWoNzZOOp",
+              "filename": "HuGfwllOJeEdmEDkGaKs",
+              "title": "fugmRapvWxqxKLNWxTFX",
+              "snippet": "mOoohaurcmroOtniqYuO"
+            },
+            "data_text": "fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)\n  mOoohaurcmroOtniqYuO\n",
+            "data_html": "<a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small>",
+            "extra": {}
+          },
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analysis",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kodzK-branch-0",
+            "data": {
+              "match_score": 7.40731573284898,
+              "strengths": "SiaTsJBDgGcuoRpLacuX",
+              "gaps": "oVRYTuCmhABfWNDTwoDs",
+              "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+            },
+            "data_text": " Attribute                            \u2503 Value                                   \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n match_score                          \u2502 7.40731573284898                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                            \u2502 SiaTsJBDgGcuoRpLacuX                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                                 \u2502 oVRYTuCmhABfWNDTwoDs                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n overall_assessment                   \u2502 txtFTPSkpkIqzsqhyKgc                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "kind": "operator",
+      "pipe_code": "extract_one_cv",
+      "pipe_type": "PipeExtract",
+      "description": "Extracts text content from the CV PDF document",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.014657Z",
+        "ended_at": "2026-08-14T10:50:02.020508Z",
+        "duration": 0.005851
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pdf",
+            "concept": "Document",
+            "content_type": "jmWDSjotJhFIWoNzZOOp",
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU-branch-0",
+            "data": {
+              "url": "coIJfbhejVsxLzSDQpVC",
+              "public_url": "sDjsxSHXrtSJiuewjipS",
+              "mime_type": "jmWDSjotJhFIWoNzZOOp",
+              "filename": "HuGfwllOJeEdmEDkGaKs",
+              "title": "fugmRapvWxqxKLNWxTFX",
+              "snippet": "mOoohaurcmroOtniqYuO"
+            },
+            "data_text": "fugmRapvWxqxKLNWxTFX (coIJfbhejVsxLzSDQpVC)\n  mOoohaurcmroOtniqYuO\n",
+            "data_html": "<a href=\"sDjsxSHXrtSJiuewjipS\" class=\"msg-document\">fugmRapvWxqxKLNWxTFX</a><br/><small>mOoohaurcmroOtniqYuO</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Q7WxA",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "cv_pdf",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "kind": "operator",
+      "pipe_code": "analyze_one_cv",
+      "pipe_type": "PipeLLM",
+      "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.024826Z",
+        "ended_at": "2026-08-14T10:50:02.037888Z",
+        "duration": 0.013062
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "Q7WxA",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "candidate_profile",
+            "concept": "CandidateProfile",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "53iLu",
+            "data": {
+              "skills": "QnnFtYHYCCQJAbEMbYTu",
+              "experience": "bMgBqsICzEGgtxvgxNNB",
+              "education": "TObPCaWNJjBEMNMNbySE",
+              "achievements": "zeJEvsYYbGCVyQOketpm"
+            },
+            "data_text": " Attribute                     \u2503 Value                                          \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n skills                        \u2502 QnnFtYHYCCQJAbEMbYTu                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n experience                    \u2502 bMgBqsICzEGgtxvgxNNB                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n education                     \u2502 TObPCaWNJjBEMNMNbySE                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n achievements                  \u2502 zeJEvsYYbGCVyQOketpm                           \n",
+            "data_html": "<table><tr><th>skills</th><td>QnnFtYHYCCQJAbEMbYTu</td></tr><tr><th>experience</th><td>bMgBqsICzEGgtxvgxNNB</td></tr><tr><th>education</th><td>TObPCaWNJjBEMNMNbySE</td></tr><tr><th>achievements</th><td>zeJEvsYYbGCVyQOketpm</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.8-opus",
+        "resolved_model_for_object": "claude-4.8-opus",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.",
+        "rendered_user_prompt": "Analyze the following CV content and extract the candidate's professional profile.\n\n<cv_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateProfile(StructuredContent):\n    \"\"\"A structured summary of a job candidate's professional background extracted from their CV.\"\"\"\n    skills: str  # Technical and soft skills possessed by the candidate\n    experience: str  # Work history and professional experience\n    education: str  # Educational background and qualifications\n    achievements: str | None = None  # Notable accomplishments and certifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "kind": "operator",
+      "pipe_code": "analyze_match",
+      "pipe_type": "PipeLLM",
+      "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.042166Z",
+        "ended_at": "2026-08-14T10:50:02.054799Z",
+        "duration": 0.012633
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "candidate_profile",
+            "concept": "CandidateProfile",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "53iLu",
+            "data": {
+              "skills": "QnnFtYHYCCQJAbEMbYTu",
+              "experience": "bMgBqsICzEGgtxvgxNNB",
+              "education": "TObPCaWNJjBEMNMNbySE",
+              "achievements": "zeJEvsYYbGCVyQOketpm"
+            },
+            "data_text": " Attribute                     \u2503 Value                                          \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n skills                        \u2502 QnnFtYHYCCQJAbEMbYTu                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n experience                    \u2502 bMgBqsICzEGgtxvgxNNB                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n education                     \u2502 TObPCaWNJjBEMNMNbySE                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n achievements                  \u2502 zeJEvsYYbGCVyQOketpm                           \n",
+            "data_html": "<table><tr><th>skills</th><td>QnnFtYHYCCQJAbEMbYTu</td></tr><tr><th>experience</th><td>bMgBqsICzEGgtxvgxNNB</td></tr><tr><th>education</th><td>TObPCaWNJjBEMNMNbySE</td></tr><tr><th>achievements</th><td>zeJEvsYYbGCVyQOketpm</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analysis",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kodzK-branch-0",
+            "data": {
+              "match_score": 7.40731573284898,
+              "strengths": "SiaTsJBDgGcuoRpLacuX",
+              "gaps": "oVRYTuCmhABfWNDTwoDs",
+              "overall_assessment": "txtFTPSkpkIqzsqhyKgc"
+            },
+            "data_text": " Attribute                            \u2503 Value                                   \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n match_score                          \u2502 7.40731573284898                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                            \u2502 SiaTsJBDgGcuoRpLacuX                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                                 \u2502 oVRYTuCmhABfWNDTwoDs                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n overall_assessment                   \u2502 txtFTPSkpkIqzsqhyKgc                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>7.40731573284898</td></tr><tr><th>strengths</th><td>SiaTsJBDgGcuoRpLacuX</td></tr><tr><th>gaps</th><td>oVRYTuCmhABfWNDTwoDs</td></tr><tr><th>overall_assessment</th><td>txtFTPSkpkIqzsqhyKgc</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.8-opus",
+        "resolved_model_for_object": "claude-4.8-opus",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: QnnFtYHYCCQJAbEMbYTu\n\n# experience: bMgBqsICzEGgtxvgxNNB\n\n# education: TObPCaWNJjBEMNMNbySE\n\n# achievements: zeJEvsYYbGCVyQOketpm\n</candidate_profile>\n\n<job_requirements>\n# required_skills: oSclvRyMMApzFQKCJHSj\n\n# responsibilities: snDnbJuxQxJBBxJZvIBX\n\n# qualifications: USAETbaCVDWSeNWUIBZY\n\n# nice_to_haves: uDuKDYZrrwMnpeUbKQJw\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "kind": "controller",
+      "pipe_code": "process_cv",
+      "pipe_type": "PipeSequence",
+      "description": "Processes one application",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.059745Z",
+        "ended_at": "2026-08-14T10:50:02.104748Z",
+        "duration": 0.045003
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pdf",
+            "concept": "Document",
+            "content_type": "QNGcwPuXRCZumRZcxiBX",
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU-branch-1",
+            "data": {
+              "url": "VWGQIIpZMczvNLrlUSLq",
+              "public_url": "pXnmgUGkwXRyPEgDOjVc",
+              "mime_type": "QNGcwPuXRCZumRZcxiBX",
+              "filename": "KLHNVuhuqTUaWVOJyTVw",
+              "title": "OTzyLeYAGIsRYoAVsxdF",
+              "snippet": "qoiiXPmhdaPvpgKKFxXw"
+            },
+            "data_text": "OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)\n  qoiiXPmhdaPvpgKKFxXw\n",
+            "data_html": "<a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small>",
+            "extra": {}
+          },
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analysis",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kodzK-branch-1",
+            "data": {
+              "match_score": 7101155.35893388,
+              "strengths": "yPyxPCQYNBJuMzXfmblv",
+              "gaps": "KfxjkJjlvjRHnarOVYKL",
+              "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+            },
+            "data_text": " Attribute                            \u2503 Value                                   \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n match_score                          \u2502 7101155.35893388                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                            \u2502 yPyxPCQYNBJuMzXfmblv                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                                 \u2502 KfxjkJjlvjRHnarOVYKL                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n overall_assessment                   \u2502 KoTSKgnHwfznaGLRYTCp                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "step_count": 3
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "kind": "operator",
+      "pipe_code": "extract_one_cv",
+      "pipe_type": "PipeExtract",
+      "description": "Extracts text content from the CV PDF document",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.063936Z",
+        "ended_at": "2026-08-14T10:50:02.069447Z",
+        "duration": 0.005511
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pdf",
+            "concept": "Document",
+            "content_type": "QNGcwPuXRCZumRZcxiBX",
+            "preview": null,
+            "size": null,
+            "digest": "KqAzU-branch-1",
+            "data": {
+              "url": "VWGQIIpZMczvNLrlUSLq",
+              "public_url": "pXnmgUGkwXRyPEgDOjVc",
+              "mime_type": "QNGcwPuXRCZumRZcxiBX",
+              "filename": "KLHNVuhuqTUaWVOJyTVw",
+              "title": "OTzyLeYAGIsRYoAVsxdF",
+              "snippet": "qoiiXPmhdaPvpgKKFxXw"
+            },
+            "data_text": "OTzyLeYAGIsRYoAVsxdF (VWGQIIpZMczvNLrlUSLq)\n  qoiiXPmhdaPvpgKKFxXw\n",
+            "data_html": "<a href=\"pXnmgUGkwXRyPEgDOjVc\" class=\"msg-document\">OTzyLeYAGIsRYoAVsxdF</a><br/><small>qoiiXPmhdaPvpgKKFxXw</small>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "fH2BV",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
+      "execution_data": {
+        "resolved_model": "azure-document-intelligence",
+        "document_stuff_name": "cv_pdf",
+        "should_caption_images": false,
+        "should_include_page_views": false
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "kind": "operator",
+      "pipe_code": "analyze_one_cv",
+      "pipe_type": "PipeLLM",
+      "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.073615Z",
+        "ended_at": "2026-08-14T10:50:02.086243Z",
+        "duration": 0.012628
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "cv_pages",
+            "concept": "Page",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "fH2BV",
+            "data": {
+              "items": [
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                },
+                {
+                  "text_and_images": {
+                    "text": {
+                      "text": "DRY RUN: OCR text"
+                    },
+                    "images": [],
+                    "raw_html": null
+                  },
+                  "page_view": null
+                }
+              ]
+            },
+            "data_text": "   1    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 DRY RUN: OCR text                                                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 DRY RUN: OCR text                                                     \n",
+            "data_html": "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "candidate_profile",
+            "concept": "CandidateProfile",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "a5foV",
+            "data": {
+              "skills": "OGsBjNXBxkthnSITuetL",
+              "experience": "EhNUHkqSEeFDmBshfyQQ",
+              "education": "qxLPUWVOfIMyCuNepqqL",
+              "achievements": "AHuivZZwnVTFgXAfFQZy"
+            },
+            "data_text": " Attribute                     \u2503 Value                                          \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n skills                        \u2502 OGsBjNXBxkthnSITuetL                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n experience                    \u2502 EhNUHkqSEeFDmBshfyQQ                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n education                     \u2502 qxLPUWVOfIMyCuNepqqL                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n achievements                  \u2502 AHuivZZwnVTFgXAfFQZy                           \n",
+            "data_html": "<table><tr><th>skills</th><td>OGsBjNXBxkthnSITuetL</td></tr><tr><th>experience</th><td>EhNUHkqSEeFDmBshfyQQ</td></tr><tr><th>education</th><td>qxLPUWVOfIMyCuNepqqL</td></tr><tr><th>achievements</th><td>AHuivZZwnVTFgXAfFQZy</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.8-opus",
+        "resolved_model_for_object": "claude-4.8-opus",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.",
+        "rendered_user_prompt": "Analyze the following CV content and extract the candidate's professional profile.\n\n<cv_pages>\n\n \u2022 item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n \u2022 item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateProfile(StructuredContent):\n    \"\"\"A structured summary of a job candidate's professional background extracted from their CV.\"\"\"\n    skills: str  # Technical and soft skills possessed by the candidate\n    experience: str  # Work history and professional experience\n    education: str  # Educational background and qualifications\n    achievements: str | None = None  # Notable accomplishments and certifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "kind": "operator",
+      "pipe_code": "analyze_match",
+      "pipe_type": "PipeLLM",
+      "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
+      "domain_code": "cv_batch_screening",
+      "status": "succeeded",
+      "skip_reason": null,
+      "timing": {
+        "started_at": "2026-08-14T10:50:02.090537Z",
+        "ended_at": "2026-08-14T10:50:02.102640Z",
+        "duration": 0.012103
+      },
+      "io": {
+        "inputs": [
+          {
+            "name": "candidate_profile",
+            "concept": "CandidateProfile",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "a5foV",
+            "data": {
+              "skills": "OGsBjNXBxkthnSITuetL",
+              "experience": "EhNUHkqSEeFDmBshfyQQ",
+              "education": "qxLPUWVOfIMyCuNepqqL",
+              "achievements": "AHuivZZwnVTFgXAfFQZy"
+            },
+            "data_text": " Attribute                     \u2503 Value                                          \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n skills                        \u2502 OGsBjNXBxkthnSITuetL                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n experience                    \u2502 EhNUHkqSEeFDmBshfyQQ                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n education                     \u2502 qxLPUWVOfIMyCuNepqqL                           \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n achievements                  \u2502 AHuivZZwnVTFgXAfFQZy                           \n",
+            "data_html": "<table><tr><th>skills</th><td>OGsBjNXBxkthnSITuetL</td></tr><tr><th>experience</th><td>EhNUHkqSEeFDmBshfyQQ</td></tr><tr><th>education</th><td>qxLPUWVOfIMyCuNepqqL</td></tr><tr><th>achievements</th><td>AHuivZZwnVTFgXAfFQZy</td></tr></table>",
+            "extra": {}
+          },
+          {
+            "name": "job_requirements",
+            "concept": "JobRequirements",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "27Cok",
+            "data": {
+              "required_skills": "oSclvRyMMApzFQKCJHSj",
+              "responsibilities": "snDnbJuxQxJBBxJZvIBX",
+              "qualifications": "USAETbaCVDWSeNWUIBZY",
+              "nice_to_haves": "uDuKDYZrrwMnpeUbKQJw"
+            },
+            "data_text": " Attribute                          \u2503 Value                                     \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n required_skills                    \u2502 oSclvRyMMApzFQKCJHSj                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n responsibilities                   \u2502 snDnbJuxQxJBBxJZvIBX                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n qualifications                     \u2502 USAETbaCVDWSeNWUIBZY                      \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n nice_to_haves                      \u2502 uDuKDYZrrwMnpeUbKQJw                      \n",
+            "data_html": "<table><tr><th>required_skills</th><td>oSclvRyMMApzFQKCJHSj</td></tr><tr><th>responsibilities</th><td>snDnbJuxQxJBBxJZvIBX</td></tr><tr><th>qualifications</th><td>USAETbaCVDWSeNWUIBZY</td></tr><tr><th>nice_to_haves</th><td>uDuKDYZrrwMnpeUbKQJw</td></tr></table>",
+            "extra": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "match_analysis",
+            "concept": "CandidateMatch",
+            "content_type": null,
+            "preview": null,
+            "size": null,
+            "digest": "kodzK-branch-1",
+            "data": {
+              "match_score": 7101155.35893388,
+              "strengths": "yPyxPCQYNBJuMzXfmblv",
+              "gaps": "KfxjkJjlvjRHnarOVYKL",
+              "overall_assessment": "KoTSKgnHwfznaGLRYTCp"
+            },
+            "data_text": " Attribute                            \u2503 Value                                   \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n match_score                          \u2502 7101155.35893388                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n strengths                            \u2502 yPyxPCQYNBJuMzXfmblv                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n gaps                                 \u2502 KfxjkJjlvjRHnarOVYKL                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n overall_assessment                   \u2502 KoTSKgnHwfznaGLRYTCp                    \n",
+            "data_html": "<table><tr><th>match_score</th><td>7101155.35893388</td></tr><tr><th>strengths</th><td>yPyxPCQYNBJuMzXfmblv</td></tr><tr><th>gaps</th><td>KfxjkJjlvjRHnarOVYKL</td></tr><tr><th>overall_assessment</th><td>KoTSKgnHwfznaGLRYTCp</td></tr></table>",
+            "extra": {}
+          }
+        ]
+      },
+      "error": null,
+      "tags": {},
+      "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
+      "execution_data": {
+        "resolved_model": "claude-4.8-opus",
+        "resolved_model_for_object": "claude-4.8-opus",
+        "is_multiple_output": false,
+        "rendered_system_prompt": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
+        "rendered_user_prompt": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: OGsBjNXBxkthnSITuetL\n\n# experience: EhNUHkqSEeFDmBshfyQQ\n\n# education: qxLPUWVOfIMyCuNepqqL\n\n# achievements: AHuivZZwnVTFgXAfFQZy\n</candidate_profile>\n\n<job_requirements>\n# required_skills: oSclvRyMMApzFQKCJHSj\n\n# responsibilities: snDnbJuxQxJBBxJZvIBX\n\n# qualifications: USAETbaCVDWSeNWUIBZY\n\n# nice_to_haves: uDuKDYZrrwMnpeUbKQJw\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    \"\"\"An evaluation of how well a candidate fits a job position.\"\"\"\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate's suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.",
+        "structuring_path": "object_direct"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_0",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_1",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_2",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_3",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_0",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_4",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_5",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_6",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_7",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_8",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_9",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_10",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:edge_11",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "kind": "contains",
+      "optional": false,
+      "label": null,
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_0",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_2",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_3",
+      "kind": "data",
+      "optional": false,
+      "label": "job_offer_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_1",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "kind": "data",
+      "optional": false,
+      "label": "job_requirements",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_2",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "kind": "data",
+      "optional": false,
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_3",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_7",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "kind": "data",
+      "optional": false,
+      "label": "candidate_profile",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_4",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_8",
+      "kind": "data",
+      "optional": false,
+      "label": "job_requirements",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_5",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "kind": "data",
+      "optional": false,
+      "label": "job_requirements",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_6",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "kind": "data",
+      "optional": false,
+      "label": "cv_pages",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_7",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_11",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "kind": "data",
+      "optional": false,
+      "label": "candidate_profile",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_8",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_1",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_12",
+      "kind": "data",
+      "optional": false,
+      "label": "job_requirements",
+      "source_stuff_digest": null,
+      "target_stuff_digest": null,
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_9",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "KqAzU",
+      "target_stuff_digest": "KqAzU-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_10",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_6",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "KqAzU",
+      "target_stuff_digest": "KqAzU-branch-0",
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_11",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "KqAzU",
+      "target_stuff_digest": "KqAzU-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_12",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_10",
+      "kind": "batch_item",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "KqAzU",
+      "target_stuff_digest": "KqAzU-branch-1",
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_13",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_5",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[0]",
+      "source_stuff_digest": "kodzK-branch-0",
+      "target_stuff_digest": "HGAnM",
+      "meta": {}
+    },
+    {
+      "id": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:asm_edge_14",
+      "source": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_9",
+      "target": "5fb86eb9-6863-4d1b-95a6-04182946fb2d:node_4",
+      "kind": "batch_aggregate",
+      "optional": false,
+      "label": "[1]",
+      "source_stuff_digest": "kodzK-branch-1",
+      "target_stuff_digest": "HGAnM",
+      "meta": {}
+    }
+  ],
+  "usage": {
+    "total": {
+      "inference_calls": 5,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 5,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 5,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 5,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
+  "meta": {
+    "format": "mthds",
+    "mode": "dry"
+  },
+  "pipe_registry": {
+    "cv_batch_screening.batch_analyze_cvs_for_job_offer": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "batch_analyze_cvs_for_job_offer",
+      "domain_code": "cv_batch_screening",
+      "description": "Main orchestrator pipe that takes a bunch of CVs and a job offer in PDF format,\nand analyzes how they match.\n",
+      "inputs": {
+        "cvs": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": true,
+          "presence": "plain"
+        },
+        "job_offer_pdf": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CandidateMatch",
+          "domain_code": "cv_batch_screening",
+          "description": "An evaluation of how well a candidate fits a job position.",
+          "structure_class_name": "cv_batch_screening__CandidateMatch",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "prepare_job_offer",
+          "output_name": "job_requirements",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "process_cv",
+          "output_name": "match_analyses",
+          "output_multiplicity": true,
+          "batch_params": {
+            "input_list_stuff_name": "cvs",
+            "input_item_stuff_name": "cv_pdf"
+          }
+        }
+      ]
+    },
+    "cv_batch_screening.prepare_job_offer": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "prepare_job_offer",
+      "domain_code": "cv_batch_screening",
+      "description": "Prepares the job offer by extracting text content and analyzing the job requirements.\n",
+      "inputs": {
+        "job_offer_pdf": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "JobRequirements",
+          "domain_code": "cv_batch_screening",
+          "description": "A structured summary of what a job position requires from candidates.",
+          "structure_class_name": "cv_batch_screening__JobRequirements",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_one_job_offer",
+          "output_name": "job_offer_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_job_requirements",
+          "output_name": "job_requirements",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "cv_batch_screening.extract_one_job_offer": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_one_job_offer",
+      "domain_code": "cv_batch_screening",
+      "description": "Extracts text content from the job offer PDF document",
+      "inputs": {
+        "job_offer_pdf": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "extract_choice": "@default-extract-document",
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "job_offer_pdf"
+    },
+    "cv_batch_screening.analyze_job_requirements": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_job_requirements",
+      "domain_code": "cv_batch_screening",
+      "description": "Parses and summarizes the job requirements from the extracted job offer content, identifying required skills, responsibilities, qualifications, and nice-to-haves\n",
+      "inputs": {
+        "job_offer_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "JobRequirements",
+          "domain_code": "cv_batch_screening",
+          "description": "A structured summary of what a job position requires from candidates.",
+          "structure_class_name": "cv_batch_screening__JobRequirements",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": {
+          "template": "You are an expert HR analyst specializing in parsing job descriptions. Your task is to extract and summarize job requirements into a structured format.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Analyze the following job offer content and extract the key requirements for the position.\n\n@job_offer_pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "cv_batch_screening.process_cv_batch": {
+      "pipe_category": "PipeController",
+      "type": "PipeBatch",
+      "code": "process_cv_batch",
+      "domain_code": "cv_batch_screening",
+      "description": "Batch processing for process_cv",
+      "inputs": {
+        "cvs": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CandidateMatch",
+          "domain_code": "cv_batch_screening",
+          "description": "An evaluation of how well a candidate fits a job position.",
+          "structure_class_name": "cv_batch_screening__CandidateMatch",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "branch_pipe_code": "process_cv",
+      "batch_params": {
+        "input_list_stuff_name": "cvs",
+        "input_item_stuff_name": "cv_pdf"
+      }
+    },
+    "cv_batch_screening.process_cv": {
+      "pipe_category": "PipeController",
+      "type": "PipeSequence",
+      "code": "process_cv",
+      "domain_code": "cv_batch_screening",
+      "description": "Processes one application",
+      "inputs": {
+        "cv_pdf": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        },
+        "job_requirements": {
+          "concept": {
+            "code": "JobRequirements",
+            "domain_code": "cv_batch_screening",
+            "description": "A structured summary of what a job position requires from candidates.",
+            "structure_class_name": "cv_batch_screening__JobRequirements",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CandidateMatch",
+          "domain_code": "cv_batch_screening",
+          "description": "An evaluation of how well a candidate fits a job position.",
+          "structure_class_name": "cv_batch_screening__CandidateMatch",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "sequential_sub_pipes": [
+        {
+          "pipe_code": "extract_one_cv",
+          "output_name": "cv_pages",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_one_cv",
+          "output_name": "candidate_profile",
+          "output_multiplicity": null,
+          "batch_params": null
+        },
+        {
+          "pipe_code": "analyze_match",
+          "output_name": "match_analysis",
+          "output_multiplicity": null,
+          "batch_params": null
+        }
+      ]
+    },
+    "cv_batch_screening.extract_one_cv": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeExtract",
+      "code": "extract_one_cv",
+      "domain_code": "cv_batch_screening",
+      "description": "Extracts text content from the CV PDF document",
+      "inputs": {
+        "cv_pdf": {
+          "concept": {
+            "code": "Document",
+            "domain_code": "native",
+            "description": "A document",
+            "structure_class_name": "DocumentContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "Page",
+          "domain_code": "native",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "structure_class_name": "PageContent",
+          "refines": null
+        },
+        "multiplicity": true,
+        "presence": "plain"
+      },
+      "extract_choice": "@default-extract-document",
+      "should_caption_images": false,
+      "max_page_images": null,
+      "should_include_page_views": false,
+      "page_views_dpi": null,
+      "render_js": null,
+      "include_raw_html": null,
+      "image_stuff_name": null,
+      "document_stuff_name": "cv_pdf"
+    },
+    "cv_batch_screening.analyze_one_cv": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_one_cv",
+      "domain_code": "cv_batch_screening",
+      "description": "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
+      "inputs": {
+        "cv_pages": {
+          "concept": {
+            "code": "Page",
+            "domain_code": "native",
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "structure_class_name": "PageContent",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CandidateProfile",
+          "domain_code": "cv_batch_screening",
+          "description": "A structured summary of a job candidate's professional background extracted from their CV.",
+          "structure_class_name": "cv_batch_screening__CandidateProfile",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": {
+          "template": "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Analyze the following CV content and extract the candidate's professional profile.\n\n@cv_pages\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "output_multiplicity": null
+    },
+    "cv_batch_screening.analyze_match": {
+      "pipe_category": "PipeOperator",
+      "type": "PipeLLM",
+      "code": "analyze_match",
+      "domain_code": "cv_batch_screening",
+      "description": "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
+      "inputs": {
+        "candidate_profile": {
+          "concept": {
+            "code": "CandidateProfile",
+            "domain_code": "cv_batch_screening",
+            "description": "A structured summary of a job candidate's professional background extracted from their CV.",
+            "structure_class_name": "cv_batch_screening__CandidateProfile",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        },
+        "job_requirements": {
+          "concept": {
+            "code": "JobRequirements",
+            "domain_code": "cv_batch_screening",
+            "description": "A structured summary of what a job position requires from candidates.",
+            "structure_class_name": "cv_batch_screening__JobRequirements",
+            "refines": null
+          },
+          "multiplicity": null,
+          "presence": "plain"
+        }
+      },
+      "output": {
+        "concept": {
+          "code": "CandidateMatch",
+          "domain_code": "cv_batch_screening",
+          "description": "An evaluation of how well a candidate fits a job position.",
+          "structure_class_name": "cv_batch_screening__CandidateMatch",
+          "refines": null
+        },
+        "multiplicity": null,
+        "presence": "plain"
+      },
+      "llm_prompt_spec": {
+        "system_prompt_blueprint": {
+          "template": "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "prompt_blueprint": {
+          "template": "Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n@candidate_profile\n\n@job_requirements\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n",
+          "templating_style": null,
+          "category": "llm_prompt",
+          "extra_context": null
+        },
+        "user_image_references": null,
+        "user_document_references": null,
+        "system_image_references": null,
+        "system_document_references": null
+      },
+      "llm_choices": {
+        "for_text": "$writing-factual",
+        "for_object": null
+      },
+      "output_multiplicity": null
+    }
+  },
+  "concept_registry": {
+    "cv_batch_screening.CandidateMatch": {
+      "code": "CandidateMatch",
+      "domain_code": "cv_batch_screening",
+      "description": "An evaluation of how well a candidate fits a job position.",
+      "structure_class_name": "cv_batch_screening__CandidateMatch",
+      "refines": null,
+      "json_schema": {
+        "description": "An evaluation of how well a candidate fits a job position.",
+        "properties": {
+          "match_score": {
+            "description": "Numerical score representing overall fit percentage between 0 and 100",
+            "title": "Match Score",
+            "type": "number"
+          },
+          "strengths": {
+            "description": "Areas where the candidate meets or exceeds requirements",
+            "title": "Strengths",
+            "type": "string"
+          },
+          "gaps": {
+            "description": "Areas where the candidate falls short of requirements",
+            "title": "Gaps",
+            "type": "string"
+          },
+          "overall_assessment": {
+            "description": "Summary evaluation of the candidate's suitability",
+            "title": "Overall Assessment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "match_score",
+          "strengths",
+          "gaps",
+          "overall_assessment"
+        ],
+        "title": "cv_batch_screening__CandidateMatch",
+        "type": "object"
+      }
+    },
+    "native.Document": {
+      "code": "Document",
+      "domain_code": "native",
+      "description": "A document",
+      "structure_class_name": "DocumentContent",
+      "refines": null,
+      "json_schema": {
+        "properties": {
+          "url": {
+            "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+            "title": "Url",
+            "type": "string"
+          },
+          "public_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The public HTTPS URL of the document",
+            "title": "Public Url"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The MIME type of the document",
+            "title": "Mime Type"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The original filename of the document",
+            "title": "Filename"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The title of the document or source",
+            "title": "Title"
+          },
+          "snippet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "A text snippet or excerpt from the document",
+            "title": "Snippet"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "DocumentContent",
+        "type": "object"
+      }
+    },
+    "cv_batch_screening.JobRequirements": {
+      "code": "JobRequirements",
+      "domain_code": "cv_batch_screening",
+      "description": "A structured summary of what a job position requires from candidates.",
+      "structure_class_name": "cv_batch_screening__JobRequirements",
+      "refines": null,
+      "json_schema": {
+        "description": "A structured summary of what a job position requires from candidates.",
+        "properties": {
+          "required_skills": {
+            "description": "Skills that are mandatory for the position",
+            "title": "Required Skills",
+            "type": "string"
+          },
+          "responsibilities": {
+            "description": "Main duties and tasks of the role",
+            "title": "Responsibilities",
+            "type": "string"
+          },
+          "qualifications": {
+            "description": "Required education, certifications, or experience levels",
+            "title": "Qualifications",
+            "type": "string"
+          },
+          "nice_to_haves": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Preferred but not mandatory qualifications",
+            "title": "Nice To Haves"
+          }
+        },
+        "required": [
+          "required_skills",
+          "responsibilities",
+          "qualifications"
+        ],
+        "title": "cv_batch_screening__JobRequirements",
+        "type": "object"
+      }
+    },
+    "native.Page": {
+      "code": "Page",
+      "domain_code": "native",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "structure_class_name": "PageContent",
+      "refines": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "properties": {
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              },
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "text_and_images": {
+            "$ref": "#/$defs/TextAndImagesContent",
+            "description": "The text and images content extracted from the page"
+          },
+          "page_view": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ImageContent"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The screenshot of the page"
+          }
+        },
+        "required": [
+          "text_and_images"
+        ],
+        "title": "PageContent",
+        "type": "object"
+      }
+    },
+    "cv_batch_screening.CandidateProfile": {
+      "code": "CandidateProfile",
+      "domain_code": "cv_batch_screening",
+      "description": "A structured summary of a job candidate's professional background extracted from their CV.",
+      "structure_class_name": "cv_batch_screening__CandidateProfile",
+      "refines": null,
+      "json_schema": {
+        "description": "A structured summary of a job candidate's professional background extracted from their CV.",
+        "properties": {
+          "skills": {
+            "description": "Technical and soft skills possessed by the candidate",
+            "title": "Skills",
+            "type": "string"
+          },
+          "experience": {
+            "description": "Work history and professional experience",
+            "title": "Experience",
+            "type": "string"
+          },
+          "education": {
+            "description": "Educational background and qualifications",
+            "title": "Education",
+            "type": "string"
+          },
+          "achievements": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Notable accomplishments and certifications",
+            "title": "Achievements"
+          }
+        },
+        "required": [
+          "skills",
+          "experience",
+          "education"
+        ],
+        "title": "cv_batch_screening__CandidateProfile",
+        "type": "object"
+      }
+    }
+  }
+}</script>
+<script type="application/json" id="pipelex-config">{"direction": "LR", "showControllers": true, "nodesep": 50, "ranksep": 30, "edgeType": "bezier", "initialZoom": 1.0, "panToTop": true, "palette": "dracula"}</script>
+
+<script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js" integrity="sha384-k7OFwtsMfFyYU75zZhPkC8VRASnGrW1pxavUnozOiO2B5M5gv6PYGOkEYZTrVtvo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@0.11.0/dist/standalone/graph-viewer.js" integrity="sha384-bn4wTUdVghyTZThZlUwPknWCtiDDDSnB94AH9/WS7P6Zb2O7x2Fu8bE1G8nPlz5y" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_1386da8eed["rag_pipeline"]
+        subgraph sg_n_8ed66b6666["parallel_search"]
+            n_dd66529baf["keyword_search"]
+            s_7d85609685(["keyword_results<br/>SearchResult"]):::stuff
+            n_985b721171["vector_search"]
+            s_57f6e4ed66(["vector_results<br/>SearchResult"]):::stuff
+            s_ebd72ed6ea(["search_bundle<br/>Composite"]):::stuff
+        end
+        n_991a9dff15["embed_query"]
+        s_0386d3be94(["query_embedding<br/>QueryEmbedding"]):::stuff
+        n_de12f4d349["generate_answer"]
+        s_8996dc55e0(["answer<br/>Answer"]):::stuff
+        n_4f4cc0581f["rerank_results"]
+        s_8a65b50516(["context<br/>RankedContext"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_a28a377e9d(["question<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_de12f4d349 --> s_8996dc55e0
+    n_985b721171 --> s_57f6e4ed66
+    n_991a9dff15 --> s_0386d3be94
+    n_4f4cc0581f --> s_8a65b50516
+    n_dd66529baf --> s_7d85609685
+    s_57f6e4ed66 --> n_4f4cc0581f
+    s_0386d3be94 --> n_985b721171
+    s_8a65b50516 --> n_de12f4d349
+    s_a28a377e9d --> n_991a9dff15
+    s_a28a377e9d --> n_dd66529baf
+    s_a28a377e9d --> n_4f4cc0581f
+    s_a28a377e9d --> n_de12f4d349
+    s_7d85609685 --> n_4f4cc0581f
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_57f6e4ed66 -.-> s_ebd72ed6ea
+    s_7d85609685 -.-> s_ebd72ed6ea
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_1386da8eed fill:#e6f3ff
+    style sg_n_8ed66b6666 fill:#e6ffe6

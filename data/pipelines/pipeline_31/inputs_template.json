@@ -1,0 +1,14 @@
+{
+  "rfp": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://mock.invalid/url"
+    }
+  },
+  "capabilities": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://mock.invalid/url"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_22dbf09a62["batch_ocr_pipeline"]
+        subgraph sg_n_caa3456fe5["summarize_page_batch"]
+            n_7aa127de43["summarize_page"]
+            s_0670b2b38b(["page<br/>Page"]):::stuff
+            s_70ef301f0e(["page_summary<br/>PageSummary"]):::stuff
+        end
+        n_7ebe63d656["combine_summaries"]
+        s_74bceb8d25(["document_summary<br/>DocumentSummary"]):::stuff
+        n_70ac8ac050["extract_pages"]
+        s_e8bf692c71(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_0a73bf482f(["document<br/>Document"]):::stuff
+    s_5ee3a3055e(["page_summaries<br/>PageSummary"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_7aa127de43 --> s_70ef301f0e
+    n_7ebe63d656 --> s_74bceb8d25
+    n_70ac8ac050 --> s_e8bf692c71
+    s_0a73bf482f --> n_70ac8ac050
+    s_5ee3a3055e --> n_7ebe63d656
+    s_0670b2b38b --> n_7aa127de43
+
+    %% Batch edges: list-item relationships
+    s_e8bf692c71 -."[0]".-> s_0670b2b38b
+    s_70ef301f0e -."[0]".-> s_5ee3a3055e
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_22dbf09a62 fill:#e6f3ff
+    style sg_n_caa3456fe5 fill:#e6ffe6

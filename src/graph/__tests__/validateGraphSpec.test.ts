@@ -528,3 +528,268 @@ describe("asPipeCallNode", () => {
     expect((caught as GraphSpecValidationError).path).toBe("nodes[op1].pipe_code");
   });
 });
+
+describe("usage validation — the boundary gate for money", () => {
+  const wellFormedUsage = {
+    inference_calls: 2,
+    rated_inference_calls: 1,
+    nb_tokens_by_category: { input: 100, output: 50 },
+    total_tokens: 150,
+    cost: 0.0043,
+    subtree_inference_calls: 2,
+    subtree_rated_inference_calls: 1,
+    subtree_nb_tokens_by_category: { input: 100, output: 50 },
+    subtree_total_tokens: 150,
+    subtree_cost: 0.0043,
+  };
+
+  it("accepts a spec with no usage at all", () => {
+    const spec = validateGraphSpec(makeValidSpec());
+    expect(spec.usage).toBeUndefined();
+    expect(spec.nodes[0].usage).toBeUndefined();
+  });
+
+  it("accepts a well-formed node and graph usage", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = wellFormedUsage;
+    raw.usage = { total: wellFormedUsage, unattributed: { ...wellFormedUsage, cost: null } };
+
+    const spec = validateGraphSpec(raw);
+    expect(spec.nodes[0].usage?.cost).toBe(0.0043);
+    expect(spec.usage?.unattributed.cost).toBeNull();
+  });
+
+  it("accepts a null cost — unrated is a legitimate state", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...wellFormedUsage,
+      rated_inference_calls: 0,
+      cost: null,
+      subtree_cost: null,
+    };
+    expect(validateGraphSpec(raw).nodes[0].usage?.cost).toBeNull();
+  });
+
+  it("rejects a cost of the wrong type", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = { ...wellFormedUsage, cost: "0.0043" };
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[0].usage.cost");
+  });
+
+  it("rejects an absent count rather than treating it as zero", () => {
+    const raw = makeValidSpec();
+    const usage: Record<string, unknown> = { ...wellFormedUsage };
+    delete usage.total_tokens;
+    (raw.nodes as Record<string, unknown>[])[0].usage = usage;
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[0].usage.total_tokens");
+  });
+
+  it("rejects a graph usage missing one of its two halves", () => {
+    const raw = makeValidSpec();
+    raw.usage = { total: wellFormedUsage };
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("usage.unattributed");
+  });
+});
+
+describe("by_model — the record of what actually ran", () => {
+  const usageWithoutModels = {
+    inference_calls: 1,
+    rated_inference_calls: 1,
+    nb_tokens_by_category: {},
+    total_tokens: 0,
+    cost: 0.0043,
+    subtree_inference_calls: 1,
+    subtree_rated_inference_calls: 1,
+    subtree_nb_tokens_by_category: {},
+    subtree_total_tokens: 0,
+    subtree_cost: 0.0043,
+  };
+
+  it("normalizes an absent by_model to [] so pre-attribution specs still load", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = { ...usageWithoutModels };
+
+    const spec = validateGraphSpec(raw);
+
+    expect(spec.nodes[0].usage?.by_model).toEqual([]);
+    expect(spec.nodes[0].usage?.subtree_by_model).toEqual([]);
+  });
+
+  it("accepts a well-formed model breakdown", () => {
+    const raw = makeValidSpec();
+    const byModel = [
+      {
+        inference_model_name: "claude-4.6-sonnet",
+        inference_model_id: "claude-sonnet-4-6",
+        model_type: "llm",
+        inference_calls: 2,
+        rated_inference_calls: 2,
+        cost: 0.0043,
+      },
+    ];
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...usageWithoutModels,
+      by_model: byModel,
+      subtree_by_model: byModel,
+    };
+
+    const spec = validateGraphSpec(raw);
+
+    expect(spec.nodes[0].usage?.by_model[0].inference_model_name).toBe("claude-4.6-sonnet");
+    expect(spec.nodes[0].usage?.by_model[0].inference_calls).toBe(2);
+  });
+
+  it("rejects an entry with no model name rather than rendering a blank attribution", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...usageWithoutModels,
+      by_model: [
+        {
+          inference_model_name: "",
+          inference_model_id: "x",
+          inference_calls: 1,
+          rated_inference_calls: 1,
+          cost: 0,
+        },
+      ],
+    };
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe(
+      "nodes[0].usage.by_model[0].inference_model_name",
+    );
+  });
+
+  it("rejects a by_model that is not an array", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...usageWithoutModels,
+      by_model: { "claude-4.6-sonnet": 2 },
+    };
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[0].usage.by_model");
+  });
+});
+
+describe("fields added after specs were already produced", () => {
+  const legacyUsage = {
+    inference_calls: 1,
+    rated_inference_calls: 1,
+    nb_tokens_by_category: {},
+    total_tokens: 0,
+    cost: 0.0043,
+    subtree_inference_calls: 1,
+    subtree_rated_inference_calls: 1,
+    subtree_nb_tokens_by_category: {},
+    subtree_total_tokens: 0,
+    subtree_cost: 0.0043,
+    by_model: [
+      {
+        inference_model_name: "claude-4.6-sonnet",
+        inference_model_id: "claude-sonnet-4-6",
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        cost: 0.0043,
+      },
+    ],
+  };
+
+  it("normalizes absent cost components to null instead of rejecting the spec", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = { ...legacyUsage };
+
+    const usage = validateGraphSpec(raw).nodes[0].usage;
+
+    expect(usage?.cost).toBe(0.0043);
+    expect(usage?.cost_input).toBeNull();
+    expect(usage?.cost_output).toBeNull();
+    expect(usage?.subtree_cost_input).toBeNull();
+  });
+
+  it('normalizes an absent model_type to a value that is not "llm"', () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = { ...legacyUsage };
+
+    const usage = validateGraphSpec(raw).nodes[0].usage;
+
+    // Not "llm", so token counts stay hidden rather than shown on unverified grounds.
+    expect(usage?.by_model[0].model_type).not.toBe("llm");
+  });
+
+  it("still rejects a wrong-typed cost component", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = { ...legacyUsage, cost_input: "0.001" };
+    let caught: unknown;
+    try {
+      validateGraphSpec(raw);
+    } catch (err) {
+      caught = err;
+    }
+    expect(caught).toBeInstanceOf(GraphSpecValidationError);
+    expect((caught as GraphSpecValidationError).path).toBe("nodes[0].usage.cost_input");
+  });
+});
+
+describe("usage: null — what pydantic actually emits", () => {
+  // `usage=None` in pipelex serializes as an explicit `"usage": null`, NOT as an
+  // omitted key. Every fixture in this repo has usage populated, so a validator
+  // that only tolerated `undefined` passed the whole suite and still rejected
+  // every real run that collected no usage.
+  it("accepts a graph-level usage of null and normalizes it away", () => {
+    const raw = makeValidSpec();
+    raw.usage = null;
+
+    const spec = validateGraphSpec(raw);
+
+    expect(spec.usage).toBeUndefined();
+  });
+
+  it("accepts a node-level usage of null and normalizes it away", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = null;
+
+    const spec = validateGraphSpec(raw);
+
+    expect(spec.nodes[0].usage).toBeUndefined();
+  });
+
+  it("accepts a whole spec where both are null, as a no-usage run emits it", () => {
+    const raw = makeValidSpec();
+    raw.usage = null;
+    (raw.nodes as Record<string, unknown>[])[0].usage = null;
+
+    expect(() => validateGraphSpec(raw)).not.toThrow();
+  });
+});

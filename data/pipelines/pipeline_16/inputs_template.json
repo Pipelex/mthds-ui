@@ -1,0 +1,8 @@
+{
+  "image": {
+    "concept": "native.Image",
+    "content": {
+      "url": "https://mock.invalid/url"
+    }
+  }
+}

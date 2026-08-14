@@ -1,0 +1,55 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_ea9843df93["review_pipeline"]
+        subgraph sg_n_7ed23ebc9b["parallel_checks"]
+            n_ac24e73715["logic_check"]
+            s_53e8bca73f(["logic_findings<br/>ReviewFinding"]):::stuff
+            n_0a6ad61200["perf_check"]
+            s_a912c2c6a5(["perf_findings<br/>ReviewFinding"]):::stuff
+            n_cd8e35b31f["security_check"]
+            s_2db446844b(["security_findings<br/>ReviewFinding"]):::stuff
+            n_a894e31d66["style_check"]
+            s_17fa009929(["style_findings<br/>ReviewFinding"]):::stuff
+            s_232ac227db(["review_findings_bundle<br/>Composite"]):::stuff
+        end
+        n_72203aa2da["compose_review"]
+        s_0022824c1f(["review<br/>CodeReview"]):::stuff
+        n_fd453a023f["fetch_diff"]
+        s_bf6c824567(["diff<br/>SearchResult"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_655cad2233(["pr_url<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_0a6ad61200 --> s_a912c2c6a5
+    n_cd8e35b31f --> s_2db446844b
+    n_ac24e73715 --> s_53e8bca73f
+    n_a894e31d66 --> s_17fa009929
+    n_72203aa2da --> s_0022824c1f
+    n_fd453a023f --> s_bf6c824567
+    s_655cad2233 --> n_fd453a023f
+    s_a912c2c6a5 --> n_72203aa2da
+    s_2db446844b --> n_72203aa2da
+    s_53e8bca73f --> n_72203aa2da
+    s_17fa009929 --> n_72203aa2da
+    s_bf6c824567 --> n_cd8e35b31f
+    s_bf6c824567 --> n_a894e31d66
+    s_bf6c824567 --> n_ac24e73715
+    s_bf6c824567 --> n_0a6ad61200
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_2db446844b -.-> s_232ac227db
+    s_17fa009929 -.-> s_232ac227db
+    s_53e8bca73f -.-> s_232ac227db
+    s_a912c2c6a5 -.-> s_232ac227db
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_7ed23ebc9b fill:#e6ffe6
+    style sg_n_ea9843df93 fill:#e6f3ff

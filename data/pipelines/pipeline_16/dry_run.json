@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'image': StuffArtefact(image), 'description': StuffArtefact(description), 'tags': StuffArtefact(tags), 'thumbnail': StuffArtefact(thumbnail)} \u2022 jinja2=## Catalog Entry\n\n### Description\n{{ description|tag(\"description\") }}\n\n### Tags\n{{ tags|tag(\"tags\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_16/dry_run.html"
-  }
-}

@@ -1,0 +1,88 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_742713b6fb["all_controllers"]
+        subgraph sg_n_9164ca68ae["batch_process_batch"]
+            n_7ebdba1337["batch_process"]
+            s_1812c7adf8(["page<br/>Page"]):::stuff
+            s_dc6072cf47(["processed_item<br/>ProcessedItem"]):::stuff
+            n_61dfa3dd60["batch_process"]
+            s_2748a88e8a(["page<br/>Page"]):::stuff
+            s_da0be886e4(["processed_item<br/>ProcessedItem"]):::stuff
+            n_07aabe4c29["batch_process"]
+            s_2326d10e92(["page<br/>Page"]):::stuff
+            s_94d8971f40(["processed_item<br/>ProcessedItem"]):::stuff
+            n_6a021e1123["batch_process"]
+            s_144640c99d(["page<br/>Page"]):::stuff
+            s_4ff8a29626(["processed_item<br/>ProcessedItem"]):::stuff
+        end
+        subgraph sg_n_345c96b8be["parallel_classify"]
+            n_d3071e1dfd["analyze_content"]
+            s_d4ef529d7f(["analysis<br/>Text"]):::stuff
+            n_8f88054794["search_context"]
+            s_fa94e394be(["search_result<br/>SearchResult"]):::stuff
+            s_754ee840d4(["classification_bundle<br/>Composite"]):::stuff
+        end
+        subgraph sg_n_2e19984f1f["route_processing"]
+            n_32b11badc7["process_data"]
+            s_53e9122ae2(["processed<br/>FinalReport"]):::stuff
+            n_a81a56aaaf["process_text"]
+            s_4e26124f78(["processed<br/>FinalReport"]):::stuff
+        end
+        n_e2f2243f6c["classify_content"]
+        s_4e3b1a02e9(["classified<br/>ClassifiedItem"]):::stuff
+        n_94f053b29f["extract_input"]
+        s_1148333ec3(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_0e5fc4858c(["document<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_7ebdba1337 --> s_dc6072cf47
+    n_61dfa3dd60 --> s_da0be886e4
+    n_07aabe4c29 --> s_94d8971f40
+    n_6a021e1123 --> s_4ff8a29626
+    n_8f88054794 --> s_fa94e394be
+    n_32b11badc7 --> s_53e9122ae2
+    n_d3071e1dfd --> s_d4ef529d7f
+    n_e2f2243f6c --> s_4e3b1a02e9
+    n_a81a56aaaf --> s_4e26124f78
+    n_94f053b29f --> s_1148333ec3
+    s_fa94e394be --> n_e2f2243f6c
+    s_0e5fc4858c --> n_94f053b29f
+    s_d4ef529d7f --> n_e2f2243f6c
+    s_4e3b1a02e9 --> n_32b11badc7
+    s_4e3b1a02e9 --> n_a81a56aaaf
+    s_1148333ec3 --> n_d3071e1dfd
+    s_1148333ec3 --> n_8f88054794
+    s_1812c7adf8 --> n_7ebdba1337
+    s_2748a88e8a --> n_61dfa3dd60
+    s_2326d10e92 --> n_07aabe4c29
+    s_144640c99d --> n_6a021e1123
+
+    %% Batch edges: list-item relationships
+    s_1148333ec3 -."[0]".-> s_1812c7adf8
+    s_1148333ec3 -."[1]".-> s_2748a88e8a
+    s_1148333ec3 -."[2]".-> s_2326d10e92
+    s_1148333ec3 -."[3]".-> s_144640c99d
+    s_232e31b3f5(["page_results<br/>ProcessedItem"]):::stuff
+    s_dc6072cf47 -."[0]".-> s_232e31b3f5
+    s_da0be886e4 -."[1]".-> s_232e31b3f5
+    s_94d8971f40 -."[2]".-> s_232e31b3f5
+    s_4ff8a29626 -."[3]".-> s_232e31b3f5
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_d4ef529d7f -.-> s_754ee840d4
+    s_fa94e394be -.-> s_754ee840d4
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_2e19984f1f fill:#e6ffe6
+    style sg_n_345c96b8be fill:#e6ffe6
+    style sg_n_742713b6fb fill:#e6f3ff
+    style sg_n_9164ca68ae fill:#e6ffe6

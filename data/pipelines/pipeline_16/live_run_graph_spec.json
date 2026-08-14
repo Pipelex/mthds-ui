@@ -1,6 +1,6 @@
 {
-  "graph_id": "312d1f02-9006-4f1b-8344-72ee87b0b20b",
-  "created_at": "2026-07-09T11:19:59.816914Z",
+  "graph_id": "481aeed4-416e-4311-a709-f87950e2d6a1",
+  "created_at": "2026-08-14T10:35:12.475714Z",
   "pipeline_ref": {
     "domain": "image_catalog",
     "main_pipe": "image_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_0",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
       "kind": "controller",
       "pipe_code": "image_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:19:59.816914Z",
-        "ended_at": "2026-07-09T11:20:08.213050Z",
-        "duration": 8.396136
+        "started_at": "2026-08-14T10:35:12.475714Z",
+        "ended_at": "2026-08-14T10:35:21.254922Z",
+        "duration": 8.779208
       },
       "io": {
         "inputs": [
@@ -29,19 +29,20 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "W7aGf",
+            "digest": "Riu8G",
             "data": {
-              "url": "pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
+              "url": "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               "source_prompt": null,
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": "image.jpg"
             },
-            "data_text": "Image:\nURL: pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -52,7 +53,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Phu7y",
+            "digest": "fVTh6",
             "data": {
               "text": "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```"
             },
@@ -65,12 +66,56 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 3,
+        "subtree_rated_inference_calls": 3,
+        "subtree_nb_tokens_by_category": {
+          "input": 802,
+          "output": 1382,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 2184,
+        "subtree_cost": 0.042614700000000005,
+        "subtree_cost_input": 0.0023547,
+        "subtree_cost_output": 0.040260000000000004,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 2,
+            "cost": 0.003549
+          },
+          {
+            "inference_model_name": "nano-banana",
+            "inference_model_id": "gemini-2.5-flash-image",
+            "model_type": "img_gen",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0390657
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 2
       }
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       "kind": "controller",
       "pipe_code": "parallel_analyze",
       "pipe_type": "PipeParallel",
@@ -79,9 +124,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:19:59.827395Z",
-        "ended_at": "2026-07-09T11:20:08.189699Z",
-        "duration": 8.362304
+        "started_at": "2026-08-14T10:35:12.485194Z",
+        "ended_at": "2026-08-14T10:35:21.231757Z",
+        "duration": 8.746563
       },
       "io": {
         "inputs": [
@@ -91,19 +136,20 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "W7aGf",
+            "digest": "Riu8G",
             "data": {
-              "url": "pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
+              "url": "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               "source_prompt": null,
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": "image.jpg"
             },
-            "data_text": "Image:\nURL: pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -114,7 +160,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UFjZa",
+            "digest": "KR3bB",
             "data": {
               "text": "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊"
             },
@@ -128,7 +174,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2Ajgs",
+            "digest": "TRP2F",
             "data": {
               "json_obj": {}
             },
@@ -142,19 +188,20 @@
             "content_type": "image/png",
             "preview": null,
             "size": null,
-            "digest": "mXv84",
+            "digest": "LzpbE",
             "data": {
-              "url": "pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
+              "url": "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               "source_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/png",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": null
             },
-            "data_text": "Image:\nURL: pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png\" class=\"msg-img\">",
             "extra": {}
           },
           {
@@ -163,7 +210,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7rJDt",
+            "digest": "aQCKM",
             "data": {
               "description": {
                 "text": "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊"
@@ -172,18 +219,19 @@
                 "json_obj": {}
               },
               "thumbnail": {
-                "url": "pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
-                "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
+                "url": "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
+                "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
                 "source_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
                 "source_negative_prompt": null,
                 "caption": null,
                 "mime_type": "image/png",
-                "size": null,
+                "width": null,
+                "height": null,
                 "filename": null
               }
             },
-            "data_text": "{\n    \"description\": {\n        \"text\": \"It seems like no image was successfully shared in your message. Could you please \n**try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\"\n    },\n    \"tags\": {\n        \"json_obj\": {}\n    },\n    \"thumbnail\": {\n        \"url\": \n\"pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png\",\n        \"public_url\": \n\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72\nee87b0b20b/371fd6042f3f6968.png\",\n        \"source_prompt\": \"Generate a thumbnail image: a small, simplified preview illustration in a \nclean, minimal style.\",\n        \"source_negative_prompt\": null,\n        \"caption\": null,\n        \"mime_type\": \"image/png\",\n        \"size\": null,\n        \"filename\": null\n    }\n}\n",
-            "data_html": "<table><tr><th>description</th><td>It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊</td></tr><tr><th>tags</th><td></td></tr><tr><th>thumbnail</th><td><img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png\" class=\"msg-img\"></td></tr></table>",
+            "data_text": "{\n    \"description\": {\n        \"text\": \"It seems like no image was successfully shared in your message. Could you please \n**try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\"\n    },\n    \"tags\": {\n        \"json_obj\": {}\n    },\n    \"thumbnail\": {\n        \"url\": \n\"pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png\",\n        \"public_url\": \n\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed\n4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png\",\n        \"source_prompt\": \"Generate a thumbnail image: a small, simplified preview illustration in a \nclean, minimal style.\",\n        \"source_negative_prompt\": null,\n        \"caption\": null,\n        \"mime_type\": \"image/png\",\n        \"width\": null,\n        \"height\": null,\n        \"filename\": null\n    }\n}\n",
+            "data_html": "<table><tr><th>description</th><td>It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I&#x27;d be happy to describe it in detail once I can see it! 😊</td></tr><tr><th>tags</th><td></td></tr><tr><th>thumbnail</th><td><img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png\" class=\"msg-img\"></td></tr></table>",
             "extra": {}
           }
         ]
@@ -191,6 +239,50 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 3,
+        "subtree_rated_inference_calls": 3,
+        "subtree_nb_tokens_by_category": {
+          "input": 802,
+          "output": 1382,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 2184,
+        "subtree_cost": 0.042614700000000005,
+        "subtree_cost_input": 0.0023547,
+        "subtree_cost_output": 0.040260000000000004,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 2,
+            "cost": 0.003549
+          },
+          {
+            "inference_model_name": "nano-banana",
+            "inference_model_id": "gemini-2.5-flash-image",
+            "model_type": "img_gen",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0390657
+          }
+        ]
+      },
       "execution_data": {
         "branch_count": 3,
         "add_each_output": true,
@@ -198,7 +290,7 @@
       }
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_2",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
       "kind": "operator",
       "pipe_code": "describe_image",
       "pipe_type": "PipeLLM",
@@ -207,9 +299,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:19:59.834450Z",
-        "ended_at": "2026-07-09T11:20:04.799760Z",
-        "duration": 4.96531
+        "started_at": "2026-08-14T10:35:12.490614Z",
+        "ended_at": "2026-08-14T10:35:16.907354Z",
+        "duration": 4.41674
       },
       "io": {
         "inputs": [
@@ -219,19 +311,20 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "W7aGf",
+            "digest": "Riu8G",
             "data": {
-              "url": "pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
+              "url": "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               "source_prompt": null,
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": "image.jpg"
             },
-            "data_text": "Image:\nURL: pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -242,7 +335,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UFjZa",
+            "digest": "KR3bB",
             "data": {
               "text": "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊"
             },
@@ -255,6 +348,52 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 16,
+          "output": 45,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "total_tokens": 61,
+        "cost": 0.000723,
+        "cost_input": 0.000048,
+        "cost_output": 0.000675,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.000723
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 16,
+          "output": 45,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "subtree_total_tokens": 61,
+        "subtree_cost": 0.000723,
+        "subtree_cost_input": 0.000048,
+        "subtree_cost_output": 0.000675,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.000723
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
@@ -265,7 +404,7 @@
       }
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_3",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
       "kind": "operator",
       "pipe_code": "classify_image",
       "pipe_type": "PipeLLM",
@@ -274,9 +413,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:20:02.235553Z",
-        "ended_at": "2026-07-09T11:20:04.331928Z",
-        "duration": 2.096375
+        "started_at": "2026-08-14T10:35:14.362068Z",
+        "ended_at": "2026-08-14T10:35:16.895042Z",
+        "duration": 2.532974
       },
       "io": {
         "inputs": [
@@ -286,19 +425,20 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "W7aGf",
+            "digest": "Riu8G",
             "data": {
-              "url": "pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
+              "url": "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               "source_prompt": null,
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": "image.jpg"
             },
-            "data_text": "Image:\nURL: pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -309,7 +449,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2Ajgs",
+            "digest": "TRP2F",
             "data": {
               "json_obj": {}
             },
@@ -322,6 +462,60 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 767,
+          "output": 35,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 802,
+        "cost": 0.002826,
+        "cost_input": 0.002301,
+        "cost_output": 0.000525,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.002826
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 767,
+          "output": 35,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 802,
+        "subtree_cost": 0.002826,
+        "subtree_cost_input": 0.002301,
+        "subtree_cost_output": 0.000525,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.002826
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
@@ -332,7 +526,7 @@
       }
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_4",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
       "kind": "operator",
       "pipe_code": "generate_thumbnail",
       "pipe_type": "PipeImgGen",
@@ -341,9 +535,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:20:02.365822Z",
-        "ended_at": "2026-07-09T11:20:08.176367Z",
-        "duration": 5.810545
+        "started_at": "2026-08-14T10:35:14.385850Z",
+        "ended_at": "2026-08-14T10:35:21.213691Z",
+        "duration": 6.827841
       },
       "io": {
         "inputs": [
@@ -353,19 +547,20 @@
             "content_type": "image/jpeg",
             "preview": null,
             "size": null,
-            "digest": "W7aGf",
+            "digest": "Riu8G",
             "data": {
-              "url": "pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg",
+              "url": "pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg",
               "source_prompt": null,
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/jpeg",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": "image.jpg"
             },
-            "data_text": "Image:\nURL: pipelex-storage://normalized/mSpRSWXbu4oaqgUy6UExfq.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/mSpRSWXbu4oaqgUy6UExfq.jpg\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg                                        \nPublic URL: Open Image\nMIME Type: image/jpeg\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/Z8ht4AN3UjPKDjd28ikv8b.jpg\" class=\"msg-img\">",
             "extra": {}
           }
         ],
@@ -376,19 +571,20 @@
             "content_type": "image/png",
             "preview": null,
             "size": null,
-            "digest": "mXv84",
+            "digest": "LzpbE",
             "data": {
-              "url": "pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png",
+              "url": "pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png",
               "source_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
               "source_negative_prompt": null,
               "caption": null,
               "mime_type": "image/png",
-              "size": null,
+              "width": null,
+              "height": null,
               "filename": null
             },
-            "data_text": "Image:\nURL: pipelex-storage://anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
-            "data_html": "<img src=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/anonymous/312d1f02-9006-4f1b-8344-72ee87b0b20b/371fd6042f3f6968.png\" class=\"msg-img\">",
+            "data_text": "Image:\nURL: pipelex-storage://anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png          \nPublic URL: Open Image\nMIME Type: image/png\n\nSource Prompt:\nGenerate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.\n",
+            "data_html": "<img src=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/anonymous/481aeed4-416e-4311-a709-f87950e2d6a1/b2547f69d414ad47.png\" class=\"msg-img\">",
             "extra": {}
           }
         ]
@@ -396,6 +592,60 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 19,
+          "output": 1302,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 1321,
+        "cost": 0.0390657,
+        "cost_input": 0.0000057,
+        "cost_output": 0.039060000000000004,
+        "by_model": [
+          {
+            "inference_model_name": "nano-banana",
+            "inference_model_id": "gemini-2.5-flash-image",
+            "model_type": "img_gen",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0390657
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 19,
+          "output": 1302,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 1321,
+        "subtree_cost": 0.0390657,
+        "subtree_cost_input": 0.0000057,
+        "subtree_cost_output": 0.039060000000000004,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "nano-banana",
+            "inference_model_id": "gemini-2.5-flash-image",
+            "model_type": "img_gen",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.0390657
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "@default-general",
         "rendered_prompt": "Generate a thumbnail image: a small, simplified preview illustration in a clean, minimal style.",
@@ -405,7 +655,7 @@
       }
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_5",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       "kind": "operator",
       "pipe_code": "build_catalog",
       "pipe_type": "PipeCompose",
@@ -414,9 +664,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:20:08.196362Z",
-        "ended_at": "2026-07-09T11:20:08.208840Z",
-        "duration": 0.012478
+        "started_at": "2026-08-14T10:35:21.237472Z",
+        "ended_at": "2026-08-14T10:35:21.250860Z",
+        "duration": 0.013388
       },
       "io": {
         "inputs": [
@@ -426,7 +676,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UFjZa",
+            "digest": "KR3bB",
             "data": {
               "text": "It seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊"
             },
@@ -440,7 +690,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "2Ajgs",
+            "digest": "TRP2F",
             "data": {
               "json_obj": {}
             },
@@ -456,7 +706,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Phu7y",
+            "digest": "fVTh6",
             "data": {
               "text": "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```"
             },
@@ -469,6 +719,24 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
         "compose_mode": "template",
         "rendered_text": "## Catalog Entry\n\n### Description\ndescription: ```\nIt seems like no image was successfully shared in your message. Could you please **try uploading the image again**? I'd be happy to describe it in detail once I can see it! 😊\n```\n\n### Tags\ntags: ```\n{}\n```"
@@ -477,9 +745,9 @@
   ],
   "edges": [
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:edge_0",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_0",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:edge_0",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -488,9 +756,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:edge_1",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_2",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:edge_1",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -499,9 +767,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:edge_2",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_3",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:edge_2",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -510,9 +778,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:edge_3",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_4",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:edge_3",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -521,9 +789,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:edge_4",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_0",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_5",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:edge_4",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_0",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -532,9 +800,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:asm_edge_0",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_5",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_0",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       "kind": "data",
       "optional": false,
       "label": "description",
@@ -543,9 +811,9 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:asm_edge_1",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_5",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_1",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_5",
       "kind": "data",
       "optional": false,
       "label": "tags",
@@ -554,39 +822,129 @@
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:asm_edge_2",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_2",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_2",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_2",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "UFjZa",
-      "target_stuff_digest": "7rJDt",
+      "source_stuff_digest": "KR3bB",
+      "target_stuff_digest": "aQCKM",
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:asm_edge_3",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_3",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_3",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_3",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "2Ajgs",
-      "target_stuff_digest": "7rJDt",
+      "source_stuff_digest": "TRP2F",
+      "target_stuff_digest": "aQCKM",
       "meta": {}
     },
     {
-      "id": "312d1f02-9006-4f1b-8344-72ee87b0b20b:asm_edge_4",
-      "source": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_4",
-      "target": "312d1f02-9006-4f1b-8344-72ee87b0b20b:node_1",
+      "id": "481aeed4-416e-4311-a709-f87950e2d6a1:asm_edge_4",
+      "source": "481aeed4-416e-4311-a709-f87950e2d6a1:node_4",
+      "target": "481aeed4-416e-4311-a709-f87950e2d6a1:node_1",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "mXv84",
-      "target_stuff_digest": "7rJDt",
+      "source_stuff_digest": "LzpbE",
+      "target_stuff_digest": "aQCKM",
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 3,
+      "rated_inference_calls": 3,
+      "nb_tokens_by_category": {
+        "input": 802,
+        "output": 1382,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "total_tokens": 2184,
+      "cost": 0.042614700000000005,
+      "cost_input": 0.0023547,
+      "cost_output": 0.040260000000000004,
+      "by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 2,
+          "rated_inference_calls": 2,
+          "cost": 0.003549
+        },
+        {
+          "inference_model_name": "nano-banana",
+          "inference_model_id": "gemini-2.5-flash-image",
+          "model_type": "img_gen",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.0390657
+        }
+      ],
+      "subtree_inference_calls": 3,
+      "subtree_rated_inference_calls": 3,
+      "subtree_nb_tokens_by_category": {
+        "input": 802,
+        "output": 1382,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "subtree_total_tokens": 2184,
+      "subtree_cost": 0.042614700000000005,
+      "subtree_cost_input": 0.0023547,
+      "subtree_cost_output": 0.040260000000000004,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 2,
+          "rated_inference_calls": 2,
+          "cost": 0.003549
+        },
+        {
+          "inference_model_name": "nano-banana",
+          "inference_model_id": "gemini-2.5-flash-image",
+          "model_type": "img_gen",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.0390657
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "live"
@@ -720,7 +1078,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Describe this image in detail:\n\n$image.caption\n",
@@ -770,7 +1127,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Classify this image with relevant tags:\n\n$image.caption\n",
@@ -897,6 +1253,7 @@
         "description": "Complete catalog entry for an image",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -915,31 +1272,9 @@
       "structure_class_name": "ImageContent",
       "refines": null,
       "json_schema": {
-        "$defs": {
-          "ImageSize": {
-            "properties": {
-              "width": {
-                "exclusiveMinimum": 0,
-                "title": "Width",
-                "type": "integer"
-              },
-              "height": {
-                "exclusiveMinimum": 0,
-                "title": "Height",
-                "type": "integer"
-              }
-            },
-            "required": [
-              "width",
-              "height"
-            ],
-            "title": "ImageSize",
-            "type": "object"
-          }
-        },
         "properties": {
           "url": {
-            "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             "title": "Url",
             "type": "string"
           },
@@ -1008,17 +1343,33 @@
             "description": "The MIME type of the image",
             "title": "Mime Type"
           },
-          "size": {
+          "width": {
             "anyOf": [
               {
-                "$ref": "#/$defs/ImageSize"
+                "exclusiveMinimum": 0,
+                "type": "integer"
               },
               {
                 "type": "null"
               }
             ],
             "default": null,
-            "description": "The size in pixels (width and height) of the image"
+            "description": "The width of the image, in pixels",
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "The height of the image, in pixels",
+            "title": "Height"
           },
           "filename": {
             "anyOf": [
@@ -1065,6 +1416,7 @@
         "description": "Text description of an image",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }

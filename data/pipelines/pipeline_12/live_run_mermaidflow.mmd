@@ -1,0 +1,83 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_36d543e5d2["batch_enrich"]
+        subgraph sg_n_29ed8f028c["enrich_single_batch"]
+            subgraph sg_n_1a49c0c19d["enrich_single"]
+                n_4a6d421b15["format_entry"]
+                s_dd89f5e06d(["record<br/>Record"]):::stuff
+                s_bed1b5f107(["enriched<br/>EnrichedRecord"]):::stuff
+                n_71e95e10df["lookup_details"]
+                s_aadd500d7f(["search_result<br/>SearchResult"]):::stuff
+            end
+            subgraph sg_n_ba783d6198["enrich_single"]
+                n_ed8d7fed4c["format_entry"]
+                s_585fdf1333(["record<br/>Record"]):::stuff
+                s_187240f2c5(["enriched<br/>EnrichedRecord"]):::stuff
+                n_4da214564b["lookup_details"]
+                s_228fe341b4(["search_result<br/>SearchResult"]):::stuff
+            end
+            subgraph sg_n_2fa189c883["enrich_single"]
+                n_ecf7450cef["format_entry"]
+                s_40cf72fd85(["record<br/>Record"]):::stuff
+                s_1a77735cc2(["enriched<br/>EnrichedRecord"]):::stuff
+                n_780e600df9["lookup_details"]
+                s_a002643091(["search_result<br/>SearchResult"]):::stuff
+            end
+        end
+        n_4c65b170d7["export_results"]
+        s_09c8fa8371(["report<br/>EnrichmentReport"]):::stuff
+        n_db3f2ffcad["load_records"]
+        s_09baf52c4e(["records<br/>Record"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_56bb1ced0b(["document<br/>Document"]):::stuff
+    s_6f4b39ce05(["enriched_records<br/>EnrichedRecord"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_4da214564b --> s_228fe341b4
+    n_4a6d421b15 --> s_bed1b5f107
+    n_71e95e10df --> s_aadd500d7f
+    n_ed8d7fed4c --> s_187240f2c5
+    n_ecf7450cef --> s_1a77735cc2
+    n_4c65b170d7 --> s_09c8fa8371
+    n_db3f2ffcad --> s_09baf52c4e
+    n_780e600df9 --> s_a002643091
+    s_228fe341b4 --> n_ed8d7fed4c
+    s_6f4b39ce05 --> n_4c65b170d7
+    s_aadd500d7f --> n_4a6d421b15
+    s_dd89f5e06d --> n_71e95e10df
+    s_dd89f5e06d --> n_4a6d421b15
+    s_585fdf1333 --> n_ed8d7fed4c
+    s_585fdf1333 --> n_4da214564b
+    s_40cf72fd85 --> n_ecf7450cef
+    s_40cf72fd85 --> n_780e600df9
+    s_56bb1ced0b --> n_db3f2ffcad
+    s_a002643091 --> n_ecf7450cef
+
+    %% Batch edges: list-item relationships
+    s_09baf52c4e -."[0]".-> s_dd89f5e06d
+    s_09baf52c4e -."[0]".-> s_dd89f5e06d
+    s_09baf52c4e -."[0]".-> s_dd89f5e06d
+    s_09baf52c4e -."[1]".-> s_585fdf1333
+    s_09baf52c4e -."[1]".-> s_585fdf1333
+    s_09baf52c4e -."[1]".-> s_585fdf1333
+    s_09baf52c4e -."[2]".-> s_40cf72fd85
+    s_09baf52c4e -."[2]".-> s_40cf72fd85
+    s_09baf52c4e -."[2]".-> s_40cf72fd85
+    s_bed1b5f107 -."[0]".-> s_6f4b39ce05
+    s_187240f2c5 -."[1]".-> s_6f4b39ce05
+    s_1a77735cc2 -."[2]".-> s_6f4b39ce05
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_1a49c0c19d fill:#fffde6
+    style sg_n_29ed8f028c fill:#e6ffe6
+    style sg_n_2fa189c883 fill:#fffde6
+    style sg_n_36d543e5d2 fill:#e6f3ff
+    style sg_n_ba783d6198 fill:#fffde6
