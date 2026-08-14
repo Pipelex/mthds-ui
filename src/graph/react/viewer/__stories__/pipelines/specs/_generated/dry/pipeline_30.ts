@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_CV_ANALYZER = {
-  graph_id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700",
-  created_at: "2026-07-09T11:07:05.400806Z",
+  graph_id: "f612100f-11a5-48af-a4c8-cdc2052359d4",
+  created_at: "2026-08-14T10:50:05.771444Z",
   pipeline_ref: { domain: "candidate_screening", main_pipe: "screen_candidate", entrypoint: null },
   nodes: [
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_0",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_0",
       kind: "controller",
       pipe_code: "screen_candidate",
       pipe_type: "PipeSequence",
@@ -20,50 +20,50 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.400806Z",
-        ended_at: "2026-07-09T11:07:05.600731Z",
-        duration: 0.199925,
+        started_at: "2026-08-14T10:50:05.771444Z",
+        ended_at: "2026-08-14T10:50:05.862694Z",
+        duration: 0.09125,
       },
       io: {
         inputs: [
           {
             name: "cv",
             concept: "Document",
-            content_type: "AmJMZSMFQYfSbnilYAfH",
+            content_type: "xuwlHzSGxhcaEYtWqTNi",
             preview: null,
             size: null,
-            digest: "54b69",
+            digest: "JTDoa",
             data: {
-              url: "mcRldcydWmSBFMHErvZJ",
-              public_url: "PgDPdWUjZDLudFflloNJ",
-              mime_type: "AmJMZSMFQYfSbnilYAfH",
-              filename: "DhZlGKQkuKccevfepzYH",
-              title: "bnMAnXDYdUZmgFGUaurl",
-              snippet: "NQCbESdehZqJjmkUoWGs",
+              url: "WlIKPZelLkyhdUYUfmNE",
+              public_url: "KNVgmrhzzhfYdQUFoPmv",
+              mime_type: "xuwlHzSGxhcaEYtWqTNi",
+              filename: "YUxdejfHihmPgaQfXYtU",
+              title: "CuxrcpNZkSrEtPTaxwpQ",
+              snippet: "HlckoQpBlAmKmFOoQvVw",
             },
-            data_text: "bnMAnXDYdUZmgFGUaurl (mcRldcydWmSBFMHErvZJ)\n  NQCbESdehZqJjmkUoWGs\n",
+            data_text: "CuxrcpNZkSrEtPTaxwpQ (WlIKPZelLkyhdUYUfmNE)\n  HlckoQpBlAmKmFOoQvVw\n",
             data_html:
-              '<a href="PgDPdWUjZDLudFflloNJ" class="msg-document">bnMAnXDYdUZmgFGUaurl</a><br/><small>NQCbESdehZqJjmkUoWGs</small>',
+              '<a href="KNVgmrhzzhfYdQUFoPmv" class="msg-document">CuxrcpNZkSrEtPTaxwpQ</a><br/><small>HlckoQpBlAmKmFOoQvVw</small>',
             extra: {},
           },
           {
             name: "job_offer",
             concept: "Document",
-            content_type: "ZlOkTtlCyNRjYPGznBNC",
+            content_type: "pYdzGQZrTezlbUtsnHQM",
             preview: null,
             size: null,
-            digest: "MRdaH",
+            digest: "BQ7Wp",
             data: {
-              url: "ujUKViNiWHZYgatuccXO",
-              public_url: "orWlnJjEgpLEveunuVsk",
-              mime_type: "ZlOkTtlCyNRjYPGznBNC",
-              filename: "HuPyvwuIJPkQGghSFBQS",
-              title: "wIpBQSfWYAIanEqFKPxC",
-              snippet: "BnbXGNBbGTNZxEphrUSG",
+              url: "XVqcbVpnYcwyYjEYFBWP",
+              public_url: "RTCIgvpBuquOeTvOMYRm",
+              mime_type: "pYdzGQZrTezlbUtsnHQM",
+              filename: "CkNSbGJqFPVYlvfmxwxM",
+              title: "XAYWfhbCHHrfFKQsgNum",
+              snippet: "eOoDVtjJnPETmbuqBHch",
             },
-            data_text: "wIpBQSfWYAIanEqFKPxC (ujUKViNiWHZYgatuccXO)\n  BnbXGNBbGTNZxEphrUSG\n",
+            data_text: "XAYWfhbCHHrfFKQsgNum (XVqcbVpnYcwyYjEYFBWP)\n  eOoDVtjJnPETmbuqBHch\n",
             data_html:
-              '<a href="orWlnJjEgpLEveunuVsk" class="msg-document">wIpBQSfWYAIanEqFKPxC</a><br/><small>BnbXGNBbGTNZxEphrUSG</small>',
+              '<a href="RTCIgvpBuquOeTvOMYRm" class="msg-document">XAYWfhbCHHrfFKQsgNum</a><br/><small>eOoDVtjJnPETmbuqBHch</small>',
             extra: {},
           },
         ],
@@ -74,7 +74,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "G2y4b",
+            digest: "S7EUm",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while re\n    \n    user_text:\n    Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: D\n    ",
             },
@@ -89,10 +89,37 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 3,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 3,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 4 },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
       kind: "operator",
       pipe_code: "extract_cv",
       pipe_type: "PipeExtract",
@@ -101,30 +128,30 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.406436Z",
-        ended_at: "2026-07-09T11:07:05.416431Z",
-        duration: 0.009995,
+        started_at: "2026-08-14T10:50:05.777202Z",
+        ended_at: "2026-08-14T10:50:05.784152Z",
+        duration: 0.00695,
       },
       io: {
         inputs: [
           {
             name: "cv",
             concept: "Document",
-            content_type: "AmJMZSMFQYfSbnilYAfH",
+            content_type: "xuwlHzSGxhcaEYtWqTNi",
             preview: null,
             size: null,
-            digest: "54b69",
+            digest: "JTDoa",
             data: {
-              url: "mcRldcydWmSBFMHErvZJ",
-              public_url: "PgDPdWUjZDLudFflloNJ",
-              mime_type: "AmJMZSMFQYfSbnilYAfH",
-              filename: "DhZlGKQkuKccevfepzYH",
-              title: "bnMAnXDYdUZmgFGUaurl",
-              snippet: "NQCbESdehZqJjmkUoWGs",
+              url: "WlIKPZelLkyhdUYUfmNE",
+              public_url: "KNVgmrhzzhfYdQUFoPmv",
+              mime_type: "xuwlHzSGxhcaEYtWqTNi",
+              filename: "YUxdejfHihmPgaQfXYtU",
+              title: "CuxrcpNZkSrEtPTaxwpQ",
+              snippet: "HlckoQpBlAmKmFOoQvVw",
             },
-            data_text: "bnMAnXDYdUZmgFGUaurl (mcRldcydWmSBFMHErvZJ)\n  NQCbESdehZqJjmkUoWGs\n",
+            data_text: "CuxrcpNZkSrEtPTaxwpQ (WlIKPZelLkyhdUYUfmNE)\n  HlckoQpBlAmKmFOoQvVw\n",
             data_html:
-              '<a href="PgDPdWUjZDLudFflloNJ" class="msg-document">bnMAnXDYdUZmgFGUaurl</a><br/><small>NQCbESdehZqJjmkUoWGs</small>',
+              '<a href="KNVgmrhzzhfYdQUFoPmv" class="msg-document">CuxrcpNZkSrEtPTaxwpQ</a><br/><small>HlckoQpBlAmKmFOoQvVw</small>',
             extra: {},
           },
         ],
@@ -135,7 +162,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "cDMQ8",
+            digest: "YP59V",
             data: {
               items: [
                 {
@@ -183,6 +210,24 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "cv",
@@ -191,7 +236,7 @@ export const DRY_CV_ANALYZER = {
       },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
       kind: "operator",
       pipe_code: "extract_job_offer",
       pipe_type: "PipeExtract",
@@ -200,30 +245,30 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.417646Z",
-        ended_at: "2026-07-09T11:07:05.426447Z",
-        duration: 0.008801,
+        started_at: "2026-08-14T10:50:05.788270Z",
+        ended_at: "2026-08-14T10:50:05.794067Z",
+        duration: 0.005797,
       },
       io: {
         inputs: [
           {
             name: "job_offer",
             concept: "Document",
-            content_type: "ZlOkTtlCyNRjYPGznBNC",
+            content_type: "pYdzGQZrTezlbUtsnHQM",
             preview: null,
             size: null,
-            digest: "MRdaH",
+            digest: "BQ7Wp",
             data: {
-              url: "ujUKViNiWHZYgatuccXO",
-              public_url: "orWlnJjEgpLEveunuVsk",
-              mime_type: "ZlOkTtlCyNRjYPGznBNC",
-              filename: "HuPyvwuIJPkQGghSFBQS",
-              title: "wIpBQSfWYAIanEqFKPxC",
-              snippet: "BnbXGNBbGTNZxEphrUSG",
+              url: "XVqcbVpnYcwyYjEYFBWP",
+              public_url: "RTCIgvpBuquOeTvOMYRm",
+              mime_type: "pYdzGQZrTezlbUtsnHQM",
+              filename: "CkNSbGJqFPVYlvfmxwxM",
+              title: "XAYWfhbCHHrfFKQsgNum",
+              snippet: "eOoDVtjJnPETmbuqBHch",
             },
-            data_text: "wIpBQSfWYAIanEqFKPxC (ujUKViNiWHZYgatuccXO)\n  BnbXGNBbGTNZxEphrUSG\n",
+            data_text: "XAYWfhbCHHrfFKQsgNum (XVqcbVpnYcwyYjEYFBWP)\n  eOoDVtjJnPETmbuqBHch\n",
             data_html:
-              '<a href="orWlnJjEgpLEveunuVsk" class="msg-document">wIpBQSfWYAIanEqFKPxC</a><br/><small>BnbXGNBbGTNZxEphrUSG</small>',
+              '<a href="RTCIgvpBuquOeTvOMYRm" class="msg-document">XAYWfhbCHHrfFKQsgNum</a><br/><small>eOoDVtjJnPETmbuqBHch</small>',
             extra: {},
           },
         ],
@@ -234,7 +279,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MpdYV",
+            digest: "UU6UF",
             data: {
               items: [
                 {
@@ -282,6 +327,24 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "job_offer",
@@ -290,7 +353,7 @@ export const DRY_CV_ANALYZER = {
       },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
       kind: "operator",
       pipe_code: "analyze_match",
       pipe_type: "PipeLLM",
@@ -300,9 +363,9 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.428068Z",
-        ended_at: "2026-07-09T11:07:05.530133Z",
-        duration: 0.102065,
+        started_at: "2026-08-14T10:50:05.798698Z",
+        ended_at: "2026-08-14T10:50:05.813997Z",
+        duration: 0.015299,
       },
       io: {
         inputs: [
@@ -312,7 +375,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "cDMQ8",
+            digest: "YP59V",
             data: {
               items: [
                 {
@@ -361,7 +424,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MpdYV",
+            digest: "UU6UF",
             data: {
               items: [
                 {
@@ -412,12 +475,12 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RJbUe",
-            data: { is_match: true, match_analysis: "JGGnrKojOPxgFMHclADX" },
+            digest: "6qjEA",
+            data: { is_match: true, match_analysis: "XaDGOtoOqwppzTCBSzzF" },
             data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ JGGnrKojOPxgFMHclADX                        \n",
+              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ XaDGOtoOqwppzTCBSzzF                        \n",
             data_html:
-              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>JGGnrKojOPxgFMHclADX</td></tr></table>",
+              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>XaDGOtoOqwppzTCBSzzF</td></tr></table>",
             extra: {},
           },
         ],
@@ -425,9 +488,45 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
+        resolved_model: "claude-4.8-opus",
+        resolved_model_for_object: "claude-4.8-opus",
         is_multiple_output: false,
         rendered_system_prompt:
           "You are an experienced HR expert specializing in candidate screening and recruitment. Your task is to analyze a candidate's CV against a job offer and produce a detailed structured assessment including per-skill scoring, culture fit, and growth areas.",
@@ -437,7 +536,7 @@ export const DRY_CV_ANALYZER = {
       },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
       kind: "controller",
       pipe_code: "route_on_match",
       pipe_type: "PipeCondition",
@@ -447,9 +546,9 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.530268Z",
-        ended_at: "2026-07-09T11:07:05.599627Z",
-        duration: 0.069359,
+        started_at: "2026-08-14T10:50:05.817456Z",
+        ended_at: "2026-08-14T10:50:05.860024Z",
+        duration: 0.042568,
       },
       io: {
         inputs: [
@@ -459,12 +558,12 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RJbUe",
-            data: { is_match: true, match_analysis: "JGGnrKojOPxgFMHclADX" },
+            digest: "6qjEA",
+            data: { is_match: true, match_analysis: "XaDGOtoOqwppzTCBSzzF" },
             data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ JGGnrKojOPxgFMHclADX                        \n",
+              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ XaDGOtoOqwppzTCBSzzF                        \n",
             data_html:
-              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>JGGnrKojOPxgFMHclADX</td></tr></table>",
+              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>XaDGOtoOqwppzTCBSzzF</td></tr></table>",
             extra: {},
           },
           {
@@ -473,7 +572,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "cDMQ8",
+            digest: "YP59V",
             data: {
               items: [
                 {
@@ -522,7 +621,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MpdYV",
+            digest: "UU6UF",
             data: {
               items: [
                 {
@@ -573,7 +672,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "G2y4b",
+            digest: "S7EUm",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while re\n    \n    user_text:\n    Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: D\n    ",
             },
@@ -588,10 +687,37 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_5",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_5",
       kind: "operator",
       pipe_code: "generate_interview_questions",
       pipe_type: "PipeLLM",
@@ -601,9 +727,9 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.538668Z",
-        ended_at: "2026-07-09T11:07:05.568574Z",
-        duration: 0.029906,
+        started_at: "2026-08-14T10:50:05.822864Z",
+        ended_at: "2026-08-14T10:50:05.838087Z",
+        duration: 0.015223,
       },
       io: {
         inputs: [
@@ -613,7 +739,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "cDMQ8",
+            digest: "YP59V",
             data: {
               items: [
                 {
@@ -662,7 +788,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MpdYV",
+            digest: "UU6UF",
             data: {
               items: [
                 {
@@ -711,12 +837,12 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RJbUe",
-            data: { is_match: true, match_analysis: "JGGnrKojOPxgFMHclADX" },
+            digest: "6qjEA",
+            data: { is_match: true, match_analysis: "XaDGOtoOqwppzTCBSzzF" },
             data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ JGGnrKojOPxgFMHclADX                        \n",
+              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ XaDGOtoOqwppzTCBSzzF                        \n",
             data_html:
-              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>JGGnrKojOPxgFMHclADX</td></tr></table>",
+              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>XaDGOtoOqwppzTCBSzzF</td></tr></table>",
             extra: {},
           },
         ],
@@ -727,20 +853,20 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X4qEQ",
+            digest: "kAALU",
             data: {
               items: [
-                { text: "AQcJlgTScxTcoUrQIPiU" },
-                { text: "zTlCOuxIEgaGvaIUKxWt" },
-                { text: "AiqykrqnAELjWBYGNNZg" },
-                { text: "DAMGdqeGENaYzCjsoGvL" },
-                { text: "YXLKMInTSDoakGvcPOpw" },
+                { text: "curckDJwTOxeyiVTFJfx" },
+                { text: "MsjcKTXIqMfTjmyRTyLA" },
+                { text: "KfmdMnLFyWKmVSHpuGAg" },
+                { text: "HJOvTuxXIPvWJwxcQUav" },
+                { text: "DrarPFiezPNrDqyzsOCk" },
               ],
             },
             data_text:
-              "   1    │ AQcJlgTScxTcoUrQIPiU                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ zTlCOuxIEgaGvaIUKxWt                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ AiqykrqnAELjWBYGNNZg                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DAMGdqeGENaYzCjsoGvL                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │ YXLKMInTSDoakGvcPOpw                                                  \n",
+              "   1    │ curckDJwTOxeyiVTFJfx                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ MsjcKTXIqMfTjmyRTyLA                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ KfmdMnLFyWKmVSHpuGAg                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ HJOvTuxXIPvWJwxcQUav                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   5    │ DrarPFiezPNrDqyzsOCk                                                  \n",
             data_html:
-              "<ul><li>AQcJlgTScxTcoUrQIPiU</li><li>zTlCOuxIEgaGvaIUKxWt</li><li>AiqykrqnAELjWBYGNNZg</li><li>DAMGdqeGENaYzCjsoGvL</li><li>YXLKMInTSDoakGvcPOpw</li></ul>",
+              "<ul><li>curckDJwTOxeyiVTFJfx</li><li>MsjcKTXIqMfTjmyRTyLA</li><li>KfmdMnLFyWKmVSHpuGAg</li><li>HJOvTuxXIPvWJwxcQUav</li><li>DrarPFiezPNrDqyzsOCk</li></ul>",
             extra: {},
           },
         ],
@@ -748,19 +874,55 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
+        resolved_model: "claude-4.8-opus",
+        resolved_model_for_object: "claude-4.8-opus",
         is_multiple_output: true,
         rendered_system_prompt:
           "You are an experienced HR interviewer. Your task is to craft tailored interview questions for a candidate based on their CV, the job offer, and a prior match analysis. Each question should probe relevant experience, skills, and cultural fit, focusing on the key strengths and gaps identified in the analysis.",
         rendered_user_prompt:
-          'Based on the following candidate CV, job offer, and match analysis, generate 5 tailored interview questions that probe the candidate\'s relevant experience, skills, and fit for the role. Focus on the key areas highlighted in the match analysis.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: True\n\n# match_analysis: JGGnrKojOPxgFMHclADX\n</match_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass candidate_screening__InterviewQuestion(TextContent):\n    """A tailored interview question for a candidate based on their profile and the job requirements."""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Based on the following candidate CV, job offer, and match analysis, generate 5 tailored interview questions that probe the candidate\'s relevant experience, skills, and fit for the role. Focus on the key areas highlighted in the match analysis.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: True\n\n# match_analysis: XaDGOtoOqwppzTCBSzzF\n</match_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass candidate_screening__InterviewQuestion(TextContent):\n    """A tailored interview question for a candidate based on their profile and the job requirements."""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_list",
       },
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_6",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_6",
       kind: "operator",
       pipe_code: "write_refusal_email",
       pipe_type: "PipeLLM",
@@ -770,9 +932,9 @@ export const DRY_CV_ANALYZER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:07:05.568633Z",
-        ended_at: "2026-07-09T11:07:05.598243Z",
-        duration: 0.02961,
+        started_at: "2026-08-14T10:50:05.838129Z",
+        ended_at: "2026-08-14T10:50:05.858982Z",
+        duration: 0.020853,
       },
       io: {
         inputs: [
@@ -782,7 +944,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "cDMQ8",
+            digest: "YP59V",
             data: {
               items: [
                 {
@@ -831,7 +993,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MpdYV",
+            digest: "UU6UF",
             data: {
               items: [
                 {
@@ -880,12 +1042,12 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "RJbUe",
-            data: { is_match: true, match_analysis: "JGGnrKojOPxgFMHclADX" },
+            digest: "6qjEA",
+            data: { is_match: true, match_analysis: "XaDGOtoOqwppzTCBSzzF" },
             data_text:
-              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ JGGnrKojOPxgFMHclADX                        \n",
+              " Attribute                        ┃ Value                                       \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n is_match                         │ True                                        \n──────────────────────────────────┼─────────────────────────────────────────────\n match_analysis                   │ XaDGOtoOqwppzTCBSzzF                        \n",
             data_html:
-              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>JGGnrKojOPxgFMHclADX</td></tr></table>",
+              "<table><tr><th>is_match</th><td>True</td></tr><tr><th>match_analysis</th><td>XaDGOtoOqwppzTCBSzzF</td></tr></table>",
             extra: {},
           },
         ],
@@ -896,7 +1058,7 @@ export const DRY_CV_ANALYZER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "G2y4b",
+            digest: "S7EUm",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.1, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while re\n    \n    user_text:\n    Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: D\n    ",
             },
@@ -911,23 +1073,59 @@ export const DRY_CV_ANALYZER = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
+        resolved_model: "claude-4.8-opus",
+        resolved_model_for_object: "claude-4.8-opus",
         is_multiple_output: false,
         rendered_system_prompt:
           "You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while referencing specific reasons from the match analysis to explain the decision. Be concise.",
         rendered_user_prompt:
-          "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: True\n\n# match_analysis: JGGnrKojOPxgFMHclADX\n</match_result>",
+          "Based on the candidate's CV and the job offer below, write a professional refusal email. Use the match result to reference specific reasons why the candidate's profile does not fit the role.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n<job_offer_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</job_offer_pages>\n\n<match_result>\n# is_match: True\n\n# match_analysis: XaDGOtoOqwppzTCBSzzF\n</match_result>",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_0",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_0",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_0",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_0",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -936,9 +1134,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_1",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_0",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_1",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_0",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -947,9 +1145,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_2",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_0",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_2",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_0",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -958,9 +1156,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_3",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_0",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_3",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_0",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -969,9 +1167,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_4",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_5",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_4",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -980,9 +1178,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:edge_5",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_6",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:edge_5",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -991,9 +1189,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_0",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_0",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1002,9 +1200,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_1",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_1",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
       kind: "data",
       optional: false,
       label: "job_offer_pages",
@@ -1013,9 +1211,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_2",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_2",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
       kind: "data",
       optional: false,
       label: "match_result",
@@ -1024,9 +1222,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_3",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_3",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1035,9 +1233,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_4",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_4",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_4",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_4",
       kind: "data",
       optional: false,
       label: "job_offer_pages",
@@ -1046,9 +1244,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_5",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_5",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_5",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_5",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1057,9 +1255,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_6",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_5",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_6",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_5",
       kind: "data",
       optional: false,
       label: "job_offer_pages",
@@ -1068,9 +1266,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_7",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_5",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_7",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_5",
       kind: "data",
       optional: false,
       label: "match_result",
@@ -1079,9 +1277,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_8",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_1",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_6",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_8",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_1",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_6",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1090,9 +1288,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_9",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_2",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_6",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_9",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_2",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_6",
       kind: "data",
       optional: false,
       label: "job_offer_pages",
@@ -1101,9 +1299,9 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
     {
-      id: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:asm_edge_10",
-      source: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_3",
-      target: "231d4d0a-f9c9-4190-9dc3-bdc825b64700:node_6",
+      id: "f612100f-11a5-48af-a4c8-cdc2052359d4:asm_edge_10",
+      source: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_3",
+      target: "f612100f-11a5-48af-a4c8-cdc2052359d4:node_6",
       kind: "data",
       optional: false,
       label: "match_result",
@@ -1112,6 +1310,62 @@ export const DRY_CV_ANALYZER = {
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 3,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 3,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+      subtree_inference_calls: 3,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 3,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "candidate_screening.screen_candidate": {
@@ -1311,7 +1565,6 @@ export const DRY_CV_ANALYZER = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are an experienced HR expert specializing in candidate screening and recruitment. Your task is to analyze a candidate's CV against a job offer and produce a detailed structured assessment including per-skill scoring, culture fit, and growth areas.\n",
@@ -1453,7 +1706,6 @@ export const DRY_CV_ANALYZER = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are an experienced HR interviewer. Your task is to craft tailored interview questions for a candidate based on their CV, the job offer, and a prior match analysis. Each question should probe relevant experience, skills, and cultural fit, focusing on the key strengths and gaps identified in the analysis.\n",
@@ -1533,7 +1785,6 @@ export const DRY_CV_ANALYZER = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are a seasoned HR professional skilled at writing empathetic, professional correspondence. Your task is to draft a refusal email to a candidate whose profile does not match a job offer. The email must be courteous, respectful, and encouraging, while referencing specific reasons from the match analysis to explain the decision. Be concise.\n",
@@ -1575,8 +1826,7 @@ export const DRY_CV_ANALYZER = {
       json_schema: {
         properties: {
           url: {
-            description:
-              "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             title: "Url",
             type: "string",
           },
@@ -1628,8 +1878,7 @@ export const DRY_CV_ANALYZER = {
           ImageContent: {
             properties: {
               url: {
-                description:
-                  "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 title: "Url",
                 type: "string",
               },
@@ -1663,10 +1912,17 @@ export const DRY_CV_ANALYZER = {
                 description: "The MIME type of the image",
                 title: "Mime Type",
               },
-              size: {
-                anyOf: [{ $ref: "#/$defs/ImageSize" }, { type: "null" }],
+              width: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
                 default: null,
-                description: "The size in pixels (width and height) of the image",
+                description: "The width of the image, in pixels",
+                title: "Width",
+              },
+              height: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
+                default: null,
+                description: "The height of the image, in pixels",
+                title: "Height",
               },
               filename: {
                 anyOf: [{ type: "string" }, { type: "null" }],
@@ -1677,15 +1933,6 @@ export const DRY_CV_ANALYZER = {
             },
             required: ["url"],
             title: "ImageContent",
-            type: "object",
-          },
-          ImageSize: {
-            properties: {
-              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
-              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
-            },
-            required: ["width", "height"],
-            title: "ImageSize",
             type: "object",
           },
           TextAndImagesContent: {
@@ -1715,7 +1962,7 @@ export const DRY_CV_ANALYZER = {
             type: "object",
           },
           TextContent: {
-            properties: { text: { title: "Text", type: "string" } },
+            properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
@@ -1775,7 +2022,7 @@ export const DRY_CV_ANALYZER = {
       json_schema: {
         description:
           "A tailored interview question for a candidate based on their profile and the job requirements.",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "candidate_screening__InterviewQuestion",
         type: "object",
@@ -1789,7 +2036,7 @@ export const DRY_CV_ANALYZER = {
       refines: "native.Text",
       json_schema: {
         description: "A professional email message.",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "candidate_screening__Email",
         type: "object",

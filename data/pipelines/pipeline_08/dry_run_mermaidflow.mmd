@@ -1,0 +1,60 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_d038001232["batch_ocr_pipeline"]
+        subgraph sg_n_5da962c352["summarize_page_batch"]
+            n_80c520e6ce["summarize_page"]
+            s_8129482685(["page<br/>Page"]):::stuff
+            s_5511c5911e(["page_summary<br/>PageSummary"]):::stuff
+            n_e307aa66b2["summarize_page"]
+            s_e9bb06a366(["page<br/>Page"]):::stuff
+            s_1a28c03de1(["page_summary<br/>PageSummary"]):::stuff
+            n_88fbbf1cb5["summarize_page"]
+            s_39f40ec319(["page<br/>Page"]):::stuff
+            s_d3543762ec(["page_summary<br/>PageSummary"]):::stuff
+            n_8e7c84e3bd["summarize_page"]
+            s_be53b0e563(["page<br/>Page"]):::stuff
+            s_b50fb1e650(["page_summary<br/>PageSummary"]):::stuff
+        end
+        n_940f47b9b9["combine_summaries"]
+        s_9e94821bdc(["document_summary<br/>DocumentSummary"]):::stuff
+        n_d950cfcadd["extract_pages"]
+        s_4353d5d0f1(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_4a1f610a3c(["document<br/>Document"]):::stuff
+    s_77c48c8c80(["page_summaries<br/>PageSummary"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_80c520e6ce --> s_5511c5911e
+    n_e307aa66b2 --> s_1a28c03de1
+    n_88fbbf1cb5 --> s_d3543762ec
+    n_8e7c84e3bd --> s_b50fb1e650
+    n_d950cfcadd --> s_4353d5d0f1
+    n_940f47b9b9 --> s_9e94821bdc
+    s_8129482685 --> n_80c520e6ce
+    s_e9bb06a366 --> n_e307aa66b2
+    s_39f40ec319 --> n_88fbbf1cb5
+    s_be53b0e563 --> n_8e7c84e3bd
+    s_77c48c8c80 --> n_940f47b9b9
+    s_4a1f610a3c --> n_d950cfcadd
+
+    %% Batch edges: list-item relationships
+    s_4353d5d0f1 -."[0]".-> s_8129482685
+    s_4353d5d0f1 -."[1]".-> s_e9bb06a366
+    s_4353d5d0f1 -."[2]".-> s_39f40ec319
+    s_4353d5d0f1 -."[3]".-> s_be53b0e563
+    s_5511c5911e -."[0]".-> s_77c48c8c80
+    s_1a28c03de1 -."[1]".-> s_77c48c8c80
+    s_d3543762ec -."[2]".-> s_77c48c8c80
+    s_b50fb1e650 -."[3]".-> s_77c48c8c80
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_5da962c352 fill:#e6ffe6
+    style sg_n_d038001232 fill:#e6f3ff

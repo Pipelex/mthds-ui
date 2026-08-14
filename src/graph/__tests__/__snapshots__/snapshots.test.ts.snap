@@ -6025,12 +6025,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
     {
       "id": "edge_4",
       "source": "GID:node_9",
-      "target": "stuff_d8",
+      "target": "stuff_d5",
     },
     {
       "id": "edge_5",
       "source": "GID:node_10",
-      "target": "stuff_d5",
+      "target": "stuff_d8",
     },
     {
       "id": "edge_6",
@@ -6055,7 +6055,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
     {
       "id": "edge_10",
       "source": "stuff_d2-branch-0",
-      "target": "GID:node_10",
+      "target": "GID:node_9",
     },
     {
       "id": "edge_11",
@@ -6065,7 +6065,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
     {
       "id": "edge_12",
       "source": "stuff_d2-branch-1",
-      "target": "GID:node_9",
+      "target": "GID:node_10",
     },
     {
       "id": "edge_13",
@@ -6079,12 +6079,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
     },
     {
       "id": "edge_15",
-      "source": "stuff_d9",
+      "source": "stuff_d6",
       "target": "GID:node_9",
     },
     {
       "id": "edge_16",
-      "source": "stuff_d6",
+      "source": "stuff_d9",
       "target": "GID:node_10",
     },
     {
@@ -6246,12 +6246,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_BATCH_WITH_INNER_SEQ m
     },
     {
       "id": "GID:node_9",
-      "parentId": "GID:node_5",
+      "parentId": "GID:node_3",
       "type": "pipeCard",
     },
     {
       "id": "GID:node_10",
-      "parentId": "GID:node_3",
+      "parentId": "GID:node_5",
       "type": "pipeCard",
     },
     {
@@ -6776,12 +6776,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     {
       "id": "edge_8",
       "source": "GID:node_14",
-      "target": "stuff_d9",
+      "target": "stuff_d6",
     },
     {
       "id": "edge_9",
       "source": "GID:node_15",
-      "target": "stuff_d6",
+      "target": "stuff_d9",
     },
     {
       "id": "edge_10",
@@ -6815,7 +6815,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "edge_16",
-      "source": "stuff_d10",
+      "source": "stuff_d7",
       "target": "GID:node_11",
     },
     {
@@ -6825,7 +6825,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "edge_18",
-      "source": "stuff_d7",
+      "source": "stuff_d10",
       "target": "GID:node_13",
     },
     {
@@ -7002,7 +7002,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "GID:node_11",
-      "parentId": "GID:node_7",
+      "parentId": "GID:node_5",
       "type": "pipeCard",
     },
     {
@@ -7012,17 +7012,17 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "GID:node_13",
-      "parentId": "GID:node_5",
-      "type": "pipeCard",
-    },
-    {
-      "id": "GID:node_14",
       "parentId": "GID:node_7",
       "type": "pipeCard",
     },
     {
-      "id": "GID:node_15",
+      "id": "GID:node_14",
       "parentId": "GID:node_5",
+      "type": "pipeCard",
+    },
+    {
+      "id": "GID:node_15",
+      "parentId": "GID:node_7",
       "type": "pipeCard",
     },
     {
@@ -7062,7 +7062,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "stuff_d14",
-      "parentId": "GID:node_7",
+      "parentId": "GID:node_5",
       "type": "default",
     },
     {
@@ -7072,7 +7072,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_BATCH_SCREENING mat
     },
     {
       "id": "stuff_d16",
-      "parentId": "GID:node_5",
+      "parentId": "GID:node_7",
       "type": "default",
     },
   ],
@@ -7110,12 +7110,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_MATCHING matches sn
     {
       "id": "edge_5",
       "source": "GID:node_10",
-      "target": "stuff_d8",
+      "target": "stuff_d5",
     },
     {
       "id": "edge_6",
       "source": "GID:node_12",
-      "target": "stuff_d5",
+      "target": "stuff_d8",
     },
     {
       "id": "edge_7",
@@ -7154,12 +7154,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_MATCHING matches sn
     },
     {
       "id": "edge_14",
-      "source": "stuff_d11",
+      "source": "stuff_d10",
       "target": "GID:node_10",
     },
     {
       "id": "edge_15",
-      "source": "stuff_d10",
+      "source": "stuff_d11",
       "target": "GID:node_12",
     },
     {
@@ -7251,12 +7251,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_MATCHING matches sn
     },
     {
       "id": "GID:node_9",
-      "parentId": "GID:node_5",
+      "parentId": "GID:node_3",
       "type": "controllerGroup",
     },
     {
       "id": "GID:node_11",
-      "parentId": "GID:node_3",
+      "parentId": "GID:node_5",
       "type": "controllerGroup",
     },
     {
@@ -7311,12 +7311,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_CV_MATCHING matches sn
     },
     {
       "id": "stuff_d5",
-      "parentId": "GID:node_11",
+      "parentId": "GID:node_9",
       "type": "default",
     },
     {
       "id": "stuff_d8",
-      "parentId": "GID:node_9",
+      "parentId": "GID:node_11",
       "type": "default",
     },
   ],
@@ -9050,157 +9050,157 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RFP_QUALIFIER matches 
       "target": "stuff_d17",
     },
     {
-      "id": "edge_49",
-      "source": "GID:node_52",
-      "target": "stuff_d100",
+      "id": "edge_33",
+      "source": "GID:node_36",
+      "target": "stuff_d68",
     },
     {
-      "id": "edge_50",
-      "source": "GID:node_53",
+      "id": "edge_34",
+      "source": "GID:node_37",
       "target": "stuff_d2",
     },
     {
-      "id": "edge_51",
+      "id": "edge_35",
       "source": "stuff_d0",
       "target": "GID:node_2",
     },
     {
-      "id": "edge_52",
+      "id": "edge_36",
       "source": "stuff_d1",
       "target": "GID:node_3",
     },
     {
-      "id": "edge_53",
+      "id": "edge_37",
       "source": "stuff_d3",
       "target": "GID:node_4",
     },
     {
-      "id": "edge_54",
+      "id": "edge_38",
       "source": "stuff_d3",
-      "target": "GID:node_52",
+      "target": "GID:node_36",
     },
     {
-      "id": "edge_55",
+      "id": "edge_39",
       "source": "stuff_d3",
-      "target": "GID:node_53",
+      "target": "GID:node_37",
     },
     {
-      "id": "edge_56",
+      "id": "edge_40",
       "source": "stuff_d6-branch-0",
       "target": "GID:node_6",
     },
     {
-      "id": "edge_57",
+      "id": "edge_41",
       "source": "stuff_d4",
       "target": "GID:node_6",
     },
     {
-      "id": "edge_58",
+      "id": "edge_42",
       "source": "stuff_d4",
       "target": "GID:node_7",
     },
     {
-      "id": "edge_59",
+      "id": "edge_43",
       "source": "stuff_d4",
       "target": "GID:node_8",
     },
     {
-      "id": "edge_60",
+      "id": "edge_44",
       "source": "stuff_d4",
       "target": "GID:node_9",
     },
     {
-      "id": "edge_61",
+      "id": "edge_45",
       "source": "stuff_d4",
       "target": "GID:node_10",
     },
     {
-      "id": "edge_103",
+      "id": "edge_71",
       "source": "stuff_d6-branch-1",
       "target": "GID:node_7",
     },
     {
-      "id": "edge_104",
+      "id": "edge_72",
       "source": "stuff_d6-branch-2",
       "target": "GID:node_8",
     },
     {
-      "id": "edge_105",
+      "id": "edge_73",
       "source": "stuff_d6-branch-3",
       "target": "GID:node_9",
     },
     {
-      "id": "edge_106",
+      "id": "edge_74",
       "source": "stuff_d6-branch-4",
       "target": "GID:node_10",
     },
     {
-      "id": "edge_148",
+      "id": "edge_100",
       "source": "stuff_d7",
-      "target": "GID:node_52",
+      "target": "GID:node_36",
     },
     {
-      "id": "edge_149",
-      "source": "stuff_d100",
-      "target": "GID:node_53",
+      "id": "edge_101",
+      "source": "stuff_d68",
+      "target": "GID:node_37",
     },
     {
-      "id": "GID:asm_edge_145",
+      "id": "GID:asm_edge_97",
       "source": "stuff_d3",
       "target": "stuff_d5",
     },
     {
-      "id": "GID:asm_edge_146",
+      "id": "GID:asm_edge_98",
       "source": "stuff_d4",
       "target": "stuff_d5",
     },
     {
-      "id": "GID:asm_edge_53",
+      "id": "GID:asm_edge_37",
       "source": "stuff_d6",
       "target": "stuff_d6-branch-0",
     },
     {
-      "id": "GID:asm_edge_54",
+      "id": "GID:asm_edge_38",
       "source": "stuff_d6",
       "target": "stuff_d6-branch-1",
     },
     {
-      "id": "GID:asm_edge_55",
+      "id": "GID:asm_edge_39",
       "source": "stuff_d6",
       "target": "stuff_d6-branch-2",
     },
     {
-      "id": "GID:asm_edge_56",
+      "id": "GID:asm_edge_40",
       "source": "stuff_d6",
       "target": "stuff_d6-branch-3",
     },
     {
-      "id": "GID:asm_edge_57",
+      "id": "GID:asm_edge_41",
       "source": "stuff_d6",
       "target": "stuff_d6-branch-4",
     },
     {
-      "id": "GID:asm_edge_99",
+      "id": "GID:asm_edge_67",
       "source": "stuff_d9",
       "target": "stuff_d7",
     },
     {
-      "id": "GID:asm_edge_100",
+      "id": "GID:asm_edge_68",
       "source": "stuff_d11",
       "target": "stuff_d7",
     },
     {
-      "id": "GID:asm_edge_101",
+      "id": "GID:asm_edge_69",
       "source": "stuff_d13",
       "target": "stuff_d7",
     },
     {
-      "id": "GID:asm_edge_102",
+      "id": "GID:asm_edge_70",
       "source": "stuff_d15",
       "target": "stuff_d7",
     },
     {
-      "id": "GID:asm_edge_103",
+      "id": "GID:asm_edge_71",
       "source": "stuff_d17",
       "target": "stuff_d7",
     },
@@ -9242,12 +9242,12 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RFP_QUALIFIER matches 
       "type": "pipeCard",
     },
     {
-      "id": "GID:node_52",
+      "id": "GID:node_36",
       "parentId": "GID:node_0",
       "type": "pipeCard",
     },
     {
-      "id": "GID:node_53",
+      "id": "GID:node_37",
       "parentId": "GID:node_0",
       "type": "pipeCard",
     },
@@ -9277,7 +9277,7 @@ exports[`snapshot regression — LIVE catalog > LIVE LIVE_RFP_QUALIFIER matches 
       "type": "default",
     },
     {
-      "id": "stuff_d100",
+      "id": "stuff_d68",
       "parentId": "GID:node_0",
       "type": "default",
     },

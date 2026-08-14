@@ -1,0 +1,64 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_5272c82a00["route_availability"]
+        subgraph sg_n_05954e479c["check_day_batch"]
+            n_21fcc1a1a7["check_day"]
+            s_138098be7b(["day<br/>Date"]):::stuff
+            s_64941dc647(["slot_check<br/>SlotCheck"]):::stuff
+            n_131a1d63b5["check_day"]
+            s_a986d5204b(["day<br/>Date"]):::stuff
+            s_a6001e078a(["slot_check<br/>SlotCheck"]):::stuff
+            n_ee202a02d4["check_day"]
+            s_29cddfb16b(["day<br/>Date"]):::stuff
+            s_d6d7b8cb3f(["slot_check<br/>SlotCheck"]):::stuff
+        end
+        subgraph sg_n_64c2cfd8c3["route_reply"]
+            n_c8ef1d48a9["reply_now"]
+            s_f4daabe905(["reply<br/>Reply"]):::stuff
+            n_c141c71e1a["reply_with_options"]
+            s_a6424cc8ed(["reply<br/>Reply"]):::stuff
+        end
+        n_ca7f49d9c9["is_urgent"]
+        s_3d446d137b(["urgent<br/>YesNo"]):::stuff
+        n_6e2a326dcb["read_dates"]
+        s_87e46bf7fe(["dates<br/>Date"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_8eb6c4f52e(["checks<br/>SlotCheck"]):::stuff
+    s_fcb89a1518(["request<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_c141c71e1a --> s_a6424cc8ed
+    n_c8ef1d48a9 --> s_f4daabe905
+    n_ca7f49d9c9 --> s_3d446d137b
+    n_21fcc1a1a7 --> s_64941dc647
+    n_131a1d63b5 --> s_a6001e078a
+    n_ee202a02d4 --> s_d6d7b8cb3f
+    n_6e2a326dcb --> s_87e46bf7fe
+    s_8eb6c4f52e --> n_c8ef1d48a9
+    s_8eb6c4f52e --> n_c141c71e1a
+    s_fcb89a1518 --> n_6e2a326dcb
+    s_fcb89a1518 --> n_ca7f49d9c9
+    s_138098be7b --> n_21fcc1a1a7
+    s_a986d5204b --> n_131a1d63b5
+    s_29cddfb16b --> n_ee202a02d4
+
+    %% Batch edges: list-item relationships
+    s_87e46bf7fe -."[0]".-> s_138098be7b
+    s_87e46bf7fe -."[1]".-> s_a986d5204b
+    s_87e46bf7fe -."[2]".-> s_29cddfb16b
+    s_64941dc647 -."[0]".-> s_8eb6c4f52e
+    s_a6001e078a -."[1]".-> s_8eb6c4f52e
+    s_d6d7b8cb3f -."[2]".-> s_8eb6c4f52e
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_05954e479c fill:#e6ffe6
+    style sg_n_5272c82a00 fill:#e6f3ff
+    style sg_n_64c2cfd8c3 fill:#e6ffe6

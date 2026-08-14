@@ -1,0 +1,44 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_65e8963157["image_pipeline"]
+        subgraph sg_n_c3d4d2f48e["parallel_analyze"]
+            n_3c03a886ee["classify_image"]
+            s_e299738f0a(["tags<br/>TagList"]):::stuff
+            n_9096155afe["describe_image"]
+            s_05ae9faf49(["description<br/>Description"]):::stuff
+            n_ca6f209149["generate_thumbnail"]
+            s_e78f4fa16c(["thumbnail<br/>Image"]):::stuff
+            s_08faceccde(["image_assets<br/>Composite"]):::stuff
+        end
+        n_8f2b15d460["build_catalog"]
+        s_2f99385ef6(["entry<br/>CatalogEntry"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_9e6a4f1685(["image<br/>Image"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_8f2b15d460 --> s_2f99385ef6
+    n_3c03a886ee --> s_e299738f0a
+    n_9096155afe --> s_05ae9faf49
+    n_ca6f209149 --> s_e78f4fa16c
+    s_e299738f0a --> n_8f2b15d460
+    s_9e6a4f1685 --> n_9096155afe
+    s_9e6a4f1685 --> n_3c03a886ee
+    s_9e6a4f1685 --> n_ca6f209149
+    s_05ae9faf49 --> n_8f2b15d460
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_05ae9faf49 -.-> s_08faceccde
+    s_e299738f0a -.-> s_08faceccde
+    s_e78f4fa16c -.-> s_08faceccde
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_65e8963157 fill:#e6f3ff
+    style sg_n_c3d4d2f48e fill:#e6ffe6

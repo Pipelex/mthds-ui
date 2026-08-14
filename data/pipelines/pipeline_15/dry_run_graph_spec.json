@@ -1,6 +1,6 @@
 {
-  "graph_id": "2c7f2189-23a5-477d-b90f-61327840d9b1",
-  "created_at": "2026-07-09T11:03:29.399370Z",
+  "graph_id": "14a3b684-ff40-4035-9ce8-857ae8075984",
+  "created_at": "2026-08-14T10:49:12.175687Z",
   "pipeline_ref": {
     "domain": "rag",
     "main_pipe": "rag_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_0",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_0",
       "kind": "controller",
       "pipe_code": "rag_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.399370Z",
-        "ended_at": "2026-07-09T11:03:29.497427Z",
-        "duration": 0.098057
+        "started_at": "2026-08-14T10:49:12.175687Z",
+        "ended_at": "2026-08-14T10:49:12.315649Z",
+        "duration": 0.139962
       },
       "io": {
         "inputs": [
@@ -29,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           }
         ],
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dPtky",
+            "digest": "Dz78k",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: ZpFFHUMStIFPvVtdOzDr\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\nQuestion: ZpFFHUMStIFPvVtdOzDr                                                                      \n\n\nContext:  DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,              \ntemperature=0.5, max_tokens=None, prompting_target=None) •                                          \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: ZpFFHUMStIFPvVtdOzDr\n\nContext:\n&lt;context&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\nQuestion: zsvZsYnDyEnmXyqinAcc                                                                      \n\n\nContext:  DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,              \ntemperature=0.5, max_tokens=None, prompting_target=None) •                                          \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n&lt;context&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    ",
             "extra": {}
           }
         ]
@@ -58,12 +58,39 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 3,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 3,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 4
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_1",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_1",
       "kind": "operator",
       "pipe_code": "embed_query",
       "pipe_type": "PipeLLM",
@@ -72,9 +99,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.403155Z",
-        "ended_at": "2026-07-09T11:03:29.419106Z",
-        "duration": 0.015951
+        "started_at": "2026-08-14T10:49:12.183956Z",
+        "ended_at": "2026-08-14T10:49:12.196767Z",
+        "duration": 0.012811
       },
       "io": {
         "inputs": [
@@ -84,12 +111,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           }
         ],
@@ -100,12 +127,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "BGHDD",
+            "digest": "mgUcq",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nZpFFHUMStIFPvVtdOzDr\n</question>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nZpFFHUMStIFPvVtdOzDr\n&lt;/question&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nzsvZsYnDyEnmXyqinAcc\n&lt;/question&gt;\n    ",
             "extra": {}
           }
         ]
@@ -113,17 +140,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nZpFFHUMStIFPvVtdOzDr\n</question>",
+        "rendered_user_prompt": "Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
       "kind": "controller",
       "pipe_code": "parallel_search",
       "pipe_type": "PipeParallel",
@@ -132,9 +195,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.420196Z",
-        "ended_at": "2026-07-09T11:03:29.459061Z",
-        "duration": 0.038865
+        "started_at": "2026-08-14T10:49:12.201495Z",
+        "ended_at": "2026-08-14T10:49:12.281671Z",
+        "duration": 0.080176
       },
       "io": {
         "inputs": [
@@ -144,12 +207,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "BGHDD",
+            "digest": "mgUcq",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nZpFFHUMStIFPvVtdOzDr\n</question>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nZpFFHUMStIFPvVtdOzDr\n&lt;/question&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nzsvZsYnDyEnmXyqinAcc\n&lt;/question&gt;\n    ",
             "extra": {}
           },
           {
@@ -158,12 +221,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           }
         ],
@@ -174,38 +237,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jhBW6",
+            "digest": "EKJfN",
             "data": {
-              "answer": "OsuDVlsTGetQGFCaGmni",
+              "answer": "QnOlRjSXaUEFikELqgnR",
               "sources": [
                 {
-                  "url": "ZZOPlVxXeGQpXJeJaplv",
-                  "public_url": "pyKLkKtTjRlOWQUKButY",
-                  "mime_type": "hkJKMwNONjPeJAjaDAmf",
-                  "filename": "MdhpHbwcEkZXskRxFQOf",
-                  "title": "uELDztnxZdVHQUqYqggo",
-                  "snippet": "EQzdlMmONFNYmQOUcxEq"
+                  "url": "PVKTBdWBwUfWNDdBUbOO",
+                  "public_url": "PBLznzUYDDPpLkwQldDy",
+                  "mime_type": "yYzXPgMVfNPosmrIVZxu",
+                  "filename": "hSmHIgGjEpjjutucovVa",
+                  "title": "DcpWijAmYMVfAZGpoNou",
+                  "snippet": "vxiOniXgATgjiKcMULcy"
                 },
                 {
-                  "url": "BdjnmlQuLdnfLUQKCCtK",
-                  "public_url": "fajNWnYNTERaptZTTdwC",
-                  "mime_type": "uPhLuVNEEOkqqeYKxKDm",
-                  "filename": "jfBurjMXKfifDfiinyep",
-                  "title": "nAOXUCTQefqyqpDeRoEB",
-                  "snippet": "fZAEwtbKrGwhFHQviChQ"
+                  "url": "bLbDGAxEXkjCalOzbNDq",
+                  "public_url": "lztCdDulrOcPuuEgWtaA",
+                  "mime_type": "ZqdPhGxYvlvDLTgOSuEN",
+                  "filename": "EcbEriQCrntdgcJqAVOX",
+                  "title": "GoEJPObbFApyOjZTXnNm",
+                  "snippet": "lKJfcZrNJZmZWmjnAPJl"
                 },
                 {
-                  "url": "TOoGsWFrmuigTnAphpLQ",
-                  "public_url": "nbQktRFJypfLVusmDkzD",
-                  "mime_type": "PVGEDHjOdPbWhxiSKoHU",
-                  "filename": "woDJkTspDXbyhjqfjTHh",
-                  "title": "fazkujkCeszRXcmNEyCS",
-                  "snippet": "DXWAKtMPkdazEVGtLyeq"
+                  "url": "vhFcVjmyiznGoXKyuHPD",
+                  "public_url": "NKALiItVvHcTorboBdqC",
+                  "mime_type": "TLZqeawwjOBYzGrMWXIp",
+                  "filename": "DbyLyFmorQcTYyoKsnTB",
+                  "title": "clSoyucYurvYofPfEGJZ",
+                  "snippet": "nLWWeSEvhZtlJxGewoQh"
                 }
               ]
             },
-            "data_text": "Search Result:\nOsuDVlsTGetQGFCaGmni                                                                                \n\nSources (3):\nuELDztnxZdVHQUqYqggo (ZZOPlVxXeGQpXJeJaplv)\n  EQzdlMmONFNYmQOUcxEq\n\nnAOXUCTQefqyqpDeRoEB (BdjnmlQuLdnfLUQKCCtK)\n  fZAEwtbKrGwhFHQviChQ\n\nfazkujkCeszRXcmNEyCS (TOoGsWFrmuigTnAphpLQ)\n  DXWAKtMPkdazEVGtLyeq\n",
-            "data_html": "<div><p>OsuDVlsTGetQGFCaGmni</p><h4>Sources</h4><ul><li><a href=\"pyKLkKtTjRlOWQUKButY\" class=\"msg-document\">uELDztnxZdVHQUqYqggo</a><br/><small>EQzdlMmONFNYmQOUcxEq</small></li><li><a href=\"fajNWnYNTERaptZTTdwC\" class=\"msg-document\">nAOXUCTQefqyqpDeRoEB</a><br/><small>fZAEwtbKrGwhFHQviChQ</small></li><li><a href=\"nbQktRFJypfLVusmDkzD\" class=\"msg-document\">fazkujkCeszRXcmNEyCS</a><br/><small>DXWAKtMPkdazEVGtLyeq</small></li></ul></div>",
+            "data_text": "Search Result:\nQnOlRjSXaUEFikELqgnR                                                                                \n\nSources (3):\nDcpWijAmYMVfAZGpoNou (PVKTBdWBwUfWNDdBUbOO)\n  vxiOniXgATgjiKcMULcy\n\nGoEJPObbFApyOjZTXnNm (bLbDGAxEXkjCalOzbNDq)\n  lKJfcZrNJZmZWmjnAPJl\n\nclSoyucYurvYofPfEGJZ (vhFcVjmyiznGoXKyuHPD)\n  nLWWeSEvhZtlJxGewoQh\n",
+            "data_html": "<div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -214,38 +277,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Qz9Ma",
+            "digest": "eVvqF",
             "data": {
-              "answer": "urJvnEmONzWmFOSiBxOm",
+              "answer": "BtXcZMETcslxNvLsYFAy",
               "sources": [
                 {
-                  "url": "BKvNnjHQkIgGumSZGsVd",
-                  "public_url": "WVgiXcfVDRxSAPoCyrvf",
-                  "mime_type": "wcaWHASdgakYiogNsQwp",
-                  "filename": "WBUfgyrRqgWUqgEuqNpD",
-                  "title": "ubrjHmLVwpuJHVzrXysS",
-                  "snippet": "jqgJHvJNtJHswGakWfGV"
+                  "url": "eLjRnQOEUeNMsvyHEoYG",
+                  "public_url": "oECnBjYGNHhCxtSdJxpi",
+                  "mime_type": "zRfOwdshIQLZeYSmFNtw",
+                  "filename": "uWlmzrmGwQbWfmqhBujd",
+                  "title": "IKnIsmmijHSUGNzemUBH",
+                  "snippet": "aOdhBJxbvTJHadpIDjWc"
                 },
                 {
-                  "url": "zpoitrXAbJjhCEoYbVNp",
-                  "public_url": "nwczFyJvExXhxlataSgj",
-                  "mime_type": "sNLCyeqsYbooyOekWNno",
-                  "filename": "UAzuNyaIbGAMXFbdgFfQ",
-                  "title": "tJGllqhaIYklubaZCEIp",
-                  "snippet": "kqbkQXHipIuJiTdaVEAd"
+                  "url": "BkDqDmwDlbuQyGNlfdCA",
+                  "public_url": "AtNNwTFvHppjqYnAHHBO",
+                  "mime_type": "CrnWURLmzxPkcWkebbQG",
+                  "filename": "nHInqMMolPrGFtEBRrsE",
+                  "title": "ZPfpJSSxgsWDEpgHOCzi",
+                  "snippet": "JsRjiLEkfrxBydPTCEIp"
                 },
                 {
-                  "url": "CfOAgGDfLlCNeXLwBOqS",
-                  "public_url": "bQAAcLRUSCTKdDFCeCRh",
-                  "mime_type": "TxHngLLckGkVfUwAPWgu",
-                  "filename": "ebzbcWbzVBdKmWYnUkuW",
-                  "title": "xofOwrWVlaYjExTQHzfO",
-                  "snippet": "cqzoLIniWXNwOpSgwVUL"
+                  "url": "JPexqtFUCuIltoCFPhvt",
+                  "public_url": "QYSCdemxkbasDOrbmhpJ",
+                  "mime_type": "aXIQivaXcrFudgWSfHZH",
+                  "filename": "DmrzHQbhiwksrRuNvoKF",
+                  "title": "BXmxXznhPDLaQSlGORHU",
+                  "snippet": "XTVnNhJdbBBhTiOpQFOQ"
                 }
               ]
             },
-            "data_text": "Search Result:\nurJvnEmONzWmFOSiBxOm                                                                                \n\nSources (3):\nubrjHmLVwpuJHVzrXysS (BKvNnjHQkIgGumSZGsVd)\n  jqgJHvJNtJHswGakWfGV\n\ntJGllqhaIYklubaZCEIp (zpoitrXAbJjhCEoYbVNp)\n  kqbkQXHipIuJiTdaVEAd\n\nxofOwrWVlaYjExTQHzfO (CfOAgGDfLlCNeXLwBOqS)\n  cqzoLIniWXNwOpSgwVUL\n",
-            "data_html": "<div><p>urJvnEmONzWmFOSiBxOm</p><h4>Sources</h4><ul><li><a href=\"WVgiXcfVDRxSAPoCyrvf\" class=\"msg-document\">ubrjHmLVwpuJHVzrXysS</a><br/><small>jqgJHvJNtJHswGakWfGV</small></li><li><a href=\"nwczFyJvExXhxlataSgj\" class=\"msg-document\">tJGllqhaIYklubaZCEIp</a><br/><small>kqbkQXHipIuJiTdaVEAd</small></li><li><a href=\"bQAAcLRUSCTKdDFCeCRh\" class=\"msg-document\">xofOwrWVlaYjExTQHzfO</a><br/><small>cqzoLIniWXNwOpSgwVUL</small></li></ul></div>",
+            "data_text": "Search Result:\nBtXcZMETcslxNvLsYFAy                                                                                \n\nSources (3):\nIKnIsmmijHSUGNzemUBH (eLjRnQOEUeNMsvyHEoYG)\n  aOdhBJxbvTJHadpIDjWc\n\nZPfpJSSxgsWDEpgHOCzi (BkDqDmwDlbuQyGNlfdCA)\n  JsRjiLEkfrxBydPTCEIp\n\nBXmxXznhPDLaQSlGORHU (JPexqtFUCuIltoCFPhvt)\n  XTVnNhJdbBBhTiOpQFOQ\n",
+            "data_html": "<div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -254,69 +317,69 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "UPios",
+            "digest": "mKpRd",
             "data": {
               "vector_results": {
-                "answer": "OsuDVlsTGetQGFCaGmni",
+                "answer": "QnOlRjSXaUEFikELqgnR",
                 "sources": [
                   {
-                    "url": "ZZOPlVxXeGQpXJeJaplv",
-                    "public_url": "pyKLkKtTjRlOWQUKButY",
-                    "mime_type": "hkJKMwNONjPeJAjaDAmf",
-                    "filename": "MdhpHbwcEkZXskRxFQOf",
-                    "title": "uELDztnxZdVHQUqYqggo",
-                    "snippet": "EQzdlMmONFNYmQOUcxEq"
+                    "url": "PVKTBdWBwUfWNDdBUbOO",
+                    "public_url": "PBLznzUYDDPpLkwQldDy",
+                    "mime_type": "yYzXPgMVfNPosmrIVZxu",
+                    "filename": "hSmHIgGjEpjjutucovVa",
+                    "title": "DcpWijAmYMVfAZGpoNou",
+                    "snippet": "vxiOniXgATgjiKcMULcy"
                   },
                   {
-                    "url": "BdjnmlQuLdnfLUQKCCtK",
-                    "public_url": "fajNWnYNTERaptZTTdwC",
-                    "mime_type": "uPhLuVNEEOkqqeYKxKDm",
-                    "filename": "jfBurjMXKfifDfiinyep",
-                    "title": "nAOXUCTQefqyqpDeRoEB",
-                    "snippet": "fZAEwtbKrGwhFHQviChQ"
+                    "url": "bLbDGAxEXkjCalOzbNDq",
+                    "public_url": "lztCdDulrOcPuuEgWtaA",
+                    "mime_type": "ZqdPhGxYvlvDLTgOSuEN",
+                    "filename": "EcbEriQCrntdgcJqAVOX",
+                    "title": "GoEJPObbFApyOjZTXnNm",
+                    "snippet": "lKJfcZrNJZmZWmjnAPJl"
                   },
                   {
-                    "url": "TOoGsWFrmuigTnAphpLQ",
-                    "public_url": "nbQktRFJypfLVusmDkzD",
-                    "mime_type": "PVGEDHjOdPbWhxiSKoHU",
-                    "filename": "woDJkTspDXbyhjqfjTHh",
-                    "title": "fazkujkCeszRXcmNEyCS",
-                    "snippet": "DXWAKtMPkdazEVGtLyeq"
+                    "url": "vhFcVjmyiznGoXKyuHPD",
+                    "public_url": "NKALiItVvHcTorboBdqC",
+                    "mime_type": "TLZqeawwjOBYzGrMWXIp",
+                    "filename": "DbyLyFmorQcTYyoKsnTB",
+                    "title": "clSoyucYurvYofPfEGJZ",
+                    "snippet": "nLWWeSEvhZtlJxGewoQh"
                   }
                 ]
               },
               "keyword_results": {
-                "answer": "urJvnEmONzWmFOSiBxOm",
+                "answer": "BtXcZMETcslxNvLsYFAy",
                 "sources": [
                   {
-                    "url": "BKvNnjHQkIgGumSZGsVd",
-                    "public_url": "WVgiXcfVDRxSAPoCyrvf",
-                    "mime_type": "wcaWHASdgakYiogNsQwp",
-                    "filename": "WBUfgyrRqgWUqgEuqNpD",
-                    "title": "ubrjHmLVwpuJHVzrXysS",
-                    "snippet": "jqgJHvJNtJHswGakWfGV"
+                    "url": "eLjRnQOEUeNMsvyHEoYG",
+                    "public_url": "oECnBjYGNHhCxtSdJxpi",
+                    "mime_type": "zRfOwdshIQLZeYSmFNtw",
+                    "filename": "uWlmzrmGwQbWfmqhBujd",
+                    "title": "IKnIsmmijHSUGNzemUBH",
+                    "snippet": "aOdhBJxbvTJHadpIDjWc"
                   },
                   {
-                    "url": "zpoitrXAbJjhCEoYbVNp",
-                    "public_url": "nwczFyJvExXhxlataSgj",
-                    "mime_type": "sNLCyeqsYbooyOekWNno",
-                    "filename": "UAzuNyaIbGAMXFbdgFfQ",
-                    "title": "tJGllqhaIYklubaZCEIp",
-                    "snippet": "kqbkQXHipIuJiTdaVEAd"
+                    "url": "BkDqDmwDlbuQyGNlfdCA",
+                    "public_url": "AtNNwTFvHppjqYnAHHBO",
+                    "mime_type": "CrnWURLmzxPkcWkebbQG",
+                    "filename": "nHInqMMolPrGFtEBRrsE",
+                    "title": "ZPfpJSSxgsWDEpgHOCzi",
+                    "snippet": "JsRjiLEkfrxBydPTCEIp"
                   },
                   {
-                    "url": "CfOAgGDfLlCNeXLwBOqS",
-                    "public_url": "bQAAcLRUSCTKdDFCeCRh",
-                    "mime_type": "TxHngLLckGkVfUwAPWgu",
-                    "filename": "ebzbcWbzVBdKmWYnUkuW",
-                    "title": "xofOwrWVlaYjExTQHzfO",
-                    "snippet": "cqzoLIniWXNwOpSgwVUL"
+                    "url": "JPexqtFUCuIltoCFPhvt",
+                    "public_url": "QYSCdemxkbasDOrbmhpJ",
+                    "mime_type": "aXIQivaXcrFudgWSfHZH",
+                    "filename": "DmrzHQbhiwksrRuNvoKF",
+                    "title": "BXmxXznhPDLaQSlGORHU",
+                    "snippet": "XTVnNhJdbBBhTiOpQFOQ"
                   }
                 ]
               }
             },
-            "data_text": "{\n    \"vector_results\": {\n        \"answer\": \"OsuDVlsTGetQGFCaGmni\",\n        \"sources\": [\n            {\n                \"url\": \"ZZOPlVxXeGQpXJeJaplv\",\n                \"public_url\": \"pyKLkKtTjRlOWQUKButY\",\n                \"mime_type\": \"hkJKMwNONjPeJAjaDAmf\",\n                \"filename\": \"MdhpHbwcEkZXskRxFQOf\",\n                \"title\": \"uELDztnxZdVHQUqYqggo\",\n                \"snippet\": \"EQzdlMmONFNYmQOUcxEq\"\n            },\n            {\n                \"url\": \"BdjnmlQuLdnfLUQKCCtK\",\n                \"public_url\": \"fajNWnYNTERaptZTTdwC\",\n                \"mime_type\": \"uPhLuVNEEOkqqeYKxKDm\",\n                \"filename\": \"jfBurjMXKfifDfiinyep\",\n                \"title\": \"nAOXUCTQefqyqpDeRoEB\",\n                \"snippet\": \"fZAEwtbKrGwhFHQviChQ\"\n            },\n            {\n                \"url\": \"TOoGsWFrmuigTnAphpLQ\",\n                \"public_url\": \"nbQktRFJypfLVusmDkzD\",\n                \"mime_type\": \"PVGEDHjOdPbWhxiSKoHU\",\n                \"filename\": \"woDJkTspDXbyhjqfjTHh\",\n                \"title\": \"fazkujkCeszRXcmNEyCS\",\n                \"snippet\": \"DXWAKtMPkdazEVGtLyeq\"\n            }\n        ]\n    },\n    \"keyword_results\": {\n        \"answer\": \"urJvnEmONzWmFOSiBxOm\",\n        \"sources\": [\n            {\n                \"url\": \"BKvNnjHQkIgGumSZGsVd\",\n                \"public_url\": \"WVgiXcfVDRxSAPoCyrvf\",\n                \"mime_type\": \"wcaWHASdgakYiogNsQwp\",\n                \"filename\": \"WBUfgyrRqgWUqgEuqNpD\",\n                \"title\": \"ubrjHmLVwpuJHVzrXysS\",\n                \"snippet\": \"jqgJHvJNtJHswGakWfGV\"\n            },\n            {\n                \"url\": \"zpoitrXAbJjhCEoYbVNp\",\n                \"public_url\": \"nwczFyJvExXhxlataSgj\",\n                \"mime_type\": \"sNLCyeqsYbooyOekWNno\",\n                \"filename\": \"UAzuNyaIbGAMXFbdgFfQ\",\n                \"title\": \"tJGllqhaIYklubaZCEIp\",\n                \"snippet\": \"kqbkQXHipIuJiTdaVEAd\"\n            },\n            {\n                \"url\": \"CfOAgGDfLlCNeXLwBOqS\",\n                \"public_url\": \"bQAAcLRUSCTKdDFCeCRh\",\n                \"mime_type\": \"TxHngLLckGkVfUwAPWgu\",\n                \"filename\": \"ebzbcWbzVBdKmWYnUkuW\",\n                \"title\": \"xofOwrWVlaYjExTQHzfO\",\n                \"snippet\": \"cqzoLIniWXNwOpSgwVUL\"\n            }\n        ]\n    }\n}\n",
-            "data_html": "<table><tr><th>vector_results</th><td><div><p>OsuDVlsTGetQGFCaGmni</p><h4>Sources</h4><ul><li><a href=\"pyKLkKtTjRlOWQUKButY\" class=\"msg-document\">uELDztnxZdVHQUqYqggo</a><br/><small>EQzdlMmONFNYmQOUcxEq</small></li><li><a href=\"fajNWnYNTERaptZTTdwC\" class=\"msg-document\">nAOXUCTQefqyqpDeRoEB</a><br/><small>fZAEwtbKrGwhFHQviChQ</small></li><li><a href=\"nbQktRFJypfLVusmDkzD\" class=\"msg-document\">fazkujkCeszRXcmNEyCS</a><br/><small>DXWAKtMPkdazEVGtLyeq</small></li></ul></div></td></tr><tr><th>keyword_results</th><td><div><p>urJvnEmONzWmFOSiBxOm</p><h4>Sources</h4><ul><li><a href=\"WVgiXcfVDRxSAPoCyrvf\" class=\"msg-document\">ubrjHmLVwpuJHVzrXysS</a><br/><small>jqgJHvJNtJHswGakWfGV</small></li><li><a href=\"nwczFyJvExXhxlataSgj\" class=\"msg-document\">tJGllqhaIYklubaZCEIp</a><br/><small>kqbkQXHipIuJiTdaVEAd</small></li><li><a href=\"bQAAcLRUSCTKdDFCeCRh\" class=\"msg-document\">xofOwrWVlaYjExTQHzfO</a><br/><small>cqzoLIniWXNwOpSgwVUL</small></li></ul></div></td></tr></table>",
+            "data_text": "{\n    \"vector_results\": {\n        \"answer\": \"QnOlRjSXaUEFikELqgnR\",\n        \"sources\": [\n            {\n                \"url\": \"PVKTBdWBwUfWNDdBUbOO\",\n                \"public_url\": \"PBLznzUYDDPpLkwQldDy\",\n                \"mime_type\": \"yYzXPgMVfNPosmrIVZxu\",\n                \"filename\": \"hSmHIgGjEpjjutucovVa\",\n                \"title\": \"DcpWijAmYMVfAZGpoNou\",\n                \"snippet\": \"vxiOniXgATgjiKcMULcy\"\n            },\n            {\n                \"url\": \"bLbDGAxEXkjCalOzbNDq\",\n                \"public_url\": \"lztCdDulrOcPuuEgWtaA\",\n                \"mime_type\": \"ZqdPhGxYvlvDLTgOSuEN\",\n                \"filename\": \"EcbEriQCrntdgcJqAVOX\",\n                \"title\": \"GoEJPObbFApyOjZTXnNm\",\n                \"snippet\": \"lKJfcZrNJZmZWmjnAPJl\"\n            },\n            {\n                \"url\": \"vhFcVjmyiznGoXKyuHPD\",\n                \"public_url\": \"NKALiItVvHcTorboBdqC\",\n                \"mime_type\": \"TLZqeawwjOBYzGrMWXIp\",\n                \"filename\": \"DbyLyFmorQcTYyoKsnTB\",\n                \"title\": \"clSoyucYurvYofPfEGJZ\",\n                \"snippet\": \"nLWWeSEvhZtlJxGewoQh\"\n            }\n        ]\n    },\n    \"keyword_results\": {\n        \"answer\": \"BtXcZMETcslxNvLsYFAy\",\n        \"sources\": [\n            {\n                \"url\": \"eLjRnQOEUeNMsvyHEoYG\",\n                \"public_url\": \"oECnBjYGNHhCxtSdJxpi\",\n                \"mime_type\": \"zRfOwdshIQLZeYSmFNtw\",\n                \"filename\": \"uWlmzrmGwQbWfmqhBujd\",\n                \"title\": \"IKnIsmmijHSUGNzemUBH\",\n                \"snippet\": \"aOdhBJxbvTJHadpIDjWc\"\n            },\n            {\n                \"url\": \"BkDqDmwDlbuQyGNlfdCA\",\n                \"public_url\": \"AtNNwTFvHppjqYnAHHBO\",\n                \"mime_type\": \"CrnWURLmzxPkcWkebbQG\",\n                \"filename\": \"nHInqMMolPrGFtEBRrsE\",\n                \"title\": \"ZPfpJSSxgsWDEpgHOCzi\",\n                \"snippet\": \"JsRjiLEkfrxBydPTCEIp\"\n            },\n            {\n                \"url\": \"JPexqtFUCuIltoCFPhvt\",\n                \"public_url\": \"QYSCdemxkbasDOrbmhpJ\",\n                \"mime_type\": \"aXIQivaXcrFudgWSfHZH\",\n                \"filename\": \"DmrzHQbhiwksrRuNvoKF\",\n                \"title\": \"BXmxXznhPDLaQSlGORHU\",\n                \"snippet\": \"XTVnNhJdbBBhTiOpQFOQ\"\n            }\n        ]\n    }\n}\n",
+            "data_html": "<table><tr><th>vector_results</th><td><div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div></td></tr><tr><th>keyword_results</th><td><div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div></td></tr></table>",
             "extra": {}
           }
         ]
@@ -324,6 +387,24 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
         "branch_count": 2,
         "add_each_output": true,
@@ -331,7 +412,7 @@
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_3",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_3",
       "kind": "operator",
       "pipe_code": "vector_search",
       "pipe_type": "PipeSearch",
@@ -340,9 +421,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.423479Z",
-        "ended_at": "2026-07-09T11:03:29.434118Z",
-        "duration": 0.010639
+        "started_at": "2026-08-14T10:49:12.206239Z",
+        "ended_at": "2026-08-14T10:49:12.219258Z",
+        "duration": 0.013019
       },
       "io": {
         "inputs": [
@@ -352,12 +433,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "BGHDD",
+            "digest": "mgUcq",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nZpFFHUMStIFPvVtdOzDr\n</question>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nZpFFHUMStIFPvVtdOzDr\n&lt;/question&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nzsvZsYnDyEnmXyqinAcc\n&lt;/question&gt;\n    ",
             "extra": {}
           }
         ],
@@ -368,38 +449,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jhBW6",
+            "digest": "EKJfN",
             "data": {
-              "answer": "OsuDVlsTGetQGFCaGmni",
+              "answer": "QnOlRjSXaUEFikELqgnR",
               "sources": [
                 {
-                  "url": "ZZOPlVxXeGQpXJeJaplv",
-                  "public_url": "pyKLkKtTjRlOWQUKButY",
-                  "mime_type": "hkJKMwNONjPeJAjaDAmf",
-                  "filename": "MdhpHbwcEkZXskRxFQOf",
-                  "title": "uELDztnxZdVHQUqYqggo",
-                  "snippet": "EQzdlMmONFNYmQOUcxEq"
+                  "url": "PVKTBdWBwUfWNDdBUbOO",
+                  "public_url": "PBLznzUYDDPpLkwQldDy",
+                  "mime_type": "yYzXPgMVfNPosmrIVZxu",
+                  "filename": "hSmHIgGjEpjjutucovVa",
+                  "title": "DcpWijAmYMVfAZGpoNou",
+                  "snippet": "vxiOniXgATgjiKcMULcy"
                 },
                 {
-                  "url": "BdjnmlQuLdnfLUQKCCtK",
-                  "public_url": "fajNWnYNTERaptZTTdwC",
-                  "mime_type": "uPhLuVNEEOkqqeYKxKDm",
-                  "filename": "jfBurjMXKfifDfiinyep",
-                  "title": "nAOXUCTQefqyqpDeRoEB",
-                  "snippet": "fZAEwtbKrGwhFHQviChQ"
+                  "url": "bLbDGAxEXkjCalOzbNDq",
+                  "public_url": "lztCdDulrOcPuuEgWtaA",
+                  "mime_type": "ZqdPhGxYvlvDLTgOSuEN",
+                  "filename": "EcbEriQCrntdgcJqAVOX",
+                  "title": "GoEJPObbFApyOjZTXnNm",
+                  "snippet": "lKJfcZrNJZmZWmjnAPJl"
                 },
                 {
-                  "url": "TOoGsWFrmuigTnAphpLQ",
-                  "public_url": "nbQktRFJypfLVusmDkzD",
-                  "mime_type": "PVGEDHjOdPbWhxiSKoHU",
-                  "filename": "woDJkTspDXbyhjqfjTHh",
-                  "title": "fazkujkCeszRXcmNEyCS",
-                  "snippet": "DXWAKtMPkdazEVGtLyeq"
+                  "url": "vhFcVjmyiznGoXKyuHPD",
+                  "public_url": "NKALiItVvHcTorboBdqC",
+                  "mime_type": "TLZqeawwjOBYzGrMWXIp",
+                  "filename": "DbyLyFmorQcTYyoKsnTB",
+                  "title": "clSoyucYurvYofPfEGJZ",
+                  "snippet": "nLWWeSEvhZtlJxGewoQh"
                 }
               ]
             },
-            "data_text": "Search Result:\nOsuDVlsTGetQGFCaGmni                                                                                \n\nSources (3):\nuELDztnxZdVHQUqYqggo (ZZOPlVxXeGQpXJeJaplv)\n  EQzdlMmONFNYmQOUcxEq\n\nnAOXUCTQefqyqpDeRoEB (BdjnmlQuLdnfLUQKCCtK)\n  fZAEwtbKrGwhFHQviChQ\n\nfazkujkCeszRXcmNEyCS (TOoGsWFrmuigTnAphpLQ)\n  DXWAKtMPkdazEVGtLyeq\n",
-            "data_html": "<div><p>OsuDVlsTGetQGFCaGmni</p><h4>Sources</h4><ul><li><a href=\"pyKLkKtTjRlOWQUKButY\" class=\"msg-document\">uELDztnxZdVHQUqYqggo</a><br/><small>EQzdlMmONFNYmQOUcxEq</small></li><li><a href=\"fajNWnYNTERaptZTTdwC\" class=\"msg-document\">nAOXUCTQefqyqpDeRoEB</a><br/><small>fZAEwtbKrGwhFHQviChQ</small></li><li><a href=\"nbQktRFJypfLVusmDkzD\" class=\"msg-document\">fazkujkCeszRXcmNEyCS</a><br/><small>DXWAKtMPkdazEVGtLyeq</small></li></ul></div>",
+            "data_text": "Search Result:\nQnOlRjSXaUEFikELqgnR                                                                                \n\nSources (3):\nDcpWijAmYMVfAZGpoNou (PVKTBdWBwUfWNDdBUbOO)\n  vxiOniXgATgjiKcMULcy\n\nGoEJPObbFApyOjZTXnNm (bLbDGAxEXkjCalOzbNDq)\n  lKJfcZrNJZmZWmjnAPJl\n\nclSoyucYurvYofPfEGJZ (vhFcVjmyiznGoXKyuHPD)\n  nLWWeSEvhZtlJxGewoQh\n",
+            "data_html": "<div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -407,14 +488,32 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
-        "rendered_query": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nZpFFHUMStIFPvVtdOzDr\n</question>\n    ",
+        "rendered_query": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>\n    ",
         "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_4",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_4",
       "kind": "operator",
       "pipe_code": "keyword_search",
       "pipe_type": "PipeSearch",
@@ -423,9 +522,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.435059Z",
-        "ended_at": "2026-07-09T11:03:29.445236Z",
-        "duration": 0.010177
+        "started_at": "2026-08-14T10:49:12.223234Z",
+        "ended_at": "2026-08-14T10:49:12.230822Z",
+        "duration": 0.007588
       },
       "io": {
         "inputs": [
@@ -435,12 +534,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           }
         ],
@@ -451,38 +550,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Qz9Ma",
+            "digest": "eVvqF",
             "data": {
-              "answer": "urJvnEmONzWmFOSiBxOm",
+              "answer": "BtXcZMETcslxNvLsYFAy",
               "sources": [
                 {
-                  "url": "BKvNnjHQkIgGumSZGsVd",
-                  "public_url": "WVgiXcfVDRxSAPoCyrvf",
-                  "mime_type": "wcaWHASdgakYiogNsQwp",
-                  "filename": "WBUfgyrRqgWUqgEuqNpD",
-                  "title": "ubrjHmLVwpuJHVzrXysS",
-                  "snippet": "jqgJHvJNtJHswGakWfGV"
+                  "url": "eLjRnQOEUeNMsvyHEoYG",
+                  "public_url": "oECnBjYGNHhCxtSdJxpi",
+                  "mime_type": "zRfOwdshIQLZeYSmFNtw",
+                  "filename": "uWlmzrmGwQbWfmqhBujd",
+                  "title": "IKnIsmmijHSUGNzemUBH",
+                  "snippet": "aOdhBJxbvTJHadpIDjWc"
                 },
                 {
-                  "url": "zpoitrXAbJjhCEoYbVNp",
-                  "public_url": "nwczFyJvExXhxlataSgj",
-                  "mime_type": "sNLCyeqsYbooyOekWNno",
-                  "filename": "UAzuNyaIbGAMXFbdgFfQ",
-                  "title": "tJGllqhaIYklubaZCEIp",
-                  "snippet": "kqbkQXHipIuJiTdaVEAd"
+                  "url": "BkDqDmwDlbuQyGNlfdCA",
+                  "public_url": "AtNNwTFvHppjqYnAHHBO",
+                  "mime_type": "CrnWURLmzxPkcWkebbQG",
+                  "filename": "nHInqMMolPrGFtEBRrsE",
+                  "title": "ZPfpJSSxgsWDEpgHOCzi",
+                  "snippet": "JsRjiLEkfrxBydPTCEIp"
                 },
                 {
-                  "url": "CfOAgGDfLlCNeXLwBOqS",
-                  "public_url": "bQAAcLRUSCTKdDFCeCRh",
-                  "mime_type": "TxHngLLckGkVfUwAPWgu",
-                  "filename": "ebzbcWbzVBdKmWYnUkuW",
-                  "title": "xofOwrWVlaYjExTQHzfO",
-                  "snippet": "cqzoLIniWXNwOpSgwVUL"
+                  "url": "JPexqtFUCuIltoCFPhvt",
+                  "public_url": "QYSCdemxkbasDOrbmhpJ",
+                  "mime_type": "aXIQivaXcrFudgWSfHZH",
+                  "filename": "DmrzHQbhiwksrRuNvoKF",
+                  "title": "BXmxXznhPDLaQSlGORHU",
+                  "snippet": "XTVnNhJdbBBhTiOpQFOQ"
                 }
               ]
             },
-            "data_text": "Search Result:\nurJvnEmONzWmFOSiBxOm                                                                                \n\nSources (3):\nubrjHmLVwpuJHVzrXysS (BKvNnjHQkIgGumSZGsVd)\n  jqgJHvJNtJHswGakWfGV\n\ntJGllqhaIYklubaZCEIp (zpoitrXAbJjhCEoYbVNp)\n  kqbkQXHipIuJiTdaVEAd\n\nxofOwrWVlaYjExTQHzfO (CfOAgGDfLlCNeXLwBOqS)\n  cqzoLIniWXNwOpSgwVUL\n",
-            "data_html": "<div><p>urJvnEmONzWmFOSiBxOm</p><h4>Sources</h4><ul><li><a href=\"WVgiXcfVDRxSAPoCyrvf\" class=\"msg-document\">ubrjHmLVwpuJHVzrXysS</a><br/><small>jqgJHvJNtJHswGakWfGV</small></li><li><a href=\"nwczFyJvExXhxlataSgj\" class=\"msg-document\">tJGllqhaIYklubaZCEIp</a><br/><small>kqbkQXHipIuJiTdaVEAd</small></li><li><a href=\"bQAAcLRUSCTKdDFCeCRh\" class=\"msg-document\">xofOwrWVlaYjExTQHzfO</a><br/><small>cqzoLIniWXNwOpSgwVUL</small></li></ul></div>",
+            "data_text": "Search Result:\nBtXcZMETcslxNvLsYFAy                                                                                \n\nSources (3):\nIKnIsmmijHSUGNzemUBH (eLjRnQOEUeNMsvyHEoYG)\n  aOdhBJxbvTJHadpIDjWc\n\nZPfpJSSxgsWDEpgHOCzi (BkDqDmwDlbuQyGNlfdCA)\n  JsRjiLEkfrxBydPTCEIp\n\nBXmxXznhPDLaQSlGORHU (JPexqtFUCuIltoCFPhvt)\n  XTVnNhJdbBBhTiOpQFOQ\n",
+            "data_html": "<div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div>",
             "extra": {}
           }
         ]
@@ -490,14 +589,32 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
-        "rendered_query": "ZpFFHUMStIFPvVtdOzDr",
+        "rendered_query": "zsvZsYnDyEnmXyqinAcc",
         "resolved_model": "linkup-standard",
         "is_structured_output": false
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_5",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_5",
       "kind": "operator",
       "pipe_code": "rerank_results",
       "pipe_type": "PipeLLM",
@@ -506,9 +623,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.460788Z",
-        "ended_at": "2026-07-09T11:03:29.479707Z",
-        "duration": 0.018919
+        "started_at": "2026-08-14T10:49:12.286702Z",
+        "ended_at": "2026-08-14T10:49:12.299313Z",
+        "duration": 0.012611
       },
       "io": {
         "inputs": [
@@ -518,38 +635,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "jhBW6",
+            "digest": "EKJfN",
             "data": {
-              "answer": "OsuDVlsTGetQGFCaGmni",
+              "answer": "QnOlRjSXaUEFikELqgnR",
               "sources": [
                 {
-                  "url": "ZZOPlVxXeGQpXJeJaplv",
-                  "public_url": "pyKLkKtTjRlOWQUKButY",
-                  "mime_type": "hkJKMwNONjPeJAjaDAmf",
-                  "filename": "MdhpHbwcEkZXskRxFQOf",
-                  "title": "uELDztnxZdVHQUqYqggo",
-                  "snippet": "EQzdlMmONFNYmQOUcxEq"
+                  "url": "PVKTBdWBwUfWNDdBUbOO",
+                  "public_url": "PBLznzUYDDPpLkwQldDy",
+                  "mime_type": "yYzXPgMVfNPosmrIVZxu",
+                  "filename": "hSmHIgGjEpjjutucovVa",
+                  "title": "DcpWijAmYMVfAZGpoNou",
+                  "snippet": "vxiOniXgATgjiKcMULcy"
                 },
                 {
-                  "url": "BdjnmlQuLdnfLUQKCCtK",
-                  "public_url": "fajNWnYNTERaptZTTdwC",
-                  "mime_type": "uPhLuVNEEOkqqeYKxKDm",
-                  "filename": "jfBurjMXKfifDfiinyep",
-                  "title": "nAOXUCTQefqyqpDeRoEB",
-                  "snippet": "fZAEwtbKrGwhFHQviChQ"
+                  "url": "bLbDGAxEXkjCalOzbNDq",
+                  "public_url": "lztCdDulrOcPuuEgWtaA",
+                  "mime_type": "ZqdPhGxYvlvDLTgOSuEN",
+                  "filename": "EcbEriQCrntdgcJqAVOX",
+                  "title": "GoEJPObbFApyOjZTXnNm",
+                  "snippet": "lKJfcZrNJZmZWmjnAPJl"
                 },
                 {
-                  "url": "TOoGsWFrmuigTnAphpLQ",
-                  "public_url": "nbQktRFJypfLVusmDkzD",
-                  "mime_type": "PVGEDHjOdPbWhxiSKoHU",
-                  "filename": "woDJkTspDXbyhjqfjTHh",
-                  "title": "fazkujkCeszRXcmNEyCS",
-                  "snippet": "DXWAKtMPkdazEVGtLyeq"
+                  "url": "vhFcVjmyiznGoXKyuHPD",
+                  "public_url": "NKALiItVvHcTorboBdqC",
+                  "mime_type": "TLZqeawwjOBYzGrMWXIp",
+                  "filename": "DbyLyFmorQcTYyoKsnTB",
+                  "title": "clSoyucYurvYofPfEGJZ",
+                  "snippet": "nLWWeSEvhZtlJxGewoQh"
                 }
               ]
             },
-            "data_text": "Search Result:\nOsuDVlsTGetQGFCaGmni                                                                                \n\nSources (3):\nuELDztnxZdVHQUqYqggo (ZZOPlVxXeGQpXJeJaplv)\n  EQzdlMmONFNYmQOUcxEq\n\nnAOXUCTQefqyqpDeRoEB (BdjnmlQuLdnfLUQKCCtK)\n  fZAEwtbKrGwhFHQviChQ\n\nfazkujkCeszRXcmNEyCS (TOoGsWFrmuigTnAphpLQ)\n  DXWAKtMPkdazEVGtLyeq\n",
-            "data_html": "<div><p>OsuDVlsTGetQGFCaGmni</p><h4>Sources</h4><ul><li><a href=\"pyKLkKtTjRlOWQUKButY\" class=\"msg-document\">uELDztnxZdVHQUqYqggo</a><br/><small>EQzdlMmONFNYmQOUcxEq</small></li><li><a href=\"fajNWnYNTERaptZTTdwC\" class=\"msg-document\">nAOXUCTQefqyqpDeRoEB</a><br/><small>fZAEwtbKrGwhFHQviChQ</small></li><li><a href=\"nbQktRFJypfLVusmDkzD\" class=\"msg-document\">fazkujkCeszRXcmNEyCS</a><br/><small>DXWAKtMPkdazEVGtLyeq</small></li></ul></div>",
+            "data_text": "Search Result:\nQnOlRjSXaUEFikELqgnR                                                                                \n\nSources (3):\nDcpWijAmYMVfAZGpoNou (PVKTBdWBwUfWNDdBUbOO)\n  vxiOniXgATgjiKcMULcy\n\nGoEJPObbFApyOjZTXnNm (bLbDGAxEXkjCalOzbNDq)\n  lKJfcZrNJZmZWmjnAPJl\n\nclSoyucYurvYofPfEGJZ (vhFcVjmyiznGoXKyuHPD)\n  nLWWeSEvhZtlJxGewoQh\n",
+            "data_html": "<div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -558,38 +675,38 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "Qz9Ma",
+            "digest": "eVvqF",
             "data": {
-              "answer": "urJvnEmONzWmFOSiBxOm",
+              "answer": "BtXcZMETcslxNvLsYFAy",
               "sources": [
                 {
-                  "url": "BKvNnjHQkIgGumSZGsVd",
-                  "public_url": "WVgiXcfVDRxSAPoCyrvf",
-                  "mime_type": "wcaWHASdgakYiogNsQwp",
-                  "filename": "WBUfgyrRqgWUqgEuqNpD",
-                  "title": "ubrjHmLVwpuJHVzrXysS",
-                  "snippet": "jqgJHvJNtJHswGakWfGV"
+                  "url": "eLjRnQOEUeNMsvyHEoYG",
+                  "public_url": "oECnBjYGNHhCxtSdJxpi",
+                  "mime_type": "zRfOwdshIQLZeYSmFNtw",
+                  "filename": "uWlmzrmGwQbWfmqhBujd",
+                  "title": "IKnIsmmijHSUGNzemUBH",
+                  "snippet": "aOdhBJxbvTJHadpIDjWc"
                 },
                 {
-                  "url": "zpoitrXAbJjhCEoYbVNp",
-                  "public_url": "nwczFyJvExXhxlataSgj",
-                  "mime_type": "sNLCyeqsYbooyOekWNno",
-                  "filename": "UAzuNyaIbGAMXFbdgFfQ",
-                  "title": "tJGllqhaIYklubaZCEIp",
-                  "snippet": "kqbkQXHipIuJiTdaVEAd"
+                  "url": "BkDqDmwDlbuQyGNlfdCA",
+                  "public_url": "AtNNwTFvHppjqYnAHHBO",
+                  "mime_type": "CrnWURLmzxPkcWkebbQG",
+                  "filename": "nHInqMMolPrGFtEBRrsE",
+                  "title": "ZPfpJSSxgsWDEpgHOCzi",
+                  "snippet": "JsRjiLEkfrxBydPTCEIp"
                 },
                 {
-                  "url": "CfOAgGDfLlCNeXLwBOqS",
-                  "public_url": "bQAAcLRUSCTKdDFCeCRh",
-                  "mime_type": "TxHngLLckGkVfUwAPWgu",
-                  "filename": "ebzbcWbzVBdKmWYnUkuW",
-                  "title": "xofOwrWVlaYjExTQHzfO",
-                  "snippet": "cqzoLIniWXNwOpSgwVUL"
+                  "url": "JPexqtFUCuIltoCFPhvt",
+                  "public_url": "QYSCdemxkbasDOrbmhpJ",
+                  "mime_type": "aXIQivaXcrFudgWSfHZH",
+                  "filename": "DmrzHQbhiwksrRuNvoKF",
+                  "title": "BXmxXznhPDLaQSlGORHU",
+                  "snippet": "XTVnNhJdbBBhTiOpQFOQ"
                 }
               ]
             },
-            "data_text": "Search Result:\nurJvnEmONzWmFOSiBxOm                                                                                \n\nSources (3):\nubrjHmLVwpuJHVzrXysS (BKvNnjHQkIgGumSZGsVd)\n  jqgJHvJNtJHswGakWfGV\n\ntJGllqhaIYklubaZCEIp (zpoitrXAbJjhCEoYbVNp)\n  kqbkQXHipIuJiTdaVEAd\n\nxofOwrWVlaYjExTQHzfO (CfOAgGDfLlCNeXLwBOqS)\n  cqzoLIniWXNwOpSgwVUL\n",
-            "data_html": "<div><p>urJvnEmONzWmFOSiBxOm</p><h4>Sources</h4><ul><li><a href=\"WVgiXcfVDRxSAPoCyrvf\" class=\"msg-document\">ubrjHmLVwpuJHVzrXysS</a><br/><small>jqgJHvJNtJHswGakWfGV</small></li><li><a href=\"nwczFyJvExXhxlataSgj\" class=\"msg-document\">tJGllqhaIYklubaZCEIp</a><br/><small>kqbkQXHipIuJiTdaVEAd</small></li><li><a href=\"bQAAcLRUSCTKdDFCeCRh\" class=\"msg-document\">xofOwrWVlaYjExTQHzfO</a><br/><small>cqzoLIniWXNwOpSgwVUL</small></li></ul></div>",
+            "data_text": "Search Result:\nBtXcZMETcslxNvLsYFAy                                                                                \n\nSources (3):\nIKnIsmmijHSUGNzemUBH (eLjRnQOEUeNMsvyHEoYG)\n  aOdhBJxbvTJHadpIDjWc\n\nZPfpJSSxgsWDEpgHOCzi (BkDqDmwDlbuQyGNlfdCA)\n  JsRjiLEkfrxBydPTCEIp\n\nBXmxXznhPDLaQSlGORHU (JPexqtFUCuIltoCFPhvt)\n  XTVnNhJdbBBhTiOpQFOQ\n",
+            "data_html": "<div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div>",
             "extra": {}
           },
           {
@@ -598,12 +715,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           }
         ],
@@ -614,12 +731,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "aQZfG",
+            "digest": "DHQok",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpD\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nZpFFHUMStIFPvVtdOzDr                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> OsuDVlsTGetQGFCaGmni                                               \n\nSources:                                                                                            \n\n • uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv EQzdlMmONFNYmQOUcxEq                                  \n • nAOXUCTQefqyqpD                                                                                  \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpD\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nzsvZsYnDyEnmXyqinAcc                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> QnOlRjSXaUEFikELqgnR                                               \n\nSources:                                                                                            \n\n • DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO vxiOniXgATgjiKcMULcy                                  \n • GoEJPObbFApyOjZ                                                                                  \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    ",
             "extra": {}
           }
         ]
@@ -627,17 +744,53 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpDeRoEB: BdjnmlQuLdnfLUQKCCtK\n  fZAEwtbKrGwhFHQviChQ\n- fazkujkCeszRXcmNEyCS: TOoGsWFrmuigTnAphpLQ\n  DXWAKtMPkdazEVGtLyeq\n</vector_results>\n\nKeyword results:\n<keyword_results>\nurJvnEmONzWmFOSiBxOm\n\nSources:\n- ubrjHmLVwpuJHVzrXysS: BKvNnjHQkIgGumSZGsVd\n  jqgJHvJNtJHswGakWfGV\n- tJGllqhaIYklubaZCEIp: zpoitrXAbJjhCEoYbVNp\n  kqbkQXHipIuJiTdaVEAd\n- xofOwrWVlaYjExTQHzfO: CfOAgGDfLlCNeXLwBOqS\n  cqzoLIniWXNwOpSgwVUL\n</keyword_results>",
+        "rendered_user_prompt": "Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZTXnNm: bLbDGAxEXkjCalOzbNDq\n  lKJfcZrNJZmZWmjnAPJl\n- clSoyucYurvYofPfEGJZ: vhFcVjmyiznGoXKyuHPD\n  nLWWeSEvhZtlJxGewoQh\n</vector_results>\n\nKeyword results:\n<keyword_results>\nBtXcZMETcslxNvLsYFAy\n\nSources:\n- IKnIsmmijHSUGNzemUBH: eLjRnQOEUeNMsvyHEoYG\n  aOdhBJxbvTJHadpIDjWc\n- ZPfpJSSxgsWDEpgHOCzi: BkDqDmwDlbuQyGNlfdCA\n  JsRjiLEkfrxBydPTCEIp\n- BXmxXznhPDLaQSlGORHU: JPexqtFUCuIltoCFPhvt\n  XTVnNhJdbBBhTiOpQFOQ\n</keyword_results>",
         "structuring_path": "text"
       }
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_6",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:node_6",
       "kind": "operator",
       "pipe_code": "generate_answer",
       "pipe_type": "PipeLLM",
@@ -646,9 +799,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:03:29.481228Z",
-        "ended_at": "2026-07-09T11:03:29.496646Z",
-        "duration": 0.015418
+        "started_at": "2026-08-14T10:49:12.303791Z",
+        "ended_at": "2026-08-14T10:49:12.313468Z",
+        "duration": 0.009677
       },
       "io": {
         "inputs": [
@@ -658,12 +811,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "c3R4V",
+            "digest": "5ZhnP",
             "data": {
-              "text": "ZpFFHUMStIFPvVtdOzDr"
+              "text": "zsvZsYnDyEnmXyqinAcc"
             },
-            "data_text": "ZpFFHUMStIFPvVtdOzDr                                                                                \n",
-            "data_html": "ZpFFHUMStIFPvVtdOzDr",
+            "data_text": "zsvZsYnDyEnmXyqinAcc                                                                                \n",
+            "data_html": "zsvZsYnDyEnmXyqinAcc",
             "extra": {}
           },
           {
@@ -672,12 +825,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "aQZfG",
+            "digest": "DHQok",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpD\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nZpFFHUMStIFPvVtdOzDr                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> OsuDVlsTGetQGFCaGmni                                               \n\nSources:                                                                                            \n\n • uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv EQzdlMmONFNYmQOUcxEq                                  \n • nAOXUCTQefqyqpD                                                                                  \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpD\n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Given this question:        \nzsvZsYnDyEnmXyqinAcc                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> QnOlRjSXaUEFikELqgnR                                               \n\nSources:                                                                                            \n\n • DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO vxiOniXgATgjiKcMULcy                                  \n • GoEJPObbFApyOjZ                                                                                  \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    ",
             "extra": {}
           }
         ],
@@ -688,12 +841,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "dPtky",
+            "digest": "Dz78k",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: ZpFFHUMStIFPvVtdOzDr\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    "
             },
-            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\nQuestion: ZpFFHUMStIFPvVtdOzDr                                                                      \n\n\nContext:  DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,              \ntemperature=0.5, max_tokens=None, prompting_target=None) •                                          \n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: ZpFFHUMStIFPvVtdOzDr\n\nContext:\n&lt;context&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    ",
+            "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\nQuestion: zsvZsYnDyEnmXyqinAcc                                                                      \n\n\nContext:  DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,              \ntemperature=0.5, max_tokens=None, prompting_target=None) •                                          \n",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n&lt;context&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • \n    ",
             "extra": {}
           }
         ]
@@ -701,21 +854,57 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Answer this question using the provided context. Cite your sources.\n\nQuestion: ZpFFHUMStIFPvVtdOzDr\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: ZpFFHUMStIFPvVtdOzDr\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nOsuDVlsTGetQGFCaGmni\n\nSources:\n- uELDztnxZdVHQUqYqggo: ZZOPlVxXeGQpXJeJaplv\n  EQzdlMmONFNYmQOUcxEq\n- nAOXUCTQefqyqpD\n    \n</context>",
+        "rendered_user_prompt": "Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n<context>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    \n</context>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_0",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_0",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_1",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_0",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_0",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -724,9 +913,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_1",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_0",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_1",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_0",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -735,9 +924,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_2",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_3",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_2",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -746,9 +935,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_3",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_4",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_3",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_4",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -757,9 +946,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_4",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_0",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_5",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_4",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_0",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_5",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -768,9 +957,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:edge_5",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_0",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_6",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:edge_5",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_0",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_6",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -779,9 +968,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_0",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_1",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_0",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_1",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
       "kind": "data",
       "optional": false,
       "label": "query_embedding",
@@ -790,9 +979,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_1",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_1",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_3",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_1",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_1",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_3",
       "kind": "data",
       "optional": false,
       "label": "query_embedding",
@@ -801,9 +990,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_2",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_5",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_2",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_5",
       "kind": "data",
       "optional": false,
       "label": "vector_results",
@@ -812,9 +1001,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_3",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_5",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_3",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_5",
       "kind": "data",
       "optional": false,
       "label": "keyword_results",
@@ -823,9 +1012,9 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_4",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_5",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_6",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_4",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_5",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_6",
       "kind": "data",
       "optional": false,
       "label": "context",
@@ -834,28 +1023,84 @@
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_5",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_3",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_5",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_3",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "jhBW6",
-      "target_stuff_digest": "UPios",
+      "source_stuff_digest": "EKJfN",
+      "target_stuff_digest": "mKpRd",
       "meta": {}
     },
     {
-      "id": "2c7f2189-23a5-477d-b90f-61327840d9b1:asm_edge_6",
-      "source": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_4",
-      "target": "2c7f2189-23a5-477d-b90f-61327840d9b1:node_2",
+      "id": "14a3b684-ff40-4035-9ce8-857ae8075984:asm_edge_6",
+      "source": "14a3b684-ff40-4035-9ce8-857ae8075984:node_4",
+      "target": "14a3b684-ff40-4035-9ce8-857ae8075984:node_2",
       "kind": "parallel_combine",
       "optional": false,
       "label": null,
-      "source_stuff_digest": "Qz9Ma",
-      "target_stuff_digest": "UPios",
+      "source_stuff_digest": "eVvqF",
+      "target_stuff_digest": "mKpRd",
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 3,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 3,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 3,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 3,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "dry"
@@ -949,7 +1194,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Rephrase this question to capture the core semantic meaning for retrieval:\n\n@question\n",
@@ -1168,7 +1412,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Given this question: $question\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n@vector_results\n\nKeyword results:\n@keyword_results\n",
@@ -1229,7 +1472,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Answer this question using the provided context. Cite your sources.\n\nQuestion: $question\n\nContext:\n@context\n",
@@ -1260,6 +1502,7 @@
         "description": "Generated answer with citations",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1280,6 +1523,7 @@
       "json_schema": {
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1301,6 +1545,7 @@
         "description": "Embedded representation of a query",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -1337,7 +1582,7 @@
           "DocumentContent": {
             "properties": {
               "url": {
-                "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 "title": "Url",
                 "type": "string"
               },
@@ -1417,10 +1662,12 @@
         "description": "Represents the result of a search query with an answer and list of sources.",
         "properties": {
           "answer": {
+            "description": "The answer to the search query",
             "title": "Answer",
             "type": "string"
           },
           "sources": {
+            "description": "The source documents supporting the answer",
             "items": {
               "$ref": "#/$defs/DocumentContent"
             },
@@ -1445,6 +1692,7 @@
         "description": "Reranked and filtered context passages",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }

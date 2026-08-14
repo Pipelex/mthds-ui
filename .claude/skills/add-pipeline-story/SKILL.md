@@ -222,12 +222,27 @@ Each pipeline example lives in `data/pipelines/pipeline_<NN>/`:
 
 ```
 data/pipelines/pipeline_<NN>/
-  bundle.mthds              # The source .mthds bundle
-  inputs.json               # Inputs for the live run
-  dry_run_graph_spec.json   # GraphSpec from dry run
-  live_run_graph_spec.json  # GraphSpec from live run
+  bundle.mthds                # The source .mthds bundle          — hand-authored
+  inputs.json                 # Inputs for the live run           — hand-authored
+  inputs/                     # Input files, when the pipe takes any — hand-authored
+  dry_run_graph_spec.json     # GraphSpec from the dry run        — generated
+  dry_run_graph.html          # Standalone ReactFlow viewer       — generated
+  dry_run_mermaidflow.mmd     # Mermaid source                    — generated
+  dry_run_mermaidflow.html    # Rendered Mermaid page             — generated
+  live_run_graph_spec.json    # GraphSpec from the live run       — generated
+  live_run_graph.html         # Standalone ReactFlow viewer       — generated
+  live_run_mermaidflow.mmd    # Mermaid source                    — generated
+  live_run_mermaidflow.html   # Rendered Mermaid page             — generated
+  live_run_main_stuff.json    # What the live run produced        — generated
+  inputs_template.json        # Fill-in template for inputs.json  — generated
 ```
 
-This is the source of truth. The TypeScript spec files in
-`src/graph/react/viewer/__stories__/pipelines/specs/` are derived from these
-JSON files and can be regenerated at any time.
+Only `bundle.mthds`, `inputs.json` and `inputs/` are authored. Everything else is
+written by `scripts/generate-fixtures.mjs` — never hand-edit a generated file, and
+never add a generated file the script does not write. Regenerate with
+`make fixtures ONLY=pipeline_<NN>` (free) and `make fixtures-live ONLY=pipeline_<NN>`
+(real inference).
+
+The bundle is the source of truth. The TypeScript spec files in
+`src/graph/react/viewer/__stories__/pipelines/specs/` are derived from the graph
+spec JSONs and can be regenerated at any time.

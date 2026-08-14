@@ -1,0 +1,36 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_dc6daaafb3["smart_responder"]
+        subgraph sg_n_636e66b02c["route_response"]
+            subgraph sg_n_5232f0f9b2["text_response_path"]
+                n_8eebeaa121["draft_text"]
+                s_30dd87bcbf(["draft<br/>DraftResponse"]):::stuff
+                n_9c27292869["polish_text"]
+                s_b8749bac57(["polished<br/>Response"]):::stuff
+            end
+        end
+        n_2785499f42["classify_request"]
+        s_8827ee7f17(["classified<br/>ClassifiedRequest"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_183bd6188c(["request<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_9c27292869 --> s_b8749bac57
+    n_8eebeaa121 --> s_30dd87bcbf
+    n_2785499f42 --> s_8827ee7f17
+    s_30dd87bcbf --> n_9c27292869
+    s_8827ee7f17 --> n_8eebeaa121
+    s_183bd6188c --> n_2785499f42
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_5232f0f9b2 fill:#fffde6
+    style sg_n_636e66b02c fill:#e6ffe6
+    style sg_n_dc6daaafb3 fill:#e6f3ff

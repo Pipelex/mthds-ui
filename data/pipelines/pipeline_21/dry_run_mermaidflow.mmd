@@ -1,0 +1,46 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_560159d520["multi_source_pipeline"]
+        subgraph sg_n_9644122ad0["gather_sources"]
+            n_e0dd2ab32c["fetch_api"]
+            s_b5321fd37f(["api_data<br/>SearchResult"]):::stuff
+            n_cb0aab5b49["search_academic"]
+            s_ab442d9eb5(["academic_data<br/>SearchResult"]):::stuff
+            n_23142b8b28["search_web"]
+            s_99babbf779(["web_data<br/>SearchResult"]):::stuff
+            s_1f04335bc4(["source_bundle<br/>Composite"]):::stuff
+        end
+        n_6935d9f2ba["combine_sources"]
+        s_35ba893b49(["combined<br/>CombinedData"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_20769aeb8a(["query<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_cb0aab5b49 --> s_ab442d9eb5
+    n_6935d9f2ba --> s_35ba893b49
+    n_23142b8b28 --> s_99babbf779
+    n_e0dd2ab32c --> s_b5321fd37f
+    s_ab442d9eb5 --> n_6935d9f2ba
+    s_99babbf779 --> n_6935d9f2ba
+    s_20769aeb8a --> n_e0dd2ab32c
+    s_20769aeb8a --> n_23142b8b28
+    s_20769aeb8a --> n_cb0aab5b49
+    s_20769aeb8a --> n_6935d9f2ba
+    s_b5321fd37f --> n_6935d9f2ba
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_b5321fd37f -.-> s_1f04335bc4
+    s_99babbf779 -.-> s_1f04335bc4
+    s_ab442d9eb5 -.-> s_1f04335bc4
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_560159d520 fill:#e6f3ff
+    style sg_n_9644122ad0 fill:#e6ffe6

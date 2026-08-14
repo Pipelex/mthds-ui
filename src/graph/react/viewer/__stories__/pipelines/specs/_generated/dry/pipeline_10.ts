@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_NESTED_SEQ_PAR_SEQ = {
-  graph_id: "02fcdbc8-385c-4631-9adc-c11969dec151",
-  created_at: "2026-07-09T11:02:06.388319Z",
+  graph_id: "08f60cd3-c789-4c22-be97-dedabd594309",
+  created_at: "2026-08-14T10:48:51.837286Z",
   pipeline_ref: { domain: "content_etl", main_pipe: "etl_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_0",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
       kind: "controller",
       pipe_code: "etl_pipeline",
       pipe_type: "PipeSequence",
@@ -19,30 +19,30 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.388319Z",
-        ended_at: "2026-07-09T11:02:06.524746Z",
-        duration: 0.136427,
+        started_at: "2026-08-14T10:48:51.837286Z",
+        ended_at: "2026-08-14T10:48:52.011019Z",
+        duration: 0.173733,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "EhyGJCqwSIEkMXmYFjQd",
+            content_type: "URtuxlOqKNxBxHTedMYo",
             preview: null,
             size: null,
-            digest: "brZbT",
+            digest: "8zuZY",
             data: {
-              url: "LWkFIeIqLBNuOgBDxWNX",
-              public_url: "JWdgvCZZFfymKFdEQAdV",
-              mime_type: "EhyGJCqwSIEkMXmYFjQd",
-              filename: "aDNqsggQPHJdjEjQWfIu",
-              title: "CdbsXsEoWyZYECOnZUVr",
-              snippet: "UOThkuzQSdcaVHZlRKQP",
+              url: "qwjvYxDdZijbZzvjHjVJ",
+              public_url: "IdNHikQKelGrodAMgxmW",
+              mime_type: "URtuxlOqKNxBxHTedMYo",
+              filename: "jNVAxvuyYwWfJPffWGUr",
+              title: "DOmQWsNSVxdFPcbKWpUI",
+              snippet: "CGvdmtfwxmuNuFPqrCVZ",
             },
-            data_text: "CdbsXsEoWyZYECOnZUVr (LWkFIeIqLBNuOgBDxWNX)\n  UOThkuzQSdcaVHZlRKQP\n",
+            data_text: "DOmQWsNSVxdFPcbKWpUI (qwjvYxDdZijbZzvjHjVJ)\n  CGvdmtfwxmuNuFPqrCVZ\n",
             data_html:
-              '<a href="JWdgvCZZFfymKFdEQAdV" class="msg-document">CdbsXsEoWyZYECOnZUVr</a><br/><small>UOThkuzQSdcaVHZlRKQP</small>',
+              '<a href="IdNHikQKelGrodAMgxmW" class="msg-document">DOmQWsNSVxdFPcbKWpUI</a><br/><small>CGvdmtfwxmuNuFPqrCVZ</small>',
             extra: {},
           },
         ],
@@ -53,7 +53,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jDK8j",
+            digest: "TRfLK",
             data: {
               text: "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
             },
@@ -68,10 +68,37 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 4,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 4,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 3 },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
       kind: "operator",
       pipe_code: "extract_content",
       pipe_type: "PipeExtract",
@@ -80,30 +107,30 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.395128Z",
-        ended_at: "2026-07-09T11:02:06.407277Z",
-        duration: 0.012149,
+        started_at: "2026-08-14T10:48:51.844294Z",
+        ended_at: "2026-08-14T10:48:51.855802Z",
+        duration: 0.011508,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "EhyGJCqwSIEkMXmYFjQd",
+            content_type: "URtuxlOqKNxBxHTedMYo",
             preview: null,
             size: null,
-            digest: "brZbT",
+            digest: "8zuZY",
             data: {
-              url: "LWkFIeIqLBNuOgBDxWNX",
-              public_url: "JWdgvCZZFfymKFdEQAdV",
-              mime_type: "EhyGJCqwSIEkMXmYFjQd",
-              filename: "aDNqsggQPHJdjEjQWfIu",
-              title: "CdbsXsEoWyZYECOnZUVr",
-              snippet: "UOThkuzQSdcaVHZlRKQP",
+              url: "qwjvYxDdZijbZzvjHjVJ",
+              public_url: "IdNHikQKelGrodAMgxmW",
+              mime_type: "URtuxlOqKNxBxHTedMYo",
+              filename: "jNVAxvuyYwWfJPffWGUr",
+              title: "DOmQWsNSVxdFPcbKWpUI",
+              snippet: "CGvdmtfwxmuNuFPqrCVZ",
             },
-            data_text: "CdbsXsEoWyZYECOnZUVr (LWkFIeIqLBNuOgBDxWNX)\n  UOThkuzQSdcaVHZlRKQP\n",
+            data_text: "DOmQWsNSVxdFPcbKWpUI (qwjvYxDdZijbZzvjHjVJ)\n  CGvdmtfwxmuNuFPqrCVZ\n",
             data_html:
-              '<a href="JWdgvCZZFfymKFdEQAdV" class="msg-document">CdbsXsEoWyZYECOnZUVr</a><br/><small>UOThkuzQSdcaVHZlRKQP</small>',
+              '<a href="IdNHikQKelGrodAMgxmW" class="msg-document">DOmQWsNSVxdFPcbKWpUI</a><br/><small>CGvdmtfwxmuNuFPqrCVZ</small>',
             extra: {},
           },
         ],
@@ -114,7 +141,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -162,6 +189,24 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "document",
@@ -170,7 +215,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
       kind: "controller",
       pipe_code: "dual_process",
       pipe_type: "PipeParallel",
@@ -179,9 +224,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.408488Z",
-        ended_at: "2026-07-09T11:02:06.504163Z",
-        duration: 0.095675,
+        started_at: "2026-08-14T10:48:51.859887Z",
+        ended_at: "2026-08-14T10:48:51.985910Z",
+        duration: 0.126023,
       },
       io: {
         inputs: [
@@ -191,7 +236,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -242,7 +287,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "i3C5H",
+            digest: "AB6uR",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
             },
@@ -258,7 +303,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TY2Zo",
+            digest: "c6Y35",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
             },
@@ -274,7 +319,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "e6RLj",
+            digest: "AeEZR",
             data: {
               clean_text: {
                 text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
@@ -294,6 +339,33 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 4,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 4,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         branch_count: 2,
         add_each_output: true,
@@ -301,7 +373,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
       kind: "controller",
       pipe_code: "text_branch",
       pipe_type: "PipeSequence",
@@ -310,9 +382,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.414438Z",
-        ended_at: "2026-07-09T11:02:06.455813Z",
-        duration: 0.041375,
+        started_at: "2026-08-14T10:48:51.864613Z",
+        ended_at: "2026-08-14T10:48:51.937429Z",
+        duration: 0.072816,
       },
       io: {
         inputs: [
@@ -322,7 +394,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -373,7 +445,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "i3C5H",
+            digest: "AB6uR",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
             },
@@ -388,10 +460,37 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_4",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
       kind: "operator",
       pipe_code: "clean_text",
       pipe_type: "PipeLLM",
@@ -400,9 +499,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.419469Z",
-        ended_at: "2026-07-09T11:02:06.439198Z",
-        duration: 0.019729,
+        started_at: "2026-08-14T10:48:51.869546Z",
+        ended_at: "2026-08-14T10:48:51.921307Z",
+        duration: 0.051761,
       },
       io: {
         inputs: [
@@ -412,7 +511,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -463,7 +562,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "GvXMU",
+            digest: "GeH6m",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -478,6 +577,42 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -489,7 +624,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_5",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
       kind: "operator",
       pipe_code: "enrich_text",
       pipe_type: "PipeLLM",
@@ -498,9 +633,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.440740Z",
-        ended_at: "2026-07-09T11:02:06.455078Z",
-        duration: 0.014338,
+        started_at: "2026-08-14T10:48:51.925429Z",
+        ended_at: "2026-08-14T10:48:51.935007Z",
+        duration: 0.009578,
       },
       io: {
         inputs: [
@@ -510,7 +645,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "GvXMU",
+            digest: "GeH6m",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -528,7 +663,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "i3C5H",
+            digest: "AB6uR",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
             },
@@ -543,6 +678,42 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -554,7 +725,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
       kind: "controller",
       pipe_code: "image_branch",
       pipe_type: "PipeSequence",
@@ -563,9 +734,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.456548Z",
-        ended_at: "2026-07-09T11:02:06.493047Z",
-        duration: 0.036499,
+        started_at: "2026-08-14T10:48:51.940541Z",
+        ended_at: "2026-08-14T10:48:51.974364Z",
+        duration: 0.033823,
       },
       io: {
         inputs: [
@@ -575,7 +746,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -626,7 +797,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TY2Zo",
+            digest: "c6Y35",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
             },
@@ -641,10 +812,37 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_7",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
       kind: "operator",
       pipe_code: "extract_images",
       pipe_type: "PipeLLM",
@@ -653,9 +851,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.460936Z",
-        ended_at: "2026-07-09T11:02:06.476756Z",
-        duration: 0.01582,
+        started_at: "2026-08-14T10:48:51.946057Z",
+        ended_at: "2026-08-14T10:48:51.957184Z",
+        duration: 0.011127,
       },
       io: {
         inputs: [
@@ -665,7 +863,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ThnMV",
+            digest: "ACtpT",
             data: {
               items: [
                 {
@@ -716,7 +914,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FReEW",
+            digest: "PDUci",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
             },
@@ -731,6 +929,42 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -742,7 +976,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_8",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
       kind: "operator",
       pipe_code: "caption_images",
       pipe_type: "PipeLLM",
@@ -751,9 +985,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.478172Z",
-        ended_at: "2026-07-09T11:02:06.492464Z",
-        duration: 0.014292,
+        started_at: "2026-08-14T10:48:51.961697Z",
+        ended_at: "2026-08-14T10:48:51.971564Z",
+        duration: 0.009867,
       },
       io: {
         inputs: [
@@ -763,7 +997,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FReEW",
+            digest: "PDUci",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
             },
@@ -781,7 +1015,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TY2Zo",
+            digest: "c6Y35",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
             },
@@ -796,6 +1030,42 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -807,7 +1077,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:node_9",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
       kind: "operator",
       pipe_code: "combine_results",
       pipe_type: "PipeCompose",
@@ -816,9 +1086,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:02:06.508546Z",
-        ended_at: "2026-07-09T11:02:06.520392Z",
-        duration: 0.011846,
+        started_at: "2026-08-14T10:48:51.992874Z",
+        ended_at: "2026-08-14T10:48:52.005947Z",
+        duration: 0.013073,
       },
       io: {
         inputs: [
@@ -828,7 +1098,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "i3C5H",
+            digest: "AB6uR",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
             },
@@ -844,7 +1114,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TY2Zo",
+            digest: "c6Y35",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
             },
@@ -862,7 +1132,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jDK8j",
+            digest: "TRfLK",
             data: {
               text: "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
             },
@@ -877,6 +1147,24 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         compose_mode: "template",
         rendered_text:
@@ -886,9 +1174,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
   ],
   edges: [
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_0",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_0",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_0",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -897,9 +1185,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_1",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_0",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_1",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -908,9 +1196,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_2",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_2",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -919,9 +1207,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_3",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_4",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_3",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -930,9 +1218,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_4",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_5",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_4",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -941,9 +1229,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_5",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_5",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -952,9 +1240,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_6",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_7",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_6",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -963,9 +1251,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_7",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_8",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_7",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -974,9 +1262,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:edge_8",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_0",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_9",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_8",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
       kind: "contains",
       optional: false,
       label: null,
@@ -985,9 +1273,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_0",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_0",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -996,9 +1284,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_1",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_1",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1007,9 +1295,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_2",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_4",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_2",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1018,9 +1306,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_3",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_4",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_5",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_3",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -1029,9 +1317,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_4",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_4",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1040,9 +1328,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_5",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_1",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_7",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_5",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1051,9 +1339,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_6",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_7",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_8",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_6",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
       kind: "data",
       optional: false,
       label: "described",
@@ -1062,9 +1350,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_7",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_9",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_7",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -1073,9 +1361,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_8",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_9",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_8",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
       kind: "data",
       optional: false,
       label: "processed_image",
@@ -1084,28 +1372,84 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_9",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_3",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_9",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "i3C5H",
-      target_stuff_digest: "e6RLj",
+      source_stuff_digest: "AB6uR",
+      target_stuff_digest: "AeEZR",
       meta: {},
     },
     {
-      id: "02fcdbc8-385c-4631-9adc-c11969dec151:asm_edge_10",
-      source: "02fcdbc8-385c-4631-9adc-c11969dec151:node_6",
-      target: "02fcdbc8-385c-4631-9adc-c11969dec151:node_2",
+      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_10",
+      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "TY2Zo",
-      target_stuff_digest: "e6RLj",
+      source_stuff_digest: "c6Y35",
+      target_stuff_digest: "AeEZR",
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 4,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 4,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+      subtree_inference_calls: 4,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 4,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "content_etl.etl_pipeline": {
@@ -1325,7 +1669,6 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -1373,7 +1716,6 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Add semantic tags and structure to this cleaned text:\n\n@clean_text\n",
@@ -1467,7 +1809,6 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Identify and describe any images or figures found in these pages:\n\n@pages\n",
@@ -1514,7 +1855,6 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Generate concise captions for each image described:\n\n@described\n",
@@ -1587,7 +1927,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "Combined processed content",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "content_etl__ProcessedContent",
         type: "object",
@@ -1602,8 +1942,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       json_schema: {
         properties: {
           url: {
-            description:
-              "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             title: "Url",
             type: "string",
           },
@@ -1655,8 +1994,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
           ImageContent: {
             properties: {
               url: {
-                description:
-                  "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 title: "Url",
                 type: "string",
               },
@@ -1690,10 +2028,17 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 description: "The MIME type of the image",
                 title: "Mime Type",
               },
-              size: {
-                anyOf: [{ $ref: "#/$defs/ImageSize" }, { type: "null" }],
+              width: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
                 default: null,
-                description: "The size in pixels (width and height) of the image",
+                description: "The width of the image, in pixels",
+                title: "Width",
+              },
+              height: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
+                default: null,
+                description: "The height of the image, in pixels",
+                title: "Height",
               },
               filename: {
                 anyOf: [{ type: "string" }, { type: "null" }],
@@ -1704,15 +2049,6 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             },
             required: ["url"],
             title: "ImageContent",
-            type: "object",
-          },
-          ImageSize: {
-            properties: {
-              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
-              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
-            },
-            required: ["width", "height"],
-            title: "ImageSize",
             type: "object",
           },
           TextAndImagesContent: {
@@ -1742,7 +2078,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             type: "object",
           },
           TextContent: {
-            properties: { text: { title: "Text", type: "string" } },
+            properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
@@ -1787,7 +2123,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "Text enriched with metadata",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "content_etl__EnrichedText",
         type: "object",
@@ -1801,7 +2137,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "Cleaned and normalized text",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "content_etl__CleanText",
         type: "object",
@@ -1815,7 +2151,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       refines: "native.Text",
       json_schema: {
         description: "Processed image with metadata",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "content_etl__ProcessedImage",
         type: "object",
@@ -1828,7 +2164,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
         type: "object",

@@ -1,0 +1,47 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_875297e8fa["screen_candidate"]
+        subgraph sg_n_c54dae76f8["route_on_match"]
+            n_0ea6b8688e["generate_interview_questions"]
+            s_78ba6d8c27(["decision_output<br/>InterviewQuestion"]):::stuff
+            n_1c36ef207e["write_refusal_email"]
+            s_d48fd1f1a7(["decision_output<br/>Email"]):::stuff
+        end
+        n_65806b4ef3["analyze_match"]
+        s_c8dbab3291(["match_result<br/>DetailedMatchResult"]):::stuff
+        n_21a6a736cb["extract_cv"]
+        s_30b8ade8f8(["cv_pages<br/>Page"]):::stuff
+        n_94e5ab3e1a["extract_job_offer"]
+        s_d3a9aea685(["job_offer_pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_f6a802afeb(["cv<br/>Document"]):::stuff
+    s_ff61e8ed0f(["job_offer<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_65806b4ef3 --> s_c8dbab3291
+    n_1c36ef207e --> s_d48fd1f1a7
+    n_94e5ab3e1a --> s_d3a9aea685
+    n_21a6a736cb --> s_30b8ade8f8
+    n_0ea6b8688e --> s_78ba6d8c27
+    s_c8dbab3291 --> n_0ea6b8688e
+    s_c8dbab3291 --> n_1c36ef207e
+    s_ff61e8ed0f --> n_94e5ab3e1a
+    s_f6a802afeb --> n_21a6a736cb
+    s_d3a9aea685 --> n_65806b4ef3
+    s_d3a9aea685 --> n_0ea6b8688e
+    s_d3a9aea685 --> n_1c36ef207e
+    s_30b8ade8f8 --> n_65806b4ef3
+    s_30b8ade8f8 --> n_0ea6b8688e
+    s_30b8ade8f8 --> n_1c36ef207e
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_875297e8fa fill:#e6f3ff
+    style sg_n_c54dae76f8 fill:#e6ffe6

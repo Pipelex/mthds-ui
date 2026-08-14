@@ -1,0 +1,29 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_2fd99da77d["translate_pipeline"]
+        subgraph sg_n_978dff4517["route_translation"]
+            n_19fac5cd41["translate_french"]
+            s_a72d21e405(["translated<br/>TranslatedText"]):::stuff
+        end
+        n_befbc2f0e8["detect_language"]
+        s_5e9e04815e(["classified<br/>ClassifiedText"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_1cb8d61ebd(["text<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_befbc2f0e8 --> s_5e9e04815e
+    n_19fac5cd41 --> s_a72d21e405
+    s_5e9e04815e --> n_19fac5cd41
+    s_1cb8d61ebd --> n_befbc2f0e8
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_2fd99da77d fill:#e6f3ff
+    style sg_n_978dff4517 fill:#e6ffe6

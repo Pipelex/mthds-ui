@@ -1,0 +1,14 @@
+{
+  "cv": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://mock.invalid/url"
+    }
+  },
+  "job_offer": {
+    "concept": "native.Document",
+    "content": {
+      "url": "https://mock.invalid/url"
+    }
+  }
+}

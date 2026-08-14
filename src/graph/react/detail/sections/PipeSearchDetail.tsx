@@ -1,20 +1,26 @@
 import React from "react";
-import type { PipeBlueprintUnion } from "@graph/types";
-import { KV, PromptToggle } from "./shared";
+import type { GraphSpecModelUsage, PipeBlueprintUnion } from "@graph/types";
+import { KV, ModelRows, PromptToggle } from "./shared";
 
 export function PipeSearchSection({
   blueprint,
   executionData,
+  modelsRan,
+  modelHandles,
 }: {
   blueprint: Extract<PipeBlueprintUnion, { type: "PipeSearch" }>;
   executionData?: Record<string, unknown>;
+  /** Models that actually ran on this node; absent for a dry or static graph. */
+  modelsRan?: GraphSpecModelUsage[];
+  /** execution_data, ungated: the deck-resolved model handle exists in dry specs too. */
+  modelHandles?: Record<string, unknown>;
 }) {
-  const resolvedModel = executionData?.resolved_model as string | undefined;
+  const resolvedModel = modelHandles?.resolved_model as string | undefined;
   const renderedQuery = executionData?.rendered_query as string | undefined;
 
   return (
     <>
-      <KV label="Model" value={resolvedModel || blueprint.search_choice} />
+      <ModelRows modelsRan={modelsRan} authored={blueprint.search_choice} handle={resolvedModel} />
       <PromptToggle
         label="Search Query"
         templateText={blueprint.prompt_blueprint.template}

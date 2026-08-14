@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline: Ingest Pipeline</title>
+<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
+<!-- DOMPurify for HTML sanitization (XSS prevention) -->
+<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
+    <style nonce="PIPELEX_CSP_NONCE">
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color, #f5f5f5);
+    transition: background-color 0.3s;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+h1 {
+    color: var(--text-color, #333);
+    margin: 0;
+    transition: color 0.3s;
+}
+.theme-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.theme-selector label {
+    font-size: 14px;
+    color: var(--label-color, #666);
+    transition: color 0.3s;
+}
+.theme-selector select {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #ccc);
+    background: var(--select-bg, white);
+    color: var(--text-color, #333);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.theme-selector select:hover {
+    border-color: var(--border-hover, #999);
+}
+.mermaid-container {
+    background-color: var(--container-bg, white);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+.mermaid {
+    display: flex;
+    justify-content: center;
+}
+.hint {
+    color: var(--label-color, #666);
+    font-size: 14px;
+    margin-top: 16px;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+/* Define CSS variables for the modal context (used by shared styles) */
+.data-modal {
+    --color-surface-hover: #333;
+    --color-text-muted: #888;
+    --color-text: #d4d4d4;
+    --color-accent: #3b82f6;
+    --color-border: #444;
+    --color-bg: #1e1e1e;
+    --color-success-bg: rgba(16, 185, 129, 0.2);
+    --color-success: #10b981;
+    --radius-sm: 4px;
+    --radius-md: 4px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 20px;
+    border-radius: 12px;
+    width: 80vw;
+    max-width: 1200px;
+    max-height: 80vh;
+    overflow: auto;
+    z-index: 1000;
+    display: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    min-width: 600px;
+}
+.data-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #444;
+}
+.data-modal-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.data-modal-title-primary {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+.data-modal-title-secondary {
+    font-size: 11px;
+    font-weight: 400;
+    color: #666;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+.data-modal-close {
+    cursor: pointer;
+    color: #888;
+    font-size: 24px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.data-modal-close:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Include shared format toolbar and tabs styling */
+/* ============================================================
+   Shared Format Toolbar & Tabs Styling
+   Uses CSS variables with fallbacks for both implementations
+   ============================================================ */
+
+.format-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.format-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.format-tab {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--color-surface-hover, #333);
+    color: var(--color-text-muted, #888);
+    border: none;
+    transition: all 0.2s;
+}
+
+.format-tab:hover {
+    background: var(--color-border, #444);
+    color: var(--color-text, #ccc);
+}
+
+.format-tab.active {
+    background: var(--color-accent, #3b82f6);
+    color: #fff;
+}
+
+.format-tab:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.format-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm, 4px);
+    cursor: pointer;
+    font-size: 14px;
+    background: var(--color-surface-hover, #333);
+    color: var(--color-text-muted, #888);
+    border: none;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--color-border, #444);
+    color: var(--color-text, #fff);
+}
+
+.action-btn.copied {
+    background: var(--color-success-bg, rgba(16, 185, 129, 0.2));
+    color: var(--color-success, #10b981);
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+/* Modal content area */
+.data-modal-content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+.data-modal-content.text-content {
+    line-height: 1;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: auto;
+    padding-right: 20px;
+}
+.data-modal-content.html-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 12px;
+    border-radius: 4px;
+}
+.data-modal-content.html-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.data-modal-content.html-content th,
+.data-modal-content.html-content td {
+    border: 1px solid #444;
+    padding: 8px 12px;
+    text-align: left;
+}
+.data-modal-content.html-content th {
+    background: #252a30;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+.data-modal-content.html-content tr:hover {
+    background: #2a2530;
+}
+.data-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+.clickable-stuff {
+    cursor: pointer !important;
+}
+.clickable-stuff:hover {
+    filter: brightness(1.1);
+}
+.data-modal-content.pdf-content {
+    min-height: 500px;
+}
+.data-modal-content.pdf-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    min-height: 500px;
+}
+.data-modal-content.image-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+.data-modal-content.image-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Pipeline: Ingest Pipeline</h1>
+    <div class="theme-selector">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="forest">Forest</option>
+            <option value="neutral">Neutral</option>
+            <option value="base">Base</option>
+        </select>
+    </div>
+</div>
+<div class="mermaid-container">
+    <div class="mermaid" id="mermaid-diagram"></div>
+</div>
+<p class="hint">Click on data nodes (rounded pills) to view their full content</p>
+<div class="data-modal-overlay" id="modal-overlay"></div>
+<div class="data-modal" id="data-modal">
+    <div class="data-modal-header">
+        <span class="data-modal-title" id="modal-title">Data Content</span>
+        <span class="data-modal-close" onclick="hideModal()">&times;</span>
+    </div>
+    <div class="format-toolbar">
+        <div class="format-tabs" id="format-tabs">
+            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab" data-format="json" id="tab-json">JSON</button>
+            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
+        </div>
+        <div class="format-actions">
+            <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </button>
+            <button class="action-btn" id="copy-btn" onclick="copyContent()" title="Copy">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+            <button class="action-btn" id="download-btn" onclick="downloadContent()" title="Download">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            </button>
+        </div>
+    </div>
+    <div class="data-modal-content" id="modal-content"></div>
+</div>
+    <script nonce="PIPELEX_CSP_NONCE">
+// Embedded stuff data from graph (all formats)
+const stuffDataJson = {"s_3e81561f26": {"text": "# Vector Index Validation Report\n\n## Overall Assessment: **PASS with Minor Issues**\n\nThe index is well-structured and functional, but several issues of varying severity were identified.\n\n---\n\n## Structural Integrity\n\n| Check | Result |\n|---|---|\n| Valid JSON structure | \u2705 Pass |\n| All required fields present (`id`, `index`, `content`, `tags`, `cross_references`) | \u2705 Pass |\n| IDs are unique | \u2705 Pass |\n| Index numbers are sequential | \u2705 Pass |\n| Categories are unique | \u2705 Pass |\n\n---\n\n## Issues Found\n\n### \ud83d\udd34 High Severity\n\n**None identified.**\n\n---\n\n### \ud83d\udfe1 Medium Severity\n\n**1. Potential Data Inconsistency \u2014 R&D Spend vs. Revenue Ratio (item_3)**\n- Item 3 states R&D spending was **$840M = 20% of revenue**\n- Item 2 states total revenue was **$4.2 billion**\n- $840M / $4.2B = **20%** \u2705 \u2014 this checks out\n- However, Item 3 also states MRR = **$350M**, which annualizes to **$4.2B** \u2014 consistent \u2705\n- *No actual error, but the co-location of MRR and total revenue across items without explicit linkage is a latent confusion risk. Consider a cross-reference note or tag clarifying the relationship.*\n\n**2. Missing Cross-Reference Symmetry Verification**\n- All four items cross-reference each other (full mesh), which is technically valid, but:\n  - `item_1` (a title/metadata item) cross-referencing all others is appropriate\n  - However, **no item cross-references itself**, which is correct \u2705\n  - The full-mesh pattern means **cross-references carry no semantic signal** \u2014 every item points to every other item regardless of topical relevance, reducing retrieval utility\n\n> **Recommendation:** Use selective cross-references based on actual topical overlap (e.g., `item_2` \u2192 `item_3` is highly relevant; `item_1` \u2192 `item_4` is weak).\n\n---\n\n### \ud83d\udfe0 Low-to-Medium Severity\n\n**3. Tag Inconsistency \u2014 \"Q4 2025\" Missing from item_4**\n- Items 1\u20133 all include the tag `\"Q4 2025\"`\n- `item_4` covers Q1 2026 outlook but **does not include a `\"Q4 2025\"` tag**, even though it is part of the Q4 2025 report\n- This may cause `item_4` to be **excluded from queries scoped to \"Q4 2025\"**\n\n> **Recommendation:** Add `\"Q4 2025\"` to `item_4`'s tags to reflect the report context, alongside `\"Q1 2026\"`.\n\n**4. Category Granularity Imbalance**\n- Each category contains exactly **one item**, making the category layer redundant for retrieval purposes\n- If the index is expected to grow, this is fine; if not, categories add structural overhead with no organizational benefit\n\n> **Recommendation:** Either populate categories with multiple items or document that single-item categories are intentional (e.g., for future expansion).\n\n---\n\n### \ud83d\udd35 Low Severity / Suggestions\n\n**5. item_1 Content is Sparse**\n- Content: *\"Quarterly Business Report for Q4 2025.\"* \u2014 this is a title, not a retrievable chunk\n- In a vector index, embedding a single sentence title produces a weak, low-information vector that may not retrieve well against natural language queries\n\n> **Recommendation:** Expand `item_1` to include report scope, authorship, date, or executive summary to improve embedding quality.\n\n**6. No Embedding Metadata**\n- The index contains no fields for embedding model, vector dimensions, or creation timestamp\n- This makes it difficult to audit, version, or re-embed if the model changes\n\n> **Recommendation:** Add a top-level `metadata` block, for example:\n> ```json\n> \"metadata\": {\n>   \"embedding_model\": \"text-embedding-3-large\",\n>   \"vector_dimensions\": 1536,\n>   \"created_at\": \"2025-10-01T00:00:00Z\",\n>   \"version\": \"1.0\"\n> }\n> ```\n\n**7. No Explicit Namespace or Collection Identifier**\n- The index has no top-level `name` or `collection_id` field\n- This is a risk if multiple indexes are managed in the same environment\n\n> **Recommendation:** Add a root-level `collection_id` or `name` field.\n\n---\n\n## Summary Table\n\n| # | Severity | Issue | Action |\n|---|---|---|---|\n| 1 | \ud83d\udfe1 Medium | Full-mesh cross-references reduce semantic utility | Refine to topically relevant links |\n| 2 | \ud83d\udfe0 Low-Med | `item_4` missing `\"Q4 2025\"` tag | Add tag |\n| 3 | \ud83d\udfe0 Low-Med | Single-item categories are structurally redundant | Document intent or expand |\n| 4 | \ud83d\udd35 Low | `item_1` content too sparse for quality embedding | Expand content |\n| 5 | \ud83d\udd35 Low | No embedding/versioning metadata | Add metadata block |\n| 6 | \ud83d\udd35 Low | No collection identifier | Add `collection_id` |\n\n---\n\n## Conclusion\n\nThe index is **logically consistent and structurally valid** with no critical errors. The most impactful fix is **Issue #1** (cross-reference refinement) and **Issue #2** (missing tag on `item_4`), as both directly affect retrieval quality. The remaining issues are best addressed before scaling the index further."}, "s_f968614492": {"url": "pipelex-storage://normalized/ifpTzXf4t3sM7bznLcyzzo.pdf", "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/ifpTzXf4t3sM7bznLcyzzo.pdf", "mime_type": "application/pdf", "filename": "document.pdf", "title": null, "snippet": null}, "s_6eb55f9d5d": {"items": [{"text_and_images": {"text": {"text": "# Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n"}, "images": [], "raw_html": null}, "page_view": null}]}, "s_42df8704d1": {"text": "Here is the cleaned and normalized text:\n\n---\n\n**Quarterly Business Report - Q4 2025**\n\n**Executive Summary**\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n**Key Metrics**\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue.\n\n**Outlook**\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.\n\n---\n\n**Changes made:**\n- Removed all structural metadata tags (`pages`, `item`, `text_and_images`, `raw_html`, `page_view`)\n- Removed all markdown heading symbols (`#`, `##`, `###`)\n- Removed empty/null fields (`images: None`, `raw_html: None`, `page_view: None`)\n- Fixed `R&D;` artifact \u2192 `R&D`\n- Preserved all substantive content and formatting"}, "s_ceebd176f9": {"items": [{"text": "Quarterly Business Report - Q4 2025"}, {"text": "Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America."}, {"text": "Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D investment was $840M, representing 20% of revenue."}, {"text": "Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products."}]}, "s_7ffdeac00f": {"items": [{"text": "Quarterly Business Report for Q4 2025."}, {"text": "In Q4 2025, the company achieved strong financial performance with revenue growing 15% year-over-year to $4.2 billion, fueled by cloud services and enterprise software. Operating margin rose to 28% from 24%, customer acquisition costs dropped 12% through better marketing efficiency, and the company entered three new geographic markets: Southeast Asia, Eastern Europe, and South America."}, {"text": "Q4 2025 key performance metrics: active users grew 22% to 45 million, monthly recurring revenue reached $350M, net promoter score improved from 62 to 71, global headcount expanded to 8,500 employees across 12 offices, and R&D spending totaled $840M, equal to 20% of revenue."}, {"text": "For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with strategic priorities including the launch of an AI-powered analytics platform, growth of the partner ecosystem, and attaining SOC 2 Type II certification across all cloud products."}]}, "s_2f4391f5fc": {"json_obj": {"categories": [{"id": "cat_1", "name": "Report Metadata", "description": "High-level identifying information about the report", "items": [{"id": "item_1", "index": 1, "content": "Quarterly Business Report for Q4 2025.", "tags": ["report", "Q4 2025", "metadata", "title"], "cross_references": ["item_2", "item_3", "item_4"]}]}, {"id": "cat_2", "name": "Financial Performance", "description": "Revenue, margins, costs, and geographic expansion data for Q4 2025", "items": [{"id": "item_2", "index": 2, "content": "In Q4 2025, the company achieved strong financial performance with revenue growing 15% year-over-year to $4.2 billion, fueled by cloud services and enterprise software. Operating margin rose to 28% from 24%, customer acquisition costs dropped 12% through better marketing efficiency, and the company entered three new geographic markets: Southeast Asia, Eastern Europe, and South America.", "tags": ["Q4 2025", "revenue", "financial performance", "cloud services", "enterprise software", "operating margin", "customer acquisition", "geographic expansion"], "cross_references": ["item_1", "item_3", "item_4"]}]}, {"id": "cat_3", "name": "Key Performance Metrics", "description": "Operational and growth metrics for Q4 2025 including users, revenue, NPS, headcount, and R&D", "items": [{"id": "item_3", "index": 3, "content": "Q4 2025 key performance metrics: active users grew 22% to 45 million, monthly recurring revenue reached $350M, net promoter score improved from 62 to 71, global headcount expanded to 8,500 employees across 12 offices, and R&D spending totaled $840M, equal to 20% of revenue.", "tags": ["Q4 2025", "active users", "monthly recurring revenue", "net promoter score", "headcount", "R&D", "KPIs"], "cross_references": ["item_1", "item_2", "item_4"]}]}, {"id": "cat_4", "name": "Forward Outlook & Strategy", "description": "Q1 2026 revenue forecast and strategic priorities", "items": [{"id": "item_4", "index": 4, "content": "For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with strategic priorities including the launch of an AI-powered analytics platform, growth of the partner ecosystem, and attaining SOC 2 Type II certification across all cloud products.", "tags": ["Q1 2026", "forecast", "revenue guidance", "AI analytics", "partner ecosystem", "SOC 2", "cloud products", "strategy"], "cross_references": ["item_1", "item_2", "item_3"]}]}]}}};
+const stuffDataText = {"s_3e81561f26": "                                   Vector Index Validation Report                                   \n\nOverall Assessment: PASS with Minor Issues                                                          \n\nThe index is well-structured and functional, but several issues of varying severity were identified.\n\n----------------------------------------------------------------------------------------------------\n\nStructural Integrity                                                                                \n\n                                                                                   \n Check                                                                     Result  \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n Valid JSON structure                                                      \u2705 Pass \n All required fields present (id, index, content, tags, cross_references)  \u2705 Pass \n IDs are unique                                                            \u2705 Pass \n Index numbers are sequential                                              \u2705 Pass \n Categories are unique                                                     \u2705 Pass \n                                                                                   \n\n----------------------------------------------------------------------------------------------------\n\nIssues Found                                                                                        \n\n\ud83d\udd34 High Severity                                                                                    \n\nNone identified.                                                                                    \n\n----------------------------------------------------------------------------------------------------\n\n\ud83d\udfe1 Medium Severity                                                                                  \n\n1. Potential Data Inconsistency \u2014 R&D Spend vs. Revenue Ratio (item_3)                              \n\n \u2022 Item 3 states R&D spending was $840M = 20% of revenue                                            \n \u2022 Item 2 states total revenue was $4.2 billion                                                     \n \u2022 $840M / $4.2B = 20% \u2705 \u2014 this checks out                                                         \n \u2022 However, Item 3 also states MRR = $350M, which annualizes to $4.2B \u2014 consistent \u2705               \n \u2022 No actual error, but the co-location of MRR and total revenue across items without explicit      \n   linkage is a latent confusion risk. Consider a cross-reference note or tag clarifying the        \n   relationship.                                                                                    \n\n2. Missing Cross-Reference Symmetry Verification                                                    \n\n \u2022 All four items cross-reference each other (full mesh), which is technically valid, but:          \n    \u2022 item_1 (a title/metadata item) cross-referencing all others is appropriate                    \n    \u2022 However, no item cross-references itself, which is correct \u2705                                 \n    \u2022 The full-mesh pattern means cross-references carry no semantic signal \u2014 every item points to  \n      every other item regardless of topical relevance, reducing retrieval utility                  \n\n\u258c Recommendation: Use selective cross-references based on actual topical overlap (e.g., item_2 \u2192  \n\u258c item_3 is highly relevant; item_1 \u2192 item_4 is weak).                                            \n\n----------------------------------------------------------------------------------------------------\n\n\ud83d\udfe0 Low-to-Medium Severity                                                                           \n\n3. Tag Inconsistency \u2014 \"Q4 2025\" Missing from item_4                                                \n\n \u2022 Items 1\u20133 all include the tag \"Q4 2025\"                                                          \n \u2022 item_4 covers Q1 2026 outlook but does not include a \"Q4 2025\" tag, even though it is part of the\n   Q4 2025 report                                                                                   \n \u2022 This may cause item_4 to be excluded from queries scoped to \"Q4 2025\"                            \n\n\u258c Recommendation: Add \"Q4 2025\" to item_4's tags to reflect the report context, alongside \"Q1     \n\u258c 2026\".                                                                                          \n\n4. Category Granularity Imbalance                                                                   \n\n \u2022 Each category contains exactly one item, making the category layer redundant for retrieval       \n   purposes                                                                                         \n \u2022 If the index is expected to grow, this is fine; if not, categories add structural overhead with  \n   no organizational benefit                                                                        \n\n\u258c Recommendation: Either populate categories with multiple items or document that single-item     \n\u258c categories are intentional (e.g., for future expansion).                                        \n\n----------------------------------------------------------------------------------------------------\n\n\ud83d\udd35 Low Severity / Suggestions                                                                       \n\n5. item_1 Content is Sparse                                                                         \n\n \u2022 Content: \"Quarterly Business Report for Q4 2025.\" \u2014 this is a title, not a retrievable chunk     \n \u2022 In a vector index, embedding a single sentence title produces a weak, low-information vector that\n   may not retrieve well against natural language queries                                           \n\n\u258c Recommendation: Expand item_1 to include report scope, authorship, date, or executive summary to\n\u258c improve embedding quality.                                                                      \n\n6. No Embedding Metadata                                                                            \n\n \u2022 The index contains no fields for embedding model, vector dimensions, or creation timestamp       \n \u2022 This makes it difficult to audit, version, or re-embed if the model changes                      \n\n\u258c Recommendation: Add a top-level metadata block, for example:                                    \n\u258c                                                                                                 \n\u258c  \"metadata\": {                                                                                  \n\u258c    \"embedding_model\": \"text-embedding-3-large\",                                                 \n\u258c    \"vector_dimensions\": 1536,                                                                   \n\u258c    \"created_at\": \"2025-10-01T00:00:00Z\",                                                        \n\u258c    \"version\": \"1.0\"                                                                             \n\u258c  }                                                                                              \n\u258c                                                                                                 \n\n7. No Explicit Namespace or Collection Identifier                                                   \n\n \u2022 The index has no top-level name or collection_id field                                           \n \u2022 This is a risk if multiple indexes are managed in the same environment                           \n\n\u258c Recommendation: Add a root-level collection_id or name field.                                   \n\n----------------------------------------------------------------------------------------------------\n\nSummary Table                                                                                       \n\n                                                                                                    \n #  Severity    Issue                                            Action                             \n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n 1  \ud83d\udfe1 Medium   Full-mesh cross-references reduce semantic       Refine to topically relevant links \n                utility                                                                             \n 2  \ud83d\udfe0 Low-Med  item_4 missing \"Q4 2025\" tag                     Add tag                            \n 3  \ud83d\udfe0 Low-Med  Single-item categories are structurally          Document intent or expand          \n                redundant                                                                           \n 4  \ud83d\udd35 Low      item_1 content too sparse for quality embedding  Expand content                     \n 5  \ud83d\udd35 Low      No embedding/versioning metadata                 Add metadata block                 \n 6  \ud83d\udd35 Low      No collection identifier                         Add collection_id                  \n                                                                                                    \n\n----------------------------------------------------------------------------------------------------\n\nConclusion                                                                                          \n\nThe index is logically consistent and structurally valid with no critical errors. The most impactful\nfix is Issue #1 (cross-reference refinement) and Issue #2 (missing tag on item_4), as both directly \naffect retrieval quality. The remaining issues are best addressed before scaling the index further. \n", "s_f968614492": "pipelex-storage://normalized/ifpTzXf4t3sM7bznLcyzzo.pdf\n", "s_6eb55f9d5d": "   1    \u2502                  Quarterly Business Report - Q4 2025                  \n        \u2502                                                                       \n        \u2502 Executive Summary                                                     \n        \u2502                                                                       \n        \u2502 Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        \u2502 performance in cloud services and enterprise software. Operating      \n        \u2502 margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        \u2502 decreased by 12% due to improved marketing efficiency. The company    \n        \u2502 expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        \u2502 South America.                                                        \n        \u2502                                                                       \n        \u2502 Key Metrics                                                           \n        \u2502                                                                       \n        \u2502 Active users reached 45 million, a 22% increase. Monthly recurring    \n        \u2502 revenue hit $350M. Net promoter score improved from 62 to 71.         \n        \u2502 Employee headcount grew to 8,500 across 12 offices globally. R&D;     \n        \u2502 investment was $840M, representing 20% of revenue.                    \n        \u2502                                                                       \n        \u2502 Outlook                                                               \n        \u2502                                                                       \n        \u2502 For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        \u2502 initiatives include launching the AI-powered analytics platform,      \n        \u2502 expanding the partner ecosystem, and achieving SOC 2 Type II          \n        \u2502 certification for all cloud products.                                 \n", "s_42df8704d1": "Here is the cleaned and normalized text:                                                            \n\n----------------------------------------------------------------------------------------------------\n\nQuarterly Business Report - Q4 2025                                                                 \n\nExecutive Summary                                                                                   \n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and \nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost \ndecreased by 12% due to improved marketing efficiency. The company expanded into three new markets: \nSoutheast Asia, Eastern Europe, and South America.                                                  \n\nKey Metrics                                                                                         \n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter  \nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&D      \ninvestment was $840M, representing 20% of revenue.                                                  \n\nOutlook                                                                                             \n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the       \nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II         \ncertification for all cloud products.                                                               \n\n----------------------------------------------------------------------------------------------------\n\nChanges made:                                                                                       \n\n \u2022 Removed all structural metadata tags (pages, item, text_and_images, raw_html, page_view)         \n \u2022 Removed all markdown heading symbols (#, ##, ###)                                                \n \u2022 Removed empty/null fields (images: None, raw_html: None, page_view: None)                        \n \u2022 Fixed R&D; artifact \u2192 R&D                                                                        \n \u2022 Preserved all substantive content and formatting                                                 \n", "s_ceebd176f9": "   1    \u2502 Quarterly Business Report - Q4 2025                                   \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 Executive Summary                                                     \n        \u2502                                                                       \n        \u2502 Revenue grew 15% year-over-year to $4.2 billion, driven by strong     \n        \u2502 performance in cloud services and enterprise software. Operating      \n        \u2502 margin improved to 28%, up from 24% in Q3. Customer acquisition cost  \n        \u2502 decreased by 12% due to improved marketing efficiency. The company    \n        \u2502 expanded into three new markets: Southeast Asia, Eastern Europe, and  \n        \u2502 South America.                                                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 Key Metrics                                                           \n        \u2502                                                                       \n        \u2502 Active users reached 45 million, a 22% increase. Monthly recurring    \n        \u2502 revenue hit $350M. Net promoter score improved from 62 to 71.         \n        \u2502 Employee headcount grew to 8,500 across 12 offices globally. R&D      \n        \u2502 investment was $840M, representing 20% of revenue.                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 Outlook                                                               \n        \u2502                                                                       \n        \u2502 For Q1 2026, we expect revenue between $4.4B and $4.6B. Key           \n        \u2502 initiatives include launching the AI-powered analytics platform,      \n        \u2502 expanding the partner ecosystem, and achieving SOC 2 Type II          \n        \u2502 certification for all cloud products.                                 \n", "s_7ffdeac00f": "   1    \u2502 Quarterly Business Report for Q4 2025.                                \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502 In Q4 2025, the company achieved strong financial performance with    \n        \u2502 revenue growing 15% year-over-year to $4.2 billion, fueled by cloud   \n        \u2502 services and enterprise software. Operating margin rose to 28% from   \n        \u2502 24%, customer acquisition costs dropped 12% through better marketing  \n        \u2502 efficiency, and the company entered three new geographic markets:     \n        \u2502 Southeast Asia, Eastern Europe, and South America.                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502 Q4 2025 key performance metrics: active users grew 22% to 45 million, \n        \u2502 monthly recurring revenue reached $350M, net promoter score improved  \n        \u2502 from 62 to 71, global headcount expanded to 8,500 employees across 12 \n        \u2502 offices, and R&D spending totaled $840M, equal to 20% of revenue.     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   4    \u2502 For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with    \n        \u2502 strategic priorities including the launch of an AI-powered analytics  \n        \u2502 platform, growth of the partner ecosystem, and attaining SOC 2 Type   \n        \u2502 II certification across all cloud products.                           \n", "s_2f4391f5fc": "{\n    \"categories\": [\n        {\n            \"id\": \"cat_1\",\n            \"name\": \"Report Metadata\",\n            \"description\": \"High-level identifying information about the report\",\n            \"items\": [\n                {\n                    \"id\": \"item_1\",\n                    \"index\": 1,\n                    \"content\": \"Quarterly Business Report for Q4 2025.\",\n                    \"tags\": [\n                        \"report\",\n                        \"Q4 2025\",\n                        \"metadata\",\n                        \"title\"\n                    ],\n                    \"cross_references\": [\n                        \"item_2\",\n                        \"item_3\",\n                        \"item_4\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": \"cat_2\",\n            \"name\": \"Financial Performance\",\n            \"description\": \"Revenue, margins, costs, and geographic expansion data for Q4 2025\",\n            \"items\": [\n                {\n                    \"id\": \"item_2\",\n                    \"index\": 2,\n                    \"content\": \"In Q4 2025, the company achieved strong financial performance with \nrevenue growing 15% year-over-year to $4.2 billion, fueled by cloud services and enterprise \nsoftware. Operating margin rose to 28% from 24%, customer acquisition costs dropped 12% through \nbetter marketing efficiency, and the company entered three new geographic markets: Southeast Asia, \nEastern Europe, and South America.\",\n                    \"tags\": [\n                        \"Q4 2025\",\n                        \"revenue\",\n                        \"financial performance\",\n                        \"cloud services\",\n                        \"enterprise software\",\n                        \"operating margin\",\n                        \"customer acquisition\",\n                        \"geographic expansion\"\n                    ],\n                    \"cross_references\": [\n                        \"item_1\",\n                        \"item_3\",\n                        \"item_4\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": \"cat_3\",\n            \"name\": \"Key Performance Metrics\",\n            \"description\": \"Operational and growth metrics for Q4 2025 including users, revenue, \nNPS, headcount, and R&D\",\n            \"items\": [\n                {\n                    \"id\": \"item_3\",\n                    \"index\": 3,\n                    \"content\": \"Q4 2025 key performance metrics: active users grew 22% to 45 \nmillion, monthly recurring revenue reached $350M, net promoter score improved from 62 to 71, global \nheadcount expanded to 8,500 employees across 12 offices, and R&D spending totaled $840M, equal to \n20% of revenue.\",\n                    \"tags\": [\n                        \"Q4 2025\",\n                        \"active users\",\n                        \"monthly recurring revenue\",\n                        \"net promoter score\",\n                        \"headcount\",\n                        \"R&D\",\n                        \"KPIs\"\n                    ],\n                    \"cross_references\": [\n                        \"item_1\",\n                        \"item_2\",\n                        \"item_4\"\n                    ]\n                }\n            ]\n        },\n        {\n            \"id\": \"cat_4\",\n            \"name\": \"Forward Outlook & Strategy\",\n            \"description\": \"Q1 2026 revenue forecast and strategic priorities\",\n            \"items\": [\n                {\n                    \"id\": \"item_4\",\n                    \"index\": 4,\n                    \"content\": \"For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with \nstrategic priorities including the launch of an AI-powered analytics platform, growth of the partner\necosystem, and attaining SOC 2 Type II certification across all cloud products.\",\n                    \"tags\": [\n                        \"Q1 2026\",\n                        \"forecast\",\n                        \"revenue guidance\",\n                        \"AI analytics\",\n                        \"partner ecosystem\",\n                        \"SOC 2\",\n                        \"cloud products\",\n                        \"strategy\"\n                    ],\n                    \"cross_references\": [\n                        \"item_1\",\n                        \"item_2\",\n                        \"item_3\"\n                    ]\n                }\n            ]\n        }\n    ]\n}\n"};
+const stuffDataHtml = {"s_3e81561f26": "# Vector Index Validation Report\n\n## Overall Assessment: **PASS with Minor Issues**\n\nThe index is well-structured and functional, but several issues of varying severity were identified.\n\n---\n\n## Structural Integrity\n\n| Check | Result |\n|---|---|\n| Valid JSON structure | \u2705 Pass |\n| All required fields present (`id`, `index`, `content`, `tags`, `cross_references`) | \u2705 Pass |\n| IDs are unique | \u2705 Pass |\n| Index numbers are sequential | \u2705 Pass |\n| Categories are unique | \u2705 Pass |\n\n---\n\n## Issues Found\n\n### \ud83d\udd34 High Severity\n\n**None identified.**\n\n---\n\n### \ud83d\udfe1 Medium Severity\n\n**1. Potential Data Inconsistency \u2014 R&amp;D Spend vs. Revenue Ratio (item_3)**\n- Item 3 states R&amp;D spending was **$840M = 20% of revenue**\n- Item 2 states total revenue was **$4.2 billion**\n- $840M / $4.2B = **20%** \u2705 \u2014 this checks out\n- However, Item 3 also states MRR = **$350M**, which annualizes to **$4.2B** \u2014 consistent \u2705\n- *No actual error, but the co-location of MRR and total revenue across items without explicit linkage is a latent confusion risk. Consider a cross-reference note or tag clarifying the relationship.*\n\n**2. Missing Cross-Reference Symmetry Verification**\n- All four items cross-reference each other (full mesh), which is technically valid, but:\n  - `item_1` (a title/metadata item) cross-referencing all others is appropriate\n  - However, **no item cross-references itself**, which is correct \u2705\n  - The full-mesh pattern means **cross-references carry no semantic signal** \u2014 every item points to every other item regardless of topical relevance, reducing retrieval utility\n\n&gt; **Recommendation:** Use selective cross-references based on actual topical overlap (e.g., `item_2` \u2192 `item_3` is highly relevant; `item_1` \u2192 `item_4` is weak).\n\n---\n\n### \ud83d\udfe0 Low-to-Medium Severity\n\n**3. Tag Inconsistency \u2014 &quot;Q4 2025&quot; Missing from item_4**\n- Items 1\u20133 all include the tag `&quot;Q4 2025&quot;`\n- `item_4` covers Q1 2026 outlook but **does not include a `&quot;Q4 2025&quot;` tag**, even though it is part of the Q4 2025 report\n- This may cause `item_4` to be **excluded from queries scoped to &quot;Q4 2025&quot;**\n\n&gt; **Recommendation:** Add `&quot;Q4 2025&quot;` to `item_4`&#x27;s tags to reflect the report context, alongside `&quot;Q1 2026&quot;`.\n\n**4. Category Granularity Imbalance**\n- Each category contains exactly **one item**, making the category layer redundant for retrieval purposes\n- If the index is expected to grow, this is fine; if not, categories add structural overhead with no organizational benefit\n\n&gt; **Recommendation:** Either populate categories with multiple items or document that single-item categories are intentional (e.g., for future expansion).\n\n---\n\n### \ud83d\udd35 Low Severity / Suggestions\n\n**5. item_1 Content is Sparse**\n- Content: *&quot;Quarterly Business Report for Q4 2025.&quot;* \u2014 this is a title, not a retrievable chunk\n- In a vector index, embedding a single sentence title produces a weak, low-information vector that may not retrieve well against natural language queries\n\n&gt; **Recommendation:** Expand `item_1` to include report scope, authorship, date, or executive summary to improve embedding quality.\n\n**6. No Embedding Metadata**\n- The index contains no fields for embedding model, vector dimensions, or creation timestamp\n- This makes it difficult to audit, version, or re-embed if the model changes\n\n&gt; **Recommendation:** Add a top-level `metadata` block, for example:\n&gt; ```json\n&gt; &quot;metadata&quot;: {\n&gt;   &quot;embedding_model&quot;: &quot;text-embedding-3-large&quot;,\n&gt;   &quot;vector_dimensions&quot;: 1536,\n&gt;   &quot;created_at&quot;: &quot;2025-10-01T00:00:00Z&quot;,\n&gt;   &quot;version&quot;: &quot;1.0&quot;\n&gt; }\n&gt; ```\n\n**7. No Explicit Namespace or Collection Identifier**\n- The index has no top-level `name` or `collection_id` field\n- This is a risk if multiple indexes are managed in the same environment\n\n&gt; **Recommendation:** Add a root-level `collection_id` or `name` field.\n\n---\n\n## Summary Table\n\n| # | Severity | Issue | Action |\n|---|---|---|---|\n| 1 | \ud83d\udfe1 Medium | Full-mesh cross-references reduce semantic utility | Refine to topically relevant links |\n| 2 | \ud83d\udfe0 Low-Med | `item_4` missing `&quot;Q4 2025&quot;` tag | Add tag |\n| 3 | \ud83d\udfe0 Low-Med | Single-item categories are structurally redundant | Document intent or expand |\n| 4 | \ud83d\udd35 Low | `item_1` content too sparse for quality embedding | Expand content |\n| 5 | \ud83d\udd35 Low | No embedding/versioning metadata | Add metadata block |\n| 6 | \ud83d\udd35 Low | No collection identifier | Add `collection_id` |\n\n---\n\n## Conclusion\n\nThe index is **logically consistent and structurally valid** with no critical errors. The most impactful fix is **Issue #1** (cross-reference refinement) and **Issue #2** (missing tag on `item_4`), as both directly affect retrieval quality. The remaining issues are best addressed before scaling the index further.", "s_f968614492": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/ifpTzXf4t3sM7bznLcyzzo.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/ifpTzXf4t3sM7bznLcyzzo.pdf</a>", "s_6eb55f9d5d": "<ul><li><table><tr><th>text_and_images</th><td># Quarterly Business Report - Q4 2025\n\n\n## Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and\nenterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost\ndecreased by 12% due to improved marketing efficiency. The company expanded into three new\nmarkets: Southeast Asia, Eastern Europe, and South America.\n\n\n## Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter\nscore improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D;\ninvestment was $840M, representing 20% of revenue.\n\n\n## Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the\nAI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II\ncertification for all cloud products.\n</td></tr></table></li></ul>", "s_42df8704d1": "Here is the cleaned and normalized text:\n\n---\n\n**Quarterly Business Report - Q4 2025**\n\n**Executive Summary**\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.\n\n**Key Metrics**\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.\n\n**Outlook**\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.\n\n---\n\n**Changes made:**\n- Removed all structural metadata tags (`pages`, `item`, `text_and_images`, `raw_html`, `page_view`)\n- Removed all markdown heading symbols (`#`, `##`, `###`)\n- Removed empty/null fields (`images: None`, `raw_html: None`, `page_view: None`)\n- Fixed `R&amp;D;` artifact \u2192 `R&amp;D`\n- Preserved all substantive content and formatting", "s_ceebd176f9": "<ul><li>Quarterly Business Report - Q4 2025</li><li>Executive Summary\n\nRevenue grew 15% year-over-year to $4.2 billion, driven by strong performance in cloud services and enterprise software. Operating margin improved to 28%, up from 24% in Q3. Customer acquisition cost decreased by 12% due to improved marketing efficiency. The company expanded into three new markets: Southeast Asia, Eastern Europe, and South America.</li><li>Key Metrics\n\nActive users reached 45 million, a 22% increase. Monthly recurring revenue hit $350M. Net promoter score improved from 62 to 71. Employee headcount grew to 8,500 across 12 offices globally. R&amp;D investment was $840M, representing 20% of revenue.</li><li>Outlook\n\nFor Q1 2026, we expect revenue between $4.4B and $4.6B. Key initiatives include launching the AI-powered analytics platform, expanding the partner ecosystem, and achieving SOC 2 Type II certification for all cloud products.</li></ul>", "s_7ffdeac00f": "<ul><li>Quarterly Business Report for Q4 2025.</li><li>In Q4 2025, the company achieved strong financial performance with revenue growing 15% year-over-year to $4.2 billion, fueled by cloud services and enterprise software. Operating margin rose to 28% from 24%, customer acquisition costs dropped 12% through better marketing efficiency, and the company entered three new geographic markets: Southeast Asia, Eastern Europe, and South America.</li><li>Q4 2025 key performance metrics: active users grew 22% to 45 million, monthly recurring revenue reached $350M, net promoter score improved from 62 to 71, global headcount expanded to 8,500 employees across 12 offices, and R&amp;D spending totaled $840M, equal to 20% of revenue.</li><li>For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with strategic priorities including the launch of an AI-powered analytics platform, growth of the partner ecosystem, and attaining SOC 2 Type II certification across all cloud products.</li></ul>", "s_2f4391f5fc": "<table ><tr><th>categories</th><td><table ><thead><tr><th>id</th><th>name</th><th>description</th><th>items</th></tr></thead><tbody><tr><td>cat_1</td><td>Report Metadata</td><td>High-level identifying information about the report</td><td><table ><thead><tr><th>id</th><th>index</th><th>content</th><th>tags</th><th>cross_references</th></tr></thead><tbody><tr><td>item_1</td><td>1</td><td>Quarterly Business Report for Q4 2025.</td><td><ul><li>report</li><li>Q4 2025</li><li>metadata</li><li>title</li></ul></td><td><ul><li>item_2</li><li>item_3</li><li>item_4</li></ul></td></tr></tbody></table></td></tr><tr><td>cat_2</td><td>Financial Performance</td><td>Revenue, margins, costs, and geographic expansion data for Q4 2025</td><td><table ><thead><tr><th>id</th><th>index</th><th>content</th><th>tags</th><th>cross_references</th></tr></thead><tbody><tr><td>item_2</td><td>2</td><td>In Q4 2025, the company achieved strong financial performance with revenue growing 15% year-over-year to $4.2 billion, fueled by cloud services and enterprise software. Operating margin rose to 28% from 24%, customer acquisition costs dropped 12% through better marketing efficiency, and the company entered three new geographic markets: Southeast Asia, Eastern Europe, and South America.</td><td><ul><li>Q4 2025</li><li>revenue</li><li>financial performance</li><li>cloud services</li><li>enterprise software</li><li>operating margin</li><li>customer acquisition</li><li>geographic expansion</li></ul></td><td><ul><li>item_1</li><li>item_3</li><li>item_4</li></ul></td></tr></tbody></table></td></tr><tr><td>cat_3</td><td>Key Performance Metrics</td><td>Operational and growth metrics for Q4 2025 including users, revenue, NPS, headcount, and R&amp;D</td><td><table ><thead><tr><th>id</th><th>index</th><th>content</th><th>tags</th><th>cross_references</th></tr></thead><tbody><tr><td>item_3</td><td>3</td><td>Q4 2025 key performance metrics: active users grew 22% to 45 million, monthly recurring revenue reached $350M, net promoter score improved from 62 to 71, global headcount expanded to 8,500 employees across 12 offices, and R&amp;D spending totaled $840M, equal to 20% of revenue.</td><td><ul><li>Q4 2025</li><li>active users</li><li>monthly recurring revenue</li><li>net promoter score</li><li>headcount</li><li>R&amp;D</li><li>KPIs</li></ul></td><td><ul><li>item_1</li><li>item_2</li><li>item_4</li></ul></td></tr></tbody></table></td></tr><tr><td>cat_4</td><td>Forward Outlook &amp; Strategy</td><td>Q1 2026 revenue forecast and strategic priorities</td><td><table ><thead><tr><th>id</th><th>index</th><th>content</th><th>tags</th><th>cross_references</th></tr></thead><tbody><tr><td>item_4</td><td>4</td><td>For Q1 2026, the company forecasts revenue of $4.4B to $4.6B, with strategic priorities including the launch of an AI-powered analytics platform, growth of the partner ecosystem, and attaining SOC 2 Type II certification across all cloud products.</td><td><ul><li>Q1 2026</li><li>forecast</li><li>revenue guidance</li><li>AI analytics</li><li>partner ecosystem</li><li>SOC 2</li><li>cloud products</li><li>strategy</li></ul></td><td><ul><li>item_1</li><li>item_2</li><li>item_3</li></ul></td></tr></tbody></table></td></tr></tbody></table></td></tr></table>"};
+const stuffMetadata = {"s_3e81561f26": {"name": "report", "concept": "ValidationReport"}, "s_f968614492": {"name": "document", "concept": "Document"}, "s_6eb55f9d5d": {"name": "pages", "concept": "Page"}, "s_42df8704d1": {"name": "clean_text", "concept": "CleanText"}, "s_ceebd176f9": {"name": "chunks", "concept": "TextChunk"}, "s_7ffdeac00f": {"name": "embeddings", "concept": "Embedding"}, "s_2f4391f5fc": {"name": "index", "concept": "VectorIndex"}};
+const stuffContentType = {"s_f968614492": "application/pdf"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_2563d513da[\"ingest_pipeline\"]\n        n_257df4e620[\"build_index\"]\n        s_2f4391f5fc([\"index\u003cbr/\u003eVectorIndex\"]):::stuff\n        n_a8742d828a[\"chunk_text\"]\n        s_ceebd176f9([\"chunks\u003cbr/\u003eTextChunk\"]):::stuff\n        n_3e0c6b54ff[\"clean_text\"]\n        s_42df8704d1([\"clean_text\u003cbr/\u003eCleanText\"]):::stuff\n        n_ca81e36845[\"embed_chunks\"]\n        s_7ffdeac00f([\"embeddings\u003cbr/\u003eEmbedding\"]):::stuff\n        n_2172117b7b[\"extract_raw\"]\n        s_6eb55f9d5d([\"pages\u003cbr/\u003ePage\"]):::stuff\n        n_b0503cc21f[\"validate_index\"]\n        s_3e81561f26([\"report\u003cbr/\u003eValidationReport\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_f968614492([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_257df4e620 --\u003e s_2f4391f5fc\n    n_b0503cc21f --\u003e s_3e81561f26\n    n_2172117b7b --\u003e s_6eb55f9d5d\n    n_ca81e36845 --\u003e s_7ffdeac00f\n    n_3e0c6b54ff --\u003e s_42df8704d1\n    n_a8742d828a --\u003e s_ceebd176f9\n    s_f968614492 --\u003e n_2172117b7b\n    s_2f4391f5fc --\u003e n_b0503cc21f\n    s_6eb55f9d5d --\u003e n_3e0c6b54ff\n    s_7ffdeac00f --\u003e n_257df4e620\n    s_42df8704d1 --\u003e n_a8742d828a\n    s_ceebd176f9 --\u003e n_ca81e36845\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_2563d513da fill:#e6f3ff";
+
+// Track current state
+let currentStuffId = null;
+let currentFormat = 'html';
+let currentTheme = "dark";
+
+// Include shared utility functions
+// ============================================================
+// Shared Stuff Display Utilities
+// Used by both mermaidflow and reactflow implementations
+// ============================================================
+
+// XSS-safe HTML escaping
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Make all links in a container open in new windows
+function makeLinksOpenInNewWindow(container) {
+    if (!container) return;
+    const links = container.querySelectorAll('a');
+    links.forEach(link => {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+    });
+}
+
+// Validate that a URL is safe for display (prevents javascript: and data: URL injection)
+function isSafeDisplayUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    return url.startsWith('https://') || url.startsWith('http://') || url.startsWith('file://');
+}
+
+// Extract URL from stuff data (handles various data structures)
+// Returns null for invalid/unsafe URLs (javascript:, data:, etc.)
+function extractUrl(jsonData) {
+    if (!jsonData) return null;
+    // Check if data itself is a URL string
+    if (typeof jsonData === 'string') {
+        return isSafeDisplayUrl(jsonData) ? jsonData : null;
+    }
+    // Prefer public_url (pre-signed S3 URL or file:// URI) over url (internal pipelex-storage:// URL)
+    const candidates = [jsonData.public_url, jsonData.src, jsonData.href, jsonData.uri, jsonData.url];
+    for (const candidate of candidates) {
+        if (isSafeDisplayUrl(candidate)) return candidate;
+    }
+    return null;
+}
+
+// Get appropriate tab label based on content type
+function getHtmlTabLabel(contentType) {
+    if (contentType === 'application/pdf') return 'PDF';
+    if (contentType?.startsWith('image/')) return 'Image';
+    return 'HTML';
+}
+// Theme-specific color palettes for custom node styling
+const themePalettes = {
+    default: {
+        page: { bg: '#f8fafc', text: '#1e293b', label: '#64748b', border: '#cbd5e1',
+                borderHover: '#94a3b8', selectBg: 'white', containerBg: 'white' },
+        failed: { fill: '#fee2e2', stroke: '#dc2626' },
+        controller: { fill: '#dbeafe', stroke: '#2563eb' },
+        pipe: { fill: '#dbeafe', stroke: '#2563eb' },
+        stuff: { fill: '#fef3c7', stroke: '#d97706' },
+        subgraph: ['#eff6ff', '#ecfdf5', '#fefce8', '#fdf4ff', '#f0fdfa']
+    },
+    dark: {
+        page: { bg: '#1a1a2e', text: '#e0f7fa', label: '#80deea', border: '#2d4a5a',
+                borderHover: '#00bcd4', selectBg: '#2d4a5a', containerBg: '#16213e' },
+        failed: { fill: '#3a1a1a', stroke: '#ff5252' },
+        controller: { fill: '#1a3a4a', stroke: '#00e5ff' },
+        pipe: { fill: '#1a3a4a', stroke: '#00e5ff' },
+        stuff: { fill: '#2a1a3a', stroke: '#ff4081' },
+        subgraph: ['#1e3a4a', '#1a3a3a', '#2a3a4a', '#1a2a4a', '#2a4a4a']
+    },
+    forest: {
+        page: { bg: '#f0fdf4', text: '#14532d', label: '#166534', border: '#86efac',
+                borderHover: '#4ade80', selectBg: 'white', containerBg: '#fafffe' },
+        failed: { fill: '#fecaca', stroke: '#b91c1c' },
+        controller: { fill: '#dcfce7', stroke: '#16a34a' },
+        pipe: { fill: '#dcfce7', stroke: '#16a34a' },
+        stuff: { fill: '#fef9c3', stroke: '#ca8a04' },
+        subgraph: ['#d1fae5', '#bbf7d0', '#d9f99d', '#fef08a', '#a7f3d0']
+    },
+    neutral: {
+        page: { bg: '#fafafa', text: '#171717', label: '#525252', border: '#d4d4d4',
+                borderHover: '#a3a3a3', selectBg: 'white', containerBg: 'white' },
+        failed: { fill: '#fecaca', stroke: '#991b1b' },
+        controller: { fill: '#e5e5e5', stroke: '#525252' },
+        pipe: { fill: '#e5e5e5', stroke: '#525252' },
+        stuff: { fill: '#fef3c7', stroke: '#92400e' },
+        subgraph: ['#f5f5f5', '#e5e5e5', '#fafaf9', '#f5f5f4', '#fafafa']
+    },
+    base: {
+        page: { bg: '#fff', text: '#18181b', label: '#52525b', border: '#e4e4e7',
+                borderHover: '#a1a1aa', selectBg: 'white', containerBg: '#fafafa' },
+        failed: { fill: '#ffe4e6', stroke: '#e11d48' },
+        controller: { fill: '#e0f2fe', stroke: '#0284c7' },
+        pipe: { fill: '#e0f2fe', stroke: '#0284c7' },
+        stuff: { fill: '#ffedd5', stroke: '#ea580c' },
+        subgraph: ['#f0f9ff', '#f0fdf4', '#fffbeb', '#fdf4ff', '#ecfeff']
+    }
+};
+
+function applyPageTheme(theme) {
+    const palette = themePalettes[theme]?.page || themePalettes.default.page;
+    document.documentElement.style.setProperty('--bg-color', palette.bg);
+    document.documentElement.style.setProperty('--text-color', palette.text);
+    document.documentElement.style.setProperty('--label-color', palette.label);
+    document.documentElement.style.setProperty('--border-color', palette.border);
+    document.documentElement.style.setProperty('--border-hover', palette.borderHover);
+    document.documentElement.style.setProperty('--select-bg', palette.selectBg);
+    document.documentElement.style.setProperty('--container-bg', palette.containerBg);
+}
+
+function applyThemeColors(code, theme) {
+    const palette = themePalettes[theme] || themePalettes.default;
+    let result = code;
+
+    // Replace classDef colors
+    result = result.replace(
+        /classDef\s+failed\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef failed fill:${palette.failed.fill},stroke:${palette.failed.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+controller\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef controller fill:${palette.controller.fill},stroke:${palette.controller.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+pipe\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef pipe fill:${palette.pipe.fill},stroke:${palette.pipe.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+pipe_failed\s+fill:[^,]+,stroke:[^\s\n]+/g,
+        `classDef pipe_failed fill:${palette.failed.fill},stroke:${palette.failed.stroke}`
+    );
+    result = result.replace(
+        /classDef\s+stuff\s+fill:[^,]+,stroke:[^,]+/g,
+        `classDef stuff fill:${palette.stuff.fill},stroke:${palette.stuff.stroke}`
+    );
+
+    // Replace subgraph fill colors (style sg_xxx fill:#xxx)
+    const subgraphColors = palette.subgraph;
+    let colorIndex = 0;
+    result = result.replace(
+        /style\s+(sg_[^\s]+)\s+fill:#[a-fA-F0-9]+/g,
+        (match, subgraphId) => {
+            const color = subgraphColors[colorIndex % subgraphColors.length];
+            colorIndex++;
+            return `style ${subgraphId} fill:${color}`;
+        }
+    );
+
+    return result;
+}
+
+function initMermaid(theme) {
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: theme,
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+        }
+    });
+}
+
+function attachClickHandlers() {
+    // Wait for mermaid to render, then attach click handlers
+    setTimeout(() => {
+        const svgContainer = document.querySelector('.mermaid svg');
+        if (!svgContainer) return;
+
+        // Find nodes by their flowchart IDs - use any available data source
+        const allStuffIds = new Set([
+            ...Object.keys(stuffDataJson || {}),
+            ...Object.keys(stuffDataText || {}),
+            ...Object.keys(stuffDataHtml || {})
+        ]);
+
+        for (const stuffId of allStuffIds) {
+            // Mermaid generates IDs like 'flowchart-s_xxx-123'
+            const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
+            nodes.forEach(node => {
+                node.classList.add('clickable-stuff');
+                node.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showModal(stuffId);
+                });
+            });
+        }
+    }, 500);
+}
+
+async function renderDiagram(theme) {
+    const container = document.getElementById('mermaid-diagram');
+    const themedCode = applyThemeColors(mermaidCode, theme);
+    container.innerHTML = themedCode;
+    container.removeAttribute('data-processed');
+    applyPageTheme(theme);
+    initMermaid(theme);
+    await mermaid.run({ nodes: [container] });
+    attachClickHandlers();
+}
+
+// Set initial theme in dropdown
+document.getElementById('theme-select').value = currentTheme;
+
+// Handle theme change
+document.getElementById('theme-select').addEventListener('change', async (e) => {
+    currentTheme = e.target.value;
+    await renderDiagram(currentTheme);
+});
+
+// Initial render on page load
+renderDiagram(currentTheme);
+
+// Set up format tab handlers
+document.querySelectorAll('.format-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        if (tab.disabled) return;
+        const format = tab.dataset.format;
+        setFormat(format);
+    });
+});
+
+function setFormat(format) {
+    currentFormat = format;
+    // Update tab styling
+    document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${format}`).classList.add('active');
+    // Re-render content if modal is open
+    if (currentStuffId) {
+        renderContent(currentStuffId, format);
+    }
+}
+
+function renderContent(stuffId, format) {
+    const content = document.getElementById('modal-content');
+    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+
+    // Handle PDF content type with embedded viewer
+    const contentType = stuffContentType?.[stuffId];
+    const jsonData = stuffDataJson?.[stuffId];
+
+    if (format === 'html' && contentType === 'application/pdf') {
+        const pdfUrl = extractUrl(jsonData);
+        if (pdfUrl) {
+            content.classList.add('pdf-content');
+            content.innerHTML = '';
+            const embed = document.createElement('embed');
+            embed.src = pdfUrl;
+            embed.type = 'application/pdf';
+            embed.style.cssText = 'width:100%; height:100%; border:none; min-height:500px;';
+            content.appendChild(embed);
+            updateOpenExternalButton(stuffId, contentType, jsonData);
+            return;
+        }
+    }
+
+    // Handle image content type
+    if (format === 'html' && contentType?.startsWith('image/')) {
+        const imageUrl = extractUrl(jsonData);
+        if (imageUrl) {
+            content.classList.add('image-content');
+            content.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain;';
+            img.alt = 'Image content';
+            content.appendChild(img);
+            updateOpenExternalButton(stuffId, contentType, jsonData);
+            return;
+        }
+    }
+
+    if (format === 'json') {
+        const data = stuffDataJson?.[stuffId];
+        content.innerHTML = '';
+        content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
+    } else if (format === 'text') {
+        const data = stuffDataText?.[stuffId];
+        content.classList.add('text-content');
+        content.innerHTML = '';
+        content.textContent = data || 'No text data available';
+    } else if (format === 'html') {
+        const data = stuffDataHtml?.[stuffId];
+        if (data) {
+            content.classList.add('html-content');
+            content.innerHTML = DOMPurify.sanitize(data);
+            makeLinksOpenInNewWindow(content);
+        } else {
+            content.innerHTML = '';
+            content.textContent = 'No HTML data available';
+        }
+    }
+
+    updateOpenExternalButton(stuffId, contentType, jsonData);
+}
+
+// Update visibility of the "open in new window" button (PDF only)
+function updateOpenExternalButton(stuffId, contentType, jsonData) {
+    const openExternalBtn = document.getElementById('open-external-btn');
+    if (!openExternalBtn) return;
+
+    const url = extractUrl(jsonData);
+    // Only show for PDFs (images are handled by the download button)
+    const shouldShow = contentType === 'application/pdf' && !!url;
+    openExternalBtn.style.display = shouldShow ? '' : 'none';
+}
+
+function updateTabAvailability(stuffId) {
+    const jsonTab = document.getElementById('tab-json');
+    const textTab = document.getElementById('tab-text');
+    const htmlTab = document.getElementById('tab-html');
+
+    jsonTab.disabled = !stuffDataJson?.[stuffId];
+    textTab.disabled = !stuffDataText?.[stuffId];
+
+    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    const contentType = stuffContentType?.[stuffId];
+    const jsonData = stuffDataJson?.[stuffId];
+    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
+    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+
+    // Update HTML tab label based on content type
+    if (contentType === 'application/pdf') {
+        htmlTab.textContent = 'PDF';
+    } else if (contentType?.startsWith('image/')) {
+        htmlTab.textContent = 'Image';
+    } else {
+        htmlTab.textContent = 'HTML';
+    }
+
+    // Find first available format (HTML -> JSON -> Pretty)
+    if (!htmlTab.disabled) return 'html';
+    if (!jsonTab.disabled) return 'json';
+    if (!textTab.disabled) return 'text';
+    return 'html';
+}
+
+function showModal(stuffId) {
+    currentStuffId = stuffId;
+    const modal = document.getElementById('data-modal');
+    const overlay = document.getElementById('modal-overlay');
+    const title = document.getElementById('modal-title');
+
+    // Build title from metadata (name + concept as primary, ID as secondary)
+    const meta = stuffMetadata?.[stuffId];
+    if (meta && (meta.name || meta.concept)) {
+        const primaryParts = [];
+        if (meta.name) primaryParts.push(escapeHtml(meta.name));
+        if (meta.concept) primaryParts.push(`(${escapeHtml(meta.concept)})`);
+        const primary = `<span class="data-modal-title-primary">${primaryParts.join(' ')}</span>`;
+        const secondary = `<span class="data-modal-title-secondary">${escapeHtml(stuffId)}</span>`;
+        title.innerHTML = primary + secondary;
+    } else {
+        title.innerHTML = `<span class="data-modal-title-primary">${escapeHtml(stuffId)}</span>`;
+    }
+
+    // Update tab availability and select best format
+    const availableFormat = updateTabAvailability(stuffId);
+
+    // If current format is not available, switch to available one
+    const currentTab = document.getElementById(`tab-${currentFormat}`);
+    if (currentTab.disabled) {
+        setFormat(availableFormat);
+    } else {
+        renderContent(stuffId, currentFormat);
+    }
+
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
+function hideModal() {
+    document.getElementById('data-modal').style.display = 'none';
+    document.getElementById('modal-overlay').style.display = 'none';
+    currentStuffId = null;
+}
+
+// Get current content based on format
+function getCurrentContent() {
+    if (!currentStuffId) return null;
+
+    if (currentFormat === 'json') {
+        const data = stuffDataJson?.[currentStuffId];
+        if (!data) return null;
+        return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
+    } else if (currentFormat === 'text') {
+        const data = stuffDataText?.[currentStuffId];
+        if (!data) return null;
+        return { content: data, ext: 'txt', mime: 'text/plain' };
+    } else if (currentFormat === 'html') {
+        const data = stuffDataHtml?.[currentStuffId];
+        if (!data) return null;
+        return { content: data, ext: 'html', mime: 'text/html' };
+    }
+    return null;
+}
+
+// Copy content to clipboard
+function copyContent() {
+    const data = getCurrentContent();
+    if (!data) return;
+
+    navigator.clipboard.writeText(data.content).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const checkIcon = '<svg viewBox="0 0 24 24">' +
+            '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+        const copyIcon = '<svg viewBox="0 0 24 24">' +
+            '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1z' +
+            'm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z' +
+            'm0 16H8V7h11v14z"/></svg>';
+        btn.innerHTML = checkIcon;
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.innerHTML = copyIcon;
+            btn.classList.remove('copied');
+        }, 1500);
+    });
+}
+
+// Download content as file
+function downloadContent() {
+    if (!currentStuffId) return;
+
+    // Get name from metadata or use ID
+    const meta = stuffMetadata?.[currentStuffId];
+    const baseName = meta?.name || currentStuffId || 'data';
+    const contentType = stuffContentType?.[currentStuffId];
+    const jsonData = stuffDataJson?.[currentStuffId];
+
+    // For images, download the actual image file directly
+    if (contentType?.startsWith('image/')) {
+        const imageUrl = extractUrl(jsonData);
+        if (imageUrl) {
+            const ext = contentType.split('/')[1] || 'png';
+            const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.${ext}`;
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            return;
+        }
+    }
+
+    // For PDFs, download the actual PDF file directly
+    if (contentType === 'application/pdf') {
+        const pdfUrl = extractUrl(jsonData);
+        if (pdfUrl) {
+            const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`;
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = filename;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            return;
+        }
+    }
+
+    const data = getCurrentContent();
+    if (!data) return;
+
+    const filename = `${baseName.replace(/[^a-zA-Z0-9_-]/g, '_')}.${data.ext}`;
+    const blob = new Blob([data.content], { type: data.mime });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// Close modal when clicking overlay
+document.getElementById('modal-overlay').addEventListener('click', hideModal);
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideModal();
+});
+
+// Open external URL for PDF content
+function openExternal() {
+    if (!currentStuffId) return;
+    const contentType = stuffContentType?.[currentStuffId];
+    const jsonData = stuffDataJson?.[currentStuffId];
+
+    if (contentType === 'application/pdf') {
+        const url = extractUrl(jsonData);
+        if (url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    }
+}
+    </script>
+</body>
+</html>

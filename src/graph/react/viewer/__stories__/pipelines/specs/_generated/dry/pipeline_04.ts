@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_LONG_SEQUENCE = {
-  graph_id: "4992eee0-6482-410e-b569-dd2635f702c1",
-  created_at: "2026-07-09T11:00:27.054366Z",
+  graph_id: "ede784d0-cdae-4493-87c3-15fa45e61d67",
+  created_at: "2026-08-14T10:48:13.770687Z",
   pipeline_ref: { domain: "data_pipeline", main_pipe: "ingest_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
       kind: "controller",
       pipe_code: "ingest_pipeline",
       pipe_type: "PipeSequence",
@@ -19,30 +19,30 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.054366Z",
-        ended_at: "2026-07-09T11:00:27.257228Z",
-        duration: 0.202862,
+        started_at: "2026-08-14T10:48:13.770687Z",
+        ended_at: "2026-08-14T10:48:13.909253Z",
+        duration: 0.138566,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "RCDjzsAbNudkOhLZMIbo",
+            content_type: "xfqcJmKvpUZjCJjeyHKY",
             preview: null,
             size: null,
-            digest: "HU3oE",
+            digest: "4Rar7",
             data: {
-              url: "IokbNPOZyUElfXXkgPsu",
-              public_url: "qxzqoxLIlWwAURNTthCT",
-              mime_type: "RCDjzsAbNudkOhLZMIbo",
-              filename: "TPqYXjMppFEIscbFUTZy",
-              title: "DrjPqODDJtaCytFHfMQH",
-              snippet: "pCKNmvvgPYlIJIxPWGJG",
+              url: "IIcqOQAcGHaRuiaiRCEf",
+              public_url: "QAeojBTpMBhycRYoIhfc",
+              mime_type: "xfqcJmKvpUZjCJjeyHKY",
+              filename: "ZYyvdjwHTljpxZFHlEFj",
+              title: "VkQgZLIqiusyVADPYNSa",
+              snippet: "XaluvxhojLbKAloZoJrw",
             },
-            data_text: "DrjPqODDJtaCytFHfMQH (IokbNPOZyUElfXXkgPsu)\n  pCKNmvvgPYlIJIxPWGJG\n",
+            data_text: "VkQgZLIqiusyVADPYNSa (IIcqOQAcGHaRuiaiRCEf)\n  XaluvxhojLbKAloZoJrw\n",
             data_html:
-              '<a href="qxzqoxLIlWwAURNTthCT" class="msg-document">DrjPqODDJtaCytFHfMQH</a><br/><small>pCKNmvvgPYlIJIxPWGJG</small>',
+              '<a href="QAeojBTpMBhycRYoIhfc" class="msg-document">VkQgZLIqiusyVADPYNSa</a><br/><small>XaluvxhojLbKAloZoJrw</small>',
             extra: {},
           },
         ],
@@ -53,14 +53,14 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "US2eo",
+            digest: "F3tFy",
             data: {
-              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "tKbgPxlYyOZWjZVXwFsq": "3"\n}\n</index>\n    ',
+              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>\n    ',
             },
             data_text:
               "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
             data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;tKbgPxlYyOZWjZVXwFsq&quot;: &quot;3&quot;\n}\n&lt;/index&gt;\n    ",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;gMIHCyGbMwhXupMghJRZ&quot;: &quot;73e9c3ed09&quot;\n}\n&lt;/index&gt;\n    ",
             extra: {},
           },
         ],
@@ -68,10 +68,37 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 5,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 5,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 6 },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
       kind: "operator",
       pipe_code: "extract_raw",
       pipe_type: "PipeExtract",
@@ -80,30 +107,30 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.058980Z",
-        ended_at: "2026-07-09T11:00:27.069065Z",
-        duration: 0.010085,
+        started_at: "2026-08-14T10:48:13.775781Z",
+        ended_at: "2026-08-14T10:48:13.782703Z",
+        duration: 0.006922,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "RCDjzsAbNudkOhLZMIbo",
+            content_type: "xfqcJmKvpUZjCJjeyHKY",
             preview: null,
             size: null,
-            digest: "HU3oE",
+            digest: "4Rar7",
             data: {
-              url: "IokbNPOZyUElfXXkgPsu",
-              public_url: "qxzqoxLIlWwAURNTthCT",
-              mime_type: "RCDjzsAbNudkOhLZMIbo",
-              filename: "TPqYXjMppFEIscbFUTZy",
-              title: "DrjPqODDJtaCytFHfMQH",
-              snippet: "pCKNmvvgPYlIJIxPWGJG",
+              url: "IIcqOQAcGHaRuiaiRCEf",
+              public_url: "QAeojBTpMBhycRYoIhfc",
+              mime_type: "xfqcJmKvpUZjCJjeyHKY",
+              filename: "ZYyvdjwHTljpxZFHlEFj",
+              title: "VkQgZLIqiusyVADPYNSa",
+              snippet: "XaluvxhojLbKAloZoJrw",
             },
-            data_text: "DrjPqODDJtaCytFHfMQH (IokbNPOZyUElfXXkgPsu)\n  pCKNmvvgPYlIJIxPWGJG\n",
+            data_text: "VkQgZLIqiusyVADPYNSa (IIcqOQAcGHaRuiaiRCEf)\n  XaluvxhojLbKAloZoJrw\n",
             data_html:
-              '<a href="qxzqoxLIlWwAURNTthCT" class="msg-document">DrjPqODDJtaCytFHfMQH</a><br/><small>pCKNmvvgPYlIJIxPWGJG</small>',
+              '<a href="QAeojBTpMBhycRYoIhfc" class="msg-document">VkQgZLIqiusyVADPYNSa</a><br/><small>XaluvxhojLbKAloZoJrw</small>',
             extra: {},
           },
         ],
@@ -114,7 +141,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VtpgH",
+            digest: "azKns",
             data: {
               items: [
                 {
@@ -162,6 +189,24 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "document",
@@ -170,7 +215,7 @@ export const DRY_LONG_SEQUENCE = {
       },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
       kind: "operator",
       pipe_code: "clean_text",
       pipe_type: "PipeLLM",
@@ -179,9 +224,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.070568Z",
-        ended_at: "2026-07-09T11:00:27.088779Z",
-        duration: 0.018211,
+        started_at: "2026-08-14T10:48:13.786955Z",
+        ended_at: "2026-08-14T10:48:13.801429Z",
+        duration: 0.014474,
       },
       io: {
         inputs: [
@@ -191,7 +236,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VtpgH",
+            digest: "azKns",
             data: {
               items: [
                 {
@@ -242,7 +287,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "XFkwG",
+            digest: "9W4cb",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             },
@@ -257,6 +302,42 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -268,7 +349,7 @@ export const DRY_LONG_SEQUENCE = {
       },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
       kind: "operator",
       pipe_code: "chunk_text",
       pipe_type: "PipeLLM",
@@ -277,9 +358,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.090301Z",
-        ended_at: "2026-07-09T11:00:27.191586Z",
-        duration: 0.101285,
+        started_at: "2026-08-14T10:48:13.805955Z",
+        ended_at: "2026-08-14T10:48:13.816035Z",
+        duration: 0.01008,
       },
       io: {
         inputs: [
@@ -289,7 +370,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "XFkwG",
+            digest: "9W4cb",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             },
@@ -307,18 +388,18 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FpVnz",
+            digest: "EXJja",
             data: {
               items: [
-                { text: "HIfwoHBAPLhokhhLbJtW" },
-                { text: "DzBHnUUKpbSqvktsDVEs" },
-                { text: "ngZqJNqCkFmzlynqCdZu" },
+                { text: "CfzwdaLHRdComFYzBEyy" },
+                { text: "toThwHUWnZqEeHGwSyEx" },
+                { text: "pwQGvoCuCozmLRLqtEio" },
               ],
             },
             data_text:
-              "   1    │ HIfwoHBAPLhokhhLbJtW                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DzBHnUUKpbSqvktsDVEs                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ngZqJNqCkFmzlynqCdZu                                                  \n",
+              "   1    │ CfzwdaLHRdComFYzBEyy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ toThwHUWnZqEeHGwSyEx                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ pwQGvoCuCozmLRLqtEio                                                  \n",
             data_html:
-              "<ul><li>HIfwoHBAPLhokhhLbJtW</li><li>DzBHnUUKpbSqvktsDVEs</li><li>ngZqJNqCkFmzlynqCdZu</li></ul>",
+              "<ul><li>CfzwdaLHRdComFYzBEyy</li><li>toThwHUWnZqEeHGwSyEx</li><li>pwQGvoCuCozmLRLqtEio</li></ul>",
             extra: {},
           },
         ],
@@ -326,6 +407,42 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -337,7 +454,7 @@ export const DRY_LONG_SEQUENCE = {
       },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
       kind: "operator",
       pipe_code: "embed_chunks",
       pipe_type: "PipeLLM",
@@ -346,9 +463,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.192997Z",
-        ended_at: "2026-07-09T11:00:27.215393Z",
-        duration: 0.022396,
+        started_at: "2026-08-14T10:48:13.820521Z",
+        ended_at: "2026-08-14T10:48:13.876858Z",
+        duration: 0.056337,
       },
       io: {
         inputs: [
@@ -358,18 +475,18 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FpVnz",
+            digest: "EXJja",
             data: {
               items: [
-                { text: "HIfwoHBAPLhokhhLbJtW" },
-                { text: "DzBHnUUKpbSqvktsDVEs" },
-                { text: "ngZqJNqCkFmzlynqCdZu" },
+                { text: "CfzwdaLHRdComFYzBEyy" },
+                { text: "toThwHUWnZqEeHGwSyEx" },
+                { text: "pwQGvoCuCozmLRLqtEio" },
               ],
             },
             data_text:
-              "   1    │ HIfwoHBAPLhokhhLbJtW                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DzBHnUUKpbSqvktsDVEs                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ ngZqJNqCkFmzlynqCdZu                                                  \n",
+              "   1    │ CfzwdaLHRdComFYzBEyy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ toThwHUWnZqEeHGwSyEx                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ pwQGvoCuCozmLRLqtEio                                                  \n",
             data_html:
-              "<ul><li>HIfwoHBAPLhokhhLbJtW</li><li>DzBHnUUKpbSqvktsDVEs</li><li>ngZqJNqCkFmzlynqCdZu</li></ul>",
+              "<ul><li>CfzwdaLHRdComFYzBEyy</li><li>toThwHUWnZqEeHGwSyEx</li><li>pwQGvoCuCozmLRLqtEio</li></ul>",
             extra: {},
           },
         ],
@@ -380,18 +497,18 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Dk6G6",
+            digest: "FQwpw",
             data: {
               items: [
-                { text: "MBVKpbKlLaTFEJcujZWw" },
-                { text: "HxiGAqIjYmZCXMABybox" },
-                { text: "LrYXcOOoBWYRIKYSgWsf" },
+                { text: "FJwwnVOxvtJliHPPITQG" },
+                { text: "ghWtDkWKlnoUWMfJrLNA" },
+                { text: "KMgCQUNuDSTykdjrcpvA" },
               ],
             },
             data_text:
-              "   1    │ MBVKpbKlLaTFEJcujZWw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ HxiGAqIjYmZCXMABybox                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ LrYXcOOoBWYRIKYSgWsf                                                  \n",
+              "   1    │ FJwwnVOxvtJliHPPITQG                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ghWtDkWKlnoUWMfJrLNA                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ KMgCQUNuDSTykdjrcpvA                                                  \n",
             data_html:
-              "<ul><li>MBVKpbKlLaTFEJcujZWw</li><li>HxiGAqIjYmZCXMABybox</li><li>LrYXcOOoBWYRIKYSgWsf</li></ul>",
+              "<ul><li>FJwwnVOxvtJliHPPITQG</li><li>ghWtDkWKlnoUWMfJrLNA</li><li>KMgCQUNuDSTykdjrcpvA</li></ul>",
             extra: {},
           },
         ],
@@ -399,18 +516,54 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: true,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nHIfwoHBAPLhokhhLbJtW\n\n • item #2:\n\nDzBHnUUKpbSqvktsDVEs\n\n • item #3:\n\nngZqJNqCkFmzlynqCdZu\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    """Vector embedding of text"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nCfzwdaLHRdComFYzBEyy\n\n • item #2:\n\ntoThwHUWnZqEeHGwSyEx\n\n • item #3:\n\npwQGvoCuCozmLRLqtEio\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    """Vector embedding of text"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_list",
       },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
       kind: "operator",
       pipe_code: "build_index",
       pipe_type: "PipeLLM",
@@ -419,9 +572,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.216763Z",
-        ended_at: "2026-07-09T11:00:27.240378Z",
-        duration: 0.023615,
+        started_at: "2026-08-14T10:48:13.881848Z",
+        ended_at: "2026-08-14T10:48:13.893852Z",
+        duration: 0.012004,
       },
       io: {
         inputs: [
@@ -431,18 +584,18 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Dk6G6",
+            digest: "FQwpw",
             data: {
               items: [
-                { text: "MBVKpbKlLaTFEJcujZWw" },
-                { text: "HxiGAqIjYmZCXMABybox" },
-                { text: "LrYXcOOoBWYRIKYSgWsf" },
+                { text: "FJwwnVOxvtJliHPPITQG" },
+                { text: "ghWtDkWKlnoUWMfJrLNA" },
+                { text: "KMgCQUNuDSTykdjrcpvA" },
               ],
             },
             data_text:
-              "   1    │ MBVKpbKlLaTFEJcujZWw                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ HxiGAqIjYmZCXMABybox                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ LrYXcOOoBWYRIKYSgWsf                                                  \n",
+              "   1    │ FJwwnVOxvtJliHPPITQG                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ghWtDkWKlnoUWMfJrLNA                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ KMgCQUNuDSTykdjrcpvA                                                  \n",
             data_html:
-              "<ul><li>MBVKpbKlLaTFEJcujZWw</li><li>HxiGAqIjYmZCXMABybox</li><li>LrYXcOOoBWYRIKYSgWsf</li></ul>",
+              "<ul><li>FJwwnVOxvtJliHPPITQG</li><li>ghWtDkWKlnoUWMfJrLNA</li><li>KMgCQUNuDSTykdjrcpvA</li></ul>",
             extra: {},
           },
         ],
@@ -453,10 +606,10 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VHW7K",
-            data: { json_obj: { tKbgPxlYyOZWjZVXwFsq: "3" } },
-            data_text: '{\n    "tKbgPxlYyOZWjZVXwFsq": "3"\n}\n',
-            data_html: "<table ><tr><th>tKbgPxlYyOZWjZVXwFsq</th><td>3</td></tr></table>",
+            digest: "Mrbax",
+            data: { json_obj: { gMIHCyGbMwhXupMghJRZ: "73e9c3ed09" } },
+            data_text: '{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n',
+            data_html: "<table ><tr><th>gMIHCyGbMwhXupMghJRZ</th><td>73e9c3ed09</td></tr></table>",
             extra: {},
           },
         ],
@@ -464,18 +617,54 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nMBVKpbKlLaTFEJcujZWw\n\n • item #2:\n\nHxiGAqIjYmZCXMABybox\n\n • item #3:\n\nLrYXcOOoBWYRIKYSgWsf\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    """An indexed collection of vectors"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nFJwwnVOxvtJliHPPITQG\n\n • item #2:\n\nghWtDkWKlnoUWMfJrLNA\n\n • item #3:\n\nKMgCQUNuDSTykdjrcpvA\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    """An indexed collection of vectors"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
       kind: "operator",
       pipe_code: "validate_index",
       pipe_type: "PipeLLM",
@@ -484,9 +673,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:00:27.241713Z",
-        ended_at: "2026-07-09T11:00:27.256637Z",
-        duration: 0.014924,
+        started_at: "2026-08-14T10:48:13.898346Z",
+        ended_at: "2026-08-14T10:48:13.907010Z",
+        duration: 0.008664,
       },
       io: {
         inputs: [
@@ -496,10 +685,10 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "VHW7K",
-            data: { json_obj: { tKbgPxlYyOZWjZVXwFsq: "3" } },
-            data_text: '{\n    "tKbgPxlYyOZWjZVXwFsq": "3"\n}\n',
-            data_html: "<table ><tr><th>tKbgPxlYyOZWjZVXwFsq</th><td>3</td></tr></table>",
+            digest: "Mrbax",
+            data: { json_obj: { gMIHCyGbMwhXupMghJRZ: "73e9c3ed09" } },
+            data_text: '{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n',
+            data_html: "<table ><tr><th>gMIHCyGbMwhXupMghJRZ</th><td>73e9c3ed09</td></tr></table>",
             extra: {},
           },
         ],
@@ -510,14 +699,14 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "US2eo",
+            digest: "F3tFy",
             data: {
-              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "tKbgPxlYyOZWjZVXwFsq": "3"\n}\n</index>\n    ',
+              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>\n    ',
             },
             data_text:
               "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
             data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;tKbgPxlYyOZWjZVXwFsq&quot;: &quot;3&quot;\n}\n&lt;/index&gt;\n    ",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;gMIHCyGbMwhXupMghJRZ&quot;: &quot;73e9c3ed09&quot;\n}\n&lt;/index&gt;\n    ",
             extra: {},
           },
         ],
@@ -525,22 +714,58 @@ export const DRY_LONG_SEQUENCE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "tKbgPxlYyOZWjZVXwFsq": "3"\n}\n</index>',
+          'Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>',
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_0",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_0",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -549,9 +774,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_1",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_1",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -560,9 +785,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_2",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_2",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -571,9 +796,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_3",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_3",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -582,9 +807,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_4",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_4",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -593,9 +818,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:edge_5",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_0",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_5",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -604,9 +829,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_0",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_1",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_0",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -615,9 +840,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_1",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_2",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_1",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -626,9 +851,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_2",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_3",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_2",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
       kind: "data",
       optional: false,
       label: "chunks",
@@ -637,9 +862,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_3",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_4",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_3",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
       kind: "data",
       optional: false,
       label: "embeddings",
@@ -648,9 +873,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "4992eee0-6482-410e-b569-dd2635f702c1:asm_edge_4",
-      source: "4992eee0-6482-410e-b569-dd2635f702c1:node_5",
-      target: "4992eee0-6482-410e-b569-dd2635f702c1:node_6",
+      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_4",
+      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
+      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
       kind: "data",
       optional: false,
       label: "index",
@@ -659,6 +884,62 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 5,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 5,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+      subtree_inference_calls: 5,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 5,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "data_pipeline.ingest_pipeline": {
@@ -803,7 +1084,6 @@ export const DRY_LONG_SEQUENCE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -851,7 +1131,6 @@ export const DRY_LONG_SEQUENCE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -899,7 +1178,6 @@ export const DRY_LONG_SEQUENCE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -947,7 +1225,6 @@ export const DRY_LONG_SEQUENCE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -995,7 +1272,6 @@ export const DRY_LONG_SEQUENCE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -1022,7 +1298,7 @@ export const DRY_LONG_SEQUENCE = {
       refines: "native.Text",
       json_schema: {
         description: "Report validating the index quality",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "data_pipeline__ValidationReport",
         type: "object",
@@ -1037,8 +1313,7 @@ export const DRY_LONG_SEQUENCE = {
       json_schema: {
         properties: {
           url: {
-            description:
-              "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             title: "Url",
             type: "string",
           },
@@ -1090,8 +1365,7 @@ export const DRY_LONG_SEQUENCE = {
           ImageContent: {
             properties: {
               url: {
-                description:
-                  "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 title: "Url",
                 type: "string",
               },
@@ -1125,10 +1399,17 @@ export const DRY_LONG_SEQUENCE = {
                 description: "The MIME type of the image",
                 title: "Mime Type",
               },
-              size: {
-                anyOf: [{ $ref: "#/$defs/ImageSize" }, { type: "null" }],
+              width: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
                 default: null,
-                description: "The size in pixels (width and height) of the image",
+                description: "The width of the image, in pixels",
+                title: "Width",
+              },
+              height: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
+                default: null,
+                description: "The height of the image, in pixels",
+                title: "Height",
               },
               filename: {
                 anyOf: [{ type: "string" }, { type: "null" }],
@@ -1139,15 +1420,6 @@ export const DRY_LONG_SEQUENCE = {
             },
             required: ["url"],
             title: "ImageContent",
-            type: "object",
-          },
-          ImageSize: {
-            properties: {
-              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
-              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
-            },
-            required: ["width", "height"],
-            title: "ImageSize",
             type: "object",
           },
           TextAndImagesContent: {
@@ -1177,7 +1449,7 @@ export const DRY_LONG_SEQUENCE = {
             type: "object",
           },
           TextContent: {
-            properties: { text: { title: "Text", type: "string" } },
+            properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
@@ -1207,7 +1479,7 @@ export const DRY_LONG_SEQUENCE = {
       refines: "native.Text",
       json_schema: {
         description: "Text that has been cleaned and normalized",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "data_pipeline__CleanText",
         type: "object",
@@ -1221,7 +1493,7 @@ export const DRY_LONG_SEQUENCE = {
       refines: "native.Text",
       json_schema: {
         description: "A segment of text split for processing",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "data_pipeline__TextChunk",
         type: "object",
@@ -1235,7 +1507,7 @@ export const DRY_LONG_SEQUENCE = {
       refines: "native.Text",
       json_schema: {
         description: "Vector embedding of text",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "data_pipeline__Embedding",
         type: "object",

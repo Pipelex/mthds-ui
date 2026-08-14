@@ -1,6 +1,6 @@
 {
-  "graph_id": "dac3605f-298c-4113-9669-25faaa3fad33",
-  "created_at": "2026-07-09T10:59:37.633368Z",
+  "graph_id": "279ea720-95fd-4cc8-b362-8c066c373178",
+  "created_at": "2026-08-14T10:48:01.382377Z",
   "pipeline_ref": {
     "domain": "text_processing",
     "main_pipe": "summarize",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "dac3605f-298c-4113-9669-25faaa3fad33:node_0",
+      "id": "279ea720-95fd-4cc8-b362-8c066c373178:node_0",
       "kind": "operator",
       "pipe_code": "summarize",
       "pipe_type": "PipeLLM",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T10:59:37.633368Z",
-        "ended_at": "2026-07-09T10:59:37.648764Z",
-        "duration": 0.015396
+        "started_at": "2026-08-14T10:48:01.382377Z",
+        "ended_at": "2026-08-14T10:48:01.395211Z",
+        "duration": 0.012834
       },
       "io": {
         "inputs": [
@@ -29,12 +29,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "a2FND",
+            "digest": "Kxwim",
             "data": {
-              "text": "OnBMblONJuzqdBaEqAKR"
+              "text": "HvJKyZUyGXWyYMZDNdPw"
             },
-            "data_text": "OnBMblONJuzqdBaEqAKR                                                                                \n",
-            "data_html": "OnBMblONJuzqdBaEqAKR",
+            "data_text": "HvJKyZUyGXWyYMZDNdPw                                                                                \n",
+            "data_html": "HvJKyZUyGXWyYMZDNdPw",
             "extra": {}
           }
         ],
@@ -45,12 +45,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "NipXJ",
+            "digest": "b9Jgv",
             "data": {
-              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>\n    "
+              "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>\n    "
             },
             "data_text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
-            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nOnBMblONJuzqdBaEqAKR\n&lt;/text&gt;\n    ",
+            "data_html": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nHvJKyZUyGXWyYMZDNdPw\n&lt;/text&gt;\n    ",
             "extra": {}
           }
         ]
@@ -58,17 +58,109 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "dry_run",
+            "inference_model_id": "dry_run",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 0,
+            "cost": null
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
         "is_multiple_output": false,
         "rendered_system_prompt": null,
-        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>",
+        "rendered_user_prompt": "Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>",
         "structuring_path": "text"
       }
     }
   ],
   "edges": [],
+  "usage": {
+    "total": {
+      "inference_calls": 1,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ],
+      "subtree_inference_calls": 1,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "dry_run",
+          "inference_model_id": "dry_run",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 0,
+          "cost": null
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "dry"
@@ -105,7 +197,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Summarize the following text concisely:\n\n@text\n",
@@ -136,6 +227,7 @@
         "description": "A text summary of content",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -156,6 +248,7 @@
       "json_schema": {
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }

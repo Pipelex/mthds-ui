@@ -1,0 +1,41 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_87b9affbf9["sample_natives"]
+        n_3b35220aa2["count_words"]
+        s_2e7d9fb0b2(["word_count<br/>Number"]):::stuff
+        n_ed12e319df["extract_facts"]
+        s_a7577c4180(["facts<br/>JSON"]):::stuff
+        n_48c27580f1["illustrate"]
+        s_a98e45f075(["illustrated<br/>TextAndImages"]):::stuff
+        n_046ee0e847["render_html"]
+        s_a81b763fa2(["html<br/>Html"]):::stuff
+        s_56cd3dd8a2(["composite<br/>Composite"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_cec5f03b9e(["brief<br/>Text"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_48c27580f1 --> s_a98e45f075
+    n_ed12e319df --> s_a7577c4180
+    n_046ee0e847 --> s_a81b763fa2
+    n_3b35220aa2 --> s_2e7d9fb0b2
+    s_cec5f03b9e --> n_3b35220aa2
+    s_cec5f03b9e --> n_046ee0e847
+    s_cec5f03b9e --> n_48c27580f1
+    s_cec5f03b9e --> n_ed12e319df
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_2e7d9fb0b2 -.-> s_56cd3dd8a2
+    s_a81b763fa2 -.-> s_56cd3dd8a2
+    s_a98e45f075 -.-> s_56cd3dd8a2
+    s_a7577c4180 -.-> s_56cd3dd8a2
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_87b9affbf9 fill:#e6f3ff

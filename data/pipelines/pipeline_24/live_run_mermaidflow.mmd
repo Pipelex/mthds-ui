@@ -1,0 +1,59 @@
+flowchart LR
+
+    %% Pipe and stuff nodes within controller subgraphs
+    subgraph sg_n_a6f98b2de3["deep_nested_pipeline"]
+        subgraph sg_n_3c221459fc["level_2_parallel"]
+            subgraph sg_n_4f3cedf02c["batch_branch"]
+                n_9c84d2ea01["process_single_page"]
+                s_c400c8c7a3(["page<br/>Page"]):::stuff
+                s_51367e9108(["batch_result<br/>BatchResult"]):::stuff
+            end
+            subgraph sg_n_93d604ae27["search_branch"]
+                n_e23f8d5482["search_context"]
+                s_64666321e5(["search_result<br/>SearchResult"]):::stuff
+                n_6ac548c30d["summarize_search"]
+                s_359ff86b17(["search_summary<br/>SearchSummary"]):::stuff
+            end
+            s_392a710b6d(["branch_bundle<br/>Composite"]):::stuff
+        end
+        n_6827d0b9a4["exit_combine"]
+        s_c68389f738(["final<br/>FinalOutput"]):::stuff
+        n_0469e099e1["extract_input"]
+        s_4cd6d74172(["pages<br/>Page"]):::stuff
+    end
+
+    %% Pipeline input stuff nodes (no producer)
+    s_078f9822b2(["batch_result<br/>BatchResult"]):::stuff
+    s_c01eeaf02a(["document<br/>Document"]):::stuff
+
+    %% Data flow edges: producer -> stuff -> consumer
+    n_0469e099e1 --> s_4cd6d74172
+    n_6ac548c30d --> s_359ff86b17
+    n_e23f8d5482 --> s_64666321e5
+    n_6827d0b9a4 --> s_c68389f738
+    n_9c84d2ea01 --> s_51367e9108
+    s_4cd6d74172 --> n_e23f8d5482
+    s_c400c8c7a3 --> n_9c84d2ea01
+    s_c01eeaf02a --> n_0469e099e1
+    s_078f9822b2 --> n_6827d0b9a4
+    s_359ff86b17 --> n_6827d0b9a4
+    s_64666321e5 --> n_6ac548c30d
+
+    %% Batch edges: list-item relationships
+    s_4cd6d74172 -."[0]".-> s_c400c8c7a3
+    s_51367e9108 -."[0]".-> s_078f9822b2
+
+    %% Parallel combine edges: branch outputs → combined output
+    s_078f9822b2 -.-> s_392a710b6d
+    s_359ff86b17 -.-> s_392a710b6d
+
+    %% Style definitions
+    classDef failed fill:#ffcccc,stroke:#cc0000
+    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px
+    classDef controller fill:#e6f3ff,stroke:#0066cc
+
+    %% Subgraph depth-based coloring
+    style sg_n_3c221459fc fill:#e6ffe6
+    style sg_n_4f3cedf02c fill:#fffde6
+    style sg_n_93d604ae27 fill:#fffde6
+    style sg_n_a6f98b2de3 fill:#e6f3ff

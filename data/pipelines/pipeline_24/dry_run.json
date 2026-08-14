@@ -1,6 +1,0 @@
-{
-  "text": "DRY RUN: make_templated_text \u2022 context={'document': StuffArtefact(document), 'pages': StuffArtefact(pages), 'batch_result': StuffArtefact(batch_result), 'search_summary': StuffArtefact(search_summary), 'main_stuff': StuffArtefact(pages)} \u2022 jinja2=# Deep Processing Results\n\n## Batch Results\n{{ batch_result|tag(\"batch_result\") }}\n\n## Search Summary\n{{ search_summary|tag(\"search_summary\") }}\n \u2022 templating_style=None \u2022 template_category=basic",
-  "graph_files": {
-    "graph_html": "mthds-wip/pipeline_24/dry_run.html"
-  }
-}
