@@ -1,19 +1,23 @@
 import React from "react";
-import type { PipeBlueprintUnion } from "@graph/types";
-import { KV } from "./shared";
+import type { GraphSpecModelUsage, PipeBlueprintUnion } from "@graph/types";
+import { KV, ModelRows } from "./shared";
 
 export function PipeExtractSection({
   blueprint,
-  executionData,
+  modelsRan,
+  modelHandles,
 }: {
   blueprint: Extract<PipeBlueprintUnion, { type: "PipeExtract" }>;
-  executionData?: Record<string, unknown>;
+  /** Models that actually ran on this node; absent for a dry or static graph. */
+  modelsRan?: GraphSpecModelUsage[];
+  /** execution_data, ungated: the deck-resolved model handle exists in dry specs too. */
+  modelHandles?: Record<string, unknown>;
 }) {
-  const resolvedModel = executionData?.resolved_model as string | undefined;
+  const resolvedModel = modelHandles?.resolved_model as string | undefined;
 
   return (
     <>
-      <KV label="Model" value={resolvedModel || blueprint.extract_choice} />
+      <ModelRows modelsRan={modelsRan} authored={blueprint.extract_choice} handle={resolvedModel} />
       <KV label="Document Variable" value={blueprint.document_stuff_name} />
       <KV label="Caption Images" value={blueprint.should_caption_images} />
       <KV label="Max Page Images" value={blueprint.max_page_images} />

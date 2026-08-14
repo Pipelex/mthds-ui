@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_SINGLE_PIPE = {
-  graph_id: "7ba29aca-c691-4d97-9fec-087cdc55a290",
-  created_at: "2026-07-09T11:12:24.004388Z",
+  graph_id: "ab40a4a2-301f-412e-a368-7c6a9bfba7cd",
+  created_at: "2026-08-13T11:53:47.571598Z",
   pipeline_ref: { domain: "text_processing", main_pipe: "summarize", entrypoint: null },
   nodes: [
     {
-      id: "7ba29aca-c691-4d97-9fec-087cdc55a290:node_0",
+      id: "ab40a4a2-301f-412e-a368-7c6a9bfba7cd:node_0",
       kind: "operator",
       pipe_code: "summarize",
       pipe_type: "PipeLLM",
@@ -19,9 +19,9 @@ export const LIVE_SINGLE_PIPE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:12:24.004388Z",
-        ended_at: "2026-07-09T11:12:29.885552Z",
-        duration: 5.881164,
+        started_at: "2026-08-13T11:53:47.571598Z",
+        ended_at: "2026-08-13T11:53:53.090154Z",
+        duration: 5.518556,
       },
       io: {
         inputs: [
@@ -31,7 +31,7 @@ export const LIVE_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dxsJN",
+            digest: "QWZTn",
             data: {
               text: "Artificial intelligence has transformed the technology landscape in recent years. Machine learning models, particularly large language models, have shown remarkable capabilities in understanding and generating human language. These models are trained on vast amounts of text data and can perform tasks such as translation, summarization, question answering, and creative writing. The development of transformer architectures in 2017 marked a turning point, enabling models to process sequences of text more efficiently than previous approaches. Companies across industries are now integrating AI into their workflows, from customer service chatbots to medical diagnosis assistance. However, challenges remain around bias, hallucination, and the environmental cost of training large models.",
             },
@@ -49,14 +49,14 @@ export const LIVE_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "XA2GL",
+            digest: "foigP",
             data: {
-              text: "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges.",
+              text: "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Key challenges include bias, hallucinations, and high environmental costs of training.",
             },
             data_text:
-              "Summary                                                                                             \n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities \nin tasks like translation, writing, and question answering. The 2017 introduction of transformer    \narchitecture was a key breakthrough, and AI is now widely adopted across industries. Despite this   \nprogress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges. \n",
+              "Summary                                                                                             \n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities \nin tasks like translation, writing, and question answering. The 2017 introduction of transformer    \narchitecture was a key breakthrough, and AI is now widely adopted across industries. Key challenges \ninclude bias, hallucinations, and high environmental costs of training.                             \n",
             data_html:
-              "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Despite this progress, issues such as bias, inaccuracies, and high energy consumption remain ongoing challenges.",
+              "## Summary\n\nAI has rapidly transformed technology, with large language models demonstrating strong capabilities in tasks like translation, writing, and question answering. The 2017 introduction of transformer architecture was a key breakthrough, and AI is now widely adopted across industries. Key challenges include bias, hallucinations, and high environmental costs of training.",
             extra: {},
           },
         ],
@@ -64,6 +64,42 @@ export const LIVE_SINGLE_PIPE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 159, output: 71, input_audio: 0, input_cached: 0 },
+        total_tokens: 230,
+        cost: 0.001542,
+        cost_input: 0.000477,
+        cost_output: 0.001065,
+        by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.001542,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 159, output: 71, input_audio: 0, input_cached: 0 },
+        subtree_total_tokens: 230,
+        subtree_cost: 0.001542,
+        subtree_cost_input: 0.000477,
+        subtree_cost_output: 0.001065,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.6-sonnet",
+            inference_model_id: "global.anthropic.claude-sonnet-4-6",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.001542,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -76,6 +112,62 @@ export const LIVE_SINGLE_PIPE = {
     },
   ],
   edges: [],
+  usage: {
+    total: {
+      inference_calls: 1,
+      rated_inference_calls: 1,
+      nb_tokens_by_category: { input: 159, output: 71, input_audio: 0, input_cached: 0 },
+      total_tokens: 230,
+      cost: 0.001542,
+      cost_input: 0.000477,
+      cost_output: 0.001065,
+      by_model: [
+        {
+          inference_model_name: "claude-4.6-sonnet",
+          inference_model_id: "global.anthropic.claude-sonnet-4-6",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 1,
+          cost: 0.001542,
+        },
+      ],
+      subtree_inference_calls: 1,
+      subtree_rated_inference_calls: 1,
+      subtree_nb_tokens_by_category: { input: 159, output: 71, input_audio: 0, input_cached: 0 },
+      subtree_total_tokens: 230,
+      subtree_cost: 0.001542,
+      subtree_cost_input: 0.000477,
+      subtree_cost_output: 0.001065,
+      subtree_by_model: [
+        {
+          inference_model_name: "claude-4.6-sonnet",
+          inference_model_id: "global.anthropic.claude-sonnet-4-6",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 1,
+          cost: 0.001542,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "text_processing.summarize": {
@@ -109,7 +201,6 @@ export const LIVE_SINGLE_PIPE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Summarize the following text concisely:\n\n@text\n",
@@ -135,7 +226,7 @@ export const LIVE_SINGLE_PIPE = {
       refines: "native.Text",
       json_schema: {
         description: "A text summary of content",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "text_processing__Summary",
         type: "object",
@@ -148,7 +239,7 @@ export const LIVE_SINGLE_PIPE = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
         type: "object",

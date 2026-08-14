@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { GraphSpecModelUsage as ModelUsage } from "@graph/types";
 
 // ─── Shared display helpers ────────────────────────────────────────────────
 
@@ -176,6 +177,68 @@ export function PromptToggle({
       >
         {activeText}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The Model row: the resolution chain, top to bottom.
+ *
+ * A model reaches an LLM call through up to three rungs, and which ones are
+ * distinct depends on the run:
+ *
+ *   authored   what the .mthds says      `@default-general`, or a preset `$writing-factual`
+ *   handle     execution_data.resolved_model — the LLMSetting's model at capture time.
+ *              Confusingly named: in a LIVE run the alias has already been resolved by
+ *              the time it is captured, so this reads `claude-4.6-sonnet`; in a DRY run
+ *              nothing resolves it and it stays `@default-general`.
+ *   ran        usage.by_model — the model that actually served the call (LIVE only).
+ *
+ * Rendering only the last known rung hides the alias on a live run; rendering only the
+ * first hides the model. So all of them are shown, deduped, request on top. When they
+ * collapse to one value there is one line and nothing to explain.
+ *
+ * A node that used several models (a PipeLLM's text pass and object pass resolve
+ * separately) lists each with its call count.
+ */
+export function ModelRows({
+  modelsRan,
+  authored,
+  handle,
+  label = "Model",
+}: {
+  modelsRan?: ModelUsage[];
+  /** What the method declares — the truest statement of intent. */
+  authored?: string | null;
+  /** execution_data.resolved_model: an alias in a dry run, usually concrete in a live one. */
+  handle?: string | null;
+  label?: string;
+}) {
+  const ran = modelsRan ?? [];
+  const ranLabels = ran.map((entry) =>
+    ran.length > 1
+      ? `${entry.inference_model_name} (${entry.inference_calls})`
+      : entry.inference_model_name,
+  );
+
+  // Consecutive duplicates carry no information: an authored name that was never
+  // aliased resolves to itself, and a handle already concrete equals what ran.
+  const chain: string[] = [];
+  for (const rung of [authored, handle, ...ranLabels]) {
+    if (rung && rung !== chain[chain.length - 1]) chain.push(rung);
+  }
+  if (chain.length === 0) return null;
+
+  return (
+    <div className="detail-kv-row">
+      <span className="detail-kv-key">{label}</span>
+      <span className="detail-kv-value detail-model-value">
+        {chain.map((rung, index) => (
+          <span key={rung} className={index === 0 ? undefined : "detail-model-resolved"}>
+            {rung}
+          </span>
+        ))}
+      </span>
     </div>
   );
 }

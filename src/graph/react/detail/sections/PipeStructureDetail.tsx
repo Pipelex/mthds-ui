@@ -1,6 +1,6 @@
 import React from "react";
-import type { PipeBlueprintUnion } from "@graph/types";
-import { KV, PromptToggle } from "./shared";
+import type { GraphSpecModelUsage, PipeBlueprintUnion } from "@graph/types";
+import { KV, ModelRows, PromptToggle } from "./shared";
 import { labelFromLlmChoice } from "./llmChoice";
 
 /**
@@ -12,22 +12,28 @@ import { labelFromLlmChoice } from "./llmChoice";
 export function PipeStructureSection({
   blueprint,
   executionData,
+  modelsRan,
+  modelHandles,
 }: {
   blueprint: Extract<PipeBlueprintUnion, { type: "PipeStructure" }>;
   executionData?: Record<string, unknown>;
+  /** Models that actually ran on this node; absent for a dry or static graph. */
+  modelsRan?: GraphSpecModelUsage[];
+  /** execution_data, ungated: the deck-resolved model handle exists in dry specs too. */
+  modelHandles?: Record<string, unknown>;
 }) {
   // Runtime-resolved values (from execution_data).
-  const resolvedModel = executionData?.resolved_model as string | undefined;
+  const resolvedModel = modelHandles?.resolved_model as string | undefined;
   const isMultipleOutput = executionData?.is_multiple_output as boolean | undefined;
   const renderedUser = executionData?.rendered_user_prompt as string | undefined;
 
-  // Prefer the runtime-resolved model; otherwise derive a label from the
-  // configured llm_choice (a string handle or an inline LLMSetting object).
-  const modelDisplay = resolvedModel || labelFromLlmChoice(blueprint.llm_choice);
+  // The authored choice (a string handle or an inline LLMSetting object), shown as
+  // the head of the resolution chain rather than as a fallback — see ModelRows.
+  const authoredModel = labelFromLlmChoice(blueprint.llm_choice);
 
   return (
     <>
-      <KV label="Model" value={modelDisplay} />
+      <ModelRows modelsRan={modelsRan} authored={authoredModel} handle={resolvedModel} />
       <KV label="Text Variable" value={blueprint.text_input_name} />
       <KV label="Multiple Output" value={isMultipleOutput} />
       <KV label="Output Multiplicity" value={blueprint.output_multiplicity} />

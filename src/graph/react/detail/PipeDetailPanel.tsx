@@ -1,5 +1,11 @@
 import React from "react";
-import type { GraphSpecNode, PipeBlueprintUnion, PipeType, GraphSpec } from "@graph/types";
+import type {
+  GraphSpecModelUsage,
+  GraphSpecNode,
+  PipeBlueprintUnion,
+  PipeType,
+  GraphSpec,
+} from "@graph/types";
 import { isDryGraphSpec, isStaticGraphSpec } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
@@ -15,6 +21,8 @@ import {
   PipeSequenceSection,
   PipeParallelSection,
   PipeBatchSection,
+  UsageCostInline,
+  UsageDetails,
   shouldDumpExecutionData,
 } from "./sections";
 import "./DetailPanel.css";
@@ -86,6 +94,8 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
     return undefined;
   }, [node.pipe_code, spec]);
 
+  const [usageExpanded, setUsageExpanded] = React.useState(false);
+
   const inputs = node.io?.inputs ?? [];
   const outputs = node.io?.outputs ?? [];
   const description = blueprint?.description ?? node.description;
@@ -108,7 +118,10 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
           </span>
         </div>
 
-        {/* Status + Duration */}
+        {/* Status + Duration + Cost — three facts about the same run, on one
+            line. Cost is gated on showsGeneratedData, i.e. a real run: a dry run
+            executes nothing, so its usage counts are simulated and stating a
+            price (even "none") would answer a question that does not apply. */}
         {!isStatic && (
           <div className="detail-status">
             <span className="detail-status-dot" style={{ background: statusColor }} />
@@ -118,7 +131,19 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
             {node.timing?.duration != null && (
               <span className="detail-duration">{formatDuration(node.timing.duration)}</span>
             )}
+            {showsGeneratedData && node.usage && (
+              <UsageCostInline
+                usage={node.usage}
+                isController={isController}
+                expanded={usageExpanded}
+                onToggle={() => setUsageExpanded((value) => !value)}
+              />
+            )}
           </div>
+        )}
+
+        {showsGeneratedData && node.usage && usageExpanded && (
+          <UsageDetails usage={node.usage} isController={isController} />
         )}
 
         {/* Description */}
@@ -175,6 +200,13 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
         <BlueprintSection
           blueprint={blueprint}
           executionData={showsGeneratedData ? node.execution_data : undefined}
+          modelsRan={showsGeneratedData ? node.usage?.by_model : undefined}
+          // Model resolution is NOT gated on showsGeneratedData, unlike every other
+          // execution_data field. Resolving `@default-general` to `claude-4.6-sonnet`
+          // is a deterministic deck lookup, not a measurement of a run — a dry spec
+          // carries it too, and hiding it there left the Model row showing an alias
+          // with nothing under it.
+          modelHandles={node.execution_data}
         />
       )}
 
@@ -236,23 +268,63 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
 function BlueprintSection({
   blueprint,
   executionData,
+  modelsRan,
+  modelHandles,
 }: {
   blueprint: PipeBlueprintUnion;
   executionData?: Record<string, unknown>;
+  /** Models that actually ran on this node — see ModelRows in ./sections/shared. */
+  modelsRan?: GraphSpecModelUsage[];
+  /** execution_data, ungated: the deck-resolved model handle is available in dry specs too. */
+  modelHandles?: Record<string, unknown>;
 }) {
   switch (blueprint.type) {
     case "PipeLLM":
-      return <PipeLLMSection blueprint={blueprint} executionData={executionData} />;
+      return (
+        <PipeLLMSection
+          blueprint={blueprint}
+          executionData={executionData}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeImgGen":
-      return <PipeImgGenSection blueprint={blueprint} executionData={executionData} />;
+      return (
+        <PipeImgGenSection
+          blueprint={blueprint}
+          executionData={executionData}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeCompose":
       return <PipeComposeSection blueprint={blueprint} executionData={executionData} />;
     case "PipeExtract":
-      return <PipeExtractSection blueprint={blueprint} executionData={executionData} />;
+      return (
+        <PipeExtractSection
+          blueprint={blueprint}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeSearch":
-      return <PipeSearchSection blueprint={blueprint} executionData={executionData} />;
+      return (
+        <PipeSearchSection
+          blueprint={blueprint}
+          executionData={executionData}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeStructure":
-      return <PipeStructureSection blueprint={blueprint} executionData={executionData} />;
+      return (
+        <PipeStructureSection
+          blueprint={blueprint}
+          executionData={executionData}
+          modelsRan={modelsRan}
+          modelHandles={modelHandles}
+        />
+      );
     case "PipeSequence":
       return <PipeSequenceSection blueprint={blueprint} executionData={executionData} />;
     case "PipeParallel":

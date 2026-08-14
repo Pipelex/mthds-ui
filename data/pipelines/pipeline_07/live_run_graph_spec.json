@@ -1,6 +1,6 @@
 {
-  "graph_id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6",
-  "created_at": "2026-07-09T11:15:29.730129Z",
+  "graph_id": "e316d672-c240-4578-81a1-f315cdd42a0e",
+  "created_at": "2026-08-13T12:10:15.765017Z",
   "pipeline_ref": {
     "domain": "translation",
     "main_pipe": "translate_pipeline",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
       "kind": "controller",
       "pipe_code": "translate_pipeline",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:15:29.730129Z",
-        "ended_at": "2026-07-09T11:15:36.144992Z",
-        "duration": 6.414863
+        "started_at": "2026-08-13T12:10:15.765017Z",
+        "ended_at": "2026-08-13T12:10:22.797403Z",
+        "duration": 7.032386
       },
       "io": {
         "inputs": [
@@ -29,7 +29,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "cGtJe",
+            "digest": "g7RLU",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
             },
@@ -45,7 +45,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7ezv3",
+            "digest": "U6Dxf",
             "data": {
               "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
             },
@@ -58,12 +58,48 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 2,
+        "subtree_nb_tokens_by_category": {
+          "input": 1018,
+          "output": 174,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 1192,
+        "subtree_cost": 0.005664,
+        "subtree_cost_input": 0.003054,
+        "subtree_cost_output": 0.00261,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 2,
+            "rated_inference_calls": 2,
+            "cost": 0.005664
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 2
       }
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
       "kind": "operator",
       "pipe_code": "detect_language",
       "pipe_type": "PipeLLM",
@@ -72,9 +108,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:15:29.741353Z",
-        "ended_at": "2026-07-09T11:15:34.195972Z",
-        "duration": 4.454619
+        "started_at": "2026-08-13T12:10:15.773261Z",
+        "ended_at": "2026-08-13T12:10:20.676155Z",
+        "duration": 4.902894
       },
       "io": {
         "inputs": [
@@ -84,7 +120,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "cGtJe",
+            "digest": "g7RLU",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue."
             },
@@ -100,7 +136,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8rnwK",
+            "digest": "B47H5",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -114,6 +150,60 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 928,
+          "output": 121,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "total_tokens": 1049,
+        "cost": 0.004599,
+        "cost_input": 0.002784,
+        "cost_output": 0.001815,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.004599
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 928,
+          "output": 121,
+          "input_audio": 0,
+          "input_cached": 0,
+          "output_audio": 0,
+          "output_reasoning": 0,
+          "output_accepted_prediction": 0,
+          "output_rejected_prediction": 0
+        },
+        "subtree_total_tokens": 1049,
+        "subtree_cost": 0.004599,
+        "subtree_cost_input": 0.002784,
+        "subtree_cost_output": 0.001815,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.004599
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
@@ -124,7 +214,7 @@
       }
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
       "kind": "controller",
       "pipe_code": "route_translation",
       "pipe_type": "PipeCondition",
@@ -133,9 +223,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:15:34.201161Z",
-        "ended_at": "2026-07-09T11:15:36.141148Z",
-        "duration": 1.939987
+        "started_at": "2026-08-13T12:10:20.681234Z",
+        "ended_at": "2026-08-13T12:10:22.794838Z",
+        "duration": 2.113604
       },
       "io": {
         "inputs": [
@@ -145,7 +235,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8rnwK",
+            "digest": "B47H5",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -162,7 +252,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7ezv3",
+            "digest": "U6Dxf",
             "data": {
               "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
             },
@@ -175,13 +265,45 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 90,
+          "output": 53,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "subtree_total_tokens": 143,
+        "subtree_cost": 0.001065,
+        "subtree_cost_input": 0.00027,
+        "subtree_cost_output": 0.000795,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.001065
+          }
+        ]
+      },
       "execution_data": {
         "evaluated_expression": "french",
         "selected_outcome": "translate_french"
       }
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
       "kind": "operator",
       "pipe_code": "translate_french",
       "pipe_type": "PipeLLM",
@@ -190,9 +312,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:15:34.212303Z",
-        "ended_at": "2026-07-09T11:15:36.136536Z",
-        "duration": 1.924233
+        "started_at": "2026-08-13T12:10:20.688926Z",
+        "ended_at": "2026-08-13T12:10:22.791669Z",
+        "duration": 2.102743
       },
       "io": {
         "inputs": [
@@ -202,7 +324,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "8rnwK",
+            "digest": "B47H5",
             "data": {
               "text": "La technologie d'intelligence artificielle a fait des progrès remarquables ces dernières années. Les modèles de langage peuvent désormais comprendre et générer du texte dans de nombreuses langues. Cette capacité ouvre de nouvelles possibilités dans la traduction automatique et l'assistance multilingue.",
               "language": "french"
@@ -219,7 +341,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7ezv3",
+            "digest": "U6Dxf",
             "data": {
               "text": "Here is the English translation of the French text:\n\n\"Artificial intelligence technology has made remarkable progress in recent years. Language models can now understand and generate text in many languages. This capability opens up new possibilities in machine translation and multilingual assistance.\""
             },
@@ -232,6 +354,52 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 90,
+          "output": 53,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "total_tokens": 143,
+        "cost": 0.001065,
+        "cost_input": 0.00027,
+        "cost_output": 0.000795,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.001065
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 90,
+          "output": 53,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "subtree_total_tokens": 143,
+        "subtree_cost": 0.001065,
+        "subtree_cost_input": 0.00027,
+        "subtree_cost_output": 0.000795,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.001065
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
@@ -244,9 +412,9 @@
   ],
   "edges": [
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_0",
-      "source": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
-      "target": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_0",
+      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
+      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -255,9 +423,9 @@
       "meta": {}
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_1",
-      "source": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_0",
-      "target": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_1",
+      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_0",
+      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -266,9 +434,9 @@
       "meta": {}
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:edge_2",
-      "source": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
-      "target": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:edge_2",
+      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
+      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -277,9 +445,9 @@
       "meta": {}
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:asm_edge_0",
-      "source": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
-      "target": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_2",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:asm_edge_0",
+      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
+      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_2",
       "kind": "data",
       "optional": false,
       "label": "classified",
@@ -288,9 +456,9 @@
       "meta": {}
     },
     {
-      "id": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:asm_edge_1",
-      "source": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_1",
-      "target": "ce0930ce-5ed6-44c9-94e7-012aa8dc50d6:node_3",
+      "id": "e316d672-c240-4578-81a1-f315cdd42a0e:asm_edge_1",
+      "source": "e316d672-c240-4578-81a1-f315cdd42a0e:node_1",
+      "target": "e316d672-c240-4578-81a1-f315cdd42a0e:node_3",
       "kind": "data",
       "optional": false,
       "label": "classified",
@@ -299,6 +467,80 @@
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 2,
+      "rated_inference_calls": 2,
+      "nb_tokens_by_category": {
+        "input": 1018,
+        "output": 174,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "total_tokens": 1192,
+      "cost": 0.005664,
+      "cost_input": 0.003054,
+      "cost_output": 0.00261,
+      "by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 2,
+          "rated_inference_calls": 2,
+          "cost": 0.005664
+        }
+      ],
+      "subtree_inference_calls": 2,
+      "subtree_rated_inference_calls": 2,
+      "subtree_nb_tokens_by_category": {
+        "input": 1018,
+        "output": 174,
+        "input_audio": 0,
+        "input_cached": 0,
+        "output_audio": 0,
+        "output_reasoning": 0,
+        "output_accepted_prediction": 0,
+        "output_rejected_prediction": 0
+      },
+      "subtree_total_tokens": 1192,
+      "subtree_cost": 0.005664,
+      "subtree_cost_input": 0.003054,
+      "subtree_cost_output": 0.00261,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 2,
+          "rated_inference_calls": 2,
+          "cost": 0.005664
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "live"
@@ -380,7 +622,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Detect the language of the following text and classify it:\n\n@text\n",
@@ -468,7 +709,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Translate the following French text to English:\n\n$classified.text\n",
@@ -499,6 +739,7 @@
         "description": "Text translated to English",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -519,6 +760,7 @@
       "json_schema": {
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }

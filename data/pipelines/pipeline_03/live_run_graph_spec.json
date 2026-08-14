@@ -1,6 +1,6 @@
 {
-  "graph_id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31",
-  "created_at": "2026-07-09T11:13:06.139802Z",
+  "graph_id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45",
+  "created_at": "2026-08-13T11:59:04.331252Z",
   "pipeline_ref": {
     "domain": "document_processing",
     "main_pipe": "extract_analyze_report",
@@ -8,7 +8,7 @@
   },
   "nodes": [
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_0",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_0",
       "kind": "controller",
       "pipe_code": "extract_analyze_report",
       "pipe_type": "PipeSequence",
@@ -17,9 +17,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:13:06.139802Z",
-        "ended_at": "2026-07-09T11:13:29.141076Z",
-        "duration": 23.001274
+        "started_at": "2026-08-13T11:59:04.331252Z",
+        "ended_at": "2026-08-13T11:59:34.571127Z",
+        "duration": 30.239875
       },
       "io": {
         "inputs": [
@@ -29,17 +29,17 @@
             "content_type": "application/pdf",
             "preview": null,
             "size": null,
-            "digest": "mKCGW",
+            "digest": "8rYEe",
             "data": {
-              "url": "pipelex-storage://normalized/MXePfHeRmwkBVgqE3oDXZo.pdf",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf",
+              "url": "pipelex-storage://normalized/9p6b57jHpQkXY9zkJXfYLH.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf",
               "mime_type": "application/pdf",
               "filename": "document.pdf",
               "title": null,
               "snippet": null
             },
-            "data_text": "pipelex-storage://normalized/MXePfHeRmwkBVgqE3oDXZo.pdf\n",
-            "data_html": "<a href=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf\" class=\"msg-document\">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf</a>",
+            "data_text": "pipelex-storage://normalized/9p6b57jHpQkXY9zkJXfYLH.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf</a>",
             "extra": {}
           }
         ],
@@ -50,12 +50,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fLBqs",
+            "digest": "Z3Amb",
             "data": {
-              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue & Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer & User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights & Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n> **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.\n```"
+              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations & Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n> 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.\n```"
             },
-            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n----------------------------------------------------------------------------------------------------\n\n📋 Document Overview                                                                                \n\n                                                       \n Attribute      Details                                \n ───────────────────────────────────────────────────── \n Document Type  Quarterly Business Report              \n Period         Q4 2025                                \n Format         Text-based (no images or HTML content) \n                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Financial Performance                                                                            \n\nRevenue & Margins                                                                                   \n\n • Total Revenue: $4.2 billion (+15% year-over-year)                                                \n • Operating Margin: 28% (improved from 24% in Q3 — a +4 percentage point gain)                     \n • Monthly Recurring Revenue (MRR): $350M                                                           \n • R&D Investment: $840M (20% of revenue)                                                           \n\nCost Efficiency                                                                                     \n\n • Customer Acquisition Cost (CAC): Decreased 12% due to improved marketing efficiency              \n\n----------------------------------------------------------------------------------------------------\n\n👥 Customer & User Metrics                                                                          \n\n                                                  \n Metric                    Value       Change     \n ──────────────────────────────────────────────── \n Active Users              45 million  +22%       \n Net Promoter Score (NPS)  71          Up from 62 \n                                                  \n\n----------------------------------------------------------------------------------------------------\n\n🏢 Operational Highlights                                                                           \n\n • Employee Headcount: 8,500 employees                                                              \n • Office Locations: 12 offices globally                                                            \n • Market Expansion: 3 new markets entered:                                                         \n    • 🌏 Southeast Asia                                                                             \n    • 🌍 Eastern Europe                                                                             \n    • 🌎 South America                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Q1 2026 Outlook                                                                                  \n\nRevenue Guidance                                                                                    \n\n • Range: $4.4B – $4.6B                                                                             \n • Midpoint Estimate: ~$4.5B (~+7% quarter-over-quarter)                                            \n\nStrategic Initiatives                                                                               \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Key Insights & Observations                                                                      \n\n✅ Strengths                                                                                        \n\n • Strong revenue growth (15% YoY) driven by cloud services and enterprise software                 \n • Margin expansion is significant (+4pp QoQ), indicating improving operational leverage            \n • NPS improvement (62 → 71) suggests meaningfully better customer satisfaction                     \n • CAC reduction of 12% signals more efficient go-to-market execution                               \n\n⚠️ Points to Monitor                                                                                \n\n • R&D spend at 20% of revenue ($840M) is substantial — ROI should be tracked closely               \n • Rapid headcount and geographic expansion (3 new markets) may pressure margins in near term       \n • SOC 2 Type II certification pending — a potential risk indicator for enterprise cloud sales until\n   achieved                                                                                         \n\n📈 Growth Trajectory                                                                                \n\n • The Q1 2026 guidance of $4.4B–$4.6B suggests continued but moderating growth, transitioning from \n   a high-growth phase toward more sustainable scaling                                              \n\n----------------------------------------------------------------------------------------------------\n\n🚩 Document Limitations                                                                             \n\n • No images were included in the report                                                            \n • No raw HTML content available                                                                    \n • No page view data present                                                                        \n • Absence of comparative competitor data or segment-level breakdowns limits deeper analysis        \n\n----------------------------------------------------------------------------------------------------\n\n\n▌ Summary: The company delivered a strong Q4 2025 with improving profitability, user growth, and  \n▌ customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as \n▌ core strategic bets heading into 2026.                                                          \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue &amp; Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&amp;D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer &amp; User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights &amp; Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&amp;D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n&gt; **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.\n```",
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n📋 Document Overview                                                                                \n\nType: Corporate Quarterly Business Report Period: Q4 2025 Format: Text-based report (no images or   \nHTML content)                                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Key Findings by Section                                                                          \n\n1. Financial Performance                                                                            \n\n                                                                  \n Metric                     Value          Change                 \n ──────────────────────────────────────────────────────────────── \n Revenue                    $4.2 Billion   +15% YoY               \n Operating Margin           28%            +4pp from Q3 (was 24%) \n Customer Acquisition Cost  Not specified  -12% improvement       \n R&D Investment             $840M          20% of revenue         \n                                                                  \n\n2. Operational Metrics                                                                              \n\n                                                                 \n Metric                     Value       Change                   \n ─────────────────────────────────────────────────────────────── \n Active Users               45 Million  +22%                     \n Monthly Recurring Revenue  $350M       Not specified            \n Net Promoter Score         71          +9 points (from 62)      \n Employee Headcount         8,500       Across 12 global offices \n                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n🌍 Strategic Developments                                                                           \n\n • Market Expansion: Entered 3 new markets                                                          \n    • Southeast Asia                                                                                \n    • Eastern Europe                                                                                \n    • South America                                                                                 \n • Marketing Efficiency: Drove 12% reduction in customer acquisition cost                           \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Forward Outlook (Q1 2026)                                                                        \n\nRevenue Guidance: $4.4B – $4.6B                                                                     \n\nKey Initiatives:                                                                                    \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Notable Observations & Insights                                                                  \n\nStrengths                                                                                           \n\n • Strong revenue growth (15% YoY) indicates healthy business momentum                              \n • Margin expansion (+4 percentage points) suggests improving operational efficiency                \n • NPS improvement (62 → 71) reflects enhanced customer satisfaction                                \n • Significant R&D spend (20% of revenue) signals commitment to innovation                          \n\nConsiderations                                                                                      \n\n • Rapid headcount growth (8,500 employees) needs to be monitored against margin sustainability     \n • Geographic expansion into 3 new markets simultaneously carries execution risk                    \n • MRR of $350M vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue\n   streams                                                                                          \n\nRevenue Composition Insight                                                                         \n\n▌ 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter,       \n▌ representing approximately 25% of total quarterly revenue, indicating significant non-recurring \n▌ revenue components                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Document Limitations                                                                             \n\n • No images were present for additional visual data analysis                                       \n • No raw HTML content available                                                                    \n • No page view data included                                                                       \n • Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided         \n • No comparative data for competitor benchmarking                                                  \n\n----------------------------------------------------------------------------------------------------\n\n✅ Summary Assessment                                                                               \n\nThe Q4 2025 report reflects a strong financial quarter with broad-based improvements across revenue,\nmargins, user growth, and customer satisfaction. The company appears well-positioned for continued  \ngrowth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant   \ncareful execution monitoring.                                                                       \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&amp;D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations &amp; Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&amp;D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n&gt; 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.\n```",
             "extra": {}
           }
         ]
@@ -63,12 +63,52 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 2,
+        "subtree_rated_inference_calls": 2,
+        "subtree_nb_tokens_by_category": {
+          "input": 1000297,
+          "output": 1000797,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "subtree_total_tokens": 2001094,
+        "subtree_cost": 0.022845999999999998,
+        "subtree_cost_input": 0.010891,
+        "subtree_cost_output": 0.011955,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "azure-document-intelligence",
+            "inference_model_id": "adi/prebuilt-layout",
+            "model_type": "extract",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.01
+          },
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.012846
+          }
+        ]
+      },
       "execution_data": {
         "step_count": 3
       }
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_1",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_1",
       "kind": "operator",
       "pipe_code": "extract_pages",
       "pipe_type": "PipeExtract",
@@ -77,9 +117,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:13:06.151180Z",
-        "ended_at": "2026-07-09T11:13:12.592323Z",
-        "duration": 6.441143
+        "started_at": "2026-08-13T11:59:04.344470Z",
+        "ended_at": "2026-08-13T11:59:15.093163Z",
+        "duration": 10.748693
       },
       "io": {
         "inputs": [
@@ -89,17 +129,17 @@
             "content_type": "application/pdf",
             "preview": null,
             "size": null,
-            "digest": "mKCGW",
+            "digest": "8rYEe",
             "data": {
-              "url": "pipelex-storage://normalized/MXePfHeRmwkBVgqE3oDXZo.pdf",
-              "public_url": "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf",
+              "url": "pipelex-storage://normalized/9p6b57jHpQkXY9zkJXfYLH.pdf",
+              "public_url": "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf",
               "mime_type": "application/pdf",
               "filename": "document.pdf",
               "title": null,
               "snippet": null
             },
-            "data_text": "pipelex-storage://normalized/MXePfHeRmwkBVgqE3oDXZo.pdf\n",
-            "data_html": "<a href=\"file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf\" class=\"msg-document\">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/MXePfHeRmwkBVgqE3oDXZo.pdf</a>",
+            "data_text": "pipelex-storage://normalized/9p6b57jHpQkXY9zkJXfYLH.pdf\n",
+            "data_html": "<a href=\"file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf\" class=\"msg-document\">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/9p6b57jHpQkXY9zkJXfYLH.pdf</a>",
             "extra": {}
           }
         ],
@@ -110,7 +150,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7HLTf",
+            "digest": "cgBFf",
             "data": {
               "items": [
                 {
@@ -134,6 +174,48 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 1000000,
+          "output": 1000000
+        },
+        "total_tokens": 2000000,
+        "cost": 0.01,
+        "cost_input": 0.01,
+        "cost_output": 0,
+        "by_model": [
+          {
+            "inference_model_name": "azure-document-intelligence",
+            "inference_model_id": "adi/prebuilt-layout",
+            "model_type": "extract",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.01
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 1000000,
+          "output": 1000000
+        },
+        "subtree_total_tokens": 2000000,
+        "subtree_cost": 0.01,
+        "subtree_cost_input": 0.01,
+        "subtree_cost_output": 0,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "azure-document-intelligence",
+            "inference_model_id": "adi/prebuilt-layout",
+            "model_type": "extract",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.01
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "azure-document-intelligence",
         "document_stuff_name": "document",
@@ -142,7 +224,7 @@
       }
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_2",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_2",
       "kind": "operator",
       "pipe_code": "analyze_content",
       "pipe_type": "PipeLLM",
@@ -151,9 +233,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:13:12.599169Z",
-        "ended_at": "2026-07-09T11:13:29.096297Z",
-        "duration": 16.497128
+        "started_at": "2026-08-13T11:59:15.098474Z",
+        "ended_at": "2026-08-13T11:59:34.535171Z",
+        "duration": 19.436697
       },
       "io": {
         "inputs": [
@@ -163,7 +245,7 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "7HLTf",
+            "digest": "cgBFf",
             "data": {
               "items": [
                 {
@@ -190,12 +272,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "GY8nm",
+            "digest": "nzzAp",
             "data": {
-              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue & Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer & User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights & Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n> **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026."
+              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations & Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n> 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring."
             },
-            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n----------------------------------------------------------------------------------------------------\n\n📋 Document Overview                                                                                \n\n                                                       \n Attribute      Details                                \n ───────────────────────────────────────────────────── \n Document Type  Quarterly Business Report              \n Period         Q4 2025                                \n Format         Text-based (no images or HTML content) \n                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Financial Performance                                                                            \n\nRevenue & Margins                                                                                   \n\n • Total Revenue: $4.2 billion (+15% year-over-year)                                                \n • Operating Margin: 28% (improved from 24% in Q3 — a +4 percentage point gain)                     \n • Monthly Recurring Revenue (MRR): $350M                                                           \n • R&D Investment: $840M (20% of revenue)                                                           \n\nCost Efficiency                                                                                     \n\n • Customer Acquisition Cost (CAC): Decreased 12% due to improved marketing efficiency              \n\n----------------------------------------------------------------------------------------------------\n\n👥 Customer & User Metrics                                                                          \n\n                                                  \n Metric                    Value       Change     \n ──────────────────────────────────────────────── \n Active Users              45 million  +22%       \n Net Promoter Score (NPS)  71          Up from 62 \n                                                  \n\n----------------------------------------------------------------------------------------------------\n\n🏢 Operational Highlights                                                                           \n\n • Employee Headcount: 8,500 employees                                                              \n • Office Locations: 12 offices globally                                                            \n • Market Expansion: 3 new markets entered:                                                         \n    • 🌏 Southeast Asia                                                                             \n    • 🌍 Eastern Europe                                                                             \n    • 🌎 South America                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Q1 2026 Outlook                                                                                  \n\nRevenue Guidance                                                                                    \n\n • Range: $4.4B – $4.6B                                                                             \n • Midpoint Estimate: ~$4.5B (~+7% quarter-over-quarter)                                            \n\nStrategic Initiatives                                                                               \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Key Insights & Observations                                                                      \n\n✅ Strengths                                                                                        \n\n • Strong revenue growth (15% YoY) driven by cloud services and enterprise software                 \n • Margin expansion is significant (+4pp QoQ), indicating improving operational leverage            \n • NPS improvement (62 → 71) suggests meaningfully better customer satisfaction                     \n • CAC reduction of 12% signals more efficient go-to-market execution                               \n\n⚠️ Points to Monitor                                                                                \n\n • R&D spend at 20% of revenue ($840M) is substantial — ROI should be tracked closely               \n • Rapid headcount and geographic expansion (3 new markets) may pressure margins in near term       \n • SOC 2 Type II certification pending — a potential risk indicator for enterprise cloud sales until\n   achieved                                                                                         \n\n📈 Growth Trajectory                                                                                \n\n • The Q1 2026 guidance of $4.4B–$4.6B suggests continued but moderating growth, transitioning from \n   a high-growth phase toward more sustainable scaling                                              \n\n----------------------------------------------------------------------------------------------------\n\n🚩 Document Limitations                                                                             \n\n • No images were included in the report                                                            \n • No raw HTML content available                                                                    \n • No page view data present                                                                        \n • Absence of comparative competitor data or segment-level breakdowns limits deeper analysis        \n\n----------------------------------------------------------------------------------------------------\n\n\n▌ Summary: The company delivered a strong Q4 2025 with improving profitability, user growth, and  \n▌ customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as \n▌ core strategic bets heading into 2026.                                                          \n",
-            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue &amp; Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&amp;D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer &amp; User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights &amp; Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&amp;D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n&gt; **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.",
+            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n📋 Document Overview                                                                                \n\nType: Corporate Quarterly Business Report Period: Q4 2025 Format: Text-based report (no images or   \nHTML content)                                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Key Findings by Section                                                                          \n\n1. Financial Performance                                                                            \n\n                                                                  \n Metric                     Value          Change                 \n ──────────────────────────────────────────────────────────────── \n Revenue                    $4.2 Billion   +15% YoY               \n Operating Margin           28%            +4pp from Q3 (was 24%) \n Customer Acquisition Cost  Not specified  -12% improvement       \n R&D Investment             $840M          20% of revenue         \n                                                                  \n\n2. Operational Metrics                                                                              \n\n                                                                 \n Metric                     Value       Change                   \n ─────────────────────────────────────────────────────────────── \n Active Users               45 Million  +22%                     \n Monthly Recurring Revenue  $350M       Not specified            \n Net Promoter Score         71          +9 points (from 62)      \n Employee Headcount         8,500       Across 12 global offices \n                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n🌍 Strategic Developments                                                                           \n\n • Market Expansion: Entered 3 new markets                                                          \n    • Southeast Asia                                                                                \n    • Eastern Europe                                                                                \n    • South America                                                                                 \n • Marketing Efficiency: Drove 12% reduction in customer acquisition cost                           \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Forward Outlook (Q1 2026)                                                                        \n\nRevenue Guidance: $4.4B – $4.6B                                                                     \n\nKey Initiatives:                                                                                    \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Notable Observations & Insights                                                                  \n\nStrengths                                                                                           \n\n • Strong revenue growth (15% YoY) indicates healthy business momentum                              \n • Margin expansion (+4 percentage points) suggests improving operational efficiency                \n • NPS improvement (62 → 71) reflects enhanced customer satisfaction                                \n • Significant R&D spend (20% of revenue) signals commitment to innovation                          \n\nConsiderations                                                                                      \n\n • Rapid headcount growth (8,500 employees) needs to be monitored against margin sustainability     \n • Geographic expansion into 3 new markets simultaneously carries execution risk                    \n • MRR of $350M vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue\n   streams                                                                                          \n\nRevenue Composition Insight                                                                         \n\n▌ 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter,       \n▌ representing approximately 25% of total quarterly revenue, indicating significant non-recurring \n▌ revenue components                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Document Limitations                                                                             \n\n • No images were present for additional visual data analysis                                       \n • No raw HTML content available                                                                    \n • No page view data included                                                                       \n • Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided         \n • No comparative data for competitor benchmarking                                                  \n\n----------------------------------------------------------------------------------------------------\n\n✅ Summary Assessment                                                                               \n\nThe Q4 2025 report reflects a strong financial quarter with broad-based improvements across revenue,\nmargins, user growth, and customer satisfaction. The company appears well-positioned for continued  \ngrowth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant   \ncareful execution monitoring.                                                                       \n",
+            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&amp;D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations &amp; Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&amp;D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n&gt; 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.",
             "extra": {}
           }
         ]
@@ -203,6 +285,52 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 1,
+        "rated_inference_calls": 1,
+        "nb_tokens_by_category": {
+          "input": 297,
+          "output": 797,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "total_tokens": 1094,
+        "cost": 0.012846,
+        "cost_input": 0.000891,
+        "cost_output": 0.011955,
+        "by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.012846
+          }
+        ],
+        "subtree_inference_calls": 1,
+        "subtree_rated_inference_calls": 1,
+        "subtree_nb_tokens_by_category": {
+          "input": 297,
+          "output": 797,
+          "input_audio": 0,
+          "input_cached": 0
+        },
+        "subtree_total_tokens": 1094,
+        "subtree_cost": 0.012846,
+        "subtree_cost_input": 0.000891,
+        "subtree_cost_output": 0.011955,
+        "subtree_by_model": [
+          {
+            "inference_model_name": "claude-4.6-sonnet",
+            "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+            "model_type": "llm",
+            "inference_calls": 1,
+            "rated_inference_calls": 1,
+            "cost": 0.012846
+          }
+        ]
+      },
       "execution_data": {
         "resolved_model": "claude-4.6-sonnet",
         "resolved_model_for_object": "claude-4.6-sonnet",
@@ -213,7 +341,7 @@
       }
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_3",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_3",
       "kind": "operator",
       "pipe_code": "compose_report",
       "pipe_type": "PipeCompose",
@@ -222,9 +350,9 @@
       "status": "succeeded",
       "skip_reason": null,
       "timing": {
-        "started_at": "2026-07-09T11:13:29.102766Z",
-        "ended_at": "2026-07-09T11:13:29.131346Z",
-        "duration": 0.02858
+        "started_at": "2026-08-13T11:59:34.541452Z",
+        "ended_at": "2026-08-13T11:59:34.564610Z",
+        "duration": 0.023158
       },
       "io": {
         "inputs": [
@@ -234,12 +362,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "GY8nm",
+            "digest": "nzzAp",
             "data": {
-              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue & Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer & User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights & Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n> **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026."
+              "text": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations & Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n> 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring."
             },
-            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n----------------------------------------------------------------------------------------------------\n\n📋 Document Overview                                                                                \n\n                                                       \n Attribute      Details                                \n ───────────────────────────────────────────────────── \n Document Type  Quarterly Business Report              \n Period         Q4 2025                                \n Format         Text-based (no images or HTML content) \n                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Financial Performance                                                                            \n\nRevenue & Margins                                                                                   \n\n • Total Revenue: $4.2 billion (+15% year-over-year)                                                \n • Operating Margin: 28% (improved from 24% in Q3 — a +4 percentage point gain)                     \n • Monthly Recurring Revenue (MRR): $350M                                                           \n • R&D Investment: $840M (20% of revenue)                                                           \n\nCost Efficiency                                                                                     \n\n • Customer Acquisition Cost (CAC): Decreased 12% due to improved marketing efficiency              \n\n----------------------------------------------------------------------------------------------------\n\n👥 Customer & User Metrics                                                                          \n\n                                                  \n Metric                    Value       Change     \n ──────────────────────────────────────────────── \n Active Users              45 million  +22%       \n Net Promoter Score (NPS)  71          Up from 62 \n                                                  \n\n----------------------------------------------------------------------------------------------------\n\n🏢 Operational Highlights                                                                           \n\n • Employee Headcount: 8,500 employees                                                              \n • Office Locations: 12 offices globally                                                            \n • Market Expansion: 3 new markets entered:                                                         \n    • 🌏 Southeast Asia                                                                             \n    • 🌍 Eastern Europe                                                                             \n    • 🌎 South America                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Q1 2026 Outlook                                                                                  \n\nRevenue Guidance                                                                                    \n\n • Range: $4.4B – $4.6B                                                                             \n • Midpoint Estimate: ~$4.5B (~+7% quarter-over-quarter)                                            \n\nStrategic Initiatives                                                                               \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Key Insights & Observations                                                                      \n\n✅ Strengths                                                                                        \n\n • Strong revenue growth (15% YoY) driven by cloud services and enterprise software                 \n • Margin expansion is significant (+4pp QoQ), indicating improving operational leverage            \n • NPS improvement (62 → 71) suggests meaningfully better customer satisfaction                     \n • CAC reduction of 12% signals more efficient go-to-market execution                               \n\n⚠️ Points to Monitor                                                                                \n\n • R&D spend at 20% of revenue ($840M) is substantial — ROI should be tracked closely               \n • Rapid headcount and geographic expansion (3 new markets) may pressure margins in near term       \n • SOC 2 Type II certification pending — a potential risk indicator for enterprise cloud sales until\n   achieved                                                                                         \n\n📈 Growth Trajectory                                                                                \n\n • The Q1 2026 guidance of $4.4B–$4.6B suggests continued but moderating growth, transitioning from \n   a high-growth phase toward more sustainable scaling                                              \n\n----------------------------------------------------------------------------------------------------\n\n🚩 Document Limitations                                                                             \n\n • No images were included in the report                                                            \n • No raw HTML content available                                                                    \n • No page view data present                                                                        \n • Absence of comparative competitor data or segment-level breakdowns limits deeper analysis        \n\n----------------------------------------------------------------------------------------------------\n\n\n▌ Summary: The company delivered a strong Q4 2025 with improving profitability, user growth, and  \n▌ customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as \n▌ core strategic bets heading into 2026.                                                          \n",
-            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue &amp; Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&amp;D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer &amp; User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights &amp; Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&amp;D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n&gt; **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.",
+            "data_text": "                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n📋 Document Overview                                                                                \n\nType: Corporate Quarterly Business Report Period: Q4 2025 Format: Text-based report (no images or   \nHTML content)                                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Key Findings by Section                                                                          \n\n1. Financial Performance                                                                            \n\n                                                                  \n Metric                     Value          Change                 \n ──────────────────────────────────────────────────────────────── \n Revenue                    $4.2 Billion   +15% YoY               \n Operating Margin           28%            +4pp from Q3 (was 24%) \n Customer Acquisition Cost  Not specified  -12% improvement       \n R&D Investment             $840M          20% of revenue         \n                                                                  \n\n2. Operational Metrics                                                                              \n\n                                                                 \n Metric                     Value       Change                   \n ─────────────────────────────────────────────────────────────── \n Active Users               45 Million  +22%                     \n Monthly Recurring Revenue  $350M       Not specified            \n Net Promoter Score         71          +9 points (from 62)      \n Employee Headcount         8,500       Across 12 global offices \n                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n🌍 Strategic Developments                                                                           \n\n • Market Expansion: Entered 3 new markets                                                          \n    • Southeast Asia                                                                                \n    • Eastern Europe                                                                                \n    • South America                                                                                 \n • Marketing Efficiency: Drove 12% reduction in customer acquisition cost                           \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Forward Outlook (Q1 2026)                                                                        \n\nRevenue Guidance: $4.4B – $4.6B                                                                     \n\nKey Initiatives:                                                                                    \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Notable Observations & Insights                                                                  \n\nStrengths                                                                                           \n\n • Strong revenue growth (15% YoY) indicates healthy business momentum                              \n • Margin expansion (+4 percentage points) suggests improving operational efficiency                \n • NPS improvement (62 → 71) reflects enhanced customer satisfaction                                \n • Significant R&D spend (20% of revenue) signals commitment to innovation                          \n\nConsiderations                                                                                      \n\n • Rapid headcount growth (8,500 employees) needs to be monitored against margin sustainability     \n • Geographic expansion into 3 new markets simultaneously carries execution risk                    \n • MRR of $350M vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue\n   streams                                                                                          \n\nRevenue Composition Insight                                                                         \n\n▌ 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter,       \n▌ representing approximately 25% of total quarterly revenue, indicating significant non-recurring \n▌ revenue components                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Document Limitations                                                                             \n\n • No images were present for additional visual data analysis                                       \n • No raw HTML content available                                                                    \n • No page view data included                                                                       \n • Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided         \n • No comparative data for competitor benchmarking                                                  \n\n----------------------------------------------------------------------------------------------------\n\n✅ Summary Assessment                                                                               \n\nThe Q4 2025 report reflects a strong financial quarter with broad-based improvements across revenue,\nmargins, user growth, and customer satisfaction. The company appears well-positioned for continued  \ngrowth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant   \ncareful execution monitoring.                                                                       \n",
+            "data_html": "# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&amp;D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations &amp; Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&amp;D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n&gt; 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.",
             "extra": {}
           }
         ],
@@ -250,12 +378,12 @@
             "content_type": null,
             "preview": null,
             "size": null,
-            "digest": "fLBqs",
+            "digest": "Z3Amb",
             "data": {
-              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue & Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer & User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights & Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n> **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.\n```"
+              "text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations & Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n> 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.\n```"
             },
-            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n----------------------------------------------------------------------------------------------------\n\n📋 Document Overview                                                                                \n\n                                                       \n Attribute      Details                                \n ───────────────────────────────────────────────────── \n Document Type  Quarterly Business Report              \n Period         Q4 2025                                \n Format         Text-based (no images or HTML content) \n                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Financial Performance                                                                            \n\nRevenue & Margins                                                                                   \n\n • Total Revenue: $4.2 billion (+15% year-over-year)                                                \n • Operating Margin: 28% (improved from 24% in Q3 — a +4 percentage point gain)                     \n • Monthly Recurring Revenue (MRR): $350M                                                           \n • R&D Investment: $840M (20% of revenue)                                                           \n\nCost Efficiency                                                                                     \n\n • Customer Acquisition Cost (CAC): Decreased 12% due to improved marketing efficiency              \n\n----------------------------------------------------------------------------------------------------\n\n👥 Customer & User Metrics                                                                          \n\n                                                  \n Metric                    Value       Change     \n ──────────────────────────────────────────────── \n Active Users              45 million  +22%       \n Net Promoter Score (NPS)  71          Up from 62 \n                                                  \n\n----------------------------------------------------------------------------------------------------\n\n🏢 Operational Highlights                                                                           \n\n • Employee Headcount: 8,500 employees                                                              \n • Office Locations: 12 offices globally                                                            \n • Market Expansion: 3 new markets entered:                                                         \n    • 🌏 Southeast Asia                                                                             \n    • 🌍 Eastern Europe                                                                             \n    • 🌎 South America                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Q1 2026 Outlook                                                                                  \n\nRevenue Guidance                                                                                    \n\n • Range: $4.4B – $4.6B                                                                             \n • Midpoint Estimate: ~$4.5B (~+7% quarter-over-quarter)                                            \n\nStrategic Initiatives                                                                               \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Key Insights & Observations                                                                      \n\n✅ Strengths                                                                                        \n\n • Strong revenue growth (15% YoY) driven by cloud services and enterprise software                 \n • Margin expansion is significant (+4pp QoQ), indicating improving operational leverage            \n • NPS improvement (62 → 71) suggests meaningfully better customer satisfaction                     \n • CAC reduction of 12% signals more efficient go-to-market execution                               \n\n⚠️ Points to Monitor                                                                                \n\n • R&D spend at 20% of revenue ($840M) is substantial — ROI should be tracked closely               \n • Rapid headcount and geographic expansion (3 new markets) may pressure margins in near term       \n • SOC 2 Type II certification pending — a potential risk indicator for enterprise cloud sales until\n   achieved                                                                                         \n\n📈 Growth Trajectory                                                                                \n\n • The Q1 2026 guidance of $4.4B–$4.6B suggests continued but moderating growth, transitioning from \n   a high-growth phase toward more sustainable scaling                                              \n\n----------------------------------------------------------------------------------------------------\n\n🚩 Document Limitations                                                                             \n\n • No images were included in the report                                                            \n • No raw HTML content available                                                                    \n • No page view data present                                                                        \n • Absence of comparative competitor data or segment-level breakdowns limits deeper analysis        \n\n----------------------------------------------------------------------------------------------------\n\n\n▌ Summary: The company delivered a strong Q4 2025 with improving profitability, user growth, and  \n▌ customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as \n▌ core strategic bets heading into 2026.                                                          \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
-            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue &amp; Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&amp;D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer &amp; User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights &amp; Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&amp;D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n&gt; **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.\n```",
+            "data_text": "                                      Document Analysis Report                                      \n\nanalysis: ```                                                                                       \n\n                       Document Analysis: Quarterly Business Report - Q4 2025                       \n\n📋 Document Overview                                                                                \n\nType: Corporate Quarterly Business Report Period: Q4 2025 Format: Text-based report (no images or   \nHTML content)                                                                                       \n\n----------------------------------------------------------------------------------------------------\n\n📊 Key Findings by Section                                                                          \n\n1. Financial Performance                                                                            \n\n                                                                  \n Metric                     Value          Change                 \n ──────────────────────────────────────────────────────────────── \n Revenue                    $4.2 Billion   +15% YoY               \n Operating Margin           28%            +4pp from Q3 (was 24%) \n Customer Acquisition Cost  Not specified  -12% improvement       \n R&D Investment             $840M          20% of revenue         \n                                                                  \n\n2. Operational Metrics                                                                              \n\n                                                                 \n Metric                     Value       Change                   \n ─────────────────────────────────────────────────────────────── \n Active Users               45 Million  +22%                     \n Monthly Recurring Revenue  $350M       Not specified            \n Net Promoter Score         71          +9 points (from 62)      \n Employee Headcount         8,500       Across 12 global offices \n                                                                 \n\n----------------------------------------------------------------------------------------------------\n\n🌍 Strategic Developments                                                                           \n\n • Market Expansion: Entered 3 new markets                                                          \n    • Southeast Asia                                                                                \n    • Eastern Europe                                                                                \n    • South America                                                                                 \n • Marketing Efficiency: Drove 12% reduction in customer acquisition cost                           \n\n----------------------------------------------------------------------------------------------------\n\n🔮 Forward Outlook (Q1 2026)                                                                        \n\nRevenue Guidance: $4.4B – $4.6B                                                                     \n\nKey Initiatives:                                                                                    \n\n 1 🤖 Launch AI-powered analytics platform                                                          \n 2 🤝 Expand the partner ecosystem                                                                  \n 3 🔒 Achieve SOC 2 Type II certification for all cloud products                                    \n\n----------------------------------------------------------------------------------------------------\n\n💡 Notable Observations & Insights                                                                  \n\nStrengths                                                                                           \n\n • Strong revenue growth (15% YoY) indicates healthy business momentum                              \n • Margin expansion (+4 percentage points) suggests improving operational efficiency                \n • NPS improvement (62 → 71) reflects enhanced customer satisfaction                                \n • Significant R&D spend (20% of revenue) signals commitment to innovation                          \n\nConsiderations                                                                                      \n\n • Rapid headcount growth (8,500 employees) needs to be monitored against margin sustainability     \n • Geographic expansion into 3 new markets simultaneously carries execution risk                    \n • MRR of $350M vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue\n   streams                                                                                          \n\nRevenue Composition Insight                                                                         \n\n▌ 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter,       \n▌ representing approximately 25% of total quarterly revenue, indicating significant non-recurring \n▌ revenue components                                                                              \n\n----------------------------------------------------------------------------------------------------\n\n⚠️ Document Limitations                                                                             \n\n • No images were present for additional visual data analysis                                       \n • No raw HTML content available                                                                    \n • No page view data included                                                                       \n • Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided         \n • No comparative data for competitor benchmarking                                                  \n\n----------------------------------------------------------------------------------------------------\n\n✅ Summary Assessment                                                                               \n\nThe Q4 2025 report reflects a strong financial quarter with broad-based improvements across revenue,\nmargins, user growth, and customer satisfaction. The company appears well-positioned for continued  \ngrowth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant   \ncareful execution monitoring.                                                                       \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n",
+            "data_html": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&amp;D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations &amp; Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&amp;D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n&gt; 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.\n```",
             "extra": {}
           }
         ]
@@ -263,17 +391,35 @@
       "error": null,
       "tags": {},
       "metrics": {},
+      "usage": {
+        "inference_calls": 0,
+        "rated_inference_calls": 0,
+        "nb_tokens_by_category": {},
+        "total_tokens": 0,
+        "cost": null,
+        "cost_input": null,
+        "cost_output": null,
+        "by_model": [],
+        "subtree_inference_calls": 0,
+        "subtree_rated_inference_calls": 0,
+        "subtree_nb_tokens_by_category": {},
+        "subtree_total_tokens": 0,
+        "subtree_cost": null,
+        "subtree_cost_input": null,
+        "subtree_cost_output": null,
+        "subtree_by_model": []
+      },
       "execution_data": {
         "compose_mode": "template",
-        "rendered_text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n---\n\n## 📋 Document Overview\n\n| Attribute | Details |\n|-----------|---------|\n| **Document Type** | Quarterly Business Report |\n| **Period** | Q4 2025 |\n| **Format** | Text-based (no images or HTML content) |\n\n---\n\n## 📊 Financial Performance\n\n### Revenue & Margins\n- **Total Revenue**: **$4.2 billion** (+15% year-over-year)\n- **Operating Margin**: **28%** (improved from 24% in Q3 — a **+4 percentage point** gain)\n- **Monthly Recurring Revenue (MRR)**: **$350M**\n- **R&D Investment**: **$840M** (20% of revenue)\n\n### Cost Efficiency\n- **Customer Acquisition Cost (CAC)**: Decreased **12%** due to improved marketing efficiency\n\n---\n\n## 👥 Customer & User Metrics\n\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 million | +22% |\n| Net Promoter Score (NPS) | 71 | Up from 62 |\n\n---\n\n## 🏢 Operational Highlights\n\n- **Employee Headcount**: 8,500 employees\n- **Office Locations**: 12 offices globally\n- **Market Expansion**: 3 new markets entered:\n  - 🌏 Southeast Asia\n  - 🌍 Eastern Europe\n  - 🌎 South America\n\n---\n\n## 🔮 Q1 2026 Outlook\n\n### Revenue Guidance\n- **Range**: $4.4B – $4.6B\n- **Midpoint Estimate**: ~$4.5B (~+7% quarter-over-quarter)\n\n### Strategic Initiatives\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Key Insights & Observations\n\n### ✅ Strengths\n- **Strong revenue growth** (15% YoY) driven by cloud services and enterprise software\n- **Margin expansion** is significant (+4pp QoQ), indicating improving operational leverage\n- **NPS improvement** (62 → 71) suggests meaningfully better customer satisfaction\n- **CAC reduction** of 12% signals more efficient go-to-market execution\n\n### ⚠️ Points to Monitor\n- **R&D spend at 20% of revenue ($840M)** is substantial — ROI should be tracked closely\n- **Rapid headcount and geographic expansion** (3 new markets) may pressure margins in near term\n- **SOC 2 Type II certification** pending — a potential risk indicator for enterprise cloud sales until achieved\n\n### 📈 Growth Trajectory\n- The Q1 2026 guidance of $4.4B–$4.6B suggests **continued but moderating growth**, transitioning from a high-growth phase toward more sustainable scaling\n\n---\n\n## 🚩 Document Limitations\n\n- **No images** were included in the report\n- **No raw HTML** content available\n- **No page view data** present\n- Absence of comparative competitor data or segment-level breakdowns limits deeper analysis\n\n---\n\n> **Summary**: The company delivered a strong Q4 2025 with improving profitability, user growth, and customer satisfaction. The forward outlook remains positive, with AI and ecosystem expansion as core strategic bets heading into 2026.\n```"
+        "rendered_text": "# Document Analysis Report\n\nanalysis: ```\n# Document Analysis: Quarterly Business Report - Q4 2025\n\n## 📋 Document Overview\n**Type:** Corporate Quarterly Business Report\n**Period:** Q4 2025\n**Format:** Text-based report (no images or HTML content)\n\n---\n\n## 📊 Key Findings by Section\n\n### 1. Financial Performance\n| Metric | Value | Change |\n|--------|-------|--------|\n| Revenue | $4.2 Billion | +15% YoY |\n| Operating Margin | 28% | +4pp from Q3 (was 24%) |\n| Customer Acquisition Cost | Not specified | -12% improvement |\n| R&D Investment | $840M | 20% of revenue |\n\n### 2. Operational Metrics\n| Metric | Value | Change |\n|--------|-------|--------|\n| Active Users | 45 Million | +22% |\n| Monthly Recurring Revenue | $350M | Not specified |\n| Net Promoter Score | 71 | +9 points (from 62) |\n| Employee Headcount | 8,500 | Across 12 global offices |\n\n---\n\n## 🌍 Strategic Developments\n- **Market Expansion:** Entered **3 new markets**\n  - Southeast Asia\n  - Eastern Europe\n  - South America\n- **Marketing Efficiency:** Drove 12% reduction in customer acquisition cost\n\n---\n\n## 🔮 Forward Outlook (Q1 2026)\n**Revenue Guidance:** $4.4B – $4.6B\n\n### Key Initiatives:\n1. 🤖 Launch **AI-powered analytics platform**\n2. 🤝 Expand the **partner ecosystem**\n3. 🔒 Achieve **SOC 2 Type II certification** for all cloud products\n\n---\n\n## 💡 Notable Observations & Insights\n\n### Strengths\n- **Strong revenue growth** (15% YoY) indicates healthy business momentum\n- **Margin expansion** (+4 percentage points) suggests improving operational efficiency\n- **NPS improvement** (62 → 71) reflects enhanced customer satisfaction\n- **Significant R&D spend** (20% of revenue) signals commitment to innovation\n\n### Considerations\n- **Rapid headcount growth** (8,500 employees) needs to be monitored against margin sustainability\n- **Geographic expansion** into 3 new markets simultaneously carries execution risk\n- **MRR of $350M** vs. quarterly revenue of $4.2B suggests a mix of recurring and non-recurring revenue streams\n\n### Revenue Composition Insight\n> 💡 Monthly Recurring Revenue of $350M × 3 months = ~$1.05B recurring revenue per quarter, representing approximately **25% of total quarterly revenue**, indicating significant non-recurring revenue components\n\n---\n\n## ⚠️ Document Limitations\n- **No images** were present for additional visual data analysis\n- **No raw HTML** content available\n- **No page view data** included\n- Specific segment-level breakdowns (e.g., cloud vs. enterprise software) are not provided\n- No comparative data for competitor benchmarking\n\n---\n\n## ✅ Summary Assessment\nThe Q4 2025 report reflects a **strong financial quarter** with broad-based improvements across revenue, margins, user growth, and customer satisfaction. The company appears well-positioned for continued growth in Q1 2026, though simultaneous multi-market expansion and heavy investment cycles warrant careful execution monitoring.\n```"
       }
     }
   ],
   "edges": [
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:edge_0",
-      "source": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_0",
-      "target": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_1",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:edge_0",
+      "source": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_0",
+      "target": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_1",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -282,9 +428,9 @@
       "meta": {}
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:edge_1",
-      "source": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_0",
-      "target": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_2",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:edge_1",
+      "source": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_0",
+      "target": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_2",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -293,9 +439,9 @@
       "meta": {}
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:edge_2",
-      "source": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_0",
-      "target": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_3",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:edge_2",
+      "source": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_0",
+      "target": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_3",
       "kind": "contains",
       "optional": false,
       "label": null,
@@ -304,9 +450,9 @@
       "meta": {}
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:asm_edge_0",
-      "source": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_1",
-      "target": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_2",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:asm_edge_0",
+      "source": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_1",
+      "target": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_2",
       "kind": "data",
       "optional": false,
       "label": "pages",
@@ -315,9 +461,9 @@
       "meta": {}
     },
     {
-      "id": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:asm_edge_1",
-      "source": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_2",
-      "target": "1e3803e7-eb3a-4a4d-94d6-f998dd232e31:node_3",
+      "id": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:asm_edge_1",
+      "source": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_2",
+      "target": "6f779387-80d4-47f9-a066-bcc7ae8dfd45:node_3",
       "kind": "data",
       "optional": false,
       "label": "analysis",
@@ -326,6 +472,88 @@
       "meta": {}
     }
   ],
+  "usage": {
+    "total": {
+      "inference_calls": 2,
+      "rated_inference_calls": 2,
+      "nb_tokens_by_category": {
+        "input": 1000297,
+        "output": 1000797,
+        "input_audio": 0,
+        "input_cached": 0
+      },
+      "total_tokens": 2001094,
+      "cost": 0.022845999999999998,
+      "cost_input": 0.010891,
+      "cost_output": 0.011955,
+      "by_model": [
+        {
+          "inference_model_name": "azure-document-intelligence",
+          "inference_model_id": "adi/prebuilt-layout",
+          "model_type": "extract",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.01
+        },
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.012846
+        }
+      ],
+      "subtree_inference_calls": 2,
+      "subtree_rated_inference_calls": 2,
+      "subtree_nb_tokens_by_category": {
+        "input": 1000297,
+        "output": 1000797,
+        "input_audio": 0,
+        "input_cached": 0
+      },
+      "subtree_total_tokens": 2001094,
+      "subtree_cost": 0.022845999999999998,
+      "subtree_cost_input": 0.010891,
+      "subtree_cost_output": 0.011955,
+      "subtree_by_model": [
+        {
+          "inference_model_name": "azure-document-intelligence",
+          "inference_model_id": "adi/prebuilt-layout",
+          "model_type": "extract",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.01
+        },
+        {
+          "inference_model_name": "claude-4.6-sonnet",
+          "inference_model_id": "global.anthropic.claude-sonnet-4-6",
+          "model_type": "llm",
+          "inference_calls": 1,
+          "rated_inference_calls": 1,
+          "cost": 0.012846
+        }
+      ]
+    },
+    "unattributed": {
+      "inference_calls": 0,
+      "rated_inference_calls": 0,
+      "nb_tokens_by_category": {},
+      "total_tokens": 0,
+      "cost": null,
+      "cost_input": null,
+      "cost_output": null,
+      "by_model": [],
+      "subtree_inference_calls": 0,
+      "subtree_rated_inference_calls": 0,
+      "subtree_nb_tokens_by_category": {},
+      "subtree_total_tokens": 0,
+      "subtree_cost": null,
+      "subtree_cost_input": null,
+      "subtree_cost_output": null,
+      "subtree_by_model": []
+    }
+  },
   "meta": {
     "format": "mthds",
     "mode": "live"
@@ -453,7 +681,6 @@
         "presence": "plain"
       },
       "llm_prompt_spec": {
-        "templating_style": null,
         "system_prompt_blueprint": null,
         "prompt_blueprint": {
           "template": "Analyze the following document content thoroughly:\n\n@pages\n",
@@ -520,6 +747,7 @@
         "description": "A formatted report document",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }
@@ -540,7 +768,7 @@
       "json_schema": {
         "properties": {
           "url": {
-            "description": "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             "title": "Url",
             "type": "string"
           },
@@ -628,7 +856,7 @@
           "ImageContent": {
             "properties": {
               "url": {
-                "description": "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 "title": "Url",
                 "type": "string"
               },
@@ -697,17 +925,33 @@
                 "description": "The MIME type of the image",
                 "title": "Mime Type"
               },
-              "size": {
+              "width": {
                 "anyOf": [
                   {
-                    "$ref": "#/$defs/ImageSize"
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
                   },
                   {
                     "type": "null"
                   }
                 ],
                 "default": null,
-                "description": "The size in pixels (width and height) of the image"
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
               },
               "filename": {
                 "anyOf": [
@@ -727,26 +971,6 @@
               "url"
             ],
             "title": "ImageContent",
-            "type": "object"
-          },
-          "ImageSize": {
-            "properties": {
-              "width": {
-                "exclusiveMinimum": 0,
-                "title": "Width",
-                "type": "integer"
-              },
-              "height": {
-                "exclusiveMinimum": 0,
-                "title": "Height",
-                "type": "integer"
-              }
-            },
-            "required": [
-              "width",
-              "height"
-            ],
-            "title": "ImageSize",
             "type": "object"
           },
           "TextAndImagesContent": {
@@ -799,6 +1023,7 @@
           "TextContent": {
             "properties": {
               "text": {
+                "description": "The text",
                 "title": "Text",
                 "type": "string"
               }
@@ -845,6 +1070,7 @@
         "description": "An analytical assessment of content",
         "properties": {
           "text": {
+            "description": "The text",
             "title": "Text",
             "type": "string"
           }

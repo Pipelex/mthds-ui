@@ -11,7 +11,7 @@
  *   node scripts/generate-fixtures.mjs --from-disk                reassemble fixtures from on-disk specs, run nothing
  *   node scripts/generate-fixtures.mjs --check                    run + validate, write nothing
  *
- * DRY runs use --dry-run --mock-inputs (deterministic, no inference).
+ * DRY runs use --dry-run --mock-inputs (no inference, so zero tokens and no cost).
  * LIVE runs perform real inference and need pipelex credentials available.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
@@ -50,6 +50,9 @@ const PIPELEX_BIN =
   path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
+
+/** Above this, prettier overflows its call stack on a single-line generated split. */
+const PRETTIER_MAX_BYTES = 2 * 1024 * 1024;
 
 /** pipeline_NN directory -> fixture export base name (DRY_<name> / LIVE_<name>). */
 const NAME_MAP = {
@@ -127,6 +130,10 @@ function generateSpec(pipelineDir) {
       if (!existsSync(inputs)) die(`${pipelineDir}: missing inputs.json (required for a LIVE run)`);
       args.push("-i", inputs);
     } else {
+      // Deliberately NOT --mock-usage. That flag makes a dry run report invented
+      // token counts, and a dry run executes nothing — the numbers would be
+      // fabrications rendered as measurements. A DRY spec carries usage objects
+      // with zero tokens and a null cost, which is the truth about a dry run.
       args.push("--dry-run", "--mock-inputs");
     }
 
@@ -135,6 +142,12 @@ function generateSpec(pipelineDir) {
         cwd: REPO,
         env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
         stdio: ["ignore", "pipe", "pipe"],
+        // Node defaults maxBuffer to 1MB and throws ENOBUFS past it, which this
+        // script would then report as "pipelex run failed" — blaming the pipeline
+        // for a pipe-capacity problem. pipelex echoes every pipe's output, so a
+        // batch pipeline over a dozen records clears 1MB easily (pipeline_12 emits
+        // ~3MB while exiting 0). Generous ceiling; the output is only read on error.
+        maxBuffer: 256 * 1024 * 1024,
       });
     } catch (err) {
       console.error(err.stdout?.toString() ?? "");
@@ -159,8 +172,78 @@ function generateSpec(pipelineDir) {
   }
 }
 
-/** Reject any spec the wired-in validateGraphSpec would also reject. */
-function assertValid(spec, pipelineDir) {
+/**
+ * Gate the per-node usage attribution a FRESHLY generated spec must carry.
+ *
+ * Applied only to specs this invocation ran through pipelex — a spec reused from
+ * disk may predate usage attribution, and failing on it would brick every partial
+ * (`--only` / `--missing`) run against an older corpus.
+ *
+ * The checks are deliberately NOT "every node made an inference call": controllers,
+ * PipeFunc, PipeCompose, skipped and lifted pipes legitimately report zero. What must
+ * hold is the shape of the attribution itself.
+ */
+function assertUsageAttribution(spec, pipelineDir) {
+  if (!spec.usage) {
+    die(
+      `${pipelineDir}: spec carries no graph-level usage — the ../pipelex checkout predates ` +
+        `per-node usage attribution, or usage collection was off for the run`,
+    );
+  }
+  if (spec.usage.unattributed?.inference_calls !== 0) {
+    die(
+      `${pipelineDir}: ${spec.usage.unattributed?.inference_calls} inference call(s) could not be ` +
+        `attributed to a node (graph.usage.unattributed) — every call in a local run should name its pipe`,
+    );
+  }
+
+  // Invariant 1 is all-or-nothing: once any usage was reported, EVERY node carries a
+  // spec, zeroed where nothing ran. A null here means the attribution half-landed.
+  for (const node of spec.nodes) {
+    if (!node.usage) die(`${pipelineDir}: node ${node.id} has no usage while the graph has some`);
+  }
+
+  if (!LIVE) {
+    // A dry/mock run has no rate table, so it is unrated by construction. A number here
+    // would mean a synthetic call was priced — the exact thing that must never render
+    // as a real dollar in Storybook.
+    for (const node of spec.nodes) {
+      if (node.usage.cost !== null || node.usage.subtree_cost !== null) {
+        die(
+          `${pipelineDir}: node ${node.id} has a non-null DRY cost (${node.usage.cost}) — DRY must always be unrated`,
+        );
+      }
+    }
+    // No token assertion here on purpose: a dry run executes nothing, so zero
+    // tokens is the correct result, not a symptom.
+  }
+
+  // Rollup sanity: a CONTAINS parent's subtree must cover each of its children's.
+  const usageById = new Map(spec.nodes.map((node) => [node.id, node.usage]));
+  for (const edge of spec.edges ?? []) {
+    if (edge.kind !== "contains") continue;
+    const parent = usageById.get(edge.source);
+    const child = usageById.get(edge.target);
+    if (!parent || !child) continue;
+    if (
+      parent.subtree_total_tokens < child.subtree_total_tokens ||
+      parent.subtree_inference_calls < child.subtree_inference_calls
+    ) {
+      die(
+        `${pipelineDir}: subtree rollup is inconsistent — ${edge.source} contains ${edge.target} ` +
+          `but reports fewer subtree tokens/calls (${parent.subtree_total_tokens} < ${child.subtree_total_tokens})`,
+      );
+    }
+  }
+}
+
+/**
+ * Reject any spec the wired-in validateGraphSpec would also reject.
+ *
+ * `isFresh` marks a spec this invocation just generated; only those are held to the
+ * usage-attribution gate (see assertUsageAttribution).
+ */
+function assertValid(spec, pipelineDir, { isFresh } = { isFresh: true }) {
   if (spec?.meta?.format !== "mthds") {
     die(`${pipelineDir}: meta.format is not "mthds" (got ${JSON.stringify(spec?.meta)})`);
   }
@@ -174,6 +257,32 @@ function assertValid(spec, pipelineDir) {
     if (!node.description) die(`${pipelineDir}: node ${node.id} has no description`);
     if (!node.domain_code) die(`${pipelineDir}: node ${node.id} has no domain_code`);
   }
+  if (isFresh) assertUsageAttribution(spec, pipelineDir);
+}
+
+/**
+ * Prettier-format a generated split, falling back to the raw text when it is too big.
+ *
+ * The split is one enormous single-line `JSON.stringify`, and prettier parses that
+ * into an AST deep enough to blow Node's call stack past a few megabytes — it throws
+ * `RangeError: Maximum call stack size exceeded`. That is fatal in a way out of all
+ * proportion to what formatting buys here: the file is machine-written, machine-read,
+ * and marked DO NOT EDIT, so nobody is reading its indentation. Worse, every
+ * invocation rewrites *every* split, so a single oversized fixture would fail the
+ * generator for pipelines that ran perfectly — after their inference was paid for.
+ *
+ * Unformatted output is still valid TypeScript; prettier's own check is scoped to
+ * `src/**` and these live under it, so `.prettierignore` covers the generated dir.
+ */
+async function formatSplit(splitRaw, prettierConfig) {
+  if (splitRaw.length > PRETTIER_MAX_BYTES) {
+    console.warn(
+      `  ⚠ split is ${(splitRaw.length / 1048576).toFixed(1)}MB — writing unformatted ` +
+        `(prettier overflows its stack past ~${(PRETTIER_MAX_BYTES / 1048576).toFixed(0)}MB)`,
+    );
+    return splitRaw;
+  }
+  return prettier.format(splitRaw, { ...prettierConfig, parser: "typescript" });
 }
 
 async function main() {
@@ -246,7 +355,7 @@ async function main() {
       if (specByName.has(NAME_MAP[p])) continue;
       if (existsSync(specJsonPath(p))) {
         const spec = JSON.parse(readFileSync(specJsonPath(p), "utf-8"));
-        assertValid(spec, p);
+        assertValid(spec, p, { isFresh: false });
         specByName.set(NAME_MAP[p], spec);
         reused.push(p);
       } else {
@@ -280,7 +389,7 @@ async function main() {
       `export const ${prefix}_${name} = ${JSON.stringify(spec)} as unknown as GraphSpec;\n`;
     writeFileSync(
       path.join(generatedDir, `${pipelineDir}.ts`),
-      await prettier.format(splitRaw, { ...prettierConfig, parser: "typescript" }),
+      await formatSplit(splitRaw, prettierConfig),
     );
   }
 

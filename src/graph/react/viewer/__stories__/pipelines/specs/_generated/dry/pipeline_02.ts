@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_TWO_PIPE_CHAIN = {
-  graph_id: "91375716-c554-4398-b190-b026885fc0ec",
-  created_at: "2026-07-09T10:59:53.979924Z",
+  graph_id: "8d11054b-3203-45f7-b288-b03b897df14f",
+  created_at: "2026-08-14T09:49:05.399814Z",
   pipeline_ref: { domain: "document_analysis", main_pipe: "extract_and_analyze", entrypoint: null },
   nodes: [
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:node_0",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
       kind: "controller",
       pipe_code: "extract_and_analyze",
       pipe_type: "PipeSequence",
@@ -19,30 +19,30 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T10:59:53.979924Z",
-        ended_at: "2026-07-09T10:59:54.018779Z",
-        duration: 0.038855,
+        started_at: "2026-08-14T09:49:05.399814Z",
+        ended_at: "2026-08-14T09:49:05.458477Z",
+        duration: 0.058663,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "daitBYFnrAzvzUdckjUu",
+            content_type: "fZtIBIgJTudaxzRqYXMY",
             preview: null,
             size: null,
-            digest: "iKmfz",
+            digest: "5fBGC",
             data: {
-              url: "tehdRPEKZfPzzwnbOPlj",
-              public_url: "BVAgcxzNnKdREFqGzeiQ",
-              mime_type: "daitBYFnrAzvzUdckjUu",
-              filename: "RWNsyLfBWlqjBGyBTpwn",
-              title: "XOZeuQiHoKaeOVATmieB",
-              snippet: "PrlJTEcRWQfUVGxosfGY",
+              url: "fTRXUcFmRaerbfhEmWVB",
+              public_url: "kNMGqFwbjMYZcFPsxbhc",
+              mime_type: "fZtIBIgJTudaxzRqYXMY",
+              filename: "DCFrJpbOzKAjcmmJSjuO",
+              title: "ooHpTNcpDQSrWhmEEusT",
+              snippet: "yWlmMPmcYfYzhNHcFvFz",
             },
-            data_text: "XOZeuQiHoKaeOVATmieB (tehdRPEKZfPzzwnbOPlj)\n  PrlJTEcRWQfUVGxosfGY\n",
+            data_text: "ooHpTNcpDQSrWhmEEusT (fTRXUcFmRaerbfhEmWVB)\n  yWlmMPmcYfYzhNHcFvFz\n",
             data_html:
-              '<a href="BVAgcxzNnKdREFqGzeiQ" class="msg-document">XOZeuQiHoKaeOVATmieB</a><br/><small>PrlJTEcRWQfUVGxosfGY</small>',
+              '<a href="kNMGqFwbjMYZcFPsxbhc" class="msg-document">ooHpTNcpDQSrWhmEEusT</a><br/><small>yWlmMPmcYfYzhNHcFvFz</small>',
             extra: {},
           },
         ],
@@ -53,7 +53,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EZgpP",
+            digest: "9aKFk",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -68,10 +68,37 @@ export const DRY_TWO_PIPE_CHAIN = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:node_1",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
       kind: "operator",
       pipe_code: "extract_document",
       pipe_type: "PipeExtract",
@@ -80,30 +107,30 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T10:59:53.985661Z",
-        ended_at: "2026-07-09T10:59:53.996812Z",
-        duration: 0.011151,
+        started_at: "2026-08-14T09:49:05.407486Z",
+        ended_at: "2026-08-14T09:49:05.417046Z",
+        duration: 0.00956,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "daitBYFnrAzvzUdckjUu",
+            content_type: "fZtIBIgJTudaxzRqYXMY",
             preview: null,
             size: null,
-            digest: "iKmfz",
+            digest: "5fBGC",
             data: {
-              url: "tehdRPEKZfPzzwnbOPlj",
-              public_url: "BVAgcxzNnKdREFqGzeiQ",
-              mime_type: "daitBYFnrAzvzUdckjUu",
-              filename: "RWNsyLfBWlqjBGyBTpwn",
-              title: "XOZeuQiHoKaeOVATmieB",
-              snippet: "PrlJTEcRWQfUVGxosfGY",
+              url: "fTRXUcFmRaerbfhEmWVB",
+              public_url: "kNMGqFwbjMYZcFPsxbhc",
+              mime_type: "fZtIBIgJTudaxzRqYXMY",
+              filename: "DCFrJpbOzKAjcmmJSjuO",
+              title: "ooHpTNcpDQSrWhmEEusT",
+              snippet: "yWlmMPmcYfYzhNHcFvFz",
             },
-            data_text: "XOZeuQiHoKaeOVATmieB (tehdRPEKZfPzzwnbOPlj)\n  PrlJTEcRWQfUVGxosfGY\n",
+            data_text: "ooHpTNcpDQSrWhmEEusT (fTRXUcFmRaerbfhEmWVB)\n  yWlmMPmcYfYzhNHcFvFz\n",
             data_html:
-              '<a href="BVAgcxzNnKdREFqGzeiQ" class="msg-document">XOZeuQiHoKaeOVATmieB</a><br/><small>PrlJTEcRWQfUVGxosfGY</small>',
+              '<a href="kNMGqFwbjMYZcFPsxbhc" class="msg-document">ooHpTNcpDQSrWhmEEusT</a><br/><small>yWlmMPmcYfYzhNHcFvFz</small>',
             extra: {},
           },
         ],
@@ -114,7 +141,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DeSx5",
+            digest: "jsDXh",
             data: {
               items: [
                 {
@@ -162,6 +189,24 @@ export const DRY_TWO_PIPE_CHAIN = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 0,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "document",
@@ -170,7 +215,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       },
     },
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:node_2",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
       kind: "operator",
       pipe_code: "analyze_pages",
       pipe_type: "PipeLLM",
@@ -179,9 +224,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T10:59:53.998424Z",
-        ended_at: "2026-07-09T10:59:54.017396Z",
-        duration: 0.018972,
+        started_at: "2026-08-14T09:49:05.424410Z",
+        ended_at: "2026-08-14T09:49:05.454027Z",
+        duration: 0.029617,
       },
       io: {
         inputs: [
@@ -191,7 +236,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DeSx5",
+            digest: "jsDXh",
             data: {
               items: [
                 {
@@ -242,7 +287,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EZgpP",
+            digest: "9aKFk",
             data: {
               text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the following document pages and provide a detailed analysis:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
@@ -257,6 +302,42 @@ export const DRY_TWO_PIPE_CHAIN = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
@@ -270,9 +351,9 @@ export const DRY_TWO_PIPE_CHAIN = {
   ],
   edges: [
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:edge_0",
-      source: "91375716-c554-4398-b190-b026885fc0ec:node_0",
-      target: "91375716-c554-4398-b190-b026885fc0ec:node_1",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:edge_0",
+      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
+      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -281,9 +362,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:edge_1",
-      source: "91375716-c554-4398-b190-b026885fc0ec:node_0",
-      target: "91375716-c554-4398-b190-b026885fc0ec:node_2",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:edge_1",
+      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_0",
+      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -292,9 +373,9 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
     {
-      id: "91375716-c554-4398-b190-b026885fc0ec:asm_edge_0",
-      source: "91375716-c554-4398-b190-b026885fc0ec:node_1",
-      target: "91375716-c554-4398-b190-b026885fc0ec:node_2",
+      id: "8d11054b-3203-45f7-b288-b03b897df14f:asm_edge_0",
+      source: "8d11054b-3203-45f7-b288-b03b897df14f:node_1",
+      target: "8d11054b-3203-45f7-b288-b03b897df14f:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -303,6 +384,62 @@ export const DRY_TWO_PIPE_CHAIN = {
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 1,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+      subtree_inference_calls: 1,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "document_analysis.extract_and_analyze": {
@@ -423,7 +560,6 @@ export const DRY_TWO_PIPE_CHAIN = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template:
@@ -450,7 +586,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       refines: "native.Text",
       json_schema: {
         description: "An analytical assessment of content",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "document_analysis__Analysis",
         type: "object",
@@ -465,8 +601,7 @@ export const DRY_TWO_PIPE_CHAIN = {
       json_schema: {
         properties: {
           url: {
-            description:
-              "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             title: "Url",
             type: "string",
           },
@@ -518,8 +653,7 @@ export const DRY_TWO_PIPE_CHAIN = {
           ImageContent: {
             properties: {
               url: {
-                description:
-                  "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 title: "Url",
                 type: "string",
               },
@@ -553,10 +687,17 @@ export const DRY_TWO_PIPE_CHAIN = {
                 description: "The MIME type of the image",
                 title: "Mime Type",
               },
-              size: {
-                anyOf: [{ $ref: "#/$defs/ImageSize" }, { type: "null" }],
+              width: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
                 default: null,
-                description: "The size in pixels (width and height) of the image",
+                description: "The width of the image, in pixels",
+                title: "Width",
+              },
+              height: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
+                default: null,
+                description: "The height of the image, in pixels",
+                title: "Height",
               },
               filename: {
                 anyOf: [{ type: "string" }, { type: "null" }],
@@ -567,15 +708,6 @@ export const DRY_TWO_PIPE_CHAIN = {
             },
             required: ["url"],
             title: "ImageContent",
-            type: "object",
-          },
-          ImageSize: {
-            properties: {
-              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
-              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
-            },
-            required: ["width", "height"],
-            title: "ImageSize",
             type: "object",
           },
           TextAndImagesContent: {
@@ -605,7 +737,7 @@ export const DRY_TWO_PIPE_CHAIN = {
             type: "object",
           },
           TextContent: {
-            properties: { text: { title: "Text", type: "string" } },
+            properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",

@@ -89,7 +89,11 @@ function renderExtractPanel(mode: "dry" | "live"): string {
       inputs: [{ name: "document", concept: "Document", digest: "document" }],
       outputs: [{ name: "text", concept: "Text", digest: "text" }],
     },
-    execution_data: { resolved_model: "polyfactory-generated-model" },
+    // A real deck resolution, not mock content. Named accordingly: `resolved_model`
+    // is NOT polyfactory output — across all 32 checked-in dry specs it only ever
+    // holds real model names (claude-4.6-sonnet, linkup-standard) or real deck
+    // aliases (@default-general). Only stuff CONTENT is fabricated in a dry run.
+    execution_data: { resolved_model: "deck-resolved-model", runtime_value: "generated" },
   };
   const spec: GraphSpec = {
     meta: { format: "mthds", mode },
@@ -130,11 +134,16 @@ describe("PipeDetailPanel mode chrome", () => {
     expect(html).not.toContain("tokens");
   });
 
-  it("uses authored blueprint values instead of generated dry execution values", () => {
+  it("shows the resolved model in a dry spec, but still hides generated payload data", () => {
+    // Model resolution is a deterministic deck lookup, so it holds in a dry run and is
+    // shown: the Model row would otherwise read `@default-general` with nothing under
+    // it, which is the alias question left unanswered. Everything else in
+    // execution_data is a product of the run and stays hidden.
     const html = renderExtractPanel("dry");
 
     expect(html).toContain("authored-extract-choice");
-    expect(html).not.toContain("polyfactory-generated-model");
+    expect(html).toContain("deck-resolved-model");
+    expect(html).not.toContain("generated");
   });
 
   it("keeps runtime data for live specs", () => {
@@ -152,7 +161,7 @@ describe("PipeDetailPanel mode chrome", () => {
   it("uses runtime execution values for live specs", () => {
     const html = renderExtractPanel("live");
 
-    expect(html).toContain("polyfactory-generated-model");
+    expect(html).toContain("deck-resolved-model");
   });
 
   it("keeps runtime data for legacy specs without an explicit mode", () => {

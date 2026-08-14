@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SINGLE_PIPE = {
-  graph_id: "dac3605f-298c-4113-9669-25faaa3fad33",
-  created_at: "2026-07-09T10:59:37.633368Z",
+  graph_id: "c8ed9d41-a0ee-458b-96ce-6f99c75097c9",
+  created_at: "2026-08-14T09:49:02.620661Z",
   pipeline_ref: { domain: "text_processing", main_pipe: "summarize", entrypoint: null },
   nodes: [
     {
-      id: "dac3605f-298c-4113-9669-25faaa3fad33:node_0",
+      id: "c8ed9d41-a0ee-458b-96ce-6f99c75097c9:node_0",
       kind: "operator",
       pipe_code: "summarize",
       pipe_type: "PipeLLM",
@@ -19,9 +19,9 @@ export const DRY_SINGLE_PIPE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T10:59:37.633368Z",
-        ended_at: "2026-07-09T10:59:37.648764Z",
-        duration: 0.015396,
+        started_at: "2026-08-14T09:49:02.620661Z",
+        ended_at: "2026-08-14T09:49:02.636976Z",
+        duration: 0.016315,
       },
       io: {
         inputs: [
@@ -31,11 +31,11 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "a2FND",
-            data: { text: "OnBMblONJuzqdBaEqAKR" },
+            digest: "Uekn5",
+            data: { text: "fJpMMkANSVOtjUiKiabB" },
             data_text:
-              "OnBMblONJuzqdBaEqAKR                                                                                \n",
-            data_html: "OnBMblONJuzqdBaEqAKR",
+              "fJpMMkANSVOtjUiKiabB                                                                                \n",
+            data_html: "fJpMMkANSVOtjUiKiabB",
             extra: {},
           },
         ],
@@ -46,14 +46,14 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NipXJ",
+            digest: "NRVfW",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nfJpMMkANSVOtjUiKiabB\n</text>\n    ",
             },
             data_text:
               "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
             data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nOnBMblONJuzqdBaEqAKR\n&lt;/text&gt;\n    ",
+              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nfJpMMkANSVOtjUiKiabB\n&lt;/text&gt;\n    ",
             extra: {},
           },
         ],
@@ -61,18 +61,110 @@ export const DRY_SINGLE_PIPE = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "claude-4.6-sonnet",
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Summarize the following text concisely:\n\n<text>\nOnBMblONJuzqdBaEqAKR\n</text>",
+          "Summarize the following text concisely:\n\n<text>\nfJpMMkANSVOtjUiKiabB\n</text>",
         structuring_path: "text",
       },
     },
   ],
   edges: [],
+  usage: {
+    total: {
+      inference_calls: 1,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+      subtree_inference_calls: 1,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [
+        {
+          inference_model_name: "dry_run",
+          inference_model_id: "dry_run",
+          model_type: "llm",
+          inference_calls: 1,
+          rated_inference_calls: 0,
+          cost: null,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "dry" },
   pipe_registry: {
     "text_processing.summarize": {
@@ -106,7 +198,6 @@ export const DRY_SINGLE_PIPE = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: null,
         prompt_blueprint: {
           template: "Summarize the following text concisely:\n\n@text\n",
@@ -132,7 +223,7 @@ export const DRY_SINGLE_PIPE = {
       refines: "native.Text",
       json_schema: {
         description: "A text summary of content",
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "text_processing__Summary",
         type: "object",
@@ -145,7 +236,7 @@ export const DRY_SINGLE_PIPE = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
-        properties: { text: { title: "Text", type: "string" } },
+        properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
         type: "object",

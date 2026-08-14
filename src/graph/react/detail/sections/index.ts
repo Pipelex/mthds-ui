@@ -1,4 +1,5 @@
 export { KV, PromptBlock, formatDuration } from "./shared";
+export { UsageCostInline, UsageDetails } from "./UsageSection";
 
 export { PipeLLMSection } from "./PipeLLMDetail";
 export { PipeImgGenSection } from "./PipeImgGenDetail";

@@ -5,8 +5,8 @@
 import type { GraphSpec } from "@graph/types";
 
 export const LIVE_CV_BATCH_SCREENING = {
-  graph_id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2",
-  created_at: "2026-07-09T11:25:58.384454Z",
+  graph_id: "f0a3672d-cc04-473b-8d75-49d4a822f75f",
+  created_at: "2026-08-13T13:28:30.689325Z",
   pipeline_ref: {
     domain: "cv_batch_screening",
     main_pipe: "batch_analyze_cvs_for_job_offer",
@@ -14,7 +14,7 @@ export const LIVE_CV_BATCH_SCREENING = {
   },
   nodes: [
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_0",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_0",
       kind: "controller",
       pipe_code: "batch_analyze_cvs_for_job_offer",
       pipe_type: "PipeSequence",
@@ -24,9 +24,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:25:58.384454Z",
-        ended_at: "2026-07-09T11:26:38.244061Z",
-        duration: 39.859607,
+        started_at: "2026-08-13T13:28:30.689325Z",
+        ended_at: "2026-08-13T13:29:30.698305Z",
+        duration: 60.00898,
       },
       io: {
         inputs: [
@@ -36,19 +36,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "exhi8",
+            digest: "KLR7z",
             data: {
-              url: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+              url: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               mime_type: "application/pdf",
               filename: "job_offer.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf\n",
+            data_text: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf</a>',
             extra: {},
           },
           {
@@ -57,31 +57,31 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m3h4P",
+            digest: "7Edkx",
             data: {
               items: [
                 {
-                  url: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                  url: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
                   mime_type: "application/pdf",
                   filename: "Bobby-Jenkins-CV.pdf",
                   title: null,
                   snippet: null,
                 },
                 {
-                  url: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                  url: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
                   mime_type: "application/pdf",
                   filename: "CV-Sarah-Vaugier.pdf",
                   title: null,
                   snippet: null,
                 },
                 {
-                  url: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                  url: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf",
                   mime_type: "application/pdf",
                   filename: "John-Doe-CV.pdf",
                   title: null,
@@ -90,9 +90,9 @@ export const LIVE_CV_BATCH_SCREENING = {
               ],
             },
             data_text:
-              "    1     │ pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    2     │ pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    3     │ pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf             \n",
+              "    1     │ pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    2     │ pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    3     │ pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf             \n",
             data_html:
-              '<ul><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf</a></li><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf</a></li><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf</a></li></ul>',
+              '<ul><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf</a></li><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf</a></li><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf</a></li></ul>',
             extra: {},
           },
         ],
@@ -103,39 +103,39 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PKb9B",
+            digest: "WoFRv",
             data: {
               items: [
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.",
-                  gaps: "The candidate's background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor's degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.",
+                    "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&L context.",
+                  gaps: "The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate's business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor's degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.",
                   overall_assessment:
-                    "The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor's/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.",
+                    "The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.",
                 },
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate holds a bachelor's degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.",
-                  gaps: "The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&L accountability experience.",
+                    "The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor's degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.",
+                  gaps: "There is a near-total mismatch between the candidate's background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.",
                   overall_assessment:
-                    "This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate's skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.",
+                    "The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.",
                 },
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean's List, and scholarship recipient), which satisfies the basic bachelor's degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria's Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.",
-                  gaps: "The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.",
+                    "The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria's Secret and has shown consistent achievement in academic and workplace settings (Dean's List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor's degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.",
+                  gaps: "The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.",
                   overall_assessment:
-                    "The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.",
+                    "The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.",
                 },
               ],
             },
             data_text:
-              "   1    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong leadership an \n        │                     │ business ownership capabilities, having founded \n        │                     │ and operated Jenkins Plumbing Solutions for 13  \n        │                     │ years and grown it to $480K in annual revenue.  \n        │                     │ has experience managing small teams (up to 4    \n        │                     │ employees), client relationship management,     \n        │                     │ project estimation, and business operations. Hi \n        │                     │ track record of maintaining a 4.9/5 customer    \n        │                     │ rating and mentoring apprentices shows people   \n        │                     │ development skills and customer focus. He also  \n        │                     │ has 22 years of progressive experience in his   \n        │                     │ field, indicating consistency and dedication.   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate's background is in the skilled    \n        │                     │ trades (plumbing), which is fundamentally       \n        │                     │ misaligned with the requirements of this        \n        │                     │ executive SaaS sales role. Critical gaps includ \n        │                     │ no B2B SaaS sales experience, no experience     \n        │                     │ selling to Fortune 500 or C-suite buyers, no    \n        │                     │ experience managing enterprise sales teams of 5 \n        │                     │ people (his largest team was 4), no experience  \n        │                     │ managing $100M+ ARR quotas (his business revenu \n        │                     │ was $480K), no VP-level leadership experience a \n        │                     │ a corporate scale, no consultative enterprise   \n        │                     │ sales cycle experience, and no bachelor's degre \n        │                     │ or MBA (holds a Plumbing Technology Certificate \n        │                     │ and high school diploma). He lacks exposure to  \n        │                     │ CRM platforms, sales analytics tools,           \n        │                     │ cloud/enterprise software markets, and formal   \n        │                     │ change management or organizational development \n        │                     │ at scale.                                       \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is not a suitable fit for this VP \n        │                     │ of Enterprise Sales role. While he is an        \n        │                     │ accomplished master plumber and small business  \n        │                     │ owner with genuine leadership, customer service \n        │                     │ and operational skills, virtually none of the   \n        │                     │ core qualifications for this executive SaaS sal \n        │                     │ position are met. The scale of team leadership  \n        │                     │ ($480K revenue vs. $180M+ ARR; 4 employees vs.  \n        │                     │ 60+ sales professionals), industry background   \n        │                     │ (skilled trades vs. enterprise SaaS), and       \n        │                     │ educational requirements (trade certificate vs. \n        │                     │ bachelor's/MBA) all represent fundamental       \n        │                     │ mismatches. This candidate should not advance i \n        │                     │ the screening process for this role.            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate holds a bachelor's degree (B.A. A \n        │                     │ History) which satisfies the minimum educationa \n        │                     │ requirement. They also demonstrate deep domain  \n        │                     │ expertise, leadership of a specialized lab, and \n        │                     │ 10 years of professional experience—showing     \n        │                     │ capability to lead a team, manage operational   \n        │                     │ rigor (verifying 500+ items/month), and liaise  \n        │                     │ with external stakeholders (private sellers).   \n        │                     │ These transferable soft skills (leadership,     \n        │                     │ attention to detail, stakeholder engagement) ar \n        │                     │ the only tangential overlap with the role.      \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate has virtually no alignment with t \n        │                     │ core requirements of this VP/enterprise sales   \n        │                     │ leadership role. They lack: B2B SaaS sales      \n        │                     │ experience, any experience selling to Fortune 5 \n        │                     │ enterprises, experience managing $100M+ ARR     \n        │                     │ quotas, experience building/scaling enterprise  \n        │                     │ sales teams of 50+ people, complex consultative \n        │                     │ sales cycle experience, VP-level sales leadersh \n        │                     │ tenure, and exposure to CRM/cloud/enterprise    \n        │                     │ software markets. Their entire career is in     \n        │                     │ gemology, jewelry appraisal, and luxury goods   \n        │                     │ authentication—a completely different industry  \n        │                     │ and function. No MBA, no sales analytics toolin \n        │                     │ no P&L accountability experience.               \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ This is a fundamental mismatch. The candidate i \n        │                     │ a highly qualified gemologist and luxury goods  \n        │                     │ authentication expert, but the position require \n        │                     │ a seasoned enterprise SaaS sales executive with \n        │                     │ 12+ years of B2B sales experience and proven    \n        │                     │ success scaling large sales organizations and   \n        │                     │ managing nine-figure ARR quotas. None of the    \n        │                     │ candidate's skills, experience, or achievements \n        │                     │ translate meaningfully to the required          \n        │                     │ competencies. The candidate should not be       \n        │                     │ advanced for this role, though they would be an \n        │                     │ excellent fit for positions in gemology,        \n        │                     │ appraisal, or luxury auction house operations.  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates a strong academic    \n        │                     │ record (Bachelor of Science in Graphic Design,  \n        │                     │ cumulative GPA of 3.93, Dean's List, and        \n        │                     │ scholarship recipient), which satisfies the bas \n        │                     │ bachelor's degree requirement. She has consiste \n        │                     │ retail work experience showing customer service \n        │                     │ skills, client communication, cash handling, an \n        │                     │ some exposure to sales goals (retail and        \n        │                     │ membership sales at Planet Beach). She has also \n        │                     │ gained light experience in training and mentori \n        │                     │ coworkers at Victoria's Secret, and event       \n        │                     │ marketing/promotion through her Target brand    \n        │                     │ ambassador volunteer role, which loosely align  \n        │                     │ with the coaching/mentoring and cross-functiona \n        │                     │ collaboration themes of the role.               \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate falls dramatically short of the   \n        │                     │ core requirements for this senior enterprise    \n        │                     │ sales leadership position. She has no B2B sales \n        │                     │ experience, no SaaS or enterprise software      \n        │                     │ background, and no experience selling to Fortun \n        │                     │ 500 companies or engaging C-suite buyers. She h \n        │                     │ never managed ARR quotas (the role requires     \n        │                     │ $100M+/$180M+), has no experience with complex  \n        │                     │ 6-12 month consultative sales cycles, and has   \n        │                     │ never built or scaled an enterprise sales team  \n        │                     │ 50+ people. She lacks the required 12+ years of \n        │                     │ progressive B2B sales experience and 5+ years i \n        │                     │ VP-level leadership roles—her background is     \n        │                     │ entirely in entry-level retail sales associate  \n        │                     │ positions. She also lacks demonstrated experien \n        │                     │ with P&L accountability, forecasting, sales     \n        │                     │ analytics tools, account-based selling,         \n        │                     │ channel/partner sales models, and does not have \n        │                     │ an MBA.                                         \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is not a suitable fit for this    \n        │                     │ VP-level enterprise sales leadership role. Her  \n        │                     │ background is in retail sales associate and     \n        │                     │ graphic design roles, while the position requir \n        │                     │ a seasoned executive with 12+ years of B2B SaaS \n        │                     │ sales experience, proven leadership of large    \n        │                     │ enterprise sales teams, and a track record of   \n        │                     │ managing $100M+ ARR quotas. The mismatch in     \n        │                     │ seniority, industry, and scope of responsibilit \n        │                     │ is significant, and she should not advance in   \n        │                     │ this recruitment process. She may, however, be  \n        │                     │ strong candidate for entry-level design, retail \n        │                     │ or junior sales development roles.              \n",
+              "   1    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong leadership an \n        │                     │ business ownership capabilities, having founded \n        │                     │ and operated Jenkins Plumbing Solutions for 13  \n        │                     │ years, growing it to $480K in annual revenue wi \n        │                     │ 4 employees. They possess transferable skills   \n        │                     │ including team supervision, client relationship \n        │                     │ management, project estimation, business        \n        │                     │ operations management, and customer service     \n        │                     │ (evidenced by a 4.9/5 Google Reviews rating).   \n        │                     │ Their experience mentoring apprentices and      \n        │                     │ leading teams of journeyman plumbers shows      \n        │                     │ coaching ability, and they have proven success  \n        │                     │ a small-business P&L context.                   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate has virtually no alignment with t \n        │                     │ core requirements of this VP-level enterprise   \n        │                     │ sales role. Critical gaps include: no B2B SaaS  \n        │                     │ enterprise sales experience (role requires 12+  \n        │                     │ years); no VP-level sales leadership experience \n        │                     │ (role requires 5+ years); no track record       \n        │                     │ managing $100M+ ARR quotas (candidate's busines \n        │                     │ peaked at $480K revenue); no experience scaling \n        │                     │ sales teams of 50+ (candidate managed 4         \n        │                     │ employees); no experience with Fortune 500      \n        │                     │ clients, C-suite engagement, or complex 6-12    \n        │                     │ month consultative sales cycles; no exposure to \n        │                     │ CRM, cloud infrastructure, or enterprise softwa \n        │                     │ markets; no Bachelor's degree (role requires it \n        │                     │ MBA preferred) — candidate holds a plumbing     \n        │                     │ technology certificate and high school diploma; \n        │                     │ no demonstrated experience with sales analytics \n        │                     │ tools, account-based selling, or channel/partne \n        │                     │ sales models.                                   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is a highly accomplished master   \n        │                     │ plumber and small-business owner but is         \n        │                     │ fundamentally misaligned with this senior       \n        │                     │ enterprise SaaS sales leadership position. The  \n        │                     │ role demands a seasoned VP of Sales with over a \n        │                     │ decade of B2B SaaS experience, proven ability t \n        │                     │ manage $180M+ ARR, and leadership of 60+        \n        │                     │ enterprise sellers — none of which the candidat \n        │                     │ possesses. While they have transferable soft    \n        │                     │ skills such as leadership, customer service, an \n        │                     │ business operations, the scale, industry, and   \n        │                     │ functional domain gaps are insurmountable. This \n        │                     │ is not a viable match, and the candidate should \n        │                     │ not be advanced for this role.                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates deep expertise and   \n        │                     │ strong credentials within their own domain of   \n        │                     │ gemology and luxury item authentication. They   \n        │                     │ hold a GIA Graduate Gemologist certification,   \n        │                     │ have a decade of progressive experience in      \n        │                     │ auction houses and high-end retail, and have    \n        │                     │ advanced to a Lab Director role leading         \n        │                     │ authentication of 500+ items monthly. They      \n        │                     │ possess a bachelor's degree (B.A. Art History), \n        │                     │ which nominally satisfies the degree requiremen \n        │                     │ and have some leadership experience running a   \n        │                     │ lab, as well as experience liaising with privat \n        │                     │ sellers, which involves a form of client-facing \n        │                     │ communication.                                  \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ There is a near-total mismatch between the      \n        │                     │ candidate's background and the job requirements \n        │                     │ The role demands 12+ years of B2B enterprise Sa \n        │                     │ sales experience with 5+ years in VP-level      \n        │                     │ leadership, scaling sales teams of 50+          \n        │                     │ professionals, and owning $180M+ ARR with P&L   \n        │                     │ accountability — none of which the candidate ha \n        │                     │ They have no demonstrated experience in         \n        │                     │ consultative sales cycles, C-suite executive    \n        │                     │ engagement, sales forecasting, pipeline         \n        │                     │ management, SaaS or enterprise software markets \n        │                     │ sales analytics tools, channel/partner sales, o \n        │                     │ coaching sales leaders. Their leadership        \n        │                     │ experience is limited to a technical            \n        │                     │ authentication lab rather than a large          \n        │                     │ distributed sales organization. No MBA is       \n        │                     │ present, and their education (Art History,      \n        │                     │ Gemology) is unrelated to enterprise sales      \n        │                     │ leadership.                                     \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is highly qualified within the    \n        │                     │ gemology and luxury authentication field but is \n        │                     │ fundamentally misaligned with this VP-level     \n        │                     │ enterprise SaaS sales leadership role. Their    \n        │                     │ skills, experience, and educational background  \n        │                     │ not overlap in any meaningful way with the      \n        │                     │ required competencies of consultative B2B sales \n        │                     │ executive relationship management, sales team   \n        │                     │ scaling, or revenue accountability. This is not \n        │                     │ viable candidate for the position and should no \n        │                     │ be advanced in the screening process.           \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong retail sales  \n        │                     │ fundamentals, including customer service, clien \n        │                     │ communication, cash handling, and inventory     \n        │                     │ management. She has some early leadership       \n        │                     │ exposure through training coworkers at Victoria \n        │                     │ Secret and has shown consistent achievement in  \n        │                     │ academic and workplace settings (Dean's List,   \n        │                     │ 3.93 GPA, Employee of the Month twice). She als \n        │                     │ meets the baseline bachelor's degree requiremen \n        │                     │ holding a B.S. in Graphic Design from the       \n        │                     │ University of Minnesota. Additional transferabl \n        │                     │ strengths include marketing/promotional event   \n        │                     │ representation and organizational skills.       \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate falls dramatically short of nearl \n        │                     │ every core requirement for this VP-level        \n        │                     │ enterprise sales leadership role. She has no B2 \n        │                     │ or SaaS sales experience, no experience selling \n        │                     │ to Fortune 500 or C-suite executives, and no    \n        │                     │ exposure to complex, consultative sales cycles  \n        │                     │ 6-12 months. She has no leadership experience   \n        │                     │ managing large teams—let alone scaling teams of \n        │                     │ 50-60+ enterprise sales professionals—and no P& \n        │                     │ ownership or experience managing $100M+ ARR     \n        │                     │ quotas. She lacks the required 12+ years of     \n        │                     │ progressive B2B sales experience and 5+ years i \n        │                     │ VP-level roles; her background is entirely in   \n        │                     │ entry-level retail sales roles (American Eagle, \n        │                     │ Planet Beach, Heartbreaker, Victoria's Secret). \n        │                     │ She also lacks an MBA, experience with          \n        │                     │ CRM/cloud/enterprise software markets, sales    \n        │                     │ analytics tools, account-based selling expertis \n        │                     │ and channel/partner sales experience.           \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is a significant mismatch for thi \n        │                     │ Senior/VP-level enterprise sales leadership     \n        │                     │ position. Her background consists of retail sal \n        │                     │ associate and spa consultant roles while        \n        │                     │ completing an undergraduate degree in Graphic   \n        │                     │ Design—experience that does not align with the  \n        │                     │ seniority, scale, or domain expertise required. \n        │                     │ This role demands a seasoned enterprise SaaS    \n        │                     │ sales executive with over a decade of experienc \n        │                     │ proven scaling of large sales organizations, an \n        │                     │ C-suite relationship management, none of which  \n        │                     │ the candidate possesses. She should not be      \n        │                     │ advanced in this recruitment process; her profi \n        │                     │ would be far better suited to entry-level roles \n        │                     │ in retail, visual merchandising, or graphic     \n        │                     │ design.                                         \n",
             data_html:
-              "<ul><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.</td></tr><tr><th>gaps</th><td>The candidate&#x27;s background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor&#x27;s degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor&#x27;s/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate holds a bachelor&#x27;s degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&amp;L accountability experience.</td></tr><tr><th>overall_assessment</th><td>This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate&#x27;s skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean&#x27;s List, and scholarship recipient), which satisfies the basic bachelor&#x27;s degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria&#x27;s Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&amp;L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.</td></tr></table></li></ul>",
+              "<ul><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&amp;L context.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate&#x27;s business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor&#x27;s degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.</td></tr><tr><th>overall_assessment</th><td>The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor&#x27;s degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.</td></tr><tr><th>gaps</th><td>There is a near-total mismatch between the candidate&#x27;s background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&amp;L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.</td></tr><tr><th>overall_assessment</th><td>The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria&#x27;s Secret and has shown consistent achievement in academic and workplace settings (Dean&#x27;s List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor&#x27;s degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&amp;L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.</td></tr><tr><th>overall_assessment</th><td>The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.</td></tr></table></li></ul>",
             extra: {},
           },
         ],
@@ -143,10 +143,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 11,
+        subtree_rated_inference_calls: 11,
+        subtree_nb_tokens_by_category: {
+          input: 5017809,
+          output: 5005171,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 10022980,
+        subtree_cost: 0.26832,
+        subtree_cost_input: 0.13904500000000003,
+        subtree_cost_output: 0.129275,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 7,
+            rated_inference_calls: 7,
+            cost: 0.21832000000000004,
+          },
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 4,
+            rated_inference_calls: 4,
+            cost: 0.05,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
       kind: "controller",
       pipe_code: "prepare_job_offer",
       pipe_type: "PipeSequence",
@@ -156,9 +200,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:25:58.394930Z",
-        ended_at: "2026-07-09T11:26:14.417988Z",
-        duration: 16.023058,
+        started_at: "2026-08-13T13:28:30.701742Z",
+        ended_at: "2026-08-13T13:28:48.179537Z",
+        duration: 17.477795,
       },
       io: {
         inputs: [
@@ -168,19 +212,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "exhi8",
+            digest: "KLR7z",
             data: {
-              url: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+              url: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               mime_type: "application/pdf",
               filename: "job_offer.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf\n",
+            data_text: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf</a>',
             extra: {},
           },
         ],
@@ -191,21 +235,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -213,10 +257,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 2,
+        subtree_rated_inference_calls: 2,
+        subtree_nb_tokens_by_category: {
+          input: 2003025,
+          output: 2000742,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 4003767,
+        subtree_cost: 0.053675,
+        subtree_cost_input: 0.035125,
+        subtree_cost_output: 0.01855,
+        subtree_by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.02,
+          },
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.033675000000000004,
+          },
+        ],
+      },
       execution_data: { step_count: 2 },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_2",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_2",
       kind: "operator",
       pipe_code: "extract_one_job_offer",
       pipe_type: "PipeExtract",
@@ -225,9 +313,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:25:58.403734Z",
-        ended_at: "2026-07-09T11:26:05.852255Z",
-        duration: 7.448521,
+        started_at: "2026-08-13T13:28:30.707897Z",
+        ended_at: "2026-08-13T13:28:39.703526Z",
+        duration: 8.995629,
       },
       io: {
         inputs: [
@@ -237,19 +325,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "exhi8",
+            digest: "KLR7z",
             data: {
-              url: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+              url: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf",
               mime_type: "application/pdf",
               filename: "job_offer.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf\n",
+            data_text: "pipelex-storage://normalized/k9Stvhs8t4FC5qSr62JivJ.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/9CaXoEbDhC2bVXmX2GAFBe.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/k9Stvhs8t4FC5qSr62JivJ.pdf</a>',
             extra: {},
           },
         ],
@@ -260,7 +348,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "QhAXq",
+            digest: "D7VZo",
             data: {
               items: [
                 {
@@ -296,6 +384,42 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 2000000, output: 2000000 },
+        total_tokens: 4000000,
+        cost: 0.02,
+        cost_input: 0.02,
+        cost_output: 0,
+        by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.02,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 2000000, output: 2000000 },
+        subtree_total_tokens: 4000000,
+        subtree_cost: 0.02,
+        subtree_cost_input: 0.02,
+        subtree_cost_output: 0,
+        subtree_by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.02,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "job_offer_pdf",
@@ -304,7 +428,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_3",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_3",
       kind: "operator",
       pipe_code: "analyze_job_requirements",
       pipe_type: "PipeLLM",
@@ -314,9 +438,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:05.861613Z",
-        ended_at: "2026-07-09T11:26:14.409977Z",
-        duration: 8.548364,
+        started_at: "2026-08-13T13:28:39.710718Z",
+        ended_at: "2026-08-13T13:28:48.172771Z",
+        duration: 8.462053,
       },
       io: {
         inputs: [
@@ -326,7 +450,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "QhAXq",
+            digest: "D7VZo",
             data: {
               items: [
                 {
@@ -365,21 +489,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -387,6 +511,60 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 3025,
+          output: 742,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 3767,
+        cost: 0.033675000000000004,
+        cost_input: 0.015125000000000001,
+        cost_output: 0.01855,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.033675000000000004,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 3025,
+          output: 742,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 3767,
+        subtree_cost: 0.033675000000000004,
+        subtree_cost_input: 0.015125000000000001,
+        subtree_cost_output: 0.01855,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.033675000000000004,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "@default-premium",
         resolved_model_for_object: "@default-premium",
@@ -399,7 +577,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
       kind: "controller",
       pipe_code: "process_cv_batch",
       pipe_type: "PipeBatch",
@@ -408,9 +586,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.423549Z",
-        ended_at: "2026-07-09T11:26:38.228964Z",
-        duration: 23.805415,
+        started_at: "2026-08-13T13:28:48.184555Z",
+        ended_at: "2026-08-13T13:29:30.686307Z",
+        duration: 42.501752,
       },
       io: {
         inputs: [
@@ -420,31 +598,31 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "m3h4P",
+            digest: "7Edkx",
             data: {
               items: [
                 {
-                  url: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                  url: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
                   mime_type: "application/pdf",
                   filename: "Bobby-Jenkins-CV.pdf",
                   title: null,
                   snippet: null,
                 },
                 {
-                  url: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                  url: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
                   mime_type: "application/pdf",
                   filename: "CV-Sarah-Vaugier.pdf",
                   title: null,
                   snippet: null,
                 },
                 {
-                  url: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                  url: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf",
                   public_url:
-                    "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                    "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf",
                   mime_type: "application/pdf",
                   filename: "John-Doe-CV.pdf",
                   title: null,
@@ -453,9 +631,9 @@ export const LIVE_CV_BATCH_SCREENING = {
               ],
             },
             data_text:
-              "    1     │ pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    2     │ pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    3     │ pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf             \n",
+              "    1     │ pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    2     │ pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf             \n──────────┼─────────────────────────────────────────────────────────────────────\n    3     │ pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf             \n",
             data_html:
-              '<ul><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf</a></li><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf</a></li><li><a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf</a></li></ul>',
+              '<ul><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf</a></li><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf</a></li><li><a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf</a></li></ul>',
             extra: {},
           },
         ],
@@ -466,39 +644,39 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PKb9B",
+            digest: "WoFRv",
             data: {
               items: [
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.",
-                  gaps: "The candidate's background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor's degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.",
+                    "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&L context.",
+                  gaps: "The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate's business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor's degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.",
                   overall_assessment:
-                    "The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor's/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.",
+                    "The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.",
                 },
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate holds a bachelor's degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.",
-                  gaps: "The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&L accountability experience.",
+                    "The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor's degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.",
+                  gaps: "There is a near-total mismatch between the candidate's background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.",
                   overall_assessment:
-                    "This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate's skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.",
+                    "The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.",
                 },
                 {
                   match_score: 3,
                   strengths:
-                    "The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean's List, and scholarship recipient), which satisfies the basic bachelor's degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria's Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.",
-                  gaps: "The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.",
+                    "The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria's Secret and has shown consistent achievement in academic and workplace settings (Dean's List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor's degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.",
+                  gaps: "The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.",
                   overall_assessment:
-                    "The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.",
+                    "The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.",
                 },
               ],
             },
             data_text:
-              "   1    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong leadership an \n        │                     │ business ownership capabilities, having founded \n        │                     │ and operated Jenkins Plumbing Solutions for 13  \n        │                     │ years and grown it to $480K in annual revenue.  \n        │                     │ has experience managing small teams (up to 4    \n        │                     │ employees), client relationship management,     \n        │                     │ project estimation, and business operations. Hi \n        │                     │ track record of maintaining a 4.9/5 customer    \n        │                     │ rating and mentoring apprentices shows people   \n        │                     │ development skills and customer focus. He also  \n        │                     │ has 22 years of progressive experience in his   \n        │                     │ field, indicating consistency and dedication.   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate's background is in the skilled    \n        │                     │ trades (plumbing), which is fundamentally       \n        │                     │ misaligned with the requirements of this        \n        │                     │ executive SaaS sales role. Critical gaps includ \n        │                     │ no B2B SaaS sales experience, no experience     \n        │                     │ selling to Fortune 500 or C-suite buyers, no    \n        │                     │ experience managing enterprise sales teams of 5 \n        │                     │ people (his largest team was 4), no experience  \n        │                     │ managing $100M+ ARR quotas (his business revenu \n        │                     │ was $480K), no VP-level leadership experience a \n        │                     │ a corporate scale, no consultative enterprise   \n        │                     │ sales cycle experience, and no bachelor's degre \n        │                     │ or MBA (holds a Plumbing Technology Certificate \n        │                     │ and high school diploma). He lacks exposure to  \n        │                     │ CRM platforms, sales analytics tools,           \n        │                     │ cloud/enterprise software markets, and formal   \n        │                     │ change management or organizational development \n        │                     │ at scale.                                       \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is not a suitable fit for this VP \n        │                     │ of Enterprise Sales role. While he is an        \n        │                     │ accomplished master plumber and small business  \n        │                     │ owner with genuine leadership, customer service \n        │                     │ and operational skills, virtually none of the   \n        │                     │ core qualifications for this executive SaaS sal \n        │                     │ position are met. The scale of team leadership  \n        │                     │ ($480K revenue vs. $180M+ ARR; 4 employees vs.  \n        │                     │ 60+ sales professionals), industry background   \n        │                     │ (skilled trades vs. enterprise SaaS), and       \n        │                     │ educational requirements (trade certificate vs. \n        │                     │ bachelor's/MBA) all represent fundamental       \n        │                     │ mismatches. This candidate should not advance i \n        │                     │ the screening process for this role.            \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate holds a bachelor's degree (B.A. A \n        │                     │ History) which satisfies the minimum educationa \n        │                     │ requirement. They also demonstrate deep domain  \n        │                     │ expertise, leadership of a specialized lab, and \n        │                     │ 10 years of professional experience—showing     \n        │                     │ capability to lead a team, manage operational   \n        │                     │ rigor (verifying 500+ items/month), and liaise  \n        │                     │ with external stakeholders (private sellers).   \n        │                     │ These transferable soft skills (leadership,     \n        │                     │ attention to detail, stakeholder engagement) ar \n        │                     │ the only tangential overlap with the role.      \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate has virtually no alignment with t \n        │                     │ core requirements of this VP/enterprise sales   \n        │                     │ leadership role. They lack: B2B SaaS sales      \n        │                     │ experience, any experience selling to Fortune 5 \n        │                     │ enterprises, experience managing $100M+ ARR     \n        │                     │ quotas, experience building/scaling enterprise  \n        │                     │ sales teams of 50+ people, complex consultative \n        │                     │ sales cycle experience, VP-level sales leadersh \n        │                     │ tenure, and exposure to CRM/cloud/enterprise    \n        │                     │ software markets. Their entire career is in     \n        │                     │ gemology, jewelry appraisal, and luxury goods   \n        │                     │ authentication—a completely different industry  \n        │                     │ and function. No MBA, no sales analytics toolin \n        │                     │ no P&L accountability experience.               \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ This is a fundamental mismatch. The candidate i \n        │                     │ a highly qualified gemologist and luxury goods  \n        │                     │ authentication expert, but the position require \n        │                     │ a seasoned enterprise SaaS sales executive with \n        │                     │ 12+ years of B2B sales experience and proven    \n        │                     │ success scaling large sales organizations and   \n        │                     │ managing nine-figure ARR quotas. None of the    \n        │                     │ candidate's skills, experience, or achievements \n        │                     │ translate meaningfully to the required          \n        │                     │ competencies. The candidate should not be       \n        │                     │ advanced for this role, though they would be an \n        │                     │ excellent fit for positions in gemology,        \n        │                     │ appraisal, or luxury auction house operations.  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates a strong academic    \n        │                     │ record (Bachelor of Science in Graphic Design,  \n        │                     │ cumulative GPA of 3.93, Dean's List, and        \n        │                     │ scholarship recipient), which satisfies the bas \n        │                     │ bachelor's degree requirement. She has consiste \n        │                     │ retail work experience showing customer service \n        │                     │ skills, client communication, cash handling, an \n        │                     │ some exposure to sales goals (retail and        \n        │                     │ membership sales at Planet Beach). She has also \n        │                     │ gained light experience in training and mentori \n        │                     │ coworkers at Victoria's Secret, and event       \n        │                     │ marketing/promotion through her Target brand    \n        │                     │ ambassador volunteer role, which loosely align  \n        │                     │ with the coaching/mentoring and cross-functiona \n        │                     │ collaboration themes of the role.               \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate falls dramatically short of the   \n        │                     │ core requirements for this senior enterprise    \n        │                     │ sales leadership position. She has no B2B sales \n        │                     │ experience, no SaaS or enterprise software      \n        │                     │ background, and no experience selling to Fortun \n        │                     │ 500 companies or engaging C-suite buyers. She h \n        │                     │ never managed ARR quotas (the role requires     \n        │                     │ $100M+/$180M+), has no experience with complex  \n        │                     │ 6-12 month consultative sales cycles, and has   \n        │                     │ never built or scaled an enterprise sales team  \n        │                     │ 50+ people. She lacks the required 12+ years of \n        │                     │ progressive B2B sales experience and 5+ years i \n        │                     │ VP-level leadership roles—her background is     \n        │                     │ entirely in entry-level retail sales associate  \n        │                     │ positions. She also lacks demonstrated experien \n        │                     │ with P&L accountability, forecasting, sales     \n        │                     │ analytics tools, account-based selling,         \n        │                     │ channel/partner sales models, and does not have \n        │                     │ an MBA.                                         \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is not a suitable fit for this    \n        │                     │ VP-level enterprise sales leadership role. Her  \n        │                     │ background is in retail sales associate and     \n        │                     │ graphic design roles, while the position requir \n        │                     │ a seasoned executive with 12+ years of B2B SaaS \n        │                     │ sales experience, proven leadership of large    \n        │                     │ enterprise sales teams, and a track record of   \n        │                     │ managing $100M+ ARR quotas. The mismatch in     \n        │                     │ seniority, industry, and scope of responsibilit \n        │                     │ is significant, and she should not advance in   \n        │                     │ this recruitment process. She may, however, be  \n        │                     │ strong candidate for entry-level design, retail \n        │                     │ or junior sales development roles.              \n",
+              "   1    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong leadership an \n        │                     │ business ownership capabilities, having founded \n        │                     │ and operated Jenkins Plumbing Solutions for 13  \n        │                     │ years, growing it to $480K in annual revenue wi \n        │                     │ 4 employees. They possess transferable skills   \n        │                     │ including team supervision, client relationship \n        │                     │ management, project estimation, business        \n        │                     │ operations management, and customer service     \n        │                     │ (evidenced by a 4.9/5 Google Reviews rating).   \n        │                     │ Their experience mentoring apprentices and      \n        │                     │ leading teams of journeyman plumbers shows      \n        │                     │ coaching ability, and they have proven success  \n        │                     │ a small-business P&L context.                   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate has virtually no alignment with t \n        │                     │ core requirements of this VP-level enterprise   \n        │                     │ sales role. Critical gaps include: no B2B SaaS  \n        │                     │ enterprise sales experience (role requires 12+  \n        │                     │ years); no VP-level sales leadership experience \n        │                     │ (role requires 5+ years); no track record       \n        │                     │ managing $100M+ ARR quotas (candidate's busines \n        │                     │ peaked at $480K revenue); no experience scaling \n        │                     │ sales teams of 50+ (candidate managed 4         \n        │                     │ employees); no experience with Fortune 500      \n        │                     │ clients, C-suite engagement, or complex 6-12    \n        │                     │ month consultative sales cycles; no exposure to \n        │                     │ CRM, cloud infrastructure, or enterprise softwa \n        │                     │ markets; no Bachelor's degree (role requires it \n        │                     │ MBA preferred) — candidate holds a plumbing     \n        │                     │ technology certificate and high school diploma; \n        │                     │ no demonstrated experience with sales analytics \n        │                     │ tools, account-based selling, or channel/partne \n        │                     │ sales models.                                   \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is a highly accomplished master   \n        │                     │ plumber and small-business owner but is         \n        │                     │ fundamentally misaligned with this senior       \n        │                     │ enterprise SaaS sales leadership position. The  \n        │                     │ role demands a seasoned VP of Sales with over a \n        │                     │ decade of B2B SaaS experience, proven ability t \n        │                     │ manage $180M+ ARR, and leadership of 60+        \n        │                     │ enterprise sellers — none of which the candidat \n        │                     │ possesses. While they have transferable soft    \n        │                     │ skills such as leadership, customer service, an \n        │                     │ business operations, the scale, industry, and   \n        │                     │ functional domain gaps are insurmountable. This \n        │                     │ is not a viable match, and the candidate should \n        │                     │ not be advanced for this role.                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates deep expertise and   \n        │                     │ strong credentials within their own domain of   \n        │                     │ gemology and luxury item authentication. They   \n        │                     │ hold a GIA Graduate Gemologist certification,   \n        │                     │ have a decade of progressive experience in      \n        │                     │ auction houses and high-end retail, and have    \n        │                     │ advanced to a Lab Director role leading         \n        │                     │ authentication of 500+ items monthly. They      \n        │                     │ possess a bachelor's degree (B.A. Art History), \n        │                     │ which nominally satisfies the degree requiremen \n        │                     │ and have some leadership experience running a   \n        │                     │ lab, as well as experience liaising with privat \n        │                     │ sellers, which involves a form of client-facing \n        │                     │ communication.                                  \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ There is a near-total mismatch between the      \n        │                     │ candidate's background and the job requirements \n        │                     │ The role demands 12+ years of B2B enterprise Sa \n        │                     │ sales experience with 5+ years in VP-level      \n        │                     │ leadership, scaling sales teams of 50+          \n        │                     │ professionals, and owning $180M+ ARR with P&L   \n        │                     │ accountability — none of which the candidate ha \n        │                     │ They have no demonstrated experience in         \n        │                     │ consultative sales cycles, C-suite executive    \n        │                     │ engagement, sales forecasting, pipeline         \n        │                     │ management, SaaS or enterprise software markets \n        │                     │ sales analytics tools, channel/partner sales, o \n        │                     │ coaching sales leaders. Their leadership        \n        │                     │ experience is limited to a technical            \n        │                     │ authentication lab rather than a large          \n        │                     │ distributed sales organization. No MBA is       \n        │                     │ present, and their education (Art History,      \n        │                     │ Gemology) is unrelated to enterprise sales      \n        │                     │ leadership.                                     \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is highly qualified within the    \n        │                     │ gemology and luxury authentication field but is \n        │                     │ fundamentally misaligned with this VP-level     \n        │                     │ enterprise SaaS sales leadership role. Their    \n        │                     │ skills, experience, and educational background  \n        │                     │ not overlap in any meaningful way with the      \n        │                     │ required competencies of consultative B2B sales \n        │                     │ executive relationship management, sales team   \n        │                     │ scaling, or revenue accountability. This is not \n        │                     │ viable candidate for the position and should no \n        │                     │ be advanced in the screening process.           \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute          ┃ Value                                           \n        │ ━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  match_score        │ 3.0                                             \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  strengths          │ The candidate demonstrates strong retail sales  \n        │                     │ fundamentals, including customer service, clien \n        │                     │ communication, cash handling, and inventory     \n        │                     │ management. She has some early leadership       \n        │                     │ exposure through training coworkers at Victoria \n        │                     │ Secret and has shown consistent achievement in  \n        │                     │ academic and workplace settings (Dean's List,   \n        │                     │ 3.93 GPA, Employee of the Month twice). She als \n        │                     │ meets the baseline bachelor's degree requiremen \n        │                     │ holding a B.S. in Graphic Design from the       \n        │                     │ University of Minnesota. Additional transferabl \n        │                     │ strengths include marketing/promotional event   \n        │                     │ representation and organizational skills.       \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  gaps               │ The candidate falls dramatically short of nearl \n        │                     │ every core requirement for this VP-level        \n        │                     │ enterprise sales leadership role. She has no B2 \n        │                     │ or SaaS sales experience, no experience selling \n        │                     │ to Fortune 500 or C-suite executives, and no    \n        │                     │ exposure to complex, consultative sales cycles  \n        │                     │ 6-12 months. She has no leadership experience   \n        │                     │ managing large teams—let alone scaling teams of \n        │                     │ 50-60+ enterprise sales professionals—and no P& \n        │                     │ ownership or experience managing $100M+ ARR     \n        │                     │ quotas. She lacks the required 12+ years of     \n        │                     │ progressive B2B sales experience and 5+ years i \n        │                     │ VP-level roles; her background is entirely in   \n        │                     │ entry-level retail sales roles (American Eagle, \n        │                     │ Planet Beach, Heartbreaker, Victoria's Secret). \n        │                     │ She also lacks an MBA, experience with          \n        │                     │ CRM/cloud/enterprise software markets, sales    \n        │                     │ analytics tools, account-based selling expertis \n        │                     │ and channel/partner sales experience.           \n        │ ────────────────────┼──────────────────────────────────────────────── \n        │  overall_assessment │ The candidate is a significant mismatch for thi \n        │                     │ Senior/VP-level enterprise sales leadership     \n        │                     │ position. Her background consists of retail sal \n        │                     │ associate and spa consultant roles while        \n        │                     │ completing an undergraduate degree in Graphic   \n        │                     │ Design—experience that does not align with the  \n        │                     │ seniority, scale, or domain expertise required. \n        │                     │ This role demands a seasoned enterprise SaaS    \n        │                     │ sales executive with over a decade of experienc \n        │                     │ proven scaling of large sales organizations, an \n        │                     │ C-suite relationship management, none of which  \n        │                     │ the candidate possesses. She should not be      \n        │                     │ advanced in this recruitment process; her profi \n        │                     │ would be far better suited to entry-level roles \n        │                     │ in retail, visual merchandising, or graphic     \n        │                     │ design.                                         \n",
             data_html:
-              "<ul><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.</td></tr><tr><th>gaps</th><td>The candidate&#x27;s background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor&#x27;s degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor&#x27;s/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate holds a bachelor&#x27;s degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&amp;L accountability experience.</td></tr><tr><th>overall_assessment</th><td>This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate&#x27;s skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean&#x27;s List, and scholarship recipient), which satisfies the basic bachelor&#x27;s degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria&#x27;s Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&amp;L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.</td></tr></table></li></ul>",
+              "<ul><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&amp;L context.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate&#x27;s business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor&#x27;s degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.</td></tr><tr><th>overall_assessment</th><td>The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor&#x27;s degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.</td></tr><tr><th>gaps</th><td>There is a near-total mismatch between the candidate&#x27;s background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&amp;L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.</td></tr><tr><th>overall_assessment</th><td>The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.</td></tr></table></li><li><table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria&#x27;s Secret and has shown consistent achievement in academic and workplace settings (Dean&#x27;s List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor&#x27;s degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&amp;L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.</td></tr><tr><th>overall_assessment</th><td>The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.</td></tr></table></li></ul>",
             extra: {},
           },
         ],
@@ -506,10 +684,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 9,
+        subtree_rated_inference_calls: 9,
+        subtree_nb_tokens_by_category: {
+          input: 3014784,
+          output: 3004429,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 6019213,
+        subtree_cost: 0.21464500000000003,
+        subtree_cost_input: 0.10392000000000001,
+        subtree_cost_output: 0.110725,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 6,
+            rated_inference_calls: 6,
+            cost: 0.18464500000000003,
+          },
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 3,
+            rated_inference_calls: 3,
+            cost: 0.03,
+          },
+        ],
+      },
       execution_data: { item_count: 3, branch_pipe_code: "process_cv" },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
       kind: "controller",
       pipe_code: "process_cv",
       pipe_type: "PipeSequence",
@@ -518,9 +740,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.432165Z",
-        ended_at: "2026-07-09T11:26:38.211901Z",
-        duration: 23.779736,
+        started_at: "2026-08-13T13:28:48.195913Z",
+        ended_at: "2026-08-13T13:29:30.671282Z",
+        duration: 42.475369,
       },
       io: {
         inputs: [
@@ -530,19 +752,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-0",
+            digest: "7Edkx-branch-0",
             data: {
-              url: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+              url: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
               mime_type: "application/pdf",
               filename: "Bobby-Jenkins-CV.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf\n",
+            data_text: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf</a>',
             extra: {},
           },
           {
@@ -551,21 +773,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -576,19 +798,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8DXzc-branch-0",
+            digest: "VZkBb-branch-0",
             data: {
               match_score: 3,
               strengths:
-                "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.",
-              gaps: "The candidate's background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor's degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.",
+                "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&L context.",
+              gaps: "The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate's business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor's degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.",
               overall_assessment:
-                "The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor's/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.",
+                "The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.",
             },
             data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong leadership and business \n                    │ ownership capabilities, having founded and operated       \n                    │ Jenkins Plumbing Solutions for 13 years and grown it to   \n                    │ $480K in annual revenue. He has experience managing small \n                    │ teams (up to 4 employees), client relationship            \n                    │ management, project estimation, and business operations.  \n                    │ His track record of maintaining a 4.9/5 customer rating   \n                    │ and mentoring apprentices shows people development skills \n                    │ and customer focus. He also has 22 years of progressive   \n                    │ experience in his field, indicating consistency and       \n                    │ dedication.                                               \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate's background is in the skilled trades       \n                    │ (plumbing), which is fundamentally misaligned with the    \n                    │ requirements of this executive SaaS sales role. Critical  \n                    │ gaps include: no B2B SaaS sales experience, no experience \n                    │ selling to Fortune 500 or C-suite buyers, no experience   \n                    │ managing enterprise sales teams of 50+ people (his        \n                    │ largest team was 4), no experience managing $100M+ ARR    \n                    │ quotas (his business revenue was $480K), no VP-level      \n                    │ leadership experience at a corporate scale, no            \n                    │ consultative enterprise sales cycle experience, and no    \n                    │ bachelor's degree or MBA (holds a Plumbing Technology     \n                    │ Certificate and high school diploma). He lacks exposure   \n                    │ to CRM platforms, sales analytics tools, cloud/enterprise \n                    │ software markets, and formal change management or         \n                    │ organizational development at scale.                      \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is not a suitable fit for this VP of        \n                    │ Enterprise Sales role. While he is an accomplished master \n                    │ plumber and small business owner with genuine leadership, \n                    │ customer service, and operational skills, virtually none  \n                    │ of the core qualifications for this executive SaaS sales  \n                    │ position are met. The scale of team leadership ($480K     \n                    │ revenue vs. $180M+ ARR; 4 employees vs. 60+ sales         \n                    │ professionals), industry background (skilled trades vs.   \n                    │ enterprise SaaS), and educational requirements (trade     \n                    │ certificate vs. bachelor's/MBA) all represent fundamental \n                    │ mismatches. This candidate should not advance in the      \n                    │ screening process for this role.                          \n",
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong leadership and business \n                    │ ownership capabilities, having founded and operated       \n                    │ Jenkins Plumbing Solutions for 13 years, growing it to    \n                    │ $480K in annual revenue with 4 employees. They possess    \n                    │ transferable skills including team supervision, client    \n                    │ relationship management, project estimation, business     \n                    │ operations management, and customer service (evidenced by \n                    │ a 4.9/5 Google Reviews rating). Their experience          \n                    │ mentoring apprentices and leading teams of journeyman     \n                    │ plumbers shows coaching ability, and they have proven     \n                    │ success in a small-business P&L context.                  \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate has virtually no alignment with the core    \n                    │ requirements of this VP-level enterprise sales role.      \n                    │ Critical gaps include: no B2B SaaS or enterprise sales    \n                    │ experience (role requires 12+ years); no VP-level sales   \n                    │ leadership experience (role requires 5+ years); no track  \n                    │ record managing $100M+ ARR quotas (candidate's business   \n                    │ peaked at $480K revenue); no experience scaling sales     \n                    │ teams of 50+ (candidate managed 4 employees); no          \n                    │ experience with Fortune 500 clients, C-suite engagement,  \n                    │ or complex 6-12 month consultative sales cycles; no       \n                    │ exposure to CRM, cloud infrastructure, or enterprise      \n                    │ software markets; no Bachelor's degree (role requires it, \n                    │ MBA preferred) — candidate holds a plumbing technology    \n                    │ certificate and high school diploma; no demonstrated      \n                    │ experience with sales analytics tools, account-based      \n                    │ selling, or channel/partner sales models.                 \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is a highly accomplished master plumber and \n                    │ small-business owner but is fundamentally misaligned with \n                    │ this senior enterprise SaaS sales leadership position.    \n                    │ The role demands a seasoned VP of Sales with over a       \n                    │ decade of B2B SaaS experience, proven ability to manage   \n                    │ $180M+ ARR, and leadership of 60+ enterprise sellers —    \n                    │ none of which the candidate possesses. While they have    \n                    │ transferable soft skills such as leadership, customer     \n                    │ service, and business operations, the scale, industry,    \n                    │ and functional domain gaps are insurmountable. This is    \n                    │ not a viable match, and the candidate should not be       \n                    │ advanced for this role.                                   \n",
             data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.</td></tr><tr><th>gaps</th><td>The candidate&#x27;s background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor&#x27;s degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor&#x27;s/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.</td></tr></table>",
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&amp;L context.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate&#x27;s business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor&#x27;s degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.</td></tr><tr><th>overall_assessment</th><td>The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.</td></tr></table>",
             extra: {},
           },
         ],
@@ -596,10 +818,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 3,
+        subtree_rated_inference_calls: 3,
+        subtree_nb_tokens_by_category: {
+          input: 1005049,
+          output: 1001545,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2006594,
+        subtree_cost: 0.07387,
+        subtree_cost_input: 0.035245000000000005,
+        subtree_cost_output: 0.038625,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 2,
+            cost: 0.06387000000000001,
+          },
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: { step_count: 3 },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_6",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_6",
       kind: "operator",
       pipe_code: "extract_one_cv",
       pipe_type: "PipeExtract",
@@ -608,9 +874,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.440291Z",
-        ended_at: "2026-07-09T11:26:21.184908Z",
-        duration: 6.744617,
+        started_at: "2026-08-13T13:28:48.208593Z",
+        ended_at: "2026-08-13T13:29:14.284689Z",
+        duration: 26.076096,
       },
       io: {
         inputs: [
@@ -620,19 +886,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-0",
+            digest: "7Edkx-branch-0",
             data: {
-              url: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+              url: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf",
               mime_type: "application/pdf",
               filename: "Bobby-Jenkins-CV.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/f5zeHxqEm6ss5a5muGYecJ.pdf\n",
+            data_text: "pipelex-storage://normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/f5zeHxqEm6ss5a5muGYecJ.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/hJpHLWwoyhB4kHcxoat9Pa.pdf</a>',
             extra: {},
           },
         ],
@@ -643,7 +909,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X52Wz",
+            digest: "YXFo2",
             data: {
               items: [
                 {
@@ -669,6 +935,42 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        total_tokens: 2000000,
+        cost: 0.01,
+        cost_input: 0.01,
+        cost_output: 0,
+        by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        subtree_total_tokens: 2000000,
+        subtree_cost: 0.01,
+        subtree_cost_input: 0.01,
+        subtree_cost_output: 0,
+        subtree_by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "cv_pdf",
@@ -677,7 +979,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
       kind: "controller",
       pipe_code: "process_cv",
       pipe_type: "PipeSequence",
@@ -686,9 +988,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.450091Z",
-        ended_at: "2026-07-09T11:26:35.071574Z",
-        duration: 20.621483,
+        started_at: "2026-08-13T13:28:48.224678Z",
+        ended_at: "2026-08-13T13:29:10.443010Z",
+        duration: 22.218332,
       },
       io: {
         inputs: [
@@ -698,19 +1000,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-1",
+            digest: "7Edkx-branch-1",
             data: {
-              url: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+              url: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
               mime_type: "application/pdf",
               filename: "CV-Sarah-Vaugier.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf\n",
+            data_text: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf</a>',
             extra: {},
           },
           {
@@ -719,21 +1021,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -744,19 +1046,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8DXzc-branch-1",
+            digest: "VZkBb-branch-1",
             data: {
               match_score: 3,
               strengths:
-                "The candidate holds a bachelor's degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.",
-              gaps: "The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&L accountability experience.",
+                "The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor's degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.",
+              gaps: "There is a near-total mismatch between the candidate's background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.",
               overall_assessment:
-                "This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate's skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.",
+                "The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.",
             },
             data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate holds a bachelor's degree (B.A. Art         \n                    │ History) which satisfies the minimum educational          \n                    │ requirement. They also demonstrate deep domain expertise, \n                    │ leadership of a specialized lab, and 10 years of          \n                    │ professional experience—showing capability to lead a      \n                    │ team, manage operational rigor (verifying 500+            \n                    │ items/month), and liaise with external stakeholders       \n                    │ (private sellers). These transferable soft skills         \n                    │ (leadership, attention to detail, stakeholder engagement) \n                    │ are the only tangential overlap with the role.            \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate has virtually no alignment with the core    \n                    │ requirements of this VP/enterprise sales leadership role. \n                    │ They lack: B2B SaaS sales experience, any experience      \n                    │ selling to Fortune 500 enterprises, experience managing   \n                    │ $100M+ ARR quotas, experience building/scaling enterprise \n                    │ sales teams of 50+ people, complex consultative sales     \n                    │ cycle experience, VP-level sales leadership tenure, and   \n                    │ exposure to CRM/cloud/enterprise software markets. Their  \n                    │ entire career is in gemology, jewelry appraisal, and      \n                    │ luxury goods authentication—a completely different        \n                    │ industry and function. No MBA, no sales analytics         \n                    │ tooling, no P&L accountability experience.                \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ This is a fundamental mismatch. The candidate is a highly \n                    │ qualified gemologist and luxury goods authentication      \n                    │ expert, but the position requires a seasoned enterprise   \n                    │ SaaS sales executive with 12+ years of B2B sales          \n                    │ experience and proven success scaling large sales         \n                    │ organizations and managing nine-figure ARR quotas. None   \n                    │ of the candidate's skills, experience, or achievements    \n                    │ translate meaningfully to the required competencies. The  \n                    │ candidate should not be advanced for this role, though    \n                    │ they would be an excellent fit for positions in gemology, \n                    │ appraisal, or luxury auction house operations.            \n",
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates deep expertise and strong      \n                    │ credentials within their own domain of gemology and       \n                    │ luxury item authentication. They hold a GIA Graduate      \n                    │ Gemologist certification, have a decade of progressive    \n                    │ experience in auction houses and high-end retail, and     \n                    │ have advanced to a Lab Director role leading              \n                    │ authentication of 500+ items monthly. They possess a      \n                    │ bachelor's degree (B.A. Art History), which nominally     \n                    │ satisfies the degree requirement, and have some           \n                    │ leadership experience running a lab, as well as           \n                    │ experience liaising with private sellers, which involves  \n                    │ a form of client-facing communication.                    \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ There is a near-total mismatch between the candidate's    \n                    │ background and the job requirements. The role demands 12+ \n                    │ years of B2B enterprise SaaS sales experience with 5+     \n                    │ years in VP-level leadership, scaling sales teams of 50+  \n                    │ professionals, and owning $180M+ ARR with P&L             \n                    │ accountability — none of which the candidate has. They    \n                    │ have no demonstrated experience in consultative sales     \n                    │ cycles, C-suite executive engagement, sales forecasting,  \n                    │ pipeline management, SaaS or enterprise software markets, \n                    │ sales analytics tools, channel/partner sales, or coaching \n                    │ sales leaders. Their leadership experience is limited to  \n                    │ a technical authentication lab rather than a large        \n                    │ distributed sales organization. No MBA is present, and    \n                    │ their education (Art History, Gemology) is unrelated to   \n                    │ enterprise sales leadership.                              \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is highly qualified within the gemology and \n                    │ luxury authentication field but is fundamentally          \n                    │ misaligned with this VP-level enterprise SaaS sales       \n                    │ leadership role. Their skills, experience, and            \n                    │ educational background do not overlap in any meaningful   \n                    │ way with the required competencies of consultative B2B    \n                    │ sales, executive relationship management, sales team      \n                    │ scaling, or revenue accountability. This is not a viable  \n                    │ candidate for the position and should not be advanced in  \n                    │ the screening process.                                    \n",
             data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate holds a bachelor&#x27;s degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&amp;L accountability experience.</td></tr><tr><th>overall_assessment</th><td>This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate&#x27;s skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.</td></tr></table>",
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor&#x27;s degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.</td></tr><tr><th>gaps</th><td>There is a near-total mismatch between the candidate&#x27;s background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&amp;L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.</td></tr><tr><th>overall_assessment</th><td>The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.</td></tr></table>",
             extra: {},
           },
         ],
@@ -764,10 +1066,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 3,
+        subtree_rated_inference_calls: 3,
+        subtree_nb_tokens_by_category: {
+          input: 1004721,
+          output: 1001302,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2006023,
+        subtree_cost: 0.066155,
+        subtree_cost_input: 0.033605,
+        subtree_cost_output: 0.03255,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 2,
+            cost: 0.056155000000000004,
+          },
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: { step_count: 3 },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_8",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_8",
       kind: "operator",
       pipe_code: "extract_one_cv",
       pipe_type: "PipeExtract",
@@ -776,9 +1122,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.459626Z",
-        ended_at: "2026-07-09T11:26:20.361518Z",
-        duration: 5.901892,
+        started_at: "2026-08-13T13:28:48.231890Z",
+        ended_at: "2026-08-13T13:28:55.157817Z",
+        duration: 6.925927,
       },
       io: {
         inputs: [
@@ -788,19 +1134,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-1",
+            digest: "7Edkx-branch-1",
             data: {
-              url: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+              url: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf",
               mime_type: "application/pdf",
               filename: "CV-Sarah-Vaugier.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/WQSR3a33k2FewuHfSyye9V.pdf\n",
+            data_text: "pipelex-storage://normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/WQSR3a33k2FewuHfSyye9V.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/3thnAoUQrvZTW5Q4BDPiFy.pdf</a>',
             extra: {},
           },
         ],
@@ -811,7 +1157,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5XpiV",
+            digest: "BC4nW",
             data: {
               items: [
                 {
@@ -837,6 +1183,42 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        total_tokens: 2000000,
+        cost: 0.01,
+        cost_input: 0.01,
+        cost_output: 0,
+        by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        subtree_total_tokens: 2000000,
+        subtree_cost: 0.01,
+        subtree_cost_input: 0.01,
+        subtree_cost_output: 0,
+        subtree_by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "cv_pdf",
@@ -845,7 +1227,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
       kind: "controller",
       pipe_code: "process_cv",
       pipe_type: "PipeSequence",
@@ -854,9 +1236,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.469074Z",
-        ended_at: "2026-07-09T11:26:37.639850Z",
-        duration: 23.170776,
+        started_at: "2026-08-13T13:28:48.239274Z",
+        ended_at: "2026-08-13T13:29:14.006798Z",
+        duration: 25.767524,
       },
       io: {
         inputs: [
@@ -866,19 +1248,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-2",
+            digest: "7Edkx-branch-2",
             data: {
-              url: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+              url: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf",
               mime_type: "application/pdf",
               filename: "John-Doe-CV.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf\n",
+            data_text: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf</a>',
             extra: {},
           },
           {
@@ -887,21 +1269,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -912,19 +1294,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8DXzc-branch-2",
+            digest: "VZkBb-branch-2",
             data: {
               match_score: 3,
               strengths:
-                "The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean's List, and scholarship recipient), which satisfies the basic bachelor's degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria's Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.",
-              gaps: "The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.",
+                "The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria's Secret and has shown consistent achievement in academic and workplace settings (Dean's List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor's degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.",
+              gaps: "The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.",
               overall_assessment:
-                "The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.",
+                "The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.",
             },
             data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates a strong academic record       \n                    │ (Bachelor of Science in Graphic Design, cumulative GPA of \n                    │ 3.93, Dean's List, and scholarship recipient), which      \n                    │ satisfies the basic bachelor's degree requirement. She    \n                    │ has consistent retail work experience showing customer    \n                    │ service skills, client communication, cash handling, and  \n                    │ some exposure to sales goals (retail and membership sales \n                    │ at Planet Beach). She has also gained light experience in \n                    │ training and mentoring coworkers at Victoria's Secret,    \n                    │ and event marketing/promotion through her Target brand    \n                    │ ambassador volunteer role, which loosely align with the   \n                    │ coaching/mentoring and cross-functional collaboration     \n                    │ themes of the role.                                       \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate falls dramatically short of the core        \n                    │ requirements for this senior enterprise sales leadership  \n                    │ position. She has no B2B sales experience, no SaaS or     \n                    │ enterprise software background, and no experience selling \n                    │ to Fortune 500 companies or engaging C-suite buyers. She  \n                    │ has never managed ARR quotas (the role requires           \n                    │ $100M+/$180M+), has no experience with complex 6-12 month \n                    │ consultative sales cycles, and has never built or scaled  \n                    │ an enterprise sales team of 50+ people. She lacks the     \n                    │ required 12+ years of progressive B2B sales experience    \n                    │ and 5+ years in VP-level leadership roles—her background  \n                    │ is entirely in entry-level retail sales associate         \n                    │ positions. She also lacks demonstrated experience with    \n                    │ P&L accountability, forecasting, sales analytics tools,   \n                    │ account-based selling, channel/partner sales models, and  \n                    │ does not have an MBA.                                     \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is not a suitable fit for this VP-level     \n                    │ enterprise sales leadership role. Her background is in    \n                    │ retail sales associate and graphic design roles, while    \n                    │ the position requires a seasoned executive with 12+ years \n                    │ of B2B SaaS sales experience, proven leadership of large  \n                    │ enterprise sales teams, and a track record of managing    \n                    │ $100M+ ARR quotas. The mismatch in seniority, industry,   \n                    │ and scope of responsibility is significant, and she       \n                    │ should not advance in this recruitment process. She may,  \n                    │ however, be a strong candidate for entry-level design,    \n                    │ retail, or junior sales development roles.                \n",
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong retail sales            \n                    │ fundamentals, including customer service, client          \n                    │ communication, cash handling, and inventory management.   \n                    │ She has some early leadership exposure through training   \n                    │ coworkers at Victoria's Secret and has shown consistent   \n                    │ achievement in academic and workplace settings (Dean's    \n                    │ List, 3.93 GPA, Employee of the Month twice). She also    \n                    │ meets the baseline bachelor's degree requirement, holding \n                    │ a B.S. in Graphic Design from the University of           \n                    │ Minnesota. Additional transferable strengths include      \n                    │ marketing/promotional event representation and            \n                    │ organizational skills.                                    \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate falls dramatically short of nearly every    \n                    │ core requirement for this VP-level enterprise sales       \n                    │ leadership role. She has no B2B or SaaS sales experience, \n                    │ no experience selling to Fortune 500 or C-suite           \n                    │ executives, and no exposure to complex, consultative      \n                    │ sales cycles of 6-12 months. She has no leadership        \n                    │ experience managing large teams—let alone scaling teams   \n                    │ of 50-60+ enterprise sales professionals—and no P&L       \n                    │ ownership or experience managing $100M+ ARR quotas. She   \n                    │ lacks the required 12+ years of progressive B2B sales     \n                    │ experience and 5+ years in VP-level roles; her background \n                    │ is entirely in entry-level retail sales roles (American   \n                    │ Eagle, Planet Beach, Heartbreaker, Victoria's Secret).    \n                    │ She also lacks an MBA, experience with                    \n                    │ CRM/cloud/enterprise software markets, sales analytics    \n                    │ tools, account-based selling expertise, and               \n                    │ channel/partner sales experience.                         \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is a significant mismatch for this          \n                    │ Senior/VP-level enterprise sales leadership position. Her \n                    │ background consists of retail sales associate and spa     \n                    │ consultant roles while completing an undergraduate degree \n                    │ in Graphic Design—experience that does not align with the \n                    │ seniority, scale, or domain expertise required. This role \n                    │ demands a seasoned enterprise SaaS sales executive with   \n                    │ over a decade of experience, proven scaling of large      \n                    │ sales organizations, and C-suite relationship management, \n                    │ none of which the candidate possesses. She should not be  \n                    │ advanced in this recruitment process; her profile would   \n                    │ be far better suited to entry-level roles in retail,      \n                    │ visual merchandising, or graphic design.                  \n",
             data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean&#x27;s List, and scholarship recipient), which satisfies the basic bachelor&#x27;s degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria&#x27;s Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&amp;L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.</td></tr></table>",
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria&#x27;s Secret and has shown consistent achievement in academic and workplace settings (Dean&#x27;s List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor&#x27;s degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&amp;L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.</td></tr><tr><th>overall_assessment</th><td>The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.</td></tr></table>",
             extra: {},
           },
         ],
@@ -932,10 +1314,54 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 0,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [],
+        subtree_inference_calls: 3,
+        subtree_rated_inference_calls: 3,
+        subtree_nb_tokens_by_category: {
+          input: 1005014,
+          output: 1001582,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2006596,
+        subtree_cost: 0.07462,
+        subtree_cost_input: 0.035070000000000004,
+        subtree_cost_output: 0.03955,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 2,
+            rated_inference_calls: 2,
+            cost: 0.06462000000000001,
+          },
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: { step_count: 3 },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_10",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_10",
       kind: "operator",
       pipe_code: "extract_one_cv",
       pipe_type: "PipeExtract",
@@ -944,9 +1370,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:14.478115Z",
-        ended_at: "2026-07-09T11:26:20.467122Z",
-        duration: 5.989007,
+        started_at: "2026-08-13T13:28:48.248849Z",
+        ended_at: "2026-08-13T13:28:55.082789Z",
+        duration: 6.83394,
       },
       io: {
         inputs: [
@@ -956,19 +1382,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: "application/pdf",
             preview: null,
             size: null,
-            digest: "m3h4P-branch-2",
+            digest: "7Edkx-branch-2",
             data: {
-              url: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+              url: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf",
               public_url:
-                "file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf",
+                "file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf",
               mime_type: "application/pdf",
               filename: "John-Doe-CV.pdf",
               title: null,
               snippet: null,
             },
-            data_text: "pipelex-storage://normalized/d99WNUCiAoQok2VCcngPJ4.pdf\n",
+            data_text: "pipelex-storage://normalized/CAouowsQsdybieTbfGWemf.pdf\n",
             data_html:
-              '<a href="file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf" class="msg-document">file:///Users/lchoquel/repos/Pipelex/mthds-ui/.pipelex/storage/normalized/d99WNUCiAoQok2VCcngPJ4.pdf</a>',
+              '<a href="file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf" class="msg-document">file:///Users/thomashebrardevotis/dev/pipelex-workspace/mthds-ui/.pipelex/storage/normalized/CAouowsQsdybieTbfGWemf.pdf</a>',
             extra: {},
           },
         ],
@@ -979,7 +1405,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KYUXr",
+            digest: "Hituy",
             data: {
               items: [
                 {
@@ -1005,6 +1431,42 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        total_tokens: 2000000,
+        cost: 0.01,
+        cost_input: 0.01,
+        cost_output: 0,
+        by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: { input: 1000000, output: 1000000 },
+        subtree_total_tokens: 2000000,
+        subtree_cost: 0.01,
+        subtree_cost_input: 0.01,
+        subtree_cost_output: 0,
+        subtree_by_model: [
+          {
+            inference_model_name: "azure-document-intelligence",
+            inference_model_id: "adi/prebuilt-layout",
+            model_type: "extract",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.01,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "azure-document-intelligence",
         document_stuff_name: "cv_pdf",
@@ -1013,7 +1475,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_11",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_11",
       kind: "operator",
       pipe_code: "analyze_one_cv",
       pipe_type: "PipeLLM",
@@ -1023,9 +1485,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:20.368582Z",
-        ended_at: "2026-07-09T11:26:26.424779Z",
-        duration: 6.056197,
+        started_at: "2026-08-13T13:28:55.093239Z",
+        ended_at: "2026-08-13T13:29:03.335740Z",
+        duration: 8.242501,
       },
       io: {
         inputs: [
@@ -1035,92 +1497,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5XpiV",
-            data: {
-              items: [
-                {
-                  text_and_images: {
-                    text: {
-                      text: "# CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist & Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold & Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n",
-                    },
-                    images: [],
-                    raw_html: null,
-                  },
-                  page_view: null,
-                },
-              ],
-            },
-            data_text:
-              "   1    │                                CONTACT                                \n        │                                                                       \n        │ Email: sarah.vaugier@example.com                                      \n        │                                                                       \n        │ Location:                                                             \n        │                                                                       \n        │ London, UK                                                            \n        │                                                                       \n        │ EDUCATION                                                             \n        │                                                                       \n        │ Graduate Gemologist (G.G.)                                            \n        │                                                                       \n        │ Gemological Institute of                                              \n        │                                                                       \n        │ America (GIA)                                                         \n        │                                                                       \n        │ B.A. Art History University of Florence                               \n        │                                                                       \n        │ EXPERTISE                                                             \n        │                                                                       \n        │ · Colored Stone Grading                                               \n        │                                                                       \n        │ · Diamond Clarity & Color                                             \n        │                                                                       \n        │ · Antique Jewelry Valuation                                           \n        │                                                                       \n        │ · Exotic Leathers (Python, Crocodile)                                 \n        │                                                                       \n        │ · Synthetic Detection                                                 \n        │                                                                       \n        │ SARAH VAUGIER, G.G.                                                   \n        │                                                                       \n        │ Senior Gemologist & Luxury Appraiser                                  \n        │                                                                       \n        │                         PROFESSIONAL SUMMARY                          \n        │                                                                       \n        │ GIA Graduate Gemologist with a passion for rare stones and vintage    \n        │ luxury goods. 10 years of experience in auction houses and high-end   \n        │ retail. Expert in gemstone identification, synthetic detection, and   \n        │ the valuation of luxury fashion accessories.                          \n        │                                                                       \n        │                            WORK EXPERIENCE                            \n        │                                                                       \n        │ Lab Director                                                          \n        │                                                                       \n        │ The Diamond Vault | 2019 - Present                                    \n        │                                                                       \n        │ · Lead the authentication lab, verifying over 500 items per month.    \n        │                                                                       \n        │ · Specialist in distinguishing natural Burmese Rubies from flux-grown \n        │ synthetics.                                                           \n        │                                                                       \n        │ · Evaluated high-end glassware and crystal antiques for auction.      \n        │                                                                       \n        │ · Authored condition reports for vintage luxury bags, specifically    \n        │ Hermès and Chanel items in Python and Ostrich skins.                  \n        │                                                                       \n        │ Junior Appraiser Gold & Estate Auctions | 2014 - 2019                 \n        │                                                                       \n        │ · Assisted in the cataloging of estate jewelry collections.           \n        │                                                                       \n        │ · Studied the architecture and design periods of Art Deco and         \n        │ Victorian jewelry pieces.                                             \n        │                                                                       \n        │ · Used refractometers and microscopes to test stone properties.       \n        │                                                                       \n        │ · Liaised with private sellers to establish reserve prices.           \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td># CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &amp;\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist &amp; Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold &amp; Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n</td></tr></table></li></ul>",
-            extra: {},
-          },
-        ],
-        outputs: [
-          {
-            name: "candidate_profile",
-            concept: "CandidateProfile",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "ZritN",
-            data: {
-              skills:
-                "Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; valuation of luxury fashion accessories; use of refractometers and microscopes; condition reporting for vintage luxury bags; cataloging of estate jewelry; liaising with private sellers.",
-              experience:
-                "Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.",
-              education:
-                "Graduate Gemologist (G.G.), Gemological Institute of America (GIA). B.A. Art History, University of Florence.",
-              achievements:
-                "GIA Graduate Gemologist (G.G.) certification; leads authentication lab verifying over 500 items per month; recognized specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.",
-            },
-            data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry \n              │ Valuation; Exotic Leathers (Python, Crocodile); Synthetic       \n              │ Detection; gemstone identification; valuation of luxury fashion \n              │ accessories; use of refractometers and microscopes; condition   \n              │ reporting for vintage luxury bags; cataloging of estate         \n              │ jewelry; liaising with private sellers.                         \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Lab Director at The Diamond Vault (2019 - Present): Leads the   \n              │ authentication lab, verifying over 500 items per month;         \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics; evaluated high-end glassware and crystal \n              │ antiques for auction; authored condition reports for vintage    \n              │ luxury bags, specifically Hermès and Chanel items in Python and \n              │ Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 \n              │ - 2019): Assisted in the cataloging of estate jewelry           \n              │ collections; studied the architecture and design periods of Art \n              │ Deco and Victorian jewelry pieces; used refractometers and      \n              │ microscopes to test stone properties; liaised with private      \n              │ sellers to establish reserve prices. Total of 10 years of       \n              │ experience in auction houses and high-end retail.               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Graduate Gemologist (G.G.), Gemological Institute of America    \n              │ (GIA). B.A. Art History, University of Florence.                \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ GIA Graduate Gemologist (G.G.) certification; leads             \n              │ authentication lab verifying over 500 items per month;          \n              │ recognized specialist in distinguishing natural Burmese Rubies  \n              │ from flux-grown synthetics.                                     \n",
-            data_html:
-              "<table><tr><th>skills</th><td>Colored Stone Grading; Diamond Clarity &amp; Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; valuation of luxury fashion accessories; use of refractometers and microscopes; condition reporting for vintage luxury bags; cataloging of estate jewelry; liaising with private sellers.</td></tr><tr><th>experience</th><td>Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold &amp; Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.</td></tr><tr><th>education</th><td>Graduate Gemologist (G.G.), Gemological Institute of America (GIA). B.A. Art History, University of Florence.</td></tr><tr><th>achievements</th><td>GIA Graduate Gemologist (G.G.) certification; leads authentication lab verifying over 500 items per month; recognized specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.</td></tr></table>",
-            extra: {},
-          },
-        ],
-      },
-      error: null,
-      tags: {},
-      metrics: {},
-      execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
-        is_multiple_output: false,
-        rendered_system_prompt:
-          "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.",
-        rendered_user_prompt:
-          'Analyze the following CV content and extract the candidate\'s professional profile.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist & Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold & Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateProfile(StructuredContent):\n    """A structured summary of a job candidate\'s professional background extracted from their CV."""\n    skills: str  # Technical and soft skills possessed by the candidate\n    experience: str  # Work history and professional experience\n    education: str  # Educational background and qualifications\n    achievements: str | None = None  # Notable accomplishments and certifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
-        structuring_path: "object_direct",
-      },
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_12",
-      kind: "operator",
-      pipe_code: "analyze_one_cv",
-      pipe_type: "PipeLLM",
-      description:
-        "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
-      domain_code: "cv_batch_screening",
-      status: "succeeded",
-      skip_reason: null,
-      timing: {
-        started_at: "2026-07-09T11:26:20.473598Z",
-        ended_at: "2026-07-09T11:26:28.191556Z",
-        duration: 7.717958,
-      },
-      io: {
-        inputs: [
-          {
-            name: "cv_pages",
-            concept: "Page",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "KYUXr",
+            digest: "Hituy",
             data: {
               items: [
                 {
@@ -1149,21 +1526,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "YbahA",
+            digest: "3Lp8m",
             data: {
               skills:
-                "Graphic design, apparel print design, trend awareness, visual merchandising and display creation, inventory control, retail sales, customer service, membership and retail sales, organizational skills, operational management, client communication, event marketing/promotion, cash handling, leadership, training and mentoring coworkers.",
+                "Apparel and graphic design; visual merchandising and display creation; trend awareness; retail sales and membership sales; inventory control and shipment processing; customer service and client communication; organizational skills; leadership and training of coworkers; cash handling and deposits; marketing and promotional event representation.",
               experience:
-                "American Eagle - Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers; scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach - Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items and analyzed unsuccessful merchandise in a retail market; offered advice and assistance to guests.\n\nVictoria's Secret - Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in training coworkers; set up mannequins and displays; provided superior customer service; took seasonal inventory.\n\nVolunteer: Target Corporation - Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.",
+                "American Eagle — Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers in their shopping experience; thoroughly scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach — Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their wants and needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items to identify unsuccessful merchandise in a retail market; offered advice and assistance to each guest.\n\nVictoria's Secret — Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in the training of coworkers; set up mannequins and displays to entice future customers; provided superior customer service by helping with consumer decisions; took seasonal inventory.\n\nVolunteer: Target Corporation — Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.",
               education:
-                "Bachelor of Science in Graphic Design, University of Minnesota, College of Design (May 2011). Cumulative GPA 3.93, Dean's List. Recipient of the Twin Cities Iron Range Scholarship.",
+                "University of Minnesota, College of Design — Bachelor of Science in Graphic Design (May 2011). Cumulative GPA 3.93, Dean's List. Recipient of the Twin Cities Iron Range Scholarship.",
               achievements:
-                "Cumulative GPA 3.93 and Dean's List at the University of Minnesota; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.",
+                "Cumulative GPA 3.93; Dean's List; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.",
             },
             data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Graphic design, apparel print design, trend awareness, visual   \n              │ merchandising and display creation, inventory control, retail   \n              │ sales, customer service, membership and retail sales,           \n              │ organizational skills, operational management, client           \n              │ communication, event marketing/promotion, cash handling,        \n              │ leadership, training and mentoring coworkers.                   \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ American Eagle - Sales Associate (July 2009 - present):         \n              │ Collaborated with the store merchandiser creating displays to   \n              │ attract clientele; used trend awareness to assist customers;    \n              │ scanned merchandise for inventory control; processed shipment   \n              │ to increase product knowledge.                                  \n              │                                                                 \n              │ Planet Beach - Spa Consultant (Aug. 2008 - present): Sold       \n              │ retail and memberships to meet company sales goals;             \n              │ single-handedly ran all operating procedures; communicated with \n              │ clients to fulfill their needs; attended promotional events to  \n              │ market services; handled cash and deposits during opening and   \n              │ closing.                                                        \n              │                                                                 \n              │ Heartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked  \n              │ sales floor with fast fashion inventory; marked down items and  \n              │ analyzed unsuccessful merchandise in a retail market; offered   \n              │ advice and assistance to guests.                                \n              │                                                                 \n              │ Victoria's Secret - Fashion Representative (Jan. 2006 - Feb.    \n              │ 2009): Assisted in training coworkers; set up mannequins and    \n              │ displays; provided superior customer service; took seasonal     \n              │ inventory.                                                      \n              │                                                                 \n              │ Volunteer: Target Corporation - Brand Ambassador (August 2009): \n              │ Represented Periscope Marketing and Target Inc. at a college    \n              │ event; engaged University of Minnesota freshmen in the Target   \n              │ brand experience.                                               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Bachelor of Science in Graphic Design, University of Minnesota, \n              │ College of Design (May 2011). Cumulative GPA 3.93, Dean's List. \n              │ Recipient of the Twin Cities Iron Range Scholarship.            \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Cumulative GPA 3.93 and Dean's List at the University of        \n              │ Minnesota; recipient of the Twin Cities Iron Range Scholarship; \n              │ received Employee of the Month award twice at Planet Beach.     \n",
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Apparel and graphic design; visual merchandising and display    \n              │ creation; trend awareness; retail sales and membership sales;   \n              │ inventory control and shipment processing; customer service and \n              │ client communication; organizational skills; leadership and     \n              │ training of coworkers; cash handling and deposits; marketing    \n              │ and promotional event representation.                           \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ American Eagle — Sales Associate (July 2009 - present):         \n              │ Collaborated with the store merchandiser creating displays to   \n              │ attract clientele; used trend awareness to assist customers in  \n              │ their shopping experience; thoroughly scanned merchandise for   \n              │ inventory control; processed shipment to increase product       \n              │ knowledge.                                                      \n              │                                                                 \n              │ Planet Beach — Spa Consultant (Aug. 2008 - present): Sold       \n              │ retail and memberships to meet company sales goals;             \n              │ single-handedly ran all operating procedures; communicated with \n              │ clients to fulfill their wants and needs; attended promotional  \n              │ events to market services; handled cash and deposits during     \n              │ opening and closing.                                            \n              │                                                                 \n              │ Heartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked  \n              │ sales floor with fast fashion inventory; marked down items to   \n              │ identify unsuccessful merchandise in a retail market; offered   \n              │ advice and assistance to each guest.                            \n              │                                                                 \n              │ Victoria's Secret — Fashion Representative (Jan. 2006 - Feb.    \n              │ 2009): Assisted in the training of coworkers; set up mannequins \n              │ and displays to entice future customers; provided superior      \n              │ customer service by helping with consumer decisions; took       \n              │ seasonal inventory.                                             \n              │                                                                 \n              │ Volunteer: Target Corporation — Brand Ambassador (August 2009): \n              │ Represented Periscope Marketing and Target Inc. at a college    \n              │ event; engaged University of Minnesota freshmen in the Target   \n              │ brand experience.                                               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ University of Minnesota, College of Design — Bachelor of        \n              │ Science in Graphic Design (May 2011). Cumulative GPA 3.93,      \n              │ Dean's List. Recipient of the Twin Cities Iron Range            \n              │ Scholarship.                                                    \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Cumulative GPA 3.93; Dean's List; recipient of the Twin Cities  \n              │ Iron Range Scholarship; received Employee of the Month award    \n              │ twice at Planet Beach.                                          \n",
             data_html:
-              "<table><tr><th>skills</th><td>Graphic design, apparel print design, trend awareness, visual merchandising and display creation, inventory control, retail sales, customer service, membership and retail sales, organizational skills, operational management, client communication, event marketing/promotion, cash handling, leadership, training and mentoring coworkers.</td></tr><tr><th>experience</th><td>American Eagle - Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers; scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach - Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items and analyzed unsuccessful merchandise in a retail market; offered advice and assistance to guests.\n\nVictoria&#x27;s Secret - Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in training coworkers; set up mannequins and displays; provided superior customer service; took seasonal inventory.\n\nVolunteer: Target Corporation - Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.</td></tr><tr><th>education</th><td>Bachelor of Science in Graphic Design, University of Minnesota, College of Design (May 2011). Cumulative GPA 3.93, Dean&#x27;s List. Recipient of the Twin Cities Iron Range Scholarship.</td></tr><tr><th>achievements</th><td>Cumulative GPA 3.93 and Dean&#x27;s List at the University of Minnesota; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.</td></tr></table>",
+              "<table><tr><th>skills</th><td>Apparel and graphic design; visual merchandising and display creation; trend awareness; retail sales and membership sales; inventory control and shipment processing; customer service and client communication; organizational skills; leadership and training of coworkers; cash handling and deposits; marketing and promotional event representation.</td></tr><tr><th>experience</th><td>American Eagle — Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers in their shopping experience; thoroughly scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach — Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their wants and needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items to identify unsuccessful merchandise in a retail market; offered advice and assistance to each guest.\n\nVictoria&#x27;s Secret — Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in the training of coworkers; set up mannequins and displays to entice future customers; provided superior customer service by helping with consumer decisions; took seasonal inventory.\n\nVolunteer: Target Corporation — Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.</td></tr><tr><th>education</th><td>University of Minnesota, College of Design — Bachelor of Science in Graphic Design (May 2011). Cumulative GPA 3.93, Dean&#x27;s List. Recipient of the Twin Cities Iron Range Scholarship.</td></tr><tr><th>achievements</th><td>Cumulative GPA 3.93; Dean&#x27;s List; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.</td></tr></table>",
             extra: {},
           },
         ],
@@ -1171,6 +1548,60 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2146,
+          output: 779,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 2925,
+        cost: 0.030205000000000003,
+        cost_input: 0.010730000000000002,
+        cost_output: 0.019475,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.030205000000000003,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2146,
+          output: 779,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2925,
+        subtree_cost: 0.030205000000000003,
+        subtree_cost_input: 0.010730000000000002,
+        subtree_cost_output: 0.019475,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.030205000000000003,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "@default-premium",
         resolved_model_for_object: "@default-premium",
@@ -1183,7 +1614,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_13",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_12",
       kind: "operator",
       pipe_code: "analyze_one_cv",
       pipe_type: "PipeLLM",
@@ -1193,9 +1624,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:21.191421Z",
-        ended_at: "2026-07-09T11:26:28.097538Z",
-        duration: 6.906117,
+        started_at: "2026-08-13T13:28:55.170990Z",
+        ended_at: "2026-08-13T13:29:01.358153Z",
+        duration: 6.187163,
       },
       io: {
         inputs: [
@@ -1205,7 +1636,458 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "X52Wz",
+            digest: "BC4nW",
+            data: {
+              items: [
+                {
+                  text_and_images: {
+                    text: {
+                      text: "# CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist & Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold & Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n",
+                    },
+                    images: [],
+                    raw_html: null,
+                  },
+                  page_view: null,
+                },
+              ],
+            },
+            data_text:
+              "   1    │                                CONTACT                                \n        │                                                                       \n        │ Email: sarah.vaugier@example.com                                      \n        │                                                                       \n        │ Location:                                                             \n        │                                                                       \n        │ London, UK                                                            \n        │                                                                       \n        │ EDUCATION                                                             \n        │                                                                       \n        │ Graduate Gemologist (G.G.)                                            \n        │                                                                       \n        │ Gemological Institute of                                              \n        │                                                                       \n        │ America (GIA)                                                         \n        │                                                                       \n        │ B.A. Art History University of Florence                               \n        │                                                                       \n        │ EXPERTISE                                                             \n        │                                                                       \n        │ · Colored Stone Grading                                               \n        │                                                                       \n        │ · Diamond Clarity & Color                                             \n        │                                                                       \n        │ · Antique Jewelry Valuation                                           \n        │                                                                       \n        │ · Exotic Leathers (Python, Crocodile)                                 \n        │                                                                       \n        │ · Synthetic Detection                                                 \n        │                                                                       \n        │ SARAH VAUGIER, G.G.                                                   \n        │                                                                       \n        │ Senior Gemologist & Luxury Appraiser                                  \n        │                                                                       \n        │                         PROFESSIONAL SUMMARY                          \n        │                                                                       \n        │ GIA Graduate Gemologist with a passion for rare stones and vintage    \n        │ luxury goods. 10 years of experience in auction houses and high-end   \n        │ retail. Expert in gemstone identification, synthetic detection, and   \n        │ the valuation of luxury fashion accessories.                          \n        │                                                                       \n        │                            WORK EXPERIENCE                            \n        │                                                                       \n        │ Lab Director                                                          \n        │                                                                       \n        │ The Diamond Vault | 2019 - Present                                    \n        │                                                                       \n        │ · Lead the authentication lab, verifying over 500 items per month.    \n        │                                                                       \n        │ · Specialist in distinguishing natural Burmese Rubies from flux-grown \n        │ synthetics.                                                           \n        │                                                                       \n        │ · Evaluated high-end glassware and crystal antiques for auction.      \n        │                                                                       \n        │ · Authored condition reports for vintage luxury bags, specifically    \n        │ Hermès and Chanel items in Python and Ostrich skins.                  \n        │                                                                       \n        │ Junior Appraiser Gold & Estate Auctions | 2014 - 2019                 \n        │                                                                       \n        │ · Assisted in the cataloging of estate jewelry collections.           \n        │                                                                       \n        │ · Studied the architecture and design periods of Art Deco and         \n        │ Victorian jewelry pieces.                                             \n        │                                                                       \n        │ · Used refractometers and microscopes to test stone properties.       \n        │                                                                       \n        │ · Liaised with private sellers to establish reserve prices.           \n",
+            data_html:
+              "<ul><li><table><tr><th>text_and_images</th><td># CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &amp;\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist &amp; Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold &amp; Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n</td></tr></table></li></ul>",
+            extra: {},
+          },
+        ],
+        outputs: [
+          {
+            name: "candidate_profile",
+            concept: "CandidateProfile",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "BTtgK",
+            data: {
+              skills:
+                "Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; luxury fashion accessory valuation; use of refractometers and microscopes; authentication and condition reporting; cataloging estate jewelry; liaising with private sellers.",
+              experience:
+                "Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.",
+              education:
+                "Graduate Gemologist (G.G.), Gemological Institute of America (GIA); B.A. Art History, University of Florence.",
+              achievements:
+                "GIA Graduate Gemologist (G.G.) certification; leads an authentication lab verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.",
+            },
+            data_text:
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry \n              │ Valuation; Exotic Leathers (Python, Crocodile); Synthetic       \n              │ Detection; gemstone identification; luxury fashion accessory    \n              │ valuation; use of refractometers and microscopes;               \n              │ authentication and condition reporting; cataloging estate       \n              │ jewelry; liaising with private sellers.                         \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Lab Director at The Diamond Vault (2019 - Present): Leads the   \n              │ authentication lab, verifying over 500 items per month;         \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics; evaluated high-end glassware and crystal \n              │ antiques for auction; authored condition reports for vintage    \n              │ luxury bags, specifically Hermès and Chanel items in Python and \n              │ Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 \n              │ - 2019): Assisted in the cataloging of estate jewelry           \n              │ collections; studied the architecture and design periods of Art \n              │ Deco and Victorian jewelry pieces; used refractometers and      \n              │ microscopes to test stone properties; liaised with private      \n              │ sellers to establish reserve prices. Total of 10 years of       \n              │ experience in auction houses and high-end retail.               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Graduate Gemologist (G.G.), Gemological Institute of America    \n              │ (GIA); B.A. Art History, University of Florence.                \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ GIA Graduate Gemologist (G.G.) certification; leads an          \n              │ authentication lab verifying over 500 items per month;          \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics.                                          \n",
+            data_html:
+              "<table><tr><th>skills</th><td>Colored Stone Grading; Diamond Clarity &amp; Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; luxury fashion accessory valuation; use of refractometers and microscopes; authentication and condition reporting; cataloging estate jewelry; liaising with private sellers.</td></tr><tr><th>experience</th><td>Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold &amp; Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.</td></tr><tr><th>education</th><td>Graduate Gemologist (G.G.), Gemological Institute of America (GIA); B.A. Art History, University of Florence.</td></tr><tr><th>achievements</th><td>GIA Graduate Gemologist (G.G.) certification; leads an authentication lab verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.</td></tr></table>",
+            extra: {},
+          },
+        ],
+      },
+      error: null,
+      tags: {},
+      metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2023,
+          output: 609,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 2632,
+        cost: 0.02534,
+        cost_input: 0.010115,
+        cost_output: 0.015225,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.02534,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2023,
+          output: 609,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2632,
+        subtree_cost: 0.02534,
+        subtree_cost_input: 0.010115,
+        subtree_cost_output: 0.015225,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.02534,
+          },
+        ],
+      },
+      execution_data: {
+        resolved_model: "@default-premium",
+        resolved_model_for_object: "@default-premium",
+        is_multiple_output: false,
+        rendered_system_prompt:
+          "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.",
+        rendered_user_prompt:
+          'Analyze the following CV content and extract the candidate\'s professional profile.\n\n<cv_pages>\n\n • item #1:\n\n# text_and_images\n\n## text\n\n### text\n\n# CONTACT\n\nEmail:\nsarah.vaugier@example.com\n\nLocation:\n\nLondon, UK\n\n\n## EDUCATION\n\nGraduate Gemologist\n(G.G.)\n\nGemological Institute of\n\nAmerica (GIA)\n\nB.A. Art History\nUniversity of Florence\n\n\n## EXPERTISE\n\n· Colored Stone\nGrading\n\n· Diamond Clarity &\nColor\n\n· Antique Jewelry\nValuation\n\n· Exotic Leathers\n(Python, Crocodile)\n\n· Synthetic Detection\n\nSARAH VAUGIER, G.G.\n\nSenior Gemologist & Luxury Appraiser\n\n\n# PROFESSIONAL SUMMARY\n\nGIA Graduate Gemologist with a passion for rare stones and\nvintage luxury goods. 10 years of experience in auction\nhouses and high-end retail. Expert in gemstone\nidentification, synthetic detection, and the valuation of luxury\nfashion accessories.\n\n\n# WORK EXPERIENCE\n\n\n## Lab Director\n\nThe Diamond Vault | 2019 - Present\n\n· Lead the authentication lab, verifying over 500 items per\nmonth.\n\n· Specialist in distinguishing natural Burmese Rubies from\nflux-grown synthetics.\n\n· Evaluated high-end glassware and crystal antiques for\nauction.\n\n· Authored condition reports for vintage luxury bags,\nspecifically Hermès and Chanel items in Python and\nOstrich skins.\n\nJunior Appraiser\nGold & Estate Auctions | 2014 - 2019\n\n· Assisted in the cataloging of estate jewelry collections.\n\n· Studied the architecture and design periods of Art Deco\nand Victorian jewelry pieces.\n\n· Used refractometers and microscopes to test stone\nproperties.\n\n· Liaised with private sellers to establish reserve prices.\n\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</cv_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateProfile(StructuredContent):\n    """A structured summary of a job candidate\'s professional background extracted from their CV."""\n    skills: str  # Technical and soft skills possessed by the candidate\n    experience: str  # Work history and professional experience\n    education: str  # Educational background and qualifications\n    achievements: str | None = None  # Notable accomplishments and certifications\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+        structuring_path: "object_direct",
+      },
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_13",
+      kind: "operator",
+      pipe_code: "analyze_match",
+      pipe_type: "PipeLLM",
+      description:
+        "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
+      domain_code: "cv_batch_screening",
+      status: "succeeded",
+      skip_reason: null,
+      timing: {
+        started_at: "2026-08-13T13:29:01.364561Z",
+        ended_at: "2026-08-13T13:29:10.437989Z",
+        duration: 9.073428,
+      },
+      io: {
+        inputs: [
+          {
+            name: "candidate_profile",
+            concept: "CandidateProfile",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "BTtgK",
+            data: {
+              skills:
+                "Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; luxury fashion accessory valuation; use of refractometers and microscopes; authentication and condition reporting; cataloging estate jewelry; liaising with private sellers.",
+              experience:
+                "Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.",
+              education:
+                "Graduate Gemologist (G.G.), Gemological Institute of America (GIA); B.A. Art History, University of Florence.",
+              achievements:
+                "GIA Graduate Gemologist (G.G.) certification; leads an authentication lab verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.",
+            },
+            data_text:
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry \n              │ Valuation; Exotic Leathers (Python, Crocodile); Synthetic       \n              │ Detection; gemstone identification; luxury fashion accessory    \n              │ valuation; use of refractometers and microscopes;               \n              │ authentication and condition reporting; cataloging estate       \n              │ jewelry; liaising with private sellers.                         \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Lab Director at The Diamond Vault (2019 - Present): Leads the   \n              │ authentication lab, verifying over 500 items per month;         \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics; evaluated high-end glassware and crystal \n              │ antiques for auction; authored condition reports for vintage    \n              │ luxury bags, specifically Hermès and Chanel items in Python and \n              │ Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 \n              │ - 2019): Assisted in the cataloging of estate jewelry           \n              │ collections; studied the architecture and design periods of Art \n              │ Deco and Victorian jewelry pieces; used refractometers and      \n              │ microscopes to test stone properties; liaised with private      \n              │ sellers to establish reserve prices. Total of 10 years of       \n              │ experience in auction houses and high-end retail.               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Graduate Gemologist (G.G.), Gemological Institute of America    \n              │ (GIA); B.A. Art History, University of Florence.                \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ GIA Graduate Gemologist (G.G.) certification; leads an          \n              │ authentication lab verifying over 500 items per month;          \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics.                                          \n",
+            data_html:
+              "<table><tr><th>skills</th><td>Colored Stone Grading; Diamond Clarity &amp; Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; luxury fashion accessory valuation; use of refractometers and microscopes; authentication and condition reporting; cataloging estate jewelry; liaising with private sellers.</td></tr><tr><th>experience</th><td>Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold &amp; Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.</td></tr><tr><th>education</th><td>Graduate Gemologist (G.G.), Gemological Institute of America (GIA); B.A. Art History, University of Florence.</td></tr><tr><th>achievements</th><td>GIA Graduate Gemologist (G.G.) certification; leads an authentication lab verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.</td></tr></table>",
+            extra: {},
+          },
+          {
+            name: "job_requirements",
+            concept: "JobRequirements",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "Dgqrs",
+            data: {
+              required_skills:
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
+              responsibilities:
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
+              qualifications:
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
+              nice_to_haves:
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
+            },
+            data_text:
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
+            data_html:
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
+            extra: {},
+          },
+        ],
+        outputs: [
+          {
+            name: "match_analysis",
+            concept: "CandidateMatch",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "VZkBb-branch-1",
+            data: {
+              match_score: 3,
+              strengths:
+                "The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor's degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.",
+              gaps: "There is a near-total mismatch between the candidate's background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.",
+              overall_assessment:
+                "The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.",
+            },
+            data_text:
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates deep expertise and strong      \n                    │ credentials within their own domain of gemology and       \n                    │ luxury item authentication. They hold a GIA Graduate      \n                    │ Gemologist certification, have a decade of progressive    \n                    │ experience in auction houses and high-end retail, and     \n                    │ have advanced to a Lab Director role leading              \n                    │ authentication of 500+ items monthly. They possess a      \n                    │ bachelor's degree (B.A. Art History), which nominally     \n                    │ satisfies the degree requirement, and have some           \n                    │ leadership experience running a lab, as well as           \n                    │ experience liaising with private sellers, which involves  \n                    │ a form of client-facing communication.                    \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ There is a near-total mismatch between the candidate's    \n                    │ background and the job requirements. The role demands 12+ \n                    │ years of B2B enterprise SaaS sales experience with 5+     \n                    │ years in VP-level leadership, scaling sales teams of 50+  \n                    │ professionals, and owning $180M+ ARR with P&L             \n                    │ accountability — none of which the candidate has. They    \n                    │ have no demonstrated experience in consultative sales     \n                    │ cycles, C-suite executive engagement, sales forecasting,  \n                    │ pipeline management, SaaS or enterprise software markets, \n                    │ sales analytics tools, channel/partner sales, or coaching \n                    │ sales leaders. Their leadership experience is limited to  \n                    │ a technical authentication lab rather than a large        \n                    │ distributed sales organization. No MBA is present, and    \n                    │ their education (Art History, Gemology) is unrelated to   \n                    │ enterprise sales leadership.                              \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is highly qualified within the gemology and \n                    │ luxury authentication field but is fundamentally          \n                    │ misaligned with this VP-level enterprise SaaS sales       \n                    │ leadership role. Their skills, experience, and            \n                    │ educational background do not overlap in any meaningful   \n                    │ way with the required competencies of consultative B2B    \n                    │ sales, executive relationship management, sales team      \n                    │ scaling, or revenue accountability. This is not a viable  \n                    │ candidate for the position and should not be advanced in  \n                    │ the screening process.                                    \n",
+            data_html:
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates deep expertise and strong credentials within their own domain of gemology and luxury item authentication. They hold a GIA Graduate Gemologist certification, have a decade of progressive experience in auction houses and high-end retail, and have advanced to a Lab Director role leading authentication of 500+ items monthly. They possess a bachelor&#x27;s degree (B.A. Art History), which nominally satisfies the degree requirement, and have some leadership experience running a lab, as well as experience liaising with private sellers, which involves a form of client-facing communication.</td></tr><tr><th>gaps</th><td>There is a near-total mismatch between the candidate&#x27;s background and the job requirements. The role demands 12+ years of B2B enterprise SaaS sales experience with 5+ years in VP-level leadership, scaling sales teams of 50+ professionals, and owning $180M+ ARR with P&amp;L accountability — none of which the candidate has. They have no demonstrated experience in consultative sales cycles, C-suite executive engagement, sales forecasting, pipeline management, SaaS or enterprise software markets, sales analytics tools, channel/partner sales, or coaching sales leaders. Their leadership experience is limited to a technical authentication lab rather than a large distributed sales organization. No MBA is present, and their education (Art History, Gemology) is unrelated to enterprise sales leadership.</td></tr><tr><th>overall_assessment</th><td>The candidate is highly qualified within the gemology and luxury authentication field but is fundamentally misaligned with this VP-level enterprise SaaS sales leadership role. Their skills, experience, and educational background do not overlap in any meaningful way with the required competencies of consultative B2B sales, executive relationship management, sales team scaling, or revenue accountability. This is not a viable candidate for the position and should not be advanced in the screening process.</td></tr></table>",
+            extra: {},
+          },
+        ],
+      },
+      error: null,
+      tags: {},
+      metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2698,
+          output: 693,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 3391,
+        cost: 0.030815000000000002,
+        cost_input: 0.01349,
+        cost_output: 0.017325,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.030815000000000002,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2698,
+          output: 693,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 3391,
+        subtree_cost: 0.030815000000000002,
+        subtree_cost_input: 0.01349,
+        subtree_cost_output: 0.017325,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.030815000000000002,
+          },
+        ],
+      },
+      execution_data: {
+        resolved_model: "@default-premium",
+        resolved_model_for_object: "@default-premium",
+        is_multiple_output: false,
+        rendered_system_prompt:
+          "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
+        rendered_user_prompt:
+          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; luxury fashion accessory valuation; use of refractometers and microscopes; authentication and condition reporting; cataloging estate jewelry; liaising with private sellers.\n\n# experience: Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.\n\n# education: Graduate Gemologist (G.G.), Gemological Institute of America (GIA); B.A. Art History, University of Florence.\n\n# achievements: GIA Graduate Gemologist (G.G.) certification; leads an authentication lab verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.\n</candidate_profile>\n\n<job_requirements>\n# required_skills: Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.\n\n# responsibilities: Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.\n\n# qualifications: 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor\'s degree required; MBA preferred.\n\n# nice_to_haves: Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+        structuring_path: "object_direct",
+      },
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_14",
+      kind: "operator",
+      pipe_code: "analyze_match",
+      pipe_type: "PipeLLM",
+      description:
+        "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
+      domain_code: "cv_batch_screening",
+      status: "succeeded",
+      skip_reason: null,
+      timing: {
+        started_at: "2026-08-13T13:29:03.342170Z",
+        ended_at: "2026-08-13T13:29:13.999845Z",
+        duration: 10.657675,
+      },
+      io: {
+        inputs: [
+          {
+            name: "candidate_profile",
+            concept: "CandidateProfile",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "3Lp8m",
+            data: {
+              skills:
+                "Apparel and graphic design; visual merchandising and display creation; trend awareness; retail sales and membership sales; inventory control and shipment processing; customer service and client communication; organizational skills; leadership and training of coworkers; cash handling and deposits; marketing and promotional event representation.",
+              experience:
+                "American Eagle — Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers in their shopping experience; thoroughly scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach — Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their wants and needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items to identify unsuccessful merchandise in a retail market; offered advice and assistance to each guest.\n\nVictoria's Secret — Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in the training of coworkers; set up mannequins and displays to entice future customers; provided superior customer service by helping with consumer decisions; took seasonal inventory.\n\nVolunteer: Target Corporation — Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.",
+              education:
+                "University of Minnesota, College of Design — Bachelor of Science in Graphic Design (May 2011). Cumulative GPA 3.93, Dean's List. Recipient of the Twin Cities Iron Range Scholarship.",
+              achievements:
+                "Cumulative GPA 3.93; Dean's List; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.",
+            },
+            data_text:
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Apparel and graphic design; visual merchandising and display    \n              │ creation; trend awareness; retail sales and membership sales;   \n              │ inventory control and shipment processing; customer service and \n              │ client communication; organizational skills; leadership and     \n              │ training of coworkers; cash handling and deposits; marketing    \n              │ and promotional event representation.                           \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ American Eagle — Sales Associate (July 2009 - present):         \n              │ Collaborated with the store merchandiser creating displays to   \n              │ attract clientele; used trend awareness to assist customers in  \n              │ their shopping experience; thoroughly scanned merchandise for   \n              │ inventory control; processed shipment to increase product       \n              │ knowledge.                                                      \n              │                                                                 \n              │ Planet Beach — Spa Consultant (Aug. 2008 - present): Sold       \n              │ retail and memberships to meet company sales goals;             \n              │ single-handedly ran all operating procedures; communicated with \n              │ clients to fulfill their wants and needs; attended promotional  \n              │ events to market services; handled cash and deposits during     \n              │ opening and closing.                                            \n              │                                                                 \n              │ Heartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked  \n              │ sales floor with fast fashion inventory; marked down items to   \n              │ identify unsuccessful merchandise in a retail market; offered   \n              │ advice and assistance to each guest.                            \n              │                                                                 \n              │ Victoria's Secret — Fashion Representative (Jan. 2006 - Feb.    \n              │ 2009): Assisted in the training of coworkers; set up mannequins \n              │ and displays to entice future customers; provided superior      \n              │ customer service by helping with consumer decisions; took       \n              │ seasonal inventory.                                             \n              │                                                                 \n              │ Volunteer: Target Corporation — Brand Ambassador (August 2009): \n              │ Represented Periscope Marketing and Target Inc. at a college    \n              │ event; engaged University of Minnesota freshmen in the Target   \n              │ brand experience.                                               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ University of Minnesota, College of Design — Bachelor of        \n              │ Science in Graphic Design (May 2011). Cumulative GPA 3.93,      \n              │ Dean's List. Recipient of the Twin Cities Iron Range            \n              │ Scholarship.                                                    \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Cumulative GPA 3.93; Dean's List; recipient of the Twin Cities  \n              │ Iron Range Scholarship; received Employee of the Month award    \n              │ twice at Planet Beach.                                          \n",
+            data_html:
+              "<table><tr><th>skills</th><td>Apparel and graphic design; visual merchandising and display creation; trend awareness; retail sales and membership sales; inventory control and shipment processing; customer service and client communication; organizational skills; leadership and training of coworkers; cash handling and deposits; marketing and promotional event representation.</td></tr><tr><th>experience</th><td>American Eagle — Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers in their shopping experience; thoroughly scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach — Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their wants and needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items to identify unsuccessful merchandise in a retail market; offered advice and assistance to each guest.\n\nVictoria&#x27;s Secret — Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in the training of coworkers; set up mannequins and displays to entice future customers; provided superior customer service by helping with consumer decisions; took seasonal inventory.\n\nVolunteer: Target Corporation — Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.</td></tr><tr><th>education</th><td>University of Minnesota, College of Design — Bachelor of Science in Graphic Design (May 2011). Cumulative GPA 3.93, Dean&#x27;s List. Recipient of the Twin Cities Iron Range Scholarship.</td></tr><tr><th>achievements</th><td>Cumulative GPA 3.93; Dean&#x27;s List; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.</td></tr></table>",
+            extra: {},
+          },
+          {
+            name: "job_requirements",
+            concept: "JobRequirements",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "Dgqrs",
+            data: {
+              required_skills:
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
+              responsibilities:
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
+              qualifications:
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
+              nice_to_haves:
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
+            },
+            data_text:
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
+            data_html:
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
+            extra: {},
+          },
+        ],
+        outputs: [
+          {
+            name: "match_analysis",
+            concept: "CandidateMatch",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "VZkBb-branch-2",
+            data: {
+              match_score: 3,
+              strengths:
+                "The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria's Secret and has shown consistent achievement in academic and workplace settings (Dean's List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor's degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.",
+              gaps: "The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria's Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.",
+              overall_assessment:
+                "The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.",
+            },
+            data_text:
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong retail sales            \n                    │ fundamentals, including customer service, client          \n                    │ communication, cash handling, and inventory management.   \n                    │ She has some early leadership exposure through training   \n                    │ coworkers at Victoria's Secret and has shown consistent   \n                    │ achievement in academic and workplace settings (Dean's    \n                    │ List, 3.93 GPA, Employee of the Month twice). She also    \n                    │ meets the baseline bachelor's degree requirement, holding \n                    │ a B.S. in Graphic Design from the University of           \n                    │ Minnesota. Additional transferable strengths include      \n                    │ marketing/promotional event representation and            \n                    │ organizational skills.                                    \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate falls dramatically short of nearly every    \n                    │ core requirement for this VP-level enterprise sales       \n                    │ leadership role. She has no B2B or SaaS sales experience, \n                    │ no experience selling to Fortune 500 or C-suite           \n                    │ executives, and no exposure to complex, consultative      \n                    │ sales cycles of 6-12 months. She has no leadership        \n                    │ experience managing large teams—let alone scaling teams   \n                    │ of 50-60+ enterprise sales professionals—and no P&L       \n                    │ ownership or experience managing $100M+ ARR quotas. She   \n                    │ lacks the required 12+ years of progressive B2B sales     \n                    │ experience and 5+ years in VP-level roles; her background \n                    │ is entirely in entry-level retail sales roles (American   \n                    │ Eagle, Planet Beach, Heartbreaker, Victoria's Secret).    \n                    │ She also lacks an MBA, experience with                    \n                    │ CRM/cloud/enterprise software markets, sales analytics    \n                    │ tools, account-based selling expertise, and               \n                    │ channel/partner sales experience.                         \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is a significant mismatch for this          \n                    │ Senior/VP-level enterprise sales leadership position. Her \n                    │ background consists of retail sales associate and spa     \n                    │ consultant roles while completing an undergraduate degree \n                    │ in Graphic Design—experience that does not align with the \n                    │ seniority, scale, or domain expertise required. This role \n                    │ demands a seasoned enterprise SaaS sales executive with   \n                    │ over a decade of experience, proven scaling of large      \n                    │ sales organizations, and C-suite relationship management, \n                    │ none of which the candidate possesses. She should not be  \n                    │ advanced in this recruitment process; her profile would   \n                    │ be far better suited to entry-level roles in retail,      \n                    │ visual merchandising, or graphic design.                  \n",
+            data_html:
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong retail sales fundamentals, including customer service, client communication, cash handling, and inventory management. She has some early leadership exposure through training coworkers at Victoria&#x27;s Secret and has shown consistent achievement in academic and workplace settings (Dean&#x27;s List, 3.93 GPA, Employee of the Month twice). She also meets the baseline bachelor&#x27;s degree requirement, holding a B.S. in Graphic Design from the University of Minnesota. Additional transferable strengths include marketing/promotional event representation and organizational skills.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of nearly every core requirement for this VP-level enterprise sales leadership role. She has no B2B or SaaS sales experience, no experience selling to Fortune 500 or C-suite executives, and no exposure to complex, consultative sales cycles of 6-12 months. She has no leadership experience managing large teams—let alone scaling teams of 50-60+ enterprise sales professionals—and no P&amp;L ownership or experience managing $100M+ ARR quotas. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level roles; her background is entirely in entry-level retail sales roles (American Eagle, Planet Beach, Heartbreaker, Victoria&#x27;s Secret). She also lacks an MBA, experience with CRM/cloud/enterprise software markets, sales analytics tools, account-based selling expertise, and channel/partner sales experience.</td></tr><tr><th>overall_assessment</th><td>The candidate is a significant mismatch for this Senior/VP-level enterprise sales leadership position. Her background consists of retail sales associate and spa consultant roles while completing an undergraduate degree in Graphic Design—experience that does not align with the seniority, scale, or domain expertise required. This role demands a seasoned enterprise SaaS sales executive with over a decade of experience, proven scaling of large sales organizations, and C-suite relationship management, none of which the candidate possesses. She should not be advanced in this recruitment process; her profile would be far better suited to entry-level roles in retail, visual merchandising, or graphic design.</td></tr></table>",
+            extra: {},
+          },
+        ],
+      },
+      error: null,
+      tags: {},
+      metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2868,
+          output: 803,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 3671,
+        cost: 0.034415,
+        cost_input: 0.01434,
+        cost_output: 0.020075000000000003,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.034415,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2868,
+          output: 803,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 3671,
+        subtree_cost: 0.034415,
+        subtree_cost_input: 0.01434,
+        subtree_cost_output: 0.020075000000000003,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.034415,
+          },
+        ],
+      },
+      execution_data: {
+        resolved_model: "@default-premium",
+        resolved_model_for_object: "@default-premium",
+        is_multiple_output: false,
+        rendered_system_prompt:
+          "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
+        rendered_user_prompt:
+          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Apparel and graphic design; visual merchandising and display creation; trend awareness; retail sales and membership sales; inventory control and shipment processing; customer service and client communication; organizational skills; leadership and training of coworkers; cash handling and deposits; marketing and promotional event representation.\n\n# experience\n\nAmerican Eagle — Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers in their shopping experience; thoroughly scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach — Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their wants and needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker — Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items to identify unsuccessful merchandise in a retail market; offered advice and assistance to each guest.\n\nVictoria\'s Secret — Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in the training of coworkers; set up mannequins and displays to entice future customers; provided superior customer service by helping with consumer decisions; took seasonal inventory.\n\nVolunteer: Target Corporation — Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.\n\n# education: University of Minnesota, College of Design — Bachelor of Science in Graphic Design (May 2011). Cumulative GPA 3.93, Dean\'s List. Recipient of the Twin Cities Iron Range Scholarship.\n\n# achievements: Cumulative GPA 3.93; Dean\'s List; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.\n</candidate_profile>\n\n<job_requirements>\n# required_skills: Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.\n\n# responsibilities: Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.\n\n# qualifications: 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor\'s degree required; MBA preferred.\n\n# nice_to_haves: Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+        structuring_path: "object_direct",
+      },
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_15",
+      kind: "operator",
+      pipe_code: "analyze_one_cv",
+      pipe_type: "PipeLLM",
+      description:
+        "Parses and summarizes the candidate's professional profile from the extracted CV content, identifying skills, experience, education, and achievements\n",
+      domain_code: "cv_batch_screening",
+      status: "succeeded",
+      skip_reason: null,
+      timing: {
+        started_at: "2026-08-13T13:29:14.291578Z",
+        ended_at: "2026-08-13T13:29:21.370912Z",
+        duration: 7.079334,
+      },
+      io: {
+        inputs: [
+          {
+            name: "cv_pages",
+            concept: "Page",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "YXFo2",
             data: {
               items: [
                 {
@@ -1234,21 +2116,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FKLbV",
+            digest: "DGaCJ",
             data: {
               skills:
-                "Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management",
+                "Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management.",
               experience:
-                "Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012 - 2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed all aspects of operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 - 2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003 - 2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total: 22 years of experience in residential and commercial plumbing.",
+                "Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012-2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total of 22 years experience in residential and commercial plumbing.",
               education:
-                "Plumbing Technology Certificate - Tulsa Technology Center, 2003; High School Diploma - Broken Arrow High School, 2001",
+                "Plumbing Technology Certificate - Tulsa Technology Center, 2003. High School Diploma - Broken Arrow High School, 2001.",
               achievements:
-                "Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Grew Jenkins Plumbing Solutions to $480K annual revenue with 4 employees; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Trained and mentored 2 apprentice plumbers through certification programs.",
+                "Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Grew business revenue to $480K annually; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Successfully mentored 2 apprentice plumbers through certification.",
             },
             data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Pipe Fitting, Soldering, Blueprint Reading, Customer Service,   \n              │ Project Estimation, Team Supervision, QuickBooks, Basic Excel,  \n              │ leadership, client relationship management, business operations \n              │ management                                                      \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK \n              │ (2012 - 2025): Founded and operated a plumbing business with 4  \n              │ employees, growing annual revenue to $480K; managed all aspects \n              │ of operations including scheduling, client relationships,       \n              │ invoicing, and procurement; specialized in residential          \n              │ renovations and commercial bathroom installations; maintained a \n              │ 4.9/5 rating on Google Reviews with 200+ satisfied customers.   \n              │ Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 -   \n              │ 2012): Led a team of 3 journeyman plumbers on commercial        \n              │ plumbing projects; handled estimates and client consultations   \n              │ for projects valued up to $50K; trained and mentored 2          \n              │ apprentice plumbers through their certification programs.       \n              │ Apprentice to Journeyman Plumber at RotoRooter Franchise,       \n              │ Broken Arrow, OK (2003 - 2006): Completed apprenticeship        \n              │ program and earned journeyman certification; performed          \n              │ emergency service calls, drain cleaning, and water heater       \n              │ installations; recognized as Employee of the Quarter twice for  \n              │ outstanding customer service. Total: 22 years of experience in  \n              │ residential and commercial plumbing.                            \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Plumbing Technology Certificate - Tulsa Technology Center,      \n              │ 2003; High School Diploma - Broken Arrow High School, 2001      \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Oklahoma Master Plumber License; OSHA 30-Hour Construction      \n              │ Safety; Backflow Prevention Certification; EPA Section 608      \n              │ Certification; Grew Jenkins Plumbing Solutions to $480K annual  \n              │ revenue with 4 employees; Maintained 4.9/5 Google Reviews       \n              │ rating with 200+ satisfied customers; Recognized as Employee of \n              │ the Quarter twice at RotoRooter Franchise; Trained and mentored \n              │ 2 apprentice plumbers through certification programs.           \n",
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Pipe Fitting, Soldering, Blueprint Reading, Customer Service,   \n              │ Project Estimation, Team Supervision, QuickBooks, Basic Excel,  \n              │ leadership, client relationship management, business operations \n              │ management.                                                     \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK \n              │ (2012-2025): Founded and operated a plumbing business with 4    \n              │ employees, growing annual revenue to $480K; managed operations  \n              │ including scheduling, client relationships, invoicing, and      \n              │ procurement; specialized in residential renovations and         \n              │ commercial bathroom installations; maintained a 4.9/5 rating on \n              │ Google Reviews with 200+ satisfied customers. Senior Plumber at \n              │ Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of  \n              │ 3 journeyman plumbers on commercial plumbing projects; handled  \n              │ estimates and client consultations for projects valued up to    \n              │ $50K; trained and mentored 2 apprentice plumbers through their  \n              │ certification programs. Apprentice to Journeyman Plumber at     \n              │ RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed   \n              │ apprenticeship program and earned journeyman certification;     \n              │ performed emergency service calls, drain cleaning, and water    \n              │ heater installations; recognized as Employee of the Quarter     \n              │ twice for outstanding customer service. Total of 22 years       \n              │ experience in residential and commercial plumbing.              \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Plumbing Technology Certificate - Tulsa Technology Center,      \n              │ 2003. High School Diploma - Broken Arrow High School, 2001.     \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Oklahoma Master Plumber License; OSHA 30-Hour Construction      \n              │ Safety; Backflow Prevention Certification; EPA Section 608      \n              │ Certification; Maintained 4.9/5 Google Reviews rating with 200+ \n              │ satisfied customers; Grew business revenue to $480K annually;   \n              │ Recognized as Employee of the Quarter twice at RotoRooter       \n              │ Franchise; Successfully mentored 2 apprentice plumbers through  \n              │ certification.                                                  \n",
             data_html:
-              "<table><tr><th>skills</th><td>Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management</td></tr><tr><th>experience</th><td>Owner &amp; Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012 - 2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed all aspects of operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 - 2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003 - 2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total: 22 years of experience in residential and commercial plumbing.</td></tr><tr><th>education</th><td>Plumbing Technology Certificate - Tulsa Technology Center, 2003; High School Diploma - Broken Arrow High School, 2001</td></tr><tr><th>achievements</th><td>Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Grew Jenkins Plumbing Solutions to $480K annual revenue with 4 employees; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Trained and mentored 2 apprentice plumbers through certification programs.</td></tr></table>",
+              "<table><tr><th>skills</th><td>Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management.</td></tr><tr><th>experience</th><td>Owner &amp; Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012-2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total of 22 years experience in residential and commercial plumbing.</td></tr><tr><th>education</th><td>Plumbing Technology Certificate - Tulsa Technology Center, 2003. High School Diploma - Broken Arrow High School, 2001.</td></tr><tr><th>achievements</th><td>Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Grew business revenue to $480K annually; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Successfully mentored 2 apprentice plumbers through certification.</td></tr></table>",
             extra: {},
           },
         ],
@@ -1256,6 +2138,60 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2194,
+          output: 766,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 2960,
+        cost: 0.03012,
+        cost_input: 0.01097,
+        cost_output: 0.01915,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.03012,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2194,
+          output: 766,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 2960,
+        subtree_cost: 0.03012,
+        subtree_cost_input: 0.01097,
+        subtree_cost_output: 0.01915,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.03012,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "@default-premium",
         resolved_model_for_object: "@default-premium",
@@ -1268,7 +2204,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       },
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_14",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_16",
       kind: "operator",
       pipe_code: "analyze_match",
       pipe_type: "PipeLLM",
@@ -1278,9 +2214,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-07-09T11:26:26.431444Z",
-        ended_at: "2026-07-09T11:26:35.066325Z",
-        duration: 8.634881,
+        started_at: "2026-08-13T13:29:21.377731Z",
+        ended_at: "2026-08-13T13:29:30.666047Z",
+        duration: 9.288316,
       },
       io: {
         inputs: [
@@ -1290,21 +2226,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ZritN",
+            digest: "DGaCJ",
             data: {
               skills:
-                "Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; valuation of luxury fashion accessories; use of refractometers and microscopes; condition reporting for vintage luxury bags; cataloging of estate jewelry; liaising with private sellers.",
+                "Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management.",
               experience:
-                "Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.",
+                "Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012-2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total of 22 years experience in residential and commercial plumbing.",
               education:
-                "Graduate Gemologist (G.G.), Gemological Institute of America (GIA). B.A. Art History, University of Florence.",
+                "Plumbing Technology Certificate - Tulsa Technology Center, 2003. High School Diploma - Broken Arrow High School, 2001.",
               achievements:
-                "GIA Graduate Gemologist (G.G.) certification; leads authentication lab verifying over 500 items per month; recognized specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.",
+                "Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Grew business revenue to $480K annually; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Successfully mentored 2 apprentice plumbers through certification.",
             },
             data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry \n              │ Valuation; Exotic Leathers (Python, Crocodile); Synthetic       \n              │ Detection; gemstone identification; valuation of luxury fashion \n              │ accessories; use of refractometers and microscopes; condition   \n              │ reporting for vintage luxury bags; cataloging of estate         \n              │ jewelry; liaising with private sellers.                         \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Lab Director at The Diamond Vault (2019 - Present): Leads the   \n              │ authentication lab, verifying over 500 items per month;         \n              │ specialist in distinguishing natural Burmese Rubies from        \n              │ flux-grown synthetics; evaluated high-end glassware and crystal \n              │ antiques for auction; authored condition reports for vintage    \n              │ luxury bags, specifically Hermès and Chanel items in Python and \n              │ Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 \n              │ - 2019): Assisted in the cataloging of estate jewelry           \n              │ collections; studied the architecture and design periods of Art \n              │ Deco and Victorian jewelry pieces; used refractometers and      \n              │ microscopes to test stone properties; liaised with private      \n              │ sellers to establish reserve prices. Total of 10 years of       \n              │ experience in auction houses and high-end retail.               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Graduate Gemologist (G.G.), Gemological Institute of America    \n              │ (GIA). B.A. Art History, University of Florence.                \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ GIA Graduate Gemologist (G.G.) certification; leads             \n              │ authentication lab verifying over 500 items per month;          \n              │ recognized specialist in distinguishing natural Burmese Rubies  \n              │ from flux-grown synthetics.                                     \n",
+              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Pipe Fitting, Soldering, Blueprint Reading, Customer Service,   \n              │ Project Estimation, Team Supervision, QuickBooks, Basic Excel,  \n              │ leadership, client relationship management, business operations \n              │ management.                                                     \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK \n              │ (2012-2025): Founded and operated a plumbing business with 4    \n              │ employees, growing annual revenue to $480K; managed operations  \n              │ including scheduling, client relationships, invoicing, and      \n              │ procurement; specialized in residential renovations and         \n              │ commercial bathroom installations; maintained a 4.9/5 rating on \n              │ Google Reviews with 200+ satisfied customers. Senior Plumber at \n              │ Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of  \n              │ 3 journeyman plumbers on commercial plumbing projects; handled  \n              │ estimates and client consultations for projects valued up to    \n              │ $50K; trained and mentored 2 apprentice plumbers through their  \n              │ certification programs. Apprentice to Journeyman Plumber at     \n              │ RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed   \n              │ apprenticeship program and earned journeyman certification;     \n              │ performed emergency service calls, drain cleaning, and water    \n              │ heater installations; recognized as Employee of the Quarter     \n              │ twice for outstanding customer service. Total of 22 years       \n              │ experience in residential and commercial plumbing.              \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Plumbing Technology Certificate - Tulsa Technology Center,      \n              │ 2003. High School Diploma - Broken Arrow High School, 2001.     \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Oklahoma Master Plumber License; OSHA 30-Hour Construction      \n              │ Safety; Backflow Prevention Certification; EPA Section 608      \n              │ Certification; Maintained 4.9/5 Google Reviews rating with 200+ \n              │ satisfied customers; Grew business revenue to $480K annually;   \n              │ Recognized as Employee of the Quarter twice at RotoRooter       \n              │ Franchise; Successfully mentored 2 apprentice plumbers through  \n              │ certification.                                                  \n",
             data_html:
-              "<table><tr><th>skills</th><td>Colored Stone Grading; Diamond Clarity &amp; Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; valuation of luxury fashion accessories; use of refractometers and microscopes; condition reporting for vintage luxury bags; cataloging of estate jewelry; liaising with private sellers.</td></tr><tr><th>experience</th><td>Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold &amp; Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.</td></tr><tr><th>education</th><td>Graduate Gemologist (G.G.), Gemological Institute of America (GIA). B.A. Art History, University of Florence.</td></tr><tr><th>achievements</th><td>GIA Graduate Gemologist (G.G.) certification; leads authentication lab verifying over 500 items per month; recognized specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.</td></tr></table>",
+              "<table><tr><th>skills</th><td>Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management.</td></tr><tr><th>experience</th><td>Owner &amp; Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012-2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total of 22 years experience in residential and commercial plumbing.</td></tr><tr><th>education</th><td>Plumbing Technology Certificate - Tulsa Technology Center, 2003. High School Diploma - Broken Arrow High School, 2001.</td></tr><tr><th>achievements</th><td>Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Grew business revenue to $480K annually; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Successfully mentored 2 apprentice plumbers through certification.</td></tr></table>",
             extra: {},
           },
           {
@@ -1313,21 +2249,21 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AkKjo",
+            digest: "Dgqrs",
             data: {
               required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
+                "Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.",
               responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
+                "Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.",
               qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
+                "12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor's degree required; MBA preferred.",
               nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
+                "Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.",
             },
             data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
+              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ Deep expertise in complex, consultative sales with 6-12     \n                  │ month sales cycles; strong executive presence with ability  \n                  │ to engage C-suite buyers; strategic thinking and business   \n                  │ acumen; exceptional communication and executive presence;   \n                  │ data-driven decision making; change management and          \n                  │ organizational development; cross-functional collaboration; \n                  │ diversity, equity, and inclusion advocacy.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ Lead and scale a high-performing team of 60+ enterprise     \n                  │ sales professionals across multiple regions. Own and        \n                  │ deliver $180M+ ARR with full P&L accountability and         \n                  │ strategic planning responsibility. Develop and implement    \n                  │ sales strategies that accelerate pipeline growth and        \n                  │ increase win rates. Build and maintain executive            \n                  │ relationships with C-level stakeholders at largest          \n                  │ accounts. Drive operational rigor through accurate          \n                  │ forecasting, process optimization, and data-driven decision \n                  │ making. Coach, mentor, and develop the next generation of   \n                  │ sales leaders. Partner with Product, Marketing, Customer    \n                  │ Success, and Channel teams to deliver integrated solutions. \n                  │ Champion new sales methodologies, tools, and approaches     \n                  │ that improve team productivity.                             \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ 12+ years of progressive B2B sales experience with at least \n                  │ 5 years in VP-level or equivalent leadership roles. Proven  \n                  │ track record of building and scaling enterprise sales teams \n                  │ of 50+ people. Demonstrated success managing $100M+ ARR     \n                  │ quotas and consistently exceeding targets. Experience       \n                  │ selling SaaS solutions to Fortune 500 enterprises.          \n                  │ Bachelor's degree required; MBA preferred.                  \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ Experience in CRM, cloud infrastructure, or enterprise      \n                  │ software markets; track record of building sales teams from \n                  │ early stage through scale; expertise in account-based       \n                  │ selling and strategic account management; strong analytical \n                  │ skills with proficiency in ACME, sales analytics tools;     \n                  │ history of developing talent with multiple direct reports   \n                  │ promoted to leadership roles; experience with               \n                  │ channel/partner sales models; passion for coaching and      \n                  │ developing high-performing teams; MBA.                      \n",
             data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
+              "<table><tr><th>required_skills</th><td>Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.</td></tr><tr><th>responsibilities</th><td>Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.</td></tr><tr><th>qualifications</th><td>12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor&#x27;s degree required; MBA preferred.</td></tr><tr><th>nice_to_haves</th><td>Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.</td></tr></table>",
             extra: {},
           },
         ],
@@ -1338,19 +2274,19 @@ export const LIVE_CV_BATCH_SCREENING = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "8DXzc-branch-1",
+            digest: "VZkBb-branch-0",
             data: {
               match_score: 3,
               strengths:
-                "The candidate holds a bachelor's degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.",
-              gaps: "The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&L accountability experience.",
+                "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&L context.",
+              gaps: "The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate's business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor's degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.",
               overall_assessment:
-                "This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate's skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.",
+                "The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.",
             },
             data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate holds a bachelor's degree (B.A. Art         \n                    │ History) which satisfies the minimum educational          \n                    │ requirement. They also demonstrate deep domain expertise, \n                    │ leadership of a specialized lab, and 10 years of          \n                    │ professional experience—showing capability to lead a      \n                    │ team, manage operational rigor (verifying 500+            \n                    │ items/month), and liaise with external stakeholders       \n                    │ (private sellers). These transferable soft skills         \n                    │ (leadership, attention to detail, stakeholder engagement) \n                    │ are the only tangential overlap with the role.            \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate has virtually no alignment with the core    \n                    │ requirements of this VP/enterprise sales leadership role. \n                    │ They lack: B2B SaaS sales experience, any experience      \n                    │ selling to Fortune 500 enterprises, experience managing   \n                    │ $100M+ ARR quotas, experience building/scaling enterprise \n                    │ sales teams of 50+ people, complex consultative sales     \n                    │ cycle experience, VP-level sales leadership tenure, and   \n                    │ exposure to CRM/cloud/enterprise software markets. Their  \n                    │ entire career is in gemology, jewelry appraisal, and      \n                    │ luxury goods authentication—a completely different        \n                    │ industry and function. No MBA, no sales analytics         \n                    │ tooling, no P&L accountability experience.                \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ This is a fundamental mismatch. The candidate is a highly \n                    │ qualified gemologist and luxury goods authentication      \n                    │ expert, but the position requires a seasoned enterprise   \n                    │ SaaS sales executive with 12+ years of B2B sales          \n                    │ experience and proven success scaling large sales         \n                    │ organizations and managing nine-figure ARR quotas. None   \n                    │ of the candidate's skills, experience, or achievements    \n                    │ translate meaningfully to the required competencies. The  \n                    │ candidate should not be advanced for this role, though    \n                    │ they would be an excellent fit for positions in gemology, \n                    │ appraisal, or luxury auction house operations.            \n",
+              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong leadership and business \n                    │ ownership capabilities, having founded and operated       \n                    │ Jenkins Plumbing Solutions for 13 years, growing it to    \n                    │ $480K in annual revenue with 4 employees. They possess    \n                    │ transferable skills including team supervision, client    \n                    │ relationship management, project estimation, business     \n                    │ operations management, and customer service (evidenced by \n                    │ a 4.9/5 Google Reviews rating). Their experience          \n                    │ mentoring apprentices and leading teams of journeyman     \n                    │ plumbers shows coaching ability, and they have proven     \n                    │ success in a small-business P&L context.                  \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate has virtually no alignment with the core    \n                    │ requirements of this VP-level enterprise sales role.      \n                    │ Critical gaps include: no B2B SaaS or enterprise sales    \n                    │ experience (role requires 12+ years); no VP-level sales   \n                    │ leadership experience (role requires 5+ years); no track  \n                    │ record managing $100M+ ARR quotas (candidate's business   \n                    │ peaked at $480K revenue); no experience scaling sales     \n                    │ teams of 50+ (candidate managed 4 employees); no          \n                    │ experience with Fortune 500 clients, C-suite engagement,  \n                    │ or complex 6-12 month consultative sales cycles; no       \n                    │ exposure to CRM, cloud infrastructure, or enterprise      \n                    │ software markets; no Bachelor's degree (role requires it, \n                    │ MBA preferred) — candidate holds a plumbing technology    \n                    │ certificate and high school diploma; no demonstrated      \n                    │ experience with sales analytics tools, account-based      \n                    │ selling, or channel/partner sales models.                 \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is a highly accomplished master plumber and \n                    │ small-business owner but is fundamentally misaligned with \n                    │ this senior enterprise SaaS sales leadership position.    \n                    │ The role demands a seasoned VP of Sales with over a       \n                    │ decade of B2B SaaS experience, proven ability to manage   \n                    │ $180M+ ARR, and leadership of 60+ enterprise sellers —    \n                    │ none of which the candidate possesses. While they have    \n                    │ transferable soft skills such as leadership, customer     \n                    │ service, and business operations, the scale, industry,    \n                    │ and functional domain gaps are insurmountable. This is    \n                    │ not a viable match, and the candidate should not be       \n                    │ advanced for this role.                                   \n",
             data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate holds a bachelor&#x27;s degree (B.A. Art History) which satisfies the minimum educational requirement. They also demonstrate deep domain expertise, leadership of a specialized lab, and 10 years of professional experience—showing capability to lead a team, manage operational rigor (verifying 500+ items/month), and liaise with external stakeholders (private sellers). These transferable soft skills (leadership, attention to detail, stakeholder engagement) are the only tangential overlap with the role.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP/enterprise sales leadership role. They lack: B2B SaaS sales experience, any experience selling to Fortune 500 enterprises, experience managing $100M+ ARR quotas, experience building/scaling enterprise sales teams of 50+ people, complex consultative sales cycle experience, VP-level sales leadership tenure, and exposure to CRM/cloud/enterprise software markets. Their entire career is in gemology, jewelry appraisal, and luxury goods authentication—a completely different industry and function. No MBA, no sales analytics tooling, no P&amp;L accountability experience.</td></tr><tr><th>overall_assessment</th><td>This is a fundamental mismatch. The candidate is a highly qualified gemologist and luxury goods authentication expert, but the position requires a seasoned enterprise SaaS sales executive with 12+ years of B2B sales experience and proven success scaling large sales organizations and managing nine-figure ARR quotas. None of the candidate&#x27;s skills, experience, or achievements translate meaningfully to the required competencies. The candidate should not be advanced for this role, though they would be an excellent fit for positions in gemology, appraisal, or luxury auction house operations.</td></tr></table>",
+              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years, growing it to $480K in annual revenue with 4 employees. They possess transferable skills including team supervision, client relationship management, project estimation, business operations management, and customer service (evidenced by a 4.9/5 Google Reviews rating). Their experience mentoring apprentices and leading teams of journeyman plumbers shows coaching ability, and they have proven success in a small-business P&amp;L context.</td></tr><tr><th>gaps</th><td>The candidate has virtually no alignment with the core requirements of this VP-level enterprise sales role. Critical gaps include: no B2B SaaS or enterprise sales experience (role requires 12+ years); no VP-level sales leadership experience (role requires 5+ years); no track record managing $100M+ ARR quotas (candidate&#x27;s business peaked at $480K revenue); no experience scaling sales teams of 50+ (candidate managed 4 employees); no experience with Fortune 500 clients, C-suite engagement, or complex 6-12 month consultative sales cycles; no exposure to CRM, cloud infrastructure, or enterprise software markets; no Bachelor&#x27;s degree (role requires it, MBA preferred) — candidate holds a plumbing technology certificate and high school diploma; no demonstrated experience with sales analytics tools, account-based selling, or channel/partner sales models.</td></tr><tr><th>overall_assessment</th><td>The candidate is a highly accomplished master plumber and small-business owner but is fundamentally misaligned with this senior enterprise SaaS sales leadership position. The role demands a seasoned VP of Sales with over a decade of B2B SaaS experience, proven ability to manage $180M+ ARR, and leadership of 60+ enterprise sellers — none of which the candidate possesses. While they have transferable soft skills such as leadership, customer service, and business operations, the scale, industry, and functional domain gaps are insurmountable. This is not a viable match, and the candidate should not be advanced for this role.</td></tr></table>",
             extra: {},
           },
         ],
@@ -1358,6 +2294,60 @@ export const LIVE_CV_BATCH_SCREENING = {
       error: null,
       tags: {},
       metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 1,
+        nb_tokens_by_category: {
+          input: 2855,
+          output: 779,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        total_tokens: 3634,
+        cost: 0.03375,
+        cost_input: 0.014275000000000001,
+        cost_output: 0.019475,
+        by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.03375,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 1,
+        subtree_nb_tokens_by_category: {
+          input: 2855,
+          output: 779,
+          input_audio: 0,
+          input_cached: 0,
+          output_audio: 0,
+          output_reasoning: 0,
+          output_accepted_prediction: 0,
+          output_rejected_prediction: 0,
+        },
+        subtree_total_tokens: 3634,
+        subtree_cost: 0.03375,
+        subtree_cost_input: 0.014275000000000001,
+        subtree_cost_output: 0.019475,
+        subtree_by_model: [
+          {
+            inference_model_name: "claude-4.7-opus",
+            inference_model_id: "global.anthropic.claude-opus-4-7",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 1,
+            cost: 0.03375,
+          },
+        ],
+      },
       execution_data: {
         resolved_model: "@default-premium",
         resolved_model_for_object: "@default-premium",
@@ -1365,220 +2355,16 @@ export const LIVE_CV_BATCH_SCREENING = {
         rendered_system_prompt:
           "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
         rendered_user_prompt:
-          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Colored Stone Grading; Diamond Clarity & Color; Antique Jewelry Valuation; Exotic Leathers (Python, Crocodile); Synthetic Detection; gemstone identification; valuation of luxury fashion accessories; use of refractometers and microscopes; condition reporting for vintage luxury bags; cataloging of estate jewelry; liaising with private sellers.\n\n# experience: Lab Director at The Diamond Vault (2019 - Present): Leads the authentication lab, verifying over 500 items per month; specialist in distinguishing natural Burmese Rubies from flux-grown synthetics; evaluated high-end glassware and crystal antiques for auction; authored condition reports for vintage luxury bags, specifically Hermès and Chanel items in Python and Ostrich skins. Junior Appraiser at Gold & Estate Auctions (2014 - 2019): Assisted in the cataloging of estate jewelry collections; studied the architecture and design periods of Art Deco and Victorian jewelry pieces; used refractometers and microscopes to test stone properties; liaised with private sellers to establish reserve prices. Total of 10 years of experience in auction houses and high-end retail.\n\n# education: Graduate Gemologist (G.G.), Gemological Institute of America (GIA). B.A. Art History, University of Florence.\n\n# achievements: GIA Graduate Gemologist (G.G.) certification; leads authentication lab verifying over 500 items per month; recognized specialist in distinguishing natural Burmese Rubies from flux-grown synthetics.\n</candidate_profile>\n\n<job_requirements>\n# required_skills\n\n- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy\n\n# responsibilities\n\n- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n# qualifications\n\n- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor\'s degree required; MBA preferred\n\n# nice_to_haves\n\n- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
-        structuring_path: "object_direct",
-      },
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_15",
-      kind: "operator",
-      pipe_code: "analyze_match",
-      pipe_type: "PipeLLM",
-      description:
-        "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
-      domain_code: "cv_batch_screening",
-      status: "succeeded",
-      skip_reason: null,
-      timing: {
-        started_at: "2026-07-09T11:26:28.103821Z",
-        ended_at: "2026-07-09T11:26:38.206181Z",
-        duration: 10.10236,
-      },
-      io: {
-        inputs: [
-          {
-            name: "candidate_profile",
-            concept: "CandidateProfile",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "FKLbV",
-            data: {
-              skills:
-                "Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management",
-              experience:
-                "Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012 - 2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed all aspects of operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 - 2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003 - 2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total: 22 years of experience in residential and commercial plumbing.",
-              education:
-                "Plumbing Technology Certificate - Tulsa Technology Center, 2003; High School Diploma - Broken Arrow High School, 2001",
-              achievements:
-                "Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Grew Jenkins Plumbing Solutions to $480K annual revenue with 4 employees; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Trained and mentored 2 apprentice plumbers through certification programs.",
-            },
-            data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Pipe Fitting, Soldering, Blueprint Reading, Customer Service,   \n              │ Project Estimation, Team Supervision, QuickBooks, Basic Excel,  \n              │ leadership, client relationship management, business operations \n              │ management                                                      \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK \n              │ (2012 - 2025): Founded and operated a plumbing business with 4  \n              │ employees, growing annual revenue to $480K; managed all aspects \n              │ of operations including scheduling, client relationships,       \n              │ invoicing, and procurement; specialized in residential          \n              │ renovations and commercial bathroom installations; maintained a \n              │ 4.9/5 rating on Google Reviews with 200+ satisfied customers.   \n              │ Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 -   \n              │ 2012): Led a team of 3 journeyman plumbers on commercial        \n              │ plumbing projects; handled estimates and client consultations   \n              │ for projects valued up to $50K; trained and mentored 2          \n              │ apprentice plumbers through their certification programs.       \n              │ Apprentice to Journeyman Plumber at RotoRooter Franchise,       \n              │ Broken Arrow, OK (2003 - 2006): Completed apprenticeship        \n              │ program and earned journeyman certification; performed          \n              │ emergency service calls, drain cleaning, and water heater       \n              │ installations; recognized as Employee of the Quarter twice for  \n              │ outstanding customer service. Total: 22 years of experience in  \n              │ residential and commercial plumbing.                            \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Plumbing Technology Certificate - Tulsa Technology Center,      \n              │ 2003; High School Diploma - Broken Arrow High School, 2001      \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Oklahoma Master Plumber License; OSHA 30-Hour Construction      \n              │ Safety; Backflow Prevention Certification; EPA Section 608      \n              │ Certification; Grew Jenkins Plumbing Solutions to $480K annual  \n              │ revenue with 4 employees; Maintained 4.9/5 Google Reviews       \n              │ rating with 200+ satisfied customers; Recognized as Employee of \n              │ the Quarter twice at RotoRooter Franchise; Trained and mentored \n              │ 2 apprentice plumbers through certification programs.           \n",
-            data_html:
-              "<table><tr><th>skills</th><td>Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management</td></tr><tr><th>experience</th><td>Owner &amp; Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012 - 2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed all aspects of operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 - 2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003 - 2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total: 22 years of experience in residential and commercial plumbing.</td></tr><tr><th>education</th><td>Plumbing Technology Certificate - Tulsa Technology Center, 2003; High School Diploma - Broken Arrow High School, 2001</td></tr><tr><th>achievements</th><td>Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Grew Jenkins Plumbing Solutions to $480K annual revenue with 4 employees; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Trained and mentored 2 apprentice plumbers through certification programs.</td></tr></table>",
-            extra: {},
-          },
-          {
-            name: "job_requirements",
-            concept: "JobRequirements",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "AkKjo",
-            data: {
-              required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
-              responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
-              qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
-              nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
-            },
-            data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
-            data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
-            extra: {},
-          },
-        ],
-        outputs: [
-          {
-            name: "match_analysis",
-            concept: "CandidateMatch",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "8DXzc-branch-0",
-            data: {
-              match_score: 3,
-              strengths:
-                "The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.",
-              gaps: "The candidate's background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor's degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.",
-              overall_assessment:
-                "The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor's/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.",
-            },
-            data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates strong leadership and business \n                    │ ownership capabilities, having founded and operated       \n                    │ Jenkins Plumbing Solutions for 13 years and grown it to   \n                    │ $480K in annual revenue. He has experience managing small \n                    │ teams (up to 4 employees), client relationship            \n                    │ management, project estimation, and business operations.  \n                    │ His track record of maintaining a 4.9/5 customer rating   \n                    │ and mentoring apprentices shows people development skills \n                    │ and customer focus. He also has 22 years of progressive   \n                    │ experience in his field, indicating consistency and       \n                    │ dedication.                                               \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate's background is in the skilled trades       \n                    │ (plumbing), which is fundamentally misaligned with the    \n                    │ requirements of this executive SaaS sales role. Critical  \n                    │ gaps include: no B2B SaaS sales experience, no experience \n                    │ selling to Fortune 500 or C-suite buyers, no experience   \n                    │ managing enterprise sales teams of 50+ people (his        \n                    │ largest team was 4), no experience managing $100M+ ARR    \n                    │ quotas (his business revenue was $480K), no VP-level      \n                    │ leadership experience at a corporate scale, no            \n                    │ consultative enterprise sales cycle experience, and no    \n                    │ bachelor's degree or MBA (holds a Plumbing Technology     \n                    │ Certificate and high school diploma). He lacks exposure   \n                    │ to CRM platforms, sales analytics tools, cloud/enterprise \n                    │ software markets, and formal change management or         \n                    │ organizational development at scale.                      \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is not a suitable fit for this VP of        \n                    │ Enterprise Sales role. While he is an accomplished master \n                    │ plumber and small business owner with genuine leadership, \n                    │ customer service, and operational skills, virtually none  \n                    │ of the core qualifications for this executive SaaS sales  \n                    │ position are met. The scale of team leadership ($480K     \n                    │ revenue vs. $180M+ ARR; 4 employees vs. 60+ sales         \n                    │ professionals), industry background (skilled trades vs.   \n                    │ enterprise SaaS), and educational requirements (trade     \n                    │ certificate vs. bachelor's/MBA) all represent fundamental \n                    │ mismatches. This candidate should not advance in the      \n                    │ screening process for this role.                          \n",
-            data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates strong leadership and business ownership capabilities, having founded and operated Jenkins Plumbing Solutions for 13 years and grown it to $480K in annual revenue. He has experience managing small teams (up to 4 employees), client relationship management, project estimation, and business operations. His track record of maintaining a 4.9/5 customer rating and mentoring apprentices shows people development skills and customer focus. He also has 22 years of progressive experience in his field, indicating consistency and dedication.</td></tr><tr><th>gaps</th><td>The candidate&#x27;s background is in the skilled trades (plumbing), which is fundamentally misaligned with the requirements of this executive SaaS sales role. Critical gaps include: no B2B SaaS sales experience, no experience selling to Fortune 500 or C-suite buyers, no experience managing enterprise sales teams of 50+ people (his largest team was 4), no experience managing $100M+ ARR quotas (his business revenue was $480K), no VP-level leadership experience at a corporate scale, no consultative enterprise sales cycle experience, and no bachelor&#x27;s degree or MBA (holds a Plumbing Technology Certificate and high school diploma). He lacks exposure to CRM platforms, sales analytics tools, cloud/enterprise software markets, and formal change management or organizational development at scale.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP of Enterprise Sales role. While he is an accomplished master plumber and small business owner with genuine leadership, customer service, and operational skills, virtually none of the core qualifications for this executive SaaS sales position are met. The scale of team leadership ($480K revenue vs. $180M+ ARR; 4 employees vs. 60+ sales professionals), industry background (skilled trades vs. enterprise SaaS), and educational requirements (trade certificate vs. bachelor&#x27;s/MBA) all represent fundamental mismatches. This candidate should not advance in the screening process for this role.</td></tr></table>",
-            extra: {},
-          },
-        ],
-      },
-      error: null,
-      tags: {},
-      metrics: {},
-      execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
-        is_multiple_output: false,
-        rendered_system_prompt:
-          "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        rendered_user_prompt:
-          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management\n\n# experience: Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012 - 2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed all aspects of operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006 - 2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003 - 2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total: 22 years of experience in residential and commercial plumbing.\n\n# education: Plumbing Technology Certificate - Tulsa Technology Center, 2003; High School Diploma - Broken Arrow High School, 2001\n\n# achievements: Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Grew Jenkins Plumbing Solutions to $480K annual revenue with 4 employees; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Trained and mentored 2 apprentice plumbers through certification programs.\n</candidate_profile>\n\n<job_requirements>\n# required_skills\n\n- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy\n\n# responsibilities\n\n- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n# qualifications\n\n- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor\'s degree required; MBA preferred\n\n# nice_to_haves\n\n- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
-        structuring_path: "object_direct",
-      },
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_16",
-      kind: "operator",
-      pipe_code: "analyze_match",
-      pipe_type: "PipeLLM",
-      description:
-        "Evaluates how well the candidate matches the job requirements, calculating a match score and identifying strengths and gaps\n",
-      domain_code: "cv_batch_screening",
-      status: "succeeded",
-      skip_reason: null,
-      timing: {
-        started_at: "2026-07-09T11:26:28.198067Z",
-        ended_at: "2026-07-09T11:26:37.632521Z",
-        duration: 9.434454,
-      },
-      io: {
-        inputs: [
-          {
-            name: "candidate_profile",
-            concept: "CandidateProfile",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "YbahA",
-            data: {
-              skills:
-                "Graphic design, apparel print design, trend awareness, visual merchandising and display creation, inventory control, retail sales, customer service, membership and retail sales, organizational skills, operational management, client communication, event marketing/promotion, cash handling, leadership, training and mentoring coworkers.",
-              experience:
-                "American Eagle - Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers; scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach - Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items and analyzed unsuccessful merchandise in a retail market; offered advice and assistance to guests.\n\nVictoria's Secret - Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in training coworkers; set up mannequins and displays; provided superior customer service; took seasonal inventory.\n\nVolunteer: Target Corporation - Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.",
-              education:
-                "Bachelor of Science in Graphic Design, University of Minnesota, College of Design (May 2011). Cumulative GPA 3.93, Dean's List. Recipient of the Twin Cities Iron Range Scholarship.",
-              achievements:
-                "Cumulative GPA 3.93 and Dean's List at the University of Minnesota; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.",
-            },
-            data_text:
-              " Attribute    ┃ Value                                                           \n━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n skills       │ Graphic design, apparel print design, trend awareness, visual   \n              │ merchandising and display creation, inventory control, retail   \n              │ sales, customer service, membership and retail sales,           \n              │ organizational skills, operational management, client           \n              │ communication, event marketing/promotion, cash handling,        \n              │ leadership, training and mentoring coworkers.                   \n──────────────┼─────────────────────────────────────────────────────────────────\n experience   │ American Eagle - Sales Associate (July 2009 - present):         \n              │ Collaborated with the store merchandiser creating displays to   \n              │ attract clientele; used trend awareness to assist customers;    \n              │ scanned merchandise for inventory control; processed shipment   \n              │ to increase product knowledge.                                  \n              │                                                                 \n              │ Planet Beach - Spa Consultant (Aug. 2008 - present): Sold       \n              │ retail and memberships to meet company sales goals;             \n              │ single-handedly ran all operating procedures; communicated with \n              │ clients to fulfill their needs; attended promotional events to  \n              │ market services; handled cash and deposits during opening and   \n              │ closing.                                                        \n              │                                                                 \n              │ Heartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked  \n              │ sales floor with fast fashion inventory; marked down items and  \n              │ analyzed unsuccessful merchandise in a retail market; offered   \n              │ advice and assistance to guests.                                \n              │                                                                 \n              │ Victoria's Secret - Fashion Representative (Jan. 2006 - Feb.    \n              │ 2009): Assisted in training coworkers; set up mannequins and    \n              │ displays; provided superior customer service; took seasonal     \n              │ inventory.                                                      \n              │                                                                 \n              │ Volunteer: Target Corporation - Brand Ambassador (August 2009): \n              │ Represented Periscope Marketing and Target Inc. at a college    \n              │ event; engaged University of Minnesota freshmen in the Target   \n              │ brand experience.                                               \n──────────────┼─────────────────────────────────────────────────────────────────\n education    │ Bachelor of Science in Graphic Design, University of Minnesota, \n              │ College of Design (May 2011). Cumulative GPA 3.93, Dean's List. \n              │ Recipient of the Twin Cities Iron Range Scholarship.            \n──────────────┼─────────────────────────────────────────────────────────────────\n achievements │ Cumulative GPA 3.93 and Dean's List at the University of        \n              │ Minnesota; recipient of the Twin Cities Iron Range Scholarship; \n              │ received Employee of the Month award twice at Planet Beach.     \n",
-            data_html:
-              "<table><tr><th>skills</th><td>Graphic design, apparel print design, trend awareness, visual merchandising and display creation, inventory control, retail sales, customer service, membership and retail sales, organizational skills, operational management, client communication, event marketing/promotion, cash handling, leadership, training and mentoring coworkers.</td></tr><tr><th>experience</th><td>American Eagle - Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers; scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach - Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items and analyzed unsuccessful merchandise in a retail market; offered advice and assistance to guests.\n\nVictoria&#x27;s Secret - Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in training coworkers; set up mannequins and displays; provided superior customer service; took seasonal inventory.\n\nVolunteer: Target Corporation - Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.</td></tr><tr><th>education</th><td>Bachelor of Science in Graphic Design, University of Minnesota, College of Design (May 2011). Cumulative GPA 3.93, Dean&#x27;s List. Recipient of the Twin Cities Iron Range Scholarship.</td></tr><tr><th>achievements</th><td>Cumulative GPA 3.93 and Dean&#x27;s List at the University of Minnesota; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.</td></tr></table>",
-            extra: {},
-          },
-          {
-            name: "job_requirements",
-            concept: "JobRequirements",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "AkKjo",
-            data: {
-              required_skills:
-                "- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy",
-              responsibilities:
-                "- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity",
-              qualifications:
-                "- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor's degree required; MBA preferred",
-              nice_to_haves:
-                "- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred",
-            },
-            data_text:
-              " Attribute        ┃ Value                                                       \n━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n required_skills  │ - Strong executive presence with ability to engage C-suite  \n                  │ buyers                                                      \n                  │ - Complex, consultative sales expertise (6-12 month sales   \n                  │ cycles)                                                     \n                  │ - Building and scaling enterprise sales teams (50+ people)  \n                  │ - Managing large ARR quotas ($100M+) and exceeding targets  \n                  │ - SaaS solution selling to Fortune 500 enterprises          \n                  │ - Strategic thinking and business acumen                    \n                  │ - Exceptional communication and executive presence          \n                  │ - Data-driven decision making                               \n                  │ - Change management and organizational development          \n                  │ - Cross-functional collaboration                            \n                  │ - Diversity, equity, and inclusion advocacy                 \n──────────────────┼─────────────────────────────────────────────────────────────\n responsibilities │ - Lead & Scale: Build and develop a high-performing team of \n                  │ 60+ enterprise sales professionals across multiple regions  \n                  │ - Drive Revenue: Own and deliver $180M+ ARR with full P&L   \n                  │ accountability and strategic planning responsibility        \n                  │ - Strategic Execution: Develop and implement sales          \n                  │ strategies that accelerate pipeline growth and increase win \n                  │ rates                                                       \n                  │ - Customer Relationships: Build and maintain executive      \n                  │ relationships with C-level stakeholders at largest accounts \n                  │ - Sales Excellence: Drive operational rigor through         \n                  │ accurate forecasting, process optimization, and data-driven \n                  │ decision making                                             \n                  │ - Talent Development: Coach, mentor, and develop the next   \n                  │ generation of sales leaders                                 \n                  │ - Cross-functional Leadership: Partner with Product,        \n                  │ Marketing, Customer Success, and Channel teams to deliver   \n                  │ integrated solutions                                        \n                  │ - Innovation: Champion new sales methodologies, tools, and  \n                  │ approaches that improve team productivity                   \n──────────────────┼─────────────────────────────────────────────────────────────\n qualifications   │ - 12+ years of progressive B2B sales experience with at     \n                  │ least 5 years in VP-level or equivalent leadership roles    \n                  │ - Proven track record of building and scaling enterprise    \n                  │ sales teams of 50+ people                                   \n                  │ - Demonstrated success managing $100M+ ARR quotas and       \n                  │ consistently exceeding targets                              \n                  │ - Deep expertise in complex, consultative sales with 6-12   \n                  │ month sales cycles                                          \n                  │ - Experience selling SaaS solutions to Fortune 500          \n                  │ enterprises                                                 \n                  │ - Bachelor's degree required; MBA preferred                 \n──────────────────┼─────────────────────────────────────────────────────────────\n nice_to_haves    │ - Experience in CRM, cloud infrastructure, or enterprise    \n                  │ software markets                                            \n                  │ - Track record of building sales teams from early stage     \n                  │ through scale                                               \n                  │ - Expertise in account-based selling and strategic account  \n                  │ management                                                  \n                  │ - Strong analytical skills with proficiency in ACME, sales  \n                  │ analytics tools                                             \n                  │ - History of developing talent - multiple direct reports    \n                  │ promoted to leadership roles                                \n                  │ - Experience with channel/partner sales models              \n                  │ - Passion for coaching and developing high-performing teams \n                  │ - MBA preferred                                             \n",
-            data_html:
-              "<table><tr><th>required_skills</th><td>- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy</td></tr><tr><th>responsibilities</th><td>- Lead &amp; Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&amp;L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity</td></tr><tr><th>qualifications</th><td>- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor&#x27;s degree required; MBA preferred</td></tr><tr><th>nice_to_haves</th><td>- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred</td></tr></table>",
-            extra: {},
-          },
-        ],
-        outputs: [
-          {
-            name: "match_analysis",
-            concept: "CandidateMatch",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "8DXzc-branch-2",
-            data: {
-              match_score: 3,
-              strengths:
-                "The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean's List, and scholarship recipient), which satisfies the basic bachelor's degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria's Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.",
-              gaps: "The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.",
-              overall_assessment:
-                "The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.",
-            },
-            data_text:
-              " Attribute          ┃ Value                                                     \n━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n match_score        │ 3.0                                                       \n────────────────────┼───────────────────────────────────────────────────────────\n strengths          │ The candidate demonstrates a strong academic record       \n                    │ (Bachelor of Science in Graphic Design, cumulative GPA of \n                    │ 3.93, Dean's List, and scholarship recipient), which      \n                    │ satisfies the basic bachelor's degree requirement. She    \n                    │ has consistent retail work experience showing customer    \n                    │ service skills, client communication, cash handling, and  \n                    │ some exposure to sales goals (retail and membership sales \n                    │ at Planet Beach). She has also gained light experience in \n                    │ training and mentoring coworkers at Victoria's Secret,    \n                    │ and event marketing/promotion through her Target brand    \n                    │ ambassador volunteer role, which loosely align with the   \n                    │ coaching/mentoring and cross-functional collaboration     \n                    │ themes of the role.                                       \n────────────────────┼───────────────────────────────────────────────────────────\n gaps               │ The candidate falls dramatically short of the core        \n                    │ requirements for this senior enterprise sales leadership  \n                    │ position. She has no B2B sales experience, no SaaS or     \n                    │ enterprise software background, and no experience selling \n                    │ to Fortune 500 companies or engaging C-suite buyers. She  \n                    │ has never managed ARR quotas (the role requires           \n                    │ $100M+/$180M+), has no experience with complex 6-12 month \n                    │ consultative sales cycles, and has never built or scaled  \n                    │ an enterprise sales team of 50+ people. She lacks the     \n                    │ required 12+ years of progressive B2B sales experience    \n                    │ and 5+ years in VP-level leadership roles—her background  \n                    │ is entirely in entry-level retail sales associate         \n                    │ positions. She also lacks demonstrated experience with    \n                    │ P&L accountability, forecasting, sales analytics tools,   \n                    │ account-based selling, channel/partner sales models, and  \n                    │ does not have an MBA.                                     \n────────────────────┼───────────────────────────────────────────────────────────\n overall_assessment │ The candidate is not a suitable fit for this VP-level     \n                    │ enterprise sales leadership role. Her background is in    \n                    │ retail sales associate and graphic design roles, while    \n                    │ the position requires a seasoned executive with 12+ years \n                    │ of B2B SaaS sales experience, proven leadership of large  \n                    │ enterprise sales teams, and a track record of managing    \n                    │ $100M+ ARR quotas. The mismatch in seniority, industry,   \n                    │ and scope of responsibility is significant, and she       \n                    │ should not advance in this recruitment process. She may,  \n                    │ however, be a strong candidate for entry-level design,    \n                    │ retail, or junior sales development roles.                \n",
-            data_html:
-              "<table><tr><th>match_score</th><td>3.0</td></tr><tr><th>strengths</th><td>The candidate demonstrates a strong academic record (Bachelor of Science in Graphic Design, cumulative GPA of 3.93, Dean&#x27;s List, and scholarship recipient), which satisfies the basic bachelor&#x27;s degree requirement. She has consistent retail work experience showing customer service skills, client communication, cash handling, and some exposure to sales goals (retail and membership sales at Planet Beach). She has also gained light experience in training and mentoring coworkers at Victoria&#x27;s Secret, and event marketing/promotion through her Target brand ambassador volunteer role, which loosely align with the coaching/mentoring and cross-functional collaboration themes of the role.</td></tr><tr><th>gaps</th><td>The candidate falls dramatically short of the core requirements for this senior enterprise sales leadership position. She has no B2B sales experience, no SaaS or enterprise software background, and no experience selling to Fortune 500 companies or engaging C-suite buyers. She has never managed ARR quotas (the role requires $100M+/$180M+), has no experience with complex 6-12 month consultative sales cycles, and has never built or scaled an enterprise sales team of 50+ people. She lacks the required 12+ years of progressive B2B sales experience and 5+ years in VP-level leadership roles—her background is entirely in entry-level retail sales associate positions. She also lacks demonstrated experience with P&amp;L accountability, forecasting, sales analytics tools, account-based selling, channel/partner sales models, and does not have an MBA.</td></tr><tr><th>overall_assessment</th><td>The candidate is not a suitable fit for this VP-level enterprise sales leadership role. Her background is in retail sales associate and graphic design roles, while the position requires a seasoned executive with 12+ years of B2B SaaS sales experience, proven leadership of large enterprise sales teams, and a track record of managing $100M+ ARR quotas. The mismatch in seniority, industry, and scope of responsibility is significant, and she should not advance in this recruitment process. She may, however, be a strong candidate for entry-level design, retail, or junior sales development roles.</td></tr></table>",
-            extra: {},
-          },
-        ],
-      },
-      error: null,
-      tags: {},
-      metrics: {},
-      execution_data: {
-        resolved_model: "@default-premium",
-        resolved_model_for_object: "@default-premium",
-        is_multiple_output: false,
-        rendered_system_prompt:
-          "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.",
-        rendered_user_prompt:
-          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Graphic design, apparel print design, trend awareness, visual merchandising and display creation, inventory control, retail sales, customer service, membership and retail sales, organizational skills, operational management, client communication, event marketing/promotion, cash handling, leadership, training and mentoring coworkers.\n\n# experience\n\nAmerican Eagle - Sales Associate (July 2009 - present): Collaborated with the store merchandiser creating displays to attract clientele; used trend awareness to assist customers; scanned merchandise for inventory control; processed shipment to increase product knowledge.\n\nPlanet Beach - Spa Consultant (Aug. 2008 - present): Sold retail and memberships to meet company sales goals; single-handedly ran all operating procedures; communicated with clients to fulfill their needs; attended promotional events to market services; handled cash and deposits during opening and closing.\n\nHeartbreaker - Sales Associate (May 2008 - Aug. 2008): Stocked sales floor with fast fashion inventory; marked down items and analyzed unsuccessful merchandise in a retail market; offered advice and assistance to guests.\n\nVictoria\'s Secret - Fashion Representative (Jan. 2006 - Feb. 2009): Assisted in training coworkers; set up mannequins and displays; provided superior customer service; took seasonal inventory.\n\nVolunteer: Target Corporation - Brand Ambassador (August 2009): Represented Periscope Marketing and Target Inc. at a college event; engaged University of Minnesota freshmen in the Target brand experience.\n\n# education: Bachelor of Science in Graphic Design, University of Minnesota, College of Design (May 2011). Cumulative GPA 3.93, Dean\'s List. Recipient of the Twin Cities Iron Range Scholarship.\n\n# achievements: Cumulative GPA 3.93 and Dean\'s List at the University of Minnesota; recipient of the Twin Cities Iron Range Scholarship; received Employee of the Month award twice at Planet Beach.\n</candidate_profile>\n\n<job_requirements>\n# required_skills\n\n- Strong executive presence with ability to engage C-suite buyers\n- Complex, consultative sales expertise (6-12 month sales cycles)\n- Building and scaling enterprise sales teams (50+ people)\n- Managing large ARR quotas ($100M+) and exceeding targets\n- SaaS solution selling to Fortune 500 enterprises\n- Strategic thinking and business acumen\n- Exceptional communication and executive presence\n- Data-driven decision making\n- Change management and organizational development\n- Cross-functional collaboration\n- Diversity, equity, and inclusion advocacy\n\n# responsibilities\n\n- Lead & Scale: Build and develop a high-performing team of 60+ enterprise sales professionals across multiple regions\n- Drive Revenue: Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility\n- Strategic Execution: Develop and implement sales strategies that accelerate pipeline growth and increase win rates\n- Customer Relationships: Build and maintain executive relationships with C-level stakeholders at largest accounts\n- Sales Excellence: Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making\n- Talent Development: Coach, mentor, and develop the next generation of sales leaders\n- Cross-functional Leadership: Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions\n- Innovation: Champion new sales methodologies, tools, and approaches that improve team productivity\n\n# qualifications\n\n- 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles\n- Proven track record of building and scaling enterprise sales teams of 50+ people\n- Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets\n- Deep expertise in complex, consultative sales with 6-12 month sales cycles\n- Experience selling SaaS solutions to Fortune 500 enterprises\n- Bachelor\'s degree required; MBA preferred\n\n# nice_to_haves\n\n- Experience in CRM, cloud infrastructure, or enterprise software markets\n- Track record of building sales teams from early stage through scale\n- Expertise in account-based selling and strategic account management\n- Strong analytical skills with proficiency in ACME, sales analytics tools\n- History of developing talent - multiple direct reports promoted to leadership roles\n- Experience with channel/partner sales models\n- Passion for coaching and developing high-performing teams\n- MBA preferred\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Analyze how well the candidate matches the job requirements. Evaluate their fit by comparing their skills, experience, and qualifications against what the position demands.\n\n<candidate_profile>\n# skills: Pipe Fitting, Soldering, Blueprint Reading, Customer Service, Project Estimation, Team Supervision, QuickBooks, Basic Excel, leadership, client relationship management, business operations management.\n\n# experience: Owner & Master Plumber at Jenkins Plumbing Solutions, Tulsa, OK (2012-2025): Founded and operated a plumbing business with 4 employees, growing annual revenue to $480K; managed operations including scheduling, client relationships, invoicing, and procurement; specialized in residential renovations and commercial bathroom installations; maintained a 4.9/5 rating on Google Reviews with 200+ satisfied customers. Senior Plumber at Tulsa Metro Plumbing Co., Tulsa, OK (2006-2012): Led a team of 3 journeyman plumbers on commercial plumbing projects; handled estimates and client consultations for projects valued up to $50K; trained and mentored 2 apprentice plumbers through their certification programs. Apprentice to Journeyman Plumber at RotoRooter Franchise, Broken Arrow, OK (2003-2006): Completed apprenticeship program and earned journeyman certification; performed emergency service calls, drain cleaning, and water heater installations; recognized as Employee of the Quarter twice for outstanding customer service. Total of 22 years experience in residential and commercial plumbing.\n\n# education: Plumbing Technology Certificate - Tulsa Technology Center, 2003. High School Diploma - Broken Arrow High School, 2001.\n\n# achievements: Oklahoma Master Plumber License; OSHA 30-Hour Construction Safety; Backflow Prevention Certification; EPA Section 608 Certification; Maintained 4.9/5 Google Reviews rating with 200+ satisfied customers; Grew business revenue to $480K annually; Recognized as Employee of the Quarter twice at RotoRooter Franchise; Successfully mentored 2 apprentice plumbers through certification.\n</candidate_profile>\n\n<job_requirements>\n# required_skills: Deep expertise in complex, consultative sales with 6-12 month sales cycles; strong executive presence with ability to engage C-suite buyers; strategic thinking and business acumen; exceptional communication and executive presence; data-driven decision making; change management and organizational development; cross-functional collaboration; diversity, equity, and inclusion advocacy.\n\n# responsibilities: Lead and scale a high-performing team of 60+ enterprise sales professionals across multiple regions. Own and deliver $180M+ ARR with full P&L accountability and strategic planning responsibility. Develop and implement sales strategies that accelerate pipeline growth and increase win rates. Build and maintain executive relationships with C-level stakeholders at largest accounts. Drive operational rigor through accurate forecasting, process optimization, and data-driven decision making. Coach, mentor, and develop the next generation of sales leaders. Partner with Product, Marketing, Customer Success, and Channel teams to deliver integrated solutions. Champion new sales methodologies, tools, and approaches that improve team productivity.\n\n# qualifications: 12+ years of progressive B2B sales experience with at least 5 years in VP-level or equivalent leadership roles. Proven track record of building and scaling enterprise sales teams of 50+ people. Demonstrated success managing $100M+ ARR quotas and consistently exceeding targets. Experience selling SaaS solutions to Fortune 500 enterprises. Bachelor\'s degree required; MBA preferred.\n\n# nice_to_haves: Experience in CRM, cloud infrastructure, or enterprise software markets; track record of building sales teams from early stage through scale; expertise in account-based selling and strategic account management; strong analytical skills with proficiency in ACME, sales analytics tools; history of developing talent with multiple direct reports promoted to leadership roles; experience with channel/partner sales models; passion for coaching and developing high-performing teams; MBA.\n</job_requirements>\n\nProvide a comprehensive match analysis including a numerical score, identified strengths, gaps, and an overall assessment.\n\n---\nThe instance we want to generate will be for the following class:\nclass cv_batch_screening__CandidateMatch(StructuredContent):\n    """An evaluation of how well a candidate fits a job position."""\n    match_score: float  # Numerical score representing overall fit percentage between 0 and 100\n    strengths: str  # Areas where the candidate meets or exceeds requirements\n    gaps: str  # Areas where the candidate falls short of requirements\n    overall_assessment: str  # Summary evaluation of the candidate\'s suitability\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
   ],
   edges: [
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_0",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_0",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_0",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_0",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -1587,9 +2373,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_1",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_2",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_1",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -1598,9 +2384,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_2",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_3",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_2",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -1609,9 +2395,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_3",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_0",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_3",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_0",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -1620,9 +2406,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_4",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_4",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -1631,9 +2417,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_5",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_6",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_5",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -1642,9 +2428,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_6",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_6",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -1653,9 +2439,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_7",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_8",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_7",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -1664,9 +2450,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_8",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_8",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
       kind: "contains",
       optional: false,
       label: null,
@@ -1675,9 +2461,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_9",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_10",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_9",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_10",
       kind: "contains",
       optional: false,
       label: null,
@@ -1686,9 +2472,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_10",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_11",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_10",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_11",
       kind: "contains",
       optional: false,
       label: null,
@@ -1697,9 +2483,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_11",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_12",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_11",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_12",
       kind: "contains",
       optional: false,
       label: null,
@@ -1708,9 +2494,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_12",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_13",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_12",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_13",
       kind: "contains",
       optional: false,
       label: null,
@@ -1719,9 +2505,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_13",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_14",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_13",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_14",
       kind: "contains",
       optional: false,
       label: null,
@@ -1730,9 +2516,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_14",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_15",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_14",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_15",
       kind: "contains",
       optional: false,
       label: null,
@@ -1741,9 +2527,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:edge_15",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_16",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:edge_15",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_16",
       kind: "contains",
       optional: false,
       label: null,
@@ -1752,9 +2538,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_0",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_2",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_3",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_0",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_2",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_3",
       kind: "data",
       optional: false,
       label: "job_offer_pages",
@@ -1763,9 +2549,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_1",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_1",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
       kind: "data",
       optional: false,
       label: "job_requirements",
@@ -1774,9 +2560,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_2",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_2",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
       kind: "data",
       optional: false,
       label: "job_requirements",
@@ -1785,9 +2571,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_3",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_3",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
       kind: "data",
       optional: false,
       label: "job_requirements",
@@ -1796,9 +2582,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_4",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_8",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_11",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_4",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_10",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_11",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1807,9 +2593,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_5",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_10",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_12",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_5",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_8",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_12",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1818,9 +2604,53 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_6",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_6",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_13",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_6",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_12",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_13",
+      kind: "data",
+      optional: false,
+      label: "candidate_profile",
+      source_stuff_digest: null,
+      target_stuff_digest: null,
+      meta: {},
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_7",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_13",
+      kind: "data",
+      optional: false,
+      label: "job_requirements",
+      source_stuff_digest: null,
+      target_stuff_digest: null,
+      meta: {},
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_8",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_11",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_14",
+      kind: "data",
+      optional: false,
+      label: "candidate_profile",
+      source_stuff_digest: null,
+      target_stuff_digest: null,
+      meta: {},
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_9",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_14",
+      kind: "data",
+      optional: false,
+      label: "job_requirements",
+      source_stuff_digest: null,
+      target_stuff_digest: null,
+      meta: {},
+    },
+    {
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_10",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_6",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_15",
       kind: "data",
       optional: false,
       label: "cv_pages",
@@ -1829,9 +2659,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_7",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_11",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_14",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_11",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_15",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_16",
       kind: "data",
       optional: false,
       label: "candidate_profile",
@@ -1840,9 +2670,9 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_8",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_14",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_12",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_1",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_16",
       kind: "data",
       optional: false,
       label: "job_requirements",
@@ -1851,149 +2681,195 @@ export const LIVE_CV_BATCH_SCREENING = {
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_9",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_13",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_15",
-      kind: "data",
-      optional: false,
-      label: "candidate_profile",
-      source_stuff_digest: null,
-      target_stuff_digest: null,
-      meta: {},
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_10",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_15",
-      kind: "data",
-      optional: false,
-      label: "job_requirements",
-      source_stuff_digest: null,
-      target_stuff_digest: null,
-      meta: {},
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_11",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_12",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_16",
-      kind: "data",
-      optional: false,
-      label: "candidate_profile",
-      source_stuff_digest: null,
-      target_stuff_digest: null,
-      meta: {},
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_12",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_1",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_16",
-      kind: "data",
-      optional: false,
-      label: "job_requirements",
-      source_stuff_digest: null,
-      target_stuff_digest: null,
-      meta: {},
-    },
-    {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_13",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_13",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
       kind: "batch_item",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-0",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-0",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_14",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_6",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_14",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_6",
       kind: "batch_item",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-0",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-0",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_15",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_15",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
       kind: "batch_item",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-1",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-1",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_16",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_8",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_16",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_8",
       kind: "batch_item",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-1",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-1",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_17",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_17",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
       kind: "batch_item",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-2",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-2",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_18",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_10",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_18",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_10",
       kind: "batch_item",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "m3h4P",
-      target_stuff_digest: "m3h4P-branch-2",
+      source_stuff_digest: "7Edkx",
+      target_stuff_digest: "7Edkx-branch-2",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_19",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_5",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_19",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_5",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
       kind: "batch_aggregate",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "8DXzc-branch-0",
-      target_stuff_digest: "PKb9B",
+      source_stuff_digest: "VZkBb-branch-0",
+      target_stuff_digest: "WoFRv",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_20",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_7",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_20",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_7",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
       kind: "batch_aggregate",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "8DXzc-branch-1",
-      target_stuff_digest: "PKb9B",
+      source_stuff_digest: "VZkBb-branch-1",
+      target_stuff_digest: "WoFRv",
       meta: {},
     },
     {
-      id: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:asm_edge_21",
-      source: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_9",
-      target: "0493c29c-c88a-4de3-bfad-2ff9c1d07ce2:node_4",
+      id: "f0a3672d-cc04-473b-8d75-49d4a822f75f:asm_edge_21",
+      source: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_9",
+      target: "f0a3672d-cc04-473b-8d75-49d4a822f75f:node_4",
       kind: "batch_aggregate",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "8DXzc-branch-2",
-      target_stuff_digest: "PKb9B",
+      source_stuff_digest: "VZkBb-branch-2",
+      target_stuff_digest: "WoFRv",
       meta: {},
     },
   ],
+  usage: {
+    total: {
+      inference_calls: 11,
+      rated_inference_calls: 11,
+      nb_tokens_by_category: {
+        input: 5017809,
+        output: 5005171,
+        input_audio: 0,
+        input_cached: 0,
+        output_audio: 0,
+        output_reasoning: 0,
+        output_accepted_prediction: 0,
+        output_rejected_prediction: 0,
+      },
+      total_tokens: 10022980,
+      cost: 0.26832,
+      cost_input: 0.13904500000000003,
+      cost_output: 0.129275,
+      by_model: [
+        {
+          inference_model_name: "claude-4.7-opus",
+          inference_model_id: "global.anthropic.claude-opus-4-7",
+          model_type: "llm",
+          inference_calls: 7,
+          rated_inference_calls: 7,
+          cost: 0.21832000000000001,
+        },
+        {
+          inference_model_name: "azure-document-intelligence",
+          inference_model_id: "adi/prebuilt-layout",
+          model_type: "extract",
+          inference_calls: 4,
+          rated_inference_calls: 4,
+          cost: 0.05,
+        },
+      ],
+      subtree_inference_calls: 11,
+      subtree_rated_inference_calls: 11,
+      subtree_nb_tokens_by_category: {
+        input: 5017809,
+        output: 5005171,
+        input_audio: 0,
+        input_cached: 0,
+        output_audio: 0,
+        output_reasoning: 0,
+        output_accepted_prediction: 0,
+        output_rejected_prediction: 0,
+      },
+      subtree_total_tokens: 10022980,
+      subtree_cost: 0.26832,
+      subtree_cost_input: 0.13904500000000003,
+      subtree_cost_output: 0.129275,
+      subtree_by_model: [
+        {
+          inference_model_name: "claude-4.7-opus",
+          inference_model_id: "global.anthropic.claude-opus-4-7",
+          model_type: "llm",
+          inference_calls: 7,
+          rated_inference_calls: 7,
+          cost: 0.21832000000000001,
+        },
+        {
+          inference_model_name: "azure-document-intelligence",
+          inference_model_id: "adi/prebuilt-layout",
+          model_type: "extract",
+          inference_calls: 4,
+          rated_inference_calls: 4,
+          cost: 0.05,
+        },
+      ],
+    },
+    unattributed: {
+      inference_calls: 0,
+      rated_inference_calls: 0,
+      nb_tokens_by_category: {},
+      total_tokens: 0,
+      cost: null,
+      cost_input: null,
+      cost_output: null,
+      by_model: [],
+      subtree_inference_calls: 0,
+      subtree_rated_inference_calls: 0,
+      subtree_nb_tokens_by_category: {},
+      subtree_total_tokens: 0,
+      subtree_cost: null,
+      subtree_cost_input: null,
+      subtree_cost_output: null,
+      subtree_by_model: [],
+    },
+  },
   meta: { format: "mthds", mode: "live" },
   pipe_registry: {
     "cv_batch_screening.batch_analyze_cvs_for_job_offer": {
@@ -2173,7 +3049,6 @@ export const LIVE_CV_BATCH_SCREENING = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are an expert HR analyst specializing in parsing job descriptions. Your task is to extract and summarize job requirements into a structured format.\n",
@@ -2366,7 +3241,6 @@ export const LIVE_CV_BATCH_SCREENING = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are an expert HR analyst specializing in parsing and summarizing candidate CVs. Your task is to extract and structure the candidate's professional profile into a structured format.\n",
@@ -2433,7 +3307,6 @@ export const LIVE_CV_BATCH_SCREENING = {
         presence: "plain",
       },
       llm_prompt_spec: {
-        templating_style: null,
         system_prompt_blueprint: {
           template:
             "You are an expert HR analyst specializing in candidate-job fit evaluation. Your task is to produce a structured match analysis comparing a candidate's profile against job requirements.\n",
@@ -2502,8 +3375,7 @@ export const LIVE_CV_BATCH_SCREENING = {
       json_schema: {
         properties: {
           url: {
-            description:
-              "The document URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+            description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
             title: "Url",
             type: "string",
           },
@@ -2591,8 +3463,7 @@ export const LIVE_CV_BATCH_SCREENING = {
           ImageContent: {
             properties: {
               url: {
-                description:
-                  "The image URL: pipelex storage URL, HTTP/HTTPS URL, or base64 data URL",
+                description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
                 title: "Url",
                 type: "string",
               },
@@ -2626,10 +3497,17 @@ export const LIVE_CV_BATCH_SCREENING = {
                 description: "The MIME type of the image",
                 title: "Mime Type",
               },
-              size: {
-                anyOf: [{ $ref: "#/$defs/ImageSize" }, { type: "null" }],
+              width: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
                 default: null,
-                description: "The size in pixels (width and height) of the image",
+                description: "The width of the image, in pixels",
+                title: "Width",
+              },
+              height: {
+                anyOf: [{ exclusiveMinimum: 0, type: "integer" }, { type: "null" }],
+                default: null,
+                description: "The height of the image, in pixels",
+                title: "Height",
               },
               filename: {
                 anyOf: [{ type: "string" }, { type: "null" }],
@@ -2640,15 +3518,6 @@ export const LIVE_CV_BATCH_SCREENING = {
             },
             required: ["url"],
             title: "ImageContent",
-            type: "object",
-          },
-          ImageSize: {
-            properties: {
-              width: { exclusiveMinimum: 0, title: "Width", type: "integer" },
-              height: { exclusiveMinimum: 0, title: "Height", type: "integer" },
-            },
-            required: ["width", "height"],
-            title: "ImageSize",
             type: "object",
           },
           TextAndImagesContent: {
@@ -2678,7 +3547,7 @@ export const LIVE_CV_BATCH_SCREENING = {
             type: "object",
           },
           TextContent: {
-            properties: { text: { title: "Text", type: "string" } },
+            properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",

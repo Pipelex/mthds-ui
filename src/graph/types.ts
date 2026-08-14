@@ -124,6 +124,98 @@ export interface GraphSpecNodeError {
   stack?: string;
 }
 
+/**
+ * Inference usage attributed to one graph node — the mirror of pipelex's
+ * `NodeUsageSpec`. Read the invariants before rendering any of these numbers;
+ * getting them wrong means showing a wrong dollar figure, which is worse than
+ * showing none.
+ *
+ *   1. `node.usage === undefined` is ALL-OR-NOTHING across a spec: it means the
+ *      run reported no usage at all (collection off, or zero inference calls).
+ *      As soon as one call was reported, EVERY node carries a usage object —
+ *      zeroed for controllers, PipeFunc, PipeCompose, skipped and lifted pipes.
+ *      So it never means "this particular node was not measured".
+ *   2. `cost === null` ⟺ `rated_inference_calls === 0`. "Made no call" and "made
+ *      only unrated calls" both land here; `inference_calls` tells them apart.
+ *      Never render `null` as `$0.00` — a dry run is entirely unrated.
+ *   3. `inference_calls > rated_inference_calls > 0` means `cost` is a LOWER
+ *      BOUND, not a total. It must be marked (a leading "≥").
+ *   4. `total_tokens` is input_joined + output. Do NOT sum
+ *      `nb_tokens_by_category`: `input_cached` is a subset of `input`, not
+ *      additive, so summing double-counts.
+ *
+ * The `subtree_*` half covers the node plus every descendant, rolled up by
+ * pipelex so no consumer re-derives it. Controllers have only a subtree.
+ */
+/**
+ * What one inference model actually did for a node — the graph's only record of
+ * the model that RAN.
+ *
+ * Everything else in a GraphSpec that names a model records what was *asked for*:
+ * `execution_data.resolved_model` is the handle the pipe resolved to (often still
+ * an alias like `@default-premium`, since aliases resolve at inference time), and
+ * the blueprint holds the authored choice (`$writing-factual`). Only this survives
+ * alias resolution, deck defaults, and any fallback or retry.
+ *
+ * `cost` follows the same rule as the node's: `null` iff no call to this model was
+ * priced.
+ */
+export interface GraphSpecModelUsage {
+  inference_model_name: string;
+  inference_model_id: string;
+  /**
+   * Kind of inference: `"llm"`, `"img_gen"`, `"extract"`, `"search"`. Open set.
+   *
+   * The discriminator to check before displaying token counts: everything except
+   * `"llm"` is billed PER REQUEST, and pipelex encodes that price by putting
+   * `1_000_000` in each token category (rates are per-million), so those "tokens"
+   * are a scaled request counter rather than a measurement.
+   */
+  model_type: string;
+  inference_calls: number;
+  rated_inference_calls: number;
+  cost: number | null;
+}
+
+export interface GraphSpecNodeUsage {
+  inference_calls: number;
+  rated_inference_calls: number;
+  nb_tokens_by_category: Record<string, number>;
+  total_tokens: number;
+  cost: number | null;
+  /** Components of `cost`; `input` is the joined input cost (non-cached + cached). */
+  cost_input: number | null;
+  cost_output: number | null;
+  /**
+   * The models that actually ran, most-used first. A list because one node
+   * routinely uses more than one — a PipeLLM's text pass and its object pass
+   * resolve separately — so `by_model[0]` is the dominant model, not "the" model.
+   */
+  by_model: GraphSpecModelUsage[];
+  subtree_inference_calls: number;
+  subtree_rated_inference_calls: number;
+  subtree_nb_tokens_by_category: Record<string, number>;
+  subtree_total_tokens: number;
+  subtree_cost: number | null;
+  subtree_cost_input: number | null;
+  subtree_cost_output: number | null;
+  /** Every model this node's whole branch used. */
+  subtree_by_model: GraphSpecModelUsage[];
+}
+
+/**
+ * Run-level usage for a whole spec — the mirror of pipelex's `GraphUsageSpec`.
+ *
+ * `total` covers every call the run reported, attributed or not. `unattributed`
+ * is the part that named no live node; on a healthy run it is zeroed, and a
+ * non-zero one is worth surfacing rather than hiding. Neither has a subtree
+ * distinct from itself, so their `subtree_*` fields repeat their own.
+ */
+export interface GraphSpecUsage {
+  total: GraphSpecNodeUsage;
+  unattributed: GraphSpecNodeUsage;
+}
+
 export interface GraphSpecNode {
   id: string;
   kind: NodeKind;
@@ -137,6 +229,7 @@ export interface GraphSpecNode {
   error?: GraphSpecNodeError;
   tags?: Record<string, string>;
   metrics?: Record<string, number>;
+  usage?: GraphSpecNodeUsage;
   execution_data?: Record<string, unknown>;
 }
 
@@ -428,6 +521,7 @@ export interface GraphSpec {
   pipeline_ref?: { domain?: string; main_pipe?: string; entrypoint?: string };
   nodes: GraphSpecNode[];
   edges: GraphSpecEdge[];
+  usage?: GraphSpecUsage;
   meta?: GraphSpecMeta;
   pipe_registry?: Record<string, PipeBlueprintUnion>;
   concept_registry?: Record<string, ConceptInfo>;
