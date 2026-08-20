@@ -101,6 +101,25 @@ describe("parseMthdsBundle — happy path", () => {
     expect(bundle.concepts.Report.refines).toBe("native.Text");
   });
 
+  // `refines` names a concept, not an io slot, so it carries neither suffix. Before
+  // the io-ref grammar learned presence markers these were rejected outright by
+  // `parseConceptRef`; now they parse, so the suffix has to be refused here instead
+  // of being quietly stripped into a ref the author never wrote.
+  it.each([["Text?"], ["Text!"], ["Text[]"], ["Text[2]?"]])(
+    "refuses a refines ref carrying a suffix (%s)",
+    (ref) => {
+      const { bundle: parsed, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[concept.Report]
+description = "A report"
+refines     = "${ref}"
+`);
+      expect(parsed.concepts.Report.refines).toBeNull();
+      expect(diagnostics.map((diagnostic) => diagnostic.code)).toEqual(["invalid-concept-ref"]);
+      expect(diagnostics[0].path).toBe("concept.Report.refines");
+    },
+  );
+
   it("normalizes a sequence to sequential_sub_pipes", () => {
     const sequence = bundle.pipes.process_cv as PipeSequenceBlueprint;
     expect(sequence.type).toBe("PipeSequence");

@@ -277,7 +277,7 @@
         },
         {
           "name": "meta.entry.output-type.mthds",
-          "match": "\\s*(output)\\s*(=)\\s*(\")(?:([a-z][a-z0-9_]*)(\\.))?([A-Z][A-Za-z0-9]*)(\\[\\d*\\])?(\")",
+          "match": "\\s*(output)\\s*(=)\\s*(\")(?:([a-z][a-z0-9_]*)(\\.))?([A-Z][A-Za-z0-9]*)(\\[\\d*\\])?([?!])?(\")",
           "captures": {
             "1": {
               "name": "support.type.property-name.mthds"
@@ -301,6 +301,9 @@
               "name": "punctuation.definition.multiplicity.mthds"
             },
             "8": {
+              "name": "punctuation.definition.presence.mthds"
+            },
+            "9": {
               "name": "punctuation.definition.string.end.mthds"
             }
           }
@@ -553,7 +556,7 @@
         },
         {
           "name": "meta.entry.concept-value.mthds",
-          "match": "\\s*((?!(?:description|prompt|system_prompt|name|model_to_structure)\\b)[a-z][a-z0-9_]*)\\s*(=)\\s*(\")(?:([a-z][a-z0-9_]*)(\\.))?([A-Z][A-Za-z0-9]*)(\\[\\d*\\])?(\")",
+          "match": "\\s*((?!(?:description|prompt|system_prompt|name|model_to_structure)\\b)[a-z][a-z0-9_]*)\\s*(=)\\s*(\")(?:([a-z][a-z0-9_]*)(\\.))?([A-Z][A-Za-z0-9]*)(\\[\\d*\\])?([?!])?(\")",
           "captures": {
             "1": {
               "name": "support.type.property-name.mthds"
@@ -577,6 +580,9 @@
               "name": "punctuation.definition.multiplicity.mthds"
             },
             "8": {
+              "name": "punctuation.definition.presence.mthds"
+            },
+            "9": {
               "name": "punctuation.definition.string.end.mthds"
             }
           }

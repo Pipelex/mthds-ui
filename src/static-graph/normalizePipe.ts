@@ -97,7 +97,7 @@ function normalizeOutput(raw: unknown, pipeCode: string, ctx: NormalizePipeConte
     message: `pipe "${pipeCode}": missing or uninterpretable output — assuming native.Anything`,
     path: `pipe.${pipeCode}.output`,
   });
-  return { concept: nativeConceptInfo("Anything"), multiplicity: null };
+  return { concept: nativeConceptInfo("Anything"), multiplicity: null, presence: "plain" };
 }
 
 // ─── Sub-pipe normalization (sequence steps, parallel branches) ──────────────

@@ -95,6 +95,108 @@ template = "x"
     ]);
   });
 
+  it("lets the concrete definition win over a signature, whichever file comes first", () => {
+    const header = `
+domain = "d"
+[pipe.p]
+description   = "Contract only"
+inputs        = { text = "Text" }
+output        = "Text"
+signature_for = "PipeLLM"
+`;
+    const concrete = `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "The implementation"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+    for (const files of [
+      [header, concrete],
+      [concrete, header],
+    ]) {
+      const merged = mergeBundles(files.map(parsed));
+      expect(merged.domains.d.pipes.p.type).toBe("PipeLLM");
+      expect(merged.domains.d.pipes.p.description).toBe("The implementation");
+      // A header and its definition are one pipe declared across two files, not a
+      // duplicate — nothing to report.
+      expect(merged.diagnostics).toEqual([]);
+    }
+  });
+
+  // The concrete wins either way — it is the implementation, and a renderer draws
+  // what was built — but a package that did not honour its own forward declaration
+  // is worth saying out loud. The merge is the only place that sees both halves.
+  it("reports a concrete definition that does not match what the signature promised", () => {
+    const header = `
+domain = "d"
+[pipe.p]
+description   = "Contract only"
+inputs        = { text = "Text" }
+output        = "Text"
+signature_for = "PipeSequence"
+`;
+    const concrete = `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "The implementation"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+    for (const files of [
+      [header, concrete],
+      [concrete, header],
+    ]) {
+      const merged = mergeBundles(files.map(parsed));
+      // The concrete still wins.
+      expect(merged.domains.d.pipes.p.type).toBe("PipeLLM");
+      expect(merged.diagnostics.map((d) => d.code)).toEqual(["signature-type-mismatch"]);
+      expect(merged.diagnostics[0].message).toContain("PipeSequence");
+      expect(merged.diagnostics[0].message).toContain("PipeLLM");
+    }
+  });
+
+  // `signature_for` is an optional hint, so an absent one has nothing to disagree with.
+  it("stays silent when the signature promises no particular type", () => {
+    const header = `
+domain = "d"
+[pipe.p]
+description = "Contract only"
+inputs      = { text = "Text" }
+output      = "Text"
+`;
+    const concrete = `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "The implementation"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+    const merged = mergeBundles([parsed(header), parsed(concrete)]);
+    expect(merged.domains.d.pipes.p.type).toBe("PipeLLM");
+    expect(merged.diagnostics).toEqual([]);
+  });
+
+  it("still reports two signatures for the same code as a duplicate", () => {
+    const signature = `
+domain = "d"
+[pipe.p]
+description   = "Contract only"
+inputs        = { text = "Text" }
+output        = "Text"
+signature_for = "PipeLLM"
+`;
+    const merged = mergeBundles([parsed(signature), parsed(signature)]);
+    expect(merged.domains.d.pipes.p.type).toBe("PipeSignature");
+    expect(merged.diagnostics.map((d) => d.code)).toEqual(["duplicate-pipe"]);
+  });
+
   it("enriches concept stubs from declarations in sibling files", () => {
     const merged = mergeBundles([
       parsed(`
