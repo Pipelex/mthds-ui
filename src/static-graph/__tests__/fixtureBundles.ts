@@ -15,6 +15,12 @@
 // anyway — running this repo's builder, a second implementation of MTHDS, over the
 // canonical corpus is the cross-language conformance the corpus exists to provide.
 //
+// Both piles are discovered, never listed, so a synced entry is swept with no wiring
+// change here. The flip side is that discovery failing quietly would void the whole
+// claim, so it does not: each pile throws when it comes back empty, and a missing
+// directory throws out of `readdirSync`. A vacuous green is the one outcome these
+// sweeps must not be able to produce, because it looks exactly like a passing run.
+//
 // Never edit anything under `data/mthds-corpus/`: it is generated, and the entries are
 // authored in pipelex where the corpus gates run. Fix an entry there and re-sync.
 
@@ -26,45 +32,67 @@ const PIPELINES_DIR = path.join(DATA_DIR, "pipelines");
 const CORPUS_ENTRIES_DIR = path.join(DATA_DIR, "mthds-corpus", "entries");
 
 /** A bundle to sweep, and the name a failing test should report it under. */
-export interface FixtureBundle {
+interface FixtureBundle {
   name: string;
   bundlePath: string;
 }
 
+function requireNonEmpty(fixtures: FixtureBundle[], directory: string): FixtureBundle[] {
+  if (fixtures.length === 0) {
+    throw new Error(
+      `no fixture bundles found under ${directory} — the sweeps that read it would pass vacuously`,
+    );
+  }
+  return fixtures;
+}
+
 /** This repo's own numbered fixtures, the ones that carry generated graph specs. */
 function localFixtures(): FixtureBundle[] {
-  return readdirSync(PIPELINES_DIR)
+  const fixtures = readdirSync(PIPELINES_DIR)
     .filter((name) => name.startsWith("pipeline_"))
     .map((name) => ({ name, bundlePath: path.join(PIPELINES_DIR, name, "bundle.mthds") }))
     .sort((a, b) => a.name.localeCompare(b.name));
+  return requireNonEmpty(fixtures, PIPELINES_DIR);
 }
 
 /**
- * The vendored MTHDS Test Corpus, one bundle per entry directory.
+ * The entry point of one corpus entry directory, resolved the way the contract defines it.
  *
- * Only the entry point is swept. A multi-file entry keeps its library files beside
- * `bundle.mthds`, and those are fragments — forward-declared signatures and the pipes
- * that fill them — which mean nothing read on their own. The corpus contract names
- * `bundle.mthds` as the entry point for exactly this reason.
+ * An entry holds "either exactly one `.mthds` file, or several with a `bundle.mthds`
+ * acting as the entry point" — so `bundle.mthds` is not a filename every entry has, it is
+ * the tie-breaker for the multi-file case. Only the entry point is swept: a multi-file
+ * entry's other files are fragments, forward-declared signatures and the pipes that fill
+ * them, which mean nothing read on their own.
+ *
+ * An entry that resolves to neither shape throws rather than dropping out of the sweep.
  */
+function resolveEntryPoint(entryDir: string): string {
+  const bundlePath = path.join(entryDir, "bundle.mthds");
+  if (existsSync(bundlePath)) return bundlePath;
+  const candidates = readdirSync(entryDir).filter((name) => name.endsWith(".mthds"));
+  if (candidates.length === 1) return path.join(entryDir, candidates[0]);
+  throw new Error(
+    `corpus entry ${path.basename(entryDir)} does not resolve to a bundle: ` +
+      `expected one .mthds file or a bundle.mthds entry point, found ${candidates.length} .mthds files`,
+  );
+}
+
+/** The vendored MTHDS Test Corpus, one entry point per entry directory. */
 function corpusFixtures(): FixtureBundle[] {
-  if (!existsSync(CORPUS_ENTRIES_DIR)) return [];
-  return readdirSync(CORPUS_ENTRIES_DIR, { withFileTypes: true })
+  const fixtures = readdirSync(CORPUS_ENTRIES_DIR, { withFileTypes: true })
     .filter((item) => item.isDirectory())
     .map((item) => ({
       name: `corpus/${item.name}`,
-      bundlePath: path.join(CORPUS_ENTRIES_DIR, item.name, "bundle.mthds"),
+      bundlePath: resolveEntryPoint(path.join(CORPUS_ENTRIES_DIR, item.name)),
     }))
-    .filter((fixture) => existsSync(fixture.bundlePath))
     .sort((a, b) => a.name.localeCompare(b.name));
+  return requireNonEmpty(fixtures, CORPUS_ENTRIES_DIR);
 }
 
-/** Every bundle the integration sweeps run over, local fixtures first. */
-export function fixtureBundles(): FixtureBundle[] {
-  return [...localFixtures(), ...corpusFixtures()];
-}
-
-/** `it.each` rows: `[name, bundlePath]`. */
+/** `it.each` rows: `[name, bundlePath]`, local fixtures first. */
 export function fixtureBundleCases(): [string, string][] {
-  return fixtureBundles().map(({ name, bundlePath }) => [name, bundlePath]);
+  return [...localFixtures(), ...corpusFixtures()].map(({ name, bundlePath }) => [
+    name,
+    bundlePath,
+  ]);
 }

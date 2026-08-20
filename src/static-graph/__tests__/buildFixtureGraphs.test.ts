@@ -19,10 +19,6 @@ import { buildStaticGraphSpecFromToml } from "../buildStaticGraphSpec";
 const bundleCases = fixtureBundleCases();
 
 describe("buildStaticGraphSpecFromToml on fixture bundles", () => {
-  it("finds the fixture bundles", () => {
-    expect(bundleCases.length).toBeGreaterThan(0);
-  });
-
   it.each(bundleCases)("builds a valid static GraphSpec from %s", (_name, bundlePath) => {
     const toml = readFileSync(bundlePath, "utf8");
     const { spec, diagnostics } = buildStaticGraphSpecFromToml(toml);

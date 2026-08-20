@@ -17,10 +17,6 @@ import { parseMthdsBundle } from "../parseMthdsBundle";
 const bundleCases = fixtureBundleCases();
 
 describe("parseMthdsBundle on fixture bundles", () => {
-  it("finds the fixture bundles", () => {
-    expect(bundleCases.length).toBeGreaterThan(0);
-  });
-
   it.each(bundleCases)("parses %s without error diagnostics", (_name, bundlePath) => {
     const toml = readFileSync(bundlePath, "utf8");
     const { bundle, diagnostics } = parseMthdsBundle(toml);
