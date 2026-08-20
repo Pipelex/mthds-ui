@@ -95,6 +95,51 @@ template = "x"
     ]);
   });
 
+  it("lets the concrete definition win over a signature, whichever file comes first", () => {
+    const header = `
+domain = "d"
+[pipe.p]
+description   = "Contract only"
+inputs        = { text = "Text" }
+output        = "Text"
+signature_for = "PipeLLM"
+`;
+    const concrete = `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "The implementation"
+inputs = { text = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+    for (const files of [
+      [header, concrete],
+      [concrete, header],
+    ]) {
+      const merged = mergeBundles(files.map(parsed));
+      expect(merged.domains.d.pipes.p.type).toBe("PipeLLM");
+      expect(merged.domains.d.pipes.p.description).toBe("The implementation");
+      // A header and its definition are one pipe declared across two files, not a
+      // duplicate — nothing to report.
+      expect(merged.diagnostics).toEqual([]);
+    }
+  });
+
+  it("still reports two signatures for the same code as a duplicate", () => {
+    const signature = `
+domain = "d"
+[pipe.p]
+description   = "Contract only"
+inputs        = { text = "Text" }
+output        = "Text"
+signature_for = "PipeLLM"
+`;
+    const merged = mergeBundles([parsed(signature), parsed(signature)]);
+    expect(merged.domains.d.pipes.p.type).toBe("PipeSignature");
+    expect(merged.diagnostics.map((d) => d.code)).toEqual(["duplicate-pipe"]);
+  });
+
   it("enriches concept stubs from declarations in sibling files", () => {
     const merged = mergeBundles([
       parsed(`

@@ -17,6 +17,18 @@ const { spec, diagnostics } = buildStaticGraphSpecFromToml(tomlText);
 best-effort: malformed or incomplete bundles should still produce whatever graph
 can be inferred.
 
+### Multi-file method packages
+
+A method may span several `.mthds` files: a root file carrying the boundary concepts and the entry pipe declared as a signature, plus one file per pipe that fills a forward declaration in. Pass them together — `buildStaticGraphSpecFromToml` accepts an array and merges before it walks:
+
+```ts
+const { spec, diagnostics } = buildStaticGraphSpecFromToml([rootToml, ...libraryTomls]);
+```
+
+Order only decides which bundle's `main_pipe` and `description` the merged set adopts, so lead with the entry point. It does **not** decide which definition of a pipe wins: a signature is a forward declaration and the concrete pipe of the same code is its definition, so **the concrete always wins and the collision is silent**, matching how pipelex reconciles the same collision when it loads a library. Only a clash the merge cannot resolve that way — two concrete pipes, or two signatures — keeps the first declaration and reports `duplicate-pipe`.
+
+Passing the root file alone is not a smaller version of this: the entry pipe is a signature there, so the walk renders a single unexpanded leaf card.
+
 ## Mode Contract
 
 GraphSpec metadata now has an explicit mode:
@@ -124,14 +136,18 @@ Why a copy at all, when the corpus ships inside the `pipelex` wheel: a TypeScrip
 
 **What it feeds, and what it deliberately does not.** The corpus carries methods and their manifests — no generated graph specs. So it feeds exactly the two sweeps that need nothing but the method text, and those two run over both piles through the shared discovery in `src/static-graph/__tests__/fixtureBundles.ts`:
 
-- `parseFixtureBundles` — every entry's bundle parses with no error diagnostics.
-- `buildFixtureGraphs` — the static builder turns each into a `validateGraphSpec`-clean spec, deterministically.
+- `parseFixtureBundles` — every file of every entry parses with no error diagnostics, fragments included.
+- `buildFixtureGraphs` — the static builder turns each entry, merged, into a `validateGraphSpec`-clean spec, deterministically and with no merge clash.
 
 That is the valuable half. Running this repo's builder — a second, independent implementation of MTHDS — over the canonical corpus is precisely the cross-language conformance the corpus was built to provide.
 
 `parity` and `nativeConceptsCorpus` keep reading `data/pipelines/` only, because both need a `dry_run_graph_spec.json` produced by actually running pipelex, and the corpus has none. **`data/pipelines/` is therefore not superseded and is not going away**; the two piles answer different questions, which is why `fixtureBundles.ts` keeps them apart rather than merging them into one list.
 
-Only each entry's entry point is swept. A multi-file entry keeps its library files beside it — forward-declared signatures and the pipes that fill them — and those are fragments that mean nothing read on their own. The contract resolves an entry directory to its single `.mthds` file, or, when it holds several, to the `bundle.mthds` among them; the discovery helper mirrors both cases and throws on an entry matching neither, rather than dropping it silently from the sweep.
+A fixture is a set of files, not a file. A multi-file entry keeps its library files beside the entry point — forward-declared signatures and the pipes that fill them — and those are fragments that only mean something merged, so both sweeps take every `.mthds` file in the entry directory. `parseFixtureBundles` reads them one at a time, because each file must parse on its own; `buildFixtureGraphs` passes the whole set in, with `bundle.mthds` (when there is one) leading so the merge is deterministic. Sweeping the entry point alone would build the corpus's multi-file entry into a one-node signature stub and report it as a pass.
+
+That is also why `buildFixtureGraphs` fails on a `duplicate-pipe` or `duplicate-concept` warning rather than tolerating it with the rest: every entry is a canonical method with one declaration per code, so a clash means either the corpus grew a genuine collision or the merge stopped reading a signature and its concrete definition as one pipe — the exact regression that would otherwise pass every other assertion in the sweep.
+
+A directory holding no `.mthds` file at all throws, rather than dropping silently from the sweep.
 
 ## Limitations
 

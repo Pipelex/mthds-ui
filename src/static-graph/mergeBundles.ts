@@ -1,9 +1,11 @@
 // ─── mergeBundles: ParsedBundle[] → MergedMethodSet ──────────────────────────
 // A method package may span several `.mthds` files; files sharing a domain
 // merge into one namespace. Duplicate codes keep the first declaration and
-// record a diagnostic. After merging, io concept stubs are re-pointed at the
-// declarations that other files contributed (a pipe in file A can reference a
-// concept declared in file B).
+// record a diagnostic — except when a pipe signature meets its concrete
+// definition, which is the multi-file idiom rather than a duplication: the
+// concrete wins whichever file it came from, and nothing is reported. After
+// merging, io concept stubs are re-pointed at the declarations that other files
+// contributed (a pipe in file A can reference a concept declared in file B).
 
 import type { PipeBlueprintUnion, StuffSpecInfo } from "@graph/types";
 
@@ -68,17 +70,28 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
       namespace.concepts[code] = concept;
     }
     for (const [code, pipe] of Object.entries(bundle.pipes)) {
-      if (code in namespace.pipes) {
-        diagnostics.push({
-          severity: "warning",
-          code: "duplicate-pipe",
-          message: `pipe "${domain}.${code}" declared more than once — keeping the first declaration`,
-          path: `pipe.${code}`,
-          domain_code: domain,
-        });
+      const existing = namespace.pipes[code];
+      if (existing === undefined) {
+        namespace.pipes[code] = pipe;
         continue;
       }
-      namespace.pipes[code] = pipe;
+      // A signature is a forward declaration; the concrete pipe of the same code
+      // is its definition, not a duplicate of it. Which file each landed in — and
+      // therefore which one the merge sees first — is an authoring choice, so the
+      // concrete always wins and the collision is silent.
+      const existingIsSignature = existing.type === "PipeSignature";
+      const incomingIsSignature = pipe.type === "PipeSignature";
+      if (existingIsSignature !== incomingIsSignature) {
+        if (existingIsSignature) namespace.pipes[code] = pipe;
+        continue;
+      }
+      diagnostics.push({
+        severity: "warning",
+        code: "duplicate-pipe",
+        message: `pipe "${domain}.${code}" declared more than once — keeping the first declaration`,
+        path: `pipe.${code}`,
+        domain_code: domain,
+      });
     }
   }
 

@@ -1192,6 +1192,50 @@ prompt = "p"
     expect(spec.nodes[0].id).toBe("app.run");
   });
 
+  // The multi-file library idiom the corpus's `feature_multi_file_*` entry is built
+  // from: a root file declares the entry as a signature (a forward declaration), and
+  // the file beside it holds the concrete pipe that fills it in. Whichever order the
+  // files reach the merge, the concrete one is what gets walked — reading the root
+  // alone renders a one-node stub.
+  it("walks the concrete definition of a pipe its root file only forward-declared", () => {
+    const root = `
+domain = "lib"
+main_pipe = "write_brief"
+
+[pipe.write_brief]
+description   = "Turn a document into a brief"
+inputs        = { document = "Text" }
+output        = "Text"
+signature_for = "PipeSequence"
+`;
+    const concrete = `
+domain = "lib"
+
+[pipe.write_brief]
+type = "PipeSequence"
+description = "Find the findings, then draft the brief"
+inputs = { document = "Text" }
+output = "Text"
+steps = [{ pipe = "draft", result = "brief" }]
+
+[pipe.draft]
+type = "PipeLLM"
+description = "Draft the brief"
+inputs = { document = "Text" }
+output = "Text"
+prompt = "p"
+`;
+    for (const files of [
+      [root, concrete],
+      [concrete, root],
+    ]) {
+      const { spec, diagnostics } = build(files);
+      expect(diagnostics).toEqual([]);
+      expect(nodeById(spec, "lib.write_brief").pipe_type).toBe("PipeSequence");
+      expect(nodeById(spec, "lib.write_brief/step_1").pipe_code).toBe("draft");
+    }
+  });
+
   it("accepts a pre-merged set through buildStaticGraphSpec directly", () => {
     const merged = mergeBundles([]);
     const { spec, diagnostics } = buildStaticGraphSpec(merged);
