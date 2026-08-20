@@ -116,6 +116,23 @@ Three bundles exist specifically to give the native concepts fixture coverage, s
 
 `pipeline_32` and `pipeline_33` carry real LIVE fixtures. They briefly could not: a `PipeLLM` outputting `Date`, `Date[]`, or `Time` failed validation because structured output delivers a date as a JSON string, so both shipped a placeholder LIVE spec (the DRY spec re-tagged). Fixed upstream in [pipelex#1089](https://github.com/Pipelex/pipelex/pull/1089) (see `pipelex/wip/native-date-time/`) and regenerated; `make fixtures-live ONLY=pipeline_32` remains the end-to-end check that the temporal natives survive a live run.
 
+## The vendored MTHDS Test Corpus
+
+`data/mthds-corpus/` is a byte-identical copy of the MTHDS Test Corpus — the one canonical, tagged set of `.mthds` methods every repo in the workspace draws its language-level fixtures from. It is owned by `pipelex` (`pipelex/test_extras/mthds_corpus/`), where the corpus gates run, and it arrives here through the workspace's `mthds-corpus-sync` skill. **Nothing under `data/mthds-corpus/` is edited in this repo.** An entry that needs fixing is fixed in `pipelex`, where a change is checked against the vocabulary, the exhaustivity gate and the entry-validation gate; then the copy is re-synced. Editing it here would fork the corpus, which is the one failure mode the whole arrangement exists to prevent.
+
+Why a copy at all, when the corpus ships inside the `pipelex` wheel: a TypeScript repo cannot read a Python wheel. Consumers that *can* import `pipelex` use the wheel and keep no copy, so they are in lockstep by construction; the vendored channel exists for the cross-language repos.
+
+**What it feeds, and what it deliberately does not.** The corpus carries methods and their manifests — no generated graph specs. So it feeds exactly the two sweeps that need nothing but the method text, and those two run over both piles through the shared discovery in `src/static-graph/__tests__/fixtureBundles.ts`:
+
+- `parseFixtureBundles` — every entry's `bundle.mthds` parses with no error diagnostics.
+- `buildFixtureGraphs` — the static builder turns each into a `validateGraphSpec`-clean spec, deterministically.
+
+That is the valuable half. Running this repo's builder — a second, independent implementation of MTHDS — over the canonical corpus is precisely the cross-language conformance the corpus was built to provide.
+
+`parity` and `nativeConceptsCorpus` keep reading `data/pipelines/` only, because both need a `dry_run_graph_spec.json` produced by actually running pipelex, and the corpus has none. **`data/pipelines/` is therefore not superseded and is not going away**; the two piles answer different questions, which is why `fixtureBundles.ts` keeps them apart rather than merging them into one list.
+
+Only each entry's `bundle.mthds` is swept. A multi-file entry keeps its library files beside it — forward-declared signatures and the pipes that fill them — and those are fragments that mean nothing read on their own; the corpus contract names `bundle.mthds` as the entry point for that reason.
+
 ## Limitations
 
 - Static graphs are not execution proof. Validation and dry runs still own

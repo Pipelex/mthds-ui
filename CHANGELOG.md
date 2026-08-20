@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **The MTHDS Test Corpus is vendored here, and this repo's builder now runs over it.** `data/mthds-corpus/` holds a byte-identical copy of the one canonical, tagged set of `.mthds` methods the whole workspace draws its language-level fixtures from. It is owned by `pipelex`, where the corpus gates run, and it arrives through the workspace's `mthds-corpus-sync` skill — a copy rather than a dependency because a TypeScript repo cannot read the Python wheel the corpus ships in. **Nothing under `data/mthds-corpus/` is edited here:** an entry is fixed in `pipelex` and re-synced, because a copy that gets edited is a fork, which is the failure mode the arrangement exists to prevent. The two sweeps that need only the method text — `parseFixtureBundles` and `buildFixtureGraphs` — now run over both piles through a shared discovery helper, so the static builder is exercised against every entry the corpus pins. That is the point of it: this repo holds a second, independent implementation of MTHDS, and running it over the canonical corpus is the cross-language conformance the corpus was built to give. Only each entry's `bundle.mthds` is swept, since a multi-file entry's library files are fragments that mean nothing read alone.
+
+### Changed
+
+- **The two fixture sweeps discover their bundles through one helper instead of two copies of the same block.** `parseFixtureBundles` and `buildFixtureGraphs` each had their own `readdirSync` + `startsWith("pipeline_")` snippet; both now call `fixtureBundles.ts`, which returns this repo's numbered fixtures and the vendored corpus entries as one labelled list. `data/pipelines/` is unchanged and is not superseded — its fixtures carry the generated `dry_run_graph_spec.json` records that are the oracle for the `parity` and `nativeConceptsCorpus` tests, and the corpus carries no such records, so those two keep reading it alone. The helper keeps the piles apart deliberately rather than merging them, because they answer different questions.
+
 ## [v0.17.0] - 2026-08-14
 
 ### Added
