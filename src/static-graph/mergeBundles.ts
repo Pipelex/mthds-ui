@@ -3,7 +3,8 @@
 // merge into one namespace. Duplicate codes keep the first declaration and
 // record a diagnostic — except when a pipe signature meets its concrete
 // definition, which is the multi-file idiom rather than a duplication: the
-// concrete wins whichever file it came from, and nothing is reported. After
+// concrete wins whichever file it came from, and nothing is reported unless the
+// two halves disagree about the pipe type the signature promised. After
 // merging, io concept stubs are re-pointed at the declarations that other files
 // contributed (a pipe in file A can reference a concept declared in file B).
 
@@ -78,11 +79,32 @@ export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
       // A signature is a forward declaration; the concrete pipe of the same code
       // is its definition, not a duplicate of it. Which file each landed in — and
       // therefore which one the merge sees first — is an authoring choice, so the
-      // concrete always wins and the collision is silent.
+      // concrete always wins.
       const existingIsSignature = existing.type === "PipeSignature";
       const incomingIsSignature = pipe.type === "PipeSignature";
       if (existingIsSignature !== incomingIsSignature) {
+        const signature = existing.type === "PipeSignature" ? existing : pipe;
+        const concrete = existing.type === "PipeSignature" ? pipe : existing;
         if (existingIsSignature) namespace.pipes[code] = pipe;
+        // Silent only when the two halves agree. `signature_for` is the type the
+        // forward declaration promised, and it is an optional hint — an absent one
+        // has nothing to disagree with. A present one naming a different type means
+        // the package did not honour its own contract, and the merge is the only
+        // place that ever sees both halves at once. The concrete still wins: it is
+        // the implementation, and a renderer's job is to draw what was built.
+        const promised =
+          signature.type === "PipeSignature" ? (signature.signature_for ?? null) : null;
+        if (promised !== null && promised !== concrete.type) {
+          diagnostics.push({
+            severity: "warning",
+            code: "signature-type-mismatch",
+            message:
+              `pipe "${domain}.${code}": the signature promises \`signature_for = "${promised}"\` ` +
+              `but the concrete definition is a ${concrete.type} — using the concrete definition`,
+            path: `pipe.${code}`,
+            domain_code: domain,
+          });
+        }
         continue;
       }
       diagnostics.push({

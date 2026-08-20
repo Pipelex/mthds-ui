@@ -25,7 +25,7 @@ A method may span several `.mthds` files: a root file carrying the boundary conc
 const { spec, diagnostics } = buildStaticGraphSpecFromToml([rootToml, ...libraryTomls]);
 ```
 
-Order only decides which bundle's `main_pipe` and `description` the merged set adopts, so lead with the entry point. It does **not** decide which definition of a pipe wins: a signature is a forward declaration and the concrete pipe of the same code is its definition, so **the concrete always wins and the collision is silent**, matching how pipelex reconciles the same collision when it loads a library. Only a clash the merge cannot resolve that way — two concrete pipes, or two signatures — keeps the first declaration and reports `duplicate-pipe`.
+Order only decides which bundle's `main_pipe` and `description` the merged set adopts, so lead with the entry point. It does **not** decide which definition of a pipe wins: a signature is a forward declaration and the concrete pipe of the same code is its definition, so **the concrete always wins**, matching how pipelex reconciles the same collision when it loads a library. The collision is silent when the two halves agree — that is, when the signature's `signature_for` is absent (it is an optional hint) or names the concrete's own type. A signature promising `signature_for = "PipeSequence"` that is filled by a `PipeLLM` still resolves to the `PipeLLM`, because a renderer draws what was built, but reports `signature-type-mismatch`: the merge is the only place that ever sees both halves at once. A clash the merge cannot resolve this way — two concrete pipes, or two signatures — keeps the first declaration and reports `duplicate-pipe`.
 
 Passing the root file alone is not a smaller version of this: the entry pipe is a signature there, so the walk renders a single unexpanded leaf card.
 
@@ -66,6 +66,25 @@ show concept structure only, not the generated data created by the fixture run.
 `statusMap` overlays are ignored for static cards. Live-status overlay onto a
 static graph needs a separate identity-mapping design because repeated
 invocations can share a `pipe_code`.
+
+## Concept Refs
+
+An io ref names a concept and then, optionally, two suffixes in a fixed order — multiplicity before presence:
+
+| Ref        | Multiplicity          | Presence                                             |
+| ---------- | --------------------- | ---------------------------------------------------- |
+| `Text`     | `null` (single)       | `plain`                                              |
+| `Text[]`   | `true` (many)         | `plain`                                              |
+| `Text[3]`  | `3`                   | `plain`                                              |
+| `Text?`    | `null`                | `optional` — the slot may legitimately hold no value |
+| `Text!`    | `null`                | `force` — a use-site assertion that a value is there |
+| `Text[]?`  | `true`                | `optional`                                           |
+
+`parseConceptRef` mirrors the suffix half of the runtime's `MULTIPLICITY_PATTERN` (`pipelex/core/pipes/variable_multiplicity.py`) exactly, so the two agree on every multiplicity/presence combination and reject the same malformed ones — `Text?[]` and `Text??` are not refs. The identifier half is deliberately looser here, as everywhere in this module: the runtime requires each dotted segment to start with a letter or underscore, while this parser accepts a leading digit (`1Text`) and repeated dots (`a..b.C`). A static renderer gains nothing from rejecting a name the runtime would reject anyway, so it renders what it was given. Both suffixes land on `StuffSpecInfo`, as `multiplicity` and `presence`, matching what pipelex serializes into a dry or live spec's `pipe_registry`; an absent `presence` reads as `plain`, the runtime's own default.
+
+Both suffixes belong to an **io slot**, never to concept inheritance: `refines` names a concept, so a `refines` carrying either is refused with an `invalid-concept-ref` warning rather than silently stripped down to the bare code.
+
+A ref the grammar does not accept is not fatal, but it is lossy in a way worth knowing: an input whose ref will not parse is **dropped from the pipe entirely** with an `invalid-concept-ref` warning, and an output that will not parse falls back to `native.Anything` with a `missing-pipe-output` warning. That is why the fixture sweep tolerates no warnings at all — a suffix the parser has not learned yet looks exactly like a method that never declared the slot.
 
 ## Native Concepts
 
@@ -137,7 +156,7 @@ Why a copy at all, when the corpus ships inside the `pipelex` wheel: a TypeScrip
 **What it feeds, and what it deliberately does not.** The corpus carries methods and their manifests — no generated graph specs. So it feeds exactly the two sweeps that need nothing but the method text, and those two run over both piles through the shared discovery in `src/static-graph/__tests__/fixtureBundles.ts`:
 
 - `parseFixtureBundles` — every file of every entry parses with no error diagnostics, fragments included.
-- `buildFixtureGraphs` — the static builder turns each entry, merged, into a `validateGraphSpec`-clean spec, deterministically and with no merge clash.
+- `buildFixtureGraphs` — the static builder turns each entry, merged, into a `validateGraphSpec`-clean spec, deterministically and with no diagnostics at all.
 
 That is the valuable half. Running this repo's builder — a second, independent implementation of MTHDS — over the canonical corpus is precisely the cross-language conformance the corpus was built to provide.
 
@@ -145,9 +164,11 @@ That is the valuable half. Running this repo's builder — a second, independent
 
 A fixture is a set of files, not a file. A multi-file entry keeps its library files beside the entry point — forward-declared signatures and the pipes that fill them — and those are fragments that only mean something merged, so both sweeps take every `.mthds` file in the entry directory. `parseFixtureBundles` reads them one at a time, because each file must parse on its own; `buildFixtureGraphs` passes the whole set in, with `bundle.mthds` (when there is one) leading so the merge is deterministic. Sweeping the entry point alone would build the corpus's multi-file entry into a one-node signature stub and report it as a pass.
 
-That is also why `buildFixtureGraphs` fails on a `duplicate-pipe` or `duplicate-concept` warning rather than tolerating it with the rest: every entry is a canonical method with one declaration per code, so a clash means either the corpus grew a genuine collision or the merge stopped reading a signature and its concrete definition as one pipe — the exact regression that would otherwise pass every other assertion in the sweep.
+That is also why `buildFixtureGraphs` tolerates no diagnostic whatsoever, warnings included. Every entry is a canonical, runnable method, and the builder only reports something when it could not read what the method wrote — so on this material a warning and an error are the same news: either the builder has a gap or a fixture regressed. A `duplicate-pipe` warning would mean the merge stopped reading a signature and its concrete definition as one pipe; an `invalid-concept-ref` warning would mean a declared input silently vanished. Both pass every other assertion in the sweep, which is why severity is not the bar here.
 
-A directory holding no `.mthds` file at all throws, rather than dropping silently from the sweep.
+**Only the entries the corpus marks `valid` are swept.** Each entry's `entry.toml` carries a `validity` of `valid` or `invalid`, and an invalid entry is surgically authored to trigger exactly one declared error — so under a zero-diagnostic rule it would report the corpus doing its job as a builder gap. This repo's declared slice takes the whole corpus rather than a filtered one (see the consumer registry in the `mthds-corpus-sync` skill), so the filter lives here, in `fixtureBundles.ts`. That red would be the mirror image of the vacuous green: a failure that means nothing, and that trains the next reader to loosen the gate.
+
+A directory holding no `.mthds` file at all throws, rather than dropping silently from the sweep — and so does an entry whose manifest is missing, unreadable, or carries a validity the contract does not define, because an entry the helper cannot classify is an entry it would otherwise drop unnoticed.
 
 ## Limitations
 

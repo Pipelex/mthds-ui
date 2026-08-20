@@ -1,12 +1,15 @@
 // ─── Concept reference parsing and resolution ────────────────────────────────
-// A concept ref in MTHDS TOML is `Code`, `domain.Code`, optionally suffixed
-// with a multiplicity marker: `Code[]` (many) or `Code[N]` (exactly N).
+// A concept ref in MTHDS TOML is `Code` or `domain.Code`, optionally suffixed
+// with a multiplicity marker — `Code[]` (many) or `Code[N]` (exactly N) — and
+// then a presence marker — `Code?` (optional) or `Code!` (force). The suffix
+// order is fixed, multiplicity before presence, mirroring the runtime's
+// `MULTIPLICITY_PATTERN` in `pipelex/core/pipes/variable_multiplicity.py`.
 // Resolution follows the spec's namespace rules: bare refs resolve in the
 // current bundle first, then the native domain; qualified refs name their
 // domain explicitly. Anything unresolved becomes a best-effort stub — this
 // module never throws on content.
 
-import type { ConceptInfo, StuffSpecInfo } from "@graph/types";
+import type { ConceptInfo, PresenceMarker, StuffSpecInfo } from "@graph/types";
 
 export const NATIVE_DOMAIN = "native";
 
@@ -56,16 +59,24 @@ export interface ConceptRefParts {
   code: string;
   /** `[]` → true (many), `[N]` → N, no suffix → null (single). */
   multiplicity: number | boolean | null;
+  /** `?` → "optional", `!` → "force", no suffix → "plain". */
+  presence: PresenceMarker;
 }
 
-const CONCEPT_REF_RE = /^(?:([A-Za-z0-9_][A-Za-z0-9_.]*)\.)?([A-Za-z0-9_]+)(?:\[(\d*)\])?$/;
+const CONCEPT_REF_RE = /^(?:([A-Za-z0-9_][A-Za-z0-9_.]*)\.)?([A-Za-z0-9_]+)(?:\[(\d*)\])?([?!])?$/;
+
+function presenceFromSymbol(symbol: string | undefined): PresenceMarker {
+  if (symbol === "?") return "optional";
+  if (symbol === "!") return "force";
+  return "plain";
+}
 
 /** Parse a concept ref string into its parts. Returns null when the ref is not interpretable. */
 export function parseConceptRef(raw: unknown): ConceptRefParts | null {
   if (typeof raw !== "string") return null;
   const match = CONCEPT_REF_RE.exec(raw.trim());
   if (!match) return null;
-  const [, domain, code, multiplicity] = match;
+  const [, domain, code, multiplicity, presence] = match;
   return {
     domain: domain ?? null,
     code,
@@ -75,6 +86,7 @@ export function parseConceptRef(raw: unknown): ConceptRefParts | null {
         : multiplicity === ""
           ? true
           : Number.parseInt(multiplicity, 10),
+    presence: presenceFromSymbol(presence),
   };
 }
 
@@ -155,5 +167,6 @@ export function resolveStuffSpec(
   return {
     concept: resolveConceptInfo(parts, currentDomain, localConcepts),
     multiplicity: parts.multiplicity,
+    presence: parts.presence,
   };
 }

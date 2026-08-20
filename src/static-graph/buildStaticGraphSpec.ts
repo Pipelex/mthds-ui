@@ -942,8 +942,14 @@ function walkInlineBatch(
     code,
     domain_code: domain,
     description: `Batch processing for ${branchTail}`,
-    inputs: { [params.input_list_stuff_name]: { concept: listConcept, multiplicity: null } },
-    output: { concept: outputSpec.concept, multiplicity: null },
+    inputs: {
+      [params.input_list_stuff_name]: {
+        concept: listConcept,
+        multiplicity: null,
+        presence: "plain",
+      },
+    },
+    output: { concept: outputSpec.concept, multiplicity: null, presence: "plain" },
     branch_pipe_code: sub.pipe_code,
     batch_params: params,
   };
