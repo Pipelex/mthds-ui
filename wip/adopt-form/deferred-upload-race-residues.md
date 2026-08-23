@@ -30,8 +30,16 @@ This was written up as harmless and deferred. It was not harmless, and the secon
 
 **What would justify revisiting it.** A signal for "the host replaced the values" that does not rely on reference identity — most plainly, the host telling us, if a real one ever wants a `clearErrors` handle. Do not reach for a deep compare; the values carry uploaded file blobs and arbitrary structured content.
 
-## 4. `dumpContracts` reports a missing venv opaquely
+## 4. `dumpContracts` reports a missing venv opaquely — RESOLVED in review rounds 13–14
 
-`scripts/generate-fixtures.mjs`'s `dumpContracts` has no availability guard of the kind `assertPipelexCliAvailable` provides. On `ENOENT` its handler prints `err.stdout` / `err.stderr`, both `undefined`, so a missing interpreter surfaces as two blank lines and `dump_pipe_io_contracts.py failed` with no mention of the interpreter.
+`scripts/generate-fixtures.mjs`'s `dumpContracts` has no availability guard of the kind `assertPipelexCliAvailable` provides. On `ENOENT` its handler prints `err.stdout` / `err.stderr`, both `undefined`, so a missing interpreter surfaced as two blank lines and `dump_pipe_io_contracts.py failed` with no mention of the interpreter.
 
-**Why it is not fixed.** In practice `PIPELEX_PYTHON` and `PIPELEX_BIN` are the same venv's `bin/`, so every flow that already calls `assertPipelexCliAvailable()` is covered. The one path that could reach it without that guard was `--from-disk`, and that path no longer calls `dumpContracts` at all. Add a venv-presence check if anyone actually hits this on a fresh checkout.
+This note originally closed with "add a venv-presence check if anyone actually hits this on a fresh checkout." That check now exists: `assertPipelexPythonAvailable()` was added in review round 13 and its DRY-side condition corrected in round 14, prompted by Codex rather than by anyone hitting the opaque failure. The premise it rested on — that `PIPELEX_PYTHON` and `PIPELEX_BIN` are in practice the same venv's `bin/` — was itself the bug: guarding the contracts path on the CLI refused a machine with a working interpreter and no sibling checkout, which is precisely the case `PIPELEX_PYTHON` exists to serve.
+
+**What is true now.** Every path that can reach `dumpContracts` passes a guard first, checked by running each with the interpreter absent rather than by reading the conditions:
+
+- `--contracts` (not `--from-disk`) — guarded before its loop; dies naming `PIPELEX_PYTHON`.
+- the DRY loop's `writePipeIoContracts` — guarded by `toProcess.length > 0 && !CHECK && !LIVE`, mirroring the call site exactly.
+- `writeContractsFixture`'s corpus re-sourcing — reachable only under `!LIVE`, and skipped entirely under `--from-disk`, so DRY `--from-disk` completes with _neither_ executable present and rewrites both fixtures byte-identically.
+
+**The residual, and it is small.** The guards sit at the call sites, not inside `dumpContracts`, so the opaque `ENOENT` handler is unreachable rather than fixed. A future call site added without a guard reinstates it. If that path is ever added, put the check inside `dumpContracts` instead of copying a third guard.
