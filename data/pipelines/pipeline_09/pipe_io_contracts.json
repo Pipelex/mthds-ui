@@ -1,0 +1,1000 @@
+{
+  "recruitment.analyze_candidate": {
+    "inputs": {
+      "pages": {
+        "concept_ref": "native.Page",
+        "json_schema": {
+          "items": {
+            "$defs": {
+              "ImageContent": {
+                "properties": {
+                  "caption": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The caption of the image",
+                    "title": "Caption"
+                  },
+                  "filename": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The original filename of the image",
+                    "title": "Filename"
+                  },
+                  "height": {
+                    "anyOf": [
+                      {
+                        "exclusiveMinimum": 0,
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The height of the image, in pixels",
+                    "title": "Height"
+                  },
+                  "mime_type": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The MIME type of the image",
+                    "title": "Mime Type"
+                  },
+                  "public_url": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The public URL of the image",
+                    "title": "Public Url"
+                  },
+                  "source_negative_prompt": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The source negative prompt of the image",
+                    "title": "Source Negative Prompt"
+                  },
+                  "source_prompt": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The source prompt of the image",
+                    "title": "Source Prompt"
+                  },
+                  "url": {
+                    "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                    "title": "Url",
+                    "type": "string"
+                  },
+                  "width": {
+                    "anyOf": [
+                      {
+                        "exclusiveMinimum": 0,
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The width of the image, in pixels",
+                    "title": "Width"
+                  }
+                },
+                "required": [
+                  "url"
+                ],
+                "title": "ImageContent",
+                "type": "object"
+              },
+              "TextAndImagesContent": {
+                "properties": {
+                  "images": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "$ref": "#/$defs/ImageContent"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "A list of images that were extracted from the text",
+                    "title": "Images"
+                  },
+                  "raw_html": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "The raw HTML of the fetched page, if requested",
+                    "title": "Raw Html"
+                  },
+                  "text": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/TextContent"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "description": "A text content"
+                  }
+                },
+                "title": "TextAndImagesContent",
+                "type": "object"
+              },
+              "TextContent": {
+                "properties": {
+                  "text": {
+                    "description": "The text",
+                    "title": "Text",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text"
+                ],
+                "title": "TextContent",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "page_view": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The screenshot of the page"
+              },
+              "text_and_images": {
+                "$ref": "#/$defs/TextAndImagesContent",
+                "description": "The text and images content extracted from the page"
+              }
+            },
+            "required": [
+              "text_and_images"
+            ],
+            "title": "PageContent",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "recruitment.CandidateProfile",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.compose_report": {
+    "inputs": {
+      "card_image": {
+        "concept_ref": "native.Image",
+        "json_schema": {
+          "properties": {
+            "caption": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The caption of the image",
+              "title": "Caption"
+            },
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the image",
+              "title": "Filename"
+            },
+            "height": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The height of the image, in pixels",
+              "title": "Height"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the image",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public URL of the image",
+              "title": "Public Url"
+            },
+            "source_negative_prompt": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The source negative prompt of the image",
+              "title": "Source Negative Prompt"
+            },
+            "source_prompt": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The source prompt of the image",
+              "title": "Source Prompt"
+            },
+            "url": {
+              "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            },
+            "width": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The width of the image, in pixels",
+              "title": "Width"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "ImageContent",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "match": {
+        "concept_ref": "recruitment.MatchScore",
+        "json_schema": {
+          "description": "Score for how well a candidate matches a role",
+          "properties": {
+            "gaps": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Skill gaps",
+              "title": "Gaps"
+            },
+            "recommendation": {
+              "description": "Hiring recommendation",
+              "title": "Recommendation",
+              "type": "string"
+            },
+            "score": {
+              "description": "Match score 0-100",
+              "title": "Score",
+              "type": "number"
+            },
+            "strengths": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key strengths",
+              "title": "Strengths"
+            }
+          },
+          "required": [
+            "score",
+            "recommendation"
+          ],
+          "title": "recruitment__MatchScore",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "profile": {
+        "concept_ref": "recruitment.CandidateProfile",
+        "json_schema": {
+          "description": "Structured profile of a job candidate",
+          "properties": {
+            "experience_years": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Years of experience",
+              "title": "Experience Years"
+            },
+            "name": {
+              "description": "Full name",
+              "title": "Name",
+              "type": "string"
+            },
+            "skills": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key skills",
+              "title": "Skills"
+            },
+            "summary": {
+              "description": "Brief profile summary",
+              "title": "Summary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "summary"
+          ],
+          "title": "recruitment__CandidateProfile",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "recruitment.Report",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.cv_screening": {
+    "inputs": {
+      "cv": {
+        "concept_ref": "native.Document",
+        "json_schema": {
+          "properties": {
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the document",
+              "title": "Filename"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the document",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public HTTPS URL of the document",
+              "title": "Public Url"
+            },
+            "snippet": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "A text snippet or excerpt from the document",
+              "title": "Snippet"
+            },
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The title of the document or source",
+              "title": "Title"
+            },
+            "url": {
+              "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "DocumentContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "recruitment.Report",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.enrich_candidate": {
+    "inputs": {
+      "profile": {
+        "concept_ref": "recruitment.CandidateProfile",
+        "json_schema": {
+          "description": "Structured profile of a job candidate",
+          "properties": {
+            "experience_years": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Years of experience",
+              "title": "Experience Years"
+            },
+            "name": {
+              "description": "Full name",
+              "title": "Name",
+              "type": "string"
+            },
+            "skills": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key skills",
+              "title": "Skills"
+            },
+            "summary": {
+              "description": "Brief profile summary",
+              "title": "Summary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "summary"
+          ],
+          "title": "recruitment__CandidateProfile",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.extract_cv": {
+    "inputs": {
+      "cv": {
+        "concept_ref": "native.Document",
+        "json_schema": {
+          "properties": {
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the document",
+              "title": "Filename"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the document",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public HTTPS URL of the document",
+              "title": "Public Url"
+            },
+            "snippet": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "A text snippet or excerpt from the document",
+              "title": "Snippet"
+            },
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The title of the document or source",
+              "title": "Title"
+            },
+            "url": {
+              "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "DocumentContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Page",
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "recruitment.generate_card": {
+    "inputs": {
+      "profile": {
+        "concept_ref": "recruitment.CandidateProfile",
+        "json_schema": {
+          "description": "Structured profile of a job candidate",
+          "properties": {
+            "experience_years": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Years of experience",
+              "title": "Experience Years"
+            },
+            "name": {
+              "description": "Full name",
+              "title": "Name",
+              "type": "string"
+            },
+            "skills": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key skills",
+              "title": "Skills"
+            },
+            "summary": {
+              "description": "Brief profile summary",
+              "title": "Summary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "summary"
+          ],
+          "title": "recruitment__CandidateProfile",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Image",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.score_match": {
+    "inputs": {
+      "profile": {
+        "concept_ref": "recruitment.CandidateProfile",
+        "json_schema": {
+          "description": "Structured profile of a job candidate",
+          "properties": {
+            "experience_years": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Years of experience",
+              "title": "Experience Years"
+            },
+            "name": {
+              "description": "Full name",
+              "title": "Name",
+              "type": "string"
+            },
+            "skills": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key skills",
+              "title": "Skills"
+            },
+            "summary": {
+              "description": "Brief profile summary",
+              "title": "Summary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "summary"
+          ],
+          "title": "recruitment__CandidateProfile",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "search_result": {
+        "concept_ref": "native.SearchResult",
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "Represents the result of a search query with an answer and list of sources.",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "SearchResultContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "recruitment.MatchScore",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "recruitment.search_candidate": {
+    "inputs": {
+      "profile": {
+        "concept_ref": "recruitment.CandidateProfile",
+        "json_schema": {
+          "description": "Structured profile of a job candidate",
+          "properties": {
+            "experience_years": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Years of experience",
+              "title": "Experience Years"
+            },
+            "name": {
+              "description": "Full name",
+              "title": "Name",
+              "type": "string"
+            },
+            "skills": {
+              "anyOf": [
+                {
+                  "items": {},
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Key skills",
+              "title": "Skills"
+            },
+            "summary": {
+              "description": "Brief profile summary",
+              "title": "Summary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "summary"
+          ],
+          "title": "recruitment__CandidateProfile",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

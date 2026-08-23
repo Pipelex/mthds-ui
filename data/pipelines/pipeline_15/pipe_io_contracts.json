@@ -1,0 +1,446 @@
+{
+  "rag.embed_query": {
+    "inputs": {
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "rag.QueryEmbedding",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.generate_answer": {
+    "inputs": {
+      "context": {
+        "concept_ref": "rag.RankedContext",
+        "json_schema": {
+          "description": "Reranked and filtered context passages",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "rag__RankedContext",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "rag.Answer",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.keyword_search": {
+    "inputs": {
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.parallel_search": {
+    "inputs": {
+      "query_embedding": {
+        "concept_ref": "rag.QueryEmbedding",
+        "json_schema": {
+          "description": "Embedded representation of a query",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "rag__QueryEmbedding",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.rag_pipeline": {
+    "inputs": {
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "rag.Answer",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.rerank_results": {
+    "inputs": {
+      "keyword_results": {
+        "concept_ref": "native.SearchResult",
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "Represents the result of a search query with an answer and list of sources.",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "SearchResultContent",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "question": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "vector_results": {
+        "concept_ref": "native.SearchResult",
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "Represents the result of a search query with an answer and list of sources.",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "SearchResultContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "rag.RankedContext",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "rag.vector_search": {
+    "inputs": {
+      "query_embedding": {
+        "concept_ref": "rag.QueryEmbedding",
+        "json_schema": {
+          "description": "Embedded representation of a query",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "rag__QueryEmbedding",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

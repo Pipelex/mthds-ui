@@ -12,12 +12,20 @@
  *   <mode>_run_mermaidflow.html   rendered Mermaid page
  *   live_run_main_stuff.json      what the live run actually produced (LIVE only)
  *   inputs_template.json          fill-in inputs template (offline, refreshed on DRY)
+ *   pipe_io_contracts.json        every pipe's IO contract (offline, refreshed on DRY)
  *
  * This script is the ONLY writer of those files. Anything else in a pipeline directory
  * (bundle.mthds, inputs.json, inputs/, structures/) is hand-authored input.
  *
+ * `pipe_io_contracts.json` is what the run form renders, and it is mode-independent:
+ * a contract is a projection of what a pipe DECLARES, not of what a run produced. It
+ * therefore needs no execution, which is why `--contracts` exists as its own fast,
+ * offline pass — and why the form fixtures can be rebuilt without every bundle in the
+ * corpus being currently runnable.
+ *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
  *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
+ *   node scripts/generate-fixtures.mjs --contracts                contracts only -> _generated.contracts.ts
  *   node scripts/generate-fixtures.mjs --only pipeline_04,...     restrict to a comma-separated list
  *   node scripts/generate-fixtures.mjs --missing                  only pipelines lacking an on-disk spec
  *   node scripts/generate-fixtures.mjs --from-disk                reassemble fixtures from on-disk specs, run nothing
@@ -61,8 +69,17 @@ const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
 const PIPELEX_BIN =
   process.env.PIPELEX_BIN ??
   path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
+const PIPELEX_PYTHON =
+  process.env.PIPELEX_PYTHON ??
+  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "python.exe" : "python");
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
+/**
+ * The contracts fixture lives under `src/form/` rather than beside the graph
+ * specs, because it is typed with the form kernel's `PipeIOContracts` and the
+ * eslint import-isolation rule confines `@pipelex/mthds-form` to that module.
+ */
+const CONTRACTS_DIR = path.join(REPO, "src/form/react/__stories__/contracts");
 
 /** Above this, prettier overflows its call stack on a single-line generated split. */
 const PRETTIER_MAX_BYTES = 2 * 1024 * 1024;
@@ -103,8 +120,37 @@ const NAME_MAP = {
   pipeline_34: "ALL_NATIVE_CONCEPTS",
 };
 
+/**
+ * Vendored MTHDS Test Corpus entries swept for their contracts alongside the
+ * pipelines, keyed entry name -> fixture export base name.
+ *
+ * The pipeline corpus has no OPTIONAL input anywhere, and optional inputs are
+ * half of what the run form is about — they are the ones that fold away. These
+ * two entries are where a real one lives, so the form fixtures come from
+ * generated data rather than from a contract someone invented (a hand-authored
+ * one gets the kernel's concept taxonomy subtly wrong; `native.Date` renders as
+ * prose, for instance, which nobody guesses).
+ *
+ * Nothing is written into `data/mthds-corpus/` — it is a read-only copy of a
+ * corpus `pipelex` owns. Only the generated split modules are produced.
+ */
+const CORPUS_CONTRACTS = {
+  feature_optionals_village_notice: "OPTIONAL_STYLE_HINT",
+  feature_smart_inputs_claims_triage: "SMART_INPUTS_TRIAGE",
+};
+const CORPUS_DIR = path.join(REPO, "data/mthds-corpus/entries");
+
 const LIVE = process.argv.includes("--live");
 const CHECK = process.argv.includes("--check");
+/**
+ * Refresh only the `pipe_io_contracts` layer, running no pipeline.
+ *
+ * A contract is a projection of what a pipe DECLARES, so unlike a graph spec it
+ * needs no execution — which makes it worth having as its own pass: the form
+ * fixtures can be rebuilt in seconds, and without depending on every bundle in
+ * the corpus being currently runnable.
+ */
+const CONTRACTS_ONLY = process.argv.includes("--contracts");
 const MISSING = process.argv.includes("--missing");
 const FROM_DISK = process.argv.includes("--from-disk");
 const MODE = LIVE ? "LIVE" : "DRY";
@@ -137,6 +183,16 @@ const RUN_ARTIFACTS = [
 
 /** Mode-independent: the inputs template a caller fills in to run this pipeline. */
 const INPUTS_TEMPLATE_NAME = "inputs_template.json";
+
+/**
+ * Mode-independent: every pipe's IO contract, keyed by namespaced `pipe_ref`.
+ *
+ * This is what the form kernel consumes and what `RunPanel` renders. It is a
+ * projection of what the pipes DECLARE, so it does not vary between a dry and a
+ * live run — refreshed on the free DRY pass, left alone by a paid LIVE one, the
+ * same lifecycle as the inputs template.
+ */
+const PIPE_IO_CONTRACTS_NAME = "pipe_io_contracts.json";
 
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
@@ -265,6 +321,42 @@ function writeInputsTemplate(pipelineDir) {
 }
 
 /**
+ * Write the bundle's `pipe_io_contracts` alongside it.
+ *
+ * No pipelex CLI surfaces the contracts today, so this goes through
+ * `scripts/dump_pipe_io_contracts.py` in the pipelex venv — see that file's
+ * header for why, and for the inbox request that retires it. Offline and
+ * inference-free, so it rides the free DRY pass.
+ */
+function dumpContracts(bundle, label) {
+  try {
+    return execFileSync(
+      PIPELEX_PYTHON,
+      [path.join(REPO, "scripts/dump_pipe_io_contracts.py"), bundle],
+      {
+        cwd: REPO,
+        env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
+        stdio: ["ignore", "pipe", "pipe"],
+        encoding: "utf-8",
+        maxBuffer: 64 * 1024 * 1024,
+      },
+    );
+  } catch (err) {
+    console.error(err.stdout?.toString() ?? "");
+    console.error(err.stderr?.toString() ?? "");
+    die(`${label}: dump_pipe_io_contracts.py failed`);
+  }
+}
+
+function writePipeIoContracts(pipelineDir) {
+  const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
+  writeFileSync(
+    path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME),
+    dumpContracts(bundle, pipelineDir),
+  );
+}
+
+/**
  * Gate the per-node usage attribution a FRESHLY generated spec must carry.
  *
  * Applied only to specs this invocation ran through pipelex — a spec reused from
@@ -377,12 +469,87 @@ async function formatSplit(splitRaw, prettierConfig) {
   return prettier.format(splitRaw, { ...prettierConfig, parser: "typescript" });
 }
 
+/**
+ * (Re)write the contracts fixture from the `pipe_io_contracts.json` files on disk.
+ *
+ * Derived from disk rather than from whatever this invocation happened to
+ * refresh, for the same reason the spec barrels are: a partial run must still
+ * emit a complete module, or the stories lose exports they import.
+ */
+async function writeContractsFixture(allPipelines, prettierConfig) {
+  const present = allPipelines.filter((p) =>
+    existsSync(path.join(PIPELINES_DIR, p, PIPE_IO_CONTRACTS_NAME)),
+  );
+  const splitDir = path.join(CONTRACTS_DIR, "_generated");
+  mkdirSync(splitDir, { recursive: true });
+
+  // Per-pipeline splits plus a barrel, the same shape as the graph specs: one
+  // pipeline's contract changing then produces a small diff instead of
+  // rewriting a single half-megabyte module.
+  const sources = [
+    ...present.map((pipelineDir) => ({
+      slug: pipelineDir,
+      name: NAME_MAP[pipelineDir],
+      json: readFileSync(path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME), "utf-8"),
+    })),
+    // Corpus entries have no writable directory of their own (the vendored copy
+    // is read-only), so their contracts go straight into the split module.
+    ...Object.entries(CORPUS_CONTRACTS).map(([entry, name]) => ({
+      slug: entry,
+      name,
+      json: dumpContracts(path.join(CORPUS_DIR, entry, "bundle.mthds"), entry),
+    })),
+  ];
+
+  for (const { slug, name, json } of sources) {
+    const splitRaw =
+      `/**\n` +
+      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's\n` +
+      ` * pipe_io_contracts, keyed by namespaced pipe_ref. DO NOT EDIT.\n` +
+      ` * Regenerate with \`make fixtures-contracts\`.\n` +
+      ` */\n` +
+      `import type { PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
+      `export const CONTRACTS_${name} = ${json.trim()} as unknown as PipeIOContracts;\n`;
+    writeFileSync(path.join(splitDir, `${slug}.ts`), await formatSplit(splitRaw, prettierConfig));
+  }
+
+  const barrelRaw =
+    `/**\n` +
+    ` * Auto-generated by scripts/generate-fixtures.mjs — re-exports the\n` +
+    ` * per-bundle contract split modules. DO NOT EDIT.\n` +
+    ` * Regenerate with \`make fixtures-contracts\`.\n` +
+    ` */\n` +
+    sources.map(({ slug, name }) => `export { CONTRACTS_${name} } from "./_generated/${slug}";`).join("\n") +
+    `\n`;
+
+  const outPath = path.join(CONTRACTS_DIR, "_generated.contracts.ts");
+  writeFileSync(outPath, await prettier.format(barrelRaw, { ...prettierConfig, parser: "typescript" }));
+  return { outPath, count: sources.length };
+}
+
 async function main() {
   const allPipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
     .sort();
 
   if (allPipelines.length === 0) die("no pipelines found");
+
+  if (CONTRACTS_ONLY) {
+    const selected = ONLY ? allPipelines.filter((p) => ONLY.has(p)) : allPipelines;
+    console.log(`generate-fixtures: contracts over ${selected.length} pipeline(s)`);
+    assertPipelexCliAvailable();
+    for (const pipelineDir of selected) {
+      process.stdout.write(`  ${pipelineDir} ... `);
+      writePipeIoContracts(pipelineDir);
+      console.log("ok");
+    }
+    const prettierConfig = (await prettier.resolveConfig(CONTRACTS_DIR)) ?? {};
+    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    console.log(
+      `\n✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
+    );
+    return;
+  }
 
   // toProcess: pipelines actually run through pipelex this invocation.
   let toProcess;
@@ -432,7 +599,10 @@ async function main() {
       if (!CHECK) {
         writeFileSync(specJsonPath(pipelineDir), JSON.stringify(spec, null, 2) + "\n");
         copyRunArtifacts(pipelineDir, outDir);
-        if (!LIVE) writeInputsTemplate(pipelineDir);
+        if (!LIVE) {
+          writeInputsTemplate(pipelineDir);
+          writePipeIoContracts(pipelineDir);
+        }
       }
     } finally {
       cleanup();
@@ -518,7 +688,7 @@ async function main() {
       `\n`;
     const outPath = path.join(SPECS_DIR, `_generated.${mode}.ts`);
     writeFileSync(outPath, await prettier.format(raw, { ...prettierConfig, parser: "typescript" }));
-    return { outPath, count: present.length };
+    return { outPath, count: sources.length };
   }
 
   const barrel = await writeBarrel(MODE_VALUE);
@@ -570,6 +740,13 @@ async function main() {
         `  wrote ${placeholdersWritten} LIVE placeholder split(s) — run \`make fixtures-live\` for real data`,
       );
     }
+
+    // The contracts are mode-independent and refreshed on the DRY pass, so the
+    // fixture is re-emitted from disk here — idempotent when nothing moved.
+    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    console.log(
+      `✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
+    );
   }
 }
 

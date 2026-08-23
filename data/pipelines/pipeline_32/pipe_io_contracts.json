@@ -1,0 +1,194 @@
+{
+  "scheduling.decide": {
+    "inputs": {
+      "dates": {
+        "concept_ref": "native.Date",
+        "json_schema": {
+          "items": {
+            "description": "A calendar date, optionally with a time of day \u2014 as precise as its source states.\n\nThe optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). Invalid states are unrepresentable by construction: no time\nwithout a date, no offset without a time.",
+            "properties": {
+              "date": {
+                "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
+                "format": "date",
+                "title": "Date",
+                "type": "string"
+              },
+              "time": {
+                "anyOf": [
+                  {
+                    "format": "time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time \u2014 never invent a time. Keep the UTC offset exactly when the source states one.",
+                "title": "Time"
+              }
+            },
+            "required": [
+              "date"
+            ],
+            "title": "DateContent",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "optional": false
+      },
+      "slot": {
+        "concept_ref": "native.Time",
+        "json_schema": {
+          "description": "A time of day, optionally with a UTC offset \u2014 as precise as its source states.\n\nThe ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). A time of day is not an instant: it has no date to\nattach to, so it never converts to a datetime on its own.",
+          "properties": {
+            "time": {
+              "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset).",
+              "format": "time",
+              "title": "Time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "time"
+          ],
+          "title": "TimeContent",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "urgent": {
+        "concept_ref": "native.YesNo",
+        "json_schema": {
+          "properties": {
+            "yes_no": {
+              "description": "Whether the answer is yes (true) or no (false).",
+              "title": "Yes No",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "yes_no"
+          ],
+          "title": "YesNoContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "scheduling.Verdict",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "scheduling.is_urgent": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.YesNo",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "scheduling.read_dates": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Date",
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "scheduling.read_slot": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Time",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "scheduling.triage_request": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "scheduling.Verdict",
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

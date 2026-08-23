@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean smoke-pack storybook st fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean smoke-pack storybook st fixtures fixtures-contracts fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t
 
 install:
 	npm install
@@ -60,6 +60,12 @@ fixtures:
 # See wip/fixtures-live-corpus-regeneration.md.
 fixtures-live:
 	node scripts/generate-fixtures.mjs --live $(if $(ONLY),--only $(ONLY))
+
+# Refresh only the pipe_io_contracts layer (what the run form renders) and the
+# generated contracts fixture. Runs no pipeline: a contract is a projection of
+# what a pipe declares, so this is offline, inference-free and fast.
+fixtures-contracts:
+	node scripts/generate-fixtures.mjs --contracts $(if $(ONLY),--only $(ONLY))
 
 # Regenerate only the pipelines missing an on-disk spec — fills gaps after a
 # partial or failed run without redoing (or paying for) the ones already done.

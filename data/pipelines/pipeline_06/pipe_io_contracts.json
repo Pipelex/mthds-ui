@@ -1,0 +1,235 @@
+{
+  "report_generation.analyze_data": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Insight",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.assemble_report": {
+    "inputs": {
+      "chart_spec": {
+        "concept_ref": "report_generation.ChartSpec",
+        "json_schema": {
+          "description": "Specification for a chart visualization",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__ChartSpec",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "narrative": {
+        "concept_ref": "report_generation.Narrative",
+        "json_schema": {
+          "description": "Written narrative describing insights",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__Narrative",
+          "type": "object"
+        },
+        "optional": false
+      },
+      "table_data": {
+        "concept_ref": "report_generation.TableData",
+        "json_schema": {
+          "description": "Structured table data",
+          "properties": {
+            "json_obj": {
+              "additionalProperties": true,
+              "description": "The JSON object",
+              "title": "Json Obj",
+              "type": "object"
+            }
+          },
+          "required": [
+            "json_obj"
+          ],
+          "title": "report_generation__TableData",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Report",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_chart": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__Insight",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.ChartSpec",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_outputs": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__Insight",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_table": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__Insight",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.TableData",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.multi_format_report": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "json_schema": {
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "TextContent",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Report",
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.write_narrative": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation__Insight",
+          "type": "object"
+        },
+        "optional": false
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Narrative",
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}
