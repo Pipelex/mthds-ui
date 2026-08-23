@@ -363,6 +363,18 @@ It is now two `useState`s adjusted during render, React's documented shape for r
 
 Worth stating plainly, because it is the honest limit of what was verified: the purity change is **not** observable from a story, so unlike every other fix in this cycle it is not pinned red-then-green. What the stories pin is the behaviour on either side of it, and `OptionalSurvivesBeingCleared` still passes. The argument for the change is React's contract plus the reachability of a transition around a library component, not a reproduction.
 
+#### Review round 22 — the corpus said which half of the finding was real
+
+Greptile clean at 5/5 on the round-21 commit. Codex raised one P2 on the fold, in two parts, and checking the corpus before fixing either is what kept the answer honest.
+
+Its stated path — "even when other folded fields keep the toggle visible, toggling it never resets `revealed`" — needs a method declaring two optional inputs, and **no pipe in the whole fixture corpus has more than one**. So the path Codex described is not reachable here, and the path it mentioned in passing is the only one that is: emptying the single optional leaves `foldableCount` at zero, the toggle unrendered, and the empty input on screen for the rest of the contract's life with no control that would remove it. Fixing what was reported rather than what is reachable would have shipped a fix for a case the corpus cannot produce while leaving the real one standing.
+
+Two changes, and each is load-bearing on its own — pinned separately, one mutant apiece. The toggle now counts what a collapse **would** hide (every empty optional) instead of what is hidden right now, so emptying one brings the control back; and the toggle's handler clears the latch, so using it actually folds the field away. `ClearedOptionalCanFoldAwayAgain` walks the whole round trip — reveal, fill, empty, put back — and reverting either change fails it.
+
+Codex's other claim was that the comment promised a recomputation the code never did, and that was simply true: the comment said the latch is recomputed when the fold reopens, and nothing reset it. The **sixth** appearance of this branch's one recurring defect, and the first where the drifted copy was a comment describing behaviour that had never existed rather than behaviour that had changed underneath it.
+
+One state stays slightly wrong and is recorded in `wip/adopt-form/deferred-optional-fold-scope.md`: a host-pre-filled optional emptied under a collapsed fold shows "Show 1 optional input" over a field that is visible. Two clicks resolve it, the user is never stuck, and fixing the label means making a two-state control three-state — in the kernel, which owns `OptionalToggle`, not here.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over whatever HEAD is at the time, and the merge, which is Louis's to give.

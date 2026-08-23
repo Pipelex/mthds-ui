@@ -343,6 +343,52 @@ export const OptionalSurvivesBeingCleared: Story = {
 };
 
 /**
+ * The other half of the latch: keeping an emptied optional on screen must not
+ * make that permanent. The full round trip a user actually takes — reveal it,
+ * fill it, empty it, put it back — and each leg pins a different half. Emptying
+ * it has to bring the toggle back, which only happens because the toggle counts
+ * what a collapse WOULD hide rather than what is hidden right now; and using
+ * the toggle has to actually fold the field away, which only happens because
+ * the transition clears the latch. Miss either and the empty input is stuck in
+ * the form for the rest of the contract's life with no control that removes it.
+ */
+export const ClearedOptionalCanFoldAwayAgain: Story = {
+  args: {
+    contract: NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: "Bridge closure" },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Folded away to start with, and the toggle offers it.
+    await expect(canvas.queryByLabelText(/style_hint/i)).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("button", { name: /optional/i }));
+
+    // Revealed. Filling it takes the toggle away, and that much is right: a
+    // filled optional is never what a collapse hides.
+    const hint = await canvas.findByLabelText(/style_hint/i);
+    await userEvent.type(hint, "formal");
+    await waitFor(() =>
+      expect(canvas.queryByRole("button", { name: /optional/i })).not.toBeInTheDocument(),
+    );
+
+    // Emptied. The field stays — that is the latch, pinned next door — but it is
+    // foldable again, so the way out of it has to be offered again.
+    await userEvent.clear(hint);
+    await expect(hint).toBeInTheDocument();
+    const toggle = await canvas.findByRole("button", { name: /optional/i });
+
+    // And it has to work: the click clears the latch, so the empty input folds.
+    await userEvent.click(toggle);
+    await waitFor(() => expect(canvas.queryByLabelText(/style_hint/i)).not.toBeInTheDocument());
+
+    // The required input is untouched by any of this.
+    await expect(canvas.getByLabelText(/subject/i)).toHaveValue("Bridge closure");
+  },
+};
+
+/**
  * `env.disabled` is the host's, and the panel must not overwrite it. The prop
  * documents a per-key rule — the host's value wins, the panel fills in only
  * what was left undefined — and `disabled` is the key that falls back to

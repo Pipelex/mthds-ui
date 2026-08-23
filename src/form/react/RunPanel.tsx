@@ -358,11 +358,12 @@ export function RunPanel({
   // expand the fold, fill an optional, collapse it (it stays on screen because
   // it is filled), then clear it.
   //
-  // So while the fold is collapsed the form's shape only ever GROWS. It is
-  // recomputed when the fold is reopened or the contract changes, which are the
-  // two moments the user is not mid-edit. Nothing about readiness or the wire
-  // depends on this — an emptied optional is omitted from the payload whether
-  // or not its input is still on screen.
+  // So between fold transitions the form's shape only ever GROWS. The latch is
+  // cleared by the toggle's own handler and by a contract change, which are the
+  // two moments nobody is mid-edit; each is followed by the grow pass below
+  // re-adding every optional that still holds a value, so an emptied one folds
+  // back. Nothing about readiness or the wire depends on this — an emptied
+  // optional is omitted from the payload whether or not its input is on screen.
   //
   // The latch is STATE adjusted during render, not a ref mutated during render,
   // and in a library component that distinction is load-bearing. A ref written
@@ -398,7 +399,16 @@ export function RunPanel({
     (field: RunField) => !field.required && !revealedNow.has(field.name),
     [revealedNow],
   );
-  const foldableCount = fields.filter(isFolded).length;
+  // What a collapse would hide — every EMPTY optional — rather than what is
+  // hidden right now. The two differ only for an optional that was revealed and
+  // then emptied, and that difference is the whole affordance: counting the
+  // latched-visible ones leaves the count at zero there, the toggle unrendered,
+  // and the empty input stuck on screen with no control that would fold it. The
+  // latch keeps deciding what renders; it just stops deciding whether the user
+  // is offered a way out of it.
+  const foldableCount = fields.filter(
+    (field) => !field.required && !isFilled(values[field.name]),
+  ).length;
   const visibleFields = showOptional ? fields : fields.filter((field) => !isFolded(field));
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -459,7 +469,16 @@ export function RunPanel({
             <OptionalToggle
               count={foldableCount}
               expanded={showOptional}
-              onToggle={() => setShowOptional((expanded) => !expanded)}
+              onToggle={() => {
+                setShowOptional((expanded) => !expanded);
+                // Clearing the latch here is what makes "the shape only grows"
+                // a temporary state rather than a permanent one. A fold
+                // transition is a click on this button, so nobody is mid-edit
+                // in a field, and the render below re-adds every optional that
+                // still holds a value — leaving exactly the emptied ones to
+                // fold away, which is what the user just asked for.
+                setRevealed(NOTHING_REVEALED);
+              }}
               noun="input"
             />
           )}
