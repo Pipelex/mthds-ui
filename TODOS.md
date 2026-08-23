@@ -60,22 +60,38 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 **Where the work is.** Branch `feature/Adopt-form`, five commits on top of `cc2e536`:
 
-| SHA | Phase |
-| --- | --- |
+| SHA       | Phase                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------- |
 | `0556e6d` | 1 — the optional peer, the `./form/react` entry, import isolation, `scripts/smoke-pack.mjs` |
-| `ded7bf6` | 2 — `runGate.ts`, `RunPanel.tsx`, `RunPanel.css`, unit tests |
-| `ca75f42` | Checkpoint 1 — design doc updated with deviations and findings |
-| `5fffd87` | 3 — contracts fixtures, form stories, the graph integration story |
-| `ebbef28` | 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG |
+| `ded7bf6` | 2 — `runGate.ts`, `RunPanel.tsx`, `RunPanel.css`, unit tests                                |
+| `ca75f42` | Checkpoint 1 — design doc updated with deviations and findings                              |
+| `5fffd87` | 3 — contracts fixtures, form stories, the graph integration story                           |
+| `ebbef28` | 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG             |
+| `551ca09` | Review round 1 — the four bot findings, plus the first coverage of the upload path          |
 
 **Read first, in this order:** `wip/adopt-form/design.md` (the decisions and the Checkpoint 1 findings — the deviations and the two packaging traps are recorded there), then `docs/run-form-panel.md` (the shipped contract).
 
 ### What remains
 
-- [ ] Poll PR #75 until CI and the review bots have reported. Re-trigger a quiet bot by commenting `@greptileai` / `@codex` on the PR.
-- [ ] Fan out a sub-agent over the bot feedback: deduplicate across bots, verify each item against the code, and fix **only clear wins**. No over-engineering, and do not guard scenarios that cannot occur. Anything doubtful is deferred as a `.md` under `wip/` rather than built.
-- [ ] Resolve the threads, push the fixes, re-ping the bots, repeat until they are all satisfied.
+- [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
+- [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
+- [ ] Round 2: read the bots' re-review of `551ca09`, repeat the verify-and-arbitrate loop until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
+
+#### Review round 1 — what the bots found, and what was true
+
+Four findings, all confirmed, all fixed in `551ca09`. Two of the four descriptions were wrong about _why_, which is the part worth carrying forward.
+
+| Finding                                                              | Verdict                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Codex P1 — `ReferenceError: sources is not defined` in `writeBarrel` | Confirmed and reproduced. A copy-paste introduced by this PR: `sources` lives only in the sibling `writeContractsFixture`. It threw _after_ the pipelex runs and every artifact were written, so `make fixtures-live` would pay for real inference and then exit non-zero. Restored to `present.length`.                                                                                                                                                                                                                                                          |
+| Codex P1 — the upload continuation writes a stale `values` snapshot  | Confirmed. `values` in the dep array creates a newer closure but does not refresh the running one. Fixed with a `valuesRef` read **only** by the async continuation. Not fixed with a functional updater: that needs `onValuesChange` widened to `Dispatch<SetStateAction<…>>`, a breaking change to a just-shipped public prop.                                                                                                                                                                                                                                  |
+| Greptile P1 — Run stays enabled during an upload                     | Confirmed, **but not for the stated reason.** The "replace a populated file" path is unreachable: the kernel swaps the dropzone for a chip once a field has a value, so replacing means clearing first, which disables Run anyway. The reachable case is a _non-gating_ file input — `mustBeFilled` excludes lists, so a plural or optional file field never counts toward readiness and Run stays live through its upload. `cv_matching.screen_cvs` derives exactly that shape from the corpus. Same fix, different justification, and the code comment says so. |
+| Codex P2 — `--from-disk` shells out to the Pipelex venv              | Confirmed. The corpus contracts had no on-disk JSON to reuse (the vendored corpus is read-only), so their split module _is_ their on-disk form and was being rewritten but never read. Now skipped under `FROM_DISK`, with the barrel built from what is on disk. Verified with `PIPELEX_PYTHON` pointed at a nonexistent interpreter: exit 0, files byte-identical. This one was masked by the `ReferenceError` above.                                                                                                                                           |
+
+Two Storybook play tests now cover the upload path, which had **no** coverage before: `UploadHoldsRun` and `UploadKeepsConcurrentEdits`. Both were verified to fail against the unfixed panel before being kept.
+
+Deferred rather than built, in `wip/adopt-form/deferred-upload-race-residues.md`: the same-batch clobber (needs the API break), the spurious key after a contract switch (the gate already ignores it), and `dumpContracts`'s opaque ENOENT (now unreachable). The identical pair of bugs lives independently in `pipelex-app` and is filed at `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`.
 
 ### ★ Checkpoint 2 (close) — still open
 
