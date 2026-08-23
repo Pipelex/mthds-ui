@@ -429,3 +429,129 @@ export const UploadDiscardedAfterPipeSwitch: Story = {
     await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
   },
 };
+
+/**
+ * A departed upload must not un-mark the one that replaced it.
+ *
+ * Discarding the stale write-back is only half of tying an upload to its pipe.
+ * Switching contracts empties `uploadingIds`, which re-enables the dropzone —
+ * so the user can drop again on the SAME field id, since that is exactly what
+ * two pipes sharing `cv` means. When the first upload then settles, an
+ * unconditional cleanup deletes that shared id and the second upload goes
+ * unmarked while still running: its dropzone re-opens mid-flight, its progress
+ * indicator disappears, and the Run gate lets go of it. The cleanup is scoped
+ * to its own generation for the same reason the write-back is.
+ */
+export const UploadCleanupStaysWithItsPipe: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    // Two uploads have to be settleable independently here, so the resolvers
+    // queue up in call order rather than the single slot the other stories use.
+    const pending = React.useRef<((file: UploadedFile) => void)[]>([]);
+    const [contract, setContract] = React.useState(args.contract);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current.push(resolve);
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-pipe" onClick={() => setContract(EXTRACT_CV)}>
+          switch to extract_cv
+        </button>
+        <button
+          type="button"
+          data-testid="settle-first"
+          onClick={() => pending.current[0]?.({ url: "https://files.test/first.pdf" })}
+        >
+          settle the first upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const drop = (name: string) => {
+      const input = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+      if (!input) throw new Error("no file input for cv");
+      fireEvent.change(input, {
+        target: { files: [new File(["%PDF"], name, { type: "application/pdf" })] },
+      });
+    };
+
+    // First upload, under `cv_screening`. It hangs.
+    drop("first.pdf");
+    await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
+
+    // Switching pipes releases the gate, which is what re-opens the dropzone.
+    await userEvent.click(canvas.getByTestId("switch-pipe"));
+    await waitFor(() => expect(canvas.queryByText(/Uploading/)).not.toBeInTheDocument());
+
+    // Second upload, under `extract_cv`, on the same `cv` field. Also hangs.
+    drop("second.pdf");
+    await waitFor(() => expect(canvas.getByText(/Uploading/)).toBeInTheDocument());
+
+    // Now the first one settles. It belongs to a pipe that is no longer on
+    // screen, so it must leave the second upload's bookkeeping alone.
+    await userEvent.click(canvas.getByTestId("settle-first"));
+
+    // Still uploading, still gated. Without the generation check the indicator
+    // would be gone and Run would be live over a file that never arrived.
+    await expect(canvas.getByText(/Uploading/)).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * A rejected submit describes one pipe's inputs, so it dies with that pipe.
+ *
+ * `commitValues` already clears the summary whenever the panel itself moves the
+ * values, on the principle that a stale complaint about a field just corrected
+ * is worse than none. Switching pipes is the same principle from the other
+ * side: the summary names inputs that are no longer on screen, over a form that
+ * was never submitted. The graph integration is exactly this shape — selecting
+ * a node swaps the contract under one long-lived panel.
+ */
+export const SubmitErrorClearedOnPipeSwitch: Story = {
+  args: {
+    contract: TRIAGE,
+    title: "triage_case",
+    initialValues: {
+      invoice: { amount: "twelve euros", invoice_number: "INV-1" },
+      priority: { number: "3" },
+      question: { text: "Is this covered?" },
+      tags: [],
+    },
+  },
+  render: function Render(args) {
+    const [pipe, setPipe] = React.useState({ contract: args.contract, title: args.title });
+    return (
+      <>
+        <PanelHost {...args} contract={pipe.contract} title={pipe.title} />
+        <button
+          type="button"
+          data-testid="switch-pipe"
+          onClick={() => setPipe({ contract: CV_SCREENING, title: "cv_screening" })}
+        >
+          switch to cv_screening
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Readiness passes and the gate still rejects — `amount` holds prose.
+    const run = canvas.getByRole("button", { name: "Run" });
+    await waitFor(() => expect(run).toBeEnabled());
+    await userEvent.click(run);
+    await expect(await canvas.findByRole("alert")).toBeInTheDocument();
+
+    // Pick another pipe. The complaint went with the form it was about.
+    await userEvent.click(canvas.getByTestId("switch-pipe"));
+    await waitFor(() => expect(canvas.queryByRole("alert")).not.toBeInTheDocument());
+  },
+};

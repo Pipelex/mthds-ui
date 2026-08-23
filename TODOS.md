@@ -68,6 +68,9 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 | `5fffd87` | 3 — contracts fixtures, form stories, the graph integration story                           |
 | `ebbef28` | 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG             |
 | `551ca09` | Review round 1 — the four bot findings, plus the first coverage of the upload path          |
+| `2723df9` | Review round 1 written into this tracker                                                    |
+| `d54fb89` | Review round 2 — the two contracts-only generator paths                                     |
+| `078c0f1` | Review round 3 — the contract-switch upload leak, and `--contracts --from-disk`             |
 
 **Read first, in this order:** `wip/adopt-form/design.md` (the decisions and the Checkpoint 1 findings — the deviations and the two packaging traps are recorded there), then `docs/run-form-panel.md` (the shipped contract).
 
@@ -75,7 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [ ] Round 2: read the bots' re-review of `551ca09`, repeat the verify-and-arbitrate loop until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`) and 4 (`a879dbe`): the re-review loop, written up below.
+- [ ] Round 5: read the bots' re-review of `a879dbe` and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -91,7 +95,23 @@ Four findings, all confirmed, all fixed in `551ca09`. Two of the four descriptio
 
 Two Storybook play tests now cover the upload path, which had **no** coverage before: `UploadHoldsRun` and `UploadKeepsConcurrentEdits`. Both were verified to fail against the unfixed panel before being kept.
 
-Deferred rather than built, in `wip/adopt-form/deferred-upload-race-residues.md`: the same-batch clobber (needs the API break), the spurious key after a contract switch (the gate already ignores it), and `dumpContracts`'s opaque ENOENT (now unreachable). The identical pair of bugs lives independently in `pipelex-app` and is filed at `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`.
+Deferred rather than built, in `wip/adopt-form/deferred-upload-race-residues.md`: the same-batch clobber (needs the API break), the spurious key after a contract switch, and `dumpContracts`'s opaque ENOENT (now unreachable). **The middle one was deferred in error and round 3 overturned it** — see below. The identical pair of bugs lives independently in `pipelex-app` and is filed at `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`.
+
+#### Review rounds 2 and 3
+
+Round 2 (`d54fb89`) was two findings on the contracts-only path in `scripts/generate-fixtures.mjs`, and the interesting part is that they took **opposite** resolutions on purpose. `--contracts --check` is now **rejected** rather than taught a no-write mode: `--check` asks "would a regeneration change anything," and the contracts pass is already offline and fast enough to just run, so a no-write mode would be machinery serving no question. `--contracts --from-disk`, by contrast, was **implemented** — unlike `--check`, `--from-disk` has a coherent meaning here and is what the flag does everywhere else in the script. The same round hoisted `--only` validation so every path rejects an unknown pipeline instead of silently sweeping zero.
+
+Round 3 (`078c0f1`) produced the finding worth carrying forward, because **it overturned a deferral made in round 2.** The late-upload-after-a-pipe-switch case had been written off as harmless on the grounds that the run gate builds its payload from `contract.inputs` and never reads a key no field owns. That is true, and it was the wrong test: two pipes of one method routinely share an input name, and `recruitment.cv_screening` and `recruitment.extract_cv` both declare a required, gating `cv`. The key then _is_ owned by the new contract, so a file chosen for one pipe lands in the other looking like a deliberate answer, satisfies gating, and can be sent — with nothing in the form saying where it came from. `GraphWithRunPanel` is exactly that shape, since selecting a node resets the values.
+
+The fix makes the `contract` the generation marker: a drop remembers the one it happened under, a result resolving under a different one is discarded, and switching contracts clears `uploadingIds` so a departed upload stops gating the new form. The consequence is documented rather than buried — **`contract` is now referentially significant**, so a host that rebuilds it every render loses in-flight uploads (and is already rebuilding every field, since `fields` memoizes on the same reference). `UploadDiscardedAfterPipeSwitch` pins it, verified to fail without the guard.
+
+#### Review round 4
+
+Both bots independently found the same defect, which is the round-3 fix being only half-applied: the write-back was scoped to its upload's generation but the `finally` cleanup was not. Switching pipes clears `uploadingIds`, which re-opens the dropzone, so a second upload can start on the same shared field id — and the first one finishing then deleted that id, un-marking an upload that was still running. Its dropzone re-opened mid-flight, its progress indicator vanished, and the Run gate let go of it. The kernel disables the dropzone while a field is uploading (`useDropzone({ disabled: disabled || uploading })`), which is what confines this to the contract-switch path rather than making it a general double-drop bug. Fixed by giving the cleanup the same generation check as the write-back; the asymmetry between the two was the smell.
+
+Greptile's framing — "allowing submission with its file missing" — overstates one consequence: for a _gating_ input like `cv`, readiness still blocks Run because no value has landed. The unsafe submit needs a non-gating file input sharing an id across the two contracts. The other harms are real regardless, so the fix stands as written.
+
+The second round-4 finding, a stale submit summary surviving a state change, was **split**. A summary describing pipe A's inputs must not stand over pipe B's form, so it now clears on a contract switch — `SubmitErrorClearedOnPipeSwitch` pins that. The other half, a host resetting `values` under an unchanged contract, is deliberately **not** fixed: keying the clear on `values` identity would make a rejected submit's explanation vanish before it could be read on any host that passes a fresh object each render, which is a worse failure than the stale message. Recorded as residue 3 in `wip/adopt-form/deferred-upload-race-residues.md`.
 
 ### ★ Checkpoint 2 (close) — still open
 

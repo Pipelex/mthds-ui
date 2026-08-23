@@ -20,7 +20,15 @@ This was written up as harmless and deferred. It was not harmless, and the secon
 
 **The fix.** A drop remembers the contract it happened under; a result that resolves under a different one is discarded, and switching contracts clears `uploadingIds` so a departed upload stops gating the new form. Pinned by the `UploadDiscardedAfterPipeSwitch` play test, verified to fail without the guard. The consequence to know: `contract` is now referentially significant — a host that rebuilds it every render loses its uploads. That host is already rebuilding every field, since `fields` memoizes on the same reference.
 
-## 3. `dumpContracts` reports a missing venv opaquely
+## 3. A host that resets `values` without changing `contract` keeps a stale submit summary
+
+`submitError` is cleared whenever the panel itself moves the values (`commitValues`, so an edit or an upload landing) and whenever `contract` changes. It is not cleared when a **host** rewrites `values` under an unchanged contract — a "clear the form" button, or re-selecting the pipe that is already showing, which `GraphWithRunPanel` does since node selection always calls `setValues({})`. The summary then stands over a form the user never submitted.
+
+**Why it is not fixed.** The obvious fix — clear the error in an effect keyed on `values` — makes `values` referentially significant the way `contract` already is, and the failure mode is much worse than the bug. A host that passes a fresh object each render (`values={{ ...state }}`, an anti-pattern but a common one, and one that costs only memoization today) would fire that effect on every render, so a rejected submit's explanation would vanish before it could be read. Run would appear to do nothing, with no message and nothing in the console. Trading a visible stale message for an invisible disappearing one is a bad trade.
+
+**What would justify revisiting it.** A signal for "the host replaced the values" that does not rely on reference identity — most plainly, the host telling us, if a real one ever wants a `clearErrors` handle. Do not reach for a deep compare; the values carry uploaded file blobs and arbitrary structured content.
+
+## 4. `dumpContracts` reports a missing venv opaquely
 
 `scripts/generate-fixtures.mjs`'s `dumpContracts` has no availability guard of the kind `assertPipelexCliAvailable` provides. On `ENOENT` its handler prints `err.stdout` / `err.stderr`, both `undefined`, so a missing interpreter surfaces as two blank lines and `dump_pipe_io_contracts.py failed` with no mention of the interpreter.
 

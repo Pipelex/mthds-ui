@@ -141,6 +141,9 @@ export function RunPanel({
     // Whatever was in flight belonged to the previous pipe; it must not go on
     // gating this form's Run button until it happens to settle.
     setUploadingIds(EMPTY_IDS);
+    // Nor may a complaint about the previous pipe's inputs stand over this
+    // pipe's form: it names fields that are no longer on screen.
+    setSubmitError(null);
   }, [contract]);
 
   const handleDropFile = React.useCallback(
@@ -164,6 +167,14 @@ export function RunPanel({
           // becoming an unhandled rejection; the field simply stays empty.
         })
         .finally(() => {
+          // The same generation check as the write-back, for a sharper reason.
+          // Switching contracts already emptied this set, and the very same id
+          // may since have been re-added by a NEW upload under the new
+          // contract — nothing exotic, since that is what sharing the `cv`
+          // input name means. Deleting it here would un-mark an upload that is
+          // still running: its dropzone re-enables mid-flight, its progress
+          // indicator vanishes, and the Run gate lets go of it.
+          if (contractRef.current !== startedOn) return;
           setUploadingIds((previous) => {
             const next = new Set(previous);
             next.delete(id);
