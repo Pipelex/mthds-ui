@@ -36,6 +36,10 @@
     "./graph/react/detail/DetailPanel.css": "./dist/graph/react/detail/DetailPanel.css",
     "./graph/react/stuff/StuffViewer.css": "./dist/graph/react/stuff/StuffViewer.css",
     "./graph/react/viewer/GraphToolbar.css": "./dist/graph/react/viewer/GraphToolbar.css",
+    "./form/react": {
+      "import": "./dist/form/react/index.js",
+      "types": "./dist/form/react/index.d.ts"
+    },
     "./shiki": {
       "import": "./dist/shiki/index.js",
       "types": "./dist/shiki/index.d.ts"
@@ -55,6 +59,7 @@
     "fixtures:live": "node scripts/generate-fixtures.mjs --live",
     "postbuild": "node scripts/build-standalone.mjs",
     "build:standalone": "node scripts/build-standalone.mjs",
+    "smoke:pack": "node scripts/smoke-pack.mjs",
     "lint": "eslint src/",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
@@ -73,11 +78,15 @@
     "smol-toml": "^1.7.0"
   },
   "peerDependencies": {
+    "@pipelex/mthds-form": "^0.2.0",
     "react": "^19",
     "react-dom": "^19",
     "shiki": "^3.22.0"
   },
   "peerDependenciesMeta": {
+    "@pipelex/mthds-form": {
+      "optional": true
+    },
     "shiki": {
       "optional": true
     },
@@ -91,6 +100,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.1",
     "@eslint/js": "^9.39.4",
+    "@pipelex/mthds-form": "^0.2.0",
     "@storybook/addon-a11y": "^10.3.3",
     "@storybook/addon-docs": "^10.3.3",
     "@storybook/addon-onboarding": "^10.3.3",

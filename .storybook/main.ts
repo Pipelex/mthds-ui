@@ -21,6 +21,7 @@ const config: StorybookConfig = {
       ...(config.resolve.alias as Record<string, string>),
       "@graph": path.resolve(dirname, "../src/graph"),
       "@static-graph": path.resolve(dirname, "../src/static-graph"),
+      "@form": path.resolve(dirname, "../src/form"),
     };
     // Pre-bundle elkjs CJS module for browser compatibility
     config.optimizeDeps = config.optimizeDeps || {};

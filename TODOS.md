@@ -4,14 +4,14 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## Phase 1 — plumbing
 
-- [ ] Add `@pipelex/mthds-form` to `package.json`: `peerDependencies` (`^0.2.0`) with `peerDependenciesMeta.optional: true`, and `devDependencies` for local development (mirror how `shiki` is handled).
-- [ ] Create the module skeleton `src/form/react/index.ts` (barrel; exports land in Phase 2) and add the `@form/*` → `src/form/*` path alias in all four registration places: `tsconfig.json` `paths`, `tsup.config.ts` `esbuildOptions.alias`, `.storybook/main.ts` `viteFinal` resolve alias, `vitest.config.mts` `resolve.alias`.
-- [ ] Wire the `./form/react` entry: add `src/form/react/index.ts` to the tsup `entry` array, and add `"./form/react"` to the `package.json` `exports` map (`import` + `types`, matching the existing entries).
-- [ ] Mark `@pipelex/mthds-form` and `@pipelex/mthds-form/react` as `external` in `tsup.config.ts` so the kernel is never bundled (context identity — Decision B).
-- [ ] `"use client"` directive: esbuild strips directive prologues, so re-prepend `"use client"` onto `dist/form/react/index.js` in tsup `onSuccess`, the same way `mthds-form/tsup.config.ts` does for its own react entry. Verify with `head -1 dist/form/react/index.js` after a build.
-- [ ] Import isolation (Decision B enforcement): add an eslint `no-restricted-imports` block in `eslint.config.mjs` — for files outside `src/form/**`, forbid the `@pipelex/mthds-form*` patterns with a message pointing at the design decision.
-- [ ] Consumer-shaped smoke test: `npm run build`, then from a scratch directory `npm pack` the tarball and verify with a small node script that (a) `@pipelex/mthds-ui/form/react` resolves and its kernel imports survive as externals, and (b) `@pipelex/mthds-ui/graph/react` imports cleanly **without** `@pipelex/mthds-form` installed.
-- [ ] `make check && make test` green.
+- [x] Add `@pipelex/mthds-form` to `package.json`: `peerDependencies` (`^0.2.0`) with `peerDependenciesMeta.optional: true`, and `devDependencies` for local development (mirror how `shiki` is handled).
+- [x] Create the module skeleton `src/form/react/index.ts` (barrel; exports land in Phase 2) and add the `@form/*` → `src/form/*` path alias in all four registration places: `tsconfig.json` `paths`, `tsup.config.ts` `esbuildOptions.alias`, `.storybook/main.ts` `viteFinal` resolve alias, `vitest.config.mts` `resolve.alias`.
+- [x] Wire the `./form/react` entry: add `src/form/react/index.ts` to the tsup `entry` array, and add `"./form/react"` to the `package.json` `exports` map (`import` + `types`, matching the existing entries).
+- [x] Mark `@pipelex/mthds-form` and `@pipelex/mthds-form/react` as `external` in `tsup.config.ts` so the kernel is never bundled (context identity — Decision B).
+- [x] `"use client"` directive: esbuild strips directive prologues, so re-prepend `"use client"` onto `dist/form/react/index.js` in tsup `onSuccess`, the same way `mthds-form/tsup.config.ts` does for its own react entry. Verify with `head -1 dist/form/react/index.js` after a build.
+- [x] Import isolation (Decision B enforcement): add an eslint `no-restricted-imports` block in `eslint.config.mjs` — for files outside `src/form/**`, forbid the `@pipelex/mthds-form*` patterns with a message pointing at the design decision.
+- [x] Consumer-shaped smoke test: `npm run build`, then from a scratch directory `npm pack` the tarball and verify with a small node script that (a) `@pipelex/mthds-ui/form/react` resolves and its kernel imports survive as externals, and (b) `@pipelex/mthds-ui/graph/react` imports cleanly **without** `@pipelex/mthds-form` installed. → landed as the committed `scripts/smoke-pack.mjs` + `make smoke-pack`, so the packaging contract stays re-checkable rather than being a one-off.
+- [x] `make check && make test` green.
 
 ## Phase 2 — the panel
 

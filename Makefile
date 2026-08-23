@@ -1,4 +1,4 @@
-.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean storybook st fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t
+.PHONY: all install build lint format format-check typecheck test test-watch test-coverage check c clean smoke-pack storybook st fixtures fixtures-live fixtures-live-test fixtures-missing fixtures-live-missing schema-refresh t
 
 install:
 	npm install
@@ -36,6 +36,13 @@ c: check
 
 all: check test build
 	@echo "All checks passed and build succeeded."
+
+# Pack the tarball and inspect it from a bare consumer that deliberately does
+# NOT have @pipelex/mthds-form installed — the only place the export map, the
+# externals and the "use client" directives are observable. Slow (it builds and
+# installs), so it is not part of `check`.
+smoke-pack:
+	node scripts/smoke-pack.mjs
 
 storybook:
 	npx storybook dev -p 6006

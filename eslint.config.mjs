@@ -32,6 +32,28 @@ export default tseslint.config(
       "no-console": "error",
     },
   },
+  {
+    // Import isolation for the optional peer (design Decision B,
+    // `wip/adopt-form/design.md`): `@pipelex/mthds-form` is reachable only from
+    // `src/form/**`, which is exported behind its own `./form/react` entry.
+    // Every other entry must keep resolving with the kernel not installed.
+    files: ["src/**/*.ts", "src/**/*.tsx"],
+    ignores: ["src/form/**"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@pipelex/mthds-form", "@pipelex/mthds-form/*"],
+              message:
+                "@pipelex/mthds-form is an OPTIONAL peer dependency, isolated behind the ./form/react entry (design Decision B). Import it only from src/form/**, so the graph entries keep working with the kernel absent.",
+            },
+          ],
+        },
+      ],
+    },
+  },
   ...storybook.configs["flat/recommended"],
   {
     files: ["src/**/*.stories.ts", "src/**/*.stories.tsx"],

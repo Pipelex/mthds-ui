@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       "@graph": path.resolve(dirname, "src/graph"),
       "@static-graph": path.resolve(dirname, "src/static-graph"),
+      "@form": path.resolve(dirname, "src/form"),
     },
   },
   test: {
