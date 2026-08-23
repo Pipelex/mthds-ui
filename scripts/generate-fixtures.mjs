@@ -649,7 +649,11 @@ async function main() {
   // A DRY pass also refreshes the contracts, and those go through the venv
   // interpreter rather than the CLI — so demand it up front instead of dying
   // halfway through, after the run artifacts have already been rewritten.
-  if (!LIVE && !FROM_DISK) {
+  // The condition mirrors the `writePipeIoContracts` call site below exactly,
+  // `!CHECK` included: --check writes nothing, so it never reaches the
+  // interpreter, and a guard that outruns the call it protects turns a
+  // validate-only smoke test into one that needs a sibling venv it will not use.
+  if (toProcess.length > 0 && !CHECK && !LIVE) {
     assertPipelexPythonAvailable();
   }
 

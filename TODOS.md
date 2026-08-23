@@ -245,6 +245,14 @@ Fixed by asserting the executable each path actually uses: the contracts pass de
 
 **The process lesson is mine, not the bots'.** I armed a monitor for this round with its cutoff written in local time while the clock it compares against is UTC, so it was filtering for events two hours in the future and could never fire. Codex's review landed twenty minutes before I noticed, and I noticed only because Louis asked. A monitor that cannot fire looks exactly like a quiet one.
 
+#### Review round 14 — the same guard, now overrunning the call it protects
+
+Greptile clean. One Codex P2, and it is the mirror image of the round-13 finding on the same lines: having made each path demand the executable it actually uses, the DRY guard was written as `!LIVE && !FROM_DISK` — which also fires under `--check`, a mode that writes nothing and therefore never reaches `writePipeIoContracts` at all. So `--check`, whose entire purpose is to validate the CLI's output without touching the tree, refused to run on a machine with a working CLI and no sibling venv.
+
+Fixed by making the guard mirror its call site exactly — `toProcess.length > 0 && !CHECK && !LIVE` — which also parallels the CLI guard directly above it instead of restating the same idea in different terms. Verified by running all four modes: `--check` now completes the smoke test with the interpreter missing, the DRY write pass and the contracts pass still refuse up front with the message naming `PIPELEX_PYTHON`, and `--from-disk` still needs neither and still rewrites the fixture byte-identically.
+
+**Worth naming, because it is a pattern and not an accident:** rounds 13 and 14 are one defect seen from two sides. A guard is a claim about what a path will execute, and it is wrong when it names the wrong executable _and_ when it outruns the branch that does the executing. Round 13's fix was correct about _which_ binary and careless about _when_ — the sort of half-correction that a review catches only because someone is reading the condition against the call site rather than against the prose intent. Both directions cost nothing to check and are invisible until someone runs the mode on a machine unlike this one.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over the last two commits, and the merge, which is Louis's to give.
