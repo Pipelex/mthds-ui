@@ -91,6 +91,7 @@ export interface RunPanelProps {
 }
 
 const EMPTY_IDS: ReadonlySet<string> = new Set<string>();
+const NOTHING_REVEALED: ReadonlySet<string> = new Set<string>();
 
 /**
  * A pipe's input form: fields, readiness, and the run gate, composed.
@@ -362,18 +363,40 @@ export function RunPanel({
   // two moments the user is not mid-edit. Nothing about readiness or the wire
   // depends on this — an emptied optional is omitted from the payload whether
   // or not its input is still on screen.
-  const revealedRef = React.useRef<Set<string>>(new Set());
-  const latchedForRef = React.useRef(contract);
-  if (latchedForRef.current !== contract) {
-    latchedForRef.current = contract;
-    revealedRef.current = new Set();
+  //
+  // The latch is STATE adjusted during render, not a ref mutated during render,
+  // and in a library component that distinction is load-bearing. A ref written
+  // during render survives a render that never commits, so a host rendering the
+  // panel inside a transition — which App Router navigation does by default —
+  // can have an abandoned render for contract B wipe the set that the committed
+  // contract A is still displaying from, and an optional the user revealed,
+  // collapsed and emptied vanishes on A's next render. That is the very defect
+  // this latch exists to prevent, re-entering by another door. React discards a
+  // state update from an abandoned render, so the two-`useState` form below is
+  // the one that actually holds. It is React's documented shape for adjusting
+  // state when a prop changes, and it converges: after the update lands, the
+  // reset branch and `newlyRevealed` are both empty on the following pass.
+  const [revealed, setRevealed] = React.useState<ReadonlySet<string>>(NOTHING_REVEALED);
+  const [latchedFor, setLatchedFor] = React.useState(contract);
+  // Read this render off the local value, never off `revealed`: a state update
+  // made during render is not visible until the re-render it schedules, and the
+  // output computed below has to already reflect it.
+  let revealedNow = revealed;
+  if (latchedFor !== contract) {
+    revealedNow = NOTHING_REVEALED;
+    setLatchedFor(contract);
+    setRevealed(revealedNow);
   }
-  for (const field of fields) {
-    if (!field.required && isFilled(values[field.name])) revealedRef.current.add(field.name);
+  const newlyRevealed = fields.filter(
+    (field) => !field.required && isFilled(values[field.name]) && !revealedNow.has(field.name),
+  );
+  if (newlyRevealed.length > 0) {
+    revealedNow = new Set([...revealedNow, ...newlyRevealed.map((field) => field.name)]);
+    setRevealed(revealedNow);
   }
   const isFolded = React.useCallback(
-    (field: RunField) => !field.required && !revealedRef.current.has(field.name),
-    [],
+    (field: RunField) => !field.required && !revealedNow.has(field.name),
+    [revealedNow],
   );
   const foldableCount = fields.filter(isFolded).length;
   const visibleFields = showOptional ? fields : fields.filter((field) => !isFolded(field));

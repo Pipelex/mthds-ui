@@ -353,6 +353,16 @@ Run cold with no inherited context, per the goal, and deliberately pointed at `T
 
 Everything deferred, with evidence and with the reasons the obvious fixes are wrong, is in `wip/adopt-form/deferred-final-sweep.md`.
 
+#### Review round 21 — the fix for the fold defect had the defect's own shape
+
+The confirming pass over the sweep's own commit. Greptile clean at 5/5. Codex raised one P2, and it was right, on the one file the sweep had changed by hand.
+
+The revealed-optionals latch was a ref written during render. That is a rules-of-React violation with a concrete consequence in a **library** component, where the host decides the rendering context: a ref write survives a render that never commits, so an abandoned render for contract B clears the set that the committed contract A is still displaying from, and an optional the user revealed, collapsed and emptied vanishes on A's next render. That is precisely the defect the latch was added to prevent, re-entering by another door — and it is not exotic to reach, because App Router navigation renders inside a transition by default.
+
+It is now two `useState`s adjusted during render, React's documented shape for reacting to a changed prop, with the render's own output read off a local value because a state update made during render is not visible until the pass it schedules. React discards such an update when the render is abandoned, which is the whole property that was missing. It converges: after the update lands, both the reset branch and the newly-revealed list are empty on the following pass.
+
+Worth stating plainly, because it is the honest limit of what was verified: the purity change is **not** observable from a story, so unlike every other fix in this cycle it is not pinned red-then-green. What the stories pin is the behaviour on either side of it, and `OptionalSurvivesBeingCleared` still passes. The argument for the change is React's contract plus the reachability of a transition around a library component, not a reproduction.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over whatever HEAD is at the time, and the merge, which is Louis's to give.
