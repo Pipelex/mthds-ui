@@ -27,7 +27,16 @@ This stopped being hypothetical. A full `make fixtures-contracts` on the machine
 +          "title": "native.Text",
 ```
 
-The venv the contracts dump shells out to has taken S2; the committed fixtures have not. So the ordering below is not merely a thing to remember at bump time — **any full contracts refresh, run for any reason, silently performs the reshape now**, in front of a kernel that still reads `optional`. The regeneration is not a step you take when you decide to; it is a step that happens to you unless the bump is what you are doing.
+The reason matters more than the observation. **PR #1149 has merged** — `pipelex` commit `4bb97ec1f` — so this is not a branch someone is experimenting on. And the interpreter the contracts dump shells out to is an **editable install** (`_editable_impl_pipelex.pth`) pointing at the sibling `pipelex/` checkout, so it runs that checkout's code rather than a pinned wheel; the `0.51.0` the metadata reports says nothing about which shape it emits. Confirmed against the installed package rather than the source tree:
+
+```
+$ ../pipelex/.venv/bin/python -c "from pipelex.pipeline.pipe_io_contracts import PipeInputContract; print(list(PipeInputContract.model_fields.keys()))"
+['concept_ref', 'presence', 'multiplicity', 'item_count', 'json_schema']
+```
+
+That is the check to run before trusting any contracts regeneration: if `presence` is in that list and the kernel is still pre-S2, do not refresh. A version number will not tell you, and neither will a clean `git status` afterwards on a partial run.
+
+So the ordering below is not merely a thing to remember at bump time — **any full contracts refresh, run for any reason, silently performs the reshape now**, in front of a kernel that still reads `optional`. The regeneration is not a step you take when you decide to; it is a step that happens to you unless the bump is what you are doing. Worth noting how quietly it passes: nothing failed, nothing went red, and the reshaped fixtures were only caught because the tree was being watched for an unrelated reason.
 
 Two consequences worth carrying forward. `--from-disk` is the safe way to rebuild the fixture modules without re-sourcing anything, and it is the only contracts invocation that cannot trip this. And a targeted `--only` no longer drags the two corpus entries along with it, which previously meant even a one-pipeline refresh reshaped them — that is fixed, but the pipelines it _does_ select are still reshaped, so `--only` is not a safe way to avoid this either.
 
