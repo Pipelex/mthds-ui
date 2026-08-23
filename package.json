@@ -40,6 +40,7 @@
       "import": "./dist/form/react/index.js",
       "types": "./dist/form/react/index.d.ts"
     },
+    "./form/react/RunPanel.css": "./dist/form/react/RunPanel.css",
     "./shiki": {
       "import": "./dist/shiki/index.js",
       "types": "./dist/shiki/index.d.ts"

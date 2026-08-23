@@ -30,6 +30,7 @@ export default defineConfig({
         "src/graph/graphFolds.ts",
         "src/graph/pipeCardPayload.ts",
         "src/graph/react/rfTypes.ts",
+        "src/form/runGate.ts",
         "src/static-graph/types.ts",
         "src/static-graph/conceptRefs.ts",
         "src/static-graph/normalizePipe.ts",

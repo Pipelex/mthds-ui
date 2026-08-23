@@ -23,6 +23,19 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..
 const SRC_DIR = path.join(REPO_ROOT, "src");
 
 const SKIP_DIR_SEGMENTS = new Set(["__tests__", "__stories__", "node_modules"]);
+
+/**
+ * Source trees the standalone bundle cannot reach, and therefore must not be
+ * asked to ship stylesheets for. The bundle has exactly one entry point —
+ * `src/standalone/adapter.ts`, the graph viewer.
+ *
+ * `src/form/` is out because the run panel renders the form kernel's controls,
+ * and `@pipelex/mthds-form` is an OPTIONAL PEER that the standalone IIFE by
+ * construction does not have (design Decision B). Listing `RunPanel.css` in the
+ * manifest would inline a stylesheet for a component no standalone HTML can
+ * render.
+ */
+const UNREACHABLE_FROM_STANDALONE = ["src/form"];
 const SOURCE_EXTS = new Set([".ts", ".tsx"]);
 const CSS_IMPORT_PATTERN = /import\s+["'](\.{1,2}\/[^"']+\.css)["']/g;
 
@@ -31,6 +44,7 @@ function walkSourceFiles(dir: string): string[] {
   for (const entry of readdirSync(dir)) {
     if (SKIP_DIR_SEGMENTS.has(entry)) continue;
     const full = path.join(dir, entry);
+    if (UNREACHABLE_FROM_STANDALONE.includes(path.relative(REPO_ROOT, full))) continue;
     const stat = statSync(full);
     if (stat.isDirectory()) {
       out.push(...walkSourceFiles(full));

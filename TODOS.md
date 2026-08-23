@@ -15,14 +15,14 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## Phase 2 — the panel
 
-- [ ] Extract the pure composition logic into `src/form/runGate.ts` (or similar pure module, no React): the four-step submit gate (`buildRunInputsSchema` → `prepareRunInputs` → `validateRunInputs` → `apiInputsFromSchemaData`) and the error-summary derivation (`describeValidationError` over the verdict, falling back to `errors` when `missingInputs` is empty — a documented legitimate state). Keeping this React-free makes it testable in the node vitest project.
-- [ ] Build `src/form/react/RunPanel.tsx` with the props from the design sketch: `contract: PipeIOContract`, controlled `values` + `onValuesChange`, `onRun(apiInputs)` firing only after the gate passes, `running?`, `env?: FieldEnv` passthrough, `title?`, `theme?: GraphTheme`.
-- [ ] Internals per Decision C: `fieldsForContract(contract)` for the field list, one `FieldRenderer` per field, `OptionalToggle` folding empty optionals, `computeReadiness` gating the Run button, value write-back with `setValueAtPath` keyed by the field's dotted-path `id`. The panel never reads `json_schema` to make a rendering decision and never sniffs value shapes.
-- [ ] Theme bridge (Decision D): the panel container toggles the kernel's `.dark` class in step with the `theme` prop, and carries a documented stable class name (e.g. `mthds-run-panel`) as the host hook for scoped shadcn token overrides.
-- [ ] `src/form/react/RunPanel.css` — panel chrome only, this repo's own tokens, no Tailwind. Register it in **both** tsup places (the `external` regex array AND the `onSuccess` `mkdirSync`+`cpSync` pair), add the `"./form/react/RunPanel.css"` export to `package.json`, and after building verify the import survives in `dist/form/react/index.js` and the file exists in `dist/`.
-- [ ] Export `RunPanel`, `RunPanelProps`, and anything else public from `src/form/react/index.ts`.
-- [ ] Unit tests in the node vitest project (`src/form/__tests__/`): the gate orchestration happy path, the invalid-with-empty-`missingInputs` fallback, and null/empty contract edges. The kernel's own behavior is not re-tested here. Add the new pure module(s) to the vitest coverage `include` list.
-- [ ] `make check && make test` green.
+- [x] Extract the pure composition logic into `src/form/runGate.ts` (or similar pure module, no React): the four-step submit gate (`buildRunInputsSchema` → `prepareRunInputs` → `validateRunInputs` → `apiInputsFromSchemaData`) and the error-summary derivation (`describeValidationError` over the verdict, falling back to `errors` when `missingInputs` is empty — a documented legitimate state). Keeping this React-free makes it testable in the node vitest project.
+- [x] Build `src/form/react/RunPanel.tsx` with the props from the design sketch: `contract: PipeIOContract`, controlled `values` + `onValuesChange`, `onRun(apiInputs)` firing only after the gate passes, `running?`, `env?: FieldEnv` passthrough, `title?`, `theme?: GraphTheme`.
+- [x] Internals per Decision C: `fieldsForContract(contract)` for the field list, one `FieldRenderer` per field, `OptionalToggle` folding empty optionals, `computeReadiness` gating the Run button, value write-back with `setValueAtPath` keyed by the field's dotted-path `id`. The panel never reads `json_schema` to make a rendering decision and never sniffs value shapes.
+- [x] Theme bridge (Decision D): the panel container toggles the kernel's `.dark` class in step with the `theme` prop, and carries a documented stable class name (e.g. `mthds-run-panel`) as the host hook for scoped shadcn token overrides.
+- [x] `src/form/react/RunPanel.css` — panel chrome only, this repo's own tokens, no Tailwind. Register it in **both** tsup places (the `external` regex array AND the `onSuccess` `mkdirSync`+`cpSync` pair), add the `"./form/react/RunPanel.css"` export to `package.json`, and after building verify the import survives in `dist/form/react/index.js` and the file exists in `dist/`.
+- [x] Export `RunPanel`, `RunPanelProps`, and anything else public from `src/form/react/index.ts`.
+- [x] Unit tests in the node vitest project (`src/form/__tests__/`): the gate orchestration happy path, the invalid-with-empty-`missingInputs` fallback, and null/empty contract edges. The kernel's own behavior is not re-tested here. Add the new pure module(s) to the vitest coverage `include` list.
+- [x] `make check && make test` green.
 
 ## ★ Checkpoint 1
 
