@@ -26,7 +26,7 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## ★ Checkpoint 1
 
-- [ ] Update `wip/adopt-form/design.md`: decisions confirmed or amended, SHAs of landed commits, deviations reconciled into the phases below. Verify the doc is cold-start ready for a fresh session.
+- [x] Update `wip/adopt-form/design.md`: decisions confirmed or amended, SHAs of landed commits, deviations reconciled into the phases below. Verify the doc is cold-start ready for a fresh session.
 
 ## Phase 3 — stories and fixtures
 
