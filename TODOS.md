@@ -311,6 +311,14 @@ Verified against the built kernel rather than assumed: the row id is `` `${id}.$
 
 So the union fix is now pinned rather than argued: `HostTrackerJoinsPanelUploads` fills `job_offer`, passes an idle `env.uploadingIds`, adds a `cvs` row and drops a file into it, and asserts Run goes disabled. **Verified red-then-green** — reverting the merge to `env?.uploadingIds ?? uploadingIds` fails exactly that assertion and nothing else. A list is the only shape where this gate is observable, because `mustBeFilled` excludes lists so readiness never covers for it.
 
+#### Review round 19 — the win32 branch that was half-written
+
+Greptile clean on the previous commit (5/5), explicitly accepting the duplicate-run decision as a host-contract question. Codex raised one P2, and it is the same class of defect as rounds 13, 14 and 17: **a branch that already existed and was already half wrong.**
+
+The generator resolved both executables as `.venv/bin/<name>` with a `process.platform === "win32"` test that appended `.exe` — so on Windows it looked for `.venv/bin/python.exe`, which describes no virtualenv that has ever existed. A venv puts its executables in `Scripts` there. The half-written branch is worse than no branch: it looks handled, and resolves to a path that cannot exist, so the failure surfaces as "your venv is missing" on a machine whose venv is fine.
+
+Codex named the interpreter; the CLI had the identical bug one line above, and fixing only what was reported would have repeated round 17's mistake exactly. The directory and the suffix are now one pair of constants used by both. Verified by composing the path for each platform and by running the contracts pass end to end on this one, which is unchanged and idempotent.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over whatever HEAD is at the time, and the merge, which is Louis's to give.

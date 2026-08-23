@@ -70,12 +70,21 @@ import prettier from "prettier";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
+/**
+ * Where a virtualenv puts its executables, which is NOT the same directory on
+ * every platform: `Scripts` on native Windows, `bin` everywhere else. Both
+ * halves have to move together — naming `python.exe` inside `bin` describes no
+ * venv that has ever existed, so a win32 branch that changes only the filename
+ * is worse than none: it looks handled and resolves to a path that cannot be.
+ */
+const VENV_BIN_DIR = process.platform === "win32" ? "Scripts" : "bin";
+const EXE_SUFFIX = process.platform === "win32" ? ".exe" : "";
 const PIPELEX_BIN =
   process.env.PIPELEX_BIN ??
-  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
+  path.join(PIPELEX_REPO, ".venv", VENV_BIN_DIR, `pipelex${EXE_SUFFIX}`);
 const PIPELEX_PYTHON =
   process.env.PIPELEX_PYTHON ??
-  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "python.exe" : "python");
+  path.join(PIPELEX_REPO, ".venv", VENV_BIN_DIR, `python${EXE_SUFFIX}`);
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
 /**
