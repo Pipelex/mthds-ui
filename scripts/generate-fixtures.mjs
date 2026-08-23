@@ -35,7 +35,11 @@
  * LIVE runs perform real inference and need pipelex credentials available.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
- * works before committing to a full regeneration.
+ * works before committing to a full regeneration. It is rejected with
+ * --contracts, which is already offline and fast — a no-write variant of that
+ * pass would have no caller, and writing when asked not to is worse than
+ * refusing. A mistyped --only is rejected on every path, so a targeted refresh
+ * can never report success while leaving the pipeline you meant untouched.
  *
  * ALWAYS pass --only for a LIVE run. A full-corpus `make fixtures-live` sweeps
  * every fixture onto whatever pipelex the local CLI happens to be, and has no
@@ -548,7 +552,20 @@ async function main() {
 
   if (allPipelines.length === 0) die("no pipelines found");
 
+  // Validated once, for every path: a mistyped --only that silently selects
+  // nothing would otherwise report a successful targeted refresh while leaving
+  // the pipeline the caller actually meant untouched.
+  if (ONLY) {
+    const unknown = [...ONLY].filter((p) => !allPipelines.includes(p));
+    if (unknown.length > 0) die(`unknown pipeline(s) in --only: ${unknown.join(",")}`);
+  }
+
   if (CONTRACTS_ONLY) {
+    // --check exists to smoke-test the LIVE path without writing. The contracts
+    // pass is already offline and fast, so a no-write variant of it would be
+    // machinery with no caller — and silently writing when asked not to is the
+    // one outcome worth refusing outright.
+    if (CHECK) die("--check is not supported with --contracts");
     const selected = ONLY ? allPipelines.filter((p) => ONLY.has(p)) : allPipelines;
     console.log(`generate-fixtures: contracts over ${selected.length} pipeline(s)`);
     assertPipelexCliAvailable();
@@ -572,8 +589,6 @@ async function main() {
   } else if (MISSING) {
     toProcess = allPipelines.filter((p) => !existsSync(specJsonPath(p)));
   } else if (ONLY) {
-    const unknown = [...ONLY].filter((p) => !allPipelines.includes(p));
-    if (unknown.length > 0) die(`unknown pipeline(s) in --only: ${unknown.join(",")}`);
     toProcess = allPipelines.filter((p) => ONLY.has(p));
   } else {
     toProcess = allPipelines;
