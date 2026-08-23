@@ -49,8 +49,8 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## ★ Checkpoint 2 (close)
 
-- [ ] Verify the K2 gate: a story renders a method form where every field, the readiness verdict, and the wire payload come from kernel imports, and the only local code is layout.
-- [ ] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K) per the program's checkpoint protocol, and update `wip/adopt-form/design.md` one last time.
+- [x] Verify the K2 gate: a story renders a method form where every field, the readiness verdict, and the wire payload come from kernel imports, and the only local code is layout. **Verified — see the detailed verdict in the "still open" list below.**
+- [x] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K). Done: a `↳ K2 in mthds-ui` ✅ row in the milestone table, a `## K2 in mthds-ui` section carrying the five findings that survive outside this repo, and the K2 line in the open-items paragraph updated to say both consumer adoptions are closed and `pipelex-mcp`/hub remain. The same pass rewrote `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`, which had gone stale in a way that would have misled its reader: it named two of the eight upload defects and closed by inviting the receiving agent to transfer two conclusions rounds 3 and 5 overturned. Now all eight, grouped by the three questions they answer, with `pipelex-app`'s own line numbers re-verified — including the one that changes the fix there: its Run button is deliberately never disabled, so its gate has to go on the run path, and `uploadingIds` is private to the form component while the run path is in the workspace, so lifting it is the real cost.
 
 ---
 
@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`) and 8: the re-review loop, written up below.
-- [ ] Round 9: read the bots' re-review and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`), 8 (`f25c316`) and 9: the re-review loop, written up below.
+- [ ] Round 10: read the bots' re-review and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -170,10 +170,23 @@ Implicit submission clicks the form's **default button** — the first submit bu
 
 **The pattern from round 5 held again, in both directions this round.** The bot that was wrong was wrong about the mechanism, never about there being a defect. And measuring rather than reasoning is what separated the two vectors: my confidence about the Enter case was correct, but only measurement made it reportable.
 
+#### Review round 9 — the round-8 fix, half-applied
+
+Both bots independently, which is the round-4 signal again, and they are right in the way that stings: the round-8 fix moved **one** of the button's three gate terms onto the submit path and left the other two behind. `disabled={running || notReady || uploading}`, `if (uploading) return;`. Having just argued that a gate living only in a `disabled` attribute is presentational, I left two gates living only there.
+
+Neither of the two is covered by the kernel gate that runs immediately after, which is the part worth checking rather than assuming — and Codex cited our own test file for it:
+
+- **`notReady`.** A blank required text input reaches ajv as `{ text: "" }`, a perfectly valid string, so `runSubmitGate` accepts it and only `computeReadiness` objects. That is pinned in `runGate.test.ts` and it is precisely why the button gates on readiness at all. So `requestSubmit()` sent a run with a required input empty.
+- **`running`.** A second `onRun` over the first is a duplicate execution, and nothing downstream undoes one.
+
+The fix is one expression, `blocked`, read by the button and by the submit path — which is smaller than what it replaces, since the two can no longer drift. `RequestSubmitRespectsEveryGate` replaces the round-8 story and pins all three terms, one panel each; verified to fail against the upload-only guard.
+
+**The lesson is the round-4 lesson, and I am the one who repeated it.** Round 4 was a fix scoped to the write-back but not the cleanup; this is a fix scoped to one gate term but not its siblings. Both times the asymmetry was visible in the diff. When a fix moves a decision from one place to another, the question to ask is not "does this case work now" but "what else was making that decision in the old place".
+
 ### ★ Checkpoint 2 (close) — still open
 
 - [x] Verify the K2 gate: a story renders a method form where every field, the readiness verdict and the wire payload come from kernel imports, and the only local code is layout. **Verified, and it passes.** `src/form/react/__stories__/GraphWithRunPanel.stories.tsx` (`Form/Graph with RunPanel`) clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form; it passes in isolation. The "deriving nothing locally" half is the one worth checking rather than asserting, and it holds: the only `json_schema` mentions anywhere in `src/form/` outside the generated fixtures are a comment in `RunPanel.tsx` saying the panel does not read it, and three `runGate.test.ts` fixtures that carry it because the kernel's contract type has the field. No production path in this module reads a schema or sniffs a value's shape.
-- [ ] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K) per the program's checkpoint protocol, and update `wip/adopt-form/design.md` one last time.
+- [x] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K). Done: a `↳ K2 in mthds-ui` ✅ row in the milestone table, a `## K2 in mthds-ui` section carrying the five findings that survive outside this repo, and the K2 line in the open-items paragraph updated to say both consumer adoptions are closed and `pipelex-mcp`/hub remain. The same pass rewrote `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`, which had gone stale in a way that would have misled its reader: it named two of the eight upload defects and closed by inviting the receiving agent to transfer two conclusions rounds 3 and 5 overturned. Now all eight, grouped by the three questions they answer, with `pipelex-app`'s own line numbers re-verified — including the one that changes the fix there: its Run button is deliberately never disabled, so its gate has to go on the run path, and `uploadingIds` is private to the form component while the run path is in the workspace, so lifting it is the real cost.
 - [x] Record the contracts-fixture reshape obligation — `wip/adopt-form/contracts-fixture-reshape-obligation.md`. The fixtures here are entirely pre-S2 (`optional` and a two-arm `multiplicity`; no `presence`, no `item_count`), and so is the kernel at the pinned `0.2.0` — the two agree, which is exactly why nothing in this repo can go red on its own however wrong the pairing becomes. The regeneration is owed **in the same change that bumps the kernel**, never before it.
 
 ### Things a fresh session would otherwise rediscover the hard way

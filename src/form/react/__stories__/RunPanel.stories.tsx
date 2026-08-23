@@ -111,7 +111,9 @@ function PanelHost({
 }
 
 /** Used by the one story that has to observe `onRun` rather than its payload. */
-const runSpy = fn();
+const uploadingGateSpy = fn();
+const notReadyGateSpy = fn();
+const runningGateSpy = fn();
 
 const meta: Meta<typeof PanelHost> = {
   title: "Form/RunPanel",
@@ -698,46 +700,78 @@ export const UploadDiscardedOnUnmount: Story = {
 };
 
 /**
- * The upload gate belongs to the submit path, not to the button's `disabled`.
+ * The gate belongs to the submit path, not to the button's `disabled` — all of it.
  *
- * Disabling Run does hold the keyboard — the Run button is this form's only
- * submit button, so it is the default button, and implicit submission on a
- * disabled default button does nothing. `form.requestSubmit()` is the gap: it
- * ignores the submitter, and the panel renders a real `<form>` in the host's DOM
- * under a documented class name, so a host running the form from its own button
- * reaches it. Everything that gates is filled here, so this is the upload gate
- * alone — and with a non-gating file input the run would go out without its file.
+ * Disabling Run does hold the keyboard: it is this form's only submit button, so
+ * it is the default button, and implicit submission on a disabled default button
+ * does nothing. `form.requestSubmit()` is the gap — it ignores the submitter, and
+ * the panel renders a real `<form>` in the host's DOM under a documented class
+ * name, so a host running the form from its own button reaches it.
+ *
+ * Three panels because the button gates on three terms and none is covered by the
+ * kernel gate that runs afterwards. **Uploading**: a non-gating file input never
+ * counts toward readiness, so the run goes out without its file. **Not ready**: a
+ * blank required text input reaches ajv as `{ text: "" }`, a perfectly valid
+ * string, so `runSubmitGate` accepts it and only readiness objects — pinned in
+ * `runGate.test.ts`. **Running**: a second run over the first is a duplicate
+ * execution. Each panel is blocked by exactly one of them.
  */
-export const RequestSubmitRespectsUploadGate: Story = {
+export const RequestSubmitRespectsEveryGate: Story = {
   args: { contract: NOTICE, title: "draft_notice" },
   render: function Render(args) {
-    // A spy rather than the shared host, because `onRun` fires synchronously
+    // Spies rather than the shared host, because `onRun` fires synchronously
     // inside the submit handler: asserting on it directly leaves nothing to wait
     // for, where reading a rendered payload would race React's commit.
+    const common = {
+      contract: args.contract,
+      onValuesChange: () => {},
+      theme: GRAPH_THEME.DARK,
+    };
     return (
-      <RunPanel
-        contract={args.contract}
-        values={{ subject: "Bridge closure" }}
-        onValuesChange={() => {}}
-        onRun={runSpy}
-        title={args.title}
-        theme={GRAPH_THEME.DARK}
-        env={{ uploadingIds: new Set(["subject"]) }}
-      />
+      <div style={{ display: "grid", gap: 24, maxWidth: 620 }}>
+        <div data-testid="gate-uploading">
+          <RunPanel
+            {...common}
+            values={{ subject: "Bridge closure" }}
+            onRun={uploadingGateSpy}
+            title="uploading"
+            env={{ uploadingIds: new Set(["subject"]) }}
+          />
+        </div>
+        <div data-testid="gate-not-ready">
+          {/* Blank, not absent — the shape the kernel gate accepts. */}
+          <RunPanel {...common} values={{ subject: "" }} onRun={notReadyGateSpy} title="notReady" />
+        </div>
+        <div data-testid="gate-running">
+          <RunPanel
+            {...common}
+            values={{ subject: "Bridge closure" }}
+            onRun={runningGateSpy}
+            title="running"
+            running
+          />
+        </div>
+      </div>
     );
   },
   play: async ({ canvasElement }) => {
-    runSpy.mockClear();
-    const canvas = within(canvasElement);
+    for (const spy of [uploadingGateSpy, notReadyGateSpy, runningGateSpy]) spy.mockClear();
 
-    // Everything that gates is filled, so this is the upload gate alone.
-    await expect(canvas.queryByText(/still needed/)).not.toBeInTheDocument();
-    const form = canvasElement.querySelector<HTMLFormElement>("form.mthds-run-panel");
-    if (!form) throw new Error("no run panel form");
+    const submit = (testId: string) => {
+      const form = canvasElement.querySelector<HTMLFormElement>(
+        `[data-testid="${testId}"] form.mthds-run-panel`,
+      );
+      if (!form) throw new Error(`no run panel form in ${testId}`);
+      form.requestSubmit();
+    };
 
-    form.requestSubmit();
+    submit("gate-uploading");
+    submit("gate-not-ready");
+    submit("gate-running");
 
-    await expect(runSpy).not.toHaveBeenCalled();
+    await expect(uploadingGateSpy).not.toHaveBeenCalled();
+    await expect(notReadyGateSpy).not.toHaveBeenCalled();
+    await expect(runningGateSpy).not.toHaveBeenCalled();
   },
 };
 

@@ -254,6 +254,27 @@ export function RunPanel({
   // than the raw state, so a host driving its own loop through
   // `env.uploadingIds` gets the same gate.
   const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0;
+  const notReady = readiness.missing.length > 0;
+
+  // ONE expression, read by the button and by the submit path, because they are
+  // the same question asked twice and any gap between them is reachable: the
+  // panel puts a real `<form>` in the host's DOM under a class name the docs
+  // offer as a hook, and `form.requestSubmit()` ignores the submitter entirely,
+  // so a disabled button stops nothing there. (The keyboard it does stop: Run is
+  // this form's only submit button — every control the kernel renders carries
+  // `type="button"` — hence the default button, and implicit submission on a
+  // disabled default button does nothing. Measured, not assumed.)
+  //
+  // Each term has to be here on its own merit, and none is redundant with the
+  // kernel gate that runs afterwards. `uploading`: a non-gating file input
+  // (optional, or plural — `mustBeFilled` excludes lists) never counts toward
+  // readiness, so without this the method runs with the file simply absent.
+  // `notReady`: an empty REQUIRED text input reaches ajv as `{ text: "" }`, a
+  // perfectly valid string, so the gate passes it and only readiness notices —
+  // that is pinned in `runGate.test.ts` and is exactly why the button gates on
+  // readiness at all. `running`: a second run started over the first is a
+  // duplicate execution, which nothing downstream would undo.
+  const blocked = running || notReady || uploading;
 
   // Optional inputs that are still empty stay folded, so the form opens at its
   // simplest shape and grows on demand. Required or already-filled always show.
@@ -266,20 +287,10 @@ export function RunPanel({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // The submit PATH owns the upload gate, not just the button's `disabled`
-    // attribute. Disabling the button does stop the keyboard: this form's only
-    // submit button is the Run button (every control the kernel renders carries
-    // `type="button"`), so it is the form's default button, and implicit
-    // submission on a disabled default button does nothing — measured, not
-    // assumed. What it does not stop is `form.requestSubmit()`, which ignores
-    // the submitter entirely; the panel puts a real `<form>` in the host's DOM
-    // under a documented class name, so that call is available to any host that
-    // wants to run the form from its own button. Letting it through would emit
-    // a payload missing the file still in flight, which is precisely the run
-    // the gate exists to prevent. Every other gate here is re-decided on this
-    // path — `runSubmitGate` re-runs below rather than trusting `notReady` — and
-    // this one was the exception.
-    if (uploading) return;
+    // The submit PATH owns the gate, not the button's `disabled` attribute —
+    // see `blocked` above for why each term is there and why none is covered by
+    // the kernel gate that runs next.
+    if (blocked) return;
     const outcome = runSubmitGate(contract, fields, values, translate);
     if (!outcome.ok) {
       setSubmitError(outcome.summary);
@@ -293,8 +304,6 @@ export function RunPanel({
     () => getPaletteForTheme(theme) as React.CSSProperties,
     [theme],
   );
-
-  const notReady = readiness.missing.length > 0;
 
   return (
     <form
@@ -338,11 +347,7 @@ export function RunPanel({
       )}
 
       <div className="mthds-run-panel-footer">
-        <button
-          type="submit"
-          className="mthds-run-panel-run"
-          disabled={running || notReady || uploading}
-        >
+        <button type="submit" className="mthds-run-panel-run" disabled={blocked}>
           {running ? "Running…" : "Run"}
         </button>
         {notReady && (

@@ -113,7 +113,7 @@ Phases 1 and 2 are in, `make check && make test` green on both. The tracker is `
 
 - **tsup's `external` patterns match the import SPECIFIER, not the resolved path.** `RunPanel.tsx` imports `"./RunPanel.css"`, so the pattern must be `/RunPanel\.css$/`; the first attempt used `/form\/react\/RunPanel\.css$/` and the stylesheet was silently dropped from the JS output. CLAUDE.md's CSS rule should say this outright — queued for Phase 4.
 - **There is a THIRD registration place for a stylesheet**, and CLAUDE.md's "in BOTH places" is therefore incomplete: `scripts/standaloneCssFiles.mjs`, guarded by `src/standalone/__tests__/cssManifest.test.ts`. For the form entry the correct answer is _exclusion_, not registration — the standalone IIFE has one entry (the graph viewer) and by construction cannot carry the optional peer, so the test now skips `src/form/` with that reason written down. Also queued for Phase 4.
-- **The run gate does not catch an empty required text input.** It reaches ajv as `{ text: "" }`, a perfectly valid string. `computeReadiness` is what notices, which is exactly why the Run button gates on readiness and the gate is the last line of defence against a malformed payload rather than the thing that tells you the form is unfinished. Pinned by a test that says so.
+- **The run gate does not catch an empty required text input.** It reaches ajv as `{ text: "" }`, a perfectly valid string. `computeReadiness` is what notices, which is exactly why readiness gates the Run button — and, after review round 9, the submit path too — and why the gate is the last line of defence against a malformed payload rather than the thing that tells you the form is unfinished. Pinned by a test that says so, and that test is what review round 9 cited back at us.
 
 ### Kernel behaviour to design fixtures against
 
@@ -123,6 +123,28 @@ Phases 1 and 2 are in, `make check && make test` green on both. The tracker is `
 
 - **Panel chrome strings are English-only.** "Run", "Running…", the readiness line and the missing-fields prefix have no strings contract; `translate` covers only the kernel's validation messages. A full panel-level strings provider is not obviously warranted before a host asks for one — see `wip/adopt-form/deferred-panel-strings.md`.
 - **The automatic shadcn token bridge** stays deferred exactly as Decision D left it.
+
+## ★ Checkpoint 2 — the gate, and what the review loop actually cost
+
+**The K2 gate is met, and it was checked rather than asserted.** `Form/Graph with RunPanel` clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form; every field, the readiness verdict and the wire payload come from kernel imports. The half worth verifying is "deriving nothing locally", and it holds: outside the generated fixtures, the only `json_schema` mentions anywhere in `src/form/` are a comment saying the panel does not read it and three test fixtures carrying it because the kernel's type has the field. No production path in this module reads a schema or sniffs a value's shape. Decisions A, B, C and D all survived implementation unamended.
+
+**The whole design was right and the whole cost was somewhere else.** Nine rounds of bot review produced ten defects. Every one of them was in the upload lifecycle — the bookkeeping around "mark the field busy → await the host's transfer → write the result back". Not one was in the composition, the gate orchestration, the packaging, the theming or the fixtures. That is the finding this document should carry forward, because it says where to spend attention on the next adoption: the kernel's boundary is clean, and the danger is entirely in the async loop each host has to build around it.
+
+The ten group into three questions, and the grouping is more useful than the list:
+
+- **What does the write-back write into?** The continuation resolves long after the render that started it, so it must read a mirror rather than the captured snapshot — and it must advance that mirror itself, synchronously, or two uploads settling in one React batch clobber each other.
+- **What stops a run going out mid-upload?** Readiness cannot, because a non-gating file input never counts toward it. And the gate must live on the submit **path**, not in the button's `disabled` attribute — `form.requestSubmit()` ignores a disabled submitter entirely.
+- **Which form does an in-flight upload belong to?** Five separate ways to get this wrong: the write-back needs a generation check, so does the cleanup, the marker must be written by a **layout** effect (a passive one lags the commit, and an upload settling is a microtask that lands in exactly that lag), it must **count** rather than name the contract (identity is ABA-vulnerable when a host returns to a pipe), and it must advance on **unmount** as well as on a prop change (a keyed remount never changes the prop).
+
+**Three lessons about the review loop itself**, which are the transferable part:
+
+1. **Measure React's ordering; do not reason about it.** Three reproduction harnesses in a row passed against unfixed code before I stopped guessing and wrote a probe. The answer: the microtask window exists only when the update originates **outside** a React event handler. A discrete click and a `startTransition` raised from one both flush passive effects first. Two of my three harnesses were the two cases that cannot fail.
+2. **A bot wrong about the mechanism is usually still right that a defect exists.** Every bot finding that was wrong was wrong about _why_, never about _whether_ — twice overstating the harm, once understating it. And two of my own deferrals were overturned, both because I had ruled the defect out on the strength of the only fix I had thought of rather than on the defect itself.
+3. **When a fix moves a decision, ask what else was making that decision in the old place.** Round 4 was a fix scoped to the write-back but not the cleanup; round 9 was a fix scoped to one gate term but not its two siblings. Same mistake, made by me, five rounds apart, and visible in the diff both times.
+
+**One obligation leaves this milestone open-ended, deliberately.** The contracts fixtures are pre-S2, and so is the kernel at the pinned `0.2.0` — they agree, which is precisely why nothing here can go red on its own however wrong the pairing becomes. `wip/adopt-form/contracts-fixture-reshape-obligation.md` records that the regeneration is owed in the same change that bumps the kernel and must not precede it.
+
+The closure is recorded workspace-side in `../wip/devx/input-form-roadmap.md` (`↳ K2 in mthds-ui` in the milestone table, plus its own section), and the upload family was filed against `pipelex-app`, which has it independently.
 
 ## Out of scope, and what arrives on its own
 
