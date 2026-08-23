@@ -1,12 +1,12 @@
 # Deferred: four robustness gaps in the contracts path of `scripts/generate-fixtures.mjs`
 
-Raised by the adversarial pass of the gstack `/review` sweep over PR #75, and each one re-verified here before being written down. None is a defect in what the generator currently produces — all 32 committed `pipe_io_contracts.json` files parse, and the fixtures in the branch are correct. They are ways the generator can fail _quietly_ rather than loudly, which matters more here than usual because its output is committed and is the oracle the form stories are tested against.
+Raised by the adversarial pass of the gstack `/review` sweep over PR #75, and each one re-verified here before being written down. None is a defect in what the generator currently produces — every committed `pipe_io_contracts.json` parses, and the fixtures in the branch are correct. They are ways the generator can fail _quietly_ rather than loudly, which matters more here than usual because its output is committed and is the oracle the form stories are tested against.
 
 **Why none of them was fixed in the sweep:** a change to the generator is only worth anything if it can be run end to end, and it cannot be on this machine. The local pipelex model deck is stale, so the DRY graph-spec pass dies on bundles referencing `linkup-standard` — recorded in `TODOS.md` under "Things a fresh session would otherwise rediscover the hard way". Editing the generator blind and shipping it unexercised would trade a quiet failure mode for an unverified one. These are for the next session that has a working deck.
 
 ## 1. The contracts dump's stdout is never parsed before it is committed
 
-`dumpContracts` returns the child process's raw stdout, and both consumers take it on trust: `writePipeIoContracts` writes it straight to `pipe_io_contracts.json`, and `writeContractsFixture` interpolates `json.trim()` into a TypeScript module. `JSON.parse` appears at only two places in the file — `scripts/generate-fixtures.mjs:273` and `:663` — and both are graph specs.
+`dumpContracts` returns the child process's raw stdout, and both consumers take it on trust: `writePipeIoContracts` writes it straight to `pipe_io_contracts.json`, and `writeContractsFixture` interpolates `json.trim()` into a TypeScript module. `JSON.parse` appears at only two places in the file — `scripts/generate-fixtures.mjs:296` and `:694` — and both are graph specs.
 
 The asymmetry is what makes this worth recording. The `.ts` path is loud: prettier parses the split module at `formatSplit`, so a log line prepended to the JSON fails the run. The `.json` path is silent, is written **first**, is committed, and is what `--from-disk` reads back. So a chattering pipelex boot corrupts the on-disk fixture and only trips over the error one step later, if at all.
 
@@ -24,9 +24,11 @@ in try
 (exit 0 — no FINALLY line)
 ```
 
-The per-pipeline loop wraps its work in `try { … } finally { cleanup(); }` (`scripts/generate-fixtures.mjs:630-645`), and `writePipeIoContracts` sits inside that `try` at line 641. It reaches `die` through `dumpContracts`. So a contracts dump that fails leaves the run's `mkdtempSync` tree behind, one per failed pipeline, with the process reporting the real error but never releasing the directory.
+The per-pipeline loop wraps its work in `try { … } finally { cleanup(); }` (`scripts/generate-fixtures.mjs:659-677`), and `writePipeIoContracts` sits inside that `try` at line 672. It reaches `die` through `dumpContracts`. So a contracts dump that fails leaves the run's `mkdtempSync` tree behind, one per failed pipeline, with the process reporting the real error but never releasing the directory.
 
 Pre-existing in shape — `die` predates this PR — but the contracts path adds a new way to reach it from inside that `try`.
+
+The two `assertPipelexPythonAvailable()` guards added in review round 13 deliberately do **not** widen this. Both run before the loop, so no `mkdtempSync` tree exists yet when they can fire — which is the reason that commit placed them up front rather than letting the interpreter's absence surface at the first `dumpContracts` call, where it would have been both a worse message and a leak.
 
 **Fix:** either make `die` throw a tagged error that `main()` catches, reports and exits on (so `finally` runs), or register the cleanups with `process.on("exit", …)`. The first is cleaner and keeps `die`'s call sites unchanged.
 
@@ -35,8 +37,8 @@ Pre-existing in shape — `die` predates this PR — but the contracts path adds
 `make fixtures-contracts ONLY=pipeline_05` correctly limits the pipeline loop — `selected` is built from `ONLY` and only those get `writePipeIoContracts`. But the fixture assembly that follows is called with the full list, at both call sites:
 
 ```
-scripts/generate-fixtures.mjs:586:  const fixture = await writeContractsFixture(allPipelines, prettierConfig);
-scripts/generate-fixtures.mjs:785:  const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+scripts/generate-fixtures.mjs:611:  const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+scripts/generate-fixtures.mjs:816:  const fixture = await writeContractsFixture(allPipelines, prettierConfig);
 ```
 
 Passing `allPipelines` is correct and deliberate for the pipelines — the barrel's contract is "re-export every split on disk", and the pipeline contracts are read from their committed JSON, not re-run. The unrestricted part is the two vendored corpus entries: they have no writable directory of their own, so their split module _is_ their on-disk form, and `writeContractsFixture` re-sources them through the pipelex venv on every invocation that is not `--from-disk`.
