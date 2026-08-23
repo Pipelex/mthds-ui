@@ -120,8 +120,11 @@ export function RunPanel({
   // typed elsewhere while waiting. This mirror holds the latest ones. Only the
   // async continuation reads it; every synchronous path stays on the prop,
   // which is correct there because it runs inside the render that captured it.
+  // Layout, not passive, for the reason spelled out on the contract marker
+  // below: a mirror that lags the commit is read by continuations landing in
+  // exactly that lag, and here the cost is the host's newer edits overwritten.
   const valuesRef = React.useRef(values);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     valuesRef.current = values;
   }, [values]);
 
@@ -135,8 +138,20 @@ export function RunPanel({
   // different one is dropped. This makes `contract` referentially significant —
   // a host that rebuilds it every render loses its uploads (and is already
   // rebuilding every field, since `fields` memoizes on it).
+  //
+  // A LAYOUT effect, deliberately. The marker answers "which pipe is on
+  // screen", and it has to answer that as of the last COMMIT. A passive effect
+  // answers later: React schedules those on a task, while an upload settling is
+  // a promise continuation — a microtask, which runs first. In that window the
+  // switched form is already rendered and the marker still names the pipe the
+  // user left, so the guard compares the departed contract against itself and
+  // lets through precisely the write it exists to reject. Assigning during
+  // render would close the window too, and is worse: a concurrent render React
+  // abandons would move the marker to a contract that never commits, and an
+  // upload belonging to the pipe still on screen would be thrown away instead.
+  // Layout effects run inside the commit, and only for renders that commit.
   const contractRef = React.useRef(contract);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     contractRef.current = contract;
     // Whatever was in flight belonged to the previous pipe; it must not go on
     // gating this form's Run button until it happens to settle.

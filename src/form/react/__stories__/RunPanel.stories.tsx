@@ -439,6 +439,109 @@ export const UploadDiscardedAfterPipeSwitch: Story = {
 };
 
 /**
+ * Settles the departed upload from inside the switch's own commit.
+ *
+ * A layout effect is the only place a test can stand to observe the window this
+ * story is about, because it is the only host code that runs between "the new
+ * form is committed" and "passive effects flush". Rendered after the panel, so
+ * React reaches it second when it walks the tree running layout effects — which
+ * is what makes the panel's own marker either already updated (fixed) or still
+ * pending (not).
+ */
+function SettleUploadOnCommit({
+  contract,
+  pending,
+}: {
+  contract: PipeIOContract;
+  pending: React.RefObject<((file: UploadedFile) => void) | null>;
+}) {
+  const isFirstCommit = React.useRef(true);
+  React.useLayoutEffect(() => {
+    if (isFirstCommit.current) {
+      isFirstCommit.current = false;
+      return;
+    }
+    pending.current?.({ url: "https://files.test/other.pdf", filename: "other.pdf" });
+  }, [contract, pending]);
+  return null;
+}
+
+/**
+ * The generation marker must be current the moment the new form is on screen.
+ *
+ * Tying an upload to its contract only works if "which pipe is showing" is
+ * answered as of the last COMMIT. A passive effect answers later than that —
+ * React schedules those on a task, while an upload settling is a promise
+ * continuation, i.e. a microtask, which runs first. In that window the switched
+ * form is already rendered and the marker still names the pipe the user left,
+ * so the write-back's guard compares the departed contract against itself,
+ * finds them equal, and lets through exactly the write it exists to reject:
+ * `other.pdf` lands in the new pipe's `cv` looking deliberate.
+ *
+ * Two details of the harness are load-bearing, and both are what the window
+ * genuinely requires rather than scaffolding for its own sake.
+ *
+ * The switch is scheduled off a timer, because where the update ORIGINATES
+ * decides whether the gap exists at all. Measured on this React: a discrete
+ * click commits and flushes its passive effects before any microtask, and so
+ * does a `startTransition` started from one. Only an update arriving from
+ * outside a React event handler leaves the passive effect pending across the
+ * microtask checkpoint — a timer here, and in a real host the same thing a
+ * fetch continuation, a router subscription or a websocket message does when it
+ * selects a pipe.
+ *
+ * And the upload settles from a layout effect, because the window closes at the
+ * end of the commit and that is the only place inside it a component can act.
+ */
+export const UploadDiscardedBeforeEffectsFlush: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const [contract, setContract] = React.useState(args.contract);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
+        <SettleUploadOnCommit contract={contract} pending={pending} />
+        <button
+          type="button"
+          data-testid="switch-pipe"
+          onClick={() => setTimeout(() => setContract(EXTRACT_CV), 0)}
+        >
+          switch to extract_cv
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    if (!fileInput) throw new Error("no file input for cv");
+
+    // Drop a CV under `cv_screening`. It hangs.
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["%PDF"], "other.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // The switch lands off a timer; the upload settles inside its commit.
+    await userEvent.click(canvas.getByTestId("switch-pipe"));
+
+    // Same verdict the untimed case gets: the file belonged to the pipe the
+    // user left, so `extract_cv` is still asking for a CV of its own.
+    await waitFor(() => expect(canvas.getByText(/still needed/)).toBeInTheDocument());
+    await expect(canvas.queryByText("other.pdf")).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
  * A departed upload must not un-mark the one that replaced it.
  *
  * Discarding the stale write-back is only half of tying an upload to its pipe.

@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`) and 5 (`824e8c5`): the re-review loop, written up below.
-- [ ] Round 6: read the bots' re-review of `824e8c5` and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`) and 6: the re-review loop, written up below.
+- [ ] Round 7: read the bots' re-review and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -122,6 +122,24 @@ Residue 1 was the same-batch write-back collision: `valuesRef` refreshed in an e
 I had underrated reachability too. `candidate_screening.screen_candidate` (`data/pipelines/pipeline_30`) takes a required `cv` and a required `job_offer`, both single documents, both dropzones — an ordinary two-file form. The failure shows nothing: each dropzone displays its filename while one value is gone from the values entirely. `ConcurrentUploadsBothLand` pins it, verified to fail without the advance.
 
 **The pattern worth carrying into the next review loop:** every finding these bots got _wrong_ was wrong about the mechanism, never about there being a defect; every deferral I got wrong was wrong about the fix space, never about the trade-off I named. Probing the actual derived data settles the first kind. Nothing but a second opinion settles the second.
+
+#### Review round 6 — the marker had to be commit-synchronous
+
+One finding, from Codex: the generation marker introduced in round 3 is written by a **passive** effect, so it lags the commit. Between committing a switched contract and refreshing the marker there is a window in which the new form is already on screen while the marker still names the departed pipe — and an upload settling is a promise continuation, a microtask, which is exactly the kind of thing that runs inside that window. The guard then compares the departed contract against itself, finds them equal, and lets through precisely the write it exists to reject.
+
+The first three harnesses I wrote for it all passed against the unfixed code, and that is the part worth carrying forward: **where an update originates decides whether the window exists at all.** Measured directly on React 19.2.4 in Chromium, by rendering a component that queues a microtask from a layout effect and recording the order:
+
+| Switch originates in                   | Order observed                   |
+| -------------------------------------- | -------------------------------- |
+| a discrete click                       | layout → **passive** → microtask |
+| `startTransition` started from a click | layout → **passive** → microtask |
+| a timer, i.e. outside any React event  | layout → **microtask** → passive |
+
+So a discrete update flushes its passive effects before any continuation can observe them, and a transition raised from a discrete event inherits that. Only an update arriving from outside a React event handler leaves the gap open — a timer in the test, and in a real host the same thing a fetch continuation, a router subscription or a websocket message does when it selects a pipe. Codex's own framing, "a non-discrete update," was right, and my two failed harnesses were the two cases that cannot fail.
+
+The fix is `useEffect` → `useLayoutEffect` on both refs. Layout effects run inside the commit, so the marker is current exactly when the form is, and they run only for renders that actually commit — which is why assigning during render would be worse rather than better: a concurrent render React abandons would move the marker to a contract that never appeared, and an upload belonging to the pipe still on screen would be discarded instead. The values mirror gets the same treatment for the same reason; leaving one passive would be the round-4 asymmetry again, and there the cost is the host's newer edits overwritten. React 19 dropped the SSR warning for `useLayoutEffect` (verified against the installed `react-dom/server`), so the usual isomorphic-effect helper is not needed.
+
+`UploadDiscardedBeforeEffectsFlush` pins it, verified to fail without the fix. Two details of that harness are load-bearing rather than scaffolding: the switch is scheduled off a timer, per the table above, and the upload settles from a layout effect because the window closes at the end of the commit and that is the only place inside it a component can act.
 
 ### ★ Checkpoint 2 (close) — still open
 
