@@ -92,6 +92,14 @@ Phases 1 and 2 are in, `make check && make test` green on both. The tracker is `
 | --------- | ---------------------------------------------------------------------------------------------------------- |
 | `0556e6d` | Phase 1 — the optional peer, the `./form/react` entry, the import-isolation rule, `scripts/smoke-pack.mjs` |
 | `ded7bf6` | Phase 2 — `runGate.ts`, `RunPanel.tsx`, `RunPanel.css`, unit tests                                         |
+| `5fffd87` | Phase 3 — the contracts fixture pass, the form stories, the graph integration story                        |
+| `ebbef28` | Phase 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG                      |
+
+**All four phases are landed and PR #75 is open against `dev`.** What remains is the review loop and Checkpoint 2; `TODOS.md` carries the resume brief. Three things Phase 3 settled that this doc predicted only in outline:
+
+- **Decision D's Storybook question resolved in favour of the global import.** The prebuilt lane (`theme.css` + `styles.css`) is imported in `.storybook/preview.ts` for every story, not scoped to the form ones. Its Tailwind preflight was measured rather than eyeballed — with and without, across CV screening, nested controllers, wide parallel and deep nesting: 0.6–1.7% of pixels differ, all of it sub-pixel text-metric shift, with no structural or colour change. No deviation to record.
+- **No pipelex CLI emits `pipe_io_contracts`**, which the plan assumed a validate call would hand over. `scripts/dump_pipe_io_contracts.py` calls the canonical builder through the pipelex venv instead, and deliberately skips the validation sweep — a contract is a projection of what a pipe DECLARES, so routing through `validate_bundles_in_process` would make every contract depend on a current local model deck. Retirement request filed at `../wip/inbox/2026-08-23-pipelex-expose-pipe-io-contracts-in-agent-cli.md`.
+- **The pipeline corpus has no optional input at all**, so two vendored MTHDS Test Corpus entries are swept alongside it to give the fold story real data. Nothing is written into the read-only corpus.
 
 **Every decision above survived implementation.** A, B, C and D are confirmed as written; nothing needs amending. What follows are the deviations and the facts the code turned up.
 

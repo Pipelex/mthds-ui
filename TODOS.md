@@ -45,9 +45,46 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 - [x] README section for `./form/react`, and a cross-reference from `docs/theming.md` (panel chrome tokens vs the kernel's shadcn tokens; the deferred token-bridge open question).
 - [x] Update `CLAUDE.md`: the `src/form/` module in the project structure, the `@form/*` alias, the optional-peer + entry-point pattern, and the contracts fixture in the test-data section.
 - [x] CHANGELOG entry under `[Unreleased]` (additive: new entry point, new optional peer — a minor bump when released). No version bump now; the release rides the `/release` skill when Louis calls it.
-- [ ] Final `make check && make test && make build`, then open the PR from `feature/Adopt-form` into `dev`.
+- [x] Final `make check && make test && make build`, then open the PR from `feature/Adopt-form` into `dev`. → PR #75.
 
 ## ★ Checkpoint 2 (close)
 
 - [ ] Verify the K2 gate: a story renders a method form where every field, the readiness verdict, and the wire payload come from kernel imports, and the only local code is layout.
 - [ ] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K) per the program's checkpoint protocol, and update `wip/adopt-form/design.md` one last time.
+
+---
+
+## ▶ Resume here (cold start)
+
+Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the review loop and Checkpoint 2. Everything below is re-derivable from the repo; nothing here is a snapshot of live state.
+
+**Where the work is.** Branch `feature/Adopt-form`, five commits on top of `cc2e536`:
+
+| SHA | Phase |
+| --- | --- |
+| `0556e6d` | 1 — the optional peer, the `./form/react` entry, import isolation, `scripts/smoke-pack.mjs` |
+| `ded7bf6` | 2 — `runGate.ts`, `RunPanel.tsx`, `RunPanel.css`, unit tests |
+| `ca75f42` | Checkpoint 1 — design doc updated with deviations and findings |
+| `5fffd87` | 3 — contracts fixtures, form stories, the graph integration story |
+| `ebbef28` | 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG |
+
+**Read first, in this order:** `wip/adopt-form/design.md` (the decisions and the Checkpoint 1 findings — the deviations and the two packaging traps are recorded there), then `docs/run-form-panel.md` (the shipped contract).
+
+### What remains
+
+- [ ] Poll PR #75 until CI and the review bots have reported. Re-trigger a quiet bot by commenting `@greptileai` / `@codex` on the PR.
+- [ ] Fan out a sub-agent over the bot feedback: deduplicate across bots, verify each item against the code, and fix **only clear wins**. No over-engineering, and do not guard scenarios that cannot occur. Anything doubtful is deferred as a `.md` under `wip/` rather than built.
+- [ ] Resolve the threads, push the fixes, re-ping the bots, repeat until they are all satisfied.
+- [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
+
+### ★ Checkpoint 2 (close) — still open
+
+- [ ] Verify the K2 gate: a story renders a method form where every field, the readiness verdict and the wire payload come from kernel imports, and the only local code is layout. **The story that demonstrates it already exists** — `src/form/react/__stories__/GraphWithRunPanel.stories.tsx` (`Form/Graph with RunPanel`), which clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form. What is left is to confirm and record the verdict, not to build anything.
+- [ ] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K) per the program's checkpoint protocol, and update `wip/adopt-form/design.md` one last time.
+
+### Things a fresh session would otherwise rediscover the hard way
+
+- **`make test` story timeouts are load flakiness, not regressions.** A story file occasionally trips the 15s per-story timeout when 130+ story files run browsers in parallel. Re-run the single file (`npx vitest run --project storybook <path>`) before believing it.
+- **A `Failed to fetch dynamically imported module: …/sb-vitest/deps/…` failure is a stale Vite dep cache**, not broken code. `rm -rf node_modules/.cache/storybook node_modules/.vite`. The kernel is now named in `.storybook/main.ts`'s `optimizeDeps.include`, which should stop it recurring.
+- **`make fixtures` (the DRY graph-spec pass) still cannot run for every pipeline on this machine** — the local pipelex model deck is stale, so bundles referencing `linkup-standard` fail their dry run. This does NOT affect `make fixtures-contracts`, which deliberately skips the sweep. Nothing in this PR needs the graph specs regenerated; they were reused from disk.
+- **`make check` does not run the tests** — it is lint + format-check + typecheck. Run `make test` separately.
