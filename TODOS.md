@@ -41,10 +41,10 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## Phase 4 — docs and release prep
 
-- [ ] `docs/run-form-panel.md`: the panel's contract (props, what the host injects, what the kernel owns), the CSS lanes and the silent-purge trap warning inherited from `pipelex-app/docs/form-kernel-package.md`, the `.dark` bridge, and the stable container class hook.
-- [ ] README section for `./form/react`, and a cross-reference from `docs/theming.md` (panel chrome tokens vs the kernel's shadcn tokens; the deferred token-bridge open question).
-- [ ] Update `CLAUDE.md`: the `src/form/` module in the project structure, the `@form/*` alias, the optional-peer + entry-point pattern, and the contracts fixture in the test-data section.
-- [ ] CHANGELOG entry under `[Unreleased]` (additive: new entry point, new optional peer — a minor bump when released). No version bump now; the release rides the `/release` skill when Louis calls it.
+- [x] `docs/run-form-panel.md`: the panel's contract (props, what the host injects, what the kernel owns), the CSS lanes and the silent-purge trap warning inherited from `pipelex-app/docs/form-kernel-package.md`, the `.dark` bridge, and the stable container class hook.
+- [x] README section for `./form/react`, and a cross-reference from `docs/theming.md` (panel chrome tokens vs the kernel's shadcn tokens; the deferred token-bridge open question).
+- [x] Update `CLAUDE.md`: the `src/form/` module in the project structure, the `@form/*` alias, the optional-peer + entry-point pattern, and the contracts fixture in the test-data section.
+- [x] CHANGELOG entry under `[Unreleased]` (additive: new entry point, new optional peer — a minor bump when released). No version bump now; the release rides the `/release` skill when Louis calls it.
 - [ ] Final `make check && make test && make build`, then open the PR from `feature/Adopt-form` into `dev`.
 
 ## ★ Checkpoint 2 (close)

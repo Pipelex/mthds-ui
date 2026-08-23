@@ -271,6 +271,7 @@ See `graphConfig.ts` for the full default palette.
 | ------------------------------- | ------------------------------------------------------------------ |
 | `@pipelex/mthds-ui`             | Pure-TS graph logic — types, builders, layout, controllers, config |
 | `@pipelex/mthds-ui/graph/react` | React components — `GraphViewer`, label helpers, type converters   |
+| `@pipelex/mthds-ui/form/react`  | `RunPanel` — a pipe's input form (needs `@pipelex/mthds-form`)     |
 | `@pipelex/mthds-ui/shiki`       | MTHDS syntax highlighting with shiki                               |
 
 ## Pure TypeScript usage
@@ -294,6 +295,38 @@ const { nodes, edges } = getLayoutedElements(graphData.nodes, graphData.edges, "
 // Optionally wrap nodes in controller groups
 const final = applyControllers(nodes, edges, graphspec, analysis, true);
 ```
+
+## Run form panel
+
+`RunPanel` renders a pipe's input form from its IO contract: the fields, the readiness verdict on the Run button, and the wire-ready payload a run receives.
+
+```bash
+npm install @pipelex/mthds-form   # optional peer — graph-only consumers skip it
+```
+
+```tsx
+import { getPipeIOContract } from "@pipelex/mthds-form";
+import { RunPanel } from "@pipelex/mthds-ui/form/react";
+import "@pipelex/mthds-ui/form/react/RunPanel.css";
+
+// Note the argument order — the kernel's README currently shows it wrong.
+const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
+
+<RunPanel
+  contract={contract}
+  values={values}
+  onValuesChange={setValues}
+  onRun={(apiInputs) => execute(pipeCode, apiInputs)}
+  title={pipeCode}
+  theme="dark"
+/>;
+```
+
+`onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
+
+The controls are the kernel's, styled with Tailwind over shadcn tokens, so **bringing in their styling is the host's lane** — either add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to your Tailwind `content` globs, or import the prebuilt `@pipelex/mthds-form/theme.css` + `styles.css`. Pick one; they are mutually exclusive, and a Tailwind host that forgets the glob gets a *mostly*-styled form that reads like a broken design system.
+
+Full contract, the styling trap, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
 
 ## Shiki integration
 

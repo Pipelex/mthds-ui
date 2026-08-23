@@ -90,3 +90,25 @@ onThemeChange={(mode, resolvedTheme) => {
 The standalone HTML wrapper has no theme button of its own — the in-graph toolbar is the single toggle. The adapter mirrors each `(mode, resolvedTheme)` onto page chrome: `body[data-theme]` carries the _mode_ (so the CSS chrome/logo rules, including the `system` `prefers-color-scheme` media queries, react) and the body palette is set from the _resolved_ theme.
 
 Because pipelex emits `<body data-theme="system">` (its `ReactFlowTheme.SYSTEM`) and the standalone CSS styles `body[data-theme="system"]` statically, page chrome is themed correctly on first paint — before the JS bundle loads, and even if it never does (the HTML is CDN-loaded with SRI and designed to degrade). This is why the mode value is `system` end-to-end, never `auto`.
+
+## The run form panel has a second palette behind it
+
+Everything above governs the graph. `RunPanel` (`@pipelex/mthds-ui/form/react`) sits in **two** token systems at once, and they belong to different owners:
+
+- **The panel chrome is ours.** `RunPanel.css` uses the same semantic tokens as everything else here — `--surface-panel`, `--border-default`, `--text-default`, `--color-accent-strong`. The panel applies them to its own container via `getPaletteForTheme`, because the graph's are inline on the ReactFlow container and the panel sits outside it. So it themes correctly standing alone, with no viewer in the tree.
+- **The controls inside it are the form kernel's**, styled with Tailwind classes over shadcn's semantic tokens (`--background`, `--foreground`, `--primary`, `--ring`, …) — raw HSL triplets, a different naming scheme, and the host's to supply.
+
+The panel's `theme` prop drives both halves: it picks our palette AND toggles the kernel's `.dark` class on the same container. One prop, because a panel whose chrome and controls disagreed on the theme would look broken in a way no host could fix from outside.
+
+To make the controls follow your brand, scope shadcn overrides to the panel's stable container class:
+
+```css
+.mthds-run-panel {
+  --primary: 142 71% 45%;
+  --ring: 142 71% 45%;
+}
+```
+
+**An automatic bridge between the two systems is deliberately not built.** Mapping our `--surface-*` / `--text-*` hex values onto shadcn's HSL triplets needs runtime conversion, and it is not obvious the form should follow the graph canvas rather than the host app's design system — a form living beside a graph is still part of the surrounding product. Left as an open question; ask if you want it.
+
+See [run-form-panel.md](./run-form-panel.md) for the two CSS lanes and the silent-purge trap that comes with them.

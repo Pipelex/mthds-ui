@@ -45,6 +45,13 @@ src/
           PipeCardBase.tsx        # Shared card rendering (header, IO, status)
           pipeCardTypes.ts        # PipeCardData interface (imports from types.ts)
           pipeCardRegistry.ts     # Pipe type → component registry
+  form/                           # Run form panel over @pipelex/mthds-form (separate entry point):
+    runGate.ts                    #   The submit path, React-free: the kernel's four-step gate + error summary
+    react/
+      RunPanel.tsx                #   The panel — fields, readiness, the gate
+      RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
+      index.ts                    #   Barrel for the ./form/react entry
+      __stories__/contracts/      #   Generated pipe_io_contracts fixtures
   shiki/                          # Syntax highlighting (separate entry point)
   static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
     types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
@@ -61,14 +68,14 @@ The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no 
 
 ## Path Alias
 
-The project uses `@graph/*` → `src/graph/*` and `@static-graph/*` → `src/static-graph/*` to avoid deep relative imports. Configured in:
+The project uses `@graph/*` → `src/graph/*`, `@static-graph/*` → `src/static-graph/*` and `@form/*` → `src/form/*` to avoid deep relative imports. Configured in:
 
 - `tsconfig.json` (`paths`)
 - `tsup.config.ts` (`esbuildOptions.alias`)
 - `.storybook/main.ts` (`viteFinal` resolve alias)
 - `vitest.config.mts` (`resolve.alias`)
 
-**Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
+**Rule:** Use `@graph/types`, `@graph/react/viewer/GraphViewer`, `@form/runGate`, etc. for any cross-module import. Keep relative imports (`./`, `../`) only within the same module (1-2 levels max).
 
 **This applies everywhere** — including `__tests__/` and `__stories__/` files. A test file at `src/graph/__tests__/foo.test.ts` importing from `src/graph/react/` must use `@graph/react/...`, not `../../graph/react/...`. The only acceptable relative imports from `__tests__/` are:
 
@@ -83,10 +90,26 @@ tsup treats unregistered `.css` imports as bundle-time assets and drops them. Th
 
 When you add `import "./Foo.css"` to any source file, you MUST also:
 
-1. Add `/path\/to\/Foo\.css$/` to the `external` array so the import survives in the JS output.
+1. Add `/Foo\.css$/` to the `external` array so the import survives in the JS output.
 2. Add a `mkdirSync` + `cpSync` pair in `onSuccess` so the raw CSS file is copied to `dist/` at the same relative path.
 
+**The `external` pattern is matched against the import SPECIFIER, not the resolved path.** `RunPanel.tsx` writes `import "./RunPanel.css"`, so `/RunPanel\.css$/` matches and `/form\/react\/RunPanel\.css$/` does not — and a pattern that does not match fails the way this rule exists to prevent: silently. The existing `/detail\/DetailPanel\.css$/` entries look like paths only because the barrel that imports them writes `"./detail/DetailPanel.css"`.
+
 Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the import, and the file must exist at `dist/<same-relative-path>/Foo.css`. If either is missing, the bundler ate the stylesheet.
+
+**There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no form kernel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML. The test names whichever choice you have not made yet.
+
+## Optional peers behind their own entry point
+
+`shiki` and `@pipelex/mthds-form` are **optional peer dependencies**, each isolated behind its own package entry (`./shiki`, `./form/react`). New optional peers follow the same pattern, and the pattern has three obligations:
+
+1. **`peerDependencies` + `peerDependenciesMeta.optional: true`** in `package.json`, plus a `devDependencies` entry so it is present for local work and CI.
+2. **`external` in `tsup.config.ts`**, so the dependency is never bundled. For anything carrying React context — the form kernel carries two providers — a bundled copy is a second context identity, and a host's provider silently fails to resolve inside our component.
+3. **Import isolation**, enforced by the `no-restricted-imports` block in `eslint.config.mjs`: the peer is importable only from its own module. Every other entry must keep resolving with it absent, which is what "optional" has to mean.
+
+`make smoke-pack` (`scripts/smoke-pack.mjs`) is what proves it: it packs the tarball, installs it into a consumer that deliberately has NO optional peer, and checks the export map, the `"use client"` directives, and that no other entry's module graph reaches the peer. None of that is observable from the source tree, which resolves fine either way.
+
+**`"use client"` needs re-prepending after the build.** esbuild strips directive prologues, so `tsup.config.ts`'s `onSuccess` writes it back onto the built React entries. Verify with `head -1 dist/form/react/index.js`.
 
 ## Architecture
 
@@ -216,6 +239,7 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 - **The vendored MTHDS Test Corpus** lives in `data/mthds-corpus/` — a copy of the canonical `.mthds` corpus owned by `pipelex` (`pipelex/test_extras/mthds_corpus/`), delivered by the workspace `mthds-corpus-sync` skill because a TypeScript repo cannot read the Python wheel it ships in. **Never edit anything under `data/mthds-corpus/`.** Fix the entry in `pipelex`, where the corpus gates run, then re-sync; a copy that gets edited is a fork. `parseFixtureBundles` and `buildFixtureGraphs` sweep it alongside `data/pipelines/` through `src/static-graph/__tests__/fixtureBundles.ts`, which keeps the two piles apart on purpose — only `data/pipelines/` carries the generated graph specs that `parity` and `nativeConceptsCorpus` read as their oracle. See `docs/static-graph.md`.
 - **Pipeline fixtures** are generated from the `.mthds` bundles in `data/pipelines/pipeline_NN/` (see "Regenerating fixtures" below). The generator emits `__stories__/pipelines/specs/_generated.dry.ts` and `_generated.live.ts`; `mockGraphSpec.ts` and `liveGraphSpec.ts` re-export them as `DRY_*` / `LIVE_*` and build `DRY_RUN_CATALOG` / `LIVE_RUN_CATALOG`.
+- **Contracts fixtures** (`pipe_io_contracts`, what the run form renders) are generated by `make fixtures-contracts` into `src/form/react/__stories__/contracts/`. Mode-independent and offline: a contract is a projection of what a pipe DECLARES, so it needs no run, which is why it is its own fast pass and why it works even when a bundle is not currently runnable. **Never hand-write one** — an invented contract gets the kernel's concept taxonomy subtly wrong (`native.Date` renders as prose and wraps as `{ text }`, documented kernel drift), so the form gets tested against inputs no method produces. Two vendored corpus entries are swept alongside the pipelines because the pipeline corpus has no OPTIONAL input anywhere. See `docs/run-form-panel.md`.
 - **Static fixture catalog** lives in `src/graph/react/viewer/__stories__/staticGraphSpec.ts`. It wraps `_generated.static.ts`, which imports raw `.mthds` bundles and builds `STATIC_*` specs through `buildStaticGraphSpecFromToml` with no CLI, Python, gateway key, or network.
 - **Static stories** live in `StaticGraphDev.stories.tsx`, `StaticVsLive.stories.tsx`, and `StaticGraphInvalid.stories.tsx`. Keep representative static-vs-live coverage for sequence, condition, batch, CV screening, deep nesting, and wide parallel.
 - **Extreme-scale generators** in `extremeGraphSpecs.ts` — `makeWideParallel(N)`, `makeWideBatch(N)` (hand-built; kept validator-clean by `finalizeSpec`).
@@ -257,7 +281,9 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 | `make storybook`     | Storybook dev server                                            |
 | `make test-coverage` | Vitest with coverage report                                     |
 | `make fixtures`      | Regenerate DRY pipeline fixtures                                |
+| `make fixtures-contracts` | Regenerate the `pipe_io_contracts` fixtures (offline, fast) |
 | `make fixtures-live` | Regenerate LIVE fixtures (real inference) — always with `ONLY=` |
+| `make smoke-pack`    | Pack the tarball and check it from a bare consumer              |
 | `make clean`         | Remove dist/ and node_modules/                                  |
 
 ## Workflow Rules
