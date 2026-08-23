@@ -273,7 +273,15 @@ export function RunPanel({
       ...env,
       disabled: env?.disabled ?? running,
       onDropFile: env?.onDropFile ?? (uploadFile ? handleDropFile : undefined),
-      uploadingIds: env?.uploadingIds ?? uploadingIds,
+      // The UNION, not the host's set winning outright: `onDropFile` and
+      // `uploadingIds` default independently per key, so a host may hand us
+      // `uploadFile` (leaving the panel to own the drop, and to mark the field
+      // in its own set) while also passing a tracker of its own. Letting the
+      // host's set replace ours would hide an upload the panel itself started,
+      // and Run would stay live through it. A host that owns the whole loop
+      // supplies `onDropFile` too, so our set is empty and the union is exactly
+      // its set — "yours win" still holds where that clause applies.
+      uploadingIds: new Set([...(env?.uploadingIds ?? EMPTY_IDS), ...uploadingIds]),
     }),
     [env, running, uploadFile, handleDropFile, uploadingIds],
   );

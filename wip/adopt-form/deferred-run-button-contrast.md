@@ -32,3 +32,11 @@ Change the **background**, not the text. `--color-accent-strong` has exactly one
 The alternative, if the near-black label turns out to be wanted, is an explicit `--text-on-accent-strong` token defined per palette — honest about being a second pairing, rather than borrowing the first one's value.
 
 Either way this is a palette decision with a visual check attached, not a line in a PR that was already twelve review rounds deep on an unrelated feature.
+
+## The implementation path is known; the decision is not
+
+Codex raised this independently in a later review round, with numbers matching the measurements above exactly (4.10:1 light, 3.68:1 dark). Two reviewers agreeing does not change the engineering question, but it does settle that the defect is real rather than a matter of taste, so what follows is the mechanics — so that whoever takes the decision does not have to rediscover them.
+
+A per-theme fix needs no palette plumbing. `RunPanel.tsx` already puts a `dark` class on the panel container alongside the inline palette variables, so `RunPanel.css` can scope a rule to `.mthds-run-panel.dark .mthds-run-panel-run` and give each palette its own accessible background. That file currently has no theme-scoped rule at all, so this would be the first.
+
+**What still makes it a decision rather than a fix:** any accessible value hard-codes a colour where `var(--color-accent-strong)` stands today, which severs the Run button from the token a host overrides to theme it. That trade — brand/theming control against AA compliance on the primary call to action — belongs to whoever owns the palette, not to a review round. The measured candidates above are what that decision would choose between.

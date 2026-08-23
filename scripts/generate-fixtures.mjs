@@ -524,7 +524,14 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
     // which makes that split their ONLY on-disk representation. `--from-disk`
     // runs nothing by contract, so it reuses the split rather than re-sourcing
     // the entry onto whatever pipelex the local venv happens to be.
-    ...(FROM_DISK
+    //
+    // `--only` is skipped for the same reason, and it is the same rule the
+    // pipelines already follow: an unselected pipeline is read from the JSON
+    // committed beside it rather than re-run. Without this, a targeted refresh
+    // of one pipeline also re-sourced both corpus entries — silently rewriting
+    // fixtures outside the requested selection, and mixing fixture versions
+    // whenever the local venv differs from the one that produced them.
+    ...(FROM_DISK || ONLY
       ? []
       : Object.entries(CORPUS_CONTRACTS).map(([entry, name]) => ({
           slug: entry,
@@ -532,6 +539,12 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
           json: dumpContracts(path.join(CORPUS_DIR, entry, "bundle.mthds"), entry),
         }))),
   ];
+
+  if (ONLY && !FROM_DISK) {
+    console.log(
+      `  corpus entries reused from their splits, not re-sourced: ${Object.keys(CORPUS_CONTRACTS).join(", ")}`,
+    );
+  }
 
   for (const { slug, name, json } of sources) {
     const splitRaw =

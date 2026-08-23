@@ -32,7 +32,13 @@ The two `assertPipelexPythonAvailable()` guards added in review round 13 deliber
 
 **Fix:** either make `die` throw a tagged error that `main()` catches, reports and exits on (so `finally` runs), or register the cleanups with `process.on("exit", …)`. The first is cleaner and keeps `die`'s call sites unchanged.
 
-## 3. `--only` restricts the pipelines but not the two corpus entries
+## 3. `--only` restricts the pipelines but not the two corpus entries — FIXED
+
+Codex raised this independently in a later review round, which is what got it done. The deferral reason recorded below — that a generator change cannot be exercised end to end here — turned out to apply only to the DRY graph-spec pass, whose model deck is stale. **The contracts pass is offline and runs fine**, so this one was exercisable all along; the blanket reason in the header was too broad.
+
+Fixed by skipping the corpus re-sourcing whenever `--only` is set, which is the same rule the pipelines already follow: an unselected pipeline is read from the JSON committed beside it rather than re-run. Demonstrated before and after by watching the split's mtime — a pipeline-only refresh used to rewrite `feature_optionals_village_notice.ts`, and now leaves it untouched while a full run still refreshes it. The run also prints which corpus entries it reused rather than re-sourced, so the narrowed scope is stated rather than silent.
+
+The description below is kept because it is still the clearest statement of _why_ this mattered, and because option two in it — letting `--only` name a corpus entry, making them individually refreshable — was NOT taken and remains the better answer if anyone needs to refresh one.
 
 `make fixtures-contracts ONLY=pipeline_05` correctly limits the pipeline loop — `selected` is built from `ONLY` and only those get `writePipeIoContracts`. But the fixture assembly that follows is called with the full list, at both call sites:
 
