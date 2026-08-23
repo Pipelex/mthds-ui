@@ -145,6 +145,7 @@ The fix is `useEffect` → `useLayoutEffect` on both refs. Layout effects run in
 
 - [ ] Verify the K2 gate: a story renders a method form where every field, the readiness verdict and the wire payload come from kernel imports, and the only local code is layout. **The story that demonstrates it already exists** — `src/form/react/__stories__/GraphWithRunPanel.stories.tsx` (`Form/Graph with RunPanel`), which clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form. What is left is to confirm and record the verdict, not to build anything.
 - [ ] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K) per the program's checkpoint protocol, and update `wip/adopt-form/design.md` one last time.
+- [x] Record the contracts-fixture reshape obligation — `wip/adopt-form/contracts-fixture-reshape-obligation.md`. The fixtures here are entirely pre-S2 (`optional` and a two-arm `multiplicity`; no `presence`, no `item_count`), and so is the kernel at the pinned `0.2.0` — the two agree, which is exactly why nothing in this repo can go red on its own however wrong the pairing becomes. The regeneration is owed **in the same change that bumps the kernel**, never before it.
 
 ### Things a fresh session would otherwise rediscover the hard way
 
