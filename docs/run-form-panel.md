@@ -46,18 +46,18 @@ function MethodPanel({ contracts, domain, pipeCode, onExecute }) {
 
 ### Props
 
-| Prop                        | Required | What it does                                                                                                               |
-| --------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `contract`                  | yes      | The pipe's `PipeIOContract` — the kernel's type. See "Why not a GraphSpec" below.                                          |
-| `values` / `onValuesChange` | yes      | Fully controlled field values. The host owns the state; the panel never holds a copy.                                      |
-| `onRun`                     | yes      | Fires **only after the kernel's run gate passes**, with the `{concept, content}` payload a run expects.                    |
-| `running`                   | no       | A run is in flight: the fields and the button go inert.                                                                    |
-| `env`                       | no       | Ambient `FieldEnv` passed to every control. The host's value wins **per key**; the panel fills in what you left undefined. |
-| `uploadFile`                | no       | Stores a dropped file and returns its URL. See "Files" below.                                                              |
-| `title`                     | no       | Panel header. There is no default — the host names the pipe.                                                               |
-| `theme`                     | no       | `"dark"` or `"light"`. Drives both this library's palette and the kernel's `.dark` class. Defaults to `"light"`.           |
-| `translate`                 | no       | Renders validation messages in your language. English by default.                                                          |
-| `className`                 | no       | Appended to the container's class list.                                                                                    |
+| Prop                        | Required | What it does                                                                                                                                       |
+| --------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contract`                  | yes      | The pipe's `PipeIOContract` — the kernel's type. See "Why not a GraphSpec" below.                                                                  |
+| `values` / `onValuesChange` | yes      | Fully controlled field values. The host owns the state; the panel never holds a copy.                                                              |
+| `onRun`                     | yes      | Fires **only after the kernel's run gate passes**, with the `{concept, content}` payload a run expects.                                            |
+| `running`                   | no       | A run is in flight: the fields and the button go inert. **Set it synchronously inside `onRun`** — see "Why `running` has to be set synchronously". |
+| `env`                       | no       | Ambient `FieldEnv` passed to every control. The host's value wins **per key**; the panel fills in what you left undefined.                         |
+| `uploadFile`                | no       | Stores a dropped file and returns its URL. See "Files" below.                                                                                      |
+| `title`                     | no       | Panel header. There is no default — the host names the pipe.                                                                                       |
+| `theme`                     | no       | `"dark"` or `"light"`. Drives both this library's palette and the kernel's `.dark` class. Defaults to `"light"`.                                   |
+| `translate`                 | no       | Renders validation messages in your language. English by default.                                                                                  |
+| `className`                 | no       | Appended to the container's class list.                                                                                                            |
 
 ### What the host still owns
 
@@ -67,7 +67,9 @@ This library renders; it never executes. `onRun` hands you a payload and stops t
 
 Two consequences of an upload being slow, both handled here so a host does not have to think about them.
 
-**Run is disabled while any upload the panel knows about is in flight**, including uploads you report through `env.uploadingIds`. Readiness alone is not enough, because a non-gating file input — an optional one, or a plural one, since a list never gates — never counts toward readiness at all: without this, Run stays live right through such a field's upload and the method runs with the file simply missing. **Every condition that disables Run also blocks the submit path**, not just this one: a run already in flight, an unmet readiness verdict, and an upload in progress are one expression, read in both places. That matters because `form.requestSubmit()` ignores the disabled button entirely — so run the form from your own button if you like, and you still cannot start a duplicate run, send a blank required text input, or send without a file that is on its way. (The keyboard is held by the button alone, and correctly: Run is the form's only submit button, so it is the default button, and implicit submission on a disabled default button does nothing.)
+**Run is disabled while any upload the panel knows about is in flight**, including uploads you report through `env.uploadingIds`. Readiness alone is not enough, because a non-gating file input — an optional one, or a plural one, since a list never gates — never counts toward readiness at all: without this, Run stays live right through such a field's upload and the method runs with the file simply missing. **Every condition that disables Run also blocks the submit path**, not just this one: a run already in flight, an unmet readiness verdict, and an upload in progress are one expression, read in both places. That matters because `form.requestSubmit()` ignores the disabled button entirely — so run the form from your own button if you like, and you still cannot start a duplicate run, send a blank required text input, or send without a file that is on its way. The duplicate-run half of that carries one condition, below. (The keyboard is held by the button alone, and correctly: Run is the form's only submit button, so it is the default button, and implicit submission on a disabled default button does nothing.)
+
+**Why `running` has to be set synchronously.** "You cannot start a duplicate run" is true for as long as `running` is true, and `running` is yours — the panel reads it and never sets it. So set it inside `onRun` before any `await`, not once your API answers. A host that does the latter leaves Run enabled for the whole round trip, and a second click in that window passes the same `blocked === false` the first one did and starts a second execution. The panel cannot close this itself: it is told when a run STARTS and never that one finished, so an internal lock would have no release and a host that never passes `running` would be wedged after its first run — a worse failure than the one it would prevent, and it would put hidden run state inside a component whose whole design is that the host owns the state. Two `requestSubmit()` calls in one synchronous block are the same story with no click involved, and the same answer.
 
 **The readiness line beside Run is the button's accessible description**, associated with it by `aria-describedby` whenever readiness is what is holding Run back. It is the only thing on screen that says _why_ the button is dimmed, and a disabled button is out of the tab order, so nobody reaches that line by walking the controls. If you restyle the footer, keep the two associated — that id is generated with `useId`, so this association survives several panels on one page.
 

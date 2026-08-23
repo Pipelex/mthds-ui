@@ -162,6 +162,20 @@ const MODE_VALUE = LIVE ? "live" : "dry";
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
 
+/**
+ * This invocation regenerates a SUBSET of the pipelines, whichever way it was
+ * asked for. Every partial mode owes the same debt — anything outside the
+ * subset must be reused from disk rather than re-sourced through the local
+ * pipelex, or a targeted refresh quietly sweeps unrelated fixtures onto
+ * whatever version the venv currently is.
+ *
+ * Declared once, at module scope, precisely because it was NOT: `--only` and
+ * `--missing` were each spelled out at every site that needed them, and the
+ * contracts pass ended up naming one and forgetting the other. A named
+ * predicate makes the next partial mode a single edit here instead of a hunt.
+ */
+const PARTIAL = Boolean(MISSING || ONLY);
+
 /** Per-pipeline graphspec JSON written alongside the bundle (mode-specific). */
 const SPEC_JSON_NAME = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
 const specJsonPath = (pipelineDir) => path.join(PIPELINES_DIR, pipelineDir, SPEC_JSON_NAME);
@@ -525,13 +539,18 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
     // runs nothing by contract, so it reuses the split rather than re-sourcing
     // the entry onto whatever pipelex the local venv happens to be.
     //
-    // `--only` is skipped for the same reason, and it is the same rule the
+    // A PARTIAL run is skipped for the same reason, and it is the same rule the
     // pipelines already follow: an unselected pipeline is read from the JSON
     // committed beside it rather than re-run. Without this, a targeted refresh
     // of one pipeline also re-sourced both corpus entries — silently rewriting
     // fixtures outside the requested selection, and mixing fixture versions
     // whenever the local venv differs from the one that produced them.
-    ...(FROM_DISK || ONLY
+    //
+    // `--missing` counts, and reads as an afterthought only because it was one:
+    // the first fix here named `--only` alone, which left `make fixtures-missing`
+    // — a DRY run, so it reaches this fixture — re-sourcing both corpus entries
+    // while claiming to touch nothing but the specs it found absent.
+    ...(FROM_DISK || PARTIAL
       ? []
       : Object.entries(CORPUS_CONTRACTS).map(([entry, name]) => ({
           slug: entry,
@@ -540,7 +559,7 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
         }))),
   ];
 
-  if (ONLY && !FROM_DISK) {
+  if (PARTIAL && !FROM_DISK) {
     console.log(
       `  corpus entries reused from their splits, not re-sourced: ${Object.keys(CORPUS_CONTRACTS).join(", ")}`,
     );
@@ -602,6 +621,11 @@ async function main() {
     // machinery with no caller — and silently writing when asked not to is the
     // one outcome worth refusing outright.
     if (CHECK) die("--check is not supported with --contracts");
+    // `--only` is the only way this pass takes a subset, so `--missing` would
+    // make PARTIAL claim one that does not exist — every pipeline re-sourced
+    // while the corpus entries are skipped as though a selection had been made.
+    // Refusing beats implementing a mode with no caller.
+    if (MISSING) die("--missing is not supported with --contracts (use --only)");
     const selected = ONLY ? allPipelines.filter((p) => ONLY.has(p)) : allPipelines;
     console.log(
       `generate-fixtures: contracts over ${selected.length} pipeline(s)` +
@@ -639,8 +663,6 @@ async function main() {
   } else {
     toProcess = allPipelines;
   }
-  const PARTIAL = Boolean(MISSING || ONLY);
-
   if (toProcess.length === 0 && !FROM_DISK) {
     // Only reachable via --missing when every spec is already present.
     console.log(`generate-fixtures: ${MODE} — nothing missing, all ${SPEC_JSON_NAME} present`);

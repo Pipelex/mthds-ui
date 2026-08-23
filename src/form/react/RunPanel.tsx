@@ -39,7 +39,16 @@ export interface RunPanelProps {
   onValuesChange: (values: Record<string, unknown>) => void;
   /** Fires only after the kernel's run gate passes, with the wire-ready payload. */
   onRun: (apiInputs: Record<string, unknown>) => void;
-  /** A run is in flight: the fields and the Run button go inert. */
+  /**
+   * A run is in flight: the fields and the Run button go inert.
+   *
+   * **Set it synchronously inside `onRun`, before any `await`.** It is the only
+   * thing standing between a second submit and a duplicate execution, and the
+   * panel cannot supply that protection itself: it never learns that a run
+   * finished, so any lock it took would have no release. A host that flips this
+   * only once the server answers leaves the button live for the whole round
+   * trip, and a second click there starts a second run that nothing undoes.
+   */
   running?: boolean;
   /**
    * Ambient field state, passed to every control. The host's value wins PER
@@ -312,7 +321,9 @@ export function RunPanel({
   // perfectly valid string, so the gate passes it and only readiness notices —
   // that is pinned in `runGate.test.ts` and is exactly why the button gates on
   // readiness at all. `running`: a second run started over the first is a
-  // duplicate execution, which nothing downstream would undo.
+  // duplicate execution, which nothing downstream would undo — and this term is
+  // only ever as timely as the host makes it, which is why the prop's own doc
+  // asks for it synchronously.
   const blocked = running || notReady || uploading;
 
   // Optional inputs that are still empty stay folded, so the form opens at its

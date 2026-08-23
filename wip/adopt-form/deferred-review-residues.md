@@ -62,3 +62,13 @@ The sweep found the story coverage genuinely absent in three places, and it veri
 - **The `.dark` theme bridge** — Decision D's deliverable, verified visually per the workflow rule but never asserted, so a regression in the class toggle would not fail the suite.
 
 **Not added, because this PR is eleven rounds deep, green on both bots, and these are additive coverage rather than defects** — no behaviour here is unverified, only unpinned. Against that, three more browser stories lengthen a suite the repo already documents as load-flaky at 130+ story files. The second one is the one worth doing first if any are: it is the twin of a case that was thought worth pinning.
+
+## 6. The run lock is only as timely as the host's `running`
+
+Raised later by Greptile, over `f483433`, and the mechanism is real: `blocked` is a value computed during a render, so two submits reaching `handleSubmit` before a re-render both read the same `false` and both call `onRun`. Two `requestSubmit()` calls in one synchronous block do it outright. The reachable-by-a-user version is a host whose `onRun` flips `running` only after its API answers — Run then stays enabled for the whole round trip, and a second click in that window starts a second execution. A double-click against a host that sets `running` synchronously is NOT this: React flushes a discrete event's state before the next one, so the second click already sees the disabled button.
+
+**Not fixed in the component, because the panel cannot hold a lock it can never release.** It is told when a run starts and never that one finished — `onRun` returns `void`, and nothing else reports completion — so any internal latch would need `running` to cycle in order to clear. A host that never passes `running` at all (it is optional) would then be wedged after its first run, which is a worse failure than the one being prevented. Scoping the latch to a tick instead, with a microtask or a timer, buys only the two-synchronous-calls case and pays for it in timing machinery. And either shape puts hidden run state inside a component whose stated design is that the host owns the state.
+
+**What was done instead is to state the condition the protection depends on**, in the `running` prop's own doc, beside the `blocked` expression, and in `docs/run-form-panel.md`, which until now promised "you still cannot start a duplicate run" without saying what that rests on. That promise was the overclaim; the code was doing what it was designed to do.
+
+What would change the answer is `onRun` gaining a return value the panel can await, at which point the panel knows both ends of a run and a latch becomes releasable. That is a contract change, not a review-round fix.

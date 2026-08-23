@@ -34,11 +34,17 @@ The two `assertPipelexPythonAvailable()` guards added in review round 13 deliber
 
 **Fix:** either make `die` throw a tagged error that `main()` catches, reports and exits on (so `finally` runs), or register the cleanups with `process.on("exit", …)`. The first is cleaner and keeps `die`'s call sites unchanged.
 
-## 3. `--only` restricts the pipelines but not the two corpus entries — FIXED
+## 3. A partial run restricts the pipelines but not the two corpus entries — FIXED, in two goes
 
 Codex raised this independently in a later review round, which is what got it done. The deferral reason recorded below — that a generator change cannot be exercised end to end here — turned out to apply only to the DRY graph-spec pass, whose model deck is stale. **The contracts pass is offline and runs fine**, so this one was exercisable all along; the blanket reason in the header was too broad.
 
 Fixed by skipping the corpus re-sourcing whenever `--only` is set, which is the same rule the pipelines already follow: an unselected pipeline is read from the JSON committed beside it rather than re-run. Demonstrated before and after by watching the split's mtime — a pipeline-only refresh used to rewrite `feature_optionals_village_notice.ts`, and now leaves it untouched while a full run still refreshes it. The run also prints which corpus entries it reused rather than re-sourced, so the narrowed scope is stated rather than silent.
+
+**The first fix was incomplete, and the way it was incomplete is worth more than the fix.** It named `--only` and stopped there, while the generator has two ways to select a subset — `--missing` is the other, and the very next line of `main()` already classified both as partial (`PARTIAL = Boolean(MISSING || ONLY)`). So `make fixtures-missing`, a DRY run and therefore one that reaches this fixture, went on re-sourcing both corpus entries while reporting that it touched only the specs it found absent. Codex caught it in the following round.
+
+The second fix does not add the missing name; it removes the duplication that lost it. `PARTIAL` is now declared once at module scope and used at both sites, so a third partial mode is a single edit rather than a hunt through every place the predicate was spelled out longhand. The contracts-only pass refuses `--missing` outright, because `--only` is the sole way it takes a subset and `PARTIAL` would otherwise claim one that does not exist.
+
+**Neither half is exercised end to end here**, for the reason in the header: the DRY graph-spec path needs a working model deck and this machine's is stale, so `--missing` cannot be run to completion. What was checked is the refusal (`--contracts --missing` dies) and the read of the two call sites. The `--only` half WAS demonstrated by mtime when it landed.
 
 The description below is kept because it is still the clearest statement of _why_ this mattered, and because option two in it — letting `--only` name a corpus entry, making them individually refreshable — was NOT taken and remains the better answer if anyone needs to refresh one.
 
