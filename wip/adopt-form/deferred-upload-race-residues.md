@@ -2,13 +2,15 @@
 
 The PR #75 review round confirmed two real defects in `RunPanel`'s file-upload path and both were fixed (the Run gate on in-flight uploads, and the write-back reading the latest values rather than the ones its render captured). Two residues were found alongside them and deliberately **not** built. This note is so the next person meets them as decisions rather than as oversights.
 
-## 1. Two uploads resolving inside one React batch can still clobber each other
+## 1. Two uploads resolving inside one React batch — DEFERRED IN ERROR, NOW FIXED
 
-`valuesRef` refreshes in an effect, so it is current as of the last commit — not as of the last `onValuesChange` call. If two uploads resolve within the same batch, the second continuation reads a ref that the first one's update has not yet been committed into, and the first upload's value is lost.
+Like residue 2 below, this was deferred on reasoning that turned out to be wrong, and a later review round supplied the fix. The mistake is kept because it is the same mistake twice: ruling something out on the strength of the only fix I had thought of.
 
-**Why it is not fixed.** The only stale-proof fix is a functional updater, and `RunPanelProps.onValuesChange` is `(values: Record<string, unknown>) => void` — deliberately, because it lets a host hold its values anywhere rather than forcing them into a `useState`. Widening it to `Dispatch<SetStateAction<…>>` is a breaking change to a just-shipped public prop and contradicts what `docs/run-form-panel.md` documents as a fully controlled component.
+**The defect.** `valuesRef` refreshed in an effect, so it was current as of the last render — not as of the last `onValuesChange` call. Two uploads resolving in the same React batch both run before any re-render, so both read the same snapshot and the second write silently dropped the first.
 
-**What would justify revisiting it.** A host reporting lost files on a form where a user drops several at once and the uploads finish near-simultaneously. Until then the cost (an API break for every consumer) is far above the risk.
+**The original reasoning, and what was wrong with it.** I wrote that "the only stale-proof fix is a functional updater," which would mean widening `onValuesChange` from `(values) => void` to `Dispatch<SetStateAction<…>>` — a breaking change to a just-shipped public prop, and one that contradicts the fully-controlled contract the docs state. That trade-off was real. The premise was not: there is a second fix. The continuation can advance the mirror itself, synchronously, before handing the new values to the host. The next continuation in the same batch then reads what the previous one wrote, and the effect goes on owning the sync **from** the host, so the mirror still converges on whatever the host actually kept.
+
+**Reachability, which was also underestimated.** This needs nothing exotic — `candidate_screening.screen_candidate` (`data/pipelines/pipeline_30`) takes a required `cv` and a required `job_offer`, both single documents, both dropzones. Drop two files, have both uploads finish together, and one value is gone while its dropzone still shows a filename. `ConcurrentUploadsBothLand` pins it, verified to fail without the advance.
 
 ## 2. A late upload following a contract switch — DEFERRED IN ERROR, NOW FIXED
 

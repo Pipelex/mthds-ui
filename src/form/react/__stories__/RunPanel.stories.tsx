@@ -6,6 +6,7 @@ import type { FieldEnv } from "@pipelex/mthds-form/react";
 import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import {
+  CONTRACTS_CV_ANALYZER,
   CONTRACTS_CV_SCREENING,
   CONTRACTS_OPTIONAL_STYLE_HINT,
   CONTRACTS_SMART_INPUTS_TRIAGE,
@@ -45,6 +46,13 @@ const COMPOSE_REPORT = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "compos
 // merely untidy.
 const CV_SCREENING = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "cv_screening");
 const EXTRACT_CV = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "extract_cv");
+// Two required document inputs side by side, so two uploads can be in flight at
+// once — the ordinary shape that makes a same-batch write-back collision real.
+const SCREEN_CANDIDATE = contractOf(
+  CONTRACTS_CV_ANALYZER,
+  "candidate_screening",
+  "screen_candidate",
+);
 
 /**
  * The panel is fully controlled, so every story owns the values. This wrapper is
@@ -502,6 +510,80 @@ export const UploadCleanupStaysWithItsPipe: Story = {
     // would be gone and Run would be live over a file that never arrived.
     await expect(canvas.getByText(/Uploading/)).toBeInTheDocument();
     await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * Two uploads finishing together must both survive.
+ *
+ * The write-back reads a mirror of the latest values because the render that
+ * started it is long gone. But an effect refreshes that mirror only after a
+ * re-render, and two continuations resolving in the same React batch both run
+ * before any render happens — so both would read the same snapshot and the
+ * second write would silently drop the first. `screen_candidate` takes a `cv`
+ * and a `job_offer`, so this is the ordinary two-file form, not a contrived
+ * one, and the loss is invisible: both dropzones show a filename while one
+ * value is no longer in the values at all. The continuation advances the mirror
+ * itself, which fixes it without widening `onValuesChange` into a functional
+ * updater.
+ */
+export const ConcurrentUploadsBothLand: Story = {
+  args: { contract: SCREEN_CANDIDATE, title: "screen_candidate" },
+  render: function Render(args) {
+    const pending = React.useRef<Map<string, (file: UploadedFile) => void>>(new Map());
+    const uploadFile = React.useCallback(
+      (_file: File, fieldId: string) =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current.set(fieldId, resolve);
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} uploadFile={uploadFile} />
+        <button
+          type="button"
+          data-testid="settle-both"
+          onClick={() => {
+            // Resolved back to back, so both continuations run as microtasks
+            // before React re-renders — which is precisely the batch the
+            // effect-refreshed mirror cannot keep up with.
+            pending.current.get("cv")?.({ url: "https://files.test/cv.pdf", filename: "cv.pdf" });
+            pending.current.get("job_offer")?.({
+              url: "https://files.test/offer.pdf",
+              filename: "offer.pdf",
+            });
+          }}
+        >
+          settle both uploads
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const drop = (fieldId: string, name: string) => {
+      const input = canvasElement.querySelector<HTMLInputElement>(`input[id="${fieldId}"]`);
+      if (!input) throw new Error(`no file input for ${fieldId}`);
+      fireEvent.change(input, {
+        target: { files: [new File(["%PDF"], name, { type: "application/pdf" })] },
+      });
+    };
+
+    drop("cv", "cv.pdf");
+    drop("job_offer", "offer.pdf");
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    await userEvent.click(canvas.getByTestId("settle-both"));
+
+    // Both files landed, so the form is complete and Run opens. Without the
+    // mirror advancing, `cv` would be gone while its dropzone still showed
+    // `cv.pdf`, and the readiness line would be asking for an input that looks
+    // answered.
+    await waitFor(() => expect(canvas.getByText("cv.pdf")).toBeInTheDocument());
+    await expect(canvas.getByText("offer.pdf")).toBeInTheDocument();
+    await expect(canvas.queryByText(/still needed/)).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeEnabled();
   },
 };
 

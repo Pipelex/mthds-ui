@@ -154,12 +154,20 @@ export function RunPanel({
       void uploadFile(file, id)
         .then((uploaded) => {
           if (contractRef.current !== startedOn) return;
-          commitValues(
-            setValueAtPath(valuesRef.current, id.split("."), {
-              url: uploaded.url,
-              filename: uploaded.filename ?? file.name,
-            }),
-          );
+          const next = setValueAtPath(valuesRef.current, id.split("."), {
+            url: uploaded.url,
+            filename: uploaded.filename ?? file.name,
+          });
+          // Advance the mirror here rather than waiting for the effect. Two
+          // uploads finishing in the same React batch both run before any
+          // re-render, so both would otherwise read the same snapshot and the
+          // second write would drop the first — a pipe with two file inputs is
+          // ordinary (`candidate_screening.screen_candidate` takes a `cv` and a
+          // `job_offer`), and the loss is silent: both fields look settled
+          // while one value is gone. The effect still owns syncing FROM the
+          // host, so the mirror converges on whatever the host actually kept.
+          valuesRef.current = next;
+          commitValues(next);
         })
         .catch(() => {
           // The host owns how a failed upload is announced (it owns the
