@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`) and 4 (`a879dbe`): the re-review loop, written up below.
-- [ ] Round 5: read the bots' re-review of `a879dbe` and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`) and 4 (`d3fd5ba`): the re-review loop, written up below.
+- [ ] Round 5: read the bots' re-review of `d3fd5ba` and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
