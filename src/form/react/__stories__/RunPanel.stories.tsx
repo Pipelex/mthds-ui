@@ -311,6 +311,63 @@ export const UploadHoldsRun: Story = {
 };
 
 /**
+ * A decimal in a number field must not silently veto the run.
+ *
+ * The kernel's number control carries native `step`/`min`/`max` constraints, and
+ * a `<form>` without `noValidate` lets the browser refuse submission before any
+ * handler runs: no `submit` event, so no gate, no `onRun`, and no message from
+ * the panel — the button appears live and does nothing. `native.Number` accepts
+ * any decimal, so the browser would be enforcing a constraint the domain does
+ * not have, and saying so in its own words ("nearest valid values are ...").
+ *
+ * `recruitment.MatchScore.score` is a plain `number`, so this is reachable from
+ * a contract the stories already render rather than a constructed one.
+ */
+export const DecimalNumberSubmits: Story = {
+  args: {
+    contract: COMPOSE_REPORT,
+    title: "compose_report",
+    initialValues: {
+      card_image: { url: "https://files.test/card.png", filename: "card.png" },
+      profile: { name: "Ada Lovelace", summary: "Engineer" },
+      match: { recommendation: "hire" },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const score = canvasElement.querySelector<HTMLInputElement>('input[id="match.score"]');
+    if (!score) throw new Error("no number input for match.score");
+    await userEvent.type(score, "87.25");
+    await waitFor(() => expect(score).toHaveValue(87.25));
+
+    // The native constraint really is violated — this is not a hypothetical.
+    const form = score.closest("form") as HTMLFormElement | null;
+    await expect(score.validity.stepMismatch).toBe(true);
+
+    const run = canvas.getByRole("button", { name: "Run" });
+    await waitFor(() => expect(run).toBeEnabled());
+
+    // `requestSubmit()` rather than a click, and deliberately: `userEvent.click`
+    // does NOT run interactive validation, so it cannot see this class of bug —
+    // it reported a successful submit against the unfixed panel. `requestSubmit`
+    // does run it, which is why it is both the honest probe here and the path
+    // `docs/run-form-panel.md` promises hosts is safe.
+    form?.requestSubmit();
+
+    // The gate must have run at all. Before `noValidate` this stayed on its
+    // placeholder, with nothing anywhere to say why.
+    await waitFor(() => {
+      const payload = JSON.parse(canvas.getByTestId("run-payload").textContent ?? "{}") as Record<
+        string,
+        Record<string, unknown>
+      >;
+      expect(payload.match?.content).toMatchObject({ score: 87.25 });
+    });
+  },
+};
+
+/**
  * A slow upload must not undo what the user did while waiting for it.
  *
  * The write-back happens in a promise continuation, which resolves long after
@@ -1001,6 +1058,15 @@ export const UploadFileThrowsSynchronously: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
+    // The spy is module-level, so a second run against the same module instance
+    // — the Storybook UI, HMR, watch mode — would find it already satisfied.
+    // `toHaveBeenCalled()` below is the synchronisation point for a NEGATIVE
+    // assertion, so a stale call count returns `waitFor` instantly and the
+    // assertion passes against a form that is about to wedge. The three gate
+    // spies are cleared for the same reason.
+    throwingUploadSpy.mockClear();
+
     const input = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
     if (!input) throw new Error("no file input for cv");
     fireEvent.change(input, {

@@ -33,7 +33,7 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 - [x] Extend `scripts/generate-fixtures.mjs` to capture `pipe_io_contracts`: the pipelex validation report carries them keyed by `pipe_ref` (`pipelex/pipelex/pipeline/validation_report.py`), so add a validate call per bundle on the DRY pass and write a mode-independent `pipe_io_contracts.json` next to each bundle (same lifecycle as `inputs_template.json`). Never hand-write these.
 - [x] Emit a generated fixtures module (e.g. `__stories__/pipelines/specs/_generated.contracts.ts`) from those JSON files, following the existing `_generated.*.ts` conventions, and run `make fixtures` to produce it.
 - [x] Storybook prebuilt lane (Decision D): import `@pipelex/mthds-form/theme.css` and `@pipelex/mthds-form/styles.css` in `.storybook/preview.ts`. Then check that Tailwind preflight does not visually regress the existing graph stories; if it does, scope the imports to the form stories instead and note the deviation at Checkpoint 1's update.
-- [x] `RunPanel.stories.tsx` under `src/form/react/__stories__/`: contracts covering required + optional fields, a plural input, a file field, and an enum; a running-state story; and an invalid-submit story surfacing the error summary.
+- [x] `RunPanel.stories.tsx` under `src/form/react/__stories__/`: contracts covering required + optional fields, a plural input, a file field, a running-state story, and an invalid-submit story surfacing the error summary. **The enum this line originally also claimed is NOT covered**, and the claim stood as a checked box until an independent review caught it: none of the five contracts the stories import contains an `enum` anywhere. Enum coverage needs a story to import an enum-bearing fixture, which is cheap but was never done — recorded rather than quietly dropped, because a checked box that overstates coverage is worse than an unchecked one.
 - [x] The integration story: `GraphViewer` with `onNodeSelect` → `getPipeIOContract(contracts, domain, pipeCode)` (note the argument order — the kernel README shows it wrong) → `RunPanel` beside the graph, fed by the generated contracts fixture.
 - [x] Browser play tests (`storybook/test` imports, `within(canvasElement)`): fill a required field and watch readiness flip, submit and assert the `onRun` wire payload (blank optionals omitted; empty plurals as bare `[]`), and exercise the optional-toggle fold.
 - [x] Mandatory visual verification: `make storybook` + `/browse` over the new form stories AND a spread of existing graph stories (CV screening, nested controllers, wide parallel) to confirm the preflight decision above.
@@ -56,7 +56,7 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 ## ▶ Resume here (cold start)
 
-Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the review loop and Checkpoint 2. Everything below is re-derivable from the repo; nothing here is a snapshot of live state.
+Phases 1–4 are landed; the work targets PR #75 against `dev`. What is left is the review loop and Checkpoint 2. Everything below is re-derivable from the repo — deliberately, since a tracker that mirrors `git status` or `gh pr list` is wrong within minutes of being written.
 
 **Where the work is.** Branch `feature/Adopt-form`, on top of `cc2e536`. `git log cc2e536..` is the authority on what landed and in what order — this table used to duplicate it and had already gone stale, so it now names only the commits carrying a decision the diff does not explain on its own:
 
@@ -83,7 +83,7 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 - [x] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**. Done, and it found what twelve bot rounds had not — written up below. Four changes kept, one reverted on arbitration, the rest deferred with reasons.
 - [x] Finalize the PR: description brought back in line with what the branch became (the stale hardcoded test count dropped, the deferral notes linked so the reasoning behind what was deliberately NOT changed is reachable from the PR), `CHANGELOG.md`'s two duplicated `### Changed` headings merged, and the new `aria-describedby` association documented in `docs/run-form-panel.md`.
 - [x] Round 13 over `ede45b3` — Greptile clean again; Codex found one more real thing, in the generator rather than the panel. Fixed and written up below.
-- [ ] **Waiting on the bots' confirming pass over the round-13 fix.** Nothing else is outstanding.
+- [ ] **Waiting on a confirming bot pass.** The review loop has run well past the round this line was first written for; `git log cc2e536..` is the authority on what has landed, and the round write-ups below carry each round's verdict. This entry stays open only until both bots are clean on whatever HEAD is at the time.
 
 **The one thing not to do without asking:** merging. The PR is finished and green, but the merge is Louis's call and has not been given.
 
@@ -266,6 +266,24 @@ Both bots had gone clean on `f504be0`; re-triggering them over the docs commits 
 **Codex P2, refused: the Run button's contrast.** Already deferred with measurements, and Codex's numbers match mine exactly. Two reviewers agreeing settles that the defect is real, not that the fix is mine to choose: any accessible value hard-codes a colour where `var(--color-accent-strong)` stands, severing the button from the token a host overrides to theme it. The note now carries the implementation path — `RunPanel.css` can scope to the `.dark` class the panel already sets — so the decision is cheap to take, but it is a palette decision and it belongs to Louis.
 
 **The accident was the most valuable part.** Running a full `make fixtures-contracts` to verify the `--only` fix rewrote *every* pipeline's contracts into the post-S2 shape — `optional: false` replaced by `multiplicity`/`presence`, schemas retitled. The local venv has taken the reshape; the committed fixtures have not. That turns `contracts-fixture-reshape-obligation.md` from a note about a future bump into a live foot-gun: **any full contracts refresh, run for any reason, now silently performs the reshape** in front of a kernel that still reads `optional`. Reverted here, and the note updated to say so. `--from-disk` is the only contracts invocation that cannot trip it.
+
+#### The second independent sweep — a cold reviewer found what seventeen rounds did not
+
+Run with no inherited context, per the goal. It cost real time and repaid it: the headline finding is the worst defect in the whole review, and two bots plus an earlier sweep had passed over it repeatedly.
+
+**The `<form>` had no `noValidate`, so the browser could veto a run the panel's own gate would allow.** The kernel's number control carries `step={integer ? 1 : 0.1}`, so a float with more than one decimal is a native `stepMismatch` — while `native.Number` accepts it and the kernel's own validation pass accepts it. Interactive validation aborts submission before `onSubmit` runs, so there is no gate, no `onRun`, no error anywhere, and a native message that is wrong about the domain. Reachable from `recruitment.MatchScore.score`, a contract two shipped stories already render.
+
+**Verifying it produced the more valuable lesson, and it nearly went the other way.** My first reproduction PASSED against the broken code, which looked like the finding was wrong. Probing the actual validity state showed `stepMismatch=true`, `formValid=false`, `noValidate=false` — and `onRunFired=true`. Both could not be right. The resolution: **`userEvent.click` does not run interactive validation**, so the entire existing story suite is blind to this class of defect and cheerfully reports successful submits against a form real users cannot submit. Switching the probe to `form.requestSubmit()` — which per spec does validate, and which `docs/run-form-panel.md` explicitly tells hosts is safe — gave `onRunFired=false`. Red, then green after one attribute.
+
+The near-miss is the thing to carry: a reproduction that passes is not evidence the finding is wrong; it can equally mean the harness cannot see the failure. Had I stopped at the first green run I would have rejected a real defect with a confident-sounding "reproduced, does not occur".
+
+**Also fixed:** a module-level upload spy that was never `mockClear()`ed while its three siblings were, which quietly disarms the synchronisation point a negative assertion depends on from the second run onward — precisely the trap this tracker already records as having caught the same branch twice.
+
+**Also corrected: this tracker was lying in three places.** A checked box claimed enum story coverage that does not exist — no contract the stories import contains an `enum` anywhere. A line said the only outstanding item was a bot pass from many rounds earlier. And another recorded whether a PR was open, which is exactly the volatile state the workspace convention forbids writing down. A tracker that overstates coverage is worse than one that admits a gap, so the claim is now stated as a gap.
+
+**And a lesson about deferral notes themselves.** The generator note's line references had drifted for the third time — re-anchored, then invalidated by the next commits. Re-anchoring again would have repeated the failure, so the citations are now function names and greppable strings. A note living in the same repo as the code it cites is wrong by default if it cites lines.
+
+The findings not acted on — per-panel id scoping, list-row upload identity by index, and the disabled-button description question — are in `wip/adopt-form/deferred-second-independent-sweep.md` with their evidence.
 
 ### ★ Checkpoint 2 (close) — done
 

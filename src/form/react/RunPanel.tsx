@@ -350,6 +350,18 @@ export function RunPanel({
         .filter(Boolean)
         .join(" ")}
       style={paletteStyle}
+      // The panel's gate is the authority on whether a run may go out, and the
+      // browser's is not merely redundant beside it — it is WRONG. The kernel's
+      // number control carries `step={integer ? 1 : 0.1}`, so any float with
+      // more than one decimal is a `stepMismatch` even though `native.Number`
+      // accepts it and the kernel's own ajv pass does too. Interactive
+      // validation then aborts submission before `onSubmit` runs at all: no
+      // gate, no `onRun`, no error from the panel, and a native message that is
+      // wrong about the domain ("nearest valid values are 87.2 and 87.3").
+      // Turning it off is what makes the documented `requestSubmit()` promise
+      // true, and costs nothing — every constraint that should hold is checked
+      // by `runSubmitGate`.
+      noValidate
       onSubmit={handleSubmit}
     >
       {title && <h2 className="mthds-run-panel-title">{title}</h2>}
