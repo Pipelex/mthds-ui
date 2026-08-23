@@ -82,7 +82,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 - [x] Round 12 — **the loop terminated.** Both bots re-reviewed `13a330c` and neither raised anything: Greptile 5/5 ("no blocking failure remains"), Codex "Didn't find any major issues." No unresolved threads, CI green. Codex did **not** re-raise the finding deferred in round 11, which is what makes this convergence rather than a bot that gave up.
 - [x] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**. Done, and it found what twelve bot rounds had not — written up below. Four changes kept, one reverted on arbitration, the rest deferred with reasons.
 - [x] Finalize the PR: description brought back in line with what the branch became (the stale hardcoded test count dropped, the deferral notes linked so the reasoning behind what was deliberately NOT changed is reachable from the PR), `CHANGELOG.md`'s two duplicated `### Changed` headings merged, and the new `aria-describedby` association documented in `docs/run-form-panel.md`.
-- [ ] **Waiting on the bots' confirming pass over `ede45b3` / `4b82313`.** Unlike round 12's, this one is over real code changes, so it is a review rather than a formality. Nothing else is outstanding.
+- [x] Round 13 over `ede45b3` — Greptile clean again; Codex found one more real thing, in the generator rather than the panel. Fixed and written up below.
+- [ ] **Waiting on the bots' confirming pass over the round-13 fix.** Nothing else is outstanding.
 
 **The one thing not to do without asking:** merging. The PR is finished and green, but the merge is Louis's call and has not been given.
 
@@ -233,6 +234,16 @@ Run after both bots went clean, by a sub-agent with **no inherited context**: sp
 **Cross-repo:** `../wip/inbox/2026-08-23-mthds-form-inherited-prototype-key-reads-as-filled.md`. The kernel reads `values[field.name]` bare, so a required input named `constructor` reports itself ready with nothing entered. Measured directly against the installed kernel. It belongs in `mthds-form`, not here — patching the panel would hide half the symptom and leave the gate wrong.
 
 **Two things the sweep got wrong, and one it admitted:** its adversarial pass claimed the graph entry ships without `"use client"` and that `--check` writes the contracts fixture; both were checked and are false, and the reviewer rejected them rather than relaying them. Its own Codex pass timed out and produced nothing — missing coverage, not a clean bill. Worth recording because it is the same discipline the bot rounds needed: a reviewer's confidence is not evidence, and neither is its silence.
+
+#### Review round 13 — the guard checked the wrong executable, in both directions
+
+Greptile clean. One Codex P2, confirmed and fixed, and notable for being the first finding of the whole review in neither the panel nor the upload lifecycle: **the contracts-only path guarded on the pipelex CLI while doing all its work through the venv interpreter.**
+
+No pipelex CLI surfaces `pipe_io_contracts`, which is why `dumpContracts` shells out to `scripts/dump_pipe_io_contracts.py` through `PIPELEX_PYTHON` and never touches `PIPELEX_BIN` at all. `--contracts` nonetheless called `assertPipelexCliAvailable()`, and that is wrong in both directions at once. It refused a machine with a working interpreter and no sibling checkout — precisely the case `PIPELEX_PYTHON` exists to support, and precisely the offline-and-fast property that makes the contracts pass its own mode. And it waved through the mirror image, a machine with a CLI but no interpreter, which then died inside `execFileSync` with a bare ENOENT naming neither the variable to set nor the mode that needed it.
+
+Fixed by asserting the executable each path actually uses: the contracts pass demands the interpreter, the DRY pass demands both — up front, rather than halfway through after the run artifacts have been rewritten. Verified by running the three cases rather than reasoning about them: missing CLI with a real interpreter now gets past the guard, missing interpreter now dies early with a message naming `PIPELEX_PYTHON`, and `--from-disk` still needs neither and still writes a byte-identical fixture.
+
+**The process lesson is mine, not the bots'.** I armed a monitor for this round with its cutoff written in local time while the clock it compares against is UTC, so it was filtering for events two hours in the future and could never fire. Codex's review landed twenty minutes before I noticed, and I noticed only because Louis asked. A monitor that cannot fire looks exactly like a quiet one.
 
 ### ★ Checkpoint 2 (close) — done
 

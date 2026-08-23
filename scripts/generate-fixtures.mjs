@@ -213,6 +213,29 @@ function assertPipelexCliAvailable() {
 }
 
 /**
+ * The contracts pass needs the venv INTERPRETER, not the CLI.
+ *
+ * No pipelex CLI surfaces `pipe_io_contracts`, so `dumpContracts` runs
+ * `scripts/dump_pipe_io_contracts.py` through `PIPELEX_PYTHON` and never
+ * touches `PIPELEX_BIN`. Guarding that path on the CLI checked the wrong
+ * executable in both directions: it refused a machine with a working
+ * interpreter and no sibling checkout — the exact case `PIPELEX_PYTHON`
+ * exists to support — and it waved through a machine with a CLI and no
+ * interpreter, which then died later inside `execFileSync` with a bare
+ * ENOENT naming neither the variable to set nor the mode that needed it.
+ */
+function assertPipelexPythonAvailable() {
+  if (!existsSync(PIPELEX_PYTHON)) {
+    die(
+      `cannot find the pipelex venv interpreter at ${PIPELEX_PYTHON}. ` +
+        `Contracts are dumped through it rather than through the CLI, so this is ` +
+        `required even when PIPELEX_BIN is set. ` +
+        `Set PIPELEX_PYTHON to an explicit interpreter path or set up ../pipelex/.venv.`,
+    );
+  }
+}
+
+/**
  * Run one bundle through pipelex.
  *
  * Returns the parsed graphspec plus the run's output directory and a `cleanup()` the
@@ -575,7 +598,9 @@ async function main() {
     // from the pipe_io_contracts.json already committed beside each bundle
     // rather than re-sourcing them through pipelex.
     if (!FROM_DISK) {
-      assertPipelexCliAvailable();
+      // The interpreter, not the CLI: this whole branch runs through
+      // `dumpContracts`, which never invokes `pipelex`.
+      assertPipelexPythonAvailable();
       for (const pipelineDir of selected) {
         process.stdout.write(`  ${pipelineDir} ... `);
         writePipeIoContracts(pipelineDir);
@@ -620,6 +645,12 @@ async function main() {
   if (toProcess.length > 0) {
     assertPipelexCliAvailable();
     console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
+  }
+  // A DRY pass also refreshes the contracts, and those go through the venv
+  // interpreter rather than the CLI — so demand it up front instead of dying
+  // halfway through, after the run artifacts have already been rewritten.
+  if (!LIVE && !FROM_DISK) {
+    assertPipelexPythonAvailable();
   }
 
   // name -> spec, assembled in allPipelines order for a stable output file.
