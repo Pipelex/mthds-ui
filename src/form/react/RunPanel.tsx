@@ -125,12 +125,32 @@ export function RunPanel({
     valuesRef.current = values;
   }, [values]);
 
+  // Switching pipes makes an upload started under the old one irrelevant — and
+  // worse than irrelevant when both pipes declare the same input name, which
+  // happens within a single method: `recruitment.cv_screening` and
+  // `recruitment.extract_cv` both take a required `cv` document. A file chosen
+  // for one would land in the other looking like a deliberate answer, gating
+  // satisfied, ready to run. The contract is the generation marker: a drop
+  // remembers the one it happened under, and a result arriving under a
+  // different one is dropped. This makes `contract` referentially significant —
+  // a host that rebuilds it every render loses its uploads (and is already
+  // rebuilding every field, since `fields` memoizes on it).
+  const contractRef = React.useRef(contract);
+  React.useEffect(() => {
+    contractRef.current = contract;
+    // Whatever was in flight belonged to the previous pipe; it must not go on
+    // gating this form's Run button until it happens to settle.
+    setUploadingIds(EMPTY_IDS);
+  }, [contract]);
+
   const handleDropFile = React.useCallback(
     (id: string, file: File) => {
       if (!uploadFile) return;
+      const startedOn = contract;
       setUploadingIds((previous) => new Set(previous).add(id));
       void uploadFile(file, id)
         .then((uploaded) => {
+          if (contractRef.current !== startedOn) return;
           commitValues(
             setValueAtPath(valuesRef.current, id.split("."), {
               url: uploaded.url,
@@ -151,7 +171,7 @@ export function RunPanel({
           });
         });
     },
-    [uploadFile, commitValues],
+    [uploadFile, commitValues, contract],
   );
 
   const fieldEnv = React.useMemo<FieldEnv>(

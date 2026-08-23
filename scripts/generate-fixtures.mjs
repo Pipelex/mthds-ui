@@ -567,12 +567,20 @@ async function main() {
     // one outcome worth refusing outright.
     if (CHECK) die("--check is not supported with --contracts");
     const selected = ONLY ? allPipelines.filter((p) => ONLY.has(p)) : allPipelines;
-    console.log(`generate-fixtures: contracts over ${selected.length} pipeline(s)`);
-    assertPipelexCliAvailable();
-    for (const pipelineDir of selected) {
-      process.stdout.write(`  ${pipelineDir} ... `);
-      writePipeIoContracts(pipelineDir);
-      console.log("ok");
+    console.log(
+      `generate-fixtures: contracts over ${selected.length} pipeline(s)` +
+        `${FROM_DISK ? " [from disk]" : ""}`,
+    );
+    // --from-disk runs nothing, here as everywhere: it reassembles the fixture
+    // from the pipe_io_contracts.json already committed beside each bundle
+    // rather than re-sourcing them through pipelex.
+    if (!FROM_DISK) {
+      assertPipelexCliAvailable();
+      for (const pipelineDir of selected) {
+        process.stdout.write(`  ${pipelineDir} ... `);
+        writePipeIoContracts(pipelineDir);
+        console.log("ok");
+      }
     }
     const prettierConfig = (await prettier.resolveConfig(CONTRACTS_DIR)) ?? {};
     const fixture = await writeContractsFixture(allPipelines, prettierConfig);

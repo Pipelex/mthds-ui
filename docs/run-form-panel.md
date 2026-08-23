@@ -71,6 +71,8 @@ Two consequences of an upload being slow, both handled here so a host does not h
 
 **The write-back merges into the latest values, not the ones captured when the drop happened**, so edits made to other fields while an upload was running survive it.
 
+An upload is also tied to the `contract` it started under, and a result that resolves after you have switched to a different pipe is discarded. This matters more than it sounds: two pipes of the same method routinely share an input name — `recruitment.cv_screening` and `recruitment.extract_cv` both take a required `cv` — so without this the file chosen for one would land in the other looking like a deliberate answer, gating satisfied, ready to send. The consequence for a host is that **`contract` is referentially significant**: pass the object your lookup returns rather than rebuilding it each render, or uploads in flight will be thrown away. (A host rebuilding it each render is already rebuilding every field, since the field list memoizes on the same reference.)
+
 **Already-stored files.** Pass `env.resolveUrl` so a `pipelex-storage://` URI can be previewed.
 
 ## Two things about the gate worth knowing

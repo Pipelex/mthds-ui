@@ -10,13 +10,15 @@ The PR #75 review round confirmed two real defects in `RunPanel`'s file-upload p
 
 **What would justify revisiting it.** A host reporting lost files on a form where a user drops several at once and the uploads finish near-simultaneously. Until then the cost (an API break for every consumer) is far above the risk.
 
-## 2. A late upload following a contract switch writes one spurious key
+## 2. A late upload following a contract switch — DEFERRED IN ERROR, NOW FIXED
 
-Select pipe A, drop a file, select pipe B before the upload settles: the continuation writes A's dotted path into B's values. `GraphWithRunPanel.stories.tsx` is exactly this shape, since selecting a node resets `values` to `{}`.
+This was written up as harmless and deferred. It was not harmless, and the second review round found why. The reasoning is kept here because the mistake is instructive.
 
-**Why it is not fixed.** It is harmless. The run gate builds its payload from `contract.inputs`, so a key no field owns is never read and never reaches the wire — `runGate.test.ts` already pins that ignoring behaviour. Aborting an in-flight upload on a contract change means threading a cancellation token through a promise the host owns, to prevent a value nothing consumes.
+**The original reasoning.** Select pipe A, drop a file, select pipe B before the upload settles: the continuation writes A's dotted path into B's values. That was judged harmless because the run gate builds its payload from `contract.inputs`, so a key no field owns is never read and never reaches the wire — which `runGate.test.ts` does pin.
 
-**What would justify revisiting it.** The panel gaining a "values look unsaved" affordance, or any feature that starts treating `values` keys as meaningful independently of the contract.
+**What it missed.** The two pipes can share an input name, and inside a single method they do: `recruitment.cv_screening` and `recruitment.extract_cv` both declare a required, gating `cv` document. The key then _is_ owned by the new contract. A file the user chose for one pipe lands in the other looking like a deliberate answer, satisfies gating, and can be sent by the next run — silently, since nothing in the form says where the file came from. "A key nothing consumes" was true only for the case I happened to picture.
+
+**The fix.** A drop remembers the contract it happened under; a result that resolves under a different one is discarded, and switching contracts clears `uploadingIds` so a departed upload stops gating the new form. Pinned by the `UploadDiscardedAfterPipeSwitch` play test, verified to fail without the guard. The consequence to know: `contract` is now referentially significant — a host that rebuilds it every render loses its uploads. That host is already rebuilding every field, since `fields` memoizes on the same reference.
 
 ## 3. `dumpContracts` reports a missing venv opaquely
 

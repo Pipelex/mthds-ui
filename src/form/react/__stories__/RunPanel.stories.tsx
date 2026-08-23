@@ -40,6 +40,11 @@ const ANALYZE_PAGES = contractOf(CONTRACTS_TWO_PIPE_CHAIN, "document_analysis", 
 const TRIAGE = contractOf(CONTRACTS_SMART_INPUTS_TRIAGE, "claims_desk", "triage_case");
 // An image input alongside two structured ones.
 const COMPOSE_REPORT = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "compose_report");
+// Two pipes of the SAME method that both declare a required `cv` document —
+// which is what makes a late upload after a pipe switch dangerous rather than
+// merely untidy.
+const CV_SCREENING = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "cv_screening");
+const EXTRACT_CV = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "extract_cv");
 
 /**
  * The panel is fully controlled, so every story owns the values. This wrapper is
@@ -353,5 +358,74 @@ export const UploadKeepsConcurrentEdits: Story = {
     await expect(
       canvasElement.querySelector<HTMLInputElement>('input[id="profile.name"]'),
     ).toHaveValue("Ada Lovelace");
+  },
+};
+
+/**
+ * A file uploaded for one pipe must not land in the next one.
+ *
+ * Selecting a different pipe resets the values, so a late upload writing into
+ * its own captured path was easy to dismiss as harmless — the run gate builds
+ * its payload from `contract.inputs` and ignores keys no field owns. It is not
+ * harmless when the two pipes share an input name, which happens inside a
+ * single method: `recruitment.cv_screening` and `recruitment.extract_cv` both
+ * declare a required `cv` document. The stale file then arrives looking like a
+ * deliberate answer for the newly selected pipe, gating satisfied, ready to be
+ * sent — so the panel discards any result that resolves under a contract other
+ * than the one its drop happened under.
+ */
+export const UploadDiscardedAfterPipeSwitch: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const [contract, setContract] = React.useState(args.contract);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-pipe" onClick={() => setContract(EXTRACT_CV)}>
+          switch to extract_cv
+        </button>
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/other.pdf", filename: "other.pdf" })
+          }
+        >
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    if (!fileInput) throw new Error("no file input for cv");
+
+    // Drop a CV under `cv_screening`. It hangs.
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["%PDF"], "other.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // Switch to `extract_cv`, which also takes a required `cv`.
+    await userEvent.click(canvas.getByTestId("switch-pipe"));
+
+    // The upload from the previous pipe settles now.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+
+    // It must not have filled the new pipe's `cv`: the form still asks for it,
+    // and Run stays inert. Without the guard, `other.pdf` would be sitting there
+    // as if the user had chosen it for this pipe.
+    await waitFor(() => expect(canvas.getByText(/still needed/)).toBeInTheDocument());
+    await expect(canvas.queryByText("other.pdf")).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
   },
 };
