@@ -80,8 +80,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
 - [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`), 8 (`f25c316`), 9 (`6d69793`) and 10: the re-review loop, written up below.
 - [x] Rounds 10 (`0f919a6`) and 11: written up below. Round 11 is the first round whose finding is **deferred rather than fixed**, and the first finding of the whole review outside the upload lifecycle.
-- [ ] Round 12: read the bots' re-review and repeat until they are satisfied.
-- [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
+- [x] Round 12 — **the loop terminated.** Both bots re-reviewed `13a330c` and neither raised anything: Greptile 5/5 ("no blocking failure remains"), Codex "Didn't find any major issues." No unresolved threads, CI green. Codex did **not** re-raise the finding deferred in round 11, which is what makes this convergence rather than a bot that gave up.
+- [x] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**. Done, and it found what twelve bot rounds had not — written up below. Four changes kept, one reverted on arbitration, the rest deferred with reasons.
 
 #### Review round 1 — what the bots found, and what was true
 
@@ -188,7 +188,7 @@ The fix is one expression, `blocked`, read by the button and by the submit path 
 
 Greptile is clean (5/5, no threads). One Codex P2, confirmed and fixed: **`uploadFile` can fail synchronously, and the panel only handled failing asynchronously.**
 
-`uploadFile` is the host's, and it is typed `(file, fieldId) => Promise<UploadedFile>` — a plain function returning a promise. Nothing in that type obliges it to be `async`, and a host that validates before starting the request (no API key configured, a file over a size limit, a mime type it will not take) throws where an `async` spelling of the identical body would reject. The throw lands *before* there is a promise to hang `.catch()` and `.finally()` on, while the field was marked one line earlier — so it stayed marked with nothing left running to unmark it. The kernel's dropzone takes `disabled: disabled || uploading`, so the field could not even be retried, and Run stayed gated until the user abandoned the form.
+`uploadFile` is the host's, and it is typed `(file, fieldId) => Promise<UploadedFile>` — a plain function returning a promise. Nothing in that type obliges it to be `async`, and a host that validates before starting the request (no API key configured, a file over a size limit, a mime type it will not take) throws where an `async` spelling of the identical body would reject. The throw lands _before_ there is a promise to hang `.catch()` and `.finally()` on, while the field was marked one line earlier — so it stayed marked with nothing left running to unmark it. The kernel's dropzone takes `disabled: disabled || uploading`, so the field could not even be retried, and Run stayed gated until the user abandoned the form.
 
 The fix is to call through an async wrapper, which turns the throw into the rejection this chain already cleans up. Stated as a property: **the same host logic must behave the same way whether it was written `async` or not**, the only difference between those two spellings being the keyword.
 
@@ -202,7 +202,34 @@ The suggestion was to reset it "alongside the upload and error state", and that 
 
 What decides it is an asymmetry neither bot mentioned: **persistence is recoverable by the host and reset is not.** A host wanting a per-pipe fold writes `<RunPanel key={pipeRef} …>`, which round 8 already made the upload lifecycle honour. A host wanting persistence has no move at all if the panel hard-resets, since the panel owns the state and exposes no prop. Resetting removes a capability; keeping it preserves both. And nothing about the payload, readiness or the gate depends on it — a field hidden by the fold is by construction an empty optional, which the wire format omits regardless.
 
-Worth recording for its own sake: **this is the first finding in eleven rounds that is not in the upload lifecycle**, and it is also the first that is not a defect. Both of those at once is probably not a coincidence.
+Worth recording for its own sake: **this is the first finding of the whole review that is not in the upload lifecycle**, and it is also the first that is not a defect. Both of those at once is probably not a coincidence.
+
+#### Review round 12 — the loop terminated
+
+Neither bot raised anything on `13a330c`. Greptile's re-review is 5/5 with no threads; Codex reports no major issues. CI is green and no review thread is left unresolved.
+
+The detail that makes this convergence rather than exhaustion: **Codex did not re-raise the round-11 finding it had just made.** A bot that had simply run out of things to say would have repeated its outstanding item, since the code still behaves the way it objected to. Reading the deferral and not re-filing it is the closest thing to agreement this loop can produce.
+
+What the loop bought, stated without counting: nearly every defect it surfaced after the PR was opened lived in the upload lifecycle, and the one finding that fell outside it turned out not to be a defect at all. Every finding was verified independently before being acted on, and that mattered — in rounds 1, 4 and 9 the bot was right that something was broken and wrong about _why_. A fix written to a wrong diagnosis lands in the wrong place and the real defect survives the round, so verifying before applying is not ceremony.
+
+#### The independent sweep — what a cold reviewer found that twelve bot rounds did not
+
+Run after both bots went clean, by a sub-agent with **no inherited context**: specialist passes plus an adversarial pass and a red team. The headline is that a fresh reviewer with no memory of the argument found a genuine defect in code the bots had signed off on twice, which is the case for running it at all.
+
+**Kept:**
+
+- **`.catch()` was chained after `.then()`, so it swallowed the success handler's own failures.** A tenth upload-lifecycle defect, and structurally the same shape as the ninth: `uploaded.url` dereferences a value the HOST produced, and a host branch that forgets a `return` resolves `undefined`. The `TypeError` vanished — spinner cleared, field empty, nothing logged anywhere, and re-dropping repeated it forever. That is the only failure in this lifecycle with no diagnostic surface at all. Fixed with the two-argument `.then(onFulfilled, onRejected)`, which covers only the upload's own rejection — what the handler always claimed to cover — and lets a write-back bug surface as an unhandled rejection where the host's error reporting can see it. The reviewer reproduced both chain shapes before proposing it.
+- **The disabled Run button had no `aria-describedby` to the readiness line.** That line is the only thing on screen saying why Run is disabled, and a disabled button is out of the tab order, so nobody reaches it by walking the controls. Associated via `React.useId()`, so two panels on one page cannot describe each other's button.
+- **The README's peer-dependency table never learned about the kernel** — it listed `react` and `shiki` while the same file's run-form section told hosts to install `@pipelex/mthds-form`. This PR added that peer and left its own table stale.
+- **`smoke-pack.mjs`'s kernel-import assertion had a dead escape hatch** — an "or the entry is empty" disjunct from when the panel was a stub. With the panel real, that term made the check vacuous in exactly the regression it guards: an entry that built to nothing would have passed. Removed; the check still passes, now for the right reason.
+
+**Reverted on arbitration:** the sweep replaced the Run button's hardcoded `#ffffff` with `var(--text-on-accent)`. The tokenization motive is real — it was the only hardcoded hex in any panel stylesheet — but measuring what the token resolves to changes the picture. `--text-on-accent` pairs with `--color-accent`, a different colour from this button's `--color-accent-strong` background, and the button is the repo's only consumer of that background, so there is no pairing to inherit. Worse, the swap does nothing in the panel's default theme and only flips the label under `theme={DARK}` — and it was applied without Storybook ever being opened, against the repo's own workflow rule. The real finding underneath is bigger than the one reported: **the Run label is below WCAG AA in both palettes**, and the fix is a background choice, not a text-colour swap. Measurements and candidate values in `wip/adopt-form/deferred-run-button-contrast.md`.
+
+**Deferred with reasons**, in `wip/adopt-form/deferred-review-residues.md` and `deferred-fixture-generator-hygiene.md`: the values mirror not converging when a host declines an update (round 5's fix is precisely why it cannot be rolled back), `defaultValidationTranslate` throwing on a message key a later kernel adds (unreachable at the pinned `0.2.0`; a one-token fix owed at the bump, alongside the fixture reshape), split `env` ownership silently voiding the upload gate, a never-settling `uploadFile` wedging the form (a timeout is transport policy and the panel owns no transport), three untested render branches, and four generator gaps.
+
+**Cross-repo:** `../wip/inbox/2026-08-23-mthds-form-inherited-prototype-key-reads-as-filled.md`. The kernel reads `values[field.name]` bare, so a required input named `constructor` reports itself ready with nothing entered. Measured directly against the installed kernel. It belongs in `mthds-form`, not here — patching the panel would hide half the symptom and leave the gate wrong.
+
+**Two things the sweep got wrong, and one it admitted:** its adversarial pass claimed the graph entry ships without `"use client"` and that `--check` writes the contracts fixture; both were checked and are false, and the reviewer rejected them rather than relaying them. Its own Codex pass timed out and produced nothing — missing coverage, not a clean bill. Worth recording because it is the same discipline the bot rounds needed: a reviewer's confidence is not evidence, and neither is its silence.
 
 ### ★ Checkpoint 2 (close) — still open
 

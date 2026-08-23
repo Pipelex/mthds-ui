@@ -67,6 +67,16 @@
   border: 1px solid transparent;
   border-radius: 6px;
   background: var(--color-accent-strong);
+  /* Deliberately literal, not `var(--text-on-accent)`. That token pairs with
+     `--color-accent`, which is a different colour from the
+     `--color-accent-strong` used as this button's background — and this
+     button is the only place in the repo that puts text on that background,
+     so there is no established pairing to inherit. Adopting the token would
+     flip the label to near-black under `theme={DARK}` while doing nothing at
+     all in the panel's default light theme. See
+     `wip/adopt-form/deferred-run-button-contrast.md`: the label is below
+     WCAG AA against BOTH palettes' accent, and the fix is a background
+     choice rather than a text-colour swap. */
   color: #ffffff;
   font-family: inherit;
   font-size: 13px;

@@ -14,10 +14,11 @@ Released versions are listed on the [npm page](https://www.npmjs.com/package/@pi
 
 ### Peer dependencies
 
-| Dependency           | Required | Used by                       |
-| -------------------- | -------- | ----------------------------- |
-| `react`, `react-dom` | no       | React layer (`graph/react`)   |
-| `shiki`              | no       | Syntax highlighting (`shiki`) |
+| Dependency            | Required | Used by                                   |
+| --------------------- | -------- | ----------------------------------------- |
+| `react`, `react-dom`  | no       | React layer (`graph/react`, `form/react`) |
+| `shiki`               | no       | Syntax highlighting (`shiki`)             |
+| `@pipelex/mthds-form` | no       | Run form panel (`form/react`)             |
 
 ### Bundled dependencies
 
@@ -324,7 +325,7 @@ const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
 
 `onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
 
-The controls are the kernel's, styled with Tailwind over shadcn tokens, so **bringing in their styling is the host's lane** — either add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to your Tailwind `content` globs, or import the prebuilt `@pipelex/mthds-form/theme.css` + `styles.css`. Pick one; they are mutually exclusive, and a Tailwind host that forgets the glob gets a *mostly*-styled form that reads like a broken design system.
+The controls are the kernel's, styled with Tailwind over shadcn tokens, so **bringing in their styling is the host's lane** — either add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to your Tailwind `content` globs, or import the prebuilt `@pipelex/mthds-form/theme.css` + `styles.css`. Pick one; they are mutually exclusive, and a Tailwind host that forgets the glob gets a _mostly_-styled form that reads like a broken design system.
 
 Full contract, the styling trap, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
 

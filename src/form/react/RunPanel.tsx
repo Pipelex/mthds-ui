@@ -100,6 +100,7 @@ export function RunPanel({
   const [showOptional, setShowOptional] = React.useState(false);
   const [uploadingIds, setUploadingIds] = React.useState<ReadonlySet<string>>(EMPTY_IDS);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
+  const readinessHintId = React.useId();
 
   const fields = React.useMemo(() => fieldsForContract(contract), [contract]);
   const readiness = React.useMemo(() => computeReadiness(fields, values), [fields, values]);
@@ -206,28 +207,45 @@ export function RunPanel({
       // whether it was written `async` or not — the only difference between
       // those two spellings being the keyword.
       void (async () => await uploadFile(file, id))()
-        .then((uploaded) => {
-          if (generationRef.current !== startedAt) return;
-          const next = setValueAtPath(valuesRef.current, id.split("."), {
-            url: uploaded.url,
-            filename: uploaded.filename ?? file.name,
-          });
-          // Advance the mirror here rather than waiting for the effect. Two
-          // uploads finishing in the same React batch both run before any
-          // re-render, so both would otherwise read the same snapshot and the
-          // second write would drop the first — a pipe with two file inputs is
-          // ordinary (`candidate_screening.screen_candidate` takes a `cv` and a
-          // `job_offer`), and the loss is silent: both fields look settled
-          // while one value is gone. The effect still owns syncing FROM the
-          // host, so the mirror converges on whatever the host actually kept.
-          valuesRef.current = next;
-          commitValues(next);
-        })
-        .catch(() => {
-          // The host owns how a failed upload is announced (it owns the
-          // transport). Swallowing it here keeps a rejected promise from
-          // becoming an unhandled rejection; the field simply stays empty.
-        })
+        .then(
+          (uploaded) => {
+            if (generationRef.current !== startedAt) return;
+            const next = setValueAtPath(valuesRef.current, id.split("."), {
+              url: uploaded.url,
+              filename: uploaded.filename ?? file.name,
+            });
+            // Advance the mirror here rather than waiting for the effect. Two
+            // uploads finishing in the same React batch both run before any
+            // re-render, so both would otherwise read the same snapshot and the
+            // second write would drop the first — a pipe with two file inputs is
+            // ordinary (`candidate_screening.screen_candidate` takes a `cv` and a
+            // `job_offer`), and the loss is silent: both fields look settled
+            // while one value is gone. The effect still owns syncing FROM the
+            // host, so the mirror converges on whatever the host actually kept.
+            valuesRef.current = next;
+            commitValues(next);
+          },
+          () => {
+            // The host owns how a failed upload is announced (it owns the
+            // transport). Swallowing it here keeps a rejected promise from
+            // becoming an unhandled rejection; the field simply stays empty.
+            //
+            // This is `.then`'s SECOND ARGUMENT rather than a `.catch()` link,
+            // and the difference is the whole point: a `.catch()` chained after
+            // the handler above also catches whatever that handler throws, and
+            // the handler dereferences a value the host produced. `uploadFile`
+            // is typed `Promise<UploadedFile>`, but a type is not a runtime
+            // guarantee — a host branch that forgets its `return`, or unwraps a
+            // JSON response one level too few, resolves to `undefined`, and
+            // `uploaded.url` then throws. Swallowed, that is the one failure in
+            // this whole lifecycle with NO diagnostic surface anywhere: the
+            // spinner clears, the field reads empty, nothing is logged, and
+            // re-dropping repeats it forever. As the second argument this
+            // handler covers only the upload's own rejection, which is all it
+            // ever claimed to; a write-back bug stays an unhandled rejection,
+            // where the host's error reporting can see it.
+          },
+        )
         .finally(() => {
           // The same generation check as the write-back, for a sharper reason.
           // Switching contracts already emptied this set, and the very same id
@@ -360,11 +378,27 @@ export function RunPanel({
       )}
 
       <div className="mthds-run-panel-footer">
-        <button type="submit" className="mthds-run-panel-run" disabled={blocked}>
+        {/*
+          The readiness line is the only thing on screen that says WHY Run is
+          disabled, so it has to be reachable by the people who cannot see it
+          sitting next to the button — and a disabled button is out of the tab
+          order, so they will not arrive at it by walking the controls either.
+          `aria-describedby` is the association that makes a screen reader read
+          the reason with the button instead of announcing a bare dimmed "Run".
+          The id comes from `useId` because a host may put two panels on one
+          page, and a hardcoded one would make the second panel describe the
+          first panel's button.
+        */}
+        <button
+          type="submit"
+          className="mthds-run-panel-run"
+          disabled={blocked}
+          aria-describedby={notReady ? readinessHintId : undefined}
+        >
           {running ? "Running…" : "Run"}
         </button>
         {notReady && (
-          <span className="mthds-run-panel-readiness">
+          <span id={readinessHintId} className="mthds-run-panel-readiness">
             {`${readiness.ready} of ${readiness.total} ready — still needed: ${readiness.missing.join(", ")}`}
           </span>
         )}

@@ -134,14 +134,21 @@ try {
     const kernelImports = externals.filter(isKernel);
     check(`${subpath} does not need the kernel`, kernelImports.length === 0, kernelImports.join(", "));
   }
-  // The form entry may (and once the panel exists, must) import the kernel —
-  // as a BARE specifier. A bundled copy would carry no such import while the
-  // entry still renders fields, which is the failure this catches.
+  // The form entry MUST import the kernel, as a BARE specifier. A bundled
+  // copy would carry no such import while the entry still renders fields,
+  // which is the failure this catches — and a bundled kernel means a second
+  // React context identity, so the host's providers stop resolving inside our
+  // component.
+  //
+  // This deliberately has no "the entry is empty" escape hatch. It had one
+  // while the panel was still a stub, and leaving it in would have made the
+  // assertion vacuous in precisely the regression it exists for: an entry
+  // that built to nothing would satisfy the check rather than fail it.
   const formExternals = externalsPerEntry.get("./form/react") ?? [];
   check(
     "./form/react imports the kernel rather than inlining it",
-    formEntry.replace(/\/\/#.*$/m, "").trim() === '"use client";' || formExternals.some(isKernel),
-    "the entry has code but no bare kernel import — it looks bundled",
+    formExternals.some(isKernel),
+    "the entry has no bare kernel import — it looks bundled, or it built to nothing",
   );
   check(
     "the kernel is declared an OPTIONAL peer",
