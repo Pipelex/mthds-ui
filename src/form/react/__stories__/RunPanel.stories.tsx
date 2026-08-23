@@ -1,8 +1,9 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, fireEvent, userEvent, waitFor, within } from "storybook/test";
 import { getPipeIOContract, type PipeIOContract } from "@pipelex/mthds-form";
-import { RunPanel } from "@form/react/RunPanel";
+import type { FieldEnv } from "@pipelex/mthds-form/react";
+import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import {
   CONTRACTS_CV_SCREENING,
@@ -51,12 +52,16 @@ function PanelHost({
   running,
   theme = GRAPH_THEME.DARK,
   initialValues = {},
+  env,
+  uploadFile,
 }: {
   contract: PipeIOContract;
   title: string;
   running?: boolean;
   theme?: GraphTheme;
   initialValues?: Record<string, unknown>;
+  env?: FieldEnv;
+  uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
 }) {
   const [values, setValues] = React.useState<Record<string, unknown>>(initialValues);
   const [payload, setPayload] = React.useState<Record<string, unknown> | null>(null);
@@ -71,6 +76,8 @@ function PanelHost({
         running={running}
         title={title}
         theme={theme}
+        env={env}
+        uploadFile={uploadFile}
       />
       <pre
         data-testid="run-payload"
@@ -250,5 +257,101 @@ export const InvalidSubmit: Story = {
     const alert = await canvas.findByRole("alert");
     await expect(alert).toBeInTheDocument();
     await expect(canvas.getByTestId("run-payload")).toHaveTextContent("onRun has not fired yet");
+  },
+};
+
+/**
+ * An upload in flight holds the Run button, even when readiness is satisfied.
+ *
+ * Readiness cannot cover this on its own: a non-gating file input — an optional
+ * one, or a plural one, since `mustBeFilled` excludes lists — never counts
+ * toward readiness at all, so without this gate Run stays live right through
+ * such a field's upload and the method runs with the file missing. Driving it
+ * from `env.uploadingIds` here also pins the other half of the contract: a host
+ * that owns the whole upload loop gets the same gate as one that hands us
+ * `uploadFile`.
+ */
+export const UploadHoldsRun: Story = {
+  args: {
+    contract: NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: "Bridge closure" },
+    env: { uploadingIds: new Set(["subject"]) },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Everything that gates is filled, so this is the upload gate alone.
+    await expect(canvas.queryByText(/still needed/)).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * A slow upload must not undo what the user did while waiting for it.
+ *
+ * The write-back happens in a promise continuation, which resolves long after
+ * the render that started it — so it has to target the LATEST values, not the
+ * ones that render captured. Here `card_image` is dropped and left hanging, the
+ * user types a name meanwhile (exactly what someone does while waiting), and
+ * only then does the upload settle. If its continuation wrote into its own
+ * captured snapshot, the typing would be erased.
+ */
+export const UploadKeepsConcurrentEdits: Story = {
+  args: { contract: COMPOSE_REPORT, title: "compose_report" },
+  render: function Render(args) {
+    // The upload is held open until the story releases it. A module-level ref
+    // would leak between story runs, so it belongs to the render.
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} uploadFile={uploadFile} />
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/card.png", filename: "card.png" })
+          }
+        >
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="card_image"]');
+    if (!fileInput) throw new Error("no file input for card_image");
+
+    // Drop the image. It hangs, and the panel holds Run while it does — the
+    // panel-driven half of the upload gate.
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["png"], "card.png", { type: "image/png" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // The user types while waiting.
+    const nameInput = canvasElement.querySelector<HTMLInputElement>('input[id="profile.name"]');
+    if (!nameInput) throw new Error("no text input for profile.name");
+    await userEvent.type(nameInput, "Ada Lovelace");
+    await waitFor(() => expect(nameInput).toHaveValue("Ada Lovelace"));
+
+    // Now let the upload settle. Its continuation must merge, not overwrite.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+
+    // The file landed...
+    await waitFor(() => expect(canvas.getByText("card.png")).toBeInTheDocument());
+    // ...and the typing survived it. This is the assertion that fails if the
+    // continuation writes into the values its own render captured.
+    await expect(
+      canvasElement.querySelector<HTMLInputElement>('input[id="profile.name"]'),
+    ).toHaveValue("Ada Lovelace");
   },
 };

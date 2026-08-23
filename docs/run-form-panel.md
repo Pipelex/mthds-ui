@@ -65,6 +65,12 @@ This library renders; it never executes. `onRun` hands you a payload and stops t
 
 **Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A rejected upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win.
 
+Two consequences of an upload being slow, both handled here so a host does not have to think about them.
+
+**Run is disabled while any upload the panel knows about is in flight**, including uploads you report through `env.uploadingIds`. Readiness alone is not enough, because a non-gating file input — an optional one, or a plural one, since a list never gates — never counts toward readiness at all: without this, Run stays live right through such a field's upload and the method runs with the file simply missing.
+
+**The write-back merges into the latest values, not the ones captured when the drop happened**, so edits made to other fields while an upload was running survive it.
+
 **Already-stored files.** Pass `env.resolveUrl` so a `pipelex-storage://` URI can be previewed.
 
 ## Two things about the gate worth knowing

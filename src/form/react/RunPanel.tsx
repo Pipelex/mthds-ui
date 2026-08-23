@@ -115,6 +115,16 @@ export function RunPanel({
     [onValuesChange],
   );
 
+  // An upload resolves long after the render that started it, so the write-back
+  // must not target the values THAT render captured — the user may well have
+  // typed elsewhere while waiting. This mirror holds the latest ones. Only the
+  // async continuation reads it; every synchronous path stays on the prop,
+  // which is correct there because it runs inside the render that captured it.
+  const valuesRef = React.useRef(values);
+  React.useEffect(() => {
+    valuesRef.current = values;
+  }, [values]);
+
   const handleDropFile = React.useCallback(
     (id: string, file: File) => {
       if (!uploadFile) return;
@@ -122,7 +132,7 @@ export function RunPanel({
       void uploadFile(file, id)
         .then((uploaded) => {
           commitValues(
-            setValueAtPath(values, id.split("."), {
+            setValueAtPath(valuesRef.current, id.split("."), {
               url: uploaded.url,
               filename: uploaded.filename ?? file.name,
             }),
@@ -141,7 +151,7 @@ export function RunPanel({
           });
         });
     },
-    [uploadFile, commitValues, values],
+    [uploadFile, commitValues],
   );
 
   const fieldEnv = React.useMemo<FieldEnv>(
@@ -180,6 +190,13 @@ export function RunPanel({
   );
 
   const notReady = readiness.missing.length > 0;
+  // Readiness alone would let a run go out while a file is still uploading: a
+  // non-gating file input (optional, or plural — `mustBeFilled` excludes lists)
+  // never counts toward readiness, so Run stays live through its upload and the
+  // method would run with the file simply absent. Read off `fieldEnv` rather
+  // than the raw state, so a host driving its own loop through
+  // `env.uploadingIds` gets the same gate.
+  const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0;
 
   return (
     <form
@@ -223,7 +240,11 @@ export function RunPanel({
       )}
 
       <div className="mthds-run-panel-footer">
-        <button type="submit" className="mthds-run-panel-run" disabled={running || notReady}>
+        <button
+          type="submit"
+          className="mthds-run-panel-run"
+          disabled={running || notReady || uploading}
+        >
           {running ? "Running…" : "Run"}
         </button>
         {notReady && (
