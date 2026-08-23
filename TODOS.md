@@ -58,19 +58,18 @@ Working plan for `wip/adopt-form/design.md` (RunPanel over `@pipelex/mthds-form`
 
 Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the review loop and Checkpoint 2. Everything below is re-derivable from the repo; nothing here is a snapshot of live state.
 
-**Where the work is.** Branch `feature/Adopt-form`, five commits on top of `cc2e536`:
+**Where the work is.** Branch `feature/Adopt-form`, on top of `cc2e536`. `git log cc2e536..` is the authority on what landed and in what order — this table used to duplicate it and had already gone stale, so it now names only the commits carrying a decision the diff does not explain on its own:
 
-| SHA       | Phase                                                                                       |
-| --------- | ------------------------------------------------------------------------------------------- |
-| `0556e6d` | 1 — the optional peer, the `./form/react` entry, import isolation, `scripts/smoke-pack.mjs` |
-| `ded7bf6` | 2 — `runGate.ts`, `RunPanel.tsx`, `RunPanel.css`, unit tests                                |
-| `ca75f42` | Checkpoint 1 — design doc updated with deviations and findings                              |
-| `5fffd87` | 3 — contracts fixtures, form stories, the graph integration story                           |
-| `ebbef28` | 4 — `docs/run-form-panel.md`, README, `docs/theming.md`, `CLAUDE.md`, CHANGELOG             |
-| `551ca09` | Review round 1 — the four bot findings, plus the first coverage of the upload path          |
-| `2723df9` | Review round 1 written into this tracker                                                    |
-| `d54fb89` | Review round 2 — the two contracts-only generator paths                                     |
-| `078c0f1` | Review round 3 — the contract-switch upload leak, and `--contracts --from-disk`             |
+| SHA       | The decision it carries                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `0556e6d` | The kernel is an OPTIONAL peer behind its own entry, with import isolation lint-enforced and `smoke-pack.mjs` proving it from outside |
+| `ca75f42` | Checkpoint 1 — the design deviations and the two packaging traps, written into `wip/adopt-form/design.md`                             |
+| `ebbef28` | The state the bots first reviewed; every round below is a delta on it                                                                 |
+| `f25c316` | Round 8 — the upload lifecycle honours `key={pipeRef}`, which round 11's deferral later leans on                                      |
+| `6d69793` | Round 9 — every Run-button gate term also blocks the submit path, so `requestSubmit()` cannot go around it                            |
+| `0f919a6` | Round 10 — a synchronous `uploadFile` throw is treated as a rejection                                                                 |
+| `13a330c` | Round 11 — the optional-fold question deferred rather than guessed at                                                                 |
+| `ede45b3` | The independent sweep's findings taken, and its CSS guess reverted with the contrast measured                                         |
 
 **Read first, in this order:** `wip/adopt-form/design.md` (the decisions and the Checkpoint 1 findings — the deviations and the two packaging traps are recorded there), then `docs/run-form-panel.md` (the shipped contract).
 
@@ -82,6 +81,10 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 - [x] Rounds 10 (`0f919a6`) and 11: written up below. Round 11 is the first round whose finding is **deferred rather than fixed**, and the first finding of the whole review outside the upload lifecycle.
 - [x] Round 12 — **the loop terminated.** Both bots re-reviewed `13a330c` and neither raised anything: Greptile 5/5 ("no blocking failure remains"), Codex "Didn't find any major issues." No unresolved threads, CI green. Codex did **not** re-raise the finding deferred in round 11, which is what makes this convergence rather than a bot that gave up.
 - [x] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**. Done, and it found what twelve bot rounds had not — written up below. Four changes kept, one reverted on arbitration, the rest deferred with reasons.
+- [x] Finalize the PR: description brought back in line with what the branch became (the stale hardcoded test count dropped, the deferral notes linked so the reasoning behind what was deliberately NOT changed is reachable from the PR), `CHANGELOG.md`'s two duplicated `### Changed` headings merged, and the new `aria-describedby` association documented in `docs/run-form-panel.md`.
+- [ ] **Waiting on the bots' confirming pass over `ede45b3` / `4b82313`.** Unlike round 12's, this one is over real code changes, so it is a review rather than a formality. Nothing else is outstanding.
+
+**The one thing not to do without asking:** merging. The PR is finished and green, but the merge is Louis's call and has not been given.
 
 #### Review round 1 — what the bots found, and what was true
 
@@ -231,7 +234,9 @@ Run after both bots went clean, by a sub-agent with **no inherited context**: sp
 
 **Two things the sweep got wrong, and one it admitted:** its adversarial pass claimed the graph entry ships without `"use client"` and that `--check` writes the contracts fixture; both were checked and are false, and the reviewer rejected them rather than relaying them. Its own Codex pass timed out and produced nothing — missing coverage, not a clean bill. Worth recording because it is the same discipline the bot rounds needed: a reviewer's confidence is not evidence, and neither is its silence.
 
-### ★ Checkpoint 2 (close) — still open
+### ★ Checkpoint 2 (close) — done
+
+Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over the last two commits, and the merge, which is Louis's to give.
 
 - [x] Verify the K2 gate: a story renders a method form where every field, the readiness verdict and the wire payload come from kernel imports, and the only local code is layout. **Verified, and it passes.** `src/form/react/__stories__/GraphWithRunPanel.stories.tsx` (`Form/Graph with RunPanel`) clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form; it passes in isolation. The "deriving nothing locally" half is the one worth checking rather than asserting, and it holds: the only `json_schema` mentions anywhere in `src/form/` outside the generated fixtures are a comment in `RunPanel.tsx` saying the panel does not read it, and three `runGate.test.ts` fixtures that carry it because the kernel's contract type has the field. No production path in this module reads a schema or sniffs a value's shape.
 - [x] Record the closure in the workspace roadmap (`../wip/devx/input-form-roadmap.md`, Track K). Done: a `↳ K2 in mthds-ui` ✅ row in the milestone table, a `## K2 in mthds-ui` section carrying the five findings that survive outside this repo, and the K2 line in the open-items paragraph updated to say both consumer adoptions are closed and `pipelex-mcp`/hub remain. The same pass rewrote `../wip/inbox/2026-08-23-pipelex-app-upload-race-in-method-app-form.md`, which had gone stale in a way that would have misled its reader: it named two of the eight upload defects and closed by inviting the receiving agent to transfer two conclusions rounds 3 and 5 overturned. Now all eight, grouped by the three questions they answer, with `pipelex-app`'s own line numbers re-verified — including the one that changes the fix there: its Run button is deliberately never disabled, so its gate has to go on the run path, and `uploadingIds` is private to the form component while the run path is in the workspace, so lifting it is the real cost.
