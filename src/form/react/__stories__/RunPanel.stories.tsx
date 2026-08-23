@@ -7,6 +7,7 @@ import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import {
   CONTRACTS_CV_ANALYZER,
+  CONTRACTS_CV_MATCHING,
   CONTRACTS_CV_SCREENING,
   CONTRACTS_OPTIONAL_STYLE_HINT,
   CONTRACTS_SMART_INPUTS_TRIAGE,
@@ -53,6 +54,10 @@ const SCREEN_CANDIDATE = contractOf(
   "candidate_screening",
   "screen_candidate",
 );
+// A LIST of documents beside a singular one — the only shape in which the
+// upload gate is observable at all, since a required singular file leaves
+// readiness unmet for the whole upload and Run is blocked either way.
+const SCREEN_CVS = contractOf(CONTRACTS_CV_MATCHING, "cv_matching", "screen_cvs");
 
 /**
  * The panel is fully controlled, so every story owns the values. This wrapper is
@@ -307,6 +312,84 @@ export const UploadHoldsRun: Story = {
     // Everything that gates is filled, so this is the upload gate alone.
     await expect(canvas.queryByText(/still needed/)).not.toBeInTheDocument();
     await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * A host's own upload tracker must JOIN the panel's, not replace it.
+ *
+ * `env.onDropFile` and `env.uploadingIds` default independently per key, so a
+ * host can hand the panel `uploadFile` — leaving it to own the drop, and to mark
+ * the field in its own set — while also passing an upload tracker of its own.
+ * Reading the host's set instead of merging the two hides an upload the panel
+ * itself started, and Run stays live right through it.
+ *
+ * This is the one shape in the corpus where that is visible. `cvs` is a LIST of
+ * documents, and `mustBeFilled` excludes lists, so it never gates readiness —
+ * with `job_offer` already filled, the Run button is held by the upload gate
+ * alone. A required singular file would leave readiness unmet for the whole
+ * upload and the button would be disabled whether the gate worked or not.
+ */
+export const HostTrackerJoinsPanelUploads: Story = {
+  args: {
+    contract: SCREEN_CVS,
+    title: "screen_cvs",
+    initialValues: { job_offer: { url: "https://files.test/job.pdf", filename: "job.pdf" } },
+    // An idle tracker, which is the whole point: a host that reports its own
+    // uploads elsewhere in the form has nothing to say about this one.
+    env: { uploadingIds: new Set<string>() },
+  },
+  render: function Render(args) {
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} uploadFile={uploadFile} />
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/cv.pdf", filename: "cv.pdf" })
+          }
+        >
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Readiness is satisfied before anything is dropped: the list is empty and
+    // does not gate, and the singular document is filled.
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeEnabled();
+
+    // A list renders no `<input>` until a row exists, so the row comes first.
+    await userEvent.click(canvas.getByRole("button", { name: "Add item" }));
+    const rowInput = await waitFor(() => {
+      const found = canvasElement.querySelector<HTMLInputElement>('input[id="cvs.0"]');
+      if (!found) throw new Error("no file input for cvs.0");
+      return found;
+    });
+
+    // The panel owns this upload and marks `cvs.0` in ITS set. The host's set
+    // stays empty throughout — so this assertion is what fails if the host's
+    // set replaces ours rather than joining it.
+    fireEvent.change(rowInput, {
+      target: { files: [new File(["pdf"], "cv.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // And the gate lifts when the upload lands, rather than latching.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+    await waitFor(() => expect(canvas.getByText("cv.pdf")).toBeInTheDocument());
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeEnabled();
   },
 };
 

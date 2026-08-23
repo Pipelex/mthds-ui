@@ -86,13 +86,17 @@ The kernel composes a list row's id positionally:
 id: `${id}.${index}`,
 ```
 
-and its remove button is disabled only by `env?.disabled`, which `RunPanel.tsx:274` sets from `running` — never from `uploading`. So a row can be deleted while its own upload is in flight, and every row after it shifts down one index. The continuation at `RunPanel.tsx:212-213` then passes its generation check (the contract never changed) and writes the arriving file at the path that index now names, which belongs to a different row.
+and its remove button is disabled only by `env?.disabled`, which `RunPanel.tsx` sets from `running` (grep `disabled: env?.disabled ??`) — never from `uploading`. So a row can be deleted while its own upload is in flight, and every row after it shifts down one index. The upload continuation (grep `setValueAtPath` in `handleDropFile`) then passes its generation check, since the contract never changed, and writes the arriving file at the path that index now names, which belongs to a different row.
 
 The shorter-array case is worse: `setValueAtPath` assigns into the array by index, so a write-back past the new end produces a hole, which survives `rjsfDataFromRunValues`'s `map` and reaches ajv as `'DocumentContent' must be object` — an error naming nothing the user can act on. The `uploadingIds` entry is positional too, so after the removal the row that shifted into that index shows an upload indicator and a disabled dropzone for an upload never started on it.
 
-**Reachable from the corpus, not from any story.** `cv_matching.screen_cvs.cvs` (`data/pipelines/pipeline_26/`) and `cv_batch_screening.batch_analyze_cvs_for_job_offer.cvs` (`data/pipelines/pipeline_28/`) are both `native.Document` arrays. No story imports either, and every upload story in the branch uses a top-level single-file input — which is why every round of this review missed it.
+**Reachable from the corpus.** `cv_matching.screen_cvs.cvs` (`data/pipelines/pipeline_26/`) and `cv_batch_screening.batch_analyze_cvs_for_job_offer.cvs` (`data/pipelines/pipeline_28/`) are both `native.Document` arrays. When this was written no story imported either, and every upload story in the branch used a top-level single-file input — which is why every round of this review missed it. `screen_cvs` is now rendered by `HostTrackerJoinsPanelUploads`, which pins the upload gate on a list row; it does not exercise removal.
 
-**Where the fix belongs.** Stable per-item identity is the kernel's to give; keying an upload to an array position is the root cause and it is composed in `ListField`. What this repo can do without waiting: disable a row's remove control while that row is uploading, and drop `uploadingIds` entries whose list index no longer exists. File the identity half against `mthds-form`.
+**Codex raised the same defect independently**, in the review round after this sweep. Two reviewers with no shared context finding one thing is the strongest signal this review produced, and it is filed: `../wip/inbox/2026-08-23-mthds-form-list-row-upload-identity.md`.
+
+**Where the fix belongs — and one thing this note first got wrong.** Stable per-item identity is the kernel's to give; keying an upload to an array position is the root cause and it is composed in `ListField`. The mitigation originally suggested here — "disable a row's remove control while that row is uploading" — **cannot be done from this repo.** The remove button consults `env?.disabled` alone, and `env.disabled` is ambient: setting it during an upload freezes every field in the form, sibling dropzones included, which breaks the two-uploads-at-once case this library documents and tests. The narrow version of that mitigation is a change inside `ListField`, so it went into the brief as option 2 rather than staying here as local work.
+
+The other half — dropping `uploadingIds` entries whose list index no longer exists — is doable here, and is not worth it alone: it clears a stale busy indicator while the file still lands on the wrong row. It belongs with the kernel fix, not before it.
 
 ---
 

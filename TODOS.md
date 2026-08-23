@@ -299,6 +299,18 @@ Only the refusal could be exercised here — the DRY `--missing` path needs a wo
 
 The panel cannot hold a lock it can never release: it is told when a run starts and never that one finished, so an internal latch would need `running` to cycle to clear, and a host that never passes `running` at all would be wedged after its first run — a worse failure than the one prevented, and hidden run state inside a component whose stated design is that the host owns the state. What was wrong was the _documentation_: `docs/run-form-panel.md` promised "you still cannot start a duplicate run" without naming what that rests on. It now names it, the prop asks for the value synchronously, and the residue is in `deferred-review-residues.md` with the condition that would change the answer (an awaitable `onRun`).
 
+#### Review round 18 — a finding I had already deferred, and a false claim it exposed
+
+Greptile went clean (5/5). Codex raised one P1: a plural file input's row id is its INDEX, so removing a row while another row's upload is in flight lands the file on the wrong row — or past the array's end. The cold sweep had found the same thing a round earlier and I had deferred it, so the finding itself was not new. **Two reviewers with no shared context landing on the same defect is the strongest signal this whole review produced**, and it changed what I did with it: filed as `../wip/inbox/2026-08-23-mthds-form-list-row-upload-identity.md` rather than left sitting in a local note.
+
+Verified against the built kernel rather than assumed: the row id is `` `${id}.${index}` ``, `removeItem` filters by index so every later row renumbers, and the remove button is `disabled: env?.disabled` — the AMBIENT flag, which never consults `uploadingIds`. Not fixable here: the only lever this repo has is `env.disabled`, which would freeze every field in the form during any upload and break the two-uploads-at-once case the library documents and tests. That trade is worse than the defect.
+
+**The sweep note told a future session to do something impossible, and that is now corrected.** It suggested this repo "disable a row's remove control while that row is uploading" — the panel cannot; `env.disabled` has no per-field granularity. That mitigation moved into the brief as the kernel's option 2.
+
+**And chasing the finding exposed a false claim of my own.** `deferred-review-residues.md` said a sweep of every generated contract found "no optional or plural file input anywhere in the corpus", which was the stated reason the upload-set union fix had no regression test. The plural half is false: `cv_matching.screen_cvs.cvs` and `cv_batch_screening.batch_analyze_cvs_for_job_offer.cvs` are both lists of `native.Document`. The claim came from probing `document_analysis.analyze_pages.pages`, which is plural but `native.Page` — a composite, so it renders an object control and no dropzone. One wrong probe generalised into a property of the whole corpus.
+
+So the union fix is now pinned rather than argued: `HostTrackerJoinsPanelUploads` fills `job_offer`, passes an idle `env.uploadingIds`, adds a `cvs` row and drops a file into it, and asserts Run goes disabled. **Verified red-then-green** — reverting the merge to `env?.uploadingIds ?? uploadingIds` fails exactly that assertion and nothing else. A list is the only shape where this gate is observable, because `mustBeFilled` excludes lists so readiness never covers for it.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is not Checkpoint 2 work: a confirming bot pass over whatever HEAD is at the time, and the merge, which is Louis's to give.

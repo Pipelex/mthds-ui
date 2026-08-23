@@ -38,7 +38,7 @@ That is the check to run before trusting any contracts regeneration: if `presenc
 
 So the ordering below is not merely a thing to remember at bump time — **any full contracts refresh, run for any reason, silently performs the reshape now**, in front of a kernel that still reads `optional`. The regeneration is not a step you take when you decide to; it is a step that happens to you unless the bump is what you are doing. Worth noting how quietly it passes: nothing failed, nothing went red, and the reshaped fixtures were only caught because the tree was being watched for an unrelated reason.
 
-Two consequences worth carrying forward. `--from-disk` is the safe way to rebuild the fixture modules without re-sourcing anything, and it is the only contracts invocation that cannot trip this. And a targeted `--only` no longer drags the two corpus entries along with it, which previously meant even a one-pipeline refresh reshaped them — that is fixed, but the pipelines it _does_ select are still reshaped, so `--only` is not a safe way to avoid this either.
+Two consequences worth carrying forward. `--from-disk` is the safe way to rebuild the fixture modules without re-sourcing anything, and it is the only contracts invocation that cannot trip this. And a partial run — `--only` or `--missing` — no longer drags the two corpus entries along with it, which previously meant even a one-pipeline refresh reshaped them; that is fixed, but the pipelines a partial run _does_ select are still re-sourced and therefore still reshaped, so narrowing the selection is not a way to avoid this either.
 
 ## The obligation, and when it lands
 
