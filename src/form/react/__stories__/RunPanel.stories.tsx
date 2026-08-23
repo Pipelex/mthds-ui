@@ -72,6 +72,7 @@ function PanelHost({
   initialValues = {},
   env,
   uploadFile,
+  translate,
 }: {
   contract: PipeIOContract;
   title: string;
@@ -80,6 +81,7 @@ function PanelHost({
   initialValues?: Record<string, unknown>;
   env?: FieldEnv;
   uploadFile?: (file: File, fieldId: string) => Promise<UploadedFile>;
+  translate?: React.ComponentProps<typeof RunPanel>["translate"];
 }) {
   const [values, setValues] = React.useState<Record<string, unknown>>(initialValues);
   const [payload, setPayload] = React.useState<Record<string, unknown> | null>(null);
@@ -96,6 +98,7 @@ function PanelHost({
         theme={theme}
         env={env}
         uploadFile={uploadFile}
+        translate={translate}
       />
       <pre
         data-testid="run-payload"
@@ -156,6 +159,12 @@ export const RequiredAndOptional: Story = {
     await expect(run).toBeDisabled();
     await expect(canvas.getByText(/still needed/)).toBeInTheDocument();
 
+    // The readiness line is the only thing on screen saying WHY Run is inert,
+    // and a disabled button is out of the tab order — so nobody walking the
+    // controls ever reaches it. The association is what makes the reason
+    // available at all, which is why it is asserted rather than assumed.
+    await expect(run).toHaveAccessibleDescription(/still needed/);
+
     // The optional input is folded until asked for.
     await expect(canvas.queryByLabelText(/style_hint/i)).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole("button", { name: /optional input/i }));
@@ -164,6 +173,10 @@ export const RequiredAndOptional: Story = {
     // Filling the required input flips readiness.
     await userEvent.type(canvas.getByLabelText(/subject/i), "Bridge closure");
     await waitFor(() => expect(run).toBeEnabled());
+
+    // ...and the description goes with it: an enabled button described by a
+    // readiness line that no longer says anything would be worse than none.
+    await expect(run).not.toHaveAttribute("aria-describedby");
 
     // The blank optional is OMITTED from the wire payload — not sent as "".
     await userEvent.click(run);
@@ -285,6 +298,100 @@ export const InvalidSubmit: Story = {
     const alert = await canvas.findByRole("alert");
     await expect(alert).toBeInTheDocument();
     await expect(canvas.getByTestId("run-payload")).toHaveTextContent("onRun has not fired yet");
+  },
+};
+
+/**
+ * Emptying a filled optional must not make its input disappear from under the
+ * cursor. Visibility while the fold is collapsed used to be derived from the
+ * LIVE value, so clearing the last character flipped the field to "foldable"
+ * and React unmounted the very input being typed into — focus lost, every
+ * keystroke after it going nowhere.
+ *
+ * The host pre-filling an optional is the shortest way to reach it, and it is
+ * the documented controlled pattern (restore a draft, re-run with last time's
+ * inputs). It is equally reachable with no host at all: expand the fold, fill
+ * an optional, collapse it — it stays on screen because it is filled — then
+ * clear it.
+ */
+export const OptionalSurvivesBeingCleared: Story = {
+  args: {
+    contract: NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: "Bridge closure", style_hint: "formal" },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Filled, so it shows even though the fold is collapsed.
+    const hint = canvas.getByLabelText(/style_hint/i);
+    await expect(hint).toBeInTheDocument();
+
+    await userEvent.clear(hint);
+
+    // Still there, still the SAME node, and still holding focus — which is the
+    // symptom this pins. `getByLabelText` would find a remounted input just as
+    // happily, so the identity and focus checks are the ones that bite.
+    await expect(canvas.getByLabelText(/style_hint/i)).toBe(hint);
+    await expect(hint).toBeInTheDocument();
+    await expect(hint).toHaveFocus();
+
+    // Emptied all the same: the wire omits it either way, which is why keeping
+    // the input on screen costs nothing.
+    await expect(hint).toHaveValue("");
+  },
+};
+
+/**
+ * `env.disabled` is the host's, and the panel must not overwrite it. The prop
+ * documents a per-key rule — the host's value wins, the panel fills in only
+ * what was left undefined — and `disabled` is the key that falls back to
+ * `running`. With `running` unset there is nothing to fall back to, so a host
+ * that freezes the form freezes it.
+ */
+export const HostDisablesEveryField: Story = {
+  args: {
+    contract: NOTICE,
+    title: "draft_notice",
+    initialValues: { subject: "Bridge closure" },
+    env: { disabled: true },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Readiness is met, so nothing but the host's flag can be holding this.
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+    await expect(canvas.getByLabelText(/subject/i)).toBeDisabled();
+  },
+};
+
+/**
+ * `translate` is the panel's only i18n seam: the error summary is built from
+ * the kernel's message keys, and a host that ships in another language replaces
+ * the renderer wholesale. The passthrough had no coverage — dropping the
+ * argument entirely left every other story green.
+ */
+export const HostTranslatesTheErrorSummary: Story = {
+  args: {
+    contract: TRIAGE,
+    title: "triage_case",
+    initialValues: {
+      invoice: { amount: "twelve euros", invoice_number: "INV-1" },
+      priority: { number: "3" },
+      question: { text: "Is this covered?" },
+      tags: [],
+    },
+    translate: () => "TRADUIT PAR L'HÔTE",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const run = canvas.getByRole("button", { name: "Run" });
+
+    await waitFor(() => expect(run).toBeEnabled());
+    await userEvent.click(run);
+
+    const alert = await canvas.findByRole("alert");
+    await expect(alert).toHaveTextContent("TRADUIT PAR L'HÔTE");
   },
 };
 

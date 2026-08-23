@@ -109,7 +109,7 @@ Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the 
 
 `make smoke-pack` (`scripts/smoke-pack.mjs`) is what proves it: it packs the tarball, installs it into a consumer that deliberately has NO optional peer, and checks the export map, the `"use client"` directives, and that no other entry's module graph reaches the peer. None of that is observable from the source tree, which resolves fine either way.
 
-**`"use client"` needs re-prepending after the build.** esbuild strips directive prologues, so `tsup.config.ts`'s `onSuccess` writes it back onto the built React entries. Verify with `head -1 dist/form/react/index.js`.
+**`"use client"` must survive the build, and what guarantees that is the smoke test, not the prepend.** `tsup.config.ts`'s `onSuccess` re-prepends the directive onto `dist/form/react/index.js`, but at the pinned toolchain that is belt-and-braces rather than a necessity: esbuild preserves the directive prologue on its own, which `dist/graph/react/index.js` proves — same source directive, no prepend call, directive present. Keep the fixup (it is idempotent and costs nothing if a future bundler does start stripping), but do not rely on it, and do not assume a new React entry is covered because that one is. `make smoke-pack` asserts the directive on **every** React entry in the export map, which is the check that would actually catch a toolchain regression. Verify by hand with `head -1 dist/form/react/index.js`.
 
 ## Architecture
 

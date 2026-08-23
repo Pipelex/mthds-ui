@@ -51,10 +51,21 @@ export interface RunPanelProps {
    */
   running?: boolean;
   /**
-   * Ambient field state, passed to every control. The host's value wins PER
-   * KEY; the panel fills in whatever the host left undefined — `disabled` from
-   * `running`, and `onDropFile`/`uploadingIds` from its own upload tracking
-   * when `uploadFile` is supplied.
+   * Ambient field state, passed to every control.
+   *
+   * For `disabled`, `onDropFile` and `resolveUrl` the host's value wins PER
+   * KEY: the panel fills in only what the host left undefined — `disabled`
+   * from `running`, `onDropFile` from its own upload tracking when
+   * `uploadFile` is supplied.
+   *
+   * `uploadingIds` is the exception, and deliberately so: it is the UNION of
+   * your set and the panel's, never a replacement. Because the keys default
+   * independently, a host can supply `uploadFile` — leaving the panel to own
+   * the drop and mark the field in its own set — while also passing a tracker
+   * of its own; letting yours win outright there would hide an upload the
+   * panel itself started and leave Run live through it. A host that owns the
+   * whole loop supplies `onDropFile` too, so the panel's set is empty and the
+   * union is exactly your set.
    */
   env?: FieldEnv;
   /**
@@ -323,17 +334,49 @@ export function RunPanel({
   // readiness at all. `running`: a second run started over the first is a
   // duplicate execution, which nothing downstream would undo — and this term is
   // only ever as timely as the host makes it, which is why the prop's own doc
-  // asks for it synchronously.
-  const blocked = running || notReady || uploading;
+  // asks for it synchronously. `env.disabled`: the panel already treats the
+  // host's flag and `running` as ONE concept where the fields are concerned
+  // (`fieldEnv.disabled` falls back from one to the other), so gating the
+  // button on only one of the two sources was the same asymmetry rounds 4 and 9
+  // turned up — a host freezing the form got every input inert and a live Run
+  // button beside them, and a click there starts a run from a form the user
+  // cannot edit. It is read off the prop rather than off `fieldEnv.disabled`
+  // because those differ exactly when the host passes `disabled: false` while
+  // `running` is true, and there the button must still be held.
+  const blocked = running || notReady || uploading || (env?.disabled ?? false);
 
   // Optional inputs that are still empty stay folded, so the form opens at its
   // simplest shape and grows on demand. Required or already-filled always show.
-  const isFoldable = React.useCallback(
-    (field: RunField) => !field.required && !isFilled(values[field.name]),
-    [values],
+  //
+  // Which optionals are revealed is LATCHED rather than re-derived from the
+  // current value, and that is the whole point. Deriving it live means an
+  // optional the user empties disappears from under the cursor: clearing the
+  // last character flips `isFilled`, the field drops out of `visibleFields`,
+  // and React unmounts the very input being typed into — focus lost, every
+  // keystroke after it going nowhere. It needs no host pre-fill to reach:
+  // expand the fold, fill an optional, collapse it (it stays on screen because
+  // it is filled), then clear it.
+  //
+  // So while the fold is collapsed the form's shape only ever GROWS. It is
+  // recomputed when the fold is reopened or the contract changes, which are the
+  // two moments the user is not mid-edit. Nothing about readiness or the wire
+  // depends on this — an emptied optional is omitted from the payload whether
+  // or not its input is still on screen.
+  const revealedRef = React.useRef<Set<string>>(new Set());
+  const latchedForRef = React.useRef(contract);
+  if (latchedForRef.current !== contract) {
+    latchedForRef.current = contract;
+    revealedRef.current = new Set();
+  }
+  for (const field of fields) {
+    if (!field.required && isFilled(values[field.name])) revealedRef.current.add(field.name);
+  }
+  const isFolded = React.useCallback(
+    (field: RunField) => !field.required && !revealedRef.current.has(field.name),
+    [],
   );
-  const foldableCount = fields.filter(isFoldable).length;
-  const visibleFields = showOptional ? fields : fields.filter((field) => !isFoldable(field));
+  const foldableCount = fields.filter(isFolded).length;
+  const visibleFields = showOptional ? fields : fields.filter((field) => !isFolded(field));
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

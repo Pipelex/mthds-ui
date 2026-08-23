@@ -85,6 +85,26 @@ describe("runSubmitGate", () => {
     expect(outcome.apiInputs.illustrations).toEqual([]);
   });
 
+  /**
+   * The module's stated invariant — build the payload from the PREPARED data,
+   * so the pruning reaches the wire — was pinned by nothing until now: every
+   * other fixture here is a shape where prepared and raw agree at the payload
+   * level, so swapping `preparedData` for the raw values left the whole file
+   * green. A structured concept with an untouched OPTIONAL subfield is the
+   * shape that tells them apart, and it has to be a case the gate ACCEPTS,
+   * since a rejected run never reaches the payload at all.
+   */
+  it("builds the payload from the prepared data, so an untouched optional subfield is pruned", () => {
+    const contract = contractOf({ booking: BOOKING_INPUT });
+    const outcome = gate(contract, { booking: { starts_on: "2026-01-01" } });
+
+    expect(outcome.ok).toBe(true);
+    if (!outcome.ok) return;
+    const booking = outcome.apiInputs.booking as { content?: Record<string, unknown> };
+    expect(booking.content).toEqual({ starts_on: "2026-01-01" });
+    expect(booking.content).not.toHaveProperty("note");
+  });
+
   it("names the variable at fault when a required subfield is absent", () => {
     const contract = contractOf({ booking: BOOKING_INPUT });
     const outcome = gate(contract, { booking: {} });
@@ -157,7 +177,12 @@ describe("summarizeVerdict", () => {
     }));
     const summary = summarizeVerdict([], errors, {});
 
+    // BOTH edges of the cap, not just the far one: asserting only that the
+    // fourth error is absent passes just as happily with the cap silently
+    // reduced to one, which leaves the constant this test exists to pin free to
+    // shrink to a third of its documented size.
     expect(summary).toContain("error number 0");
+    expect(summary).toContain("error number 2");
     expect(summary).not.toContain("error number 3");
   });
 });

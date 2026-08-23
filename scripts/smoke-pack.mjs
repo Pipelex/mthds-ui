@@ -14,11 +14,19 @@
  *
  * What it checks, all of which have a history of failing silently:
  *
- * 1. Every declared export resolves to a file that exists. An unregistered
- *    stylesheet is dropped by tsup while the `className` stays in the JS, which
- *    is exactly how the v0.4.0 `GraphToolbar.css` regression shipped (CLAUDE.md,
- *    "CSS Packaging").
- * 2. `./form/react` carries `"use client"` — esbuild strips directive prologues.
+ * 1. Every declared export resolves to a file that exists, AND every exported
+ *    stylesheet is actually imported by the JS that needs it. Existence alone
+ *    is not the v0.4.0 `GraphToolbar.css` regression: the `onSuccess` copy puts
+ *    the file in `dist/` no matter what, so an unregistered stylesheet still
+ *    resolves through the export map while tsup has folded it into a
+ *    `dist/<entry>/index.css` nobody imports and the `className` ships unstyled.
+ *    Checked by walking the installed module graph — verified against a build
+ *    with `/RunPanel\.css$/` removed from `external`, which this file used to
+ *    report as entirely `ok`.
+ * 2. Every React entry carries `"use client"`. Both of them: the toolchain
+ *    currently preserves the directive on its own, and `prependUseClient` only
+ *    re-adds it to `./form/react`, so `./graph/react` is the entry standing on
+ *    the bundler alone and is precisely the one worth asserting.
  * 3. The kernel is left as a bare import, never inlined (design Decision B: a
  *    bundled copy is a second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
@@ -55,12 +63,29 @@ function run(command, args, cwd) {
  * imports across tsup's shared chunks. Path prefixes are not enough on their
  * own: a chunk lives at `dist/chunk-*.js` regardless of which entries share it.
  */
+const unresolvedImports = [];
+
 function externalsOf(entryFile, seen = new Set(), acc = new Set()) {
   const resolved = path.resolve(entryFile);
-  if (seen.has(resolved) || !existsSync(resolved)) return acc;
+  if (seen.has(resolved)) return acc;
+  if (!existsSync(resolved)) {
+    // Recorded rather than skipped. A relative import pointing at a file the
+    // tarball does not contain is the failure this script exists to catch, and
+    // walking past it silently makes every check downstream pass VACUOUSLY —
+    // the kernel-isolation walk reports "does not need the kernel" about a
+    // module graph it could not finish reading.
+    unresolvedImports.push(path.relative(repoRoot, resolved));
+    return acc;
+  }
   seen.add(resolved);
   const source = readFileSync(resolved, "utf8");
-  for (const match of source.matchAll(/(?:from|import)\s*["']([^"']+)["']/g)) {
+  // `\(?` is what admits `import("…")`. Without it the dynamic form is invisible
+  // to this walk, and it is invisible to the eslint isolation rule too — base
+  // `no-restricted-imports` does not visit `ImportExpression` — so the one
+  // import spelling that escapes lint would also have escaped the packaging
+  // check. Lazy-loading an optional peer is the obvious thing to reach for, not
+  // an exotic one, which is what makes the shared blind spot worth closing.
+  for (const match of source.matchAll(/(?:from|import)\s*\(?\s*["']([^"']+)["']/g)) {
     const specifier = match[1];
     if (specifier.startsWith(".")) {
       externalsOf(path.resolve(path.dirname(resolved), specifier), seen, acc);
@@ -116,10 +141,36 @@ try {
     check(specifier, resolved.startsWith("file://"));
   }
 
-  process.stdout.write("\nThe form entry is a client module that keeps the kernel external\n");
-  const formEntryPath = path.join(installed, "dist/form/react/index.js");
-  const formEntry = readFileSync(formEntryPath, "utf8");
-  check('dist/form/react/index.js starts with "use client"', formEntry.startsWith('"use client"'));
+  process.stdout.write("\nEvery React entry is a client module\n");
+  for (const relative of ["dist/form/react/index.js", "dist/graph/react/index.js"]) {
+    const entryPath = path.join(installed, relative);
+    const source = existsSync(entryPath) ? readFileSync(entryPath, "utf8") : "";
+    check(`${relative} starts with "use client"`, source.startsWith('"use client"'));
+  }
+
+  process.stdout.write("\nEvery exported stylesheet is reached by the JS that needs it\n");
+  // One shared `seen` across every entry, which is the right shape for this
+  // question — "does ANY entry import this file" — and the wrong shape for the
+  // per-entry externals below, where a chunk already walked for an earlier
+  // entry must still be walked for a later one.
+  const reachedFiles = new Set();
+  for (const target of Object.values(manifest.exports)) {
+    if (typeof target === "string" || !target.import) continue;
+    externalsOf(path.join(installed, target.import), reachedFiles);
+  }
+  for (const [subpath, target] of Object.entries(manifest.exports)) {
+    if (typeof target !== "string" || !subpath.endsWith(".css")) continue;
+    check(
+      `${subpath} is imported by the built JS`,
+      reachedFiles.has(path.resolve(path.join(installed, target))),
+      "the file ships and the export resolves, but no entry imports it — tsup most likely bundled it into an unreferenced index.css because its specifier is missing from `external`",
+    );
+  }
+  check(
+    "every relative import in the installed package resolves to a file that ships",
+    unresolvedImports.length === 0,
+    unresolvedImports.join(", "),
+  );
 
   process.stdout.write("\nThe kernel is reachable from the form entry only\n");
   const isKernel = (specifier) =>
