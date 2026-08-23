@@ -42,12 +42,18 @@ export interface RunPanelProps {
   /**
    * A run is in flight: the fields and the Run button go inert.
    *
-   * **Set it synchronously inside `onRun`, before any `await`.** It is the only
-   * thing standing between a second submit and a duplicate execution, and the
-   * panel cannot supply that protection itself: it never learns that a run
-   * finished, so any lock it took would have no release. A host that flips this
-   * only once the server answers leaves the button live for the whole round
-   * trip, and a second click there starts a second run that nothing undoes.
+   * **Set it synchronously inside `onRun`, before any `await`.** Across anything
+   * longer than one task it is the only thing standing between a second submit
+   * and a duplicate execution, and the panel cannot supply that itself: it never
+   * learns that a run finished, so a lock held for a run's lifetime would have
+   * no release. A host that flips this only once the server answers leaves the
+   * button live for the whole round trip, and a second click there starts a
+   * second run that nothing undoes.
+   *
+   * Synchronous re-entry within a single task is the panel's own problem and is
+   * handled — see `justSubmittedRef` beside `handleSubmit`. That guard does not
+   * reduce what this prop is for; it closes a window this prop cannot reach,
+   * because React has not re-rendered inside it.
    */
   running?: boolean;
   /**
@@ -411,18 +417,43 @@ export function RunPanel({
   ).length;
   const visibleFields = showOptional ? fields : fields.filter((field) => !isFolded(field));
 
+  // A submit that has passed the gate latches until the end of the current task.
+  //
+  // `blocked` is computed during render, so two `requestSubmit()` calls made in
+  // ONE synchronous host callback both close over the same render and both pass
+  // it — even when the host sets `running` synchronously inside `onRun`, exactly
+  // as that prop's doc demands, because React has not re-rendered in between.
+  // Two real clicks are two separate tasks with a commit between them and were
+  // never affected; this closes the programmatic path, which is a surface this
+  // component documents and pins a story against.
+  //
+  // The release is a microtask, and that is the whole reason this is safe rather
+  // than the lock this component deliberately does NOT take. A lock held for the
+  // lifetime of a run would have no release — the panel is told when a run
+  // starts and never that one finished — so a host that never passes `running`
+  // would be wedged after its first run. This latch outlives nothing: the
+  // microtask is queued unconditionally and always runs, so it cannot wedge, and
+  // it holds no run state a later render could disagree with.
+  const justSubmittedRef = React.useRef(false);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // The submit PATH owns the gate, not the button's `disabled` attribute —
     // see `blocked` above for why each term is there and why none is covered by
     // the kernel gate that runs next.
-    if (blocked) return;
+    if (blocked || justSubmittedRef.current) return;
     const outcome = runSubmitGate(contract, fields, values, translate);
     if (!outcome.ok) {
       setSubmitError(outcome.summary);
       return;
     }
     setSubmitError(null);
+    // Latched BEFORE `onRun`, so a host that re-enters synchronously from inside
+    // its own handler is held by the same guard.
+    justSubmittedRef.current = true;
+    queueMicrotask(() => {
+      justSubmittedRef.current = false;
+    });
     onRun(outcome.apiInputs);
   };
 

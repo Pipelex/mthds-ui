@@ -392,6 +392,16 @@ Two things about the shape of the fix are worth carrying forward. **The obvious 
 
 `src/form/__tests__/contrast.test.ts` pins both literals to the AA line and refuses a `var()` in their place, which is the shape the regression would actually take — someone tidying a literal back into the token layer, exactly as the cold sweep once did. Verified red-then-green with two mutants: reverting the light background fails on the ratio, replacing the dark one with `var(--color-accent-strong)` fails on the missing literal. Both themes were also checked in Storybook against the real stylesheet rather than an injected colour, disabled state included.
 
+#### Review round 24 — a P1 that a settled decision had been shielding
+
+The contrast fix drew one more pass, and Codex came back with something unrelated to it: two `requestSubmit()` calls in one synchronous block start two runs. Reproduced before arbitrating, with a probe host that follows every documented rule — `onRun` fires twice. The same probe with two real clicks fires once, which is the useful half of the measurement: the ordinary path was never affected, because two clicks are two tasks with a commit between them.
+
+**What makes this round worth remembering is why the finding had survived twenty-three previous ones.** It was not missed. `docs/run-form-panel.md` had already considered it and declined it in as many words — "Two `requestSubmit()` calls in one synchronous block are the same story with no click involved, and the same answer" — on the reasoning that an internal lock would have no release and would wedge a host that never passes `running`. That reasoning is correct, and it is correct about a lock held for the LIFETIME of a run. It says nothing about a latch scoped to the current task, which releases on a microtask that is queued unconditionally and always runs. The refusal was sound; its stated ground did not reach the mechanism that actually fixes the problem, and a documented refusal is the most effective way there is to stop anyone looking again.
+
+So the lesson is not "the bots eventually find things". It is that **a decision written down with a reason will be re-read as covering more than its reason supports**, and the way to catch it is to check whether the objection still holds against the specific fix in front of you rather than against the class it belongs to.
+
+Both halves are pinned red-then-green. `ProgrammaticDoubleSubmitStartsOneRun` fails 2-instead-of-1 when the latch leaves the guard; `LatchReleasesWithoutAnyStateUpdate` fails 1-instead-of-3 when the microtask release is deleted — which is to say the second mutant reproduces the exact wedge the docs warned about, making the release load-bearing rather than decorative.
+
 ### ★ Checkpoint 2 (close) — done
 
 Every deliverable below is verified and landed. What is left on the branch is the merge, which is Louis's to give.

@@ -1014,6 +1014,93 @@ export const UploadDiscardedOnUnmount: Story = {
  * `runGate.test.ts`. **Running**: a second run over the first is a duplicate
  * execution. Each panel is blocked by exactly one of them.
  */
+const doubleSubmitSpy = fn();
+const noStateOnRunSpy = fn();
+
+/**
+ * Two `requestSubmit()` calls in one synchronous block start ONE run.
+ *
+ * The gate is a render-scoped value, so before the latch both calls closed over
+ * the same `blocked === false` and both reached `onRun` — the host here does
+ * everything the docs ask, setting `running` synchronously inside `onRun`, and
+ * it made no difference, because React had not re-rendered between the two
+ * calls. What it cost was a duplicate execution, which nothing downstream
+ * undoes.
+ *
+ * Two real clicks were never affected and are not what this pins: they are two
+ * tasks with a commit between them, so the second already saw `running`.
+ */
+export const ProgrammaticDoubleSubmitStartsOneRun: Story = {
+  args: { contract: NOTICE, title: "draft_notice" },
+  render: function Render(args) {
+    const [running, setRunning] = React.useState(false);
+    return (
+      <RunPanel
+        contract={args.contract}
+        values={{ subject: "Bridge closure" }}
+        onValuesChange={() => {}}
+        theme={GRAPH_THEME.DARK}
+        running={running}
+        onRun={(inputs) => {
+          doubleSubmitSpy(inputs);
+          // Synchronously, before any await — exactly what the prop's doc asks.
+          setRunning(true);
+        }}
+        title="draft_notice"
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    doubleSubmitSpy.mockClear();
+    const form = canvasElement.querySelector<HTMLFormElement>("form.mthds-run-panel");
+    if (!form) throw new Error("no run panel form");
+
+    form.requestSubmit();
+    form.requestSubmit();
+
+    await expect(doubleSubmitSpy).toHaveBeenCalledTimes(1);
+  },
+};
+
+/**
+ * The latch cannot wedge a host whose `onRun` schedules no state update.
+ *
+ * This is the failure mode that makes the panel refuse to hold a lock for the
+ * LIFETIME of a run: it is told when a run starts and never that one finished,
+ * so such a lock would have no release and this host — which passes no `running`
+ * and sets no state — would be dead after its first run. The latch releases on a
+ * microtask instead, which is queued unconditionally and always runs, so each
+ * later submit gets through.
+ */
+export const LatchReleasesWithoutAnyStateUpdate: Story = {
+  args: { contract: NOTICE, title: "draft_notice" },
+  render: function Render(args) {
+    return (
+      <RunPanel
+        contract={args.contract}
+        values={{ subject: "Bridge closure" }}
+        onValuesChange={() => {}}
+        theme={GRAPH_THEME.DARK}
+        onRun={(inputs) => {
+          noStateOnRunSpy(inputs);
+        }}
+        title="draft_notice"
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    noStateOnRunSpy.mockClear();
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button", { name: /^Run$/i });
+
+    await userEvent.click(button);
+    await userEvent.click(button);
+    await userEvent.click(button);
+
+    await expect(noStateOnRunSpy).toHaveBeenCalledTimes(3);
+  },
+};
+
 export const RequestSubmitRespectsEveryGate: Story = {
   args: { contract: NOTICE, title: "draft_notice" },
   render: function Render(args) {
