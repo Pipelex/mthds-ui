@@ -79,7 +79,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
 - [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`), 8 (`f25c316`), 9 (`6d69793`) and 10: the re-review loop, written up below.
-- [ ] Round 11: read the bots' re-review and repeat until they are satisfied. Greptile cleared round 10 (5/5) before Codex's finding landed, so it re-reviews from the round-10 fix.
+- [x] Rounds 10 (`0f919a6`) and 11: written up below. Round 11 is the first round whose finding is **deferred rather than fixed**, and the first finding of the whole review outside the upload lifecycle.
+- [ ] Round 12: read the bots' re-review and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -192,6 +193,16 @@ Greptile is clean (5/5, no threads). One Codex P2, confirmed and fixed: **`uploa
 The fix is to call through an async wrapper, which turns the throw into the rejection this chain already cleans up. Stated as a property: **the same host logic must behave the same way whether it was written `async` or not**, the only difference between those two spellings being the keyword.
 
 **The story needed the round-8 lesson applied a second time, and it caught me the same way.** The first version passed against the unfixed code. Measuring instead of assuming showed why: react-dropzone hands the file over in a promise continuation, so at `fireEvent.change` the panel has not yet seen the drop, and `waitFor(absent)` passed on its first poll — before the indicator it was looking for could possibly exist. A negative assertion cannot establish its own precondition. Synchronizing on the spy first fixes it, because the spy runs synchronously inside the drop handler. Traced across both variants at 20ms intervals: unfixed shows `Uploading` from the first sample and every sample after, forever; fixed never shows it at all, the mark and the unmark landing in one commit.
+
+#### Review round 11 — the first finding that is a preference, not a defect
+
+Greptile clean (5/5, second consecutive). One Codex P2: `showOptional` is not reset when `contract` changes, so a host reusing one panel across pipes carries an expanded fold from pipe A into pipe B. The observation is correct. The disposition is **deferred, behaviour unchanged** — written up in `wip/adopt-form/deferred-optional-fold-scope.md`.
+
+The suggestion was to reset it "alongside the upload and error state", and that analogy is what does not hold. Those two are reset because they carry **content about the departed pipe**: `submitError` names fields no longer on screen, `uploadingIds` gates Run over a file this form never asked for. Both are wrong the instant the contract changes. `showOptional` is a bare boolean meaning the same thing in every form, stale in none of them.
+
+What decides it is an asymmetry neither bot mentioned: **persistence is recoverable by the host and reset is not.** A host wanting a per-pipe fold writes `<RunPanel key={pipeRef} …>`, which round 8 already made the upload lifecycle honour. A host wanting persistence has no move at all if the panel hard-resets, since the panel owns the state and exposes no prop. Resetting removes a capability; keeping it preserves both. And nothing about the payload, readiness or the gate depends on it — a field hidden by the fold is by construction an empty optional, which the wire format omits regardless.
+
+Worth recording for its own sake: **this is the first finding in eleven rounds that is not in the upload lifecycle**, and it is also the first that is not a defect. Both of those at once is probably not a coincidence.
 
 ### ★ Checkpoint 2 (close) — still open
 
