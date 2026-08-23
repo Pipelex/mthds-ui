@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`) and 4 (`d3fd5ba`): the re-review loop, written up below.
-- [ ] Round 5: read the bots' re-review of `d3fd5ba` and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`) and 5 (`824e8c5`): the re-review loop, written up below.
+- [ ] Round 6: read the bots' re-review of `824e8c5` and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -112,6 +112,16 @@ Both bots independently found the same defect, which is the round-3 fix being on
 Greptile's framing — "allowing submission with its file missing" — overstates one consequence: for a _gating_ input like `cv`, readiness still blocks Run because no value has landed. The unsafe submit needs a non-gating file input sharing an id across the two contracts. The other harms are real regardless, so the fix stands as written.
 
 The second round-4 finding, a stale submit summary surviving a state change, was **split**. A summary describing pipe A's inputs must not stand over pipe B's form, so it now clears on a contract switch — `SubmitErrorClearedOnPipeSwitch` pins that. The other half, a host resetting `values` under an unchanged contract, is deliberately **not** fixed: keying the clear on `values` identity would make a rejected submit's explanation vanish before it could be read on any host that passes a fresh object each render, which is a worse failure than the stale message. Recorded as residue 3 in `wip/adopt-form/deferred-upload-race-residues.md`.
+
+#### Review round 5 — the second deferral overturned
+
+One finding, and it is the same shape as round 3's: something I had ruled out and written into the residues note, correctly identified as fixable. **Two of the three residues I filed turned out to be wrong**, and both for the same reason — I ruled the defect out on the strength of the only fix I had thought of, rather than on the defect itself.
+
+Residue 1 was the same-batch write-back collision: `valuesRef` refreshed in an effect, so two uploads resolving in one React batch both read the same snapshot and the second write dropped the first. I closed it with "the only stale-proof fix is a functional updater," which would mean widening `onValuesChange` to `Dispatch<SetStateAction<…>>` — breaking a just-shipped prop and contradicting the fully-controlled contract. The trade-off was real; the premise was not. The continuation can advance the mirror **itself**, synchronously, before handing the values to the host, so the next continuation in the same batch builds on it. No API change, two lines. The effect still owns syncing _from_ the host, so the mirror converges on whatever the host actually kept.
+
+I had underrated reachability too. `candidate_screening.screen_candidate` (`data/pipelines/pipeline_30`) takes a required `cv` and a required `job_offer`, both single documents, both dropzones — an ordinary two-file form. The failure shows nothing: each dropzone displays its filename while one value is gone from the values entirely. `ConcurrentUploadsBothLand` pins it, verified to fail without the advance.
+
+**The pattern worth carrying into the next review loop:** every finding these bots got _wrong_ was wrong about the mechanism, never about there being a defect; every deferral I got wrong was wrong about the fix space, never about the trade-off I named. Probing the actual derived data settles the first kind. Nothing but a second opinion settles the second.
 
 ### ★ Checkpoint 2 (close) — still open
 
