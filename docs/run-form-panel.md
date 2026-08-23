@@ -140,6 +140,21 @@ The container carries a stable class name, **`mthds-run-panel`**, as a documente
 
 A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto shadcn's raw HSL triplets — is **deliberately not built**. It needs runtime hex→HSL conversion, and it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
 
+### The one place the chrome does not follow the palette: the Run button
+
+Everything in `RunPanel.css` reads this library's palette tokens except the Run button's background and label, which are literal colours — one per theme. Overriding `--color-accent-strong` therefore re-themes the graph and leaves the Run button where it is. That is the intended behaviour, not an oversight.
+
+The reason is contrast. A 13px/600 label needs 4.5:1 for WCAG AA, and white on `--color-accent-strong` reaches neither 4.5 in the light palette (4.10:1) nor in the dark one (3.68:1). The button is the primary call to action, so it is held to the line even at the cost of the token indirection, and the palette is left alone rather than darkened to fix a single button — `--color-accent-strong` is a graph token, and this button is the only place in the library that puts text on it. `src/form/__tests__/contrast.test.ts` pins both literals to the AA line.
+
+If you need the button in your own brand colour, restyle it directly and keep the ratio. Name both selectors — the dark rule is `.mthds-run-panel.dark .mthds-run-panel-run`, so a single-class override loses to it in the dark theme and silently applies to only half your app:
+
+```css
+.mthds-run-panel .mthds-run-panel-run,
+.mthds-run-panel.dark .mthds-run-panel-run {
+  background: #6b21a8; /* white label: 8.72:1 */
+}
+```
+
 ## Fixtures
 
 The contracts the stories render are **generated**, never hand-written:

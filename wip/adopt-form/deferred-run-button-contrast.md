@@ -1,4 +1,10 @@
-# Deferred: the Run button's label is below WCAG AA in both palettes
+# Settled: the Run button's label was below WCAG AA in both palettes
+
+> **Decided, and shipped on this branch.** Louis took the option this document recommends: darken the background per theme and keep the label white. `RunPanel.css` now sets `#0369a1` on `.mthds-run-panel-run` (5.93:1) and `#1d4ed8` on `.mthds-run-panel.dark .mthds-run-panel-run` (6.70:1), and `src/form/__tests__/contrast.test.ts` reads both literals back and holds them to the 4.5:1 line — including refusing a `var()` in their place, which is the shape the regression would take.
+>
+> **What the decision knowingly gave up:** a host overriding `--color-accent-strong` no longer re-themes the Run button along with the graph. That was the whole reason this was a decision rather than a fix, and it was made with the trade in view: the button is the primary call to action, and it is the only place in the repo that puts text on that token, so nothing else moved as a consequence.
+>
+> The rest of this document is the reasoning that led there. It is kept because the alternatives below are what a future reader will otherwise re-derive.
 
 Surfaced by the independent `/review` sweep over PR #75, as "the Run button hardcodes `#ffffff` instead of using the token layer". The tokenization observation is correct and the sweep applied it. **It was reverted**, because measuring what the token actually resolves to turns a tidy-up into a design decision, and because the underlying defect it half-fixes is real and needs settling properly rather than by accident.
 
