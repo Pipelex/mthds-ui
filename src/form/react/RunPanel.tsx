@@ -133,26 +133,38 @@ export function RunPanel({
   // happens within a single method: `recruitment.cv_screening` and
   // `recruitment.extract_cv` both take a required `cv` document. A file chosen
   // for one would land in the other looking like a deliberate answer, gating
-  // satisfied, ready to run. The contract is the generation marker: a drop
-  // remembers the one it happened under, and a result arriving under a
-  // different one is dropped. This makes `contract` referentially significant —
-  // a host that rebuilds it every render loses its uploads (and is already
-  // rebuilding every field, since `fields` memoizes on it).
+  // satisfied, ready to run. So a drop remembers the generation it happened
+  // under, and a result arriving under a later one is dropped. This makes
+  // `contract` referentially significant — a host that rebuilds it every render
+  // loses its uploads (and is already rebuilding every field, since `fields`
+  // memoizes on it).
   //
-  // A LAYOUT effect, deliberately. The marker answers "which pipe is on
+  // The marker COUNTS rather than naming the contract, because identity answers
+  // a subtly different question. A host can leave pipe A and come back to the
+  // very same contract object while A's upload is still in flight, and an
+  // identity check then says "same pipe, accept it" — ABA, and it is not the
+  // same form: switching away emptied `uploadingIds`, so that upload stopped
+  // gating Run and its dropzone re-opened. Accepting it lands a file in a form
+  // that never marked it — Run was live throughout, and for a non-gating input
+  // the run may already have gone out without it — and, if the user re-dropped
+  // on the way back, overwrites the fresh result while un-marking an upload
+  // still in progress. Counting makes the predicate "has the form moved on
+  // since this drop", which is what the guard always meant.
+  //
+  // A LAYOUT effect, deliberately. The marker answers "which form is on
   // screen", and it has to answer that as of the last COMMIT. A passive effect
   // answers later: React schedules those on a task, while an upload settling is
   // a promise continuation — a microtask, which runs first. In that window the
-  // switched form is already rendered and the marker still names the pipe the
-  // user left, so the guard compares the departed contract against itself and
-  // lets through precisely the write it exists to reject. Assigning during
-  // render would close the window too, and is worse: a concurrent render React
-  // abandons would move the marker to a contract that never commits, and an
-  // upload belonging to the pipe still on screen would be thrown away instead.
-  // Layout effects run inside the commit, and only for renders that commit.
-  const contractRef = React.useRef(contract);
+  // switched form is already rendered and the marker still counts the pipe the
+  // user left, so the guard compares the departed generation against itself and
+  // lets through precisely the write it exists to reject. Bumping during render
+  // would close the window too, and is worse: a concurrent render React
+  // abandons would advance past a contract that never commits, and an upload
+  // belonging to the pipe still on screen would be thrown away instead. Layout
+  // effects run inside the commit, and only for renders that commit.
+  const generationRef = React.useRef(0);
   React.useLayoutEffect(() => {
-    contractRef.current = contract;
+    generationRef.current += 1;
     // Whatever was in flight belonged to the previous pipe; it must not go on
     // gating this form's Run button until it happens to settle.
     setUploadingIds(EMPTY_IDS);
@@ -164,11 +176,11 @@ export function RunPanel({
   const handleDropFile = React.useCallback(
     (id: string, file: File) => {
       if (!uploadFile) return;
-      const startedOn = contract;
+      const startedAt = generationRef.current;
       setUploadingIds((previous) => new Set(previous).add(id));
       void uploadFile(file, id)
         .then((uploaded) => {
-          if (contractRef.current !== startedOn) return;
+          if (generationRef.current !== startedAt) return;
           const next = setValueAtPath(valuesRef.current, id.split("."), {
             url: uploaded.url,
             filename: uploaded.filename ?? file.name,
@@ -193,11 +205,12 @@ export function RunPanel({
           // The same generation check as the write-back, for a sharper reason.
           // Switching contracts already emptied this set, and the very same id
           // may since have been re-added by a NEW upload under the new
-          // contract — nothing exotic, since that is what sharing the `cv`
-          // input name means. Deleting it here would un-mark an upload that is
-          // still running: its dropzone re-enables mid-flight, its progress
-          // indicator vanishes, and the Run gate lets go of it.
-          if (contractRef.current !== startedOn) return;
+          // generation — nothing exotic, since that is what sharing the `cv`
+          // input name means, and a host returning to the pipe it left reaches
+          // it with no rename at all. Deleting it here would un-mark an upload
+          // that is still running: its dropzone re-enables mid-flight, its
+          // progress indicator vanishes, and the Run gate lets go of it.
+          if (generationRef.current !== startedAt) return;
           setUploadingIds((previous) => {
             const next = new Set(previous);
             next.delete(id);
@@ -205,7 +218,9 @@ export function RunPanel({
           });
         });
     },
-    [uploadFile, commitValues, contract],
+    // `contract` is no longer a dependency: the generation is read off the ref
+    // at drop time, so this callback does not need rebuilding per pipe.
+    [uploadFile, commitValues],
   );
 
   const fieldEnv = React.useMemo<FieldEnv>(

@@ -542,6 +542,81 @@ export const UploadDiscardedBeforeEffectsFlush: Story = {
 };
 
 /**
+ * Coming back to the pipe you left must not revive its abandoned upload.
+ *
+ * A host that keeps its contracts in a map hands back the SAME object every
+ * time a pipe is selected, so leaving pipe A and returning to it restores the
+ * marker's old value — ABA, and an identity check reads it as "same pipe,
+ * accept it". It is not the same form. Switching away emptied `uploadingIds`,
+ * so the upload stopped gating Run and its dropzone re-opened; letting the
+ * result land now puts a file into a form that never marked it, after a window
+ * in which Run was live the whole time — and for a non-gating input the run may
+ * already have gone out without it. Counting generations instead of comparing
+ * contracts makes the question "has the form moved on since this drop", which
+ * is the one the guard was always asking.
+ */
+export const UploadNotRevivedByReturningToPipe: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const [contract, setContract] = React.useState(args.contract);
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <>
+        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-away" onClick={() => setContract(EXTRACT_CV)}>
+          switch to extract_cv
+        </button>
+        {/* The very same object the panel started with — which is what a host
+            holding a contracts map hands back, not a contrivance. */}
+        <button type="button" data-testid="switch-back" onClick={() => setContract(CV_SCREENING)}>
+          back to cv_screening
+        </button>
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/other.pdf", filename: "other.pdf" })
+          }
+        >
+          settle upload
+        </button>
+      </>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    if (!fileInput) throw new Error("no file input for cv");
+
+    // Drop a CV under `cv_screening`. It hangs.
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["%PDF"], "other.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // Away and back, to the identical contract object.
+    await userEvent.click(canvas.getByTestId("switch-away"));
+    await userEvent.click(canvas.getByTestId("switch-back"));
+
+    // The upload the user abandoned settles now.
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+
+    // It was abandoned, so it stays abandoned: the form asks for a CV, and
+    // nothing arrived that the form had not been marking as on its way.
+    await waitFor(() => expect(canvas.getByText(/still needed/)).toBeInTheDocument());
+    await expect(canvas.queryByText("other.pdf")).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
  * A departed upload must not un-mark the one that replaced it.
  *
  * Discarding the stale write-back is only half of tying an upload to its pipe.

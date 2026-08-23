@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`) and 6: the re-review loop, written up below.
-- [ ] Round 7: read the bots' re-review and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`) and 7: the re-review loop, written up below.
+- [ ] Round 8: read the bots' re-review and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -140,6 +140,16 @@ So a discrete update flushes its passive effects before any continuation can obs
 The fix is `useEffect` → `useLayoutEffect` on both refs. Layout effects run inside the commit, so the marker is current exactly when the form is, and they run only for renders that actually commit — which is why assigning during render would be worse rather than better: a concurrent render React abandons would move the marker to a contract that never appeared, and an upload belonging to the pipe still on screen would be discarded instead. The values mirror gets the same treatment for the same reason; leaving one passive would be the round-4 asymmetry again, and there the cost is the host's newer edits overwritten. React 19 dropped the SSR warning for `useLayoutEffect` (verified against the installed `react-dom/server`), so the usual isomorphic-effect helper is not needed.
 
 `UploadDiscardedBeforeEffectsFlush` pins it, verified to fail without the fix. Two details of that harness are load-bearing rather than scaffolding: the switch is scheduled off a timer, per the table above, and the upload settles from a layout effect because the window closes at the end of the commit and that is the only place inside it a component can act.
+
+#### Review round 7 — the marker was comparing the wrong thing
+
+One finding, from Greptile, and it lands on the same marker round 6 had just repaired — this time on **what** it compares rather than when. The guard tested contract object identity, so a host that leaves pipe A and returns to it hands back the same object and restores the old value. Textbook ABA: the identity check says "same pipe, accept it" about an upload the form has already abandoned.
+
+Worth being precise about the harm, because it does not need the elaborate case. Switching away empties `uploadingIds`, so from that moment the upload is running **unmarked** — Run is ungated and the dropzone is open. Just returning to A is therefore enough: for a non-gating file input the run can go out without the file, and the file then lands afterwards into a form that never showed it as on its way. If the user re-drops on the return, the stale result also overwrites the fresh one and its cleanup un-marks an upload that is still running, which is the round-4 harm resurfacing through a door the round-4 fix did not cover.
+
+The fix replaces the object with a monotonic counter bumped in the same layout effect: `startedAt = generationRef.current` at drop time, compared on both continuations. That is the predicate the guard always meant — "has the form moved on since this drop" — and it is not a bigger mechanism than what it replaces; `contract` drops out of `handleDropFile`'s dependency array, so the callback stops being rebuilt per pipe. `UploadNotRevivedByReturningToPipe` pins it, verified to fail against the identity guard and only it.
+
+Nothing about the documented `contract` caveat changes: the counter bumps on every contract identity change, so a host that rebuilds the object each render still loses in-flight uploads, for the same reason and with the same remedy.
 
 ### ★ Checkpoint 2 (close) — still open
 
