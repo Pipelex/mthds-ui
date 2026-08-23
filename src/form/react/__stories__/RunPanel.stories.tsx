@@ -110,6 +110,11 @@ function PanelHost({
   );
 }
 
+/** Throws where an `async` host would reject — the two must behave alike. */
+const throwingUploadSpy = fn((): Promise<UploadedFile> => {
+  throw new Error("upload not configured");
+});
+
 /** Used by the one story that has to observe `onRun` rather than its payload. */
 const uploadingGateSpy = fn();
 const notReadyGateSpy = fn();
@@ -972,5 +977,50 @@ export const SubmitErrorClearedOnPipeSwitch: Story = {
     // Pick another pipe. The complaint went with the form it was about.
     await userEvent.click(canvas.getByTestId("switch-pipe"));
     await waitFor(() => expect(canvas.queryByRole("alert")).not.toBeInTheDocument());
+  },
+};
+
+/**
+ * A host's `uploadFile` may throw where another would reject, and the form has
+ * to survive both the same way.
+ *
+ * The prop is typed as a plain function returning a promise, so a host is free
+ * to write it without `async` — and one that validates before it starts the
+ * request (no API key, a file over the size limit, a mime type it will not
+ * take) throws SYNCHRONOUSLY. That throw lands before there is a promise to
+ * attach the failure cleanup to, so the field marked at drop time is never
+ * unmarked: the indicator stays up, the dropzone stays disabled, and Run stays
+ * gated until the user abandons the form. Written with `async`, the identical
+ * body rejects and cleans up properly — so without the wrapper the panel's
+ * behaviour turns on a keyword.
+ */
+export const UploadFileThrowsSynchronously: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    return <PanelHost {...args} uploadFile={throwingUploadSpy} />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    if (!input) throw new Error("no file input for cv");
+    fireEvent.change(input, {
+      target: { files: [new File(["%PDF"], "cv.pdf", { type: "application/pdf" })] },
+    });
+
+    // Synchronize on the SPY, not on anything rendered. react-dropzone hands
+    // the file over in a promise continuation, so at `fireEvent.change` the
+    // panel has not seen the drop yet and every assertion about it would pass
+    // by looking too early — including, measurably, the one below. The spy runs
+    // synchronously inside the drop handler, one line after the field is
+    // marked, so once it has fired the marking is committed or about to be.
+    await waitFor(() => expect(throwingUploadSpy).toHaveBeenCalled());
+
+    // Announcing the failure is the host's job; leaving the form usable is
+    // ours. Unwrapped, this indicator appears and never goes away.
+    await waitFor(() => expect(canvas.queryByText(/Uploading/)).not.toBeInTheDocument());
+
+    // And the form is back to its ordinary complaint about a `cv` it does not
+    // have, rather than wedged waiting on an upload that already failed.
+    await expect(canvas.getByText(/still needed/)).toBeInTheDocument();
   },
 };

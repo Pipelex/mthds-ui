@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`), 8 (`f25c316`) and 9: the re-review loop, written up below.
-- [ ] Round 10: read the bots' re-review and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`), 8 (`f25c316`), 9 (`6d69793`) and 10: the re-review loop, written up below.
+- [ ] Round 11: read the bots' re-review and repeat until they are satisfied. Greptile cleared round 10 (5/5) before Codex's finding landed, so it re-reviews from the round-10 fix.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -183,6 +183,16 @@ The fix is one expression, `blocked`, read by the button and by the submit path 
 
 **The lesson is the round-4 lesson, and I am the one who repeated it.** Round 4 was a fix scoped to the write-back but not the cleanup; this is a fix scoped to one gate term but not its siblings. Both times the asymmetry was visible in the diff. When a fix moves a decision from one place to another, the question to ask is not "does this case work now" but "what else was making that decision in the old place".
 
+#### Review round 10 — a failure mode the type system cannot express
+
+Greptile is clean (5/5, no threads). One Codex P2, confirmed and fixed: **`uploadFile` can fail synchronously, and the panel only handled failing asynchronously.**
+
+`uploadFile` is the host's, and it is typed `(file, fieldId) => Promise<UploadedFile>` — a plain function returning a promise. Nothing in that type obliges it to be `async`, and a host that validates before starting the request (no API key configured, a file over a size limit, a mime type it will not take) throws where an `async` spelling of the identical body would reject. The throw lands *before* there is a promise to hang `.catch()` and `.finally()` on, while the field was marked one line earlier — so it stayed marked with nothing left running to unmark it. The kernel's dropzone takes `disabled: disabled || uploading`, so the field could not even be retried, and Run stayed gated until the user abandoned the form.
+
+The fix is to call through an async wrapper, which turns the throw into the rejection this chain already cleans up. Stated as a property: **the same host logic must behave the same way whether it was written `async` or not**, the only difference between those two spellings being the keyword.
+
+**The story needed the round-8 lesson applied a second time, and it caught me the same way.** The first version passed against the unfixed code. Measuring instead of assuming showed why: react-dropzone hands the file over in a promise continuation, so at `fireEvent.change` the panel has not yet seen the drop, and `waitFor(absent)` passed on its first poll — before the indicator it was looking for could possibly exist. A negative assertion cannot establish its own precondition. Synchronizing on the spy first fixes it, because the spy runs synchronously inside the drop handler. Traced across both variants at 20ms intervals: unfixed shows `Uploading` from the first sample and every sample after, forever; fixed never shows it at all, the mark and the unmark landing in one commit.
+
 ### ★ Checkpoint 2 (close) — still open
 
 - [x] Verify the K2 gate: a story renders a method form where every field, the readiness verdict and the wire payload come from kernel imports, and the only local code is layout. **Verified, and it passes.** `src/form/react/__stories__/GraphWithRunPanel.stories.tsx` (`Form/Graph with RunPanel`) clicks a pipe in a `GraphViewer`, looks its contract up with the kernel's `getPipeIOContract`, and renders the form; it passes in isolation. The "deriving nothing locally" half is the one worth checking rather than asserting, and it holds: the only `json_schema` mentions anywhere in `src/form/` outside the generated fixtures are a comment in `RunPanel.tsx` saying the panel does not read it, and three `runGate.test.ts` fixtures that carry it because the kernel's contract type has the field. No production path in this module reads a schema or sniffs a value's shape.
@@ -195,3 +205,4 @@ The fix is one expression, `blocked`, read by the button and by the submit path 
 - **A `Failed to fetch dynamically imported module: …/sb-vitest/deps/…` failure is a stale Vite dep cache**, not broken code. `rm -rf node_modules/.cache/storybook node_modules/.vite`. The kernel is now named in `.storybook/main.ts`'s `optimizeDeps.include`, which should stop it recurring.
 - **`make fixtures` (the DRY graph-spec pass) still cannot run for every pipeline on this machine** — the local pipelex model deck is stale, so bundles referencing `linkup-standard` fail their dry run. This does NOT affect `make fixtures-contracts`, which deliberately skips the sweep. Nothing in this PR needs the graph specs regenerated; they were reused from disk.
 - **`make check` does not run the tests** — it is lint + format-check + typecheck. Run `make test` separately.
+- **A negative assertion about the form after a drop must synchronize on a spy first.** react-dropzone delivers the file in a promise continuation, so nothing about the drop is observable at `fireEvent.change` and `waitFor(() => expect(...).not.toBeInTheDocument())` passes instantly against a form that is about to wedge. Wait for the upload spy — it runs synchronously inside the handler — and only then assert. Two stories have now been written wrong this way before being written right.

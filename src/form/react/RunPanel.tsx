@@ -192,7 +192,20 @@ export function RunPanel({
       if (!uploadFile) return;
       const startedAt = generationRef.current;
       setUploadingIds((previous) => new Set(previous).add(id));
-      void uploadFile(file, id)
+      // Called through an async wrapper rather than directly. `uploadFile` is
+      // the HOST's function and is typed as a plain function returning a
+      // promise — nothing obliges it to be `async`. One that validates before
+      // it starts the request (no API key configured, a file over the size
+      // limit, a mime type it will not take) throws SYNCHRONOUSLY, and a
+      // synchronous throw happens before there is a promise to hang `.catch()`
+      // and `.finally()` on. The id marked one line above would then stay
+      // marked for good: `uploading` disables the dropzone, so the field cannot
+      // even be retried, and Run stays gated until the user leaves the form
+      // entirely. The wrapper turns that throw into the rejection this chain
+      // already cleans up, which makes the SAME host logic behave the same way
+      // whether it was written `async` or not — the only difference between
+      // those two spellings being the keyword.
+      void (async () => await uploadFile(file, id))()
         .then((uploaded) => {
           if (generationRef.current !== startedAt) return;
           const next = setValueAtPath(valuesRef.current, id.split("."), {

@@ -63,7 +63,7 @@ function MethodPanel({ contracts, domain, pipeCode, onExecute }) {
 
 This library renders; it never executes. `onRun` hands you a payload and stops there — no API client, no upload, no storage-URL resolution. That is deliberate, and it is the same boundary the kernel draws with its own `FieldEnv`.
 
-**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A rejected upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win.
+**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win.
 
 Two consequences of an upload being slow, both handled here so a host does not have to think about them.
 
