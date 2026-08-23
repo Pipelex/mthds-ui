@@ -78,8 +78,8 @@ Phases 1–4 are landed and PR #75 is open against `dev`. What is left is the re
 
 - [x] Poll PR #75 until CI and the review bots have reported. CI green; both bots reported on `ebbef28`.
 - [x] Fan out a sub-agent over the bot feedback. Two agents, one per file, each ruling CONFIRMED / INVALID / DEFER with evidence. Four findings, no duplicates between the bots — all four CONFIRMED, all four fixed in `551ca09`. Round 1 is written up below.
-- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`) and 7: the re-review loop, written up below.
-- [ ] Round 8: read the bots' re-review and repeat until they are satisfied.
+- [x] Rounds 2 (`d54fb89`), 3 (`078c0f1`), 4 (`d3fd5ba`), 5 (`824e8c5`), 6 (`7a7246a`), 7 (`7c79924`) and 8: the re-review loop, written up below.
+- [ ] Round 9: read the bots' re-review and repeat until they are satisfied.
 - [ ] With the bots clean, fan out a sub-agent to run gstack's `/review @TODOS.md` with **no inherited context**, then finalize.
 
 #### Review round 1 — what the bots found, and what was true
@@ -150,6 +150,25 @@ Worth being precise about the harm, because it does not need the elaborate case.
 The fix replaces the object with a monotonic counter bumped in the same layout effect: `startedAt = generationRef.current` at drop time, compared on both continuations. That is the predicate the guard always meant — "has the form moved on since this drop" — and it is not a bigger mechanism than what it replaces; `contract` drops out of `handleDropFile`'s dependency array, so the callback stops being rebuilt per pipe. `UploadNotRevivedByReturningToPipe` pins it, verified to fail against the identity guard and only it.
 
 Nothing about the documented `contract` caveat changes: the counter bumps on every contract identity change, so a host that rebuilds the object each render still loses in-flight uploads, for the same reason and with the same remedy.
+
+#### Review round 8 — one finding half right, one finding right about a case I had not considered
+
+Two findings, and they divide cleanly: Codex's was right, Greptile's was right about the defect and wrong about the vector it named.
+
+**Codex P1 — the generation marker missed one of the two ways to leave a form.** It was bumped in the layout effect's **body**, keyed on `contract`, so it only advanced when the prop changed. A host that writes `<RunPanel key={pipeRef} …>` never changes the prop: it unmounts one instance and mounts another. The effect body then never re-runs, the marker still equals the departed upload's `startedAt`, and the continuation calls `onValuesChange` — which is the **host's** setter, living above the key and entirely alive. The abandoned CV lands in the replacement panel's `cv` looking chosen, which is round 3's harm reached through a door round 3 did not cover. Keying a child to reset it is the ordinary React idiom, not an exotic host, and the values state living above the key is just what "fully controlled" means.
+
+The fix moves the bump into the effect's **cleanup**, which is the one place both departures pass through — a dep change runs it before re-running the body, and unmount runs it too. So the predicate now means what it says: this form instance has stopped being the one on screen, however it stopped. `UploadDiscardedOnUnmount` pins it, verified to fail against the body-bump and only it.
+
+**Greptile P1 — the upload gate lived only in the button's `disabled` attribute.** The defect is real and the fix is one line in `handleSubmit`, but only one of the two vectors named is reachable, and I measured both rather than reasoning about them:
+
+| Vector                 | Measured                  |
+| ---------------------- | ------------------------- |
+| Enter in a text input  | does not submit           |
+| `form.requestSubmit()` | submits, reaching `onRun` |
+
+Implicit submission clicks the form's **default button** — the first submit button in tree order — and a disabled one does nothing. Every control the kernel renders carries `type="button"` (all seven), so the Run button really is this form's default button and the keyboard is genuinely held. `requestSubmit()` ignores the submitter entirely, and the panel puts a real `<form>` in the host's DOM under a class name we document as a hook, so a host running the form from its own button reaches it and sends a payload missing the file still in flight. Worth fixing on its own terms too: every other gate here is re-decided on the submit path — `runSubmitGate` re-runs rather than trusting `notReady` — and this one was the exception. `RequestSubmitRespectsUploadGate` pins it, verified to fail without the guard.
+
+**The pattern from round 5 held again, in both directions this round.** The bot that was wrong was wrong about the mechanism, never about there being a defect. And measuring rather than reasoning is what separated the two vectors: my confidence about the Enter case was correct, but only measurement made it reportable.
 
 ### ★ Checkpoint 2 (close) — still open
 

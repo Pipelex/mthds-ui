@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fireEvent, userEvent, waitFor, within } from "storybook/test";
+import { expect, fireEvent, fn, userEvent, waitFor, within } from "storybook/test";
 import { getPipeIOContract, type PipeIOContract } from "@pipelex/mthds-form";
 import type { FieldEnv } from "@pipelex/mthds-form/react";
 import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
@@ -109,6 +109,9 @@ function PanelHost({
     </div>
   );
 }
+
+/** Used by the one story that has to observe `onRun` rather than its payload. */
+const runSpy = fn();
 
 const meta: Meta<typeof PanelHost> = {
   title: "Form/RunPanel",
@@ -613,6 +616,128 @@ export const UploadNotRevivedByReturningToPipe: Story = {
     await waitFor(() => expect(canvas.getByText(/still needed/)).toBeInTheDocument());
     await expect(canvas.queryByText("other.pdf")).not.toBeInTheDocument();
     await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * Unmounting the panel abandons its uploads too — not just switching `contract`.
+ *
+ * A host may well never change the prop: `<RunPanel key={pipeRef} …>` is the
+ * ordinary React idiom for "reset this child when the entity changes", and it
+ * unmounts one instance and mounts another instead. The generation effect then
+ * never re-runs, so a marker bumped only on a dep change still equals the
+ * departed upload's — while `onValuesChange` is the HOST's setter, living above
+ * the key and very much still alive. The abandoned CV would land in the
+ * replacement panel's `cv` looking chosen. Hence the bump on cleanup, which is
+ * the one place both ways of leaving pass through.
+ *
+ * The values state lives ABOVE the key here on purpose: that is what "fully
+ * controlled" means, and it is what makes the stale write reachable at all.
+ */
+export const UploadDiscardedOnUnmount: Story = {
+  args: { contract: CV_SCREENING, title: "cv_screening" },
+  render: function Render(args) {
+    const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
+    const [contract, setContract] = React.useState(args.contract);
+    const [values, setValues] = React.useState<Record<string, unknown>>({});
+    const uploadFile = React.useCallback(
+      () =>
+        new Promise<UploadedFile>((resolve) => {
+          pending.current = resolve;
+        }),
+      [],
+    );
+    return (
+      <div style={{ display: "grid", gap: 16, maxWidth: 620 }}>
+        <RunPanel
+          // The keyed remount is the whole point of this story.
+          key={contract === CV_SCREENING ? "cv_screening" : "extract_cv"}
+          contract={contract}
+          values={values}
+          onValuesChange={setValues}
+          onRun={() => {}}
+          title={args.title}
+          theme={GRAPH_THEME.DARK}
+          uploadFile={uploadFile}
+        />
+        <button type="button" data-testid="switch-away" onClick={() => setContract(EXTRACT_CV)}>
+          switch to extract_cv
+        </button>
+        <button
+          type="button"
+          data-testid="settle-upload"
+          onClick={() =>
+            pending.current?.({ url: "https://files.test/other.pdf", filename: "other.pdf" })
+          }
+        >
+          settle upload
+        </button>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    if (!fileInput) throw new Error("no file input for cv");
+
+    fireEvent.change(fileInput, {
+      target: { files: [new File(["%PDF"], "other.pdf", { type: "application/pdf" })] },
+    });
+    await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
+
+    // The key changes, so this panel is destroyed rather than re-rendered.
+    await userEvent.click(canvas.getByTestId("switch-away"));
+    await userEvent.click(canvas.getByTestId("settle-upload"));
+
+    // `extract_cv` also takes a required `cv`, so a stale write would show up
+    // here as a satisfied form rather than as anything obviously wrong.
+    await waitFor(() => expect(canvas.getByText(/still needed/)).toBeInTheDocument());
+    await expect(canvas.queryByText("other.pdf")).not.toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled();
+  },
+};
+
+/**
+ * The upload gate belongs to the submit path, not to the button's `disabled`.
+ *
+ * Disabling Run does hold the keyboard — the Run button is this form's only
+ * submit button, so it is the default button, and implicit submission on a
+ * disabled default button does nothing. `form.requestSubmit()` is the gap: it
+ * ignores the submitter, and the panel renders a real `<form>` in the host's DOM
+ * under a documented class name, so a host running the form from its own button
+ * reaches it. Everything that gates is filled here, so this is the upload gate
+ * alone — and with a non-gating file input the run would go out without its file.
+ */
+export const RequestSubmitRespectsUploadGate: Story = {
+  args: { contract: NOTICE, title: "draft_notice" },
+  render: function Render(args) {
+    // A spy rather than the shared host, because `onRun` fires synchronously
+    // inside the submit handler: asserting on it directly leaves nothing to wait
+    // for, where reading a rendered payload would race React's commit.
+    return (
+      <RunPanel
+        contract={args.contract}
+        values={{ subject: "Bridge closure" }}
+        onValuesChange={() => {}}
+        onRun={runSpy}
+        title={args.title}
+        theme={GRAPH_THEME.DARK}
+        env={{ uploadingIds: new Set(["subject"]) }}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    runSpy.mockClear();
+    const canvas = within(canvasElement);
+
+    // Everything that gates is filled, so this is the upload gate alone.
+    await expect(canvas.queryByText(/still needed/)).not.toBeInTheDocument();
+    const form = canvasElement.querySelector<HTMLFormElement>("form.mthds-run-panel");
+    if (!form) throw new Error("no run panel form");
+
+    form.requestSubmit();
+
+    await expect(runSpy).not.toHaveBeenCalled();
   },
 };
 

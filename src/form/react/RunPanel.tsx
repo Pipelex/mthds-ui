@@ -162,15 +162,29 @@ export function RunPanel({
   // abandons would advance past a contract that never commits, and an upload
   // belonging to the pipe still on screen would be thrown away instead. Layout
   // effects run inside the commit, and only for renders that commit.
+  //
+  // The bump lives in the CLEANUP, which is the one place BOTH ways of leaving a
+  // form pass through. Changing `contract` is only one of them: a host that
+  // writes `<RunPanel key={pipeRef} …>` — the ordinary React idiom for "reset
+  // this child when the entity changes" — never changes the prop at all, it
+  // unmounts this instance and mounts another. The effect body would then never
+  // re-run, the marker would still equal the departed upload's `startedAt`, and
+  // that upload's continuation would call `onValuesChange`, which is the HOST's
+  // setter and very much still alive. The abandoned file would land in the
+  // replacement panel's `cv` exactly as if it had been chosen there. Bumping on
+  // cleanup makes the predicate mean what it says — this form instance has
+  // stopped being the one on screen — however it stopped.
   const generationRef = React.useRef(0);
   React.useLayoutEffect(() => {
-    generationRef.current += 1;
     // Whatever was in flight belonged to the previous pipe; it must not go on
     // gating this form's Run button until it happens to settle.
     setUploadingIds(EMPTY_IDS);
     // Nor may a complaint about the previous pipe's inputs stand over this
     // pipe's form: it names fields that are no longer on screen.
     setSubmitError(null);
+    return () => {
+      generationRef.current += 1;
+    };
   }, [contract]);
 
   const handleDropFile = React.useCallback(
@@ -233,6 +247,14 @@ export function RunPanel({
     [env, running, uploadFile, handleDropFile, uploadingIds],
   );
 
+  // Readiness alone would let a run go out while a file is still uploading: a
+  // non-gating file input (optional, or plural — `mustBeFilled` excludes lists)
+  // never counts toward readiness, so Run stays live through its upload and the
+  // method would run with the file simply absent. Read off `fieldEnv` rather
+  // than the raw state, so a host driving its own loop through
+  // `env.uploadingIds` gets the same gate.
+  const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0;
+
   // Optional inputs that are still empty stay folded, so the form opens at its
   // simplest shape and grows on demand. Required or already-filled always show.
   const isFoldable = React.useCallback(
@@ -244,6 +266,20 @@ export function RunPanel({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    // The submit PATH owns the upload gate, not just the button's `disabled`
+    // attribute. Disabling the button does stop the keyboard: this form's only
+    // submit button is the Run button (every control the kernel renders carries
+    // `type="button"`), so it is the form's default button, and implicit
+    // submission on a disabled default button does nothing — measured, not
+    // assumed. What it does not stop is `form.requestSubmit()`, which ignores
+    // the submitter entirely; the panel puts a real `<form>` in the host's DOM
+    // under a documented class name, so that call is available to any host that
+    // wants to run the form from its own button. Letting it through would emit
+    // a payload missing the file still in flight, which is precisely the run
+    // the gate exists to prevent. Every other gate here is re-decided on this
+    // path — `runSubmitGate` re-runs below rather than trusting `notReady` — and
+    // this one was the exception.
+    if (uploading) return;
     const outcome = runSubmitGate(contract, fields, values, translate);
     if (!outcome.ok) {
       setSubmitError(outcome.summary);
@@ -259,13 +295,6 @@ export function RunPanel({
   );
 
   const notReady = readiness.missing.length > 0;
-  // Readiness alone would let a run go out while a file is still uploading: a
-  // non-gating file input (optional, or plural — `mustBeFilled` excludes lists)
-  // never counts toward readiness, so Run stays live through its upload and the
-  // method would run with the file simply absent. Read off `fieldEnv` rather
-  // than the raw state, so a host driving its own loop through
-  // `env.uploadingIds` gets the same gate.
-  const uploading = (fieldEnv.uploadingIds?.size ?? 0) > 0;
 
   return (
     <form
