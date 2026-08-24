@@ -16,4 +16,4 @@ export type { RunPanelProps, UploadedFile } from "./RunPanel";
 // The submit path, React-free and re-exported for hosts that run the gate
 // outside a panel (a toolbar button, a keyboard shortcut).
 export { runSubmitGate, summarizeVerdict, defaultValidationTranslate } from "@form/runGate";
-export type { RunGateOutcome } from "@form/runGate";
+export type { RunGateOutcome, RunPanelMessageKey, RunPanelTranslate } from "@form/runGate";

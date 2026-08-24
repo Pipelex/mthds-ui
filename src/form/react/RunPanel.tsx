@@ -8,12 +8,11 @@ import {
   setValueAtPath,
   type PipeIOContract,
   type RunField,
-  type Translate,
 } from "@pipelex/mthds-form";
 import { FieldRenderer, OptionalToggle, type FieldEnv } from "@pipelex/mthds-form/react";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
-import { runSubmitGate } from "@form/runGate";
+import { runSubmitGate, type RunPanelTranslate } from "@form/runGate";
 import "./RunPanel.css";
 
 /** What a host's upload returns: the stored URL, and optionally a display name. */
@@ -90,8 +89,14 @@ export interface RunPanelProps {
    * argument is exactly this resolved value.
    */
   theme?: GraphTheme;
-  /** Renders validation errors in the host's language. English by default. */
-  translate?: Translate;
+  /**
+   * Renders the whole error summary in the host's language. English by default.
+   *
+   * It covers the panel's own lines (`runPanel.*`) as well as the kernel's
+   * per-error ones, because which of them a rejected run produces is the
+   * kernel's decision and not something a host can predict.
+   */
+  translate?: RunPanelTranslate;
   /** Appended to the panel container's class list. */
   className?: string;
 }

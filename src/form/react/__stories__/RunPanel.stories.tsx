@@ -412,10 +412,23 @@ export const HostDisablesEveryField: Story = {
 };
 
 /**
- * `translate` is the panel's only i18n seam: the error summary is built from
- * the kernel's message keys, and a host that ships in another language replaces
- * the renderer wholesale. The passthrough had no coverage — dropping the
- * argument entirely left every other story green.
+ * `translate` is the panel's only i18n seam: the whole error summary is built
+ * from message keys, and a host that ships in another language replaces the
+ * renderer wholesale. The passthrough had no coverage — dropping the argument
+ * entirely left every other story green.
+ *
+ * This story fills every input but gives one a value of the wrong SHAPE, so the
+ * kernel's missing-variable scan comes up empty and the summary is built from
+ * the raw errors.
+ *
+ * The summary's OTHER route — the one that names the variables — is pinned in
+ * `runGate.test.ts`, not here, and deliberately so: at this kernel version it
+ * is unreachable from the UI. Readiness and the gate agree about which inputs
+ * are missing, so any form that would produce a named variable has Run disabled
+ * and never reaches the summary at all. That agreement is the kernel's to keep,
+ * not ours — it has already been broken once, by a version that reclassified a
+ * wrong-shaped value from a raw error into a named variable — so the branch is
+ * covered where it can actually be exercised.
  */
 export const HostTranslatesTheErrorSummary: Story = {
   args: {

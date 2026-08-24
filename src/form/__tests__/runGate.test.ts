@@ -11,7 +11,12 @@
 import { describe, expect, it } from "vitest";
 import type { PipeIOContract, PipeInputContract, RunInputError } from "@pipelex/mthds-form";
 import { fieldsForContract } from "@pipelex/mthds-form";
-import { defaultValidationTranslate, runSubmitGate, summarizeVerdict } from "../runGate";
+import {
+  defaultValidationTranslate,
+  runSubmitGate,
+  summarizeVerdict,
+  type RunPanelTranslate,
+} from "../runGate";
 
 const TEXT_INPUT: PipeInputContract = {
   concept_ref: "native.Text",
@@ -184,6 +189,47 @@ describe("summarizeVerdict", () => {
     expect(summary).toContain("error number 0");
     expect(summary).toContain("error number 2");
     expect(summary).not.toContain("error number 3");
+  });
+
+  /**
+   * Which of the three routes a rejected run takes is the KERNEL's decision —
+   * it depends on whether the verdict named variables, produced raw errors, or
+   * neither. A host cannot predict that, so covering one route says nothing
+   * about the seam: the summary would still revert to English on the others.
+   *
+   * That is not hypothetical. The named-variables line was hardcoded English
+   * while the only test of the seam happened to exercise the fallback, so the
+   * gap was invisible until a kernel version shifted the same input onto the
+   * other route. Each route therefore gets its own assertion.
+   */
+  describe("routes every line through the host's translator", () => {
+    const shout: RunPanelTranslate = (key) => `[${key}]`;
+
+    it("translates the named-variables line", () => {
+      expect(summarizeVerdict(["quote"], [], {}, shout)).toBe("[runPanel.missingInputs]");
+    });
+
+    it("translates the nothing-else-to-say line", () => {
+      expect(summarizeVerdict([], [], {}, shout)).toBe("[runPanel.fillRequired]");
+    });
+
+    // The third route — the raw-error line — passes `t` to the kernel's
+    // `describeValidationError`, which decides for itself whether a given error
+    // needs a message key or reads out its own stack. Asserting what it picks
+    // would pin this repo to kernel internals (Decision C); that the translator
+    // reaches it at all is covered end to end by the
+    // `HostTranslatesTheErrorSummary` story.
+
+    it("hands the variable names to the host as an interpolation value", () => {
+      // A host's template puts the names where its own grammar needs them, so
+      // they have to arrive as a VALUE rather than pre-baked into our English.
+      const translate: RunPanelTranslate = (key, values) =>
+        key === "runPanel.missingInputs" ? `Champs manquants : ${values?.inputs}` : key;
+
+      expect(summarizeVerdict(["quote", "subject"], [], {}, translate)).toBe(
+        "Champs manquants : quote, subject",
+      );
+    });
   });
 });
 
