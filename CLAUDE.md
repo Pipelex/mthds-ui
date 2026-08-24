@@ -286,7 +286,11 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 | `make fixtures-contracts` | Regenerate the `pipe_io_contracts` fixtures (offline, fast)     |
 | `make fixtures-live`      | Regenerate LIVE fixtures (real inference) — always with `ONLY=` |
 | `make smoke-pack`         | Pack the tarball and check it from a bare consumer              |
+| `make use-local` (`ul`)   | Swap `@pipelex/mthds-form` to a build of `../mthds-form`        |
+| `make use-npm` (`un`)     | Swap it back to the published version `package.json` pins       |
 | `make clean`              | Remove dist/ and node_modules/                                  |
+
+`use-local` / `use-npm` install with `--no-save` and never rewrite `package.json`. That is deliberate, and it is the one place this pair diverges from the same one in `../pipelex-starter-js`, which restores `@latest` and re-pins: here the kernel is named TWICE — `peerDependencies` and `devDependencies` — and the two must agree, so moving that version is a reviewed change owned by the `/bump-mthds-form` skill, not a side effect of leaving dev mode. `use-local` packs a tarball rather than symlinking (a symlinked kernel is a second React context identity — the failure the optional peer exists to prevent) and is a snapshot, so re-run it after every kernel edit. Both targets clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the same version string as the published one, so the optimizer's hash would not change and Storybook would keep serving the stale copy. See `docs/run-form-panel.md`.
 
 ## Workflow Rules
 

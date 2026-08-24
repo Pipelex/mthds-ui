@@ -172,6 +172,25 @@ This is not ceremony. A hand-authored contract gets the kernel's concept taxonom
 
 Because a contract is a projection of what a pipe **declares**, it needs no execution, which is why the pass is its own fast offline one and why the form fixtures rebuild without every bundle in the corpus being currently runnable. No pipelex CLI emits `pipe_io_contracts` yet, so `scripts/dump_pipe_io_contracts.py` calls the canonical builder through the pipelex venv; it is retired the moment the CLI can do it (`../wip/inbox/2026-08-23-pipelex-expose-pipe-io-contracts-in-agent-cli.md`).
 
+## Developing against a local form kernel
+
+When a change spans this panel and the kernel underneath it, point `node_modules` at the sibling checkout instead of npm:
+
+```bash
+make use-local     # or: make ul   — build ../mthds-form, pack it, install the tarball
+make use-npm       # or: make un   — back to the published version package.json pins
+```
+
+`use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, which is why it is an optional peer at all (see "Installing" above); a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it — the exact failure the peer arrangement exists to prevent. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
+
+Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten: the kernel is named twice there, in `peerDependencies` and `devDependencies`, and the two must agree. Moving that version is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+
+A local kernel whose version falls outside the pinned range (developing the next minor, say) installs fine — the peer is declared optional, so npm does not treat the mismatch as a conflict. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
+
+```bash
+node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"
+```
+
 ## Where things live
 
 ```
