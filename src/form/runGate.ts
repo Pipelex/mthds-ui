@@ -2,19 +2,17 @@
  * The panel's submit path, kept React-free.
  *
  * Everything between "the user pressed Run" and "the payload goes on the wire"
- * is the kernel's (`@pipelex/mthds-form`, `core/gate.ts`); this module only
- * runs its four steps in order and turns the verdict into one line a panel can
- * show. Splitting it out of `RunPanel.tsx` is what lets the node vitest project
- * test the composition without mounting React — the kernel's own behavior is
- * covered by the kernel's tests and is deliberately not re-tested here.
+ * is the kernel's (`@pipelex/mthds-form`, `core/gate.ts`); this module bridges
+ * the panel's values into the shape the gate takes, calls it, and turns the
+ * verdict into one line a panel can show. Splitting it out of `RunPanel.tsx` is
+ * what lets the node vitest project test that seam without mounting React — the
+ * gate's own behavior is covered by the kernel's tests and is deliberately not
+ * re-tested here.
  */
 import {
-  apiInputsFromSchemaData,
-  buildRunInputsSchema,
   describeValidationError,
-  prepareRunInputs,
+  gateRunInputs,
   rjsfDataFromRunValues,
-  validateRunInputs,
   type PipeIOContract,
   type RunField,
   type RunInputError,
@@ -121,12 +119,24 @@ export function summarizeVerdict(
 }
 
 /**
- * Run the kernel's four-step gate over the panel's current values.
+ * Run the kernel's gate over the panel's current values.
  *
- * The order is the kernel's and is not ours to rearrange: build the combined
- * schema, prepare (heal then prune) against that exact schema, validate the
- * PREPARED data, and build the payload from the PREPARED data too — so the
- * pruning reaches the wire.
+ * `gateRunInputs` IS the gate — the whole chain in one call — so all this
+ * module does either side of it is bridge and phrase: the panel holds values
+ * keyed by variable, the gate takes the schema-shaped data those become, and a
+ * rejected verdict has to come back as one line rather than as a discriminated
+ * union the panel would have to read.
+ *
+ * Assembling those steps here instead was the earlier shape and it was wrong in
+ * a way nothing local could see. The chain's schema validation is not the whole
+ * rule: ajv's `required` only asserts a key is PRESENT, and a content model
+ * carries no `minLength`, so a required input that arrived empty — `{text: ""}`
+ * from an untouched text field, `{url: ""}` from an untouched file field —
+ * satisfied the schema and the run went out. The Run button refuses exactly
+ * those, through `computeReadiness`. The gate now re-applies that same
+ * emptiness rule with `computeReadiness`'s own functions over the same derived
+ * fields, which makes the button's verdict and this one a single invariant
+ * rather than two things that resemble each other.
  */
 export function runSubmitGate(
   contract: PipeIOContract,
@@ -134,15 +144,13 @@ export function runSubmitGate(
   values: Record<string, unknown>,
   t: RunPanelTranslate = defaultValidationTranslate,
 ): RunGateOutcome {
-  const schema = buildRunInputsSchema(contract.inputs);
-  const preparedData = prepareRunInputs(rjsfDataFromRunValues(values, fields), schema);
-  const verdict = validateRunInputs(preparedData, contract.inputs, schema);
-  if (!verdict.isValid) {
+  const verdict = gateRunInputs(contract, rjsfDataFromRunValues(values, fields));
+  if (!verdict.ok) {
     return {
       ok: false,
       missingInputs: verdict.missingInputs,
-      summary: summarizeVerdict(verdict.missingInputs, verdict.errors, preparedData, t),
+      summary: summarizeVerdict(verdict.missingInputs, verdict.errors, verdict.preparedData, t),
     };
   }
-  return { ok: true, apiInputs: apiInputsFromSchemaData(preparedData, contract.inputs) };
+  return { ok: true, apiInputs: verdict.inputs };
 }

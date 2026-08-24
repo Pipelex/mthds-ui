@@ -10,7 +10,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_processing.MergedResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,6 +39,7 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       alpha_result: {
         concept_ref: "data_processing.ProcessedData",
+        item_count: null,
         json_schema: {
           description: "Data processed through one pathway",
           properties: {
@@ -45,16 +50,19 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "data_processing__ProcessedData",
+          title: "data_processing.ProcessedData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       beta_result: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -133,8 +141,7 @@ export const CONTRACTS_DIAMOND_PATTERN = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -151,14 +158,17 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       delta_result: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -273,13 +283,15 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       gamma_result: {
         concept_ref: "data_processing.ProcessedData",
+        item_count: null,
         json_schema: {
           description: "Data processed through one pathway",
           properties: {
@@ -290,14 +302,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "data_processing__ProcessedData",
+          title: "data_processing.ProcessedData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_processing.MergedResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -306,7 +320,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -315,14 +331,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_processing.ProcessedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -331,7 +349,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -340,14 +360,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -356,7 +378,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -365,14 +389,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -381,7 +407,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -390,14 +418,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_processing.ProcessedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -406,7 +436,9 @@ export const CONTRACTS_DIAMOND_PATTERN = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -415,14 +447,16 @@ export const CONTRACTS_DIAMOND_PATTERN = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

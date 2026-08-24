@@ -10,7 +10,9 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -84,14 +86,16 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "pipe_showcase.FinalOutput",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -100,6 +104,7 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       analysis: {
         concept_ref: "pipe_showcase.Analysis",
+        item_count: null,
         json_schema: {
           description: "Analytical assessment",
           properties: {
@@ -110,16 +115,19 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["text"],
-          title: "pipe_showcase__Analysis",
+          title: "pipe_showcase.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       search_result: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -198,8 +206,7 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -216,14 +223,16 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "pipe_showcase.FinalOutput",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -232,7 +241,9 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -306,14 +317,16 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -322,6 +335,7 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       analysis: {
         concept_ref: "pipe_showcase.Analysis",
+        item_count: null,
         json_schema: {
           description: "Analytical assessment",
           properties: {
@@ -332,14 +346,16 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["text"],
-          title: "pipe_showcase__Analysis",
+          title: "pipe_showcase.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -348,10 +364,12 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -518,6 +536,7 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -530,6 +549,8 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -549,16 +570,18 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "pipe_showcase.Analysis",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -567,6 +590,7 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
     inputs: {
       analysis: {
         concept_ref: "pipe_showcase.Analysis",
+        item_count: null,
         json_schema: {
           description: "Analytical assessment",
           properties: {
@@ -577,14 +601,16 @@ export const CONTRACTS_ALL_PIPE_TYPES = {
             },
           },
           required: ["text"],
-          title: "pipe_showcase__Analysis",
+          title: "pipe_showcase.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

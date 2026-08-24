@@ -10,9 +10,10 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       day: {
         concept_ref: "native.Date",
+        item_count: null,
         json_schema: {
           description:
-            "A calendar date, optionally with a time of day \u2014 as precise as its source states.\n\nThe optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). Invalid states are unrepresentable by construction: no time\nwithout a date, no offset without a time.",
+            "A calendar date, optionally with a time of day \u2014 as precise as its source states.",
           properties: {
             date: {
               description: "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
@@ -37,14 +38,16 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
             },
           },
           required: ["date"],
-          title: "DateContent",
+          title: "native.Date",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "availability.SlotCheck",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -53,7 +56,9 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -62,14 +67,16 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.YesNo",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -78,7 +85,9 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -87,14 +96,16 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Date",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -103,6 +114,7 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       checks: {
         concept_ref: "availability.SlotCheck",
+        item_count: null,
         json_schema: {
           items: {
             description: "Whether one proposed date has a free slot",
@@ -124,16 +136,18 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
               },
             },
             required: ["day", "is_free", "note"],
-            title: "availability__SlotCheck",
+            title: "availability.SlotCheck",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "availability.Reply",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -142,6 +156,7 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       checks: {
         concept_ref: "availability.SlotCheck",
+        item_count: null,
         json_schema: {
           items: {
             description: "Whether one proposed date has a free slot",
@@ -163,16 +178,18 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
               },
             },
             required: ["day", "is_free", "note"],
-            title: "availability__SlotCheck",
+            title: "availability.SlotCheck",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "availability.Reply",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -181,7 +198,9 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -190,14 +209,16 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "availability.Reply",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -206,6 +227,7 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
     inputs: {
       checks: {
         concept_ref: "availability.SlotCheck",
+        item_count: null,
         json_schema: {
           items: {
             description: "Whether one proposed date has a free slot",
@@ -227,16 +249,19 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
               },
             },
             required: ["day", "is_free", "note"],
-            title: "availability__SlotCheck",
+            title: "availability.SlotCheck",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       urgent: {
         concept_ref: "native.YesNo",
+        item_count: null,
         json_schema: {
+          description: "The answer to a yes/no question",
           properties: {
             yes_no: {
               description: "Whether the answer is yes (true) or no (false).",
@@ -245,14 +270,16 @@ export const CONTRACTS_AVAILABILITY_ROUTING = {
             },
           },
           required: ["yes_no"],
-          title: "YesNoContent",
+          title: "native.YesNo",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "availability.Reply",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

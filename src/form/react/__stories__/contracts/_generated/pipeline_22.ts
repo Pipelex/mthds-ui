@@ -10,7 +10,9 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -84,14 +86,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.Analysis",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -100,6 +104,7 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       analysis: {
         concept_ref: "content_distribution.Analysis",
+        item_count: null,
         json_schema: {
           description: "Deep content analysis",
           properties: {
@@ -110,14 +115,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__Analysis",
+          title: "content_distribution.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -126,7 +133,9 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -200,14 +209,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.DistributionReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -216,6 +227,7 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       analysis: {
         concept_ref: "content_distribution.Analysis",
+        item_count: null,
         json_schema: {
           description: "Deep content analysis",
           properties: {
@@ -226,14 +238,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__Analysis",
+          title: "content_distribution.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.IndexEntry",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -242,6 +256,7 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       analysis: {
         concept_ref: "content_distribution.Analysis",
+        item_count: null,
         json_schema: {
           description: "Deep content analysis",
           properties: {
@@ -252,14 +267,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__Analysis",
+          title: "content_distribution.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.SentimentLog",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -268,6 +285,7 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       index_entry: {
         concept_ref: "content_distribution.IndexEntry",
+        item_count: null,
         json_schema: {
           description: "Search index entry",
           properties: {
@@ -279,13 +297,15 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["json_obj"],
-          title: "content_distribution__IndexEntry",
+          title: "content_distribution.IndexEntry",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       sentiment_log: {
         concept_ref: "content_distribution.SentimentLog",
+        item_count: null,
         json_schema: {
           description: "Sentiment tracking log",
           properties: {
@@ -296,13 +316,15 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__SentimentLog",
+          title: "content_distribution.SentimentLog",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       summary: {
         concept_ref: "content_distribution.Summary",
+        item_count: null,
         json_schema: {
           description: "Executive summary",
           properties: {
@@ -313,14 +335,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__Summary",
+          title: "content_distribution.Summary",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.DistributionReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -329,6 +353,7 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
     inputs: {
       analysis: {
         concept_ref: "content_distribution.Analysis",
+        item_count: null,
         json_schema: {
           description: "Deep content analysis",
           properties: {
@@ -339,14 +364,16 @@ export const CONTRACTS_MULTI_OUTPUT_FANOUT = {
             },
           },
           required: ["text"],
-          title: "content_distribution__Analysis",
+          title: "content_distribution.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_distribution.Summary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

@@ -10,10 +10,12 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       cv_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -180,6 +182,7 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -192,6 +195,8 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -211,19 +216,22 @@ export const CONTRACTS_CV_MATCHING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       job_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -390,6 +398,7 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -402,6 +411,8 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -421,16 +432,18 @@ export const CONTRACTS_CV_MATCHING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_matching.CvEvaluation",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -439,7 +452,9 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       cv: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -513,14 +528,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -529,7 +546,9 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       job_offer: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -603,14 +622,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -619,6 +640,7 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       evaluation: {
         concept_ref: "cv_matching.CvEvaluation",
+        item_count: null,
         json_schema: {
           description: "Evaluation of a CV against a job offer",
           properties: {
@@ -673,14 +695,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["candidate_name", "match", "match_score", "summary"],
-          title: "cv_matching__CvEvaluation",
+          title: "cv_matching.CvEvaluation",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_matching.InterviewQuestion",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -689,6 +713,7 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       evaluation: {
         concept_ref: "cv_matching.CvEvaluation",
+        item_count: null,
         json_schema: {
           description: "Evaluation of a CV against a job offer",
           properties: {
@@ -743,14 +768,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["candidate_name", "match", "match_score", "summary"],
-          title: "cv_matching__CvEvaluation",
+          title: "cv_matching.CvEvaluation",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Anything",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -759,8 +786,10 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       cvs: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
           items: {
+            description: "A document",
             properties: {
               filename: {
                 anyOf: [
@@ -835,16 +864,19 @@ export const CONTRACTS_CV_MATCHING = {
               },
             },
             required: ["url"],
-            title: "DocumentContent",
+            title: "native.Document",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       job_offer: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -918,14 +950,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Anything",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -934,7 +968,9 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       cv: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1008,17 +1044,20 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       job_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1185,6 +1224,7 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1197,6 +1237,8 @@ export const CONTRACTS_CV_MATCHING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1216,16 +1258,18 @@ export const CONTRACTS_CV_MATCHING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Anything",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1234,6 +1278,7 @@ export const CONTRACTS_CV_MATCHING = {
     inputs: {
       evaluation: {
         concept_ref: "cv_matching.CvEvaluation",
+        item_count: null,
         json_schema: {
           description: "Evaluation of a CV against a job offer",
           properties: {
@@ -1288,14 +1333,16 @@ export const CONTRACTS_CV_MATCHING = {
             },
           },
           required: ["candidate_name", "match", "match_score", "summary"],
-          title: "cv_matching__CvEvaluation",
+          title: "cv_matching.CvEvaluation",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Text",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

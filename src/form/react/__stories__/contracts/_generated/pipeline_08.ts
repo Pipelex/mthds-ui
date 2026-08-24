@@ -10,7 +10,9 @@ export const CONTRACTS_SIMPLE_BATCH = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -84,14 +86,16 @@ export const CONTRACTS_SIMPLE_BATCH = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_batch.DocumentSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -100,6 +104,7 @@ export const CONTRACTS_SIMPLE_BATCH = {
     inputs: {
       page_summaries: {
         concept_ref: "document_batch.PageSummary",
+        item_count: null,
         json_schema: {
           items: {
             description: "Summary of a single page",
@@ -111,16 +116,18 @@ export const CONTRACTS_SIMPLE_BATCH = {
               },
             },
             required: ["text"],
-            title: "document_batch__PageSummary",
+            title: "document_batch.PageSummary",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_batch.DocumentSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -129,7 +136,9 @@ export const CONTRACTS_SIMPLE_BATCH = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -203,14 +212,16 @@ export const CONTRACTS_SIMPLE_BATCH = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -219,9 +230,11 @@ export const CONTRACTS_SIMPLE_BATCH = {
     inputs: {
       page: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           $defs: {
             ImageContent: {
+              description: "An image",
               properties: {
                 caption: {
                   anyOf: [
@@ -387,6 +400,7 @@ export const CONTRACTS_SIMPLE_BATCH = {
               type: "object",
             },
             TextContent: {
+              description: "A text",
               properties: {
                 text: {
                   description: "The text",
@@ -399,6 +413,8 @@ export const CONTRACTS_SIMPLE_BATCH = {
               type: "object",
             },
           },
+          description:
+            "The content of a page of a document, comprising text and linked images and an optional page view image",
           properties: {
             page_view: {
               anyOf: [
@@ -418,14 +434,16 @@ export const CONTRACTS_SIMPLE_BATCH = {
             },
           },
           required: ["text_and_images"],
-          title: "PageContent",
+          title: "native.Page",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_batch.PageSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

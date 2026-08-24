@@ -10,10 +10,11 @@ export const CONTRACTS_MEETING_TRIAGE = {
     inputs: {
       dates: {
         concept_ref: "native.Date",
+        item_count: null,
         json_schema: {
           items: {
             description:
-              "A calendar date, optionally with a time of day \u2014 as precise as its source states.\n\nThe optional ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). Invalid states are unrepresentable by construction: no time\nwithout a date, no offset without a time.",
+              "A calendar date, optionally with a time of day \u2014 as precise as its source states.",
             properties: {
               date: {
                 description: "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
@@ -38,18 +39,20 @@ export const CONTRACTS_MEETING_TRIAGE = {
               },
             },
             required: ["date"],
-            title: "DateContent",
+            title: "native.Date",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       slot: {
         concept_ref: "native.Time",
+        item_count: null,
         json_schema: {
           description:
-            "A time of day, optionally with a UTC offset \u2014 as precise as its source states.\n\nThe ``time`` carries the UTC offset on its ``tzinfo`` when the source states one\n(fidelity, not normalization). A time of day is not an instant: it has no date to\nattach to, so it never converts to a datetime on its own.",
+            "A time of day, optionally with a UTC offset \u2014 as precise as its source states.",
           properties: {
             time: {
               description:
@@ -60,14 +63,17 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["time"],
-          title: "TimeContent",
+          title: "native.Time",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       urgent: {
         concept_ref: "native.YesNo",
+        item_count: null,
         json_schema: {
+          description: "The answer to a yes/no question",
           properties: {
             yes_no: {
               description: "Whether the answer is yes (true) or no (false).",
@@ -76,14 +82,16 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["yes_no"],
-          title: "YesNoContent",
+          title: "native.YesNo",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "scheduling.Verdict",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -92,7 +100,9 @@ export const CONTRACTS_MEETING_TRIAGE = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -101,14 +111,16 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.YesNo",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -117,7 +129,9 @@ export const CONTRACTS_MEETING_TRIAGE = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -126,14 +140,16 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Date",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -142,7 +158,9 @@ export const CONTRACTS_MEETING_TRIAGE = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -151,14 +169,16 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Time",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -167,7 +187,9 @@ export const CONTRACTS_MEETING_TRIAGE = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -176,14 +198,16 @@ export const CONTRACTS_MEETING_TRIAGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "scheduling.Verdict",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

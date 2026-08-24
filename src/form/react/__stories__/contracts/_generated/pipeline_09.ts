@@ -10,10 +10,12 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -180,6 +182,7 @@ export const CONTRACTS_CV_SCREENING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -192,6 +195,8 @@ export const CONTRACTS_CV_SCREENING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -211,16 +216,18 @@ export const CONTRACTS_CV_SCREENING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "recruitment.CandidateProfile",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -229,7 +236,9 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       card_image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -344,13 +353,15 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       match: {
         concept_ref: "recruitment.MatchScore",
+        item_count: null,
         json_schema: {
           description: "Score for how well a candidate matches a role",
           properties: {
@@ -394,13 +405,15 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["score", "recommendation"],
-          title: "recruitment__MatchScore",
+          title: "recruitment.MatchScore",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       profile: {
         concept_ref: "recruitment.CandidateProfile",
+        item_count: null,
         json_schema: {
           description: "Structured profile of a job candidate",
           properties: {
@@ -443,14 +456,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["name", "summary"],
-          title: "recruitment__CandidateProfile",
+          title: "recruitment.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "recruitment.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -459,7 +474,9 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       cv: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -533,14 +550,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "recruitment.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -549,6 +568,7 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       profile: {
         concept_ref: "recruitment.CandidateProfile",
+        item_count: null,
         json_schema: {
           description: "Structured profile of a job candidate",
           properties: {
@@ -591,14 +611,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["name", "summary"],
-          title: "recruitment__CandidateProfile",
+          title: "recruitment.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -607,7 +629,9 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       cv: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -681,14 +705,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -697,6 +723,7 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       profile: {
         concept_ref: "recruitment.CandidateProfile",
+        item_count: null,
         json_schema: {
           description: "Structured profile of a job candidate",
           properties: {
@@ -739,14 +766,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["name", "summary"],
-          title: "recruitment__CandidateProfile",
+          title: "recruitment.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -755,6 +784,7 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       profile: {
         concept_ref: "recruitment.CandidateProfile",
+        item_count: null,
         json_schema: {
           description: "Structured profile of a job candidate",
           properties: {
@@ -797,16 +827,19 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["name", "summary"],
-          title: "recruitment__CandidateProfile",
+          title: "recruitment.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       search_result: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -885,8 +918,7 @@ export const CONTRACTS_CV_SCREENING = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -903,14 +935,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "recruitment.MatchScore",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -919,6 +953,7 @@ export const CONTRACTS_CV_SCREENING = {
     inputs: {
       profile: {
         concept_ref: "recruitment.CandidateProfile",
+        item_count: null,
         json_schema: {
           description: "Structured profile of a job candidate",
           properties: {
@@ -961,14 +996,16 @@ export const CONTRACTS_CV_SCREENING = {
             },
           },
           required: ["name", "summary"],
-          title: "recruitment__CandidateProfile",
+          title: "recruitment.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

@@ -10,7 +10,9 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.Insight",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,6 +39,7 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       chart_spec: {
         concept_ref: "report_generation.ChartSpec",
+        item_count: null,
         json_schema: {
           description: "Specification for a chart visualization",
           properties: {
@@ -45,13 +50,15 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__ChartSpec",
+          title: "report_generation.ChartSpec",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       narrative: {
         concept_ref: "report_generation.Narrative",
+        item_count: null,
         json_schema: {
           description: "Written narrative describing insights",
           properties: {
@@ -62,13 +69,15 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__Narrative",
+          title: "report_generation.Narrative",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       table_data: {
         concept_ref: "report_generation.TableData",
+        item_count: null,
         json_schema: {
           description: "Structured table data",
           properties: {
@@ -80,14 +89,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["json_obj"],
-          title: "report_generation__TableData",
+          title: "report_generation.TableData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -96,6 +107,7 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       insight: {
         concept_ref: "report_generation.Insight",
+        item_count: null,
         json_schema: {
           description: "Data insight extracted from analysis",
           properties: {
@@ -106,14 +118,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__Insight",
+          title: "report_generation.Insight",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.ChartSpec",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -122,6 +136,7 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       insight: {
         concept_ref: "report_generation.Insight",
+        item_count: null,
         json_schema: {
           description: "Data insight extracted from analysis",
           properties: {
@@ -132,14 +147,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__Insight",
+          title: "report_generation.Insight",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -148,6 +165,7 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       insight: {
         concept_ref: "report_generation.Insight",
+        item_count: null,
         json_schema: {
           description: "Data insight extracted from analysis",
           properties: {
@@ -158,14 +176,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__Insight",
+          title: "report_generation.Insight",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.TableData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -174,7 +194,9 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -183,14 +205,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -199,6 +223,7 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
     inputs: {
       insight: {
         concept_ref: "report_generation.Insight",
+        item_count: null,
         json_schema: {
           description: "Data insight extracted from analysis",
           properties: {
@@ -209,14 +234,16 @@ export const CONTRACTS_THREE_WAY_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "report_generation__Insight",
+          title: "report_generation.Insight",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "report_generation.Narrative",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

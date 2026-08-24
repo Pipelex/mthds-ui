@@ -10,9 +10,11 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       academic_data: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -91,8 +93,7 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -109,16 +110,19 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       api_data: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -197,8 +201,7 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -215,14 +218,17 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -231,16 +237,19 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       web_data: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -319,8 +328,7 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -337,14 +345,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_aggregation.CombinedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -353,7 +363,9 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -362,14 +374,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -378,7 +392,9 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -387,14 +403,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -403,7 +421,9 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -412,14 +432,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_aggregation.CombinedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -428,7 +450,9 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -437,14 +461,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -453,7 +479,9 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
     inputs: {
       query: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -462,14 +490,16 @@ export const CONTRACTS_MULTI_INPUT_CONVERGE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

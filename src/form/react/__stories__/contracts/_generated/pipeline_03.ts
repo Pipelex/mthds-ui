@@ -10,10 +10,12 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -180,6 +182,7 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -192,6 +195,8 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -211,16 +216,18 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_processing.Analysis",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -229,6 +236,7 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
     inputs: {
       analysis: {
         concept_ref: "document_processing.Analysis",
+        item_count: null,
         json_schema: {
           description: "An analytical assessment of content",
           properties: {
@@ -239,14 +247,16 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
             },
           },
           required: ["text"],
-          title: "document_processing__Analysis",
+          title: "document_processing.Analysis",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_processing.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -255,7 +265,9 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -329,14 +341,16 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "document_processing.Report",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -345,7 +359,9 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -419,14 +435,16 @@ export const CONTRACTS_SIMPLE_SEQUENCE = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },

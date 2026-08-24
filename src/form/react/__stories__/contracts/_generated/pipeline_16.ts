@@ -10,6 +10,7 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       description: {
         concept_ref: "image_catalog.Description",
+        item_count: null,
         json_schema: {
           description: "Text description of an image",
           properties: {
@@ -20,13 +21,15 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "image_catalog__Description",
+          title: "image_catalog.Description",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       tags: {
         concept_ref: "image_catalog.TagList",
+        item_count: null,
         json_schema: {
           description: "List of classification tags",
           properties: {
@@ -38,14 +41,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["json_obj"],
-          title: "image_catalog__TagList",
+          title: "image_catalog.TagList",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "image_catalog.CatalogEntry",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -54,7 +59,9 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -169,14 +176,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "image_catalog.TagList",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -185,7 +194,9 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -300,14 +311,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "image_catalog.Description",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -316,7 +329,9 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -431,14 +446,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -447,7 +464,9 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -562,14 +581,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "image_catalog.CatalogEntry",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -578,7 +599,9 @@ export const CONTRACTS_IMAGE_PIPELINE = {
     inputs: {
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -693,14 +716,16 @@ export const CONTRACTS_IMAGE_PIPELINE = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

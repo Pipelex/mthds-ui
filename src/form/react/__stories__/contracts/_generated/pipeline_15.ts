@@ -10,7 +10,9 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rag.QueryEmbedding",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,6 +39,7 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       context: {
         concept_ref: "rag.RankedContext",
+        item_count: null,
         json_schema: {
           description: "Reranked and filtered context passages",
           properties: {
@@ -45,14 +50,17 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "rag__RankedContext",
+          title: "rag.RankedContext",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -61,14 +69,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rag.Answer",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -77,7 +87,9 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -86,14 +98,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -102,6 +116,7 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       query_embedding: {
         concept_ref: "rag.QueryEmbedding",
+        item_count: null,
         json_schema: {
           description: "Embedded representation of a query",
           properties: {
@@ -112,14 +127,17 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "rag__QueryEmbedding",
+          title: "rag.QueryEmbedding",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -128,14 +146,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -144,7 +164,9 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -153,14 +175,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rag.Answer",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -169,9 +193,11 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       keyword_results: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -250,8 +276,7 @@ export const CONTRACTS_RAG_PIPELINE = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -268,14 +293,17 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       question: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -284,16 +312,19 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       vector_results: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -372,8 +403,7 @@ export const CONTRACTS_RAG_PIPELINE = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -390,14 +420,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rag.RankedContext",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -406,6 +438,7 @@ export const CONTRACTS_RAG_PIPELINE = {
     inputs: {
       query_embedding: {
         concept_ref: "rag.QueryEmbedding",
+        item_count: null,
         json_schema: {
           description: "Embedded representation of a query",
           properties: {
@@ -416,14 +449,16 @@ export const CONTRACTS_RAG_PIPELINE = {
             },
           },
           required: ["text"],
-          title: "rag__QueryEmbedding",
+          title: "rag.QueryEmbedding",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

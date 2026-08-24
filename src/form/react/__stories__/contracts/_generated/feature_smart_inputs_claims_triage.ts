@@ -10,6 +10,7 @@ export const CONTRACTS_SMART_INPUTS_TRIAGE = {
     inputs: {
       invoice: {
         concept_ref: "claims_desk.Invoice",
+        item_count: null,
         json_schema: {
           description: "The invoice attached to the claim",
           properties: {
@@ -25,13 +26,15 @@ export const CONTRACTS_SMART_INPUTS_TRIAGE = {
             },
           },
           required: ["invoice_number", "amount"],
-          title: "claims_desk__Invoice",
+          title: "claims_desk.Invoice",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       priority: {
         concept_ref: "claims_desk.Priority",
+        item_count: null,
         json_schema: {
           description: "How urgently the claim needs answering, as a score",
           properties: {
@@ -49,13 +52,15 @@ export const CONTRACTS_SMART_INPUTS_TRIAGE = {
             },
           },
           required: ["number"],
-          title: "claims_desk__Priority",
+          title: "claims_desk.Priority",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       question: {
         concept_ref: "claims_desk.Question",
+        item_count: null,
         json_schema: {
           description: "A question put to the claims desk",
           properties: {
@@ -66,13 +71,15 @@ export const CONTRACTS_SMART_INPUTS_TRIAGE = {
             },
           },
           required: ["text"],
-          title: "claims_desk__Question",
+          title: "claims_desk.Question",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       tags: {
         concept_ref: "claims_desk.Tag",
+        item_count: null,
         json_schema: {
           items: {
             description: "A short routing label written on the claim",
@@ -84,16 +91,18 @@ export const CONTRACTS_SMART_INPUTS_TRIAGE = {
               },
             },
             required: ["text"],
-            title: "claims_desk__Tag",
+            title: "claims_desk.Tag",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Text",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

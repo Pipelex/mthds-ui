@@ -85,7 +85,7 @@ An upload is also tied to the form generation it started under, and a result tha
 
 ## Two things about the gate worth knowing
 
-**The gate does not catch an empty required text input.** It reaches ajv as `{ text: "" }`, which is a perfectly valid string. `computeReadiness` is what notices, which is why readiness gates the Run button _and_ the submit path, and the gate is the last line of defence against a _malformed_ payload rather than the thing that tells you the form is unfinished. Both run; they answer different questions.
+**The gate catches an empty required text input, and it did not always.** Schema validation alone never could: the value reaches ajv as `{ text: "" }`, a perfectly valid string, and a content model carries no `minLength`. So for a while the Run button and the gate refused different things — readiness noticed the blank, the gate waved it through, and only the button standing in front of the submit path kept the two from diverging in practice. The kernel's `gateRunInputs` closes it by re-running readiness' own predicates after ajv, over the same derived fields, which makes the button's verdict and the gate's one invariant rather than two that resemble each other. A blank required input now comes back named, whether the run was started by the button or by a host calling `requestSubmit()` itself. Whitespace counts as blank.
 
 **A verdict can be invalid with nothing to name.** `validateRunInputs` reports `missingInputs` by variable name when it can, but a wrong value shape or a nested mismatch legitimately produces an invalid verdict with an empty `missingInputs`. The panel falls back to describing the ajv errors, so a blocked run is never undiagnosable.
 

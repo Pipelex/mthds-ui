@@ -10,6 +10,7 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       logic_findings: {
         concept_ref: "code_review.ReviewFinding",
+        item_count: null,
         json_schema: {
           items: {
             description: "A finding from code review",
@@ -37,15 +38,17 @@ export const CONTRACTS_CODE_REVIEW = {
               },
             },
             required: ["severity", "category", "description", "line_ref"],
-            title: "code_review__ReviewFinding",
+            title: "code_review.ReviewFinding",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       perf_findings: {
         concept_ref: "code_review.ReviewFinding",
+        item_count: null,
         json_schema: {
           items: {
             description: "A finding from code review",
@@ -73,15 +76,17 @@ export const CONTRACTS_CODE_REVIEW = {
               },
             },
             required: ["severity", "category", "description", "line_ref"],
-            title: "code_review__ReviewFinding",
+            title: "code_review.ReviewFinding",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       security_findings: {
         concept_ref: "code_review.ReviewFinding",
+        item_count: null,
         json_schema: {
           items: {
             description: "A finding from code review",
@@ -109,15 +114,17 @@ export const CONTRACTS_CODE_REVIEW = {
               },
             },
             required: ["severity", "category", "description", "line_ref"],
-            title: "code_review__ReviewFinding",
+            title: "code_review.ReviewFinding",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       style_findings: {
         concept_ref: "code_review.ReviewFinding",
+        item_count: null,
         json_schema: {
           items: {
             description: "A finding from code review",
@@ -145,16 +152,18 @@ export const CONTRACTS_CODE_REVIEW = {
               },
             },
             required: ["severity", "category", "description", "line_ref"],
-            title: "code_review__ReviewFinding",
+            title: "code_review.ReviewFinding",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.CodeReview",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -163,7 +172,9 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       pr_url: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -172,14 +183,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -188,9 +201,11 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       diff: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -269,8 +284,7 @@ export const CONTRACTS_CODE_REVIEW = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -287,14 +301,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.ReviewFinding",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -303,9 +319,11 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       diff: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -384,8 +402,7 @@ export const CONTRACTS_CODE_REVIEW = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -402,14 +419,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -418,9 +437,11 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       diff: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -499,8 +520,7 @@ export const CONTRACTS_CODE_REVIEW = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -517,14 +537,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.ReviewFinding",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -533,7 +555,9 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       pr_url: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -542,14 +566,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.CodeReview",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -558,9 +584,11 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       diff: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -639,8 +667,7 @@ export const CONTRACTS_CODE_REVIEW = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -657,14 +684,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.ReviewFinding",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -673,9 +702,11 @@ export const CONTRACTS_CODE_REVIEW = {
     inputs: {
       diff: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -754,8 +785,7 @@ export const CONTRACTS_CODE_REVIEW = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -772,14 +802,16 @@ export const CONTRACTS_CODE_REVIEW = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "code_review.ReviewFinding",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },

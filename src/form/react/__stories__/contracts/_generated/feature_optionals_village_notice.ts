@@ -10,7 +10,9 @@ export const CONTRACTS_OPTIONAL_STYLE_HINT = {
     inputs: {
       style_hint: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,17 @@ export const CONTRACTS_OPTIONAL_STYLE_HINT = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: true,
+        multiplicity: "single",
+        presence: "optional",
       },
       subject: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -35,14 +40,16 @@ export const CONTRACTS_OPTIONAL_STYLE_HINT = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Text",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

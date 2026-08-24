@@ -10,10 +10,12 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capabilities_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -180,6 +182,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -192,6 +195,8 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -211,15 +216,17 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       requirements: {
         concept_ref: "rfp_qualification.RFPRequirement",
+        item_count: null,
         json_schema: {
           items: {
             description: "A single requirement extracted from an RFP or tender document.",
@@ -255,16 +262,18 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["title", "description", "category", "priority"],
-            title: "rfp_qualification__RFPRequirement",
+            title: "rfp_qualification.RFPRequirement",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.CapabilityMatch",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -273,10 +282,12 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capabilities_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -443,6 +454,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -455,6 +467,8 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -474,15 +488,17 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       requirement: {
         concept_ref: "rfp_qualification.RFPRequirement",
+        item_count: null,
         json_schema: {
           description: "A single requirement extracted from an RFP or tender document.",
           properties: {
@@ -517,14 +533,16 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["title", "description", "category", "priority"],
-          title: "rfp_qualification__RFPRequirement",
+          title: "rfp_qualification.RFPRequirement",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.CapabilityMatch",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -533,6 +551,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capability_matches: {
         concept_ref: "rfp_qualification.CapabilityMatch",
+        item_count: null,
         json_schema: {
           items: {
             description:
@@ -577,19 +596,22 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["requirement_title", "match_level", "evidence", "gap_description"],
-            title: "rfp_qualification__CapabilityMatch",
+            title: "rfp_qualification.CapabilityMatch",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       rfp_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -756,6 +778,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -768,6 +791,8 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -787,16 +812,18 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.QualificationMatrix",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -805,7 +832,9 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capabilities: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -879,14 +908,16 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -895,7 +926,9 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capabilities: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -969,14 +1002,17 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       rfp: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1050,14 +1086,16 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1066,7 +1104,9 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       rfp: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1140,14 +1180,16 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -1156,6 +1198,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       qualification_matrix: {
         concept_ref: "rfp_qualification.QualificationMatrix",
+        item_count: null,
         json_schema: {
           description: "Aggregated go/no-go qualification assessment across all RFP requirements.",
           properties: {
@@ -1225,17 +1268,20 @@ export const CONTRACTS_RFP_QUALIFIER = {
             "win_probability",
             "strategic_considerations",
           ],
-          title: "rfp_qualification__QualificationMatrix",
+          title: "rfp_qualification.QualificationMatrix",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       rfp_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1402,6 +1448,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1414,6 +1461,8 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1433,16 +1482,18 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.BidSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1451,10 +1502,12 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       rfp_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1621,6 +1674,7 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1633,6 +1687,8 @@ export const CONTRACTS_RFP_QUALIFIER = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1652,16 +1708,18 @@ export const CONTRACTS_RFP_QUALIFIER = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.RFPRequirement",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -1670,7 +1728,9 @@ export const CONTRACTS_RFP_QUALIFIER = {
     inputs: {
       capabilities: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1744,14 +1804,17 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       rfp: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1825,14 +1888,16 @@ export const CONTRACTS_RFP_QUALIFIER = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "rfp_qualification.BidSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

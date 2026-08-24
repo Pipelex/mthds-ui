@@ -10,7 +10,9 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -84,14 +86,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.FinalReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -100,10 +104,12 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -270,6 +276,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -282,6 +289,8 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -301,16 +310,18 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Text",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -319,9 +330,11 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       page: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           $defs: {
             ImageContent: {
+              description: "An image",
               properties: {
                 caption: {
                   anyOf: [
@@ -487,6 +500,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               type: "object",
             },
             TextContent: {
+              description: "A text",
               properties: {
                 text: {
                   description: "The text",
@@ -499,6 +513,8 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               type: "object",
             },
           },
+          description:
+            "The content of a page of a document, comprising text and linked images and an optional page view image",
           properties: {
             page_view: {
               anyOf: [
@@ -518,14 +534,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["text_and_images"],
-          title: "PageContent",
+          title: "native.Page",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.ProcessedItem",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -534,7 +552,9 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       analysis: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -543,16 +563,19 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       search_result: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -631,8 +654,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -649,14 +671,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.ClassifiedItem",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -665,7 +689,9 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -739,14 +765,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -755,10 +783,12 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -925,6 +955,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -937,6 +968,8 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -956,16 +989,18 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -974,6 +1009,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       classified: {
         concept_ref: "controller_showcase.ClassifiedItem",
+        item_count: null,
         json_schema: {
           description: "Item classified for routing",
           properties: {
@@ -990,14 +1026,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["content", "category"],
-          title: "controller_showcase__ClassifiedItem",
+          title: "controller_showcase.ClassifiedItem",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.FinalReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1006,6 +1044,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       classified: {
         concept_ref: "controller_showcase.ClassifiedItem",
+        item_count: null,
         json_schema: {
           description: "Item classified for routing",
           properties: {
@@ -1022,14 +1061,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["content", "category"],
-          title: "controller_showcase__ClassifiedItem",
+          title: "controller_showcase.ClassifiedItem",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.FinalReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1038,6 +1079,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       classified: {
         concept_ref: "controller_showcase.ClassifiedItem",
+        item_count: null,
         json_schema: {
           description: "Item classified for routing",
           properties: {
@@ -1054,14 +1096,16 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
             },
           },
           required: ["content", "category"],
-          title: "controller_showcase__ClassifiedItem",
+          title: "controller_showcase.ClassifiedItem",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "controller_showcase.FinalReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1070,10 +1114,12 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1240,6 +1286,7 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1252,6 +1299,8 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1271,16 +1320,18 @@ export const CONTRACTS_ALL_CONTROLLER_TYPES = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

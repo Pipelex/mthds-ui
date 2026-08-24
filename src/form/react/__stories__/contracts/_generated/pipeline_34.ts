@@ -10,7 +10,9 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
     inputs: {
       brief: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Number",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,7 +39,9 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
     inputs: {
       brief: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -44,14 +50,16 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.JSON",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -60,7 +68,9 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
     inputs: {
       brief: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -69,14 +79,16 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.TextAndImages",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -85,7 +97,9 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
     inputs: {
       brief: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -94,14 +108,16 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Html",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -110,7 +126,9 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
     inputs: {
       brief: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -119,14 +137,16 @@ export const CONTRACTS_ALL_NATIVE_CONCEPTS = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

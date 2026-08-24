@@ -1,57 +1,45 @@
-# Owed: regenerate the contracts fixtures when the kernel takes the S2 reshape
+# Discharged: the contracts fixtures were regenerated when the kernel took the S2 reshape
 
-The `pipe_io_contracts` fixtures this repo's form stories render were generated against the **pre-S2** wire shape, and the wire shape has since changed upstream. Nothing is broken today, and nothing here should be changed today — but the regeneration is owed, and it is owed at a moment that is easy to miss because it arrives from two repos away.
+**This obligation is met. Nothing here is owed any more** — the note is kept because the ordering it records is the reason the regeneration was safe, and a reader who finds only a clean tree cannot reconstruct that.
+
+The regeneration ran in the adoption change that moved this repo onto the post-`0.3.0` form kernel, which is exactly the moment the ordering below reserved for it. What follows is the record of why it had to wait, and what it looked like when it landed.
 
 ## What changed upstream
 
 Pipelex PR #1149 (S2 "Enrich") reshaped `pipe_io_contracts` with no backward compatibility:
 
-- an input's boolean `optional` is **replaced** by a three-valued `presence` (`plain` | `optional` | `force`);
-- `multiplicity` gains a third arm, `fixed`, carrying a non-null `item_count` exactly on that arm.
+- an input's boolean `optional` was **replaced** by a three-valued `presence` (`plain` | `optional` | `force`);
+- `multiplicity` gained a third arm, `fixed`, carrying a non-null `item_count` exactly on that arm.
 
-`@pipelex/mthds-form` has not taken it yet. At the version this PR pins (`0.2.0`) the run gate still reads the retired key — `input.optional !== true` — and `multiplicity` has no `fixed` arm. That is filed workspace-side as `../wip/inbox/2026-08-23-mthds-form-contract-reshape.md`, severity high, with the consequence spelled out there: once the kernel meets a reshaped contract, every `?` input silently becomes **required**, because the key it tests for has simply disappeared and `undefined !== true` is true.
+One correction to what this note originally predicted: the **output** contract did not reshape the same way. It keeps a boolean `optional` — `!` is rejected on an output, so output presence is genuinely two-valued — and gained the same `multiplicity` / `item_count` pair as the input side.
 
-## What this repo holds
+At the version this repo pinned while the note was live (`0.3.0`), `@pipelex/mthds-form` still read the retired key — `input.optional !== true` — and `multiplicity` had no `fixed` arm. The consequence, had the fixtures moved first, was that every `?` input would silently have become **required**, because the key being tested for had simply disappeared and `undefined !== true` is true.
 
-The generated fixtures under `src/form/react/__stories__/contracts/_generated/` are entirely pre-reshape: they carry `optional` and the two-arm `multiplicity`, and no `presence` or `item_count` anywhere. So the stories currently agree with the kernel, and both are on the old shape together. That agreement is the thing that hides the problem: nothing in this repo can go red on its own, no matter how wrong the pairing becomes.
+## Why nothing here could go red on its own
 
-## The local pipelex already emits the new shape — so a full refresh is now a live foot-gun
+The generated fixtures and the kernel were pre-reshape **together**. That agreement is what hid the problem: no test in this repo could fail however wrong the pairing became. The same structural blind spot is why the ordering had to be written down rather than left to a suite to enforce.
 
-This stopped being hypothetical. A full `make fixtures-contracts` on the machine this was written on rewrote **every** pipeline's `pipe_io_contracts.json` into the reshaped form, unprompted:
+It was not hypothetical either. A full `make fixtures-contracts`, run for an unrelated reason while the note was live, rewrote every pipeline's contracts into the reshaped form unprompted — because the interpreter the dump shells out to is an **editable install** pointing at the sibling `pipelex/` checkout, so it runs that checkout's code rather than a pinned wheel and its reported version says nothing about which shape it emits. Nothing failed and nothing went red; the reshaped fixtures were caught only because the tree was being watched for another reason.
 
-```
--        "optional": false
-+        "multiplicity": "single",
-+        "presence": "plain"
--          "title": "TextContent",
-+          "title": "native.Text",
-```
-
-The reason matters more than the observation. **PR #1149 has merged** — `pipelex` commit `4bb97ec1f` — so this is not a branch someone is experimenting on. And the interpreter the contracts dump shells out to is an **editable install** (`_editable_impl_pipelex.pth`) pointing at the sibling `pipelex/` checkout, so it runs that checkout's code rather than a pinned wheel; the `0.51.0` the metadata reports says nothing about which shape it emits. Confirmed against the installed package rather than the source tree:
+The check that answered it, and the one to reach for if this ever recurs:
 
 ```
 $ ../pipelex/.venv/bin/python -c "from pipelex.pipeline.pipe_io_contracts import PipeInputContract; print(list(PipeInputContract.model_fields.keys()))"
 ['concept_ref', 'presence', 'multiplicity', 'item_count', 'json_schema']
 ```
 
-That is the check to run before trusting any contracts regeneration: if `presence` is in that list and the kernel is still pre-S2, do not refresh. A version number will not tell you, and neither will a clean `git status` afterwards on a partial run.
+## How it was discharged
 
-So the ordering below is not merely a thing to remember at bump time — **any full contracts refresh, run for any reason, silently performs the reshape now**, in front of a kernel that still reads `optional`. The regeneration is not a step you take when you decide to; it is a step that happens to you unless the bump is what you are doing. Worth noting how quietly it passes: nothing failed, nothing went red, and the reshaped fixtures were only caught because the tree was being watched for an unrelated reason.
+In one change, in this order:
 
-Two consequences worth carrying forward. `--from-disk` is the safe way to rebuild the fixture modules without re-sourcing anything, and it is the only contracts invocation that cannot trip this. And a partial run — `--only` or `--missing` — no longer drags the two corpus entries along with it, which previously meant even a one-pipeline refresh reshaped them; that is fixed, but the pipelines a partial run _does_ select are still re-sourced and therefore still reshaped, so narrowing the selection is not a way to avoid this either.
+1. **The dumper was fixed first.** `scripts/dump_pipe_io_contracts.py` serialized with `exclude_none=True`, which stripped `item_count` from every non-`fixed` slot — nearly all of them — so the fixtures would have described a shape the wire never sends, invisibly, because the generated modules cast through `unknown`. Fixing this after regenerating would have meant regenerating twice. `item_count` is the only nullable field on either contract model, so dropping the flag restored exactly that and nothing else.
+2. **Then the full sweep**, `make fixtures-contracts` — offline, fast, no API budget.
+3. **Then the suite**, green, including the browser stories.
 
-## The obligation, and when it lands
+What the reshaped tree holds, as an audit rather than a promise: the boolean `optional` is gone from every input slot and `presence` is on all of them; `item_count` is present on every input and output slot; the boolean `optional` survives on every output, which is correct. `village_noticeboard.draft_notice.style_hint` is the corpus's only OPTIONAL input, which is why the two vendored corpus entries are swept alongside the pipelines at all — the pipeline corpus has no optional input anywhere. Plurality moved out of `concept_ref` (no ref carries `[]` any more) and into `multiplicity`.
 
-**When `@pipelex/mthds-form` ships the reshape, this repo must regenerate its contracts fixtures in the same change that bumps the kernel.** `make fixtures-contracts` is offline and fast, so this is a cheap step — the cost is entirely in remembering to take it.
+**One coverage gap the reshape exposed, and it is worth knowing.** The corpus's single `fixed` multiplicity is on an **output** (`pipeline_30`, `item_count: 5`). No fixture anywhere declares a fixed-count _input_, so the kernel's new `Concept[N]` input behaviour — gating on the declared count, capping the row control, the `2 of 3 items` badge — is exercised by the kernel's own tests and by nothing here. Closing it needs a bundle that declares one; see `deferred-kernel-fix-coverage.md`, which is the standing note about corpus shapes this repo cannot reach.
 
-Do not do it earlier. Regenerating first would put reshaped fixtures in front of a kernel that reads `optional`, which is exactly the silent every-input-becomes-required failure above, only self-inflicted and inside our own test suite.
+## Why this note existed rather than an inbox item
 
-The ordering, then:
-
-1. The kernel ships `presence` / `fixed` / `item_count`.
-2. Here: bump the peer, run `make fixtures-contracts`, run `make check && make test`.
-3. Expect the OPTIONAL-input stories to be where any breakage shows. `village_noticeboard.draft_notice` is the fold case, and the two vendored corpus entries are in the sweep precisely because the pipeline corpus has no OPTIONAL input anywhere — see `docs/run-form-panel.md`.
-
-## Why this note exists rather than an inbox item
-
-The inbox is for work crossing a boundary this repo cannot cross, and the reshape itself is already filed against `mthds-form`. What is recorded here is this repo's own follow-up to someone else's change — a second inbox item would be a duplicate addressed to us.
+The inbox is for work crossing a boundary this repo cannot cross, and the reshape itself was filed against `mthds-form`. What was recorded here was this repo's own follow-up to someone else's change — a second inbox item would have been a duplicate addressed to us.

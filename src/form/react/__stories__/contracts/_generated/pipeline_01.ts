@@ -10,7 +10,9 @@ export const CONTRACTS_SINGLE_PIPE = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_SINGLE_PIPE = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "text_processing.Summary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

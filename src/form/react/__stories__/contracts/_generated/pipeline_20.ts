@@ -10,6 +10,7 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       alpha: {
         concept_ref: "wide_processing.ProcessedData",
+        item_count: null,
         json_schema: {
           description: "Data processed through a specific pathway",
           properties: {
@@ -20,16 +21,19 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "wide_processing__ProcessedData",
+          title: "wide_processing.ProcessedData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       beta: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -108,8 +112,7 @@ export const CONTRACTS_WIDE_PARALLEL = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -126,13 +129,15 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       delta: {
         concept_ref: "wide_processing.ProcessedData",
+        item_count: null,
         json_schema: {
           description: "Data processed through a specific pathway",
           properties: {
@@ -143,13 +148,15 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "wide_processing__ProcessedData",
+          title: "wide_processing.ProcessedData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       epsilon: {
         concept_ref: "wide_processing.ProcessedData",
+        item_count: null,
         json_schema: {
           description: "Data processed through a specific pathway",
           properties: {
@@ -160,14 +167,17 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "wide_processing__ProcessedData",
+          title: "wide_processing.ProcessedData",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       gamma: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -282,14 +292,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "wide_processing.CollectedResults",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -298,7 +310,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -307,14 +321,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -323,7 +339,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -332,14 +350,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "wide_processing.ProcessedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -348,7 +368,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -357,14 +379,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -373,7 +397,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -382,14 +408,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "wide_processing.ProcessedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -398,7 +426,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -407,14 +437,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "wide_processing.ProcessedData",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -423,7 +455,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -432,14 +466,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -448,7 +484,9 @@ export const CONTRACTS_WIDE_PARALLEL = {
     inputs: {
       data: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -457,14 +495,16 @@ export const CONTRACTS_WIDE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "wide_processing.CollectedResults",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

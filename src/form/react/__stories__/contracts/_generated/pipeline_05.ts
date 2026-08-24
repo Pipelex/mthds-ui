@@ -10,7 +10,9 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "text_analysis.Sentiment",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,7 +39,9 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -44,14 +50,16 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "text_analysis.AnalysisReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -60,7 +68,9 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -69,14 +79,16 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "text_analysis.Keyword",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -85,6 +97,7 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
     inputs: {
       keywords: {
         concept_ref: "text_analysis.Keyword",
+        item_count: null,
         json_schema: {
           items: {
             description: "An extracted keyword with relevance score",
@@ -101,15 +114,17 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
               },
             },
             required: ["keyword", "relevance"],
-            title: "text_analysis__Keyword",
+            title: "text_analysis.Keyword",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       sentiment: {
         concept_ref: "text_analysis.Sentiment",
+        item_count: null,
         json_schema: {
           description: "Sentiment analysis result",
           properties: {
@@ -131,14 +146,16 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
             },
           },
           required: ["sentiment", "confidence", "explanation"],
-          title: "text_analysis__Sentiment",
+          title: "text_analysis.Sentiment",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "text_analysis.AnalysisReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -147,7 +164,9 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -156,14 +175,16 @@ export const CONTRACTS_SIMPLE_PARALLEL = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

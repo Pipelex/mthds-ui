@@ -3,7 +3,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -14,14 +16,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "data_processing.MergedResult",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -30,6 +34,7 @@
     "inputs": {
       "alpha_result": {
         "concept_ref": "data_processing.ProcessedData",
+        "item_count": null,
         "json_schema": {
           "description": "Data processed through one pathway",
           "properties": {
@@ -42,16 +47,19 @@
           "required": [
             "text"
           ],
-          "title": "data_processing__ProcessedData",
+          "title": "data_processing.ProcessedData",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       },
       "beta_result": {
         "concept_ref": "native.SearchResult",
+        "item_count": null,
         "json_schema": {
           "$defs": {
             "DocumentContent": {
+              "description": "A document",
               "properties": {
                 "filename": {
                   "anyOf": [
@@ -131,7 +139,7 @@
               "type": "object"
             }
           },
-          "description": "Represents the result of a search query with an answer and list of sources.",
+          "description": "A search result with answer and sources",
           "properties": {
             "answer": {
               "description": "The answer to the search query",
@@ -150,14 +158,17 @@
           "required": [
             "answer"
           ],
-          "title": "SearchResultContent",
+          "title": "native.SearchResult",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       },
       "delta_result": {
         "concept_ref": "native.Image",
+        "item_count": null,
         "json_schema": {
+          "description": "An image",
           "properties": {
             "caption": {
               "anyOf": [
@@ -274,13 +285,15 @@
           "required": [
             "url"
           ],
-          "title": "ImageContent",
+          "title": "native.Image",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       },
       "gamma_result": {
         "concept_ref": "data_processing.ProcessedData",
+        "item_count": null,
         "json_schema": {
           "description": "Data processed through one pathway",
           "properties": {
@@ -293,14 +306,16 @@
           "required": [
             "text"
           ],
-          "title": "data_processing__ProcessedData",
+          "title": "data_processing.ProcessedData",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "data_processing.MergedResult",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -309,7 +324,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -320,14 +337,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "data_processing.ProcessedData",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -336,7 +355,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -347,14 +368,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "native.SearchResult",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -363,7 +386,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -374,14 +399,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "native.Image",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -390,7 +417,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -401,14 +430,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "data_processing.ProcessedData",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -417,7 +448,9 @@
     "inputs": {
       "data": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -428,14 +461,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "native.Composite",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }

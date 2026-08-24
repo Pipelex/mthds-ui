@@ -3,6 +3,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -25,14 +26,17 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       },
       "image": {
         "concept_ref": "native.Image",
+        "item_count": null,
         "json_schema": {
+          "description": "An image",
           "properties": {
             "caption": {
               "anyOf": [
@@ -149,14 +153,16 @@
           "required": [
             "url"
           ],
-          "title": "ImageContent",
+          "title": "native.Image",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -165,7 +171,9 @@
     "inputs": {
       "request": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -176,14 +184,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.ClassifiedRequest",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -192,6 +202,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -214,14 +225,16 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.DraftResponse",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -230,6 +243,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -252,14 +266,16 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "native.Image",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -268,6 +284,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -290,14 +307,16 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -306,6 +325,7 @@
     "inputs": {
       "draft": {
         "concept_ref": "customer_support.DraftResponse",
+        "item_count": null,
         "json_schema": {
           "description": "A draft response to the user",
           "properties": {
@@ -318,14 +338,16 @@
           "required": [
             "text"
           ],
-          "title": "customer_support__DraftResponse",
+          "title": "customer_support.DraftResponse",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -334,6 +356,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -356,14 +379,16 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -372,7 +397,9 @@
     "inputs": {
       "request": {
         "concept_ref": "native.Text",
+        "item_count": null,
         "json_schema": {
+          "description": "A text",
           "properties": {
             "text": {
               "description": "The text",
@@ -383,14 +410,16 @@
           "required": [
             "text"
           ],
-          "title": "TextContent",
+          "title": "native.Text",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }
@@ -399,6 +428,7 @@
     "inputs": {
       "classified": {
         "concept_ref": "customer_support.ClassifiedRequest",
+        "item_count": null,
         "json_schema": {
           "description": "User request classified by type",
           "properties": {
@@ -421,14 +451,16 @@
             "request_text",
             "request_type"
           ],
-          "title": "customer_support__ClassifiedRequest",
+          "title": "customer_support.ClassifiedRequest",
           "type": "object"
         },
-        "optional": false
+        "multiplicity": "single",
+        "presence": "plain"
       }
     },
     "output": {
       "concept_ref": "customer_support.Response",
+      "item_count": null,
       "multiplicity": "single",
       "optional": false
     }

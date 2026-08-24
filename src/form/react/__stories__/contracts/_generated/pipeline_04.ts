@@ -10,6 +10,7 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       embeddings: {
         concept_ref: "data_pipeline.Embedding",
+        item_count: null,
         json_schema: {
           items: {
             description: "Vector embedding of text",
@@ -21,16 +22,18 @@ export const CONTRACTS_LONG_SEQUENCE = {
               },
             },
             required: ["text"],
-            title: "data_pipeline__Embedding",
+            title: "data_pipeline.Embedding",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.VectorIndex",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -39,6 +42,7 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       clean_text: {
         concept_ref: "data_pipeline.CleanText",
+        item_count: null,
         json_schema: {
           description: "Text that has been cleaned and normalized",
           properties: {
@@ -49,14 +53,16 @@ export const CONTRACTS_LONG_SEQUENCE = {
             },
           },
           required: ["text"],
-          title: "data_pipeline__CleanText",
+          title: "data_pipeline.CleanText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.TextChunk",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -65,10 +71,12 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -235,6 +243,7 @@ export const CONTRACTS_LONG_SEQUENCE = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -247,6 +256,8 @@ export const CONTRACTS_LONG_SEQUENCE = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -266,16 +277,18 @@ export const CONTRACTS_LONG_SEQUENCE = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.CleanText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -284,6 +297,7 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       chunks: {
         concept_ref: "data_pipeline.TextChunk",
+        item_count: null,
         json_schema: {
           items: {
             description: "A segment of text split for processing",
@@ -295,16 +309,18 @@ export const CONTRACTS_LONG_SEQUENCE = {
               },
             },
             required: ["text"],
-            title: "data_pipeline__TextChunk",
+            title: "data_pipeline.TextChunk",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.Embedding",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -313,7 +329,9 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -387,14 +405,16 @@ export const CONTRACTS_LONG_SEQUENCE = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -403,7 +423,9 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -477,14 +499,16 @@ export const CONTRACTS_LONG_SEQUENCE = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.ValidationReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -493,6 +517,7 @@ export const CONTRACTS_LONG_SEQUENCE = {
     inputs: {
       index: {
         concept_ref: "data_pipeline.VectorIndex",
+        item_count: null,
         json_schema: {
           description: "An indexed collection of vectors",
           properties: {
@@ -504,14 +529,16 @@ export const CONTRACTS_LONG_SEQUENCE = {
             },
           },
           required: ["json_obj"],
-          title: "data_pipeline__VectorIndex",
+          title: "data_pipeline.VectorIndex",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "data_pipeline.ValidationReport",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

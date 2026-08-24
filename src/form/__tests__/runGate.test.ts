@@ -20,8 +20,11 @@ import {
 
 const TEXT_INPUT: PipeInputContract = {
   concept_ref: "native.Text",
+  presence: "plain",
+  multiplicity: "single",
+  item_count: null,
   json_schema: {
-    title: "TextContent",
+    title: "native.Text",
     type: "object",
     properties: { text: { type: "string" } },
     required: ["text"],
@@ -36,25 +39,36 @@ const TEXT_INPUT: PipeInputContract = {
  */
 const BOOKING_INPUT: PipeInputContract = {
   concept_ref: "demo.Booking",
+  presence: "plain",
+  multiplicity: "single",
+  item_count: null,
   json_schema: {
-    title: "Booking",
+    title: "demo.Booking",
     type: "object",
     properties: { starts_on: { type: "string", format: "date" }, note: { type: "string" } },
     required: ["starts_on"],
   },
 };
 
-const OPTIONAL_TEXT: PipeInputContract = { ...TEXT_INPUT, optional: true };
+const OPTIONAL_TEXT: PipeInputContract = { ...TEXT_INPUT, presence: "optional" };
 
 const PLURAL_IMAGES: PipeInputContract = {
-  concept_ref: "native.Image[]",
+  concept_ref: "native.Image",
+  presence: "plain",
+  multiplicity: "variable",
+  item_count: null,
   json_schema: {
     type: "array",
     items: { type: "object", properties: { url: { type: "string" } } },
   },
 };
 
-const OUTPUT = { concept_ref: "native.Text", multiplicity: "single" } as const;
+const OUTPUT = {
+  concept_ref: "native.Text",
+  multiplicity: "single",
+  item_count: null,
+  optional: false,
+} as const;
 
 function contractOf(inputs: Record<string, PipeInputContract>): PipeIOContract {
   return { inputs, output: OUTPUT };
@@ -135,16 +149,40 @@ describe("runSubmitGate", () => {
   });
 
   /**
-   * Worth stating outright, because it is the reason the Run button gates on
-   * `computeReadiness` rather than on this gate: an empty REQUIRED text input
-   * reaches ajv as `{ text: "" }`, which is a perfectly valid string. The gate
-   * is the last line of defence against a malformed payload, not the thing that
-   * notices you have not filled the form in yet.
+   * The assertion this file used to make was the opposite one, and it was the
+   * shape of a real hole rather than a property worth pinning: an empty
+   * REQUIRED text input reaches ajv as `{ text: "" }`, a perfectly valid
+   * string, so schema validation alone waves it through. The Run button never
+   * did — it gates on `computeReadiness` — which left the two halves refusing
+   * different things, and a host driving the panel programmatically (or any
+   * caller reaching the gate without the button in front of it) could start a
+   * run the interface would have blocked.
+   *
+   * `gateRunInputs` closes it by re-running readiness' own predicates after
+   * ajv, so the name comes back rather than the run going out.
    */
-  it("does not, on its own, catch a required text input left blank", () => {
+  it("catches a required text input left blank, and names it", () => {
     const contract = contractOf({ quote: TEXT_INPUT, subject: TEXT_INPUT });
+    const outcome = gate(contract, { quote: "hello" });
 
-    expect(gate(contract, { quote: "hello" }).ok).toBe(true);
+    expect(outcome.ok).toBe(false);
+    if (outcome.ok) return;
+    expect(outcome.missingInputs).toEqual(["subject"]);
+    expect(outcome.summary).toContain("subject");
+  });
+
+  /**
+   * The same rule one level down, and the reason the kernel's own pair of
+   * predicates had to be the ones used: whitespace is not a value. This is the
+   * case a lookalike emptiness check gets wrong.
+   */
+  it("counts a whitespace-only required input as blank", () => {
+    const contract = contractOf({ quote: TEXT_INPUT });
+    const outcome = gate(contract, { quote: "   " });
+
+    expect(outcome.ok).toBe(false);
+    if (outcome.ok) return;
+    expect(outcome.missingInputs).toEqual(["quote"]);
   });
 
   it("runs a pipe that takes no inputs", () => {

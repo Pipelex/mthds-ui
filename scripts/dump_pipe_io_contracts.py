@@ -66,8 +66,16 @@ async def contracts_for(bundle: Path) -> dict[str, object]:
 
         # Must run while the library is still loaded: the builder resolves concept
         # classes from the CURRENT library and raises against a torn-down one.
+        #
+        # Dumped WITH the nulls, deliberately. `item_count` is nullable on both
+        # sides of the contract and carries `null` off the `fixed` multiplicity
+        # arm — which is nearly every slot — so an `exclude_none=True` here would
+        # drop a key the wire always sends, and the generated modules cast through
+        # `unknown`, so nothing would go red. The hosted `/validate` dumps its
+        # valid arm the same way. `item_count` is the only nullable field on
+        # either model today; a new one inherits this treatment for free.
         return {
-            pipe_ref: contract.model_dump(mode="json", exclude_none=True)
+            pipe_ref: contract.model_dump(mode="json")
             for pipe_ref, contract in build_pipe_io_contracts(pipes).items()
         }
     finally:

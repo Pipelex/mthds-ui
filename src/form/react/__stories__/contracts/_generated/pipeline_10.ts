@@ -10,7 +10,9 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       described: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.ProcessedImage",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,10 +39,12 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -205,6 +211,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -217,6 +224,8 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -236,16 +245,18 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.CleanText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -254,6 +265,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       clean_text: {
         concept_ref: "content_etl.EnrichedText",
+        item_count: null,
         json_schema: {
           description: "Text enriched with metadata",
           properties: {
@@ -264,13 +276,15 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["text"],
-          title: "content_etl__EnrichedText",
+          title: "content_etl.EnrichedText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       processed_image: {
         concept_ref: "content_etl.ProcessedImage",
+        item_count: null,
         json_schema: {
           description: "Processed image with metadata",
           properties: {
@@ -281,14 +295,16 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["text"],
-          title: "content_etl__ProcessedImage",
+          title: "content_etl.ProcessedImage",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.ProcessedContent",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -297,10 +313,12 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -467,6 +485,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -479,6 +498,8 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -498,16 +519,18 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -516,6 +539,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       clean_text: {
         concept_ref: "content_etl.CleanText",
+        item_count: null,
         json_schema: {
           description: "Cleaned and normalized text",
           properties: {
@@ -526,14 +550,16 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["text"],
-          title: "content_etl__CleanText",
+          title: "content_etl.CleanText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.EnrichedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -542,7 +568,9 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -616,14 +644,16 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.ProcessedContent",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -632,7 +662,9 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -706,14 +738,16 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -722,10 +756,12 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -892,6 +928,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -904,6 +941,8 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -923,16 +962,18 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Text",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -941,10 +982,12 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1111,6 +1154,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1123,6 +1167,8 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1142,16 +1188,18 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.ProcessedImage",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1160,10 +1208,12 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1330,6 +1380,7 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1342,6 +1393,8 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1361,16 +1414,18 @@ export const CONTRACTS_NESTED_SEQ_PAR_SEQ = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_etl.EnrichedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

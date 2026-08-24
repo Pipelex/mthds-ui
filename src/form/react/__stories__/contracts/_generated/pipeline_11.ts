@@ -10,6 +10,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -26,14 +27,17 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       image: {
         concept_ref: "native.Image",
+        item_count: null,
         json_schema: {
+          description: "An image",
           properties: {
             caption: {
               anyOf: [
@@ -148,14 +152,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["url"],
-          title: "ImageContent",
+          title: "native.Image",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -164,7 +170,9 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -173,14 +181,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.ClassifiedRequest",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -189,6 +199,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -205,14 +216,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.DraftResponse",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -221,6 +234,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -237,14 +251,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Image",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -253,6 +269,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -269,14 +286,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -285,6 +304,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       draft: {
         concept_ref: "customer_support.DraftResponse",
+        item_count: null,
         json_schema: {
           description: "A draft response to the user",
           properties: {
@@ -295,14 +315,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["text"],
-          title: "customer_support__DraftResponse",
+          title: "customer_support.DraftResponse",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -311,6 +333,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -327,14 +350,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -343,7 +368,9 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       request: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -352,14 +379,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -368,6 +397,7 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
     inputs: {
       classified: {
         concept_ref: "customer_support.ClassifiedRequest",
+        item_count: null,
         json_schema: {
           description: "User request classified by type",
           properties: {
@@ -384,14 +414,16 @@ export const CONTRACTS_NESTED_SEQ_COND_SEQ = {
             },
           },
           required: ["request_text", "request_type"],
-          title: "customer_support__ClassifiedRequest",
+          title: "customer_support.ClassifiedRequest",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "customer_support.Response",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

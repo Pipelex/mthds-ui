@@ -10,9 +10,11 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       job_offer_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           $defs: {
             ImageContent: {
+              description: "An image",
               properties: {
                 caption: {
                   anyOf: [
@@ -178,6 +180,7 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
               type: "object",
             },
             TextContent: {
+              description: "A text",
               properties: {
                 text: {
                   description: "The text",
@@ -190,6 +193,8 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
               type: "object",
             },
           },
+          description:
+            "The content of a page of a document, comprising text and linked images and an optional page view image",
           properties: {
             page_view: {
               anyOf: [
@@ -209,14 +214,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["text_and_images"],
-          title: "PageContent",
+          title: "native.Page",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.JobRequirements",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -225,6 +232,7 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       candidate_profile: {
         concept_ref: "cv_batch_screening.CandidateProfile",
+        item_count: null,
         json_schema: {
           description:
             "A structured summary of a job candidate's professional background extracted from their CV.",
@@ -259,13 +267,15 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["skills", "experience", "education"],
-          title: "cv_batch_screening__CandidateProfile",
+          title: "cv_batch_screening.CandidateProfile",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       job_requirements: {
         concept_ref: "cv_batch_screening.JobRequirements",
+        item_count: null,
         json_schema: {
           description: "A structured summary of what a job position requires from candidates.",
           properties: {
@@ -299,14 +309,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["required_skills", "responsibilities", "qualifications"],
-          title: "cv_batch_screening__JobRequirements",
+          title: "cv_batch_screening.JobRequirements",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.CandidateMatch",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -315,9 +327,11 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       cv_pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           $defs: {
             ImageContent: {
+              description: "An image",
               properties: {
                 caption: {
                   anyOf: [
@@ -483,6 +497,7 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
               type: "object",
             },
             TextContent: {
+              description: "A text",
               properties: {
                 text: {
                   description: "The text",
@@ -495,6 +510,8 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
               type: "object",
             },
           },
+          description:
+            "The content of a page of a document, comprising text and linked images and an optional page view image",
           properties: {
             page_view: {
               anyOf: [
@@ -514,14 +531,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["text_and_images"],
-          title: "PageContent",
+          title: "native.Page",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.CandidateProfile",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -530,8 +549,10 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       cvs: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
           items: {
+            description: "A document",
             properties: {
               filename: {
                 anyOf: [
@@ -606,16 +627,19 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
               },
             },
             required: ["url"],
-            title: "DocumentContent",
+            title: "native.Document",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       job_offer_pdf: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -689,14 +713,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.CandidateMatch",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -705,7 +731,9 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       cv_pdf: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -779,14 +807,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -795,7 +825,9 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       job_offer_pdf: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -869,14 +901,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -885,7 +919,9 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       job_offer_pdf: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -959,14 +995,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.JobRequirements",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -975,7 +1013,9 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
     inputs: {
       cv_pdf: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -1049,13 +1089,15 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       job_requirements: {
         concept_ref: "cv_batch_screening.JobRequirements",
+        item_count: null,
         json_schema: {
           description: "A structured summary of what a job position requires from candidates.",
           properties: {
@@ -1089,14 +1131,16 @@ export const CONTRACTS_CV_BATCH_SCREENING = {
             },
           },
           required: ["required_skills", "responsibilities", "qualifications"],
-          title: "cv_batch_screening__JobRequirements",
+          title: "cv_batch_screening.JobRequirements",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "cv_batch_screening.CandidateMatch",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

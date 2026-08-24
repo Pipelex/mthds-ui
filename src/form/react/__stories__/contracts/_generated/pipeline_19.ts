@@ -10,6 +10,7 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       decision: {
         concept_ref: "content_moderation.Decision",
+        item_count: null,
         json_schema: {
           description: "Moderation decision",
           properties: {
@@ -31,14 +32,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["approved", "reason", "action"],
-          title: "content_moderation__Decision",
+          title: "content_moderation.Decision",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.ModerationResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -47,7 +50,9 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       content: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -56,14 +61,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.SafetyScore",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -72,7 +79,9 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       content: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -81,14 +90,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.SafetyScore",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -97,6 +108,7 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       image_score: {
         concept_ref: "content_moderation.SafetyScore",
+        item_count: null,
         json_schema: {
           description: "Content safety assessment score",
           properties: {
@@ -126,13 +138,15 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["score", "safe"],
-          title: "content_moderation__SafetyScore",
+          title: "content_moderation.SafetyScore",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
       text_score: {
         concept_ref: "content_moderation.SafetyScore",
+        item_count: null,
         json_schema: {
           description: "Content safety assessment score",
           properties: {
@@ -162,14 +176,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["score", "safe"],
-          title: "content_moderation__SafetyScore",
+          title: "content_moderation.SafetyScore",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.Decision",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -178,7 +194,9 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       content: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -187,14 +205,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.ModerationResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -203,7 +223,9 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       content: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -212,14 +234,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -228,6 +252,7 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       decision: {
         concept_ref: "content_moderation.Decision",
+        item_count: null,
         json_schema: {
           description: "Moderation decision",
           properties: {
@@ -249,14 +274,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["approved", "reason", "action"],
-          title: "content_moderation__Decision",
+          title: "content_moderation.Decision",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.ModerationResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -265,6 +292,7 @@ export const CONTRACTS_CONTENT_MODERATION = {
     inputs: {
       decision: {
         concept_ref: "content_moderation.Decision",
+        item_count: null,
         json_schema: {
           description: "Moderation decision",
           properties: {
@@ -286,14 +314,16 @@ export const CONTRACTS_CONTENT_MODERATION = {
             },
           },
           required: ["approved", "reason", "action"],
-          title: "content_moderation__Decision",
+          title: "content_moderation.Decision",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "content_moderation.ModerationResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

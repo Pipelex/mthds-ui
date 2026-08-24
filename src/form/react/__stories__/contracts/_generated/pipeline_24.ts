@@ -10,10 +10,12 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -180,6 +182,7 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -192,6 +195,8 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -211,16 +216,18 @@ export const CONTRACTS_DEEP_NESTING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.BatchResult",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -229,7 +236,9 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -303,14 +312,16 @@ export const CONTRACTS_DEEP_NESTING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.FinalOutput",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -319,6 +330,7 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       batch_result: {
         concept_ref: "deep_processing.BatchResult",
+        item_count: null,
         json_schema: {
           items: {
             description: "Result from batch processing",
@@ -330,15 +342,17 @@ export const CONTRACTS_DEEP_NESTING = {
               },
             },
             required: ["text"],
-            title: "deep_processing__BatchResult",
+            title: "deep_processing.BatchResult",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
       search_summary: {
         concept_ref: "deep_processing.SearchSummary",
+        item_count: null,
         json_schema: {
           description: "Summary from search results",
           properties: {
@@ -349,14 +363,16 @@ export const CONTRACTS_DEEP_NESTING = {
             },
           },
           required: ["text"],
-          title: "deep_processing__SearchSummary",
+          title: "deep_processing.SearchSummary",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.FinalOutput",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -365,7 +381,9 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       document: {
         concept_ref: "native.Document",
+        item_count: null,
         json_schema: {
+          description: "A document",
           properties: {
             filename: {
               anyOf: [
@@ -439,14 +457,16 @@ export const CONTRACTS_DEEP_NESTING = {
             },
           },
           required: ["url"],
-          title: "DocumentContent",
+          title: "native.Document",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Page",
+      item_count: null,
       multiplicity: "variable",
       optional: false,
     },
@@ -455,10 +475,12 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -625,6 +647,7 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -637,6 +660,8 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -656,16 +681,18 @@ export const CONTRACTS_DEEP_NESTING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.Composite",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -674,9 +701,11 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       page: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           $defs: {
             ImageContent: {
+              description: "An image",
               properties: {
                 caption: {
                   anyOf: [
@@ -842,6 +871,7 @@ export const CONTRACTS_DEEP_NESTING = {
               type: "object",
             },
             TextContent: {
+              description: "A text",
               properties: {
                 text: {
                   description: "The text",
@@ -854,6 +884,8 @@ export const CONTRACTS_DEEP_NESTING = {
               type: "object",
             },
           },
+          description:
+            "The content of a page of a document, comprising text and linked images and an optional page view image",
           properties: {
             page_view: {
               anyOf: [
@@ -873,14 +905,16 @@ export const CONTRACTS_DEEP_NESTING = {
             },
           },
           required: ["text_and_images"],
-          title: "PageContent",
+          title: "native.Page",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.BatchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -889,10 +923,12 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1059,6 +1095,7 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1071,6 +1108,8 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1090,16 +1129,18 @@ export const CONTRACTS_DEEP_NESTING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.SearchSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1108,10 +1149,12 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       pages: {
         concept_ref: "native.Page",
+        item_count: null,
         json_schema: {
           items: {
             $defs: {
               ImageContent: {
+                description: "An image",
                 properties: {
                   caption: {
                     anyOf: [
@@ -1278,6 +1321,7 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
               TextContent: {
+                description: "A text",
                 properties: {
                   text: {
                     description: "The text",
@@ -1290,6 +1334,8 @@ export const CONTRACTS_DEEP_NESTING = {
                 type: "object",
               },
             },
+            description:
+              "The content of a page of a document, comprising text and linked images and an optional page view image",
             properties: {
               page_view: {
                 anyOf: [
@@ -1309,16 +1355,18 @@ export const CONTRACTS_DEEP_NESTING = {
               },
             },
             required: ["text_and_images"],
-            title: "PageContent",
+            title: "native.Page",
             type: "object",
           },
           type: "array",
         },
-        optional: false,
+        multiplicity: "variable",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "native.SearchResult",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -1327,9 +1375,11 @@ export const CONTRACTS_DEEP_NESTING = {
     inputs: {
       search_result: {
         concept_ref: "native.SearchResult",
+        item_count: null,
         json_schema: {
           $defs: {
             DocumentContent: {
+              description: "A document",
               properties: {
                 filename: {
                   anyOf: [
@@ -1408,8 +1458,7 @@ export const CONTRACTS_DEEP_NESTING = {
               type: "object",
             },
           },
-          description:
-            "Represents the result of a search query with an answer and list of sources.",
+          description: "A search result with answer and sources",
           properties: {
             answer: {
               description: "The answer to the search query",
@@ -1426,14 +1475,16 @@ export const CONTRACTS_DEEP_NESTING = {
             },
           },
           required: ["answer"],
-          title: "SearchResultContent",
+          title: "native.SearchResult",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "deep_processing.SearchSummary",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },

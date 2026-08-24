@@ -77,7 +77,7 @@ The repo's own story ships the collision: `RunPanel.stories.tsx`'s `RequestSubmi
 
 ---
 
-## 3. A list item's upload id is its INDEX, so removing a row mid-upload lands the file on the wrong row
+## 3. A list item's upload id is its INDEX, so removing a row mid-upload lands the file on the wrong row — FIXED IN THE KERNEL, STRUCK
 
 The kernel composes a list row's id positionally:
 
@@ -97,6 +97,10 @@ The shorter-array case is worse: `setValueAtPath` assigns into the array by inde
 **Where the fix belongs — and one thing this note first got wrong.** Stable per-item identity is the kernel's to give; keying an upload to an array position is the root cause and it is composed in `ListField`. The mitigation originally suggested here — "disable a row's remove control while that row is uploading" — **cannot be done from this repo.** The remove button consults `env?.disabled` alone, and `env.disabled` is ambient: setting it during an upload freezes every field in the form, sibling dropzones included, which breaks the two-uploads-at-once case this library documents and tests. The narrow version of that mitigation is a change inside `ListField`, so it went into the brief as option 2 rather than staying here as local work.
 
 The other half — dropping `uploadingIds` entries whose list index no longer exists — is doable here, and is not worth it alone: it clears a stale busy indicator while the file still lands on the wrong row. It belongs with the kernel fix, not before it.
+
+**The kernel took it, and this residue is struck.** The drop-then-remove sequence is unperformable: removal is now blocked while a file is arriving anywhere in that list, read by ID **prefix**, so an upload _inside_ a row counts as well as a row that is one — `for (const uploading of uploadingIds) if (uploading.startsWith(prefix)) return true` in the built `react` entry. Add stays available, because appending moves no existing row. Beside it each row now carries a generated React key, so removing one **moves** the survivors instead of renumbering them into each other, which used to carry a row's own control state onto its neighbour's value.
+
+Two things this note got right and one it got wrong, worth keeping straight. Right: the fix belonged in `ListField`, not here, and the local mitigation it first proposed (disabling a row's remove control via `env.disabled`) genuinely could not be done from this repo without freezing every field in the form. Also right: `env.disabled` was never the lever. **Wrong, or at least superseded:** the assumption that stable per-item identity had to replace the positional field ID. It did not, and deliberately so — the row's field ID stays `` `${id}.${index}` ``, because it is a **path**, and `RunPanel.tsx` writes an upload back with `setValueAtPath(valuesRef.current, id.split("."), …)`. An opaque row token as the basis of the field ID would have broken that write-back, so the generated identity that did land lives in the control's own state rather than in the value. Nothing in `src/form/` needed a line changed.
 
 ---
 

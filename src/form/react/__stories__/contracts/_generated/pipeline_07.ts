@@ -10,7 +10,9 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -19,14 +21,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.ClassifiedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -35,6 +39,7 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       classified: {
         concept_ref: "translation.ClassifiedText",
+        item_count: null,
         json_schema: {
           description: "Text with detected language",
           properties: {
@@ -51,14 +56,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text", "language"],
-          title: "translation__ClassifiedText",
+          title: "translation.ClassifiedText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.TranslatedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -67,6 +74,7 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       classified: {
         concept_ref: "translation.ClassifiedText",
+        item_count: null,
         json_schema: {
           description: "Text with detected language",
           properties: {
@@ -83,14 +91,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text", "language"],
-          title: "translation__ClassifiedText",
+          title: "translation.ClassifiedText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.TranslatedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -99,6 +109,7 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       classified: {
         concept_ref: "translation.ClassifiedText",
+        item_count: null,
         json_schema: {
           description: "Text with detected language",
           properties: {
@@ -115,14 +126,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text", "language"],
-          title: "translation__ClassifiedText",
+          title: "translation.ClassifiedText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.TranslatedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -131,6 +144,7 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       classified: {
         concept_ref: "translation.ClassifiedText",
+        item_count: null,
         json_schema: {
           description: "Text with detected language",
           properties: {
@@ -147,14 +161,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text", "language"],
-          title: "translation__ClassifiedText",
+          title: "translation.ClassifiedText",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.TranslatedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
@@ -163,7 +179,9 @@ export const CONTRACTS_SIMPLE_CONDITION = {
     inputs: {
       text: {
         concept_ref: "native.Text",
+        item_count: null,
         json_schema: {
+          description: "A text",
           properties: {
             text: {
               description: "The text",
@@ -172,14 +190,16 @@ export const CONTRACTS_SIMPLE_CONDITION = {
             },
           },
           required: ["text"],
-          title: "TextContent",
+          title: "native.Text",
           type: "object",
         },
-        optional: false,
+        multiplicity: "single",
+        presence: "plain",
       },
     },
     output: {
       concept_ref: "translation.TranslatedText",
+      item_count: null,
       multiplicity: "single",
       optional: false,
     },
