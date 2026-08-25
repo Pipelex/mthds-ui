@@ -1,5 +1,45 @@
 # Changelog
 
+## [v0.18.0] - 2026-08-25
+
+### Added
+
+- **New `RunPanel` component** — Added the `@pipelex/mthds-ui/form/react` entry point exporting `RunPanel`, which renders a pipe's input form from its IO contract (field rendering, readiness gating, wire-ready payload generation) without executing the run. See `docs/run-form-panel.md`.
+- **Optional form kernel** — Added `@pipelex/mthds-form` as an optional peer dependency. Graph-only consumers install nothing extra; form consumers install the kernel. Import isolation is enforced via ESLint to prevent bundle leakage.
+- **Vendored MTHDS Test Corpus** — Added a read-only, byte-identical copy of the canonical MTHDS Test Corpus (`data/mthds-corpus/`) for cross-language conformance testing of the static graph builder.
+- **Contracts fixture generation** — Added `make fixtures-contracts` to generate `pipe_io_contracts` fixtures offline, without full pipeline inference.
+- **New developer commands** — Added `make smoke-pack` to verify the built tarball from a bare consumer's perspective, and `make use-local` / `make use-npm` to swap between local and published builds of the form kernel.
+- **`bump-mthds-form` Claude skill** — Added a skill that automates and guides updating the form kernel dependency.
+- **Documentation** — Added `docs/run-form-panel.md` for the new panel, plus static-graph multi-file package and theming notes.
+
+### Changed
+
+- Bumped `@pipelex/mthds-form` to `0.4.0` in both the peer and dev ranges; hosts using the form panel must update their kernel version to satisfy the caret range. (Breaking)
+- **S2 contracts reshape** — Updated `pipe_io_contracts` fixtures to the new S2 wire format: the boolean `optional` flag is replaced by a three-valued `presence` marker, `multiplicity` gained a `fixed` arm, and `item_count` was added. (Breaking)
+- **Unified submit validation** — The submit path now uses the kernel's `gateRunInputs`, so the Run button and the programmatic submit gate enforce identical validation rules (e.g. catching blank required text inputs).
+- **Reduced browser bundle size** — The `ajv` validator is no longer shipped to the browser for hosts rendering the panel.
+- **Corpus sync** — Synced the vendored MTHDS corpus to `pipelex` v0.51.0, adding invalid entries for negative testing and `fails_at` tags. The sweeps read each entry's `validity` and take only the valid ones.
+- **Improved form gating** — Fixed-count list inputs (`Concept[N]`) now gate the Run button until the exact count is met, and required structured inputs must be interacted with before the Run button enables.
+- **Better form controls, via the kernel bump** — An optional structured input stays absent until touched, `native.Number` travels inside its declared envelope, `native.YesNo` renders as a switch, a number's declared `minimum` / `maximum` reach the stepper, and a blocked run names the field the method wrote rather than the title pydantic gave it.
+- **Storybook styling** — Storybook now uses the form kernel's prebuilt styling lane (`theme.css` + `styles.css`) to accurately test the default Tailwind preflight environment.
+- **Shared fixture discovery** — Fixture generation scripts now use a shared discovery helper to sweep the local pipelines and the vendored corpus together.
+- **Prop documentation** — `RunPanel`'s `env` prop now documents that `uploadingIds` unions with the panel's own set rather than overriding it, and `running` documents that a host must set it synchronously inside `onRun`.
+
+### Fixed
+
+- **Startup crash** — Updated `uri_format` in `.pipelex/pipelex.toml` to `{hash}.{extension}` to fix initialization failures with `pipelex` 0.51.0.
+- **Contracts dump data loss** — Fixed the Python contracts dump script dropping the `item_count` field by removing `exclude_none=True`.
+- **Error summary translation** — The host's `translate` function now receives the entire error summary instead of a subset of error routes.
+- **UI state bugs** — Optional inputs no longer disappear from the UI when cleared, and `env.disabled` now disables the Run button in addition to the form fields.
+- **Duplicate runs** — Fixed a race where two `requestSubmit()` calls in the same synchronous block started duplicate runs; a submit that passes the gate is now latched until the end of the current task.
+- **Accessibility** — Fixed the Run button label contrast to meet WCAG AA in both light and dark themes.
+- **Native validation veto** — Added `noValidate` to the panel's `<form>` so a decimal in a number field no longer silently vetoes submission.
+- **Upload tracking** — The host's `uploadingIds` now joins the panel's internal tracking set instead of replacing it, so an in-flight upload the panel started can no longer be hidden.
+- **Run gate hardening, via the kernel bump** — A deeply nested value no longer overflows the stack (the emptiness walk stops at a depth cap, which guards cycles at the same time), a request body that is not an object is refused rather than repaired into `{}` and accepted, and an input whose name collides with `Object.prototype` is read correctly.
+- **Packaging & tooling** — The packaging smoke test now catches missing CSS imports and `"use client"` directives; the isolation guards catch a dynamic `import()` of the form kernel; the standalone CSS manifest guard works on Windows and in both directions; partial fixture generation (`--only`) no longer re-sources the vendored corpus entries; and each fixture generator mode demands exactly the executable it invokes (CLI vs. Python venv).
+- **Static graph builder** — The concept reference parser handles optional (`?`) and force (`!`) presence markers; the fixture sweep fails on any diagnostic, including warnings; multi-file bundle merging lets a concrete pipe definition override a forward declaration, reporting `signature-type-mismatch` when the two disagree; and `refines` now refuses multiplicity and presence suffixes.
+- **Syntax highlighting** — Fixed the MTHDS Shiki grammar to highlight presence markers.
+
 ## [v0.17.0] - 2026-08-14
 
 ### Added

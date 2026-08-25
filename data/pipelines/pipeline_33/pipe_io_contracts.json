@@ -1,0 +1,300 @@
+{
+  "availability.check_day": {
+    "inputs": {
+      "day": {
+        "concept_ref": "native.Date",
+        "item_count": null,
+        "json_schema": {
+          "description": "A calendar date, optionally with a time of day \u2014 as precise as its source states.",
+          "properties": {
+            "date": {
+              "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
+              "format": "date",
+              "title": "Date",
+              "type": "string"
+            },
+            "time": {
+              "anyOf": [
+                {
+                  "format": "time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time \u2014 never invent a time. Keep the UTC offset exactly when the source states one.",
+              "title": "Time"
+            }
+          },
+          "required": [
+            "date"
+          ],
+          "title": "native.Date",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "availability.SlotCheck",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "availability.is_urgent": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.YesNo",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "availability.read_dates": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.Date",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "availability.reply_now": {
+    "inputs": {
+      "checks": {
+        "concept_ref": "availability.SlotCheck",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "Whether one proposed date has a free slot",
+            "properties": {
+              "day": {
+                "description": "The date that was checked, in ISO 8601",
+                "title": "Day",
+                "type": "string"
+              },
+              "is_free": {
+                "description": "Whether the calendar is free that day",
+                "title": "Is Free",
+                "type": "boolean"
+              },
+              "note": {
+                "description": "What else is on the calendar that day",
+                "title": "Note",
+                "type": "string"
+              }
+            },
+            "required": [
+              "day",
+              "is_free",
+              "note"
+            ],
+            "title": "availability.SlotCheck",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "availability.Reply",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "availability.reply_with_options": {
+    "inputs": {
+      "checks": {
+        "concept_ref": "availability.SlotCheck",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "Whether one proposed date has a free slot",
+            "properties": {
+              "day": {
+                "description": "The date that was checked, in ISO 8601",
+                "title": "Day",
+                "type": "string"
+              },
+              "is_free": {
+                "description": "Whether the calendar is free that day",
+                "title": "Is Free",
+                "type": "boolean"
+              },
+              "note": {
+                "description": "What else is on the calendar that day",
+                "title": "Note",
+                "type": "string"
+              }
+            },
+            "required": [
+              "day",
+              "is_free",
+              "note"
+            ],
+            "title": "availability.SlotCheck",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "availability.Reply",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "availability.route_availability": {
+    "inputs": {
+      "request": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "availability.Reply",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "availability.route_reply": {
+    "inputs": {
+      "checks": {
+        "concept_ref": "availability.SlotCheck",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "Whether one proposed date has a free slot",
+            "properties": {
+              "day": {
+                "description": "The date that was checked, in ISO 8601",
+                "title": "Day",
+                "type": "string"
+              },
+              "is_free": {
+                "description": "Whether the calendar is free that day",
+                "title": "Is Free",
+                "type": "boolean"
+              },
+              "note": {
+                "description": "What else is on the calendar that day",
+                "title": "Note",
+                "type": "string"
+              }
+            },
+            "required": [
+              "day",
+              "is_free",
+              "note"
+            ],
+            "title": "availability.SlotCheck",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      },
+      "urgent": {
+        "concept_ref": "native.YesNo",
+        "item_count": null,
+        "json_schema": {
+          "description": "The answer to a yes/no question",
+          "properties": {
+            "yes_no": {
+              "description": "Whether the answer is yes (true) or no (false).",
+              "title": "Yes No",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "yes_no"
+          ],
+          "title": "native.YesNo",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "availability.Reply",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

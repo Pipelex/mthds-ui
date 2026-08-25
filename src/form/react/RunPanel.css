@@ -1,0 +1,131 @@
+/* ─── Run panel — chrome around the form kernel's controls ───────────────── */
+/* Token-only: every colour comes from this library's palette, applied to the */
+/* container as CSS variables by RunPanel itself (see `graphConfig.ts`).      */
+/*                                                                            */
+/* This file styles the PANEL and nothing inside a field. The controls are    */
+/* the kernel's, styled with Tailwind classes over shadcn semantic tokens,    */
+/* and bringing those in is the HOST's lane — either a Tailwind build that    */
+/* scans the kernel's dist, or its prebuilt `theme.css` + `styles.css`. See   */
+/* `docs/run-form-panel.md`; this stylesheet deliberately imports neither, so */
+/* no host inherits Tailwind's preflight from us.                            */
+
+.mthds-run-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px 20px 20px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-default);
+}
+
+.mthds-run-panel-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.mthds-run-panel-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mthds-run-panel-empty {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.mthds-run-panel-error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-error-border);
+  border-radius: 6px;
+  background: var(--color-error-bg);
+  color: var(--text-default);
+  line-height: 1.5;
+}
+
+/* ─── Footer — the commit action and what still stands in its way ────────── */
+
+.mthds-run-panel-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.mthds-run-panel-run {
+  padding: 7px 18px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  /* Both colours below are deliberately literal, where the rest of this file
+     reads the palette through `var()`. That is a trade, and it was made
+     knowingly.
+
+     A 13px/600 label needs 4.5:1 to clear WCAG AA, and white on the palette's
+     `--color-accent-strong` does not manage it in EITHER theme: 4.10:1 on the
+     light `#0284c7`, 3.68:1 on the dark `#3b82f6`. Reaching for
+     `--text-on-accent` does not repair that. It is calibrated against
+     `--color-accent`, a different colour, and resolves to `#ffffff` in the
+     light palette — so adopting it would flip the dark label to near-black
+     while leaving the panel's DEFAULT theme exactly as unreadable, which is
+     the half of the defect most hosts actually see.
+
+     So the background moves per theme instead and the label stays white:
+     `#0369a1` gives 5.93:1 here, `#1d4ed8` gives 6.70:1 in the `.dark` rule
+     below. What that costs is real — a host overriding
+     `--color-accent-strong` no longer re-themes this button along with the
+     graph. It is accepted because this is the primary call to action, and
+     because the button is the only place in the repo that puts text on that
+     token, so nothing else shifts as a consequence.
+
+     `src/form/__tests__/contrast.test.ts` reads these two literals back and
+     holds them to the AA line — including the `var()` they must not become. And
+     `wip/adopt-form/deferred-run-button-contrast.md` records the alternatives
+     that were weighed. */
+  background: #0369a1;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity 0.15s,
+    filter 0.15s;
+}
+
+/* `RunPanel` puts `dark` on the panel alongside the inline palette variables,
+   so each theme gets its own accessible background without the palette itself
+   moving — `--color-accent-strong` is a graph token, and darkening it there
+   would restyle the graph to fix a button. */
+.mthds-run-panel.dark .mthds-run-panel-run {
+  background: #1d4ed8;
+}
+
+.mthds-run-panel-run:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.mthds-run-panel-run:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.mthds-run-panel-run:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mthds-run-panel-readiness {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}

@@ -276,9 +276,19 @@ export interface ConceptInfo {
   json_schema?: Record<string, unknown>;
 }
 
+/**
+ * Presence of a value in a declared slot, mirroring the runtime's
+ * `PresenceMarker`: `plain` (always present), `optional` (the `?` suffix — the
+ * slot may legitimately hold no value), `force` (the `!` suffix — a use-site
+ * assertion that the value must be present). The runtime defaults the field to
+ * `plain`, so an absent `presence` reads as plain.
+ */
+export type PresenceMarker = "plain" | "optional" | "force";
+
 export interface StuffSpecInfo {
   concept: ConceptInfo;
   multiplicity: number | boolean | null;
+  presence?: PresenceMarker;
 }
 
 // ─── Template blueprint (shared by LLM prompts, Search, Compose, ImgGen) ───

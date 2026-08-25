@@ -1,0 +1,435 @@
+{
+  "data_enrichment.batch_enrich": {
+    "inputs": {
+      "document": {
+        "concept_ref": "native.Document",
+        "item_count": null,
+        "json_schema": {
+          "description": "A document",
+          "properties": {
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the document",
+              "title": "Filename"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the document",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public HTTPS URL of the document",
+              "title": "Public Url"
+            },
+            "snippet": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "A text snippet or excerpt from the document",
+              "title": "Snippet"
+            },
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The title of the document or source",
+              "title": "Title"
+            },
+            "url": {
+              "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "native.Document",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_enrichment.EnrichmentReport",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_enrichment.enrich_single": {
+    "inputs": {
+      "record": {
+        "concept_ref": "data_enrichment.Record",
+        "item_count": null,
+        "json_schema": {
+          "description": "A data record to enrich",
+          "properties": {
+            "json_obj": {
+              "additionalProperties": true,
+              "description": "The JSON object",
+              "title": "Json Obj",
+              "type": "object"
+            }
+          },
+          "required": [
+            "json_obj"
+          ],
+          "title": "data_enrichment.Record",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_enrichment.EnrichedRecord",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_enrichment.export_results": {
+    "inputs": {
+      "enriched_records": {
+        "concept_ref": "data_enrichment.EnrichedRecord",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "A record enriched with details",
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "data_enrichment.EnrichedRecord",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_enrichment.EnrichmentReport",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_enrichment.format_entry": {
+    "inputs": {
+      "record": {
+        "concept_ref": "data_enrichment.Record",
+        "item_count": null,
+        "json_schema": {
+          "description": "A data record to enrich",
+          "properties": {
+            "json_obj": {
+              "additionalProperties": true,
+              "description": "The JSON object",
+              "title": "Json Obj",
+              "type": "object"
+            }
+          },
+          "required": [
+            "json_obj"
+          ],
+          "title": "data_enrichment.Record",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "search_result": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_enrichment.EnrichedRecord",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_enrichment.load_records": {
+    "inputs": {
+      "document": {
+        "concept_ref": "native.Document",
+        "item_count": null,
+        "json_schema": {
+          "description": "A document",
+          "properties": {
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the document",
+              "title": "Filename"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the document",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public HTTPS URL of the document",
+              "title": "Public Url"
+            },
+            "snippet": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "A text snippet or excerpt from the document",
+              "title": "Snippet"
+            },
+            "title": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The title of the document or source",
+              "title": "Title"
+            },
+            "url": {
+              "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "native.Document",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_enrichment.Record",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "data_enrichment.lookup_details": {
+    "inputs": {
+      "record": {
+        "concept_ref": "data_enrichment.Record",
+        "item_count": null,
+        "json_schema": {
+          "description": "A data record to enrich",
+          "properties": {
+            "json_obj": {
+              "additionalProperties": true,
+              "description": "The JSON object",
+              "title": "Json Obj",
+              "type": "object"
+            }
+          },
+          "required": [
+            "json_obj"
+          ],
+          "title": "data_enrichment.Record",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

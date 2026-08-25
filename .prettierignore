@@ -5,3 +5,8 @@
 # enough and writes them raw when they are not, so their formatting is not stable
 # and must not be checked.
 src/graph/react/viewer/__stories__/pipelines/specs/_generated/
+
+# Machine-generated pipe_io_contracts fixtures (scripts/generate-fixtures.mjs),
+# same story as the graph specs above: single-line JSON, DO NOT EDIT, formatted
+# only when small enough to survive prettier's parser.
+src/form/react/__stories__/contracts/_generated/

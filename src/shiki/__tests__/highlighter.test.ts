@@ -31,6 +31,28 @@ describe("highlightMthds", () => {
     expect(html).toMatch(/color:#ce9178/i);
   });
 
+  // The io-ref grammar carries a presence marker after the multiplicity suffix
+  // (`Text?` optional, `Text!` force). The concept name must still tokenize as a
+  // concept when one is present — without the marker in the grammar the whole
+  // match fails and the ref falls through to plain-string tokenization.
+  const CONCEPT_TEAL = /color:#4ECDC4/i;
+
+  it.each(['output = "Text"', 'output = "Text[]"', 'output = "Text?"', 'output = "Text[]!"'])(
+    "tokenizes the concept in %s",
+    async (line) => {
+      expect(await highlightMthds(line)).toMatch(CONCEPT_TEAL);
+    },
+  );
+
+  it.each([
+    'style_hint = "Text"',
+    'style_hint = "Text?"',
+    'style_hint = "recruitment.CandidateProfile[]?"',
+    'style_hint = "Page[3]!"',
+  ])("tokenizes the concept in an io entry %s", async (line) => {
+    expect(await highlightMthds(line)).toMatch(CONCEPT_TEAL);
+  });
+
   it("handles empty string input", async () => {
     const html = await highlightMthds("");
     expect(html).toContain("<pre");

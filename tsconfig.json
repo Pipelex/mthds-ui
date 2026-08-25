@@ -14,7 +14,8 @@
     "noEmit": true,
     "paths": {
       "@graph/*": ["./src/graph/*"],
-      "@static-graph/*": ["./src/static-graph/*"]
+      "@static-graph/*": ["./src/static-graph/*"],
+      "@form/*": ["./src/form/*"]
     }
   },
   "include": ["src/"],

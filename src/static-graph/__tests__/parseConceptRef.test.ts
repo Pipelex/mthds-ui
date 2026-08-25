@@ -8,6 +8,7 @@ describe("parseConceptRef", () => {
       domain: null,
       code: "Report",
       multiplicity: null,
+      presence: "plain",
     });
   });
 
@@ -16,6 +17,7 @@ describe("parseConceptRef", () => {
       domain: "recruitment",
       code: "CandidateProfile",
       multiplicity: null,
+      presence: "plain",
     });
   });
 
@@ -24,6 +26,7 @@ describe("parseConceptRef", () => {
       domain: null,
       code: "Page",
       multiplicity: true,
+      presence: "plain",
     });
   });
 
@@ -32,6 +35,7 @@ describe("parseConceptRef", () => {
       domain: null,
       code: "Page",
       multiplicity: 3,
+      presence: "plain",
     });
   });
 
@@ -40,6 +44,7 @@ describe("parseConceptRef", () => {
       domain: "recruitment",
       code: "CandidateProfile",
       multiplicity: true,
+      presence: "plain",
     });
   });
 
@@ -48,11 +53,50 @@ describe("parseConceptRef", () => {
       domain: "pkg.sub_domain",
       code: "Thing",
       multiplicity: 2,
+      presence: "plain",
     });
   });
 
   it("trims surrounding whitespace", () => {
-    expect(parseConceptRef("  Text ")).toEqual({ domain: null, code: "Text", multiplicity: null });
+    expect(parseConceptRef("  Text ")).toEqual({
+      domain: null,
+      code: "Text",
+      multiplicity: null,
+      presence: "plain",
+    });
+  });
+
+  it("parses the optional presence marker", () => {
+    expect(parseConceptRef("Text?")).toEqual({
+      domain: null,
+      code: "Text",
+      multiplicity: null,
+      presence: "optional",
+    });
+  });
+
+  it("parses the force presence marker", () => {
+    expect(parseConceptRef("Text!")).toEqual({
+      domain: null,
+      code: "Text",
+      multiplicity: null,
+      presence: "force",
+    });
+  });
+
+  it("parses multiplicity and presence together, in that order", () => {
+    expect(parseConceptRef("recruitment.CandidateProfile[]?")).toEqual({
+      domain: "recruitment",
+      code: "CandidateProfile",
+      multiplicity: true,
+      presence: "optional",
+    });
+    expect(parseConceptRef("Page[3]!")).toEqual({
+      domain: null,
+      code: "Page",
+      multiplicity: 3,
+      presence: "force",
+    });
   });
 
   it("returns null for non-strings", () => {
@@ -66,5 +110,9 @@ describe("parseConceptRef", () => {
     expect(parseConceptRef("Page[abc]")).toBeNull();
     expect(parseConceptRef(".Leading")).toBeNull();
     expect(parseConceptRef("has space")).toBeNull();
+    // Presence comes after multiplicity, never before it, and never twice.
+    expect(parseConceptRef("Page?[]")).toBeNull();
+    expect(parseConceptRef("Text??")).toBeNull();
+    expect(parseConceptRef("Text?!")).toBeNull();
   });
 });

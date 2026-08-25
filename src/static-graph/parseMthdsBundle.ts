@@ -95,9 +95,26 @@ function qualifyRefines(
   raw: unknown,
   domain: string,
   declaredCodes: ReadonlySet<string>,
+  conceptCode: string,
+  diagnostics: Diagnostic[],
 ): string | null {
   const parts = parseConceptRef(raw);
   if (parts === null) return null;
+  // `refines` names a concept; multiplicity and presence are properties of an io
+  // slot that holds values, so a `refines` carrying either is malformed. Dropping
+  // the suffix silently would turn `refines = "Text?"` into a plain `native.Text`
+  // that reads back as if the author had written it that way.
+  if (parts.multiplicity !== null || parts.presence !== "plain") {
+    diagnostics.push({
+      severity: "warning",
+      code: "invalid-concept-ref",
+      message:
+        `concept "${conceptCode}": \`refines\` names a concept, so it takes no multiplicity ` +
+        `or presence suffix — ignored`,
+      path: `concept.${conceptCode}.refines`,
+    });
+    return null;
+  }
   if (parts.domain !== null) return `${parts.domain}.${parts.code}`;
   if (!declaredCodes.has(parts.code) && isNativeConceptCode(parts.code)) {
     return `${NATIVE_DOMAIN}.${parts.code}`;
@@ -153,7 +170,7 @@ function parseConcepts(
       domain_code: domain,
       description,
       structure_class_name: structureClassName,
-      refines: qualifyRefines(entry.refines, domain, declaredCodes),
+      refines: qualifyRefines(entry.refines, domain, declaredCodes, code, diagnostics),
       json_schema: deriveJsonSchema(entry.structure, structureClassName, description),
     };
   }

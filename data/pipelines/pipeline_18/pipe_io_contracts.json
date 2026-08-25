@@ -1,0 +1,867 @@
+{
+  "code_review.compose_review": {
+    "inputs": {
+      "logic_findings": {
+        "concept_ref": "code_review.ReviewFinding",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "A finding from code review",
+            "properties": {
+              "category": {
+                "description": "Finding category",
+                "title": "Category",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the finding",
+                "title": "Description",
+                "type": "string"
+              },
+              "line_ref": {
+                "description": "Line reference in the diff",
+                "title": "Line Ref",
+                "type": "string"
+              },
+              "severity": {
+                "description": "Severity level",
+                "enum": [
+                  "critical",
+                  "warning",
+                  "info"
+                ],
+                "title": "Severity",
+                "type": "string"
+              }
+            },
+            "required": [
+              "severity",
+              "category",
+              "description",
+              "line_ref"
+            ],
+            "title": "code_review.ReviewFinding",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      },
+      "perf_findings": {
+        "concept_ref": "code_review.ReviewFinding",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "A finding from code review",
+            "properties": {
+              "category": {
+                "description": "Finding category",
+                "title": "Category",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the finding",
+                "title": "Description",
+                "type": "string"
+              },
+              "line_ref": {
+                "description": "Line reference in the diff",
+                "title": "Line Ref",
+                "type": "string"
+              },
+              "severity": {
+                "description": "Severity level",
+                "enum": [
+                  "critical",
+                  "warning",
+                  "info"
+                ],
+                "title": "Severity",
+                "type": "string"
+              }
+            },
+            "required": [
+              "severity",
+              "category",
+              "description",
+              "line_ref"
+            ],
+            "title": "code_review.ReviewFinding",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      },
+      "security_findings": {
+        "concept_ref": "code_review.ReviewFinding",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "A finding from code review",
+            "properties": {
+              "category": {
+                "description": "Finding category",
+                "title": "Category",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the finding",
+                "title": "Description",
+                "type": "string"
+              },
+              "line_ref": {
+                "description": "Line reference in the diff",
+                "title": "Line Ref",
+                "type": "string"
+              },
+              "severity": {
+                "description": "Severity level",
+                "enum": [
+                  "critical",
+                  "warning",
+                  "info"
+                ],
+                "title": "Severity",
+                "type": "string"
+              }
+            },
+            "required": [
+              "severity",
+              "category",
+              "description",
+              "line_ref"
+            ],
+            "title": "code_review.ReviewFinding",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      },
+      "style_findings": {
+        "concept_ref": "code_review.ReviewFinding",
+        "item_count": null,
+        "json_schema": {
+          "items": {
+            "description": "A finding from code review",
+            "properties": {
+              "category": {
+                "description": "Finding category",
+                "title": "Category",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the finding",
+                "title": "Description",
+                "type": "string"
+              },
+              "line_ref": {
+                "description": "Line reference in the diff",
+                "title": "Line Ref",
+                "type": "string"
+              },
+              "severity": {
+                "description": "Severity level",
+                "enum": [
+                  "critical",
+                  "warning",
+                  "info"
+                ],
+                "title": "Severity",
+                "type": "string"
+              }
+            },
+            "required": [
+              "severity",
+              "category",
+              "description",
+              "line_ref"
+            ],
+            "title": "code_review.ReviewFinding",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "multiplicity": "variable",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.CodeReview",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "code_review.fetch_diff": {
+    "inputs": {
+      "pr_url": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "code_review.logic_check": {
+    "inputs": {
+      "diff": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.ReviewFinding",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "code_review.parallel_checks": {
+    "inputs": {
+      "diff": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "code_review.perf_check": {
+    "inputs": {
+      "diff": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.ReviewFinding",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "code_review.review_pipeline": {
+    "inputs": {
+      "pr_url": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.CodeReview",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "code_review.security_check": {
+    "inputs": {
+      "diff": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.ReviewFinding",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  },
+  "code_review.style_check": {
+    "inputs": {
+      "diff": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "code_review.ReviewFinding",
+      "item_count": null,
+      "multiplicity": "variable",
+      "optional": false
+    }
+  }
+}

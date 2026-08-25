@@ -25,6 +25,7 @@ export type DiagnosticCode =
   | "incomplete-batch-spec"
   | "duplicate-concept"
   | "duplicate-pipe"
+  | "signature-type-mismatch"
   | "unresolved-pipe-ref"
   | "cyclic-pipe-ref"
   | "missing-main-pipe"

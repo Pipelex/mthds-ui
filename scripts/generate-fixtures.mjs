@@ -12,12 +12,20 @@
  *   <mode>_run_mermaidflow.html   rendered Mermaid page
  *   live_run_main_stuff.json      what the live run actually produced (LIVE only)
  *   inputs_template.json          fill-in inputs template (offline, refreshed on DRY)
+ *   pipe_io_contracts.json        every pipe's IO contract (offline, refreshed on DRY)
  *
  * This script is the ONLY writer of those files. Anything else in a pipeline directory
  * (bundle.mthds, inputs.json, inputs/, structures/) is hand-authored input.
  *
+ * `pipe_io_contracts.json` is what the run form renders, and it is mode-independent:
+ * a contract is a projection of what a pipe DECLARES, not of what a run produced. It
+ * therefore needs no execution, which is why `--contracts` exists as its own fast,
+ * offline pass — and why the form fixtures can be rebuilt without every bundle in the
+ * corpus being currently runnable.
+ *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
  *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
+ *   node scripts/generate-fixtures.mjs --contracts                contracts only -> _generated.contracts.ts
  *   node scripts/generate-fixtures.mjs --only pipeline_04,...     restrict to a comma-separated list
  *   node scripts/generate-fixtures.mjs --missing                  only pipelines lacking an on-disk spec
  *   node scripts/generate-fixtures.mjs --from-disk                reassemble fixtures from on-disk specs, run nothing
@@ -27,7 +35,11 @@
  * LIVE runs perform real inference and need pipelex credentials available.
  * Both resolve config from the repo-local .pipelex/ directory.
  * --check is a smoke test: useful with --live --only to confirm the live path
- * works before committing to a full regeneration.
+ * works before committing to a full regeneration. It is rejected with
+ * --contracts, which is already offline and fast — a no-write variant of that
+ * pass would have no caller, and writing when asked not to is worse than
+ * refusing. A mistyped --only is rejected on every path, so a targeted refresh
+ * can never report success while leaving the pipeline you meant untouched.
  *
  * ALWAYS pass --only for a LIVE run. A full-corpus `make fixtures-live` sweeps
  * every fixture onto whatever pipelex the local CLI happens to be, and has no
@@ -58,11 +70,29 @@ import prettier from "prettier";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PIPELEX_REPO = path.resolve(REPO, "../pipelex");
+/**
+ * Where a virtualenv puts its executables, which is NOT the same directory on
+ * every platform: `Scripts` on native Windows, `bin` everywhere else. Both
+ * halves have to move together — naming `python.exe` inside `bin` describes no
+ * venv that has ever existed, so a win32 branch that changes only the filename
+ * is worse than none: it looks handled and resolves to a path that cannot be.
+ */
+const VENV_BIN_DIR = process.platform === "win32" ? "Scripts" : "bin";
+const EXE_SUFFIX = process.platform === "win32" ? ".exe" : "";
 const PIPELEX_BIN =
   process.env.PIPELEX_BIN ??
-  path.join(PIPELEX_REPO, ".venv", "bin", process.platform === "win32" ? "pipelex.exe" : "pipelex");
+  path.join(PIPELEX_REPO, ".venv", VENV_BIN_DIR, `pipelex${EXE_SUFFIX}`);
+const PIPELEX_PYTHON =
+  process.env.PIPELEX_PYTHON ??
+  path.join(PIPELEX_REPO, ".venv", VENV_BIN_DIR, `python${EXE_SUFFIX}`);
 const PIPELINES_DIR = path.join(REPO, "data/pipelines");
 const SPECS_DIR = path.join(REPO, "src/graph/react/viewer/__stories__/pipelines/specs");
+/**
+ * The contracts fixture lives under `src/form/` rather than beside the graph
+ * specs, because it is typed with the form kernel's `PipeIOContracts` and the
+ * eslint import-isolation rule confines `@pipelex/mthds-form` to that module.
+ */
+const CONTRACTS_DIR = path.join(REPO, "src/form/react/__stories__/contracts");
 
 /** Above this, prettier overflows its call stack on a single-line generated split. */
 const PRETTIER_MAX_BYTES = 2 * 1024 * 1024;
@@ -103,14 +133,57 @@ const NAME_MAP = {
   pipeline_34: "ALL_NATIVE_CONCEPTS",
 };
 
+/**
+ * Vendored MTHDS Test Corpus entries swept for their contracts alongside the
+ * pipelines, keyed entry name -> fixture export base name.
+ *
+ * The pipeline corpus has no OPTIONAL input anywhere, and optional inputs are
+ * half of what the run form is about — they are the ones that fold away. These
+ * two entries are where a real one lives, so the form fixtures come from
+ * generated data rather than from a contract someone invented (a hand-authored
+ * one gets the kernel's concept taxonomy subtly wrong; `native.Date` renders as
+ * prose, for instance, which nobody guesses).
+ *
+ * Nothing is written into `data/mthds-corpus/` — it is a read-only copy of a
+ * corpus `pipelex` owns. Only the generated split modules are produced.
+ */
+const CORPUS_CONTRACTS = {
+  feature_optionals_village_notice: "OPTIONAL_STYLE_HINT",
+  feature_smart_inputs_claims_triage: "SMART_INPUTS_TRIAGE",
+};
+const CORPUS_DIR = path.join(REPO, "data/mthds-corpus/entries");
+
 const LIVE = process.argv.includes("--live");
 const CHECK = process.argv.includes("--check");
+/**
+ * Refresh only the `pipe_io_contracts` layer, running no pipeline.
+ *
+ * A contract is a projection of what a pipe DECLARES, so unlike a graph spec it
+ * needs no execution — which makes it worth having as its own pass: the form
+ * fixtures can be rebuilt in seconds, and without depending on every bundle in
+ * the corpus being currently runnable.
+ */
+const CONTRACTS_ONLY = process.argv.includes("--contracts");
 const MISSING = process.argv.includes("--missing");
 const FROM_DISK = process.argv.includes("--from-disk");
 const MODE = LIVE ? "LIVE" : "DRY";
 const MODE_VALUE = LIVE ? "live" : "dry";
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg !== -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
+
+/**
+ * This invocation regenerates a SUBSET of the pipelines, whichever way it was
+ * asked for. Every partial mode owes the same debt — anything outside the
+ * subset must be reused from disk rather than re-sourced through the local
+ * pipelex, or a targeted refresh quietly sweeps unrelated fixtures onto
+ * whatever version the venv currently is.
+ *
+ * Declared once, at module scope, precisely because it was NOT: `--only` and
+ * `--missing` were each spelled out at every site that needed them, and the
+ * contracts pass ended up naming one and forgetting the other. A named
+ * predicate makes the next partial mode a single edit here instead of a hunt.
+ */
+const PARTIAL = Boolean(MISSING || ONLY);
 
 /** Per-pipeline graphspec JSON written alongside the bundle (mode-specific). */
 const SPEC_JSON_NAME = LIVE ? "live_run_graph_spec.json" : "dry_run_graph_spec.json";
@@ -138,6 +211,16 @@ const RUN_ARTIFACTS = [
 /** Mode-independent: the inputs template a caller fills in to run this pipeline. */
 const INPUTS_TEMPLATE_NAME = "inputs_template.json";
 
+/**
+ * Mode-independent: every pipe's IO contract, keyed by namespaced `pipe_ref`.
+ *
+ * This is what the form kernel consumes and what `RunPanel` renders. It is a
+ * projection of what the pipes DECLARE, so it does not vary between a dry and a
+ * live run — refreshed on the free DRY pass, left alone by a paid LIVE one, the
+ * same lifecycle as the inputs template.
+ */
+const PIPE_IO_CONTRACTS_NAME = "pipe_io_contracts.json";
+
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
   process.exit(1);
@@ -148,6 +231,29 @@ function assertPipelexCliAvailable() {
     die(
       `cannot find pipelex CLI at ${PIPELEX_BIN}. ` +
         `Set PIPELEX_BIN to an explicit CLI path or set up ../pipelex/.venv.`,
+    );
+  }
+}
+
+/**
+ * The contracts pass needs the venv INTERPRETER, not the CLI.
+ *
+ * No pipelex CLI surfaces `pipe_io_contracts`, so `dumpContracts` runs
+ * `scripts/dump_pipe_io_contracts.py` through `PIPELEX_PYTHON` and never
+ * touches `PIPELEX_BIN`. Guarding that path on the CLI checked the wrong
+ * executable in both directions: it refused a machine with a working
+ * interpreter and no sibling checkout — the exact case `PIPELEX_PYTHON`
+ * exists to support — and it waved through a machine with a CLI and no
+ * interpreter, which then died later inside `execFileSync` with a bare
+ * ENOENT naming neither the variable to set nor the mode that needed it.
+ */
+function assertPipelexPythonAvailable() {
+  if (!existsSync(PIPELEX_PYTHON)) {
+    die(
+      `cannot find the pipelex venv interpreter at ${PIPELEX_PYTHON}. ` +
+        `Contracts are dumped through it rather than through the CLI, so this is ` +
+        `required even when PIPELEX_BIN is set. ` +
+        `Set PIPELEX_PYTHON to an explicit interpreter path or set up ../pipelex/.venv.`,
     );
   }
 }
@@ -265,6 +371,42 @@ function writeInputsTemplate(pipelineDir) {
 }
 
 /**
+ * Write the bundle's `pipe_io_contracts` alongside it.
+ *
+ * No pipelex CLI surfaces the contracts today, so this goes through
+ * `scripts/dump_pipe_io_contracts.py` in the pipelex venv — see that file's
+ * header for why, and for the inbox request that retires it. Offline and
+ * inference-free, so it rides the free DRY pass.
+ */
+function dumpContracts(bundle, label) {
+  try {
+    return execFileSync(
+      PIPELEX_PYTHON,
+      [path.join(REPO, "scripts/dump_pipe_io_contracts.py"), bundle],
+      {
+        cwd: REPO,
+        env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
+        stdio: ["ignore", "pipe", "pipe"],
+        encoding: "utf-8",
+        maxBuffer: 64 * 1024 * 1024,
+      },
+    );
+  } catch (err) {
+    console.error(err.stdout?.toString() ?? "");
+    console.error(err.stderr?.toString() ?? "");
+    die(`${label}: dump_pipe_io_contracts.py failed`);
+  }
+}
+
+function writePipeIoContracts(pipelineDir) {
+  const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
+  writeFileSync(
+    path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME),
+    dumpContracts(bundle, pipelineDir),
+  );
+}
+
+/**
  * Gate the per-node usage attribution a FRESHLY generated spec must carry.
  *
  * Applied only to specs this invocation ran through pipelex — a spec reused from
@@ -377,12 +519,147 @@ async function formatSplit(splitRaw, prettierConfig) {
   return prettier.format(splitRaw, { ...prettierConfig, parser: "typescript" });
 }
 
+/**
+ * (Re)write the contracts fixture from the `pipe_io_contracts.json` files on disk.
+ *
+ * Derived from disk rather than from whatever this invocation happened to
+ * refresh, for the same reason the spec barrels are: a partial run must still
+ * emit a complete module, or the stories lose exports they import.
+ */
+async function writeContractsFixture(allPipelines, prettierConfig) {
+  const present = allPipelines.filter((p) =>
+    existsSync(path.join(PIPELINES_DIR, p, PIPE_IO_CONTRACTS_NAME)),
+  );
+  const splitDir = path.join(CONTRACTS_DIR, "_generated");
+  mkdirSync(splitDir, { recursive: true });
+
+  // Per-pipeline splits plus a barrel, the same shape as the graph specs: one
+  // pipeline's contract changing then produces a small diff instead of
+  // rewriting a single half-megabyte module.
+  const sources = [
+    ...present.map((pipelineDir) => ({
+      slug: pipelineDir,
+      name: NAME_MAP[pipelineDir],
+      json: readFileSync(path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME), "utf-8"),
+    })),
+    // Corpus entries have no writable directory of their own (the vendored copy
+    // is read-only), so their contracts go straight into the split module —
+    // which makes that split their ONLY on-disk representation. `--from-disk`
+    // runs nothing by contract, so it reuses the split rather than re-sourcing
+    // the entry onto whatever pipelex the local venv happens to be.
+    //
+    // A PARTIAL run is skipped for the same reason, and it is the same rule the
+    // pipelines already follow: an unselected pipeline is read from the JSON
+    // committed beside it rather than re-run. Without this, a targeted refresh
+    // of one pipeline also re-sourced both corpus entries — silently rewriting
+    // fixtures outside the requested selection, and mixing fixture versions
+    // whenever the local venv differs from the one that produced them.
+    //
+    // `--missing` counts, and reads as an afterthought only because it was one:
+    // the first fix here named `--only` alone, which left `make fixtures-missing`
+    // — a DRY run, so it reaches this fixture — re-sourcing both corpus entries
+    // while claiming to touch nothing but the specs it found absent.
+    ...(FROM_DISK || PARTIAL
+      ? []
+      : Object.entries(CORPUS_CONTRACTS).map(([entry, name]) => ({
+          slug: entry,
+          name,
+          json: dumpContracts(path.join(CORPUS_DIR, entry, "bundle.mthds"), entry),
+        }))),
+  ];
+
+  if (PARTIAL && !FROM_DISK) {
+    console.log(
+      `  corpus entries reused from their splits, not re-sourced: ${Object.keys(CORPUS_CONTRACTS).join(", ")}`,
+    );
+  }
+
+  for (const { slug, name, json } of sources) {
+    const splitRaw =
+      `/**\n` +
+      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's\n` +
+      ` * pipe_io_contracts, keyed by namespaced pipe_ref. DO NOT EDIT.\n` +
+      ` * Regenerate with \`make fixtures-contracts\`.\n` +
+      ` */\n` +
+      `import type { PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
+      `export const CONTRACTS_${name} = ${json.trim()} as unknown as PipeIOContracts;\n`;
+    writeFileSync(path.join(splitDir, `${slug}.ts`), await formatSplit(splitRaw, prettierConfig));
+  }
+
+  // The barrel re-exports every split on disk, not just the ones this
+  // invocation rewrote — the same rule writeBarrel() follows for graph specs.
+  const exported = [
+    ...present.map((pipelineDir) => ({ slug: pipelineDir, name: NAME_MAP[pipelineDir] })),
+    ...Object.entries(CORPUS_CONTRACTS)
+      .filter(([entry]) => existsSync(path.join(splitDir, `${entry}.ts`)))
+      .map(([entry, name]) => ({ slug: entry, name })),
+  ];
+
+  const barrelRaw =
+    `/**\n` +
+    ` * Auto-generated by scripts/generate-fixtures.mjs — re-exports the\n` +
+    ` * per-bundle contract split modules. DO NOT EDIT.\n` +
+    ` * Regenerate with \`make fixtures-contracts\`.\n` +
+    ` */\n` +
+    exported.map(({ slug, name }) => `export { CONTRACTS_${name} } from "./_generated/${slug}";`).join("\n") +
+    `\n`;
+
+  const outPath = path.join(CONTRACTS_DIR, "_generated.contracts.ts");
+  writeFileSync(outPath, await prettier.format(barrelRaw, { ...prettierConfig, parser: "typescript" }));
+  return { outPath, count: exported.length };
+}
+
 async function main() {
   const allPipelines = Object.keys(NAME_MAP)
     .filter((p) => existsSync(path.join(PIPELINES_DIR, p, "bundle.mthds")))
     .sort();
 
   if (allPipelines.length === 0) die("no pipelines found");
+
+  // Validated once, for every path: a mistyped --only that silently selects
+  // nothing would otherwise report a successful targeted refresh while leaving
+  // the pipeline the caller actually meant untouched.
+  if (ONLY) {
+    const unknown = [...ONLY].filter((p) => !allPipelines.includes(p));
+    if (unknown.length > 0) die(`unknown pipeline(s) in --only: ${unknown.join(",")}`);
+  }
+
+  if (CONTRACTS_ONLY) {
+    // --check exists to smoke-test the LIVE path without writing. The contracts
+    // pass is already offline and fast, so a no-write variant of it would be
+    // machinery with no caller — and silently writing when asked not to is the
+    // one outcome worth refusing outright.
+    if (CHECK) die("--check is not supported with --contracts");
+    // `--only` is the only way this pass takes a subset, so `--missing` would
+    // make PARTIAL claim one that does not exist — every pipeline re-sourced
+    // while the corpus entries are skipped as though a selection had been made.
+    // Refusing beats implementing a mode with no caller.
+    if (MISSING) die("--missing is not supported with --contracts (use --only)");
+    const selected = ONLY ? allPipelines.filter((p) => ONLY.has(p)) : allPipelines;
+    console.log(
+      `generate-fixtures: contracts over ${selected.length} pipeline(s)` +
+        `${FROM_DISK ? " [from disk]" : ""}`,
+    );
+    // --from-disk runs nothing, here as everywhere: it reassembles the fixture
+    // from the pipe_io_contracts.json already committed beside each bundle
+    // rather than re-sourcing them through pipelex.
+    if (!FROM_DISK) {
+      // The interpreter, not the CLI: this whole branch runs through
+      // `dumpContracts`, which never invokes `pipelex`.
+      assertPipelexPythonAvailable();
+      for (const pipelineDir of selected) {
+        process.stdout.write(`  ${pipelineDir} ... `);
+        writePipeIoContracts(pipelineDir);
+        console.log("ok");
+      }
+    }
+    const prettierConfig = (await prettier.resolveConfig(CONTRACTS_DIR)) ?? {};
+    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    console.log(
+      `\n✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
+    );
+    return;
+  }
 
   // toProcess: pipelines actually run through pipelex this invocation.
   let toProcess;
@@ -391,14 +668,10 @@ async function main() {
   } else if (MISSING) {
     toProcess = allPipelines.filter((p) => !existsSync(specJsonPath(p)));
   } else if (ONLY) {
-    const unknown = [...ONLY].filter((p) => !allPipelines.includes(p));
-    if (unknown.length > 0) die(`unknown pipeline(s) in --only: ${unknown.join(",")}`);
     toProcess = allPipelines.filter((p) => ONLY.has(p));
   } else {
     toProcess = allPipelines;
   }
-  const PARTIAL = Boolean(MISSING || ONLY);
-
   if (toProcess.length === 0 && !FROM_DISK) {
     // Only reachable via --missing when every spec is already present.
     console.log(`generate-fixtures: ${MODE} — nothing missing, all ${SPEC_JSON_NAME} present`);
@@ -417,6 +690,16 @@ async function main() {
     assertPipelexCliAvailable();
     console.log(`  using pipelex CLI: ${path.relative(REPO, PIPELEX_BIN)}`);
   }
+  // A DRY pass also refreshes the contracts, and those go through the venv
+  // interpreter rather than the CLI — so demand it up front instead of dying
+  // halfway through, after the run artifacts have already been rewritten.
+  // The condition mirrors the `writePipeIoContracts` call site below exactly,
+  // `!CHECK` included: --check writes nothing, so it never reaches the
+  // interpreter, and a guard that outruns the call it protects turns a
+  // validate-only smoke test into one that needs a sibling venv it will not use.
+  if (toProcess.length > 0 && !CHECK && !LIVE) {
+    assertPipelexPythonAvailable();
+  }
 
   // name -> spec, assembled in allPipelines order for a stable output file.
   const specByName = new Map();
@@ -432,7 +715,10 @@ async function main() {
       if (!CHECK) {
         writeFileSync(specJsonPath(pipelineDir), JSON.stringify(spec, null, 2) + "\n");
         copyRunArtifacts(pipelineDir, outDir);
-        if (!LIVE) writeInputsTemplate(pipelineDir);
+        if (!LIVE) {
+          writeInputsTemplate(pipelineDir);
+          writePipeIoContracts(pipelineDir);
+        }
       }
     } finally {
       cleanup();
@@ -570,6 +856,15 @@ async function main() {
         `  wrote ${placeholdersWritten} LIVE placeholder split(s) — run \`make fixtures-live\` for real data`,
       );
     }
+
+    // The contracts are mode-independent and refreshed on the DRY pass, so the
+    // fixture is re-emitted here — idempotent when nothing moved. The pipeline
+    // contracts come off disk; the corpus ones are re-sourced through pipelex
+    // unless --from-disk, which reuses their split modules instead.
+    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    console.log(
+      `✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
+    );
   }
 }
 
