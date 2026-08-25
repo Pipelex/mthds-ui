@@ -1,0 +1,262 @@
+{
+  "report_generation.analyze_data": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Insight",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.assemble_report": {
+    "inputs": {
+      "chart_spec": {
+        "concept_ref": "report_generation.ChartSpec",
+        "item_count": null,
+        "json_schema": {
+          "description": "Specification for a chart visualization",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.ChartSpec",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "narrative": {
+        "concept_ref": "report_generation.Narrative",
+        "item_count": null,
+        "json_schema": {
+          "description": "Written narrative describing insights",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.Narrative",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "table_data": {
+        "concept_ref": "report_generation.TableData",
+        "item_count": null,
+        "json_schema": {
+          "description": "Structured table data",
+          "properties": {
+            "json_obj": {
+              "additionalProperties": true,
+              "description": "The JSON object",
+              "title": "Json Obj",
+              "type": "object"
+            }
+          },
+          "required": [
+            "json_obj"
+          ],
+          "title": "report_generation.TableData",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Report",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_chart": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.Insight",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.ChartSpec",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_outputs": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.Insight",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.generate_table": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.Insight",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.TableData",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.multi_format_report": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Report",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "report_generation.write_narrative": {
+    "inputs": {
+      "insight": {
+        "concept_ref": "report_generation.Insight",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data insight extracted from analysis",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "report_generation.Insight",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "report_generation.Narrative",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}

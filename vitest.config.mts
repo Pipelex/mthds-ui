@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       "@graph": path.resolve(dirname, "src/graph"),
       "@static-graph": path.resolve(dirname, "src/static-graph"),
+      "@form": path.resolve(dirname, "src/form"),
     },
   },
   test: {
@@ -29,6 +30,7 @@ export default defineConfig({
         "src/graph/graphFolds.ts",
         "src/graph/pipeCardPayload.ts",
         "src/graph/react/rfTypes.ts",
+        "src/form/runGate.ts",
         "src/static-graph/types.ts",
         "src/static-graph/conceptRefs.ts",
         "src/static-graph/normalizePipe.ts",

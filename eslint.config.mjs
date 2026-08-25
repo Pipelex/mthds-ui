@@ -32,6 +32,42 @@ export default tseslint.config(
       "no-console": "error",
     },
   },
+  {
+    // Import isolation for the optional peer (design Decision B,
+    // `wip/adopt-form/design.md`): `@pipelex/mthds-form` is reachable only from
+    // `src/form/**`, which is exported behind its own `./form/react` entry.
+    // Every other entry must keep resolving with the kernel not installed.
+    files: ["src/**/*.ts", "src/**/*.tsx"],
+    ignores: ["src/form/**"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@pipelex/mthds-form", "@pipelex/mthds-form/*"],
+              message:
+                "@pipelex/mthds-form is an OPTIONAL peer dependency, isolated behind the ./form/react entry (design Decision B). Import it only from src/form/**, so the graph entries keep working with the kernel absent.",
+            },
+          ],
+        },
+      ],
+      // `no-restricted-imports` does not visit `ImportExpression` at all, so the
+      // rule above is blind to `await import("@pipelex/mthds-form")` — which is
+      // the FIRST thing someone reaches for when the goal is "only pull the
+      // kernel in when the form is actually shown". That spelling would lint
+      // clean, stay external through tsup, and fail at runtime for every
+      // graph-only consumer, who by construction has not installed the kernel.
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "ImportExpression[source.value=/^@pipelex\\/mthds-form(\\/|$)/]",
+          message:
+            "@pipelex/mthds-form is an OPTIONAL peer dependency, isolated behind the ./form/react entry (design Decision B). A dynamic import() is still an import: outside src/form/** it breaks every consumer who has not installed the kernel.",
+        },
+      ],
+    },
+  },
   ...storybook.configs["flat/recommended"],
   {
     files: ["src/**/*.stories.ts", "src/**/*.stories.tsx"],

@@ -1,0 +1,478 @@
+{
+  "data_processing.diamond_pipeline": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_processing.MergedResult",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.merge_all": {
+    "inputs": {
+      "alpha_result": {
+        "concept_ref": "data_processing.ProcessedData",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data processed through one pathway",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "data_processing.ProcessedData",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "beta_result": {
+        "concept_ref": "native.SearchResult",
+        "item_count": null,
+        "json_schema": {
+          "$defs": {
+            "DocumentContent": {
+              "description": "A document",
+              "properties": {
+                "filename": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The original filename of the document",
+                  "title": "Filename"
+                },
+                "mime_type": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The MIME type of the document",
+                  "title": "Mime Type"
+                },
+                "public_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The public HTTPS URL of the document",
+                  "title": "Public Url"
+                },
+                "snippet": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "A text snippet or excerpt from the document",
+                  "title": "Snippet"
+                },
+                "title": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "The title of the document or source",
+                  "title": "Title"
+                },
+                "url": {
+                  "description": "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                  "title": "Url",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "title": "DocumentContent",
+              "type": "object"
+            }
+          },
+          "description": "A search result with answer and sources",
+          "properties": {
+            "answer": {
+              "description": "The answer to the search query",
+              "title": "Answer",
+              "type": "string"
+            },
+            "sources": {
+              "description": "The source documents supporting the answer",
+              "items": {
+                "$ref": "#/$defs/DocumentContent"
+              },
+              "title": "Sources",
+              "type": "array"
+            }
+          },
+          "required": [
+            "answer"
+          ],
+          "title": "native.SearchResult",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "delta_result": {
+        "concept_ref": "native.Image",
+        "item_count": null,
+        "json_schema": {
+          "description": "An image",
+          "properties": {
+            "caption": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The caption of the image",
+              "title": "Caption"
+            },
+            "filename": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The original filename of the image",
+              "title": "Filename"
+            },
+            "height": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The height of the image, in pixels",
+              "title": "Height"
+            },
+            "mime_type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The MIME type of the image",
+              "title": "Mime Type"
+            },
+            "public_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The public URL of the image",
+              "title": "Public Url"
+            },
+            "source_negative_prompt": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The source negative prompt of the image",
+              "title": "Source Negative Prompt"
+            },
+            "source_prompt": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The source prompt of the image",
+              "title": "Source Prompt"
+            },
+            "url": {
+              "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+              "title": "Url",
+              "type": "string"
+            },
+            "width": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "The width of the image, in pixels",
+              "title": "Width"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "native.Image",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      },
+      "gamma_result": {
+        "concept_ref": "data_processing.ProcessedData",
+        "item_count": null,
+        "json_schema": {
+          "description": "Data processed through one pathway",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "data_processing.ProcessedData",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_processing.MergedResult",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.process_alpha": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_processing.ProcessedData",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.process_beta": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.SearchResult",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.process_delta": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.Image",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.process_gamma": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "data_processing.ProcessedData",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  },
+  "data_processing.quad_process": {
+    "inputs": {
+      "data": {
+        "concept_ref": "native.Text",
+        "item_count": null,
+        "json_schema": {
+          "description": "A text",
+          "properties": {
+            "text": {
+              "description": "The text",
+              "title": "Text",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ],
+          "title": "native.Text",
+          "type": "object"
+        },
+        "multiplicity": "single",
+        "presence": "plain"
+      }
+    },
+    "output": {
+      "concept_ref": "native.Composite",
+      "item_count": null,
+      "multiplicity": "single",
+      "optional": false
+    }
+  }
+}
