@@ -1,0 +1,408 @@
+{
+  "deep_processing.batch_branch": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.deep_nested_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.exit_combine": {
+    "fields": [
+      {
+        "concept_ref": "deep_processing.BatchResult",
+        "description": "Result from batch processing",
+        "gating": false,
+        "item": {
+          "concept_ref": "deep_processing.BatchResult",
+          "description": "Result from batch processing",
+          "kind": "prose",
+          "refines": [
+            "native.Text"
+          ],
+          "required": true
+        },
+        "kind": "list",
+        "name": "batch_result",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "deep_processing.SearchSummary",
+        "description": "Summary from search results",
+        "gating": true,
+        "kind": "prose",
+        "name": "search_summary",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.extract_input": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.level_2_parallel": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.process_single_page": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "page",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.search_branch": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.search_context": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "deep_processing.summarize_search": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "search_result",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

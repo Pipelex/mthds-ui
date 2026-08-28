@@ -51,7 +51,7 @@ Measured in Chromium (playwright, a bare page with `<form><input type="number" s
 
 ---
 
-## 2. Field control ids are unscoped, so two panels on one page emit duplicate DOM ids
+## 2. Field control ids are unscoped, so two panels on one page emit duplicate DOM ids — FIXED IN THE KERNEL, STRUCK
 
 `src/form/react/RunPanel.tsx:359-366`
 
@@ -74,6 +74,8 @@ The repo's own story ships the collision: `RunPanel.stories.tsx`'s `RequestSubmi
 **`docs/run-form-panel.md:72` currently over-promises about this.** Its closing clause — "the id is generated with `useId`, so it is already safe to mount several panels on one page" — is true of the `aria-describedby` association it is describing and false as the general statement it reads like. The sentence should be scoped, whether or not the ids are fixed.
 
 **Why the fix is not one line.** The id is doing three jobs at once: the DOM id, the dotted value path that `setValueAtPath(valuesRef.current, id.split("."), …)` writes to (`RunPanel.tsx:213`), and the `uploadingIds` key. Prefixing it with a `useId` would fix the DOM and break the other two unless the prefix is stripped before both. The clean shape is to separate the DOM id from the value path — which is partly a kernel question, since `FieldRenderer` is what composes the nested ones.
+
+**Fixed in `@pipelex/mthds-form` 0.5.0, along the line this note proposed.** The kernel separated the two: the value path is unchanged (so the write-back and the upload key are untouched), and only the DOM write is namespaced, through a `useFieldDomId` hook inside each control. The prefix defaults to `useId` — unique per instance, opaque — and `FieldDomIdProvider` sets an explicit one. This panel installs that provider around its `<form>`, which is exactly the one-form scope the kernel's contract asks for, and exposes the prefix as the `idPrefix` prop for a host that needs to address a control. The over-promise this note flags in `docs/run-form-panel.md` is rewritten in the same change.
 
 ---
 

@@ -1,12 +1,17 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
-import { getPipeIOContract, type PipeIOContract } from "@pipelex/mthds-form";
+import {
+  getPipeInputForm,
+  getPipeIOContract,
+  type PipeInputFormDescriptor,
+  type PipeIOContract,
+} from "@pipelex/mthds-form";
 import { RunPanel } from "@form/react/RunPanel";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { GRAPH_THEME, type GraphNodeData } from "@graph/types";
 import { DRY_CV_SCREENING } from "@graph/react/viewer/__stories__/pipelines/specs/_generated.dry";
-import { CONTRACTS_CV_SCREENING } from "./contracts/_generated.contracts";
+import { CONTRACTS_CV_SCREENING, INPUT_FORM_CV_SCREENING } from "./contracts/_generated.contracts";
 
 /**
  * The K2 gate, in one story: click a pipe in the graph, fill its form, see the
@@ -14,9 +19,11 @@ import { CONTRACTS_CV_SCREENING } from "./contracts/_generated.contracts";
  *
  * Both halves come from the SAME method — `data/pipelines/pipeline_09`. The
  * graph is its generated dry-run `GraphSpec`; the forms are its generated
- * `pipe_io_contracts`. The only code between them is the lookup below, which is
- * the kernel's own `getPipeIOContract` — note the argument order
- * (contracts, domain, pipeCode); the kernel's README currently shows it wrong.
+ * `pipe_io_contracts` and `input_form`, the two views one `/validate` call
+ * returns together. The only code between them is the pair of lookups below,
+ * which are the kernel's own `getPipeIOContract` and its twin
+ * `getPipeInputForm` — note the argument order (artifact, domain, pipeCode);
+ * the kernel's README currently shows it wrong.
  *
  * Nothing here derives what a field IS, whether the form MAY run, or what goes
  * on the wire. That is the whole point: a host wires two props together and
@@ -25,6 +32,7 @@ import { CONTRACTS_CV_SCREENING } from "./contracts/_generated.contracts";
 function GraphAndPanel() {
   const [selection, setSelection] = React.useState<{
     contract: PipeIOContract;
+    descriptor: PipeInputFormDescriptor;
     pipeCode: string;
   } | null>(null);
   const [values, setValues] = React.useState<Record<string, unknown>>({});
@@ -37,9 +45,16 @@ function GraphAndPanel() {
       nodeData.nodeData?.domain_code,
       nodeData.pipeCode,
     );
-    if (!contract) return;
+    const descriptor = getPipeInputForm(
+      INPUT_FORM_CV_SCREENING,
+      nodeData.nodeData?.domain_code,
+      nodeData.pipeCode,
+    );
+    // Both or neither: the panel renders an empty form from a contract alone,
+    // and a descriptor without its contract cannot be validated against.
+    if (!contract || !descriptor) return;
     // A different pipe asks different questions, so the values do not carry over.
-    setSelection({ contract, pipeCode: nodeData.pipeCode });
+    setSelection({ contract, descriptor, pipeCode: nodeData.pipeCode });
     setValues({});
     setPayload(null);
   };
@@ -68,6 +83,7 @@ function GraphAndPanel() {
           <div style={{ display: "grid", gap: 12 }}>
             <RunPanel
               contract={selection.contract}
+              descriptor={selection.descriptor}
               values={values}
               onValuesChange={setValues}
               onRun={setPayload}

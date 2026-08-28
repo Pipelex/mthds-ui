@@ -1,7 +1,12 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fireEvent, fn, userEvent, waitFor, within } from "storybook/test";
-import { getPipeIOContract, type PipeIOContract } from "@pipelex/mthds-form";
+import {
+  getPipeInputForm,
+  getPipeIOContract,
+  type PipeInputFormDescriptor,
+  type PipeIOContract,
+} from "@pipelex/mthds-form";
 import type { FieldEnv } from "@pipelex/mthds-form/react";
 import { RunPanel, type UploadedFile } from "@form/react/RunPanel";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
@@ -12,52 +17,122 @@ import {
   CONTRACTS_OPTIONAL_STYLE_HINT,
   CONTRACTS_SMART_INPUTS_TRIAGE,
   CONTRACTS_TWO_PIPE_CHAIN,
+  INPUT_FORM_CV_ANALYZER,
+  INPUT_FORM_CV_MATCHING,
+  INPUT_FORM_CV_SCREENING,
+  INPUT_FORM_OPTIONAL_STYLE_HINT,
+  INPUT_FORM_SMART_INPUTS_TRIAGE,
+  INPUT_FORM_TWO_PIPE_CHAIN,
 } from "./contracts/_generated.contracts";
 
 /**
- * Every contract here is GENERATED — `make fixtures-contracts` runs the corpus
- * bundles through pipelex and writes `_generated.contracts.ts`. None is
- * hand-authored, and that is not ceremony: an invented contract gets the
- * kernel's concept taxonomy subtly wrong (a `native.Date` input renders as
- * prose, not a date picker) and the form would then be tested against inputs no
- * method produces.
+ * The panel's control ids are namespaced per instance (kernel `0.5.0`), so a
+ * `useId` prefix would make `input[id="cv"]` unfindable and unpredictable. Every
+ * panel below therefore takes an explicit `idPrefix`, which is what the prop is
+ * for; one constant is safe because no story renders two of these at once.
  */
-function contractOf(
+const ID_PREFIX = "story";
+
+/** One pipe's two artifacts, which the panel takes and the stories move together. */
+interface PipeArtifacts {
+  contract: PipeIOContract;
+  descriptor: PipeInputFormDescriptor;
+}
+
+/**
+ * Both artifacts here are GENERATED — `make fixtures-contracts` runs the corpus
+ * bundles through pipelex and writes `_generated.contracts.ts`. Neither is
+ * hand-authored, and that is not ceremony: an invented pair gets the standard's
+ * field taxonomy subtly wrong, and the form would then be tested against inputs
+ * no method produces.
+ *
+ * They are resolved together and kept in one object because they are only
+ * meaningful as a pair: a contract from one pipe beside a descriptor from
+ * another renders a form that looks plausible and validates against the wrong
+ * schema. Story state therefore swaps the PAIR, never one half.
+ */
+function pipeOf(
   contracts: Parameters<typeof getPipeIOContract>[0],
+  inputForm: Parameters<typeof getPipeInputForm>[0],
   domain: string,
   pipeCode: string,
-): PipeIOContract {
+): PipeArtifacts {
   const contract = getPipeIOContract(contracts, domain, pipeCode);
   if (!contract) throw new Error(`no contract for ${domain}.${pipeCode} — regenerate the fixture`);
-  return contract;
+  const descriptor = getPipeInputForm(inputForm, domain, pipeCode);
+  if (!descriptor) {
+    throw new Error(`no input_form for ${domain}.${pipeCode} — regenerate the fixture`);
+  }
+  return { contract, descriptor };
 }
 
 // A required prose input beside an OPTIONAL one — the fold case.
-const NOTICE = contractOf(CONTRACTS_OPTIONAL_STYLE_HINT, "village_noticeboard", "draft_notice");
+const NOTICE = pipeOf(
+  CONTRACTS_OPTIONAL_STYLE_HINT,
+  INPUT_FORM_OPTIONAL_STYLE_HINT,
+  "village_noticeboard",
+  "draft_notice",
+);
 // A file input (document).
-const EXTRACT = contractOf(CONTRACTS_TWO_PIPE_CHAIN, "document_analysis", "extract_and_analyze");
+const EXTRACT = pipeOf(
+  CONTRACTS_TWO_PIPE_CHAIN,
+  INPUT_FORM_TWO_PIPE_CHAIN,
+  "document_analysis",
+  "extract_and_analyze",
+);
 // A PLURAL input: never gates, and ships bare as `[]` when empty.
-const ANALYZE_PAGES = contractOf(CONTRACTS_TWO_PIPE_CHAIN, "document_analysis", "analyze_pages");
+const ANALYZE_PAGES = pipeOf(
+  CONTRACTS_TWO_PIPE_CHAIN,
+  INPUT_FORM_TWO_PIPE_CHAIN,
+  "document_analysis",
+  "analyze_pages",
+);
 // Structured concepts plus a list — nested objects inside the form.
-const TRIAGE = contractOf(CONTRACTS_SMART_INPUTS_TRIAGE, "claims_desk", "triage_case");
+const TRIAGE = pipeOf(
+  CONTRACTS_SMART_INPUTS_TRIAGE,
+  INPUT_FORM_SMART_INPUTS_TRIAGE,
+  "claims_desk",
+  "triage_case",
+);
 // An image input alongside two structured ones.
-const COMPOSE_REPORT = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "compose_report");
+const COMPOSE_REPORT = pipeOf(
+  CONTRACTS_CV_SCREENING,
+  INPUT_FORM_CV_SCREENING,
+  "recruitment",
+  "compose_report",
+);
 // Two pipes of the SAME method that both declare a required `cv` document —
 // which is what makes a late upload after a pipe switch dangerous rather than
 // merely untidy.
-const CV_SCREENING = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "cv_screening");
-const EXTRACT_CV = contractOf(CONTRACTS_CV_SCREENING, "recruitment", "extract_cv");
+const CV_SCREENING = pipeOf(
+  CONTRACTS_CV_SCREENING,
+  INPUT_FORM_CV_SCREENING,
+  "recruitment",
+  "cv_screening",
+);
+const EXTRACT_CV = pipeOf(
+  CONTRACTS_CV_SCREENING,
+  INPUT_FORM_CV_SCREENING,
+  "recruitment",
+  "extract_cv",
+);
 // Two required document inputs side by side, so two uploads can be in flight at
 // once — the ordinary shape that makes a same-batch write-back collision real.
-const SCREEN_CANDIDATE = contractOf(
+const SCREEN_CANDIDATE = pipeOf(
   CONTRACTS_CV_ANALYZER,
+  INPUT_FORM_CV_ANALYZER,
   "candidate_screening",
   "screen_candidate",
 );
 // A LIST of documents beside a singular one — the only shape in which the
 // upload gate is observable at all, since a required singular file leaves
 // readiness unmet for the whole upload and Run is blocked either way.
-const SCREEN_CVS = contractOf(CONTRACTS_CV_MATCHING, "cv_matching", "screen_cvs");
+const SCREEN_CVS = pipeOf(
+  CONTRACTS_CV_MATCHING,
+  INPUT_FORM_CV_MATCHING,
+  "cv_matching",
+  "screen_cvs",
+);
 
 /**
  * The panel is fully controlled, so every story owns the values. This wrapper is
@@ -66,6 +141,7 @@ const SCREEN_CVS = contractOf(CONTRACTS_CV_MATCHING, "cv_matching", "screen_cvs"
  */
 function PanelHost({
   contract,
+  descriptor,
   title,
   running,
   theme = GRAPH_THEME.DARK,
@@ -75,6 +151,7 @@ function PanelHost({
   translate,
 }: {
   contract: PipeIOContract;
+  descriptor: PipeInputFormDescriptor;
   title: string;
   running?: boolean;
   theme?: GraphTheme;
@@ -90,6 +167,8 @@ function PanelHost({
     <div style={{ display: "grid", gap: 16, maxWidth: 620 }}>
       <RunPanel
         contract={contract}
+        descriptor={descriptor}
+        idPrefix={ID_PREFIX}
         values={values}
         onValuesChange={setValues}
         onRun={setPayload}
@@ -150,7 +229,7 @@ type Story = StoryObj<typeof PanelHost>;
  * input has a value — the readiness verdict, straight from the kernel.
  */
 export const RequiredAndOptional: Story = {
-  args: { contract: NOTICE, title: "draft_notice" },
+  args: { ...NOTICE, title: "draft_notice" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const run = canvas.getByRole("button", { name: "Run" });
@@ -200,7 +279,7 @@ export const RequiredAndOptional: Story = {
  * list. So Run is live from the start, and an untouched plural ships bare.
  */
 export const PluralInput: Story = {
-  args: { contract: ANALYZE_PAGES, title: "analyze_pages" },
+  args: { ...ANALYZE_PAGES, title: "analyze_pages" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const run = canvas.getByRole("button", { name: "Run" });
@@ -222,17 +301,17 @@ export const PluralInput: Story = {
 
 /** A file input: the dropzone control, rendered by the kernel. */
 export const FileInput: Story = {
-  args: { contract: EXTRACT, title: "extract_and_analyze" },
+  args: { ...EXTRACT, title: "extract_and_analyze" },
 };
 
 /** An image input beside two structured concepts, each with nested fields. */
 export const ImageAndStructured: Story = {
-  args: { contract: COMPOSE_REPORT, title: "compose_report" },
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
 };
 
 /** Structured concepts and a list of them, nested inside the form. */
 export const StructuredInputs: Story = {
-  args: { contract: TRIAGE, title: "triage_case" },
+  args: { ...TRIAGE, title: "triage_case" },
 };
 
 /**
@@ -246,7 +325,7 @@ export const StructuredInputs: Story = {
  */
 export const LightTheme: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     theme: GRAPH_THEME.LIGHT,
     initialValues: { subject: "Bridge closure" },
@@ -257,7 +336,7 @@ export const LightTheme: Story = {
 /** A run in flight: every control and the button go inert. */
 export const Running: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     running: true,
     initialValues: { subject: "Bridge closure" },
@@ -279,7 +358,7 @@ export const Running: Story = {
  */
 export const InvalidSubmit: Story = {
   args: {
-    contract: TRIAGE,
+    ...TRIAGE,
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
@@ -316,7 +395,7 @@ export const InvalidSubmit: Story = {
  */
 export const OptionalSurvivesBeingCleared: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     initialValues: { subject: "Bridge closure", style_hint: "formal" },
   },
@@ -354,7 +433,7 @@ export const OptionalSurvivesBeingCleared: Story = {
  */
 export const ClearedOptionalCanFoldAwayAgain: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     initialValues: { subject: "Bridge closure" },
   },
@@ -397,7 +476,7 @@ export const ClearedOptionalCanFoldAwayAgain: Story = {
  */
 export const HostDisablesEveryField: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     initialValues: { subject: "Bridge closure" },
     env: { disabled: true },
@@ -432,7 +511,7 @@ export const HostDisablesEveryField: Story = {
  */
 export const HostTranslatesTheErrorSummary: Story = {
   args: {
-    contract: TRIAGE,
+    ...TRIAGE,
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
@@ -467,7 +546,7 @@ export const HostTranslatesTheErrorSummary: Story = {
  */
 export const UploadHoldsRun: Story = {
   args: {
-    contract: NOTICE,
+    ...NOTICE,
     title: "draft_notice",
     initialValues: { subject: "Bridge closure" },
     env: { uploadingIds: new Set(["subject"]) },
@@ -498,7 +577,7 @@ export const UploadHoldsRun: Story = {
  */
 export const HostTrackerJoinsPanelUploads: Story = {
   args: {
-    contract: SCREEN_CVS,
+    ...SCREEN_CVS,
     title: "screen_cvs",
     initialValues: { job_offer: { url: "https://files.test/job.pdf", filename: "job.pdf" } },
     // An idle tracker, which is the whole point: a host that reports its own
@@ -539,7 +618,7 @@ export const HostTrackerJoinsPanelUploads: Story = {
     // A list renders no `<input>` until a row exists, so the row comes first.
     await userEvent.click(canvas.getByRole("button", { name: "Add item" }));
     const rowInput = await waitFor(() => {
-      const found = canvasElement.querySelector<HTMLInputElement>('input[id="cvs.0"]');
+      const found = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cvs.0"]`);
       if (!found) throw new Error("no file input for cvs.0");
       return found;
     });
@@ -574,7 +653,7 @@ export const HostTrackerJoinsPanelUploads: Story = {
  */
 export const DecimalNumberSubmits: Story = {
   args: {
-    contract: COMPOSE_REPORT,
+    ...COMPOSE_REPORT,
     title: "compose_report",
     initialValues: {
       card_image: { url: "https://files.test/card.png", filename: "card.png" },
@@ -585,7 +664,9 @@ export const DecimalNumberSubmits: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const score = canvasElement.querySelector<HTMLInputElement>('input[id="match.score"]');
+    const score = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-match.score"]`,
+    );
     if (!score) throw new Error("no number input for match.score");
     await userEvent.type(score, "87.25");
     await waitFor(() => expect(score).toHaveValue(87.25));
@@ -627,7 +708,7 @@ export const DecimalNumberSubmits: Story = {
  * captured snapshot, the typing would be erased.
  */
 export const UploadKeepsConcurrentEdits: Story = {
-  args: { contract: COMPOSE_REPORT, title: "compose_report" },
+  args: { ...COMPOSE_REPORT, title: "compose_report" },
   render: function Render(args) {
     // The upload is held open until the story releases it. A module-level ref
     // would leak between story runs, so it belongs to the render.
@@ -656,7 +737,9 @@ export const UploadKeepsConcurrentEdits: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="card_image"]');
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-card_image"]`,
+    );
     if (!fileInput) throw new Error("no file input for card_image");
 
     // Drop the image. It hangs, and the panel holds Run while it does — the
@@ -667,7 +750,9 @@ export const UploadKeepsConcurrentEdits: Story = {
     await waitFor(() => expect(canvas.getByRole("button", { name: "Run" })).toBeDisabled());
 
     // The user types while waiting.
-    const nameInput = canvasElement.querySelector<HTMLInputElement>('input[id="profile.name"]');
+    const nameInput = canvasElement.querySelector<HTMLInputElement>(
+      `input[id="${ID_PREFIX}-profile.name"]`,
+    );
     if (!nameInput) throw new Error("no text input for profile.name");
     await userEvent.type(nameInput, "Ada Lovelace");
     await waitFor(() => expect(nameInput).toHaveValue("Ada Lovelace"));
@@ -680,7 +765,7 @@ export const UploadKeepsConcurrentEdits: Story = {
     // ...and the typing survived it. This is the assertion that fails if the
     // continuation writes into the values its own render captured.
     await expect(
-      canvasElement.querySelector<HTMLInputElement>('input[id="profile.name"]'),
+      canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-profile.name"]`),
     ).toHaveValue("Ada Lovelace");
   },
 };
@@ -699,10 +784,13 @@ export const UploadKeepsConcurrentEdits: Story = {
  * than the one its drop happened under.
  */
 export const UploadDiscardedAfterPipeSwitch: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
-    const [contract, setContract] = React.useState(args.contract);
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
     const uploadFile = React.useCallback(
       () =>
         new Promise<UploadedFile>((resolve) => {
@@ -712,8 +800,8 @@ export const UploadDiscardedAfterPipeSwitch: Story = {
     );
     return (
       <>
-        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
-        <button type="button" data-testid="switch-pipe" onClick={() => setContract(EXTRACT_CV)}>
+        <PanelHost {...args} {...pipe} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-pipe" onClick={() => setPipe(EXTRACT_CV)}>
           switch to extract_cv
         </button>
         <button
@@ -730,7 +818,7 @@ export const UploadDiscardedAfterPipeSwitch: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
     if (!fileInput) throw new Error("no file input for cv");
 
     // Drop a CV under `cv_screening`. It hangs.
@@ -810,10 +898,13 @@ function SettleUploadOnCommit({
  * end of the commit and that is the only place inside it a component can act.
  */
 export const UploadDiscardedBeforeEffectsFlush: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
-    const [contract, setContract] = React.useState(args.contract);
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
     const uploadFile = React.useCallback(
       () =>
         new Promise<UploadedFile>((resolve) => {
@@ -823,12 +914,12 @@ export const UploadDiscardedBeforeEffectsFlush: Story = {
     );
     return (
       <>
-        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
-        <SettleUploadOnCommit contract={contract} pending={pending} />
+        <PanelHost {...args} {...pipe} uploadFile={uploadFile} />
+        <SettleUploadOnCommit contract={pipe.contract} pending={pending} />
         <button
           type="button"
           data-testid="switch-pipe"
-          onClick={() => setTimeout(() => setContract(EXTRACT_CV), 0)}
+          onClick={() => setTimeout(() => setPipe(EXTRACT_CV), 0)}
         >
           switch to extract_cv
         </button>
@@ -837,7 +928,7 @@ export const UploadDiscardedBeforeEffectsFlush: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
     if (!fileInput) throw new Error("no file input for cv");
 
     // Drop a CV under `cv_screening`. It hangs.
@@ -872,10 +963,13 @@ export const UploadDiscardedBeforeEffectsFlush: Story = {
  * is the one the guard was always asking.
  */
 export const UploadNotRevivedByReturningToPipe: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
-    const [contract, setContract] = React.useState(args.contract);
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
     const uploadFile = React.useCallback(
       () =>
         new Promise<UploadedFile>((resolve) => {
@@ -885,13 +979,13 @@ export const UploadNotRevivedByReturningToPipe: Story = {
     );
     return (
       <>
-        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
-        <button type="button" data-testid="switch-away" onClick={() => setContract(EXTRACT_CV)}>
+        <PanelHost {...args} {...pipe} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-away" onClick={() => setPipe(EXTRACT_CV)}>
           switch to extract_cv
         </button>
         {/* The very same object the panel started with — which is what a host
             holding a contracts map hands back, not a contrivance. */}
-        <button type="button" data-testid="switch-back" onClick={() => setContract(CV_SCREENING)}>
+        <button type="button" data-testid="switch-back" onClick={() => setPipe(CV_SCREENING)}>
           back to cv_screening
         </button>
         <button
@@ -908,7 +1002,7 @@ export const UploadNotRevivedByReturningToPipe: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
     if (!fileInput) throw new Error("no file input for cv");
 
     // Drop a CV under `cv_screening`. It hangs.
@@ -948,10 +1042,13 @@ export const UploadNotRevivedByReturningToPipe: Story = {
  * controlled" means, and it is what makes the stale write reachable at all.
  */
 export const UploadDiscardedOnUnmount: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     const pending = React.useRef<((file: UploadedFile) => void) | null>(null);
-    const [contract, setContract] = React.useState(args.contract);
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
     const [values, setValues] = React.useState<Record<string, unknown>>({});
     const uploadFile = React.useCallback(
       () =>
@@ -964,8 +1061,10 @@ export const UploadDiscardedOnUnmount: Story = {
       <div style={{ display: "grid", gap: 16, maxWidth: 620 }}>
         <RunPanel
           // The keyed remount is the whole point of this story.
-          key={contract === CV_SCREENING ? "cv_screening" : "extract_cv"}
-          contract={contract}
+          key={pipe.contract === CV_SCREENING.contract ? "cv_screening" : "extract_cv"}
+          contract={pipe.contract}
+          descriptor={pipe.descriptor}
+          idPrefix={ID_PREFIX}
           values={values}
           onValuesChange={setValues}
           onRun={() => {}}
@@ -973,7 +1072,7 @@ export const UploadDiscardedOnUnmount: Story = {
           theme={GRAPH_THEME.DARK}
           uploadFile={uploadFile}
         />
-        <button type="button" data-testid="switch-away" onClick={() => setContract(EXTRACT_CV)}>
+        <button type="button" data-testid="switch-away" onClick={() => setPipe(EXTRACT_CV)}>
           switch to extract_cv
         </button>
         <button
@@ -990,7 +1089,7 @@ export const UploadDiscardedOnUnmount: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileInput = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    const fileInput = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
     if (!fileInput) throw new Error("no file input for cv");
 
     fireEvent.change(fileInput, {
@@ -1044,12 +1143,13 @@ const noStateOnRunSpy = fn();
  * tasks with a commit between them, so the second already saw `running`.
  */
 export const ProgrammaticDoubleSubmitStartsOneRun: Story = {
-  args: { contract: NOTICE, title: "draft_notice" },
+  args: { ...NOTICE, title: "draft_notice" },
   render: function Render(args) {
     const [running, setRunning] = React.useState(false);
     return (
       <RunPanel
         contract={args.contract}
+        descriptor={args.descriptor}
         values={{ subject: "Bridge closure" }}
         onValuesChange={() => {}}
         theme={GRAPH_THEME.DARK}
@@ -1086,11 +1186,12 @@ export const ProgrammaticDoubleSubmitStartsOneRun: Story = {
  * later submit gets through.
  */
 export const LatchReleasesWithoutAnyStateUpdate: Story = {
-  args: { contract: NOTICE, title: "draft_notice" },
+  args: { ...NOTICE, title: "draft_notice" },
   render: function Render(args) {
     return (
       <RunPanel
         contract={args.contract}
+        descriptor={args.descriptor}
         values={{ subject: "Bridge closure" }}
         onValuesChange={() => {}}
         theme={GRAPH_THEME.DARK}
@@ -1115,13 +1216,14 @@ export const LatchReleasesWithoutAnyStateUpdate: Story = {
 };
 
 export const RequestSubmitRespectsEveryGate: Story = {
-  args: { contract: NOTICE, title: "draft_notice" },
+  args: { ...NOTICE, title: "draft_notice" },
   render: function Render(args) {
     // Spies rather than the shared host, because `onRun` fires synchronously
     // inside the submit handler: asserting on it directly leaves nothing to wait
     // for, where reading a rendered payload would race React's commit.
     const common = {
       contract: args.contract,
+      descriptor: args.descriptor,
       onValuesChange: () => {},
       theme: GRAPH_THEME.DARK,
     };
@@ -1186,12 +1288,15 @@ export const RequestSubmitRespectsEveryGate: Story = {
  * to its own generation for the same reason the write-back is.
  */
 export const UploadCleanupStaysWithItsPipe: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     // Two uploads have to be settleable independently here, so the resolvers
     // queue up in call order rather than the single slot the other stories use.
     const pending = React.useRef<((file: UploadedFile) => void)[]>([]);
-    const [contract, setContract] = React.useState(args.contract);
+    const [pipe, setPipe] = React.useState<PipeArtifacts>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+    });
     const uploadFile = React.useCallback(
       () =>
         new Promise<UploadedFile>((resolve) => {
@@ -1201,8 +1306,8 @@ export const UploadCleanupStaysWithItsPipe: Story = {
     );
     return (
       <>
-        <PanelHost {...args} contract={contract} uploadFile={uploadFile} />
-        <button type="button" data-testid="switch-pipe" onClick={() => setContract(EXTRACT_CV)}>
+        <PanelHost {...args} {...pipe} uploadFile={uploadFile} />
+        <button type="button" data-testid="switch-pipe" onClick={() => setPipe(EXTRACT_CV)}>
           switch to extract_cv
         </button>
         <button
@@ -1218,7 +1323,7 @@ export const UploadCleanupStaysWithItsPipe: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const drop = (name: string) => {
-      const input = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+      const input = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
       if (!input) throw new Error("no file input for cv");
       fireEvent.change(input, {
         target: { files: [new File(["%PDF"], name, { type: "application/pdf" })] },
@@ -1263,7 +1368,7 @@ export const UploadCleanupStaysWithItsPipe: Story = {
  * updater.
  */
 export const ConcurrentUploadsBothLand: Story = {
-  args: { contract: SCREEN_CANDIDATE, title: "screen_candidate" },
+  args: { ...SCREEN_CANDIDATE, title: "screen_candidate" },
   render: function Render(args) {
     const pending = React.useRef<Map<string, (file: UploadedFile) => void>>(new Map());
     const uploadFile = React.useCallback(
@@ -1298,7 +1403,9 @@ export const ConcurrentUploadsBothLand: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const drop = (fieldId: string, name: string) => {
-      const input = canvasElement.querySelector<HTMLInputElement>(`input[id="${fieldId}"]`);
+      const input = canvasElement.querySelector<HTMLInputElement>(
+        `input[id="${ID_PREFIX}-${fieldId}"]`,
+      );
       if (!input) throw new Error(`no file input for ${fieldId}`);
       fireEvent.change(input, {
         target: { files: [new File(["%PDF"], name, { type: "application/pdf" })] },
@@ -1334,7 +1441,7 @@ export const ConcurrentUploadsBothLand: Story = {
  */
 export const SubmitErrorClearedOnPipeSwitch: Story = {
   args: {
-    contract: TRIAGE,
+    ...TRIAGE,
     title: "triage_case",
     initialValues: {
       invoice: { amount: "twelve euros", invoice_number: "INV-1" },
@@ -1344,14 +1451,18 @@ export const SubmitErrorClearedOnPipeSwitch: Story = {
     },
   },
   render: function Render(args) {
-    const [pipe, setPipe] = React.useState({ contract: args.contract, title: args.title });
+    const [pipe, setPipe] = React.useState<PipeArtifacts & { title: string }>({
+      contract: args.contract,
+      descriptor: args.descriptor,
+      title: args.title,
+    });
     return (
       <>
-        <PanelHost {...args} contract={pipe.contract} title={pipe.title} />
+        <PanelHost {...args} {...pipe} />
         <button
           type="button"
           data-testid="switch-pipe"
-          onClick={() => setPipe({ contract: CV_SCREENING, title: "cv_screening" })}
+          onClick={() => setPipe({ ...CV_SCREENING, title: "cv_screening" })}
         >
           switch to cv_screening
         </button>
@@ -1388,7 +1499,7 @@ export const SubmitErrorClearedOnPipeSwitch: Story = {
  * behaviour turns on a keyword.
  */
 export const UploadFileThrowsSynchronously: Story = {
-  args: { contract: CV_SCREENING, title: "cv_screening" },
+  args: { ...CV_SCREENING, title: "cv_screening" },
   render: function Render(args) {
     return <PanelHost {...args} uploadFile={throwingUploadSpy} />;
   },
@@ -1403,7 +1514,7 @@ export const UploadFileThrowsSynchronously: Story = {
     // spies are cleared for the same reason.
     throwingUploadSpy.mockClear();
 
-    const input = canvasElement.querySelector<HTMLInputElement>('input[id="cv"]');
+    const input = canvasElement.querySelector<HTMLInputElement>(`input[id="${ID_PREFIX}-cv"]`);
     if (!input) throw new Error("no file input for cv");
     fireEvent.change(input, {
       target: { files: [new File(["%PDF"], "cv.pdf", { type: "application/pdf" })] },

@@ -5,7 +5,7 @@
         "concept_ref": "native.Date",
         "item_count": null,
         "json_schema": {
-          "description": "A calendar date, optionally with a time of day \u2014 as precise as its source states.",
+          "description": "A calendar date, optionally with a time of day — as precise as its source states.",
           "properties": {
             "date": {
               "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
@@ -24,7 +24,7 @@
                 }
               ],
               "default": null,
-              "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time \u2014 never invent a time. Keep the UTC offset exactly when the source states one.",
+              "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.",
               "title": "Time"
             }
           },

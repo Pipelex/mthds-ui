@@ -1,0 +1,15 @@
+{
+  "text_processing.summarize": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "text",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "report_generation.analyze_data": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "report_generation.assemble_report": {
+    "fields": [
+      {
+        "concept_ref": "report_generation.ChartSpec",
+        "description": "Specification for a chart visualization",
+        "gating": true,
+        "kind": "prose",
+        "name": "chart_spec",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "report_generation.TableData",
+        "description": "Structured table data",
+        "gating": true,
+        "kind": "unknown",
+        "name": "table_data",
+        "presence": "plain",
+        "refines": [
+          "native.JSON"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "report_generation.Narrative",
+        "description": "Written narrative describing insights",
+        "gating": true,
+        "kind": "prose",
+        "name": "narrative",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "report_generation.generate_chart": {
+    "fields": [
+      {
+        "concept_ref": "report_generation.Insight",
+        "description": "Data insight extracted from analysis",
+        "gating": true,
+        "kind": "prose",
+        "name": "insight",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "report_generation.generate_outputs": {
+    "fields": [
+      {
+        "concept_ref": "report_generation.Insight",
+        "description": "Data insight extracted from analysis",
+        "gating": true,
+        "kind": "prose",
+        "name": "insight",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "report_generation.generate_table": {
+    "fields": [
+      {
+        "concept_ref": "report_generation.Insight",
+        "description": "Data insight extracted from analysis",
+        "gating": true,
+        "kind": "prose",
+        "name": "insight",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "report_generation.multi_format_report": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "report_generation.write_narrative": {
+    "fields": [
+      {
+        "concept_ref": "report_generation.Insight",
+        "description": "Data insight extracted from analysis",
+        "gating": true,
+        "kind": "prose",
+        "name": "insight",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  }
+}

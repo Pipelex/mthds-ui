@@ -9,7 +9,12 @@
  * Decision C keeps us out of.
  */
 import { describe, expect, it } from "vitest";
-import type { PipeIOContract, PipeInputContract, RunInputError } from "@pipelex/mthds-form";
+import type {
+  PipeInputFormDescriptor,
+  PipeIOContract,
+  PipeInputContract,
+  RunInputError,
+} from "@pipelex/mthds-form";
 import { fieldsForContract } from "@pipelex/mthds-form";
 import {
   defaultValidationTranslate,
@@ -70,19 +75,119 @@ const OUTPUT = {
   optional: false,
 } as const;
 
-function contractOf(inputs: Record<string, PipeInputContract>): PipeIOContract {
-  return { inputs, output: OUTPUT };
+/**
+ * A top-level descriptor node, read off the artifact the kernel does export.
+ *
+ * `mthds/protocol` names this `InputFormTopLevelField`, but the kernel
+ * re-exports only `InputForm` and `PipeInputFormDescriptor` — and `mthds`
+ * reaches this repo as the kernel's peer rather than as a dependency of our
+ * own, so importing the name from there would be undeclared. Indexed access
+ * gets the same type from what is exported.
+ */
+type TopLevelField = PipeInputFormDescriptor["fields"][number];
+
+/**
+ * One input slot, stated ONCE as the pair the wire sends: the contract entry
+ * (what the slot accepts) and the descriptor node (what it is).
+ *
+ * Kept together rather than in two parallel maps because the kernel co-walks
+ * them, so a slot described in one and not the other does not fail — it renders
+ * a field the payload has no schema for, or a schema no field fills. The
+ * descriptor node is a function of the name because a top-level field carries
+ * its authored identifier inline, and the map key is where that name lives
+ * here; deriving it removes the only place these two could disagree.
+ */
+interface TestSlot {
+  contract: PipeInputContract;
+  field: (name: string) => TopLevelField;
 }
 
-/** The panel's own call shape: fields come from the contract, never from us. */
-function gate(contract: PipeIOContract, values: Record<string, unknown>) {
-  return runSubmitGate(contract, fieldsForContract(contract), values);
+/** `native.Text` is prose over a `text` wrapper — what the corpus fixtures show. */
+const TEXT_SLOT: TestSlot = {
+  contract: TEXT_INPUT,
+  field: (name) => ({
+    kind: "prose",
+    name,
+    concept_ref: "native.Text",
+    refines: ["native.Text"],
+    required: true,
+    presence: "plain",
+    gating: true,
+  }),
+};
+
+const OPTIONAL_TEXT_SLOT: TestSlot = {
+  contract: OPTIONAL_TEXT,
+  field: (name) => ({
+    kind: "prose",
+    name,
+    concept_ref: "native.Text",
+    refines: ["native.Text"],
+    required: false,
+    presence: "optional",
+    gating: false,
+  }),
+};
+
+const BOOKING_SLOT: TestSlot = {
+  contract: BOOKING_INPUT,
+  field: (name) => ({
+    kind: "object",
+    name,
+    concept_ref: "demo.Booking",
+    required: true,
+    presence: "plain",
+    gating: true,
+    fields: [
+      { kind: "text", name: "starts_on", required: true, format: "date" },
+      { kind: "text", name: "note", required: false },
+    ],
+  }),
+};
+
+/** A variable list: required, yet `[]` satisfies it — so it never gates. */
+const PLURAL_IMAGES_SLOT: TestSlot = {
+  contract: PLURAL_IMAGES,
+  field: (name) => ({
+    kind: "list",
+    name,
+    concept_ref: "native.Image",
+    required: true,
+    presence: "plain",
+    gating: false,
+    item: { kind: "image", concept_ref: "native.Image", required: true },
+  }),
+};
+
+/** A pipe's two artifacts, exactly as the panel receives them. */
+interface PipeArtifacts {
+  contract: PipeIOContract;
+  descriptor: PipeInputFormDescriptor;
+}
+
+function pipeOf(slots: Record<string, TestSlot>): PipeArtifacts {
+  return {
+    contract: {
+      inputs: Object.fromEntries(
+        Object.entries(slots).map(([name, slot]) => [name, slot.contract]),
+      ),
+      output: OUTPUT,
+    },
+    descriptor: {
+      fields: Object.entries(slots).map(([name, slot]) => slot.field(name)),
+    },
+  };
+}
+
+/** The panel's own call shape: fields come from the two artifacts, never from us. */
+function gate({ contract, descriptor }: PipeArtifacts, values: Record<string, unknown>) {
+  return runSubmitGate(contract, fieldsForContract(contract, descriptor), values);
 }
 
 describe("runSubmitGate", () => {
   it("passes a filled form and hands back the wire payload", () => {
-    const contract = contractOf({ quote: TEXT_INPUT });
-    const outcome = gate(contract, { quote: "hello" });
+    const pipe = pipeOf({ quote: TEXT_SLOT });
+    const outcome = gate(pipe, { quote: "hello" });
 
     expect(outcome).toEqual({
       ok: true,
@@ -91,12 +196,12 @@ describe("runSubmitGate", () => {
   });
 
   it("carries the wire's two exceptions through: blank optionals are omitted, empty plurals ship bare", () => {
-    const contract = contractOf({
-      quote: TEXT_INPUT,
-      comments: OPTIONAL_TEXT,
-      illustrations: PLURAL_IMAGES,
+    const pipe = pipeOf({
+      quote: TEXT_SLOT,
+      comments: OPTIONAL_TEXT_SLOT,
+      illustrations: PLURAL_IMAGES_SLOT,
     });
-    const outcome = gate(contract, { quote: "hello", comments: "", illustrations: [] });
+    const outcome = gate(pipe, { quote: "hello", comments: "", illustrations: [] });
 
     expect(outcome.ok).toBe(true);
     if (!outcome.ok) return;
@@ -114,8 +219,8 @@ describe("runSubmitGate", () => {
    * since a rejected run never reaches the payload at all.
    */
   it("builds the payload from the prepared data, so an untouched optional subfield is pruned", () => {
-    const contract = contractOf({ booking: BOOKING_INPUT });
-    const outcome = gate(contract, { booking: { starts_on: "2026-01-01" } });
+    const pipe = pipeOf({ booking: BOOKING_SLOT });
+    const outcome = gate(pipe, { booking: { starts_on: "2026-01-01" } });
 
     expect(outcome.ok).toBe(true);
     if (!outcome.ok) return;
@@ -125,8 +230,8 @@ describe("runSubmitGate", () => {
   });
 
   it("names the variable at fault when a required subfield is absent", () => {
-    const contract = contractOf({ booking: BOOKING_INPUT });
-    const outcome = gate(contract, { booking: {} });
+    const pipe = pipeOf({ booking: BOOKING_SLOT });
+    const outcome = gate(pipe, { booking: {} });
 
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
@@ -139,8 +244,8 @@ describe("runSubmitGate", () => {
     // missing-input scan comes up empty. That is a documented legitimate state,
     // and without the fallback the run would be blocked with nothing said about
     // why.
-    const contract = contractOf({ booking: BOOKING_INPUT });
-    const outcome = gate(contract, { booking: { starts_on: "not-a-date" } });
+    const pipe = pipeOf({ booking: BOOKING_SLOT });
+    const outcome = gate(pipe, { booking: { starts_on: "not-a-date" } });
 
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
@@ -162,8 +267,8 @@ describe("runSubmitGate", () => {
    * ajv, so the name comes back rather than the run going out.
    */
   it("catches a required text input left blank, and names it", () => {
-    const contract = contractOf({ quote: TEXT_INPUT, subject: TEXT_INPUT });
-    const outcome = gate(contract, { quote: "hello" });
+    const pipe = pipeOf({ quote: TEXT_SLOT, subject: TEXT_SLOT });
+    const outcome = gate(pipe, { quote: "hello" });
 
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
@@ -177,8 +282,8 @@ describe("runSubmitGate", () => {
    * case a lookalike emptiness check gets wrong.
    */
   it("counts a whitespace-only required input as blank", () => {
-    const contract = contractOf({ quote: TEXT_INPUT });
-    const outcome = gate(contract, { quote: "   " });
+    const pipe = pipeOf({ quote: TEXT_SLOT });
+    const outcome = gate(pipe, { quote: "   " });
 
     expect(outcome.ok).toBe(false);
     if (outcome.ok) return;
@@ -186,14 +291,14 @@ describe("runSubmitGate", () => {
   });
 
   it("runs a pipe that takes no inputs", () => {
-    const outcome = gate(contractOf({}), {});
+    const outcome = gate(pipeOf({}), {});
 
     expect(outcome).toEqual({ ok: true, apiInputs: {} });
   });
 
   it("ignores values for variables the contract does not declare", () => {
-    const contract = contractOf({ quote: TEXT_INPUT });
-    const outcome = gate(contract, { quote: "hello", leftover: "from a previous pipe" });
+    const pipe = pipeOf({ quote: TEXT_SLOT });
+    const outcome = gate(pipe, { quote: "hello", leftover: "from a previous pipe" });
 
     expect(outcome.ok).toBe(true);
     if (!outcome.ok) return;
