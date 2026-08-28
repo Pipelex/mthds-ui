@@ -1,24 +1,24 @@
 # Changelog
 
-## [Unreleased]
-
-### Changed
-
-- **Bumped `@pipelex/mthds-form` to `0.5.0`** (was `0.4.0`), in both the peer range and the dev range. Below 1.0 a caret range does not bridge a minor, so a host pinned to `^0.4.0` cannot resolve this and must bump too. (Breaking)
-
-- **`RunPanel` takes a `descriptor` prop beside `contract`, and both are required.** The kernel's `0.5.0` derivation is driven by the standard's per-pipe input-form descriptor — what each field IS (kind, constraints, presence, gating, and the authored input order) — with the contract co-walked beside it for the two facts the descriptor omits (a scalar's wrapper property, a nested array's bounds). The concept-name and schema-shape heuristics that used to guess a field's kind are gone from the kernel entirely. Both artifacts come from one `/validate` call: ask for `views: ["pipe_io_contracts", "input_form"]` and look an entry up with `getPipeIOContract` and its twin `getPipeInputForm`. Required rather than optional because the alternative is silent — the kernel returns no fields unless it has both, so a panel given only a contract would render empty and say nothing. (Breaking)
-
-- **Hosts of `./form/react` now install `mthds` as well.** `@pipelex/mthds-form` declares it a **required** peer dependency, types only: it is imported with `import type` and erased at build, so nothing of it ships in a bundle — a host gains a `node_modules` entry rather than bytes (roughly 16 MB across 57 packages, none of it shipped). Since this library declares the kernel as its own peer, the requirement passes straight through to the host rather than being satisfied here; npm installs it automatically alongside the kernel. Hosts already using `@pipelex/sdk` have it and pay nothing.
-
-- **Wire-visible: `native.Date` and `native.Html` now travel as their declared content models.** A `native.Date` input used to render as prose, wrap as `{ text }`, and go out as `{ concept, content: { text } }` — a payload no schema declared. It is now an object over `DateContent { date, time }`, and `native.Html` renders as its structure by declaration rather than by a spelling accident. A concept refining `native.Text` is prose whose run value is the bare string; its stored shape is unchanged. If you persist run inputs, values captured before this bump are in the old shape.
-
-- **Several `RunPanel`s on one page are safe now, including for label-driven focus.** A control's DOM id used to be the field's dotted path verbatim, which is unique within a form but not within a document, so two panels sharing an input name emitted duplicate ids and each `<label for>` bound to the first. The kernel now namespaces the id while leaving the value path alone, and the panel scopes one prefix around its own form.
+## [v0.19.0] - 2026-08-29
 
 ### Added
 
-- **`RunPanel` accepts an `idPrefix` prop.** Control DOM ids are namespaced whether or not you pass it — unset, the prefix comes from `useId`, which is unique per panel and hydration-stable but deliberately opaque. Pass one when something outside must address a control (`getElementById`, a deep link that focuses a field, an end-to-end selector); the prefix then scopes the whole panel, so it must be unique in the document, and `""` writes the bare path ids back.
+- **`idPrefix` prop on `RunPanel`**: New optional prop that explicitly namespaces control DOM ids, for when something outside the panel must address a control — `getElementById`, a deep link that focuses a field, an end-to-end selector. Unset, the prefix comes from `useId`; `""` writes the bare path ids back.
+- **`input_form` fixtures**: `make fixtures-contracts` now generates and exports `input_form` descriptors alongside `pipe_io_contracts`, and both views are required to render the form fixtures — a pipeline carrying only one is skipped rather than half-emitted.
 
-- **The form fixtures carry both validate views.** `make fixtures-contracts` now dumps `input_form` beside `pipe_io_contracts` from one library window — so the two share one key set — and each generated split module exports an `INPUT_FORM_*` constant beside its `CONTRACTS_*` one. A pipeline holding only one of the pair is skipped rather than half-emitted, because a skipped one fails the story that imports it while a half-emitted one renders an empty form in silence. `scripts/dump_pipe_io_contracts.py` is renamed `scripts/dump_validate_views.py` accordingly.
+### Changed
+
+- **`RunPanel` requires a `descriptor` prop**: `RunPanel` now requires the `input_form` `descriptor` prop in addition to `contract`. Form derivation is driven by that descriptor (field kinds, constraints, presence, and authored order), with the contract co-walked beside it; the kernel's old concept-name and schema-shape heuristics are gone. Both artifacts come from one `/validate` call — ask for `views: ["pipe_io_contracts", "input_form"]`. Required rather than optional because omitting it silently renders an empty form. (Breaking)
+- **Bumped `@pipelex/mthds-form` to `0.5.0`**: Upgraded the core form kernel dependency, in both the peer range and the dev range. Below 1.0 a caret range does not bridge a minor, so hosts pinned to `^0.4.0` must bump too. (Breaking)
+- **Wire-visible native types**: `native.Date` and `native.Html` now travel as their declared content models rather than falling back to prose — `native.Date` is an object over `DateContent { date, time }`, not `{ text }`. A concept refining `native.Text` is unchanged. If you persist run inputs, values captured before this bump are in the old shape.
+- **`mthds` peer dependency**: Hosts of `./form/react` now install `mthds` as well, since the kernel declares it a required peer and this library passes the requirement through. It is imported as `import type` and erased at build, so a host gains a `node_modules` entry rather than shipped bytes.
+- **Fixture generation scripts**: Renamed `scripts/dump_pipe_io_contracts.py` to `scripts/dump_validate_views.py`; it now dumps both `pipe_io_contracts` and `input_form` from a single library window, so the two share one key set.
+- **Documentation**: Updated `docs/run-form-panel.md` and `CLAUDE.md` for the new `descriptor` requirement, `idPrefix` behavior, and the renamed fixture script.
+
+### Fixed
+
+- **DOM id collisions across several `RunPanel`s**: A control's DOM id used to be the field's dotted path verbatim — unique within a form but not within a document — so two panels sharing an input name emitted duplicate ids (`id="match.score"`) and each `<label for>` bound to the first. The kernel now namespaces control ids and the panel scopes one prefix around its own form, restoring click-to-focus without touching the underlying value paths.
 
 ## [v0.18.0] - 2026-08-25
 
