@@ -1,0 +1,241 @@
+{
+  "dual_phase.double_parallel_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.finalize": {
+    "fields": [
+      {
+        "concept_ref": "dual_phase.GatheredData",
+        "description": "Data gathered from sources",
+        "gating": true,
+        "kind": "prose",
+        "name": "result_x",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "result_y",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.gather_phase": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.gather_source_a": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.gather_source_b": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.process_phase": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "source_a",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "source_b",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.transform_x": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "source_a",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "source_b",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "dual_phase.transform_y": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "source_a",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

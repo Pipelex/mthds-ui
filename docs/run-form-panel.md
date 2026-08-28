@@ -19,19 +19,21 @@ The same reasoning is why the panel lives behind `./form/react` and never leaks 
 ## Using it
 
 ```tsx
-import { getPipeIOContract } from "@pipelex/mthds-form";
+import { getPipeInputForm, getPipeIOContract } from "@pipelex/mthds-form";
 import { RunPanel } from "@pipelex/mthds-ui/form/react";
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 
-function MethodPanel({ contracts, domain, pipeCode, onExecute }) {
+function MethodPanel({ contracts, inputForm, domain, pipeCode, onExecute }) {
   const [values, setValues] = useState({});
   // Note the argument order — the kernel's README currently shows it wrong.
   const contract = getPipeIOContract(contracts, domain, pipeCode);
-  if (!contract) return null;
+  const descriptor = getPipeInputForm(inputForm, domain, pipeCode);
+  if (!contract || !descriptor) return null;
 
   return (
     <RunPanel
       contract={contract}
+      descriptor={descriptor}
       values={values}
       onValuesChange={setValues}
       onRun={onExecute}
@@ -42,13 +44,16 @@ function MethodPanel({ contracts, domain, pipeCode, onExecute }) {
 }
 ```
 
-`contracts` is the `pipe_io_contracts` map from the same `/validate` call that produced your graph spec. Hosts that can actually run a method already hold it, so feeding the panel costs one prop.
+`contracts` and `inputForm` are the `pipe_io_contracts` and `input_form` maps from the same `/validate` call that produced your graph spec — two sibling artifacts, returned together when you ask for both views (`views: ["pipe_io_contracts", "input_form"]`). Hosts that can actually run a method already hold them, so feeding the panel costs two props.
+
+**Both are required, and the failure of omitting one is silent.** The descriptor states what each field IS — kind, constraints, presence, gating, and the authored order the contract's `inputs` map does not carry — and since kernel `0.5.0` it is what drives the derivation; the contract is co-walked beside it for the facts the descriptor deliberately omits (a scalar's wrapper property, a nested array's bounds). The kernel's `fieldsForContract` returns `[]` unless it has both, so a panel given only a contract renders with no fields and no error. Resolve them together, and bail together, as above.
 
 ### Props
 
 | Prop                        | Required | What it does                                                                                                                                                                                                                                                                                                                                |
 | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `contract`                  | yes      | The pipe's `PipeIOContract` — the kernel's type. See "Why not a GraphSpec" below.                                                                                                                                                                                                                                                           |
+| `descriptor`                | yes      | The pipe's `PipeInputFormDescriptor` — the contract's sibling, and what decides how every field renders. Look it up with `getPipeInputForm`.                                                                                                                                                                                                 |
 | `values` / `onValuesChange` | yes      | Fully controlled field values. The host owns the state; the panel never holds a copy.                                                                                                                                                                                                                                                       |
 | `onRun`                     | yes      | Fires **only after the kernel's run gate passes**, with the `{concept, content}` payload a run expects.                                                                                                                                                                                                                                     |
 | `running`                   | no       | A run is in flight: the fields and the button go inert. **Set it synchronously inside `onRun`** — see "Why `running` has to be set synchronously".                                                                                                                                                                                          |
@@ -57,6 +62,7 @@ function MethodPanel({ contracts, domain, pipeCode, onExecute }) {
 | `title`                     | no       | Panel header. There is no default — the host names the pipe.                                                                                                                                                                                                                                                                                |
 | `theme`                     | no       | `"dark"` or `"light"`. Drives both this library's palette and the kernel's `.dark` class. Defaults to `"light"`.                                                                                                                                                                                                                            |
 | `translate`                 | no       | Renders the whole error summary in your language — the kernel's per-error keys and the panel's own `runPanel.*` lines alike. English by default.                                                                                                                                                                                            |
+| `idPrefix`                  | no       | Makes this panel's control DOM ids predictable — a field at path `cv` becomes `id="<idPrefix>-cv"`, and `""` writes the path unprefixed. See "Several panels on one page" below.                                                                                                                                                            |
 | `className`                 | no       | Appended to the container's class list.                                                                                                                                                                                                                                                                                                     |
 
 ### What the host still owns
@@ -75,7 +81,9 @@ Two consequences of an upload being slow, both handled here so a host does not h
 
 **The readiness line beside Run is the button's accessible description**, associated with it by `aria-describedby` whenever readiness is what is holding Run back. It is the only thing on screen that says _why_ the button is dimmed, and a disabled button is out of the tab order, so nobody reaches that line by walking the controls. If you restyle the footer, keep the two associated — that id is generated with `useId`, so this association survives several panels on one page.
 
-**That guarantee covers the readiness association and nothing else.** The field controls take their `id` from the field's dotted path (`match.score`), which is not scoped per panel, so two panels rendering the same contract on one page emit duplicate DOM ids and each `<label for>` resolves to the first. The readiness description is unaffected; clicking a label in the second panel is not. Mounting several panels on one contract is therefore fine for reading and for the run gate, and imperfect for label-driven focus — see `wip/adopt-form/deferred-second-independent-sweep.md`, where the fix is recorded along with why it is not a one-liner: the same id is simultaneously the DOM id, the write-back path, and the upload-tracking key.
+**Several panels on one page are now safe, including for label-driven focus.** A control's DOM id used to be the field's dotted path verbatim (`match.score`), which is unique within one form but not within a document — so two panels rendering the same contract emitted duplicate ids and each `<label for>` bound to the first. Since kernel `0.5.0` the id is namespaced (`<prefix>-<path>`) while the value path itself is unchanged, so the write-back and the upload bookkeeping are untouched. Left alone, the prefix comes from `useId`: unique per panel and hydration-stable, which is what makes multiple panels correct by default.
+
+**Pass `idPrefix` when something outside must address a control** — `getElementById`, a deep link that focuses a field, an end-to-end selector — because a `useId` prefix is deliberately opaque. Doing so moves the uniqueness obligation to you: the prefix scopes the whole panel, so it must be unique in the document, and `""` restores the bare path ids along with the collision they had. A host mounting panels in separate React roots can instead give each root its own `identifierPrefix`.
 
 **The write-back merges into the latest values, not the ones captured when the drop happened**, so edits made to other fields while an upload was running survive it — and so does a sibling upload that finishes in the same instant, which matters as soon as a pipe takes two files (`candidate_screening.screen_candidate` takes a `cv` and a `job_offer`).
 
@@ -163,16 +171,18 @@ If you need the button in your own brand colour, restyle it directly and keep th
 
 ## Fixtures
 
-The contracts the stories render are **generated**, never hand-written:
+The artifacts the stories render are **generated**, never hand-written:
 
 ```bash
 make fixtures-contracts        # all bundles, offline, no inference
 make fixtures-contracts ONLY=pipeline_09
 ```
 
-This is not ceremony. A hand-authored contract gets the kernel's concept taxonomy subtly wrong — `native.Date` renders as _prose_ and wraps as `{ text }`, which is documented kernel drift and which nobody guesses — so a form tested against invented contracts is tested against inputs no method produces.
+This is not ceremony. A hand-authored pair gets the standard's field taxonomy subtly wrong in ways nobody guesses, so a form tested against invented artifacts is tested against inputs no method produces. It also cannot be checked by anything here: the two artifacts are consumed together, and one invented to match the other is self-consistent and still wrong.
 
-Because a contract is a projection of what a pipe **declares**, it needs no execution, which is why the pass is its own fast offline one and why the form fixtures rebuild without every bundle in the corpus being currently runnable. No pipelex CLI emits `pipe_io_contracts` yet, so `scripts/dump_pipe_io_contracts.py` calls the canonical builder through the pipelex venv; it is retired the moment the CLI can do it (`../wip/inbox/2026-08-23-pipelex-expose-pipe-io-contracts-in-agent-cli.md`).
+(The specific drift this warning used to name — `native.Date` rendering as _prose_ and wrapping as `{ text }` — is **resolved** in kernel `0.5.0`: the wire states `native.Date` as an object over `DateContent {date, time}`, and the store and run payload now carry that declared shape. It was a real wire-visible change for hosts, not just a rendering one.)
+
+Because both artifacts are projections of what a pipe **declares**, they need no execution, which is why the pass is its own fast offline one and why the form fixtures rebuild without every bundle in the corpus being currently runnable. No pipelex CLI emits either view yet, so `scripts/dump_validate_views.py` calls the canonical builders through the pipelex venv and emits both from one library window — which is what makes them share one key set. It is retired the moment the CLI can do it (ledger item `L-260823-d042fd`, owned by `pipelex`).
 
 ## Developing against a local form kernel
 

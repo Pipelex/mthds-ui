@@ -1,0 +1,172 @@
+{
+  "wide_processing.collect_all": {
+    "fields": [
+      {
+        "concept_ref": "wide_processing.ProcessedData",
+        "description": "Data processed through a specific pathway",
+        "gating": true,
+        "kind": "prose",
+        "name": "alpha",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "beta",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "gamma",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "wide_processing.ProcessedData",
+        "description": "Data processed through a specific pathway",
+        "gating": true,
+        "kind": "prose",
+        "name": "delta",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "wide_processing.ProcessedData",
+        "description": "Data processed through a specific pathway",
+        "gating": true,
+        "kind": "prose",
+        "name": "epsilon",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.five_way_split": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.process_alpha": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.process_beta": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.process_delta": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.process_epsilon": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.process_gamma": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "wide_processing.wide_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "data",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

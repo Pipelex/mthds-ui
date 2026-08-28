@@ -1,0 +1,67 @@
+{
+  "native_sampler.count_words": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "brief",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "native_sampler.extract_facts": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "brief",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "native_sampler.illustrate": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "brief",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "native_sampler.render_html": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "brief",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "native_sampler.sample_natives": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "brief",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

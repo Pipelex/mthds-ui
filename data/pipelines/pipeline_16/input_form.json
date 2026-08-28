@@ -1,0 +1,95 @@
+{
+  "image_catalog.build_catalog": {
+    "fields": [
+      {
+        "concept_ref": "image_catalog.Description",
+        "description": "Text description of an image",
+        "gating": true,
+        "kind": "prose",
+        "name": "description",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "image_catalog.TagList",
+        "description": "List of classification tags",
+        "gating": true,
+        "kind": "unknown",
+        "name": "tags",
+        "presence": "plain",
+        "refines": [
+          "native.JSON"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "image_catalog.classify_image": {
+    "fields": [
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "image",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "image_catalog.describe_image": {
+    "fields": [
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "image",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "image_catalog.generate_thumbnail": {
+    "fields": [
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "image",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "image_catalog.image_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "image",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "image_catalog.parallel_analyze": {
+    "fields": [
+      {
+        "concept_ref": "native.Image",
+        "description": "An image",
+        "gating": true,
+        "kind": "image",
+        "name": "image",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

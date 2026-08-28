@@ -6,10 +6,16 @@ import {
   fieldsForContract,
   isFilled,
   setValueAtPath,
+  type PipeInputFormDescriptor,
   type PipeIOContract,
   type RunField,
 } from "@pipelex/mthds-form";
-import { FieldRenderer, OptionalToggle, type FieldEnv } from "@pipelex/mthds-form/react";
+import {
+  FieldDomIdProvider,
+  FieldRenderer,
+  OptionalToggle,
+  type FieldEnv,
+} from "@pipelex/mthds-form/react";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { GRAPH_THEME, type GraphTheme } from "@graph/types";
 import { runSubmitGate, type RunPanelTranslate } from "@form/runGate";
@@ -33,6 +39,30 @@ export interface RunPanelProps {
    * not to do (design Decision A).
    */
   contract: PipeIOContract;
+  /**
+   * The pipe's input-form descriptor — the contract's sibling artifact, and
+   * what now decides how every field renders.
+   *
+   * Since kernel `0.5.0` the descriptor IS the derivation: `buildRunFields`
+   * maps this tree structurally, and the concept-name and schema-shape
+   * heuristics that used to guess a field's kind are deleted rather than left
+   * unreached. The contract is still required beside it — the two are
+   * co-walked for the facts the descriptor deliberately omits (a scalar's
+   * wrapper property, a nested array's bounds) — so neither artifact renders a
+   * form on its own.
+   *
+   * It arrives the same way the contract does: the `/validate` call that
+   * produced the graph spec returns `input_form` beside `pipe_io_contracts`
+   * when asked for both views (`views: ["pipe_io_contracts", "input_form"]`),
+   * and the kernel's `getPipeInputForm(inputForm, domain, pipeCode)` is
+   * `getPipeIOContract`'s twin for looking an entry up.
+   *
+   * Required rather than optional, because the alternative is silent: the
+   * kernel's `fieldsForContract` returns `[]` unless both artifacts are
+   * present, so a host that omitted this would render a panel with no fields
+   * and no error — a working form and an empty one look identical from here.
+   */
+  descriptor: PipeInputFormDescriptor;
   /** Fully controlled field values, host-owned — the kernel's philosophy. */
   values: Record<string, unknown>;
   onValuesChange: (values: Record<string, unknown>) => void;
@@ -97,6 +127,26 @@ export interface RunPanelProps {
    * kernel's decision and not something a host can predict.
    */
   translate?: RunPanelTranslate;
+  /**
+   * Makes this panel's control DOM ids predictable: a control at value path
+   * `cv` gets `id="<idPrefix>-cv"`, and `""` writes the path unprefixed.
+   *
+   * Ids are namespaced whether or not you pass this. A control's `id` must be
+   * unique in the DOCUMENT while a value path is unique only within one form,
+   * so two panels each declaring an input named `text` would otherwise emit two
+   * `id="text"` — and a `<label for>` binds the first match in tree order,
+   * which hands the second panel's label to the first panel's control and
+   * leaves the second input with no accessible name. Left unset, the prefix
+   * comes from `useId`: unique per panel and hydration-stable, but opaque, so
+   * nothing outside can predict it.
+   *
+   * Pass one when something must ADDRESS a control — `getElementById`, a
+   * deep-link that focuses a field, an end-to-end selector. Doing so moves the
+   * uniqueness obligation to you: the prefix scopes this whole panel, so it
+   * must be unique in the document, and `""` restores the ids this panel emitted
+   * before the kernel's fix along with the collision they had.
+   */
+  idPrefix?: string;
   /** Appended to the panel container's class list. */
   className?: string;
 }
@@ -118,6 +168,7 @@ const NOTHING_REVEALED: ReadonlySet<string> = new Set<string>();
  */
 export function RunPanel({
   contract,
+  descriptor,
   values,
   onValuesChange,
   onRun,
@@ -127,14 +178,19 @@ export function RunPanel({
   title,
   theme = GRAPH_THEME.LIGHT,
   translate,
+  idPrefix,
   className,
 }: RunPanelProps) {
   const [showOptional, setShowOptional] = React.useState(false);
   const [uploadingIds, setUploadingIds] = React.useState<ReadonlySet<string>>(EMPTY_IDS);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const readinessHintId = React.useId();
+  const fallbackPrefix = React.useId();
 
-  const fields = React.useMemo(() => fieldsForContract(contract), [contract]);
+  const fields = React.useMemo(
+    () => fieldsForContract(contract, descriptor),
+    [contract, descriptor],
+  );
   const readiness = React.useMemo(() => computeReadiness(fields, values), [fields, values]);
 
   const commitValues = React.useCallback(
@@ -467,70 +523,75 @@ export function RunPanel({
     [theme],
   );
 
+  // One provider around the whole panel, which is exactly one form — the scope
+  // the kernel's contract asks for. `fallbackPrefix` is this panel's own
+  // `useId`, so an unset `idPrefix` keeps the kernel's default behaviour (unique
+  // per instance) rather than turning the namespacing off.
   return (
-    <form
-      className={["mthds-run-panel", theme === GRAPH_THEME.DARK && "dark", className]
-        .filter(Boolean)
-        .join(" ")}
-      style={paletteStyle}
-      // The panel's gate is the authority on whether a run may go out, and the
-      // browser's is not merely redundant beside it — it is WRONG. The kernel's
-      // number control carries `step={integer ? 1 : 0.1}`, so any float with
-      // more than one decimal is a `stepMismatch` even though `native.Number`
-      // accepts it and the kernel's own ajv pass does too. Interactive
-      // validation then aborts submission before `onSubmit` runs at all: no
-      // gate, no `onRun`, no error from the panel, and a native message that is
-      // wrong about the domain ("nearest valid values are 87.2 and 87.3").
-      // Turning it off is what makes the documented `requestSubmit()` promise
-      // true, and costs nothing — every constraint that should hold is checked
-      // by `runSubmitGate`.
-      noValidate
-      onSubmit={handleSubmit}
-    >
-      {title && <h2 className="mthds-run-panel-title">{title}</h2>}
+    <FieldDomIdProvider prefix={idPrefix ?? fallbackPrefix}>
+      <form
+        className={["mthds-run-panel", theme === GRAPH_THEME.DARK && "dark", className]
+          .filter(Boolean)
+          .join(" ")}
+        style={paletteStyle}
+        // The panel's gate is the authority on whether a run may go out, and the
+        // browser's is not merely redundant beside it — it is WRONG. The kernel's
+        // number control carries `step={integer ? 1 : 0.1}`, so any float with
+        // more than one decimal is a `stepMismatch` even though `native.Number`
+        // accepts it and the kernel's own ajv pass does too. Interactive
+        // validation then aborts submission before `onSubmit` runs at all: no
+        // gate, no `onRun`, no error from the panel, and a native message that is
+        // wrong about the domain ("nearest valid values are 87.2 and 87.3").
+        // Turning it off is what makes the documented `requestSubmit()` promise
+        // true, and costs nothing — every constraint that should hold is checked
+        // by `runSubmitGate`.
+        noValidate
+        onSubmit={handleSubmit}
+      >
+        {title && <h2 className="mthds-run-panel-title">{title}</h2>}
 
-      {fields.length > 0 ? (
-        <div className="mthds-run-panel-fields">
-          {visibleFields.map((field) => (
-            <FieldRenderer
-              key={field.name}
-              field={field}
-              value={values[field.name]}
-              onChange={(value) => commitValues({ ...values, [field.name]: value })}
-              id={field.name}
-              env={fieldEnv}
-            />
-          ))}
-          {foldableCount > 0 && (
-            <OptionalToggle
-              count={foldableCount}
-              expanded={showOptional}
-              onToggle={() => {
-                setShowOptional((expanded) => !expanded);
-                // Clearing the latch here is what makes "the shape only grows"
-                // a temporary state rather than a permanent one. A fold
-                // transition is a click on this button, so nobody is mid-edit
-                // in a field, and the render below re-adds every optional that
-                // still holds a value — leaving exactly the emptied ones to
-                // fold away, which is what the user just asked for.
-                setRevealed(NOTHING_REVEALED);
-              }}
-              noun="input"
-            />
-          )}
-        </div>
-      ) : (
-        <p className="mthds-run-panel-empty">This pipe takes no inputs.</p>
-      )}
+        {fields.length > 0 ? (
+          <div className="mthds-run-panel-fields">
+            {visibleFields.map((field) => (
+              <FieldRenderer
+                key={field.name}
+                field={field}
+                value={values[field.name]}
+                onChange={(value) => commitValues({ ...values, [field.name]: value })}
+                id={field.name}
+                env={fieldEnv}
+              />
+            ))}
+            {foldableCount > 0 && (
+              <OptionalToggle
+                count={foldableCount}
+                expanded={showOptional}
+                onToggle={() => {
+                  setShowOptional((expanded) => !expanded);
+                  // Clearing the latch here is what makes "the shape only grows"
+                  // a temporary state rather than a permanent one. A fold
+                  // transition is a click on this button, so nobody is mid-edit
+                  // in a field, and the render below re-adds every optional that
+                  // still holds a value — leaving exactly the emptied ones to
+                  // fold away, which is what the user just asked for.
+                  setRevealed(NOTHING_REVEALED);
+                }}
+                noun="input"
+              />
+            )}
+          </div>
+        ) : (
+          <p className="mthds-run-panel-empty">This pipe takes no inputs.</p>
+        )}
 
-      {submitError && (
-        <p className="mthds-run-panel-error" role="alert">
-          {submitError}
-        </p>
-      )}
+        {submitError && (
+          <p className="mthds-run-panel-error" role="alert">
+            {submitError}
+          </p>
+        )}
 
-      <div className="mthds-run-panel-footer">
-        {/*
+        <div className="mthds-run-panel-footer">
+          {/*
           The readiness line is the only thing on screen that says WHY Run is
           disabled, so it has to be reachable by the people who cannot see it
           sitting next to the button — and a disabled button is out of the tab
@@ -541,20 +602,21 @@ export function RunPanel({
           page, and a hardcoded one would make the second panel describe the
           first panel's button.
         */}
-        <button
-          type="submit"
-          className="mthds-run-panel-run"
-          disabled={blocked}
-          aria-describedby={notReady ? readinessHintId : undefined}
-        >
-          {running ? "Running…" : "Run"}
-        </button>
-        {notReady && (
-          <span id={readinessHintId} className="mthds-run-panel-readiness">
-            {`${readiness.ready} of ${readiness.total} ready — still needed: ${readiness.missing.join(", ")}`}
-          </span>
-        )}
-      </div>
-    </form>
+          <button
+            type="submit"
+            className="mthds-run-panel-run"
+            disabled={blocked}
+            aria-describedby={notReady ? readinessHintId : undefined}
+          >
+            {running ? "Running…" : "Run"}
+          </button>
+          {notReady && (
+            <span id={readinessHintId} className="mthds-run-panel-readiness">
+              {`${readiness.ready} of ${readiness.total} ready — still needed: ${readiness.missing.join(", ")}`}
+            </span>
+          )}
+        </div>
+      </form>
+    </FieldDomIdProvider>
   );
 }

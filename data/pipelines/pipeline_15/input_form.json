@@ -1,0 +1,180 @@
+{
+  "rag.embed_query": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "rag.generate_answer": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "rag.RankedContext",
+        "description": "Reranked and filtered context passages",
+        "gating": true,
+        "kind": "prose",
+        "name": "context",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "rag.keyword_search": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "rag.parallel_search": {
+    "fields": [
+      {
+        "concept_ref": "rag.QueryEmbedding",
+        "description": "Embedded representation of a query",
+        "gating": true,
+        "kind": "prose",
+        "name": "query_embedding",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "rag.rag_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "rag.rerank_results": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "vector_results",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "keyword_results",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "question",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "rag.vector_search": {
+    "fields": [
+      {
+        "concept_ref": "rag.QueryEmbedding",
+        "description": "Embedded representation of a query",
+        "gating": true,
+        "kind": "prose",
+        "name": "query_embedding",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  }
+}
