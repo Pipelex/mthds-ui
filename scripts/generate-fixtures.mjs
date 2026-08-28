@@ -13,15 +13,18 @@
  *   live_run_main_stuff.json      what the live run actually produced (LIVE only)
  *   inputs_template.json          fill-in inputs template (offline, refreshed on DRY)
  *   pipe_io_contracts.json        every pipe's IO contract (offline, refreshed on DRY)
+ *   input_form.json               every pipe's input-form descriptor (offline, refreshed on DRY)
  *
  * This script is the ONLY writer of those files. Anything else in a pipeline directory
  * (bundle.mthds, inputs.json, inputs/, structures/) is hand-authored input.
  *
- * `pipe_io_contracts.json` is what the run form renders, and it is mode-independent:
- * a contract is a projection of what a pipe DECLARES, not of what a run produced. It
- * therefore needs no execution, which is why `--contracts` exists as its own fast,
+ * `pipe_io_contracts.json` and `input_form.json` are the pair the run form renders —
+ * the two views the hosted `/validate` returns together — and both are mode-independent:
+ * each is a projection of what a pipe DECLARES, not of what a run produced. They
+ * therefore need no execution, which is why `--contracts` exists as its own fast,
  * offline pass — and why the form fixtures can be rebuilt without every bundle in the
- * corpus being currently runnable.
+ * corpus being currently runnable. They are dumped in ONE call so they come from one
+ * library window and share one key set.
  *
  *   node scripts/generate-fixtures.mjs                            DRY specs  -> _generated.dry.ts
  *   node scripts/generate-fixtures.mjs --live                     LIVE specs -> _generated.live.ts
@@ -220,6 +223,18 @@ const INPUTS_TEMPLATE_NAME = "inputs_template.json";
  * same lifecycle as the inputs template.
  */
 const PIPE_IO_CONTRACTS_NAME = "pipe_io_contracts.json";
+/**
+ * Mode-independent too, and the contract's SIBLING rather than a part of it:
+ * every pipe's input-form descriptor, keyed by the same namespaced `pipe_ref`.
+ *
+ * The contract states what a slot ACCEPTS; the descriptor states what it IS —
+ * kind, constraints, presence, gating, and the authored order the contract's
+ * `inputs` map does not carry. Since form-kernel `0.5.0` the descriptor is what
+ * drives the derivation, so a fixture carrying only the contract renders an
+ * EMPTY form rather than a wrong one, which is the failure this file exists to
+ * keep out of the stories.
+ */
+const INPUT_FORM_NAME = "input_form.json";
 
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
@@ -238,8 +253,8 @@ function assertPipelexCliAvailable() {
 /**
  * The contracts pass needs the venv INTERPRETER, not the CLI.
  *
- * No pipelex CLI surfaces `pipe_io_contracts`, so `dumpContracts` runs
- * `scripts/dump_pipe_io_contracts.py` through `PIPELEX_PYTHON` and never
+ * No pipelex CLI surfaces the validate views, so `dumpViews` runs
+ * `scripts/dump_validate_views.py` through `PIPELEX_PYTHON` and never
  * touches `PIPELEX_BIN`. Guarding that path on the CLI checked the wrong
  * executable in both directions: it refused a machine with a working
  * interpreter and no sibling checkout — the exact case `PIPELEX_PYTHON`
@@ -371,18 +386,24 @@ function writeInputsTemplate(pipelineDir) {
 }
 
 /**
- * Write the bundle's `pipe_io_contracts` alongside it.
+ * The bundle's two validate views — `pipe_io_contracts` and `input_form` —
+ * parsed, as `{ pipe_io_contracts, input_form }`.
  *
- * No pipelex CLI surfaces the contracts today, so this goes through
- * `scripts/dump_pipe_io_contracts.py` in the pipelex venv — see that file's
- * header for why, and for the inbox request that retires it. Offline and
- * inference-free, so it rides the free DRY pass.
+ * No pipelex CLI surfaces either today, so this goes through
+ * `scripts/dump_validate_views.py` in the pipelex venv — see that file's header
+ * for why, and for the ledger item that retires it. Offline and inference-free,
+ * so it rides the free DRY pass.
+ *
+ * One invocation returns both because they must come from one library window:
+ * the builders iterate the same loaded pipes and therefore share one key set,
+ * which two separate dumps could not promise.
  */
-function dumpContracts(bundle, label) {
+function dumpViews(bundle, label) {
+  let raw;
   try {
-    return execFileSync(
+    raw = execFileSync(
       PIPELEX_PYTHON,
-      [path.join(REPO, "scripts/dump_pipe_io_contracts.py"), bundle],
+      [path.join(REPO, "scripts/dump_validate_views.py"), bundle],
       {
         cwd: REPO,
         env: { ...process.env, PIPELEX_NO_DECK_NOTICE: "1" },
@@ -394,16 +415,28 @@ function dumpContracts(bundle, label) {
   } catch (err) {
     console.error(err.stdout?.toString() ?? "");
     console.error(err.stderr?.toString() ?? "");
-    die(`${label}: dump_pipe_io_contracts.py failed`);
+    die(`${label}: dump_validate_views.py failed`);
+  }
+  try {
+    return JSON.parse(raw);
+  } catch {
+    die(`${label}: dump_validate_views.py emitted unparseable JSON`);
   }
 }
 
-function writePipeIoContracts(pipelineDir) {
+/** Both views, serialized the way they are committed beside the bundle. */
+function serializeViews(views) {
+  return {
+    contracts: `${JSON.stringify(views.pipe_io_contracts, null, 2)}\n`,
+    inputForm: `${JSON.stringify(views.input_form, null, 2)}\n`,
+  };
+}
+
+function writeValidateViews(pipelineDir) {
   const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
-  writeFileSync(
-    path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME),
-    dumpContracts(bundle, pipelineDir),
-  );
+  const { contracts, inputForm } = serializeViews(dumpViews(bundle, pipelineDir));
+  writeFileSync(path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME), contracts);
+  writeFileSync(path.join(PIPELINES_DIR, pipelineDir, INPUT_FORM_NAME), inputForm);
 }
 
 /**
@@ -520,15 +553,24 @@ async function formatSplit(splitRaw, prettierConfig) {
 }
 
 /**
- * (Re)write the contracts fixture from the `pipe_io_contracts.json` files on disk.
+ * (Re)write the form fixture from the `pipe_io_contracts.json` and
+ * `input_form.json` files on disk.
  *
  * Derived from disk rather than from whatever this invocation happened to
  * refresh, for the same reason the spec barrels are: a partial run must still
  * emit a complete module, or the stories lose exports they import.
+ *
+ * BOTH files are required for a pipeline to appear. A pipeline holding only the
+ * contract is a tree half-swept by a pre-`0.5.0` generator, and the two ways of
+ * treating it are not equally safe: emitting its split without a descriptor
+ * would compile and render an empty form, while dropping it fails the story
+ * that imports the missing export — loudly, at build time, naming the pipeline.
  */
-async function writeContractsFixture(allPipelines, prettierConfig) {
-  const present = allPipelines.filter((p) =>
-    existsSync(path.join(PIPELINES_DIR, p, PIPE_IO_CONTRACTS_NAME)),
+async function writeFormFixture(allPipelines, prettierConfig) {
+  const present = allPipelines.filter(
+    (p) =>
+      existsSync(path.join(PIPELINES_DIR, p, PIPE_IO_CONTRACTS_NAME)) &&
+      existsSync(path.join(PIPELINES_DIR, p, INPUT_FORM_NAME)),
   );
   const splitDir = path.join(CONTRACTS_DIR, "_generated");
   mkdirSync(splitDir, { recursive: true });
@@ -540,7 +582,11 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
     ...present.map((pipelineDir) => ({
       slug: pipelineDir,
       name: NAME_MAP[pipelineDir],
-      json: readFileSync(path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME), "utf-8"),
+      contracts: readFileSync(
+        path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME),
+        "utf-8",
+      ),
+      inputForm: readFileSync(path.join(PIPELINES_DIR, pipelineDir, INPUT_FORM_NAME), "utf-8"),
     })),
     // Corpus entries have no writable directory of their own (the vendored copy
     // is read-only), so their contracts go straight into the split module —
@@ -564,7 +610,7 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
       : Object.entries(CORPUS_CONTRACTS).map(([entry, name]) => ({
           slug: entry,
           name,
-          json: dumpContracts(path.join(CORPUS_DIR, entry, "bundle.mthds"), entry),
+          ...serializeViews(dumpViews(path.join(CORPUS_DIR, entry, "bundle.mthds"), entry)),
         }))),
   ];
 
@@ -574,15 +620,16 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
     );
   }
 
-  for (const { slug, name, json } of sources) {
+  for (const { slug, name, contracts, inputForm } of sources) {
     const splitRaw =
       `/**\n` +
-      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's\n` +
-      ` * pipe_io_contracts, keyed by namespaced pipe_ref. DO NOT EDIT.\n` +
+      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's two\n` +
+      ` * validate views, each keyed by namespaced pipe_ref. DO NOT EDIT.\n` +
       ` * Regenerate with \`make fixtures-contracts\`.\n` +
       ` */\n` +
-      `import type { PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
-      `export const CONTRACTS_${name} = ${json.trim()} as unknown as PipeIOContracts;\n`;
+      `import type { InputForm, PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
+      `export const CONTRACTS_${name} = ${contracts.trim()} as unknown as PipeIOContracts;\n\n` +
+      `export const INPUT_FORM_${name} = ${inputForm.trim()} as unknown as InputForm;\n`;
     writeFileSync(path.join(splitDir, `${slug}.ts`), await formatSplit(splitRaw, prettierConfig));
   }
 
@@ -598,10 +645,15 @@ async function writeContractsFixture(allPipelines, prettierConfig) {
   const barrelRaw =
     `/**\n` +
     ` * Auto-generated by scripts/generate-fixtures.mjs — re-exports the\n` +
-    ` * per-bundle contract split modules. DO NOT EDIT.\n` +
+    ` * per-bundle validate-view split modules. DO NOT EDIT.\n` +
     ` * Regenerate with \`make fixtures-contracts\`.\n` +
     ` */\n` +
-    exported.map(({ slug, name }) => `export { CONTRACTS_${name} } from "./_generated/${slug}";`).join("\n") +
+    exported
+      .map(
+        ({ slug, name }) =>
+          `export { CONTRACTS_${name}, INPUT_FORM_${name} } from "./_generated/${slug}";`,
+      )
+      .join("\n") +
     `\n`;
 
   const outPath = path.join(CONTRACTS_DIR, "_generated.contracts.ts");
@@ -645,16 +697,16 @@ async function main() {
     // rather than re-sourcing them through pipelex.
     if (!FROM_DISK) {
       // The interpreter, not the CLI: this whole branch runs through
-      // `dumpContracts`, which never invokes `pipelex`.
+      // `dumpViews`, which never invokes `pipelex`.
       assertPipelexPythonAvailable();
       for (const pipelineDir of selected) {
         process.stdout.write(`  ${pipelineDir} ... `);
-        writePipeIoContracts(pipelineDir);
+        writeValidateViews(pipelineDir);
         console.log("ok");
       }
     }
     const prettierConfig = (await prettier.resolveConfig(CONTRACTS_DIR)) ?? {};
-    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    const fixture = await writeFormFixture(allPipelines, prettierConfig);
     console.log(
       `\n✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
     );
@@ -693,7 +745,7 @@ async function main() {
   // A DRY pass also refreshes the contracts, and those go through the venv
   // interpreter rather than the CLI — so demand it up front instead of dying
   // halfway through, after the run artifacts have already been rewritten.
-  // The condition mirrors the `writePipeIoContracts` call site below exactly,
+  // The condition mirrors the `writeValidateViews` call site below exactly,
   // `!CHECK` included: --check writes nothing, so it never reaches the
   // interpreter, and a guard that outruns the call it protects turns a
   // validate-only smoke test into one that needs a sibling venv it will not use.
@@ -717,7 +769,7 @@ async function main() {
         copyRunArtifacts(pipelineDir, outDir);
         if (!LIVE) {
           writeInputsTemplate(pipelineDir);
-          writePipeIoContracts(pipelineDir);
+          writeValidateViews(pipelineDir);
         }
       }
     } finally {
@@ -861,7 +913,7 @@ async function main() {
     // fixture is re-emitted here — idempotent when nothing moved. The pipeline
     // contracts come off disk; the corpus ones are re-sourced through pipelex
     // unless --from-disk, which reuses their split modules instead.
-    const fixture = await writeContractsFixture(allPipelines, prettierConfig);
+    const fixture = await writeFormFixture(allPipelines, prettierConfig);
     console.log(
       `✓ wrote ${path.relative(REPO, fixture.outPath)} (${fixture.count} contract set(s))`,
     );

@@ -1,0 +1,170 @@
+{
+  "data_aggregation.combine_sources": {
+    "fields": [
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "api_data",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "web_data",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.SearchResult",
+        "description": "A search result with answer and sources",
+        "fields": [
+          {
+            "description": "The answer to the search query",
+            "kind": "text",
+            "name": "answer",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Document",
+            "description": "The source documents supporting the answer",
+            "item": {
+              "concept_ref": "native.Document",
+              "description": "A document",
+              "kind": "document",
+              "required": true
+            },
+            "kind": "list",
+            "name": "sources",
+            "required": true
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "academic_data",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "data_aggregation.fetch_api": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "data_aggregation.gather_sources": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "data_aggregation.multi_source_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "data_aggregation.search_academic": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "data_aggregation.search_web": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "query",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

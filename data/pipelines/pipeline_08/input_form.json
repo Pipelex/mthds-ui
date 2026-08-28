@@ -1,0 +1,110 @@
+{
+  "document_batch.batch_ocr_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "document_batch.combine_summaries": {
+    "fields": [
+      {
+        "concept_ref": "document_batch.PageSummary",
+        "description": "Summary of a single page",
+        "gating": false,
+        "item": {
+          "concept_ref": "document_batch.PageSummary",
+          "description": "Summary of a single page",
+          "kind": "prose",
+          "refines": [
+            "native.Text"
+          ],
+          "required": true
+        },
+        "kind": "list",
+        "name": "page_summaries",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "document_batch.extract_pages": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "document_batch.summarize_page": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "page",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "content_etl.caption_images": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "described",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.clean_text": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.combine_results": {
+    "fields": [
+      {
+        "concept_ref": "content_etl.EnrichedText",
+        "description": "Text enriched with metadata",
+        "gating": true,
+        "kind": "prose",
+        "name": "clean_text",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      {
+        "concept_ref": "content_etl.ProcessedImage",
+        "description": "Processed image with metadata",
+        "gating": true,
+        "kind": "prose",
+        "name": "processed_image",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "content_etl.dual_process": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.enrich_text": {
+    "fields": [
+      {
+        "concept_ref": "content_etl.CleanText",
+        "description": "Cleaned and normalized text",
+        "gating": true,
+        "kind": "prose",
+        "name": "clean_text",
+        "presence": "plain",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      }
+    ]
+  },
+  "content_etl.etl_pipeline": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.extract_content": {
+    "fields": [
+      {
+        "concept_ref": "native.Document",
+        "description": "A document",
+        "gating": true,
+        "kind": "document",
+        "name": "document",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.extract_images": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.image_branch": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "content_etl.text_branch": {
+    "fields": [
+      {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "gating": false,
+        "item": {
+          "concept_ref": "native.Page",
+          "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+          "fields": [
+            {
+              "concept_ref": "native.TextAndImages",
+              "description": "The text and images content extracted from the page",
+              "fields": [
+                {
+                  "concept_ref": "native.Text",
+                  "description": "A text content",
+                  "kind": "prose",
+                  "name": "text",
+                  "required": false
+                },
+                {
+                  "concept_ref": "native.Image",
+                  "description": "A list of images that were extracted from the text",
+                  "item": {
+                    "concept_ref": "native.Image",
+                    "description": "An image",
+                    "kind": "image",
+                    "required": true
+                  },
+                  "kind": "list",
+                  "name": "images",
+                  "required": false
+                },
+                {
+                  "description": "The raw HTML of the fetched page, if requested",
+                  "kind": "text",
+                  "name": "raw_html",
+                  "required": false
+                }
+              ],
+              "kind": "object",
+              "name": "text_and_images",
+              "required": true
+            },
+            {
+              "concept_ref": "native.Image",
+              "description": "The screenshot of the page",
+              "kind": "image",
+              "name": "page_view",
+              "required": false
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "pages",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}

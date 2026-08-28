@@ -1,0 +1,196 @@
+{
+  "availability.check_day": {
+    "fields": [
+      {
+        "concept_ref": "native.Date",
+        "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+        "fields": [
+          {
+            "datetime": false,
+            "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
+            "kind": "date",
+            "name": "date",
+            "required": true
+          },
+          {
+            "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.",
+            "format": "time",
+            "kind": "text",
+            "name": "time",
+            "required": false
+          }
+        ],
+        "gating": true,
+        "kind": "object",
+        "name": "day",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.is_urgent": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "request",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.read_dates": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "request",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.reply_now": {
+    "fields": [
+      {
+        "concept_ref": "availability.SlotCheck",
+        "description": "Whether one proposed date has a free slot",
+        "gating": false,
+        "item": {
+          "concept_ref": "availability.SlotCheck",
+          "description": "Whether one proposed date has a free slot",
+          "fields": [
+            {
+              "description": "The date that was checked, in ISO 8601",
+              "kind": "text",
+              "name": "day",
+              "required": true
+            },
+            {
+              "description": "Whether the calendar is free that day",
+              "kind": "boolean",
+              "name": "is_free",
+              "required": true
+            },
+            {
+              "description": "What else is on the calendar that day",
+              "kind": "text",
+              "name": "note",
+              "required": true
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "checks",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.reply_with_options": {
+    "fields": [
+      {
+        "concept_ref": "availability.SlotCheck",
+        "description": "Whether one proposed date has a free slot",
+        "gating": false,
+        "item": {
+          "concept_ref": "availability.SlotCheck",
+          "description": "Whether one proposed date has a free slot",
+          "fields": [
+            {
+              "description": "The date that was checked, in ISO 8601",
+              "kind": "text",
+              "name": "day",
+              "required": true
+            },
+            {
+              "description": "Whether the calendar is free that day",
+              "kind": "boolean",
+              "name": "is_free",
+              "required": true
+            },
+            {
+              "description": "What else is on the calendar that day",
+              "kind": "text",
+              "name": "note",
+              "required": true
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "checks",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.route_availability": {
+    "fields": [
+      {
+        "concept_ref": "native.Text",
+        "description": "A text",
+        "gating": true,
+        "kind": "prose",
+        "name": "request",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  },
+  "availability.route_reply": {
+    "fields": [
+      {
+        "concept_ref": "availability.SlotCheck",
+        "description": "Whether one proposed date has a free slot",
+        "gating": false,
+        "item": {
+          "concept_ref": "availability.SlotCheck",
+          "description": "Whether one proposed date has a free slot",
+          "fields": [
+            {
+              "description": "The date that was checked, in ISO 8601",
+              "kind": "text",
+              "name": "day",
+              "required": true
+            },
+            {
+              "description": "Whether the calendar is free that day",
+              "kind": "boolean",
+              "name": "is_free",
+              "required": true
+            },
+            {
+              "description": "What else is on the calendar that day",
+              "kind": "text",
+              "name": "note",
+              "required": true
+            }
+          ],
+          "kind": "object",
+          "required": true
+        },
+        "kind": "list",
+        "name": "checks",
+        "presence": "plain",
+        "required": true
+      },
+      {
+        "concept_ref": "native.YesNo",
+        "description": "The answer to a yes/no question",
+        "gating": true,
+        "kind": "boolean",
+        "name": "urgent",
+        "presence": "plain",
+        "required": true
+      }
+    ]
+  }
+}
