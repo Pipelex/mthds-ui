@@ -9,8 +9,10 @@ The dividing line, stated once, because everything below follows from it: **anyt
 The kernel is an **optional peer dependency**. Graph-only consumers install nothing extra and nothing changes for them; a consumer that wants the form installs it alongside:
 
 ```bash
-npm install @pipelex/mthds-ui @pipelex/mthds-form
+npm install @pipelex/mthds-ui @pipelex/mthds-form mthds
 ```
+
+`mthds` is in that line because the kernel declares it a required peer of its own and re-exports its protocol types; a package manager with peer auto-installation adds it either way, but naming it keeps the install correct for one that does not. This library never imports it.
 
 It is a peer, not a dependency, for a reason that bites silently if you get it wrong: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts. If this library carried its own nested copy of the kernel, a provider you mount above the panel would not resolve inside it — the panel would read the kernel's defaults while your app read yours, with nothing in the console to say why. One instance, shared, is the only arrangement that works.
 
