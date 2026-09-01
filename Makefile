@@ -124,7 +124,12 @@ use-local:
 	@echo "Building ../mthds-form so dist/ is up-to-date..."
 	cd ../mthds-form && npm run build
 	@echo "Packing ../mthds-form into a tarball..."
-	@cd ../mthds-form && rm -f pipelex-mthds-form-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts) && mv $$TARBALL /tmp/pipelex-mthds-form-local.tgz
+	@# `2>/dev/null | tail -1`, and both halves are needed. `--silent` does not
+	@# silence the build tsup runs on pack (nor browserslist's warning), so the
+	@# capture picks up several lines and `mv` fails with "is not a directory" —
+	@# naming a temp path, which reads like a filesystem problem rather than a
+	@# capture one. The filename is always the LAST line.
+	@cd ../mthds-form && rm -f pipelex-mthds-form-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts 2>/dev/null | tail -1) && mv $$TARBALL /tmp/pipelex-mthds-form-local.tgz
 	rm -rf node_modules/@pipelex/mthds-form node_modules/.vite node_modules/.cache/storybook
 	npm install /tmp/pipelex-mthds-form-local.tgz --no-save --silent
 	@rm -f /tmp/pipelex-mthds-form-local.tgz
