@@ -15,7 +15,7 @@ The standard answers the question, in an artifact built for it:
 
 `buildResultField(descriptor, schema)` pairs them into a `RunField`, and `ResultPanel` lays that out **without ever inspecting the value**: a list of uniform records becomes a table, a structure a two-column grid, `native.Html` a sandboxed frame, images a gallery, prose typeset as markdown. The JSON view survives as one of the panel's two, because a receipt is worth having. "Pretty" and "HTML" do not, because they were two guesses at a question that now has an answer.
 
-## The kernel is a REQUIRED peer, and that is the point
+## The kernel ships with this package, and that is the point
 
 Pass the artifacts; the viewer renders the result itself:
 
@@ -27,7 +27,7 @@ There was a render prop here for about a day (`renderStuffData`), and it was the
 
 That optionality made sense while the kernel powered only the run form, which is genuinely an add-on: a host embedding a graph viewer need not offer a way to run methods. It stopped making sense the moment `output_form` became **how this viewer shows a result at all**. A viewer whose detail panel cannot display data is not a viewer, so the kernel is a required peer, `GraphViewer` imports the panel directly, and the seam is gone.
 
-**A peer and not a dependency**, deliberately. A required peer is auto-installed by npm and pnpm — so a host gets a working detail panel by installing this package alone, with no `@pipelex/mthds-form` line of its own — while still being resolved from the host's own tree, which is what guarantees ONE copy. A dependency can be nested instead of deduped, and a second copy of a package carrying React context means a host's `FieldStringsProvider` silently fails to resolve inside our controls. `make smoke-pack` asserts both halves from a bare consumer that declares only this package and React.
+**A dependency, and the route there is worth recording.** The obvious answer — a *required* peer — is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not one a library can offer. So the kernel is a dependency and is re-exported from `./form` and `./form/react`; a host installs this package alone and imports everything from it. The objection to depending on a package carrying React context — two copies, two context identities — is answered by the rule that comes with it: **import the kernel through those entries, never directly.** A host that declares nothing cannot produce a second copy, and `make smoke-pack` asserts exactly one copy from a bare consumer.
 
 The division of labour is unchanged: **the graph owns the selection and the lookup**, resolving the clicked node's digest to a `StuffLocation` (`src/graph/stuffLookup.ts`) and handing `StuffResultPanel` the item, its concept, the producing pipe and the first consuming one.
 

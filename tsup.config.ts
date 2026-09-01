@@ -22,6 +22,7 @@ export default defineConfig({
     "src/index.ts",
     "src/graph/index.ts",
     "src/graph/react/index.ts",
+    "src/form/index.ts",
     "src/form/react/index.ts",
     "src/shiki/index.ts",
     "src/static-graph/index.ts",

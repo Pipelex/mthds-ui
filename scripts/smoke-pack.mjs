@@ -9,7 +9,7 @@
  * even when the published artifact does not.
  *
  * The consumer DECLARES only this package and React. The kernel arrives anyway,
- * because it is a required peer — and that is the property worth testing from
+ * because it is a dependency — and that is the property worth testing from
  * outside, since a normal dev tree always has it as a devDependency and so can
  * never tell you whether a host would get it.
  *
@@ -41,7 +41,7 @@
  * map without evaluating the module.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, readdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -113,22 +113,28 @@ try {
   const installed = path.join(scratch, "node_modules", "@pipelex", "mthds-ui");
   const manifest = JSON.parse(readFileSync(path.join(installed, "package.json"), "utf8"));
 
-  // This assertion was the exact opposite until the kernel stopped being
-  // optional, and inverting it is the whole point of the change rather than a
-  // consequence of it. An OPTIONAL peer is not installed for you: a consumer
-  // that wants the form has to declare it itself, which is a real cost the
-  // graph-only consumers were being spared. A REQUIRED peer is auto-installed
-  // by npm and pnpm, so a host gets a working detail panel by installing this
-  // package alone — which is what makes the viewer's data view a feature of the
-  // viewer rather than something every host has to opt into.
+  // This assertion has been inverted twice, and the history is the design.
   //
-  // Asserted from a BARE consumer (this scratch project declares nothing but
-  // this package and React), because that is the claim: no `@pipelex/mthds-form`
-  // line anywhere, and it is still there.
-  process.stdout.write("\nThe required peer is auto-installed for a bare consumer\n");
+  // It first proved the kernel was ABSENT: it was an optional peer, isolated
+  // behind `./form/react`, and a consumer that wanted the form had to declare
+  // it. That was right while the kernel powered only the run form.
+  //
+  // It then proved the kernel ARRIVED as a required peer — which npm does and
+  // pnpm, tested, does not: pnpm reports it unmet and installs nothing, even
+  // with `auto-install-peers=true`. A property that holds on one package
+  // manager is not a property a library can offer.
+  //
+  // So the kernel is a real DEPENDENCY, and this is what that buys: a host
+  // installs THIS PACKAGE ALONE and gets a working form and a working detail
+  // panel. The scratch consumer below declares nothing but this package and
+  // React, which is the whole claim.
+  process.stdout.write("\nThe kernel ships with the package\n");
+  const kernelDir = path.join(scratch, "node_modules", "@pipelex", "mthds-form");
+  check("@pipelex/mthds-form arrives without the consumer declaring it", existsSync(kernelDir));
   check(
-    "@pipelex/mthds-form arrives without the consumer declaring it",
-    existsSync(path.join(scratch, "node_modules", "@pipelex", "mthds-form")),
+    "it is a dependency, not a peer the host has to satisfy",
+    manifest.dependencies?.["@pipelex/mthds-form"] !== undefined &&
+      manifest.peerDependencies?.["@pipelex/mthds-form"] === undefined,
   );
 
   process.stdout.write("\nEvery declared export points at a real file\n");
@@ -229,18 +235,29 @@ try {
     );
   }
 
-  // A REQUIRED peer, not an optional one, and the flip is the point rather than
-  // an oversight. It was optional while the kernel powered only the run form and
-  // `./graph/react` had to keep resolving without it; it stopped being optional
-  // when the graph's detail panel began rendering results through it, because a
-  // viewer whose detail panel cannot show data is not a viewer. A peer (rather
-  // than a dependency) is still what guarantees ONE copy resolved from the
-  // host's tree — the context-identity property a dependency cannot promise.
+  // ONE copy of the kernel, and this is the assertion the dependency choice
+  // rests on. Two copies means two React context identities, so a host's
+  // `FieldStringsProvider` silently fails to resolve inside our controls — the
+  // failure the peer arrangement used to prevent structurally. A host that
+  // declares nothing cannot produce a second copy; this checks that the
+  // published tree does not either.
+  const kernelCopies = [];
+  const walk = (dir, depth) => {
+    if (depth > 6 || !existsSync(dir)) return;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const child = path.join(dir, entry.name);
+      if (entry.name === "mthds-form" && path.basename(dir) === "@pipelex") kernelCopies.push(child);
+      else walk(child, depth + 1);
+    }
+  };
+  walk(path.join(scratch, "node_modules"), 0);
   check(
-    "the kernel is declared a REQUIRED peer",
-    manifest.peerDependencies?.["@pipelex/mthds-form"] !== undefined &&
-      manifest.peerDependenciesMeta?.["@pipelex/mthds-form"] === undefined,
+    "exactly one copy of the kernel in the consumer's tree",
+    kernelCopies.length === 1,
+    `${kernelCopies.length} copies: ${kernelCopies.map((c) => path.relative(scratch, c)).join(", ")}`,
   );
+
 } finally {
   rmSync(scratch, { recursive: true, force: true });
 }

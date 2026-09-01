@@ -10,6 +10,15 @@
  * cannot show data is not a viewer. See `docs/stuff-result-panel.md`.
  */
 
+/**
+ * The kernel's React surface, re-exported. A host imports its controls from
+ * here rather than naming `@pipelex/mthds-form` itself — see `../index.ts` for
+ * why that indirection is the point rather than ceremony, and why importing the
+ * kernel directly beside this package is the one thing that can reintroduce the
+ * two-context-identities bug.
+ */
+export * from "@pipelex/mthds-form/react";
+
 export { RunPanel } from "./RunPanel";
 export type { RunPanelProps, UploadedFile } from "./RunPanel";
 
