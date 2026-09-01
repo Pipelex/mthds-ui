@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { stuffRendererFor } from "@form/react/__stories__/pipelineStuffRenderer";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_MULTI_OUTPUT_FANOUT } from "./specs/_generated/dry/pipeline_22";
 import { LIVE_MULTI_OUTPUT_FANOUT } from "./specs/_generated/live/pipeline_22";
@@ -22,7 +23,14 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { initialDirection: "LR" as const, initialShowControllers: true };
+// Clicking a data node shows what this run actually produced, laid out from
+// the method's own `output_form` and `pipe_io_contracts`. Passed the way a
+// host passes it — the graph entry cannot import the kernel itself.
+const D = {
+  initialDirection: "LR" as const,
+  initialShowControllers: true,
+  renderStuffData: stuffRendererFor("MULTI_OUTPUT_FANOUT"),
+};
 
 export const DryRun: Story = {
   args: { graphspec: DRY_MULTI_OUTPUT_FANOUT, ...D },

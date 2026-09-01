@@ -3,10 +3,13 @@
 import * as React from "react";
 import {
   buildResultField,
+  getPipeInputForm,
   getPipeIOContract,
   getPipeOutputForm,
+  type InputForm,
   type OutputForm,
   type PipeIOContracts,
+  type RunField,
 } from "@pipelex/mthds-form";
 import { ResultPanel } from "@pipelex/mthds-form/react";
 import { parsePipeRef } from "@graph/pipeRefs";
@@ -39,12 +42,30 @@ import type { RenderStuffData, StuffRenderContext } from "@graph/react/stuffRend
  *
  * ## What it needs from the host, and why
  *
- * Two artifacts, keyed by `pipe_ref` — the same pair every `/validate` call
- * returns beside the graph spec. The join is the producing pipe: the graph hands
- * over `producerPipeRef` (see `stuffLookup.ts`), and both artifacts are looked
- * up by it. That is why a method's own INPUTS render nothing here: no pipe
- * produced them, so no output descriptor describes them. They are a run's
- * arguments, and `RunPanel` is the component that speaks about those.
+ * The artifacts every `/validate` call returns beside the graph spec, keyed by
+ * `pipe_ref`. The join is the producing pipe: the graph hands over
+ * `producerPipeRef` (see `stuffLookup.ts`), and `output_form` plus the output
+ * half of the contract are looked up by it.
+ *
+ * ## The method's own inputs, which no pipe produced
+ *
+ * They have no `producerPipeRef`, so no output descriptor describes them — and
+ * showing nothing for the top of every graph is not acceptable, because a
+ * method's arguments are as much a part of what happened as its results. What
+ * DOES describe them is the CONSUMING pipe's `input_form` entry for the slot
+ * they arrive in: the same field, seen from the other side. So `inputForm` is
+ * an optional third artifact, and when it is supplied the panel falls back to
+ * it.
+ *
+ * **Only on the `single` arm, and that is a correctness boundary rather than a
+ * conservative default.** An input's `json_schema` describes what a CALLER
+ * SENDS, so a plural slot's is a bare array; a stuff's payload is what the
+ * runtime HOLDS, which for a plural value is a `ListContent {items}` envelope.
+ * The two disagree exactly where the standard says they do, and rendering a
+ * plural input against its caller-side schema would unwrap by a property that
+ * is not there. On the single arm the two are byte-identical by construction —
+ * both are `render_stuff_spec`'s output — so the fallback is exact there and
+ * declines everywhere else.
  *
  * ## What it deliberately does not do
  *
@@ -60,6 +81,12 @@ export interface StuffResultRendererOptions {
   contracts: PipeIOContracts;
   /** `output_form` for the same method — the SAME `/validate` call. */
   outputForm: OutputForm;
+  /**
+   * `input_form`, optional. Supplying it is what lets a method's own INPUTS
+   * render as described fields rather than as nothing: they have no producing
+   * pipe, so the consuming pipe's descriptor for their slot is what names them.
+   */
+  inputForm?: InputForm;
 }
 
 export interface StuffResultPanelProps extends StuffResultRendererOptions {
@@ -67,22 +94,71 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
   context: StuffRenderContext;
 }
 
-export function StuffResultPanel({ contracts, outputForm, context }: StuffResultPanelProps) {
-  const field = React.useMemo(() => {
-    if (!context.producerPipeRef) return null;
-    const parsed = parsePipeRef(context.producerPipeRef);
-    if (!parsed?.domainPath) return null;
-    const descriptor = getPipeOutputForm(outputForm, parsed.domainPath, parsed.pipeCode);
-    const contract = getPipeIOContract(contracts, parsed.domainPath, parsed.pipeCode);
-    // Both or neither, the same rule the input side follows: the descriptor says
-    // what the result IS and the schema says what shape it arrives in, and a
-    // renderer given one of the two would be guessing the other.
-    if (!descriptor || !contract) return null;
-    return buildResultField(descriptor, contract.output.json_schema);
-  }, [contracts, outputForm, context.producerPipeRef]);
+export function StuffResultPanel({
+  contracts,
+  outputForm,
+  inputForm,
+  context,
+}: StuffResultPanelProps) {
+  const { producerPipeRef, consumer } = context;
+  const field = React.useMemo(
+    () =>
+      fromProducer(contracts, outputForm, producerPipeRef) ??
+      fromConsumer(contracts, inputForm, consumer),
+    [contracts, outputForm, inputForm, producerPipeRef, consumer],
+  );
 
   if (!field) return null;
   return <ResultPanel field={field} value={context.stuff.data} />;
+}
+
+/** The normal case: the pipe that resolved to this value describes it. */
+function fromProducer(
+  contracts: PipeIOContracts,
+  outputForm: OutputForm,
+  producerPipeRef: string | undefined,
+): RunField | null {
+  if (!producerPipeRef) return null;
+  const parsed = parsePipeRef(producerPipeRef);
+  if (!parsed?.domainPath) return null;
+  const descriptor = getPipeOutputForm(outputForm, parsed.domainPath, parsed.pipeCode);
+  const contract = getPipeIOContract(contracts, parsed.domainPath, parsed.pipeCode);
+  // Both or neither, the same rule the input side follows: the descriptor says
+  // what the result IS and the schema says what shape it arrives in, and a
+  // renderer given one of the two would be guessing the other.
+  if (!descriptor || !contract) return null;
+  return buildResultField(descriptor, contract.output.json_schema);
+}
+
+/**
+ * The fallback for a method's own input: the pipe that READS it describes it.
+ *
+ * Single-valued slots only. See the component's note — a plural input's schema
+ * is the caller-side bare array, and the payload is a `ListContent` envelope, so
+ * the fallback would unwrap by a property that is not there.
+ */
+function fromConsumer(
+  contracts: PipeIOContracts,
+  inputForm: InputForm | undefined,
+  consumer: { pipeRef: string; slotName: string } | undefined,
+): RunField | null {
+  if (!inputForm || !consumer) return null;
+  const parsed = parsePipeRef(consumer.pipeRef);
+  if (!parsed?.domainPath) return null;
+  const descriptor = getPipeInputForm(inputForm, parsed.domainPath, parsed.pipeCode);
+  const contract = getPipeIOContract(contracts, parsed.domainPath, parsed.pipeCode);
+  if (!descriptor || !contract) return null;
+  const slot = contract.inputs[consumer.slotName];
+  if (!slot || slot.multiplicity !== "single") return null;
+  const node = descriptor.fields.find((candidate) => candidate.name === consumer.slotName);
+  if (!node) return null;
+  // Wrapped into the OUTPUT descriptor's shape, which is what `buildResultField`
+  // takes. That is not a cheat: the two descriptors' nodes are the same
+  // recursive vocabulary, and the wrapper's only job is to say "one field, and
+  // here it is". The pipe-slot facts the input node also carries (`presence`,
+  // `gating`) describe how a caller must fill it and mean nothing to a value
+  // that has already arrived, so they are simply not read.
+  return buildResultField({ field: node }, slot.json_schema);
 }
 
 /**

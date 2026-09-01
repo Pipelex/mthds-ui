@@ -36,7 +36,19 @@ A consumer that passes nothing gets the concept's structure table and **no data 
 
 Both artifacts are keyed by `pipe_ref`, so rendering a result means walking from the data back to the pipe that resolved to it. `findStuffByDigest` does that walk in two passes, and the order is load-bearing rather than an optimization: the same digest appears on the producer's `outputs` and again on every consumer's `inputs`, and only the producer's copy is guaranteed to carry the payload. A single-pass walk returns whichever copy the node order happened to put first.
 
-The second pass exists for the items no pipe produced — a method's own declared inputs, which appear only as some pipe's `inputs`. Those get no `producerPipeRef`, so `renderStuffResult` returns `null` for them and the panel falls back to structure. That is correct: no pipe produced them, so no output descriptor describes them. They are a run's arguments, and `RunPanel` is the component that speaks about those.
+The second pass exists for the items no pipe produced — a method's own declared inputs, which appear only as some pipe's `inputs`.
+
+## The method's own inputs
+
+Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `renderStuffResult` takes an optional third artifact:
+
+```tsx
+renderStuffResult({ contracts, inputForm, outputForm })
+```
+
+**The fallback fires on single-valued slots only, and that is a correctness boundary rather than caution.** An input's `json_schema` describes what a caller **sends**, so a plural slot's is a bare array; a stuff's payload is what the runtime **holds**, which for a plural value is a `ListContent {items}` envelope. The two disagree exactly where the standard says they do, and rendering a plural input against its caller-side schema would unwrap by a property that is not there. On the single arm they are byte-identical by construction — both are `render_stuff_spec`'s output — so the fallback is exact there and declines everywhere else.
+
+An input node is wrapped into the output descriptor's `{ field }` shape before `buildResultField` sees it. That is not a cheat: the two descriptors' nodes are the same recursive vocabulary, and the wrapper's only job is to say "one field, and here it is". The pipe-slot facts an input node also carries (`presence`, `gating`) describe how a caller must fill the slot and mean nothing to a value that has already arrived, so they are simply not read.
 
 ## What was given up
 
@@ -49,3 +61,7 @@ The second pass exists for the items no pipe produced — a method's own declare
 ## Stories
 
 `Form/Graph with ResultPanel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts` and `output_form`, wired with one prop. `Without A Renderer` is the same graph with none, showing the floor.
+
+Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories pass `renderStuffData` through `stuffRendererFor(name)`, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `undefined` — which is the viewer's own documented "no data view" path rather than a second one.
+
+Those stories live under `src/graph/react/`, which may not import the kernel, so the helper lives in `src/form/react/__stories__/` and they import that. Stories sit outside `tsup.config.ts`'s entry globs, so none of it reaches the shipped graph bundle — `make smoke-pack` still proves `./graph/react` resolves with the kernel absent.

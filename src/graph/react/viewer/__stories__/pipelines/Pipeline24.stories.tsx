@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { stuffRendererFor } from "@form/react/__stories__/pipelineStuffRenderer";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_DEEP_NESTING } from "./specs/_generated/dry/pipeline_24";
 import { LIVE_DEEP_NESTING } from "./specs/_generated/live/pipeline_24";
@@ -22,7 +23,14 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { initialDirection: "LR" as const, initialShowControllers: true };
+// Clicking a data node shows what this run actually produced, laid out from
+// the method's own `output_form` and `pipe_io_contracts`. Passed the way a
+// host passes it — the graph entry cannot import the kernel itself.
+const D = {
+  initialDirection: "LR" as const,
+  initialShowControllers: true,
+  renderStuffData: stuffRendererFor("DEEP_NESTING"),
+};
 
 export const DryRun: Story = {
   args: { graphspec: DRY_DEEP_NESTING, ...D },

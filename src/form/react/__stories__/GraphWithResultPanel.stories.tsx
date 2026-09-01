@@ -4,7 +4,11 @@ import { renderStuffResult } from "@form/react/StuffResultPanel";
 import { GraphViewer } from "@graph/react/viewer/GraphViewer";
 import { GRAPH_THEME } from "@graph/types";
 import { LIVE_CV_SCREENING } from "@graph/react/viewer/__stories__/pipelines/specs/_generated.live";
-import { CONTRACTS_CV_SCREENING, OUTPUT_FORM_CV_SCREENING } from "./contracts/_generated.contracts";
+import {
+  CONTRACTS_CV_SCREENING,
+  INPUT_FORM_CV_SCREENING,
+  OUTPUT_FORM_CV_SCREENING,
+} from "./contracts/_generated.contracts";
 
 /**
  * Click a data node in the graph, read what the run produced — laid out from the
@@ -26,13 +30,13 @@ import { CONTRACTS_CV_SCREENING, OUTPUT_FORM_CV_SCREENING } from "./contracts/_g
  *
  * The whole wiring is one prop:
  *
- *     renderStuffData={renderStuffResult({ contracts, outputForm })}
+ *     renderStuffData={renderStuffResult({ contracts, inputForm, outputForm })}
  *
  * The graph owns the selection, the lookup and the panel; it hands the renderer
- * the producing pipe's `pipe_ref` and lets the kernel do the rest. Select a
- * method INPUT instead of a produced one and the panel shows the concept's
- * structure alone — correctly, because no pipe produced it, so no output
- * descriptor describes it.
+ * the producing pipe's `pipe_ref` and lets the kernel do the rest. A method's
+ * own INPUTS have no producing pipe, so they resolve through the third artifact
+ * instead: the CONSUMING pipe's `input_form` entry for the slot they arrive in
+ * describes the same field from the other side.
  */
 const meta = {
   title: "Form/Graph with ResultPanel",
@@ -49,6 +53,7 @@ const args = {
   initialShowControllers: true,
   renderStuffData: renderStuffResult({
     contracts: CONTRACTS_CV_SCREENING,
+    inputForm: INPUT_FORM_CV_SCREENING,
     outputForm: OUTPUT_FORM_CV_SCREENING,
   }),
 };
@@ -98,6 +103,46 @@ export const Dark: Story = {
  * given, and it does not pretend to know how to display a value it cannot
  * describe.
  */
+/**
+ * A method's own INPUT — the top of the graph, which no pipe produced.
+ *
+ * No `output_form` entry describes it, so the panel falls back to the CONSUMING
+ * pipe's `input_form` entry for the slot it arrives in: the same field, seen
+ * from the other side. It reads as `cv` rather than `output`, because that is
+ * what the method calls it.
+ */
+export const AMethodInput: Story = {
+  args,
+  play: async ({ canvasElement }) => {
+    await waitFor(
+      () => expect(canvasElement.querySelectorAll(".react-flow__node").length).toBeGreaterThan(0),
+      { timeout: 10000 },
+    );
+    // The `cv` Document is the method's own input in pipeline_09.
+    const nodes = Array.from(canvasElement.querySelectorAll<HTMLElement>(".react-flow__node"));
+    const input = nodes.find(
+      (n) => n.textContent?.startsWith("cv") && n.dataset.id?.includes("stuff_"),
+    );
+    await expect(input).toBeDefined();
+    await userEvent.click(input!);
+    // Scoped to the DETAIL PANEL, not the canvas: `cv` also labels the graph
+    // node and the consuming pipe card's input pill, so an unscoped query
+    // matches three elements and says nothing about which one rendered.
+    const panel = within(
+      await waitFor(() => {
+        const el = canvasElement.querySelector<HTMLElement>(".detail-panel-content");
+        if (!el) throw new Error("no detail panel");
+        return el;
+      }),
+    );
+    // Labelled by its SLOT name, which is the INPUT descriptor's - the producer
+    // path would have called it `output`, so this is what proves the fallback
+    // fired rather than that something merely rendered.
+    await waitFor(() => expect(panel.getByText("cv")).toBeInTheDocument());
+    await expect(panel.getByRole("button", { name: "Result" })).toBeInTheDocument();
+  },
+};
+
 export const WithoutARenderer: Story = {
   args: { graphspec: LIVE_CV_SCREENING, initialDirection: "LR", theme: GRAPH_THEME.LIGHT },
   play: async ({ canvasElement }) => {

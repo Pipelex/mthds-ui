@@ -1,5 +1,5 @@
 import type * as React from "react";
-import type { ConceptInfo, GraphSpecNodeIoItem } from "@graph/types";
+import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types";
 
 /**
  * Everything the graph knows about one data item, handed to whoever renders it.
@@ -44,6 +44,25 @@ export interface StuffRenderContext {
    * which no pipe produced.
    */
   producerPipeRef?: string;
+  /**
+   * The first pipe that CONSUMES it, and the slot name it arrives in — the
+   * fallback identity for a method's own inputs, which no pipe produced. The
+   * consuming pipe's `input_form` entry for that slot describes the same field
+   * from the other side.
+   */
+  consumer?: { pipeRef: string; slotName: string };
+  /**
+   * The viewer's RESOLVED theme (never `system`), so a renderer can match the
+   * panel it is drawn into.
+   *
+   * It is on the context rather than left to the renderer because the graph is
+   * the only one that knows: the theme may come from a prop, from the built-in
+   * toggle, or from the environment via `system`, and only the viewer has
+   * resolved all three. A renderer reading `prefers-color-scheme` itself would
+   * be right by luck and wrong the moment a host pins a theme against it — dark
+   * text on a dark panel, which is exactly the bug this slot was added for.
+   */
+  theme: GraphTheme;
   /**
    * True on a dry-run spec. The payload is then mock data the engine invented
    * to shape the run, not a result: a renderer may legitimately decline to show

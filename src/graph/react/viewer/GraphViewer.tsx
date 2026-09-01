@@ -177,14 +177,18 @@ function StuffNodeDetail({
   nodeId,
   stuffData,
   producerPipeRef,
+  consumer,
   graphspec,
+  theme,
   renderStuffData,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
   stuffData: GraphSpecNodeIoItem;
   producerPipeRef?: string;
+  consumer?: { pipeRef: string; slotName: string };
   graphspec: GraphSpec | null;
+  theme: GraphTheme;
   renderStuffData?: RenderStuffData;
 }) {
   const conceptInfo =
@@ -202,6 +206,8 @@ function StuffNodeDetail({
           stuff: stuffData,
           concept: conceptInfo,
           producerPipeRef,
+          consumer,
+          theme,
           isDryRun,
         })
     : undefined;
@@ -334,6 +340,8 @@ interface DetailSelection {
   stuffData?: GraphSpecNodeIoItem;
   /** `domain.code` of the pipe that produced the stuff, when one did. */
   producerPipeRef?: string;
+  /** The first pipe reading it, for the method inputs no pipe produced. */
+  consumer?: { pipeRef: string; slotName: string };
 }
 
 export function GraphViewer(props: GraphViewerProps) {
@@ -1057,6 +1065,7 @@ export function GraphViewer(props: GraphViewerProps) {
           nodeData,
           stuffData: found?.item,
           producerPipeRef: found?.producerPipeRef,
+          consumer: found?.consumer,
         });
       }
 
@@ -1222,7 +1231,9 @@ export function GraphViewer(props: GraphViewerProps) {
             nodeId={detailSelection.nodeId}
             stuffData={detailSelection.stuffData}
             producerPipeRef={detailSelection.producerPipeRef}
+            consumer={detailSelection.consumer}
             graphspec={graphspec}
+            theme={resolvedTheme}
             renderStuffData={renderStuffData}
           />
         ) : null}

@@ -668,13 +668,44 @@ async function writeFormFixture(allPipelines, prettierConfig) {
     ` * per-bundle validate-view split modules. DO NOT EDIT.\n` +
     ` * Regenerate with \`make fixtures-contracts\`.\n` +
     ` */\n` +
+    `import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
     exported
       .map(
         ({ slug, name }) =>
           `export { CONTRACTS_${name}, INPUT_FORM_${name}, OUTPUT_FORM_${name} } from "./_generated/${slug}";`,
       )
       .join("\n") +
-    `\n`;
+    `\n\n` +
+    exported
+      .map(
+        ({ slug, name }) =>
+          `import { CONTRACTS_${name}, INPUT_FORM_${name}, OUTPUT_FORM_${name} } from "./_generated/${slug}";`,
+      )
+      .join("\n") +
+    `\n\n` +
+    `/** One method's three views, together — the shape a consumer actually holds. */\n` +
+    `export interface ArtifactSet {\n` +
+    `  contracts: PipeIOContracts;\n` +
+    `  inputForm: InputForm;\n` +
+    `  outputForm: OutputForm;\n` +
+    `}\n\n` +
+    `/**\n` +
+    ` * Every generated method's artifacts, keyed by the name its exports carry.\n` +
+    ` *\n` +
+    ` * The named exports above are what a story reaches for when it knows which\n` +
+    ` * method it is about; this map is for the stories that are PARAMETERISED by\n` +
+    ` * one — the 34 per-pipeline graph stories, which all want the same wiring\n` +
+    ` * against a different method. Without it each of those would restate three\n` +
+    ` * imports, and adding a fourth artifact later would mean editing 34 files.\n` +
+    ` */\n` +
+    `export const ARTIFACT_SETS: Record<string, ArtifactSet> = {\n` +
+    exported
+      .map(
+        ({ name }) =>
+          `  ${name}: { contracts: CONTRACTS_${name}, inputForm: INPUT_FORM_${name}, outputForm: OUTPUT_FORM_${name} },`,
+      )
+      .join("\n") +
+    `\n};\n`;
 
   const outPath = path.join(CONTRACTS_DIR, "_generated.contracts.ts");
   writeFileSync(outPath, await prettier.format(barrelRaw, { ...prettierConfig, parser: "typescript" }));

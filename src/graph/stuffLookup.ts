@@ -24,6 +24,20 @@ export interface StuffLocation {
    * of every graph.
    */
   producerPipeRef?: string;
+  /**
+   * The first pipe that CONSUMES it, and the slot it arrives in.
+   *
+   * The fallback identity for a method's own inputs, which no pipe produced and
+   * which therefore no `output_form` describes. What does describe them is the
+   * consuming pipe's `input_form` entry for that slot — the same field, seen
+   * from the other side — so a renderer that holds the input artifacts can show
+   * a method input as something better than a JSON dump.
+   *
+   * First rather than all, deliberately: several pipes may read the same stuff,
+   * and every one of them describes it identically, because they are describing
+   * the concept it carries. A list here would be a list of the same answer.
+   */
+  consumer?: { pipeRef: string; slotName: string };
 }
 
 /**
@@ -53,17 +67,38 @@ export function pipeRefOf(node: GraphSpecNode): string | undefined {
  * searched outputs alone would report the top of every graph as missing.
  */
 export function findStuffByDigest(spec: GraphSpec, digest: string): StuffLocation | null {
+  const consumer = findConsumer(spec, digest);
   for (const node of spec.nodes) {
     for (const output of node.io?.outputs ?? []) {
       if (output.digest === digest) {
-        return { item: output, producerPipeRef: pipeRefOf(node) };
+        const producerPipeRef = pipeRefOf(node);
+        return {
+          item: output,
+          ...(producerPipeRef ? { producerPipeRef } : {}),
+          ...(consumer ? { consumer } : {}),
+        };
       }
     }
   }
   for (const node of spec.nodes) {
     for (const input of node.io?.inputs ?? []) {
-      if (input.digest === digest) return { item: input };
+      if (input.digest === digest) return { item: input, ...(consumer ? { consumer } : {}) };
     }
   }
   return null;
+}
+
+/** The first pipe reading this digest, and the slot name it reads it as. */
+function findConsumer(
+  spec: GraphSpec,
+  digest: string,
+): { pipeRef: string; slotName: string } | undefined {
+  for (const node of spec.nodes) {
+    const pipeRef = pipeRefOf(node);
+    if (!pipeRef) continue;
+    for (const input of node.io?.inputs ?? []) {
+      if (input.digest === digest) return { pipeRef, slotName: input.name };
+    }
+  }
+  return undefined;
 }
