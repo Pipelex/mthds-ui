@@ -14,6 +14,7 @@ import type {
   GraphNode,
   GraphEdge,
   GraphNodeData,
+  GraphSpecNodeIoItem,
   DataflowAnalysis,
   FoldMode,
   FoldToggleOptions,
@@ -41,9 +42,8 @@ import {
   buildValidationDecorations,
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
-import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
-import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
-import { StuffViewer } from "../stuff/StuffViewer";
+import { findStuffByDigest } from "@graph/stuffLookup";
+import type { RenderStuffData } from "../stuffRender";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
 import { PipeDetailPanel } from "../detail/PipeDetailPanel";
@@ -130,7 +130,7 @@ export interface GraphViewerProps {
    */
   onThemeChange?: (mode: GraphThemeMode, resolvedTheme: GraphTheme) => void;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
-  onStuffNodeClick?: (stuffData: StuffViewerData) => void;
+  onStuffNodeClick?: (stuff: GraphSpecNodeIoItem) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
   /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
   statusMap?: Record<string, PipeStatus>;
@@ -141,24 +141,16 @@ export interface GraphViewerProps {
   /** Render extra content below the built-in detail panel content for the selected node. */
   renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
   /**
-   * Resolver for `pipelex-storage://` URIs. Passed down to StuffViewer so it can
-   * exchange internal URIs for browser-fetchable presigned URLs when rendering media.
-   */
-  resolveStorageUrl?: ResolveStorageUrl;
-  /**
-   * Set to `false` when the host cannot render `<embed type="application/pdf">`
-   * — e.g. VS Code webviews, which run inside Electron without the Chromium
-   * PDFium plugin. Forwarded to StuffViewer.
+   * Renders the DATA half of a selected stuff node's detail panel.
    *
-   * Default: `true`.
+   * The viewer supplies the selection, the lookup and the panel; the renderer
+   * supplies the view. Pass `renderStuffResult` from this package's
+   * `./form/react` entry to get the descriptor-driven result view the standard
+   * describes, or your own function to render it any other way. Without it the
+   * panel shows the concept's structure table and no data tab — see
+   * `stuffRender.ts` for why the graph no longer renders data itself.
    */
-  canEmbedPdf?: boolean;
-  /**
-   * Replaces the default `window.open(url, "_blank")` behavior used by the
-   * StuffViewer toolbar and the PDF fallback tile. Wire this to your host's
-   * external-open mechanism (e.g. `vscode.env.openExternal` via postMessage).
-   */
-  onOpenExternally?: (url: string, filename?: string) => void;
+  renderStuffData?: RenderStuffData;
   /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
@@ -180,53 +172,55 @@ export interface GraphViewerProps {
   onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
 }
 
-/** Stuff node detail: concept structure + data viewer. */
+/** Stuff node detail: concept structure, plus whatever the host renders for its data. */
 function StuffNodeDetail({
   nodeId,
   stuffData,
+  producerPipeRef,
   graphspec,
-  resolveStorageUrl,
-  canEmbedPdf,
-  onOpenExternally,
+  renderStuffData,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
-  stuffData: StuffViewerData;
+  stuffData: GraphSpecNodeIoItem;
+  producerPipeRef?: string;
   graphspec: GraphSpec | null;
-  resolveStorageUrl?: ResolveStorageUrl;
-  canEmbedPdf?: boolean;
-  onOpenExternally?: (url: string, filename?: string) => void;
+  renderStuffData?: RenderStuffData;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
   const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
 
-  return (
-    <>
-      {/* Concept structure (header + schema table) */}
-      {conceptInfo ? (
-        <ConceptDetailPanel
-          concept={conceptInfo}
-          ioData={stuffData}
-          isDryRun={isDryRun}
-          instanceKey={nodeId}
-          resolveStorageUrl={resolveStorageUrl}
-          canEmbedPdf={canEmbedPdf}
-          onOpenExternally={onOpenExternally}
-        />
-      ) : isDryRun ? (
-        <div className="detail-not-available">Dry run data hidden</div>
-      ) : (
-        /* Fallback: just show the StuffViewer if no concept info */
-        <StuffViewer
-          stuff={stuffData}
-          resolveStorageUrl={resolveStorageUrl}
-          canEmbedPdf={canEmbedPdf}
-          onOpenExternally={onOpenExternally}
-        />
-      )}
-    </>
-  );
+  // Built here rather than inside `ConceptDetailPanel` so the two branches below
+  // hand the renderer the SAME context: a stuff with no concept in the spec is
+  // still a stuff a host may know how to render, and it is exactly the case the
+  // old fallback treated as second-class.
+  const renderData = renderStuffData
+    ? () =>
+        renderStuffData({
+          nodeId,
+          stuff: stuffData,
+          concept: conceptInfo,
+          producerPipeRef,
+          isDryRun,
+        })
+    : undefined;
+
+  if (conceptInfo) {
+    return (
+      <ConceptDetailPanel
+        concept={conceptInfo}
+        ioData={stuffData}
+        isDryRun={isDryRun}
+        instanceKey={nodeId}
+        renderData={renderData}
+      />
+    );
+  }
+  if (isDryRun) return <div className="detail-not-available">Dry run data hidden</div>;
+  // No concept in the spec, so there is no structure to show and no tabs to
+  // choose between — just the data, if anything can render it.
+  return <>{renderData?.() ?? <div className="detail-not-available">No data</div>}</>;
 }
 
 /**
@@ -337,7 +331,9 @@ interface DetailSelection {
   nodeId: string;
   nodeData: GraphNodeData;
   conceptInfo?: ConceptInfo;
-  stuffData?: StuffViewerData;
+  stuffData?: GraphSpecNodeIoItem;
+  /** `domain.code` of the pipe that produced the stuff, when one did. */
+  producerPipeRef?: string;
 }
 
 export function GraphViewer(props: GraphViewerProps) {
@@ -360,9 +356,7 @@ export function GraphViewer(props: GraphViewerProps) {
     onNodeSelect,
     onPaneClick,
     renderDetailExtra,
-    resolveStorageUrl,
-    canEmbedPdf,
-    onOpenExternally,
+    renderStuffData,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1045,9 +1039,8 @@ export function GraphViewer(props: GraphViewerProps) {
           onNavigateToPipe(code, nodeData.pipeCardData?.status);
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
-        const digest = stuffDigestFromId(node.id);
-        const sd = findStuffDataByDigest(graphspec, digest);
-        if (sd) onStuffNodeClick(sd);
+        const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));
+        if (found) onStuffNodeClick(found.item);
       }
 
       // Update detail panel (toggle off if same node clicked again)
@@ -1057,13 +1050,13 @@ export function GraphViewer(props: GraphViewerProps) {
       } else if (nodeData.isPipe || nodeData.isController) {
         setDetailSelection({ kind: "pipe", nodeId: node.id, nodeData });
       } else if (nodeData.isStuff && graphspec) {
-        const digest = stuffDigestFromId(node.id);
-        const sd = findStuffDataByDigest(graphspec, digest);
+        const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));
         setDetailSelection({
           kind: "stuff",
           nodeId: node.id,
           nodeData,
-          stuffData: sd ?? undefined,
+          stuffData: found?.item,
+          producerPipeRef: found?.producerPipeRef,
         });
       }
 
@@ -1228,10 +1221,9 @@ export function GraphViewer(props: GraphViewerProps) {
           <StuffNodeDetail
             nodeId={detailSelection.nodeId}
             stuffData={detailSelection.stuffData}
+            producerPipeRef={detailSelection.producerPipeRef}
             graphspec={graphspec}
-            resolveStorageUrl={resolveStorageUrl}
-            canEmbedPdf={canEmbedPdf}
-            onOpenExternally={onOpenExternally}
+            renderStuffData={renderStuffData}
           />
         ) : null}
         {renderDetailExtra &&

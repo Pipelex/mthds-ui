@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
+
+  The kernel is an **optional** peer isolated behind `./form/react`, so `GraphViewer` takes a render prop rather than importing it: `renderStuffData={renderStuffResult({ contracts, outputForm })}`, exported from `@pipelex/mthds-ui/form/react`. The graph owns the selection, the lookup and the panel; the renderer owns the view. A consumer that passes nothing gets the concept's structure table and no data tab — the deliberate floor, because a tab opening onto an empty pane reads as data that failed to load.
+
+  Removed from `GraphViewerProps`: `resolveStorageUrl`, `canEmbedPdf`, `onOpenExternally` — all three existed solely for `StuffViewer`. `onStuffNodeClick` now receives a `GraphSpecNodeIoItem` rather than the deleted `StuffViewerData`, and `ConceptDetailPanel`'s `ioData` takes the same one shape. The `./graph/react/stuff/StuffViewer.css` export-map entry is gone, and `dompurify` has left `dependencies` — it was there only to sanitize `data_html`.
+
+  **One capability is genuinely lost and is not replaced here.** `resolveStorageUrl` exchanged `pipelex-storage://` URIs for presigned URLs before painting media; the kernel has no equivalent seam yet, so a result carrying a storage reference shows the file named rather than rendered. That belongs in the kernel's file arms, where every consumer gets it.
+
+### Added
+
+- **`output_form` in the generated fixtures.** `scripts/dump_validate_views.py` now calls pipelex's `build_output_form` beside the two builders it already ran — all three from one library window, since they iterate the same loaded pipes and share one key set — and the generator writes `output_form.json` beside each pipeline's bundle and an `OUTPUT_FORM_*` export in each split module. A pipeline must carry all three files to appear in the fixture; emitting a split without a descriptor would compile and render an empty result, while dropping it fails the story that imports the missing export, loudly and by name.
+
+- **`findStuffByDigest` / `pipeRefOf`** (`@pipelex/mthds-ui/graph`) — the walk from a data item back to the pipe that produced it, which is the join both result artifacts are keyed by. Two passes, and the order is load-bearing: the same digest appears on the producer's `outputs` and on every consumer's `inputs`, and only the producer's copy is guaranteed to carry the payload.
+
+- **`RenderStuffData` / `StuffRenderContext`** (`@pipelex/mthds-ui/graph/react`) — the seam's types, for a host rendering stuff data its own way.
+
 ## [v0.19.0] - 2026-08-29
 
 ### Added

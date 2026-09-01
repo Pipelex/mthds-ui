@@ -26,6 +26,21 @@
     "output": {
       "concept_ref": "text_processing.Summary",
       "item_count": null,
+      "json_schema": {
+        "description": "A text summary of content",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "text_processing.Summary",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

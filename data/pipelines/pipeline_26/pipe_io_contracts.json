@@ -445,6 +445,71 @@
     "output": {
       "concept_ref": "cv_matching.CvEvaluation",
       "item_count": null,
+      "json_schema": {
+        "description": "Evaluation of a CV against a job offer",
+        "properties": {
+          "candidate_name": {
+            "description": "Name of the candidate",
+            "title": "Candidate Name",
+            "type": "string"
+          },
+          "gaps": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Missing qualifications relative to the job",
+            "title": "Gaps"
+          },
+          "match": {
+            "description": "Whether the CV matches: yes or no",
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "title": "Match",
+            "type": "string"
+          },
+          "match_score": {
+            "description": "Match score from 0 to 100",
+            "title": "Match Score",
+            "type": "number"
+          },
+          "strengths": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Key strengths relative to the job",
+            "title": "Strengths"
+          },
+          "summary": {
+            "description": "Overall evaluation summary",
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "candidate_name",
+          "match",
+          "match_score",
+          "summary"
+        ],
+        "title": "cv_matching.CvEvaluation",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -541,6 +606,233 @@
     "output": {
       "concept_ref": "native.Page",
       "item_count": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "description": "An image",
+            "properties": {
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "PageContent": {
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "properties": {
+              "page_view": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The screenshot of the page"
+              },
+              "text_and_images": {
+                "$ref": "#/$defs/TextAndImagesContent",
+                "description": "The text and images content extracted from the page"
+              }
+            },
+            "required": [
+              "text_and_images"
+            ],
+            "title": "PageContent",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "description": "A text",
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/PageContent"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "ListContent[PageContent]",
+        "type": "object"
+      },
       "multiplicity": "variable",
       "optional": false
     }
@@ -637,6 +929,233 @@
     "output": {
       "concept_ref": "native.Page",
       "item_count": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "description": "An image",
+            "properties": {
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "PageContent": {
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "properties": {
+              "page_view": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The screenshot of the page"
+              },
+              "text_and_images": {
+                "$ref": "#/$defs/TextAndImagesContent",
+                "description": "The text and images content extracted from the page"
+              }
+            },
+            "required": [
+              "text_and_images"
+            ],
+            "title": "PageContent",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "description": "A text",
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/PageContent"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "ListContent[PageContent]",
+        "type": "object"
+      },
       "multiplicity": "variable",
       "optional": false
     }
@@ -718,6 +1237,39 @@
     "output": {
       "concept_ref": "cv_matching.InterviewQuestion",
       "item_count": null,
+      "json_schema": {
+        "$defs": {
+          "cv_matching__InterviewQuestion": {
+            "description": "A tailored interview question for a candidate",
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "cv_matching__InterviewQuestion",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/cv_matching__InterviewQuestion"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "ListContent[cv_matching__InterviewQuestion]",
+        "type": "object"
+      },
       "multiplicity": "variable",
       "optional": false
     }
@@ -799,6 +1351,7 @@
     "output": {
       "concept_ref": "native.Anything",
       "item_count": null,
+      "json_schema": {},
       "multiplicity": "single",
       "optional": false
     }
@@ -984,6 +1537,7 @@
     "output": {
       "concept_ref": "native.Anything",
       "item_count": null,
+      "json_schema": {},
       "multiplicity": "variable",
       "optional": false
     }
@@ -1300,6 +1854,7 @@
     "output": {
       "concept_ref": "native.Anything",
       "item_count": null,
+      "json_schema": {},
       "multiplicity": "single",
       "optional": false
     }
@@ -1381,6 +1936,21 @@
     "output": {
       "concept_ref": "native.Text",
       "item_count": null,
+      "json_schema": {
+        "description": "A text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "native.Text",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

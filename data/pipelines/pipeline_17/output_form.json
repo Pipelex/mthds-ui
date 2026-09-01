@@ -1,0 +1,113 @@
+{
+  "email_management.classify_email": {
+    "field": {
+      "concept_ref": "email_management.EmailClassification",
+      "description": "Classified email with priority",
+      "fields": [
+        {
+          "description": "Email subject",
+          "kind": "text",
+          "name": "subject",
+          "required": true
+        },
+        {
+          "choices": [
+            "auto_reply",
+            "needs_review"
+          ],
+          "description": "Priority level",
+          "kind": "enum",
+          "name": "priority",
+          "required": true
+        },
+        {
+          "description": "Brief summary of the email",
+          "kind": "text",
+          "name": "summary",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "email_management.email_triage": {
+    "field": {
+      "concept_ref": "email_management.InboxDigest",
+      "description": "Summary digest of inbox processing",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "email_management.flag_for_review": {
+    "field": {
+      "concept_ref": "email_management.InboxDigest",
+      "description": "Summary digest of inbox processing",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "email_management.generate_auto_reply": {
+    "field": {
+      "concept_ref": "email_management.InboxDigest",
+      "description": "Summary digest of inbox processing",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "email_management.route_email": {
+    "field": {
+      "concept_ref": "email_management.InboxDigest",
+      "description": "Summary digest of inbox processing",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "email_management.search_inbox": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}

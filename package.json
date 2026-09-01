@@ -34,7 +34,6 @@
     },
     "./graph/react/graph-core.css": "./dist/graph/react/graph-core.css",
     "./graph/react/detail/DetailPanel.css": "./dist/graph/react/detail/DetailPanel.css",
-    "./graph/react/stuff/StuffViewer.css": "./dist/graph/react/stuff/StuffViewer.css",
     "./graph/react/viewer/GraphToolbar.css": "./dist/graph/react/viewer/GraphToolbar.css",
     "./form/react": {
       "import": "./dist/form/react/index.js",
@@ -74,7 +73,6 @@
   },
   "dependencies": {
     "@xyflow/react": "^12",
-    "dompurify": "^3.3.3",
     "elkjs": "^0.11.1",
     "smol-toml": "^1.7.0"
   },

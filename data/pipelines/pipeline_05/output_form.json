@@ -1,0 +1,100 @@
+{
+  "text_analysis.analyze_sentiment": {
+    "field": {
+      "concept_ref": "text_analysis.Sentiment",
+      "description": "Sentiment analysis result",
+      "fields": [
+        {
+          "choices": [
+            "positive",
+            "negative",
+            "neutral"
+          ],
+          "description": "The detected sentiment",
+          "kind": "enum",
+          "name": "sentiment",
+          "required": true
+        },
+        {
+          "description": "Confidence score 0-1",
+          "integer": false,
+          "kind": "number",
+          "name": "confidence",
+          "required": true
+        },
+        {
+          "description": "Why this sentiment was detected",
+          "kind": "text",
+          "name": "explanation",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "text_analysis.dual_analysis_pipeline": {
+    "field": {
+      "concept_ref": "text_analysis.AnalysisReport",
+      "description": "Combined analysis report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "text_analysis.extract_keywords": {
+    "field": {
+      "concept_ref": "text_analysis.Keyword",
+      "description": "An extracted keyword with relevance score",
+      "item": {
+        "concept_ref": "text_analysis.Keyword",
+        "description": "An extracted keyword with relevance score",
+        "fields": [
+          {
+            "description": "The keyword text",
+            "kind": "text",
+            "name": "keyword",
+            "required": true
+          },
+          {
+            "description": "Relevance score 0-1",
+            "integer": false,
+            "kind": "number",
+            "name": "relevance",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "text_analysis.merge_results": {
+    "field": {
+      "concept_ref": "text_analysis.AnalysisReport",
+      "description": "Combined analysis report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "text_analysis.parallel_analyze": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  }
+}

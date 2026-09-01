@@ -1,0 +1,101 @@
+{
+  "data_enrichment.batch_enrich": {
+    "field": {
+      "concept_ref": "data_enrichment.EnrichmentReport",
+      "description": "Report of all enriched records",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_enrichment.enrich_single": {
+    "field": {
+      "concept_ref": "data_enrichment.EnrichedRecord",
+      "description": "A record enriched with details",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_enrichment.export_results": {
+    "field": {
+      "concept_ref": "data_enrichment.EnrichmentReport",
+      "description": "Report of all enriched records",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_enrichment.format_entry": {
+    "field": {
+      "concept_ref": "data_enrichment.EnrichedRecord",
+      "description": "A record enriched with details",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_enrichment.load_records": {
+    "field": {
+      "concept_ref": "data_enrichment.Record",
+      "description": "A data record to enrich",
+      "item": {
+        "concept_ref": "data_enrichment.Record",
+        "description": "A data record to enrich",
+        "kind": "unknown",
+        "refines": [
+          "native.JSON"
+        ],
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "refines": [
+        "native.JSON"
+      ],
+      "required": true
+    }
+  },
+  "data_enrichment.lookup_details": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}

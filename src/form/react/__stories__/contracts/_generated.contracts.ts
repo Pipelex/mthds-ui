@@ -3,79 +3,173 @@
  * per-bundle validate-view split modules. DO NOT EDIT.
  * Regenerate with `make fixtures-contracts`.
  */
-export { CONTRACTS_SINGLE_PIPE, INPUT_FORM_SINGLE_PIPE } from "./_generated/pipeline_01";
-export { CONTRACTS_TWO_PIPE_CHAIN, INPUT_FORM_TWO_PIPE_CHAIN } from "./_generated/pipeline_02";
-export { CONTRACTS_SIMPLE_SEQUENCE, INPUT_FORM_SIMPLE_SEQUENCE } from "./_generated/pipeline_03";
-export { CONTRACTS_LONG_SEQUENCE, INPUT_FORM_LONG_SEQUENCE } from "./_generated/pipeline_04";
-export { CONTRACTS_SIMPLE_PARALLEL, INPUT_FORM_SIMPLE_PARALLEL } from "./_generated/pipeline_05";
+export {
+  CONTRACTS_SINGLE_PIPE,
+  INPUT_FORM_SINGLE_PIPE,
+  OUTPUT_FORM_SINGLE_PIPE,
+} from "./_generated/pipeline_01";
+export {
+  CONTRACTS_TWO_PIPE_CHAIN,
+  INPUT_FORM_TWO_PIPE_CHAIN,
+  OUTPUT_FORM_TWO_PIPE_CHAIN,
+} from "./_generated/pipeline_02";
+export {
+  CONTRACTS_SIMPLE_SEQUENCE,
+  INPUT_FORM_SIMPLE_SEQUENCE,
+  OUTPUT_FORM_SIMPLE_SEQUENCE,
+} from "./_generated/pipeline_03";
+export {
+  CONTRACTS_LONG_SEQUENCE,
+  INPUT_FORM_LONG_SEQUENCE,
+  OUTPUT_FORM_LONG_SEQUENCE,
+} from "./_generated/pipeline_04";
+export {
+  CONTRACTS_SIMPLE_PARALLEL,
+  INPUT_FORM_SIMPLE_PARALLEL,
+  OUTPUT_FORM_SIMPLE_PARALLEL,
+} from "./_generated/pipeline_05";
 export {
   CONTRACTS_THREE_WAY_PARALLEL,
   INPUT_FORM_THREE_WAY_PARALLEL,
+  OUTPUT_FORM_THREE_WAY_PARALLEL,
 } from "./_generated/pipeline_06";
-export { CONTRACTS_SIMPLE_CONDITION, INPUT_FORM_SIMPLE_CONDITION } from "./_generated/pipeline_07";
-export { CONTRACTS_SIMPLE_BATCH, INPUT_FORM_SIMPLE_BATCH } from "./_generated/pipeline_08";
-export { CONTRACTS_CV_SCREENING, INPUT_FORM_CV_SCREENING } from "./_generated/pipeline_09";
+export {
+  CONTRACTS_SIMPLE_CONDITION,
+  INPUT_FORM_SIMPLE_CONDITION,
+  OUTPUT_FORM_SIMPLE_CONDITION,
+} from "./_generated/pipeline_07";
+export {
+  CONTRACTS_SIMPLE_BATCH,
+  INPUT_FORM_SIMPLE_BATCH,
+  OUTPUT_FORM_SIMPLE_BATCH,
+} from "./_generated/pipeline_08";
+export {
+  CONTRACTS_CV_SCREENING,
+  INPUT_FORM_CV_SCREENING,
+  OUTPUT_FORM_CV_SCREENING,
+} from "./_generated/pipeline_09";
 export {
   CONTRACTS_NESTED_SEQ_PAR_SEQ,
   INPUT_FORM_NESTED_SEQ_PAR_SEQ,
+  OUTPUT_FORM_NESTED_SEQ_PAR_SEQ,
 } from "./_generated/pipeline_10";
 export {
   CONTRACTS_NESTED_SEQ_COND_SEQ,
   INPUT_FORM_NESTED_SEQ_COND_SEQ,
+  OUTPUT_FORM_NESTED_SEQ_COND_SEQ,
 } from "./_generated/pipeline_11";
 export {
   CONTRACTS_BATCH_WITH_INNER_SEQ,
   INPUT_FORM_BATCH_WITH_INNER_SEQ,
+  OUTPUT_FORM_BATCH_WITH_INNER_SEQ,
 } from "./_generated/pipeline_12";
-export { CONTRACTS_DIAMOND_PATTERN, INPUT_FORM_DIAMOND_PATTERN } from "./_generated/pipeline_13";
-export { CONTRACTS_ALL_PIPE_TYPES, INPUT_FORM_ALL_PIPE_TYPES } from "./_generated/pipeline_14";
-export { CONTRACTS_RAG_PIPELINE, INPUT_FORM_RAG_PIPELINE } from "./_generated/pipeline_15";
-export { CONTRACTS_IMAGE_PIPELINE, INPUT_FORM_IMAGE_PIPELINE } from "./_generated/pipeline_16";
-export { CONTRACTS_EMAIL_TRIAGE, INPUT_FORM_EMAIL_TRIAGE } from "./_generated/pipeline_17";
-export { CONTRACTS_CODE_REVIEW, INPUT_FORM_CODE_REVIEW } from "./_generated/pipeline_18";
+export {
+  CONTRACTS_DIAMOND_PATTERN,
+  INPUT_FORM_DIAMOND_PATTERN,
+  OUTPUT_FORM_DIAMOND_PATTERN,
+} from "./_generated/pipeline_13";
+export {
+  CONTRACTS_ALL_PIPE_TYPES,
+  INPUT_FORM_ALL_PIPE_TYPES,
+  OUTPUT_FORM_ALL_PIPE_TYPES,
+} from "./_generated/pipeline_14";
+export {
+  CONTRACTS_RAG_PIPELINE,
+  INPUT_FORM_RAG_PIPELINE,
+  OUTPUT_FORM_RAG_PIPELINE,
+} from "./_generated/pipeline_15";
+export {
+  CONTRACTS_IMAGE_PIPELINE,
+  INPUT_FORM_IMAGE_PIPELINE,
+  OUTPUT_FORM_IMAGE_PIPELINE,
+} from "./_generated/pipeline_16";
+export {
+  CONTRACTS_EMAIL_TRIAGE,
+  INPUT_FORM_EMAIL_TRIAGE,
+  OUTPUT_FORM_EMAIL_TRIAGE,
+} from "./_generated/pipeline_17";
+export {
+  CONTRACTS_CODE_REVIEW,
+  INPUT_FORM_CODE_REVIEW,
+  OUTPUT_FORM_CODE_REVIEW,
+} from "./_generated/pipeline_18";
 export {
   CONTRACTS_CONTENT_MODERATION,
   INPUT_FORM_CONTENT_MODERATION,
+  OUTPUT_FORM_CONTENT_MODERATION,
 } from "./_generated/pipeline_19";
-export { CONTRACTS_WIDE_PARALLEL, INPUT_FORM_WIDE_PARALLEL } from "./_generated/pipeline_20";
+export {
+  CONTRACTS_WIDE_PARALLEL,
+  INPUT_FORM_WIDE_PARALLEL,
+  OUTPUT_FORM_WIDE_PARALLEL,
+} from "./_generated/pipeline_20";
 export {
   CONTRACTS_MULTI_INPUT_CONVERGE,
   INPUT_FORM_MULTI_INPUT_CONVERGE,
+  OUTPUT_FORM_MULTI_INPUT_CONVERGE,
 } from "./_generated/pipeline_21";
 export {
   CONTRACTS_MULTI_OUTPUT_FANOUT,
   INPUT_FORM_MULTI_OUTPUT_FANOUT,
+  OUTPUT_FORM_MULTI_OUTPUT_FANOUT,
 } from "./_generated/pipeline_22";
 export {
   CONTRACTS_SIBLING_PARALLELS,
   INPUT_FORM_SIBLING_PARALLELS,
+  OUTPUT_FORM_SIBLING_PARALLELS,
 } from "./_generated/pipeline_23";
-export { CONTRACTS_DEEP_NESTING, INPUT_FORM_DEEP_NESTING } from "./_generated/pipeline_24";
+export {
+  CONTRACTS_DEEP_NESTING,
+  INPUT_FORM_DEEP_NESTING,
+  OUTPUT_FORM_DEEP_NESTING,
+} from "./_generated/pipeline_24";
 export {
   CONTRACTS_ALL_CONTROLLER_TYPES,
   INPUT_FORM_ALL_CONTROLLER_TYPES,
+  OUTPUT_FORM_ALL_CONTROLLER_TYPES,
 } from "./_generated/pipeline_25";
-export { CONTRACTS_CV_MATCHING, INPUT_FORM_CV_MATCHING } from "./_generated/pipeline_26";
+export {
+  CONTRACTS_CV_MATCHING,
+  INPUT_FORM_CV_MATCHING,
+  OUTPUT_FORM_CV_MATCHING,
+} from "./_generated/pipeline_26";
 export {
   CONTRACTS_CV_BATCH_SCREENING,
   INPUT_FORM_CV_BATCH_SCREENING,
+  OUTPUT_FORM_CV_BATCH_SCREENING,
 } from "./_generated/pipeline_28";
-export { CONTRACTS_CV_ANALYZER, INPUT_FORM_CV_ANALYZER } from "./_generated/pipeline_30";
-export { CONTRACTS_RFP_QUALIFIER, INPUT_FORM_RFP_QUALIFIER } from "./_generated/pipeline_31";
-export { CONTRACTS_MEETING_TRIAGE, INPUT_FORM_MEETING_TRIAGE } from "./_generated/pipeline_32";
+export {
+  CONTRACTS_CV_ANALYZER,
+  INPUT_FORM_CV_ANALYZER,
+  OUTPUT_FORM_CV_ANALYZER,
+} from "./_generated/pipeline_30";
+export {
+  CONTRACTS_RFP_QUALIFIER,
+  INPUT_FORM_RFP_QUALIFIER,
+  OUTPUT_FORM_RFP_QUALIFIER,
+} from "./_generated/pipeline_31";
+export {
+  CONTRACTS_MEETING_TRIAGE,
+  INPUT_FORM_MEETING_TRIAGE,
+  OUTPUT_FORM_MEETING_TRIAGE,
+} from "./_generated/pipeline_32";
 export {
   CONTRACTS_AVAILABILITY_ROUTING,
   INPUT_FORM_AVAILABILITY_ROUTING,
+  OUTPUT_FORM_AVAILABILITY_ROUTING,
 } from "./_generated/pipeline_33";
 export {
   CONTRACTS_ALL_NATIVE_CONCEPTS,
   INPUT_FORM_ALL_NATIVE_CONCEPTS,
+  OUTPUT_FORM_ALL_NATIVE_CONCEPTS,
 } from "./_generated/pipeline_34";
 export {
   CONTRACTS_OPTIONAL_STYLE_HINT,
   INPUT_FORM_OPTIONAL_STYLE_HINT,
+  OUTPUT_FORM_OPTIONAL_STYLE_HINT,
 } from "./_generated/feature_optionals_village_notice";
 export {
   CONTRACTS_SMART_INPUTS_TRIAGE,
   INPUT_FORM_SMART_INPUTS_TRIAGE,
+  OUTPUT_FORM_SMART_INPUTS_TRIAGE,
 } from "./_generated/feature_smart_inputs_claims_triage";

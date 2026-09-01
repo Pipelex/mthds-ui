@@ -1,23 +1,26 @@
 import React from "react";
 import type { ConceptInfo, GraphSpecNodeIoItem } from "@graph/types";
-import { StuffViewer } from "../stuff/StuffViewer";
-import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
 import "./DetailPanel.css";
 
 // ─── Props ──────────────────────────────────────────────────────────────
 
 export interface ConceptDetailPanelProps {
   concept: ConceptInfo;
-  /** IO data for this concept instance. Accepts GraphSpecNodeIoItem or StuffViewerData. */
-  ioData?: GraphSpecNodeIoItem | StuffViewerData;
+  /** The data item for this concept instance, as the `GraphSpec` holds it. */
+  ioData?: GraphSpecNodeIoItem;
   /** Whether this is a dry run (schema only, no real data). */
   isDryRun?: boolean;
-  /** Resolver for `pipelex-storage://` URIs when rendering media in StuffViewer. */
-  resolveStorageUrl?: ResolveStorageUrl;
-  /** Forwarded to {@link StuffViewer}. Set `false` when the host can't embed PDFs. */
-  canEmbedPdf?: boolean;
-  /** Forwarded to {@link StuffViewer}. Overrides default `window.open` behavior. */
-  onOpenExternally?: (url: string, filename?: string) => void;
+  /**
+   * Renders the data half. Supplied by the host (or by this package's own
+   * `./form/react` entry, which renders it through the form kernel's
+   * descriptor-driven `ResultPanel`); see `stuffRender.ts` for why the graph
+   * does not render data itself any more.
+   *
+   * Without it — or when it returns nothing for this item — the panel shows the
+   * structure table alone and no tabs, which is what a viewer that has not been
+   * given a renderer honestly has to offer.
+   */
+  renderData?: () => React.ReactNode;
   /**
    * Identity of the selected node/instance (e.g. the graph node id). Drives
    * the Data/Structure tab reset: a new `instanceKey` remounts the body so
@@ -34,9 +37,7 @@ export function ConceptDetailPanel({
   concept,
   ioData,
   isDryRun,
-  resolveStorageUrl,
-  canEmbedPdf,
-  onOpenExternally,
+  renderData,
   instanceKey,
 }: ConceptDetailPanelProps) {
   return (
@@ -65,9 +66,7 @@ export function ConceptDetailPanel({
         concept={concept}
         ioData={ioData}
         isDryRun={isDryRun}
-        resolveStorageUrl={resolveStorageUrl}
-        canEmbedPdf={canEmbedPdf}
-        onOpenExternally={onOpenExternally}
+        renderData={renderData}
       />
     </>
   );
@@ -79,15 +78,14 @@ export function ConceptDetailPanel({
  * table is reference material, not something to scroll past on every click.
  * Without data (dry run / unexecuted), the structure renders directly.
  */
-function ConceptBody({
-  concept,
-  ioData,
-  isDryRun,
-  resolveStorageUrl,
-  canEmbedPdf,
-  onOpenExternally,
-}: ConceptDetailPanelProps) {
-  const hasData = Boolean(ioData) && !isDryRun;
+function ConceptBody({ concept, ioData, isDryRun, renderData }: ConceptDetailPanelProps) {
+  // The data tab exists only when something can actually fill it. Three
+  // conditions, and the third is the new one: an item, a real run behind it,
+  // and a renderer that produced something for it. A tab that opens onto an
+  // empty pane is worse than no tab, because it reads as data that failed to
+  // load rather than as a viewer that was never given a way to show it.
+  const dataView = ioData && !isDryRun ? renderData?.() : undefined;
+  const hasData = Boolean(dataView);
   const [activeTab, setActiveTab] = React.useState<TabId>(hasData ? "data" : "structure");
   const baseId = React.useId();
   const tabId = (tab: TabId) => `${baseId}-tab-${tab}`;
@@ -150,16 +148,7 @@ function ConceptBody({
         {renderTab("structure", "Structure")}
       </div>
       <div role="tabpanel" id={panelId(activeTab)} aria-labelledby={tabId(activeTab)}>
-        {activeTab === "data" ? (
-          <StuffViewer
-            stuff={toStuffViewerData(ioData!)}
-            resolveStorageUrl={resolveStorageUrl}
-            canEmbedPdf={canEmbedPdf}
-            onOpenExternally={onOpenExternally}
-          />
-        ) : (
-          structure
-        )}
+        {activeTab === "data" ? dataView : structure}
       </div>
     </>
   );
@@ -215,25 +204,4 @@ function extractType(schema: Record<string, unknown>): string {
     return ref.split("/").pop() ?? "(unresolved type)";
   }
   return "(unresolved type)";
-}
-
-function toStuffViewerData(ioData: GraphSpecNodeIoItem | StuffViewerData): StuffViewerData {
-  // Already a StuffViewerData.
-  if (isStuffViewerData(ioData)) return ioData;
-  // Convert from GraphSpecNodeIoItem
-  return {
-    digest: ioData.digest ?? "",
-    name: ioData.name,
-    concept: ioData.concept,
-    contentType: ioData.content_type,
-    data: ioData.data,
-    dataText: ioData.data_text,
-    dataHtml: ioData.data_html,
-  };
-}
-
-function isStuffViewerData(
-  ioData: GraphSpecNodeIoItem | StuffViewerData,
-): ioData is StuffViewerData {
-  return "contentType" in ioData || "dataText" in ioData || "dataHtml" in ioData;
 }

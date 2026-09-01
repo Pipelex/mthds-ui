@@ -1,0 +1,110 @@
+{
+  "wide_processing.collect_all": {
+    "field": {
+      "concept_ref": "wide_processing.CollectedResults",
+      "description": "All results collected from parallel paths",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "wide_processing.five_way_split": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "wide_processing.process_alpha": {
+    "field": {
+      "concept_ref": "wide_processing.ProcessedData",
+      "description": "Data processed through a specific pathway",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "wide_processing.process_beta": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "wide_processing.process_delta": {
+    "field": {
+      "concept_ref": "wide_processing.ProcessedData",
+      "description": "Data processed through a specific pathway",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "wide_processing.process_epsilon": {
+    "field": {
+      "concept_ref": "wide_processing.ProcessedData",
+      "description": "Data processed through a specific pathway",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "wide_processing.process_gamma": {
+    "field": {
+      "concept_ref": "native.Image",
+      "description": "An image",
+      "kind": "image",
+      "name": "output",
+      "required": true
+    }
+  },
+  "wide_processing.wide_pipeline": {
+    "field": {
+      "concept_ref": "wide_processing.CollectedResults",
+      "description": "All results collected from parallel paths",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

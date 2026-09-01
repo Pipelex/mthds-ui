@@ -57,6 +57,21 @@ export const DryRunSchemaOnly: Story = {
   ),
 };
 
+/**
+ * A stand-in for the host's data view.
+ *
+ * These are `./graph/react` stories, and the graph entry may not import the
+ * form kernel — it is an optional peer, isolated behind `./form/react`. That is
+ * not a limitation being worked around here: it is the panel's contract on
+ * display. `ConceptDetailPanel` owns the header, the structure table and the
+ * tabs; the data view arrives through `renderData`. The real one is
+ * `renderStuffResult` from this package's own `./form/react` entry — see
+ * `Form/Graph With Result Panel`.
+ */
+function PlainData() {
+  return <div className="detail-not-available">(the host renders the data here)</div>;
+}
+
 export const WithLiveData: Story = {
   render: () => (
     <DetailPanel isOpen={true} onClose={() => {}}>
@@ -71,9 +86,8 @@ export const WithLiveData: Story = {
             reasoning:
               "Strong technical background with relevant experience in ML and distributed systems.",
           },
-          data_text:
-            "Score: 85\nReasoning: Strong technical background with relevant experience in ML and distributed systems.",
         }}
+        renderData={() => <PlainData />}
       />
     </DetailPanel>
   ),
@@ -103,6 +117,7 @@ function TabResetHarness() {
             concept={CONCEPT_MATCHSCORE}
             ioData={TAB_RESET_IO_DATA}
             instanceKey={nodeId}
+            renderData={() => <PlainData />}
           />
         </DetailPanel>
       </div>

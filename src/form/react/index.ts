@@ -13,6 +13,12 @@
 export { RunPanel } from "./RunPanel";
 export type { RunPanelProps, UploadedFile } from "./RunPanel";
 
+// The graph's stuff panel, rendered through the kernel's descriptor-driven
+// result view. `renderStuffResult({ contracts, outputForm })` is what
+// `GraphViewer`'s `renderStuffData` prop takes.
+export { StuffResultPanel, renderStuffResult } from "./StuffResultPanel";
+export type { StuffResultPanelProps, StuffResultRendererOptions } from "./StuffResultPanel";
+
 // The submit path, React-free and re-exported for hosts that run the gate
 // outside a panel (a toolbar button, a keyboard shortcut).
 export { runSubmitGate, summarizeVerdict, defaultValidationTranslate } from "@form/runGate";

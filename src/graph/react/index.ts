@@ -2,7 +2,6 @@
 
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
-import "./stuff/StuffViewer.css";
 import "./viewer/GraphToolbar.css";
 
 // Viewer
@@ -32,8 +31,11 @@ export { PipeCardBase } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardBaseProps } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pipeCardTypes";
 
-// Stuff viewer
-export * from "./stuff";
+// The seam the graph renders a stuff node's DATA through. The graph owns the
+// selection, the lookup and the panel; the renderer is supplied by the host —
+// typically `renderStuffResult` from this package's ./form/react entry, which
+// renders it through the form kernel. See stuffRender.ts.
+export type { RenderStuffData, StuffRenderContext } from "./stuffRender";
 
 // Detail panel
 export * from "./detail";

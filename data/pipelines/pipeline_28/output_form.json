@@ -1,0 +1,339 @@
+{
+  "cv_batch_screening.analyze_job_requirements": {
+    "field": {
+      "concept_ref": "cv_batch_screening.JobRequirements",
+      "description": "A structured summary of what a job position requires from candidates.",
+      "fields": [
+        {
+          "description": "Skills that are mandatory for the position",
+          "kind": "text",
+          "name": "required_skills",
+          "required": true
+        },
+        {
+          "description": "Main duties and tasks of the role",
+          "kind": "text",
+          "name": "responsibilities",
+          "required": true
+        },
+        {
+          "description": "Required education, certifications, or experience levels",
+          "kind": "text",
+          "name": "qualifications",
+          "required": true
+        },
+        {
+          "description": "Preferred but not mandatory qualifications",
+          "kind": "text",
+          "name": "nice_to_haves",
+          "required": false
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.analyze_match": {
+    "field": {
+      "concept_ref": "cv_batch_screening.CandidateMatch",
+      "description": "An evaluation of how well a candidate fits a job position.",
+      "fields": [
+        {
+          "description": "Numerical score representing overall fit percentage between 0 and 100",
+          "integer": false,
+          "kind": "number",
+          "name": "match_score",
+          "required": true
+        },
+        {
+          "description": "Areas where the candidate meets or exceeds requirements",
+          "kind": "text",
+          "name": "strengths",
+          "required": true
+        },
+        {
+          "description": "Areas where the candidate falls short of requirements",
+          "kind": "text",
+          "name": "gaps",
+          "required": true
+        },
+        {
+          "description": "Summary evaluation of the candidate's suitability",
+          "kind": "text",
+          "name": "overall_assessment",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.analyze_one_cv": {
+    "field": {
+      "concept_ref": "cv_batch_screening.CandidateProfile",
+      "description": "A structured summary of a job candidate's professional background extracted from their CV.",
+      "fields": [
+        {
+          "description": "Technical and soft skills possessed by the candidate",
+          "kind": "text",
+          "name": "skills",
+          "required": true
+        },
+        {
+          "description": "Work history and professional experience",
+          "kind": "text",
+          "name": "experience",
+          "required": true
+        },
+        {
+          "description": "Educational background and qualifications",
+          "kind": "text",
+          "name": "education",
+          "required": true
+        },
+        {
+          "description": "Notable accomplishments and certifications",
+          "kind": "text",
+          "name": "achievements",
+          "required": false
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.batch_analyze_cvs_for_job_offer": {
+    "field": {
+      "concept_ref": "cv_batch_screening.CandidateMatch",
+      "description": "An evaluation of how well a candidate fits a job position.",
+      "item": {
+        "concept_ref": "cv_batch_screening.CandidateMatch",
+        "description": "An evaluation of how well a candidate fits a job position.",
+        "fields": [
+          {
+            "description": "Numerical score representing overall fit percentage between 0 and 100",
+            "integer": false,
+            "kind": "number",
+            "name": "match_score",
+            "required": true
+          },
+          {
+            "description": "Areas where the candidate meets or exceeds requirements",
+            "kind": "text",
+            "name": "strengths",
+            "required": true
+          },
+          {
+            "description": "Areas where the candidate falls short of requirements",
+            "kind": "text",
+            "name": "gaps",
+            "required": true
+          },
+          {
+            "description": "Summary evaluation of the candidate's suitability",
+            "kind": "text",
+            "name": "overall_assessment",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.extract_one_cv": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.extract_one_job_offer": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.prepare_job_offer": {
+    "field": {
+      "concept_ref": "cv_batch_screening.JobRequirements",
+      "description": "A structured summary of what a job position requires from candidates.",
+      "fields": [
+        {
+          "description": "Skills that are mandatory for the position",
+          "kind": "text",
+          "name": "required_skills",
+          "required": true
+        },
+        {
+          "description": "Main duties and tasks of the role",
+          "kind": "text",
+          "name": "responsibilities",
+          "required": true
+        },
+        {
+          "description": "Required education, certifications, or experience levels",
+          "kind": "text",
+          "name": "qualifications",
+          "required": true
+        },
+        {
+          "description": "Preferred but not mandatory qualifications",
+          "kind": "text",
+          "name": "nice_to_haves",
+          "required": false
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_batch_screening.process_cv": {
+    "field": {
+      "concept_ref": "cv_batch_screening.CandidateMatch",
+      "description": "An evaluation of how well a candidate fits a job position.",
+      "fields": [
+        {
+          "description": "Numerical score representing overall fit percentage between 0 and 100",
+          "integer": false,
+          "kind": "number",
+          "name": "match_score",
+          "required": true
+        },
+        {
+          "description": "Areas where the candidate meets or exceeds requirements",
+          "kind": "text",
+          "name": "strengths",
+          "required": true
+        },
+        {
+          "description": "Areas where the candidate falls short of requirements",
+          "kind": "text",
+          "name": "gaps",
+          "required": true
+        },
+        {
+          "description": "Summary evaluation of the candidate's suitability",
+          "kind": "text",
+          "name": "overall_assessment",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}
