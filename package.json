@@ -83,9 +83,6 @@
     "shiki": "^3.22.0"
   },
   "peerDependenciesMeta": {
-    "@pipelex/mthds-form": {
-      "optional": true
-    },
     "shiki": {
       "optional": true
     },

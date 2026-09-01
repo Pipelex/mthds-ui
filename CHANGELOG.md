@@ -4,6 +4,18 @@
 
 ### Changed
 
+- **BREAKING — `@pipelex/mthds-form` is a REQUIRED peer, and the `renderStuffData` render prop is gone.** The kernel was optional and isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` took a render function instead of importing `ResultPanel`. That was right while the kernel powered only the run form — a host embedding a graph viewer need not offer a way to run methods — and it stopped being right the moment `output_form` became how the viewer shows a result **at all**. A viewer whose detail panel cannot display data is not a viewer.
+
+  Pass the artifacts instead: `<GraphViewer graphspec contracts outputForm inputForm />`. `StuffResultPanel` moved from `./form/react` to the graph's detail panel and is exported from `./graph/react`; `renderStuffResult`, `RenderStuffData` and `StuffRenderContext` are deleted. A consumer that passes no artifacts still gets the concept's structure table and no data tab — the floor for a static graph or a spec restored without its validate report.
+
+  **A peer and not a dependency**, deliberately: a required peer is auto-installed by npm and pnpm, so a host gets a working detail panel by installing this package alone with no kernel line of its own, while still being resolved from the host's own tree — which is what guarantees ONE copy. A dependency can be nested rather than deduped, and a second copy of a package carrying React context means a host's `FieldStringsProvider` silently fails to resolve inside our controls. `make smoke-pack` now asserts the peer **arrives** in a bare consumer that declares only this package and React, that both React entries import it rather than inlining it, and that `.`, `./graph` and `./static-graph` never reach it.
+
+  The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
+
+## [Unreleased]
+
+### Changed
+
 - **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
 
   The kernel is an **optional** peer isolated behind `./form/react`, so `GraphViewer` takes a render prop rather than importing it: `renderStuffData={renderStuffResult({ contracts, outputForm })}`, exported from `@pipelex/mthds-ui/form/react`. The graph owns the selection, the lookup and the panel; the renderer owns the view. A consumer that passes nothing gets the concept's structure table and no data tab — the deliberate floor, because a tab opening onto an empty pane reads as data that failed to load.

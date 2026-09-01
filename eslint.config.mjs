@@ -40,32 +40,11 @@ export default tseslint.config(
     files: ["src/**/*.ts", "src/**/*.tsx"],
     ignores: ["src/form/**"],
     rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["@pipelex/mthds-form", "@pipelex/mthds-form/*"],
-              message:
-                "@pipelex/mthds-form is an OPTIONAL peer dependency, isolated behind the ./form/react entry (design Decision B). Import it only from src/form/**, so the graph entries keep working with the kernel absent.",
-            },
-          ],
-        },
-      ],
-      // `no-restricted-imports` does not visit `ImportExpression` at all, so the
-      // rule above is blind to `await import("@pipelex/mthds-form")` — which is
-      // the FIRST thing someone reaches for when the goal is "only pull the
-      // kernel in when the form is actually shown". That spelling would lint
-      // clean, stay external through tsup, and fail at runtime for every
-      // graph-only consumer, who by construction has not installed the kernel.
-      "no-restricted-syntax": [
-        "error",
-        {
-          selector: "ImportExpression[source.value=/^@pipelex\\/mthds-form(\\/|$)/]",
-          message:
-            "@pipelex/mthds-form is an OPTIONAL peer dependency, isolated behind the ./form/react entry (design Decision B). A dynamic import() is still an import: outside src/form/** it breaks every consumer who has not installed the kernel.",
-        },
-      ],
+      // The kernel is a REQUIRED peer now, so there is no import boundary left
+      // to police. It was restricted to `src/form/**` while it was OPTIONAL and
+      // `./graph/react` had to keep resolving without it; that stopped being
+      // true when the graph's detail panel began rendering results through it.
+      // See docs/stuff-result-panel.md for why the optionality went.
     },
   },
   ...storybook.configs["flat/recommended"],

@@ -31,11 +31,10 @@ export { PipeCardBase } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardBaseProps } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pipeCardTypes";
 
-// The seam the graph renders a stuff node's DATA through. The graph owns the
-// selection, the lookup and the panel; the renderer is supplied by the host —
-// typically `renderStuffResult` from this package's ./form/react entry, which
-// renders it through the form kernel. See stuffRender.ts.
-export type { RenderStuffData, StuffRenderContext } from "./stuffRender";
+// The graph's data panel, rendered from the standard's own artifacts. Exported
+// for a host that wants the same view outside the graph.
+export { StuffResultPanel } from "./detail/StuffResultPanel";
+export type { StuffResultPanelProps, StuffResultRendererOptions } from "./detail/StuffResultPanel";
 
 // Detail panel
 export * from "./detail";

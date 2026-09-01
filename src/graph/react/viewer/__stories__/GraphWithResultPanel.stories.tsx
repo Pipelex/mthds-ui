@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
-import { renderStuffResult } from "@form/react/StuffResultPanel";
-import { GraphViewer } from "@graph/react/viewer/GraphViewer";
+import { GraphViewer } from "../GraphViewer";
 import { GRAPH_THEME } from "@graph/types";
-import { LIVE_CV_SCREENING } from "@graph/react/viewer/__stories__/pipelines/specs/_generated.live";
+import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
 import {
   CONTRACTS_CV_SCREENING,
   INPUT_FORM_CV_SCREENING,
   OUTPUT_FORM_CV_SCREENING,
-} from "./contracts/_generated.contracts";
+} from "@form/react/__stories__/contracts/_generated.contracts";
 
 /**
  * Click a data node in the graph, read what the run produced — laid out from the
@@ -28,18 +27,19 @@ import {
  * are its generated `pipe_io_contracts` and `output_form`, the views one
  * `/validate` call returns together.
  *
- * The whole wiring is one prop:
+ * The whole wiring is the artifacts themselves:
  *
- *     renderStuffData={renderStuffResult({ contracts, inputForm, outputForm })}
+ *     <GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
  *
- * The graph owns the selection, the lookup and the panel; it hands the renderer
- * the producing pipe's `pipe_ref` and lets the kernel do the rest. A method's
- * own INPUTS have no producing pipe, so they resolve through the third artifact
- * instead: the CONSUMING pipe's `input_form` entry for the slot they arrive in
- * describes the same field from the other side.
+ * The graph owns the selection, the lookup and the panel, and renders the result
+ * itself — there is no render prop any more, because the form kernel stopped
+ * being an optional peer when this became how the viewer shows data at all. A
+ * method's own INPUTS have no producing pipe, so they resolve through the third
+ * artifact instead: the CONSUMING pipe's `input_form` entry for the slot they
+ * arrive in describes the same field from the other side.
  */
 const meta = {
-  title: "Form/Graph with ResultPanel",
+  title: "Graph/Result panel",
   component: GraphViewer,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof GraphViewer>;
@@ -51,11 +51,9 @@ const args = {
   graphspec: LIVE_CV_SCREENING,
   initialDirection: "LR" as const,
   initialShowControllers: true,
-  renderStuffData: renderStuffResult({
-    contracts: CONTRACTS_CV_SCREENING,
-    inputForm: INPUT_FORM_CV_SCREENING,
-    outputForm: OUTPUT_FORM_CV_SCREENING,
-  }),
+  contracts: CONTRACTS_CV_SCREENING,
+  inputForm: INPUT_FORM_CV_SCREENING,
+  outputForm: OUTPUT_FORM_CV_SCREENING,
 };
 
 /** Pick the first data node the layout produced and open its detail panel. */
@@ -95,8 +93,8 @@ export const Dark: Story = {
 };
 
 /**
- * The same graph with no renderer wired — what a consumer that has not installed
- * the form kernel, or has not got the artifacts, sees.
+ * The same graph with no artifacts — what a consumer holding a spec but not its
+ * validate report sees (a static graph, a run restored without one).
  *
  * Structure and no data tab, rather than an empty pane or a JSON dump. That is
  * the deliberate floor: the graph knows a concept's shape from the spec it was
@@ -143,7 +141,7 @@ export const AMethodInput: Story = {
   },
 };
 
-export const WithoutARenderer: Story = {
+export const WithoutArtifacts: Story = {
   args: { graphspec: LIVE_CV_SCREENING, initialDirection: "LR", theme: GRAPH_THEME.LIGHT },
   play: async ({ canvasElement }) => {
     await openFirstStuffNode(canvasElement);

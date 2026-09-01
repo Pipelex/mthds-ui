@@ -13,11 +13,10 @@ import {
 } from "@pipelex/mthds-form";
 import { ResultPanel } from "@pipelex/mthds-form/react";
 import { parsePipeRef } from "@graph/pipeRefs";
-import type { RenderStuffData, StuffRenderContext } from "@graph/react/stuffRender";
+import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types";
 
 /**
- * The graph's stuff panel, rendered through the form kernel — the replacement
- * for `StuffViewer`.
+ * The graph's stuff panel — the replacement for `StuffViewer`.
  *
  * ## What changed, and why it is not a reskin
  *
@@ -90,17 +89,32 @@ export interface StuffResultRendererOptions {
 }
 
 export interface StuffResultPanelProps extends StuffResultRendererOptions {
-  /** The context the graph hands its `renderStuffData` seam. */
-  context: StuffRenderContext;
+  /** The data item as the spec holds it. */
+  stuff: GraphSpecNodeIoItem;
+  /** Its concept, resolved against the spec's concept table, when it has one. */
+  concept?: ConceptInfo;
+  /**
+   * `domain.code` of the pipe that PRODUCED it — the key both output artifacts
+   * are keyed by. Absent for a method's own inputs, which no pipe produced.
+   */
+  producerPipeRef?: string;
+  /**
+   * The first pipe that CONSUMES it, and the slot it arrives in — the fallback
+   * identity for those method inputs.
+   */
+  consumer?: { pipeRef: string; slotName: string };
+  /** The viewer's resolved theme, so the panel matches the chrome it sits in. */
+  theme?: GraphTheme;
 }
 
 export function StuffResultPanel({
   contracts,
   outputForm,
   inputForm,
-  context,
+  stuff,
+  producerPipeRef,
+  consumer,
 }: StuffResultPanelProps) {
-  const { producerPipeRef, consumer } = context;
   const field = React.useMemo(
     () =>
       fromProducer(contracts, outputForm, producerPipeRef) ??
@@ -109,7 +123,7 @@ export function StuffResultPanel({
   );
 
   if (!field) return null;
-  return <ResultPanel field={field} value={context.stuff.data} />;
+  return <ResultPanel field={field} value={stuff.data} />;
 }
 
 /** The normal case: the pipe that resolved to this value describes it. */
@@ -159,22 +173,4 @@ function fromConsumer(
   // `gating`) describe how a caller must fill it and mean nothing to a value
   // that has already arrived, so they are simply not read.
   return buildResultField({ field: node }, slot.json_schema);
-}
-
-/**
- * Bind the two artifacts once and get the function `GraphViewer.renderStuffData`
- * wants. A host holds the artifacts for the whole method, not per selection, so
- * this is the shape that actually fits a call site:
- *
- *     <GraphViewer
- *       graphspec={spec}
- *       renderStuffData={renderStuffResult({ contracts, outputForm })}
- *     />
- *
- * Returning `null` for a stuff it cannot describe is the contract, not a
- * failure: the panel then shows the concept's structure alone, which is exactly
- * right for a method input or a pipe whose artifacts the host does not hold.
- */
-export function renderStuffResult(options: StuffResultRendererOptions): RenderStuffData {
-  return (context) => <StuffResultPanel {...options} context={context} />;
 }

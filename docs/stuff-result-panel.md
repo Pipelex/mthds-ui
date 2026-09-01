@@ -15,22 +15,23 @@ The standard answers the question, in an artifact built for it:
 
 `buildResultField(descriptor, schema)` pairs them into a `RunField`, and `ResultPanel` lays that out **without ever inspecting the value**: a list of uniform records becomes a table, a structure a two-column grid, `native.Html` a sandboxed frame, images a gallery, prose typeset as markdown. The JSON view survives as one of the panel's two, because a receipt is worth having. "Pretty" and "HTML" do not, because they were two guesses at a question that now has an answer.
 
-## The seam, and why it is a render prop
+## The kernel is a REQUIRED peer, and that is the point
 
-`@pipelex/mthds-form` is an **optional** peer of this package, isolated behind the `./form/react` entry — `./graph/react` must keep resolving with the kernel absent, and `eslint.config.mjs` pins that with `no-restricted-imports`. So `GraphViewer` cannot import `ResultPanel`. It takes a function instead:
+Pass the artifacts; the viewer renders the result itself:
 
 ```tsx
-import { renderStuffResult } from "@pipelex/mthds-ui/form/react";
-
-<GraphViewer
-  graphspec={spec}
-  renderStuffData={renderStuffResult({ contracts, outputForm })}
-/>
+<GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
 ```
 
-The division is: **the graph owns the selection, the lookup and the panel; the renderer owns the view.** `GraphViewer` resolves the clicked node's digest to a `StuffLocation` (`src/graph/stuffLookup.ts`) and hands the renderer a `StuffRenderContext` — the item, its concept, whether the spec is a dry run, and `producerPipeRef`, the key both artifacts are keyed by.
+There was a render prop here for about a day (`renderStuffData`), and it was the wrong shape. `@pipelex/mthds-form` was an **optional** peer isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` could not import `ResultPanel` — hence a function passed in from outside.
 
-A consumer that passes nothing gets the concept's structure table and **no data tab**. That is the deliberate floor, not a degraded mode: the graph knows a concept's shape from the spec it was given, and it does not pretend to know how to display a value it cannot describe. A tab that opens onto an empty pane reads as data that failed to load.
+That optionality made sense while the kernel powered only the run form, which is genuinely an add-on: a host embedding a graph viewer need not offer a way to run methods. It stopped making sense the moment `output_form` became **how this viewer shows a result at all**. A viewer whose detail panel cannot display data is not a viewer, so the kernel is a required peer, `GraphViewer` imports the panel directly, and the seam is gone.
+
+**A peer and not a dependency**, deliberately. A required peer is auto-installed by npm and pnpm — so a host gets a working detail panel by installing this package alone, with no `@pipelex/mthds-form` line of its own — while still being resolved from the host's own tree, which is what guarantees ONE copy. A dependency can be nested instead of deduped, and a second copy of a package carrying React context means a host's `FieldStringsProvider` silently fails to resolve inside our controls. `make smoke-pack` asserts both halves from a bare consumer that declares only this package and React.
+
+The division of labour is unchanged: **the graph owns the selection and the lookup**, resolving the clicked node's digest to a `StuffLocation` (`src/graph/stuffLookup.ts`) and handing `StuffResultPanel` the item, its concept, the producing pipe and the first consuming one.
+
+A consumer that passes no artifacts gets the concept's structure table and **no data tab**. That is the deliberate floor, not a degraded mode — a static graph, or a spec restored without its validate report, genuinely has nothing to render a value from. A tab that opens onto an empty pane reads as data that failed to load.
 
 ## The producer join, and its one wrinkle
 
@@ -62,6 +63,4 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 `Form/Graph with ResultPanel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts` and `output_form`, wired with one prop. `Without A Renderer` is the same graph with none, showing the floor.
 
-Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories pass `renderStuffData` through `stuffRendererFor(name)`, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `undefined` — which is the viewer's own documented "no data view" path rather than a second one.
-
-Those stories live under `src/graph/react/`, which may not import the kernel, so the helper lives in `src/form/react/__stories__/` and they import that. Stories sit outside `tsup.config.ts`'s entry globs, so none of it reaches the shipped graph bundle — `make smoke-pack` still proves `./graph/react` resolves with the kernel absent.
+Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories spread `artifactsFor(name)` into their args, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `{}` — the viewer's own documented "no data view" path rather than a second one.

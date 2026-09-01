@@ -8,9 +8,10 @@
  * plain `npm run build` cannot see any of it: the source tree resolves fine
  * even when the published artifact does not.
  *
- * The consumer is installed WITHOUT `@pipelex/mthds-form`, because that is what
- * "optional peer" has to mean and nothing in a normal dev tree tests it — the
- * kernel is always present there as a devDependency.
+ * The consumer DECLARES only this package and React. The kernel arrives anyway,
+ * because it is a required peer — and that is the property worth testing from
+ * outside, since a normal dev tree always has it as a devDependency and so can
+ * never tell you whether a host would get it.
  *
  * What it checks, all of which have a history of failing silently:
  *
@@ -30,7 +31,8 @@
  * 3. The kernel is left as a bare import, never inlined (design Decision B: a
  *    bundled copy is a second React context identity, so a host's
  *    `FieldStringsProvider` would not resolve inside the panel).
- * 4. The kernel is reachable from the form entry's module graph ONLY. Any other
+ * 4. The kernel is imported (never inlined) by the React entries, and absent
+ *    from the React-free ones. Any other
  *    entry referencing it would break every graph-only consumer, who by
  *    construction has not installed it.
  *
@@ -83,8 +85,9 @@ function externalsOf(entryFile, seen = new Set(), acc = new Set()) {
   // to this walk, and it is invisible to the eslint isolation rule too — base
   // `no-restricted-imports` does not visit `ImportExpression` — so the one
   // import spelling that escapes lint would also have escaped the packaging
-  // check. Lazy-loading an optional peer is the obvious thing to reach for, not
-  // an exotic one, which is what makes the shared blind spot worth closing.
+  // check. A dynamic import of a peer is the obvious thing to reach for when
+  // trimming a bundle, not an exotic one, which is what makes the blind spot
+  // worth closing even now that the kernel is required everywhere React is.
   for (const match of source.matchAll(/(?:from|import)\s*\(?\s*["']([^"']+)["']/g)) {
     const specifier = match[1];
     if (specifier.startsWith(".")) {
@@ -110,10 +113,22 @@ try {
   const installed = path.join(scratch, "node_modules", "@pipelex", "mthds-ui");
   const manifest = JSON.parse(readFileSync(path.join(installed, "package.json"), "utf8"));
 
-  process.stdout.write("\nThe optional peer is genuinely absent\n");
+  // This assertion was the exact opposite until the kernel stopped being
+  // optional, and inverting it is the whole point of the change rather than a
+  // consequence of it. An OPTIONAL peer is not installed for you: a consumer
+  // that wants the form has to declare it itself, which is a real cost the
+  // graph-only consumers were being spared. A REQUIRED peer is auto-installed
+  // by npm and pnpm, so a host gets a working detail panel by installing this
+  // package alone — which is what makes the viewer's data view a feature of the
+  // viewer rather than something every host has to opt into.
+  //
+  // Asserted from a BARE consumer (this scratch project declares nothing but
+  // this package and React), because that is the claim: no `@pipelex/mthds-form`
+  // line anywhere, and it is still there.
+  process.stdout.write("\nThe required peer is auto-installed for a bare consumer\n");
   check(
-    "@pipelex/mthds-form is not installed in the consumer",
-    !existsSync(path.join(scratch, "node_modules", "@pipelex", "mthds-form")),
+    "@pipelex/mthds-form arrives without the consumer declaring it",
+    existsSync(path.join(scratch, "node_modules", "@pipelex", "mthds-form")),
   );
 
   process.stdout.write("\nEvery declared export points at a real file\n");
@@ -172,7 +187,7 @@ try {
     unresolvedImports.join(", "),
   );
 
-  process.stdout.write("\nThe kernel is reachable from the form entry only\n");
+  process.stdout.write("\nThe kernel is imported, never inlined\n");
   const isKernel = (specifier) =>
     specifier.split("/").slice(0, 2).join("/") === "@pipelex/mthds-form";
   const externalsPerEntry = new Map();
@@ -180,30 +195,51 @@ try {
     if (typeof target === "string" || !target.import) continue;
     externalsPerEntry.set(subpath, [...externalsOf(path.join(installed, target.import))]);
   }
-  for (const [subpath, externals] of externalsPerEntry) {
-    if (subpath === "./form/react") continue;
-    const kernelImports = externals.filter(isKernel);
-    check(`${subpath} does not need the kernel`, kernelImports.length === 0, kernelImports.join(", "));
-  }
-  // The form entry MUST import the kernel, as a BARE specifier. A bundled
-  // copy would carry no such import while the entry still renders fields,
-  // which is the failure this catches — and a bundled kernel means a second
-  // React context identity, so the host's providers stop resolving inside our
-  // component.
+
+  // The React entries that RENDER fields or results must import the kernel, as
+  // a BARE specifier. A bundled copy carries no such import while the entry
+  // still renders — which is the failure this catches, and it is not cosmetic:
+  // a bundled kernel is a second React context identity, so a host's providers
+  // stop resolving inside our components.
   //
-  // This deliberately has no "the entry is empty" escape hatch. It had one
-  // while the panel was still a stub, and leaving it in would have made the
-  // assertion vacuous in precisely the regression it exists for: an entry
-  // that built to nothing would satisfy the check rather than fail it.
-  const formExternals = externalsPerEntry.get("./form/react") ?? [];
+  // This deliberately has no "the entry is empty" escape hatch. It had one while
+  // the panel was still a stub, and leaving it in would make the assertion
+  // vacuous in precisely the regression it exists for: an entry that built to
+  // nothing would satisfy the check rather than fail it.
+  for (const subpath of ["./form/react", "./graph/react"]) {
+    const externals = externalsPerEntry.get(subpath) ?? [];
+    check(
+      `${subpath} imports the kernel rather than inlining it`,
+      externals.some(isKernel),
+      "the entry has no bare kernel import — it looks bundled, or it built to nothing",
+    );
+  }
+
+  // The React-FREE entries must still resolve without it. That is what is left
+  // of the old isolation rule, and it is the half that still matters: `.` and
+  // `./graph` and `./static-graph` are importable from a CLI or a worker with no
+  // React and no kernel installed, and a stray value import from a pure module
+  // would take that away silently.
+  for (const subpath of [".", "./graph", "./static-graph"]) {
+    const kernelImports = (externalsPerEntry.get(subpath) ?? []).filter(isKernel);
+    check(
+      `${subpath} does not need the kernel`,
+      kernelImports.length === 0,
+      kernelImports.join(", "),
+    );
+  }
+
+  // A REQUIRED peer, not an optional one, and the flip is the point rather than
+  // an oversight. It was optional while the kernel powered only the run form and
+  // `./graph/react` had to keep resolving without it; it stopped being optional
+  // when the graph's detail panel began rendering results through it, because a
+  // viewer whose detail panel cannot show data is not a viewer. A peer (rather
+  // than a dependency) is still what guarantees ONE copy resolved from the
+  // host's tree — the context-identity property a dependency cannot promise.
   check(
-    "./form/react imports the kernel rather than inlining it",
-    formExternals.some(isKernel),
-    "the entry has no bare kernel import — it looks bundled, or it built to nothing",
-  );
-  check(
-    "the kernel is declared an OPTIONAL peer",
-    manifest.peerDependenciesMeta?.["@pipelex/mthds-form"]?.optional === true,
+    "the kernel is declared a REQUIRED peer",
+    manifest.peerDependencies?.["@pipelex/mthds-form"] !== undefined &&
+      manifest.peerDependenciesMeta?.["@pipelex/mthds-form"] === undefined,
   );
 } finally {
   rmSync(scratch, { recursive: true, force: true });

@@ -43,7 +43,8 @@ import {
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
-import type { RenderStuffData } from "../stuffRender";
+import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";
+import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
 import { PipeDetailPanel } from "../detail/PipeDetailPanel";
@@ -141,16 +142,34 @@ export interface GraphViewerProps {
   /** Render extra content below the built-in detail panel content for the selected node. */
   renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
   /**
-   * Renders the DATA half of a selected stuff node's detail panel.
+   * `pipe_io_contracts` for the method this spec is a run of — one half of what
+   * the detail panel needs to render a data node's VALUE.
    *
-   * The viewer supplies the selection, the lookup and the panel; the renderer
-   * supplies the view. Pass `renderStuffResult` from this package's
-   * `./form/react` entry to get the descriptor-driven result view the standard
-   * describes, or your own function to render it any other way. Without it the
-   * panel shows the concept's structure table and no data tab — see
-   * `stuffRender.ts` for why the graph no longer renders data itself.
+   * The graph renders results itself now. It used to take a render prop instead,
+   * because the form kernel was an optional peer and `./graph/react` had to keep
+   * resolving without it — an arrangement that made sense while the kernel only
+   * powered an optional run form, and stopped making sense the moment the
+   * standard's `output_form` became how this viewer shows a result at all. A
+   * viewer whose detail panel cannot show data is not a viewer, so the kernel is
+   * a required peer and the seam is gone.
+   *
+   * Omit these and the panel still works: it shows the concept's structure table
+   * and no data tab, which is the honest floor for a spec whose artifacts the
+   * host does not hold (a static graph, a spec restored without its validate
+   * report).
    */
-  renderStuffData?: RenderStuffData;
+  contracts?: PipeIOContracts;
+  /**
+   * `output_form` from the SAME `/validate` call — the other half. The contract
+   * names the payload's shape; the descriptor says what the result IS.
+   */
+  outputForm?: OutputForm;
+  /**
+   * `input_form`, optional even here. It is what lets a method's own INPUTS show
+   * their value: no pipe produced them, so no output descriptor describes them,
+   * and the CONSUMING pipe's descriptor for their slot is what names them.
+   */
+  inputForm?: InputForm;
   /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
@@ -180,7 +199,9 @@ function StuffNodeDetail({
   consumer,
   graphspec,
   theme,
-  renderStuffData,
+  contracts,
+  outputForm,
+  inputForm,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
@@ -189,28 +210,37 @@ function StuffNodeDetail({
   consumer?: { pipeRef: string; slotName: string };
   graphspec: GraphSpec | null;
   theme: GraphTheme;
-  renderStuffData?: RenderStuffData;
+  contracts?: PipeIOContracts;
+  outputForm?: OutputForm;
+  inputForm?: InputForm;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
   const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
 
-  // Built here rather than inside `ConceptDetailPanel` so the two branches below
-  // hand the renderer the SAME context: a stuff with no concept in the spec is
-  // still a stuff a host may know how to render, and it is exactly the case the
-  // old fallback treated as second-class.
-  const renderData = renderStuffData
-    ? () =>
-        renderStuffData({
-          nodeId,
-          stuff: stuffData,
-          concept: conceptInfo,
-          producerPipeRef,
-          consumer,
-          theme,
-          isDryRun,
-        })
-    : undefined;
+  // Built here rather than inside `ConceptDetailPanel` so both branches below
+  // render the SAME panel: a stuff with no concept in the spec is still a stuff
+  // whose value can be shown, and it is exactly the case the old fallback
+  // treated as second-class.
+  //
+  // Both artifacts or neither. The contract names the payload's shape and the
+  // descriptor says what the result IS, so a panel given one of the two would be
+  // guessing the other — which is the whole failure `output_form` exists to end.
+  const renderData =
+    contracts && outputForm
+      ? () => (
+          <StuffResultPanel
+            contracts={contracts}
+            outputForm={outputForm}
+            {...(inputForm ? { inputForm } : {})}
+            stuff={stuffData}
+            {...(conceptInfo ? { concept: conceptInfo } : {})}
+            {...(producerPipeRef ? { producerPipeRef } : {})}
+            {...(consumer ? { consumer } : {})}
+            theme={theme}
+          />
+        )
+      : undefined;
 
   if (conceptInfo) {
     return (
@@ -364,7 +394,9 @@ export function GraphViewer(props: GraphViewerProps) {
     onNodeSelect,
     onPaneClick,
     renderDetailExtra,
-    renderStuffData,
+    contracts,
+    outputForm,
+    inputForm,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1234,7 +1266,9 @@ export function GraphViewer(props: GraphViewerProps) {
             consumer={detailSelection.consumer}
             graphspec={graphspec}
             theme={resolvedTheme}
-            renderStuffData={renderStuffData}
+            contracts={contracts}
+            outputForm={outputForm}
+            inputForm={inputForm}
           />
         ) : null}
         {renderDetailExtra &&
