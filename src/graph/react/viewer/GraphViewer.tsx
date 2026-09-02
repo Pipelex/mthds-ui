@@ -44,6 +44,7 @@ import {
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";
+import type { ResolveUrl } from "@pipelex/mthds-form/react";
 import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
@@ -171,6 +172,18 @@ export interface GraphViewerProps {
    */
   inputForm?: InputForm;
   /**
+   * Turns the runtime's own `pipelex-storage://…` reference into a URL a
+   * browser can fetch, so files in a result actually paint.
+   *
+   * Without it the panel falls back to whatever `public_url` the payload
+   * carries — which on the hosted platform is a PRESIGNED URL with an hour's
+   * life, baked into the stored result. Yesterday's run then shows broken
+   * images, and the URL answers `403` in a way that reads as a permissions
+   * problem rather than an expiry. A resolver is what makes a stored result
+   * durable, so supply one if your storage has an authenticated read path.
+   */
+  resolveUrl?: ResolveUrl;
+  /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
    * a host typically drives `validating → valid | invalid | error` as its
@@ -202,6 +215,7 @@ function StuffNodeDetail({
   contracts,
   outputForm,
   inputForm,
+  resolveUrl,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
@@ -213,6 +227,7 @@ function StuffNodeDetail({
   contracts?: PipeIOContracts;
   outputForm?: OutputForm;
   inputForm?: InputForm;
+  resolveUrl?: ResolveUrl;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
@@ -237,6 +252,7 @@ function StuffNodeDetail({
             {...(conceptInfo ? { concept: conceptInfo } : {})}
             {...(producerPipeRef ? { producerPipeRef } : {})}
             {...(consumer ? { consumer } : {})}
+            {...(resolveUrl ? { resolveUrl } : {})}
             theme={theme}
           />
         )
@@ -397,6 +413,7 @@ export function GraphViewer(props: GraphViewerProps) {
     contracts,
     outputForm,
     inputForm,
+    resolveUrl,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1269,6 +1286,7 @@ export function GraphViewer(props: GraphViewerProps) {
             contracts={contracts}
             outputForm={outputForm}
             inputForm={inputForm}
+            resolveUrl={resolveUrl}
           />
         ) : null}
         {renderDetailExtra &&

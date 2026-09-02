@@ -11,7 +11,13 @@ import {
   type PipeIOContracts,
   type RunField,
 } from "@pipelex/mthds-form";
-import { ResultPanel } from "@pipelex/mthds-form/react";
+import {
+  JsonView,
+  ResultEnvProvider,
+  ResultPanel,
+  useFieldStrings,
+  type ResolveUrl,
+} from "@pipelex/mthds-form/react";
 import { parsePipeRef } from "@graph/pipeRefs";
 import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types";
 
@@ -105,6 +111,18 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
   consumer?: { pipeRef: string; slotName: string };
   /** The viewer's resolved theme, so the panel matches the chrome it sits in. */
   theme?: GraphTheme;
+  /**
+   * Turns the runtime's own `pipelex-storage://…` reference into something a
+   * browser can fetch.
+   *
+   * Supply it and the panel paints files through it; omit it and the panel
+   * falls back to whatever `public_url` the payload carries. On the hosted
+   * platform that fallback is a PRESIGNED S3 URL with an hour's life, baked
+   * into the stored result — so a run opened the next morning shows broken
+   * images, and the URL answers `403` in a way that reads as a permissions
+   * problem rather than an expiry. A resolver is what makes a result durable.
+   */
+  resolveUrl?: ResolveUrl;
 }
 
 export function StuffResultPanel({
@@ -114,6 +132,7 @@ export function StuffResultPanel({
   stuff,
   producerPipeRef,
   consumer,
+  resolveUrl,
 }: StuffResultPanelProps) {
   const field = React.useMemo(
     () =>
@@ -122,8 +141,42 @@ export function StuffResultPanel({
     [contracts, outputForm, inputForm, producerPipeRef, consumer],
   );
 
-  if (!field) return null;
-  return <ResultPanel field={field} value={stuff.data} />;
+  if (field) {
+    const panel = <ResultPanel field={field} value={stuff.data} />;
+    return resolveUrl ? (
+      <ResultEnvProvider resolveUrl={resolveUrl}>{panel}</ResultEnvProvider>
+    ) : (
+      panel
+    );
+  }
+
+  // No descriptor, but there IS a value. Show it, and say why it is not laid
+  // out.
+  //
+  // Returning null here was the first behaviour and it was wrong in the way
+  // that matters: a reader looking at a finished run saw a schema table, no
+  // data tab, and no reason — indistinguishable from a broken view. The two
+  // artifacts are opt-in `views` on `/validate` and an engine that predates
+  // them simply omits them, so "the server has not got them yet" is an ordinary
+  // state a host will be in, not an edge case.
+  //
+  // This is not `StuffViewer` coming back. That offered three renderings as a
+  // CHOICE because it could not tell what the value was; this is one labelled
+  // fallback that names its own cause and disappears the moment the descriptor
+  // arrives.
+  return stuff.data === undefined || stuff.data === null ? null : (
+    <UndescribedValue value={stuff.data} />
+  );
+}
+
+function UndescribedValue({ value }: { value: unknown }) {
+  const s = useFieldStrings();
+  return (
+    <div className="space-y-2">
+      <p className="text-[12px] text-muted-foreground">{s.resultUndescribed}</p>
+      <JsonView value={value} />
+    </div>
+  );
 }
 
 /** The normal case: the pipe that resolved to this value describes it. */
@@ -164,7 +217,9 @@ function fromConsumer(
   if (!descriptor || !contract) return null;
   const slot = contract.inputs[consumer.slotName];
   if (!slot || slot.multiplicity !== "single") return null;
-  const node = descriptor.fields.find((candidate) => candidate.name === consumer.slotName);
+  const node = descriptor.fields.find(
+    (candidate: { name: string }) => candidate.name === consumer.slotName,
+  );
   if (!node) return null;
   // Wrapped into the OUTPUT descriptor's shape, which is what `buildResultField`
   // takes. That is not a cheat: the two descriptors' nodes are the same
