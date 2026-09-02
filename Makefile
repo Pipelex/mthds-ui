@@ -129,10 +129,22 @@ use-local:
 	@# capture picks up several lines and `mv` fails with "is not a directory" —
 	@# naming a temp path, which reads like a filesystem problem rather than a
 	@# capture one. The filename is always the LAST line.
+	@# `mthds` is packed and installed TOO, and that is not optional. It is the
+	@# kernel's peer, this package pins it at an unpublished `^0.25.0`, and npm
+	@# prunes a devDependency it cannot resolve — so installing the kernel alone
+	@# silently removed it, the kernel's re-exported types became `any` under
+	@# skipLibCheck, and `tsc` stayed green while eslint complained about unsafe
+	@# `any` in files nobody had touched.
+	@#
+	@# Both siblings are reverted first: ../pipelex-app's own `use-local` rewrites
+	@# their manifests to point at each other, and packing one in that state bakes
+	@# `file:../mthds-js` into the tarball, which then refuses to install here.
+	@cd ../mthds-form && git checkout -- package.json
+	@cd ../mthds-js && git checkout -- package.json 2>/dev/null || true
+	@cd ../mthds-js && npm run build >/dev/null && rm -f mthds-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts 2>/dev/null | tail -1) && mv $$TARBALL /tmp/mthds-local.tgz
 	@cd ../mthds-form && rm -f pipelex-mthds-form-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts 2>/dev/null | tail -1) && mv $$TARBALL /tmp/pipelex-mthds-form-local.tgz
-	rm -rf node_modules/@pipelex/mthds-form node_modules/.vite node_modules/.cache/storybook
-	npm install /tmp/pipelex-mthds-form-local.tgz --no-save --silent
-	@rm -f /tmp/pipelex-mthds-form-local.tgz
+	rm -rf node_modules/@pipelex/mthds-form node_modules/mthds node_modules/.vite node_modules/.cache/storybook
+	npm install /tmp/mthds-local.tgz /tmp/pipelex-mthds-form-local.tgz --no-save --silent
 	@echo "Now using local ../mthds-form (tarball install of $$(node -p "require('./node_modules/@pipelex/mthds-form/package.json').version")). Re-run after every kernel edit. 'make use-npm' to switch back."
 
 use-npm:

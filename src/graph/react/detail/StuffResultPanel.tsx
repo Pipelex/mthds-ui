@@ -16,6 +16,7 @@ import {
   ResultEnvProvider,
   ResultPanel,
   useFieldStrings,
+  type ResolveShareUrl,
   type ResolveUrl,
 } from "@pipelex/mthds-form/react";
 import { parsePipeRef } from "@graph/pipeRefs";
@@ -123,6 +124,12 @@ export interface StuffResultPanelProps extends StuffResultRendererOptions {
    * problem rather than an expiry. A resolver is what makes a result durable.
    */
   resolveUrl?: ResolveUrl;
+  /**
+   * Mints a URL that works OUTSIDE this page — what the copy control hands over.
+   * A display URL may sit behind the host's session; a shared one carries its
+   * own credential.
+   */
+  resolveShareUrl?: ResolveShareUrl;
 }
 
 export function StuffResultPanel({
@@ -133,6 +140,7 @@ export function StuffResultPanel({
   producerPipeRef,
   consumer,
   resolveUrl,
+  resolveShareUrl,
 }: StuffResultPanelProps) {
   const field = React.useMemo(
     () =>
@@ -143,8 +151,10 @@ export function StuffResultPanel({
 
   if (field) {
     const panel = <ResultPanel field={field} value={stuff.data} />;
-    return resolveUrl ? (
-      <ResultEnvProvider resolveUrl={resolveUrl}>{panel}</ResultEnvProvider>
+    return resolveUrl || resolveShareUrl ? (
+      <ResultEnvProvider resolveUrl={resolveUrl} resolveShareUrl={resolveShareUrl}>
+        {panel}
+      </ResultEnvProvider>
     ) : (
       panel
     );

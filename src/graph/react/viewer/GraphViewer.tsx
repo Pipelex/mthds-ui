@@ -44,7 +44,7 @@ import {
 } from "@graph/graphValidation";
 import { findStuffByDigest } from "@graph/stuffLookup";
 import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";
-import type { ResolveUrl } from "@pipelex/mthds-form/react";
+import type { ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
 import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
@@ -184,6 +184,16 @@ export interface GraphViewerProps {
    */
   resolveUrl?: ResolveUrl;
   /**
+   * Mints a URL that works OUTSIDE this page, for the copy control.
+   *
+   * Distinct from `resolveUrl` because the two answers genuinely differ: a
+   * display URL may be a path behind the host's own session — which is what
+   * lets a strict `img-src 'self'` stand — and that URL is useless to whoever
+   * pastes it. A shared one carries its own credential and is minted per click,
+   * since it starts expiring the moment it exists.
+   */
+  resolveShareUrl?: ResolveShareUrl;
+  /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
    * a host typically drives `validating → valid | invalid | error` as its
@@ -216,6 +226,7 @@ function StuffNodeDetail({
   outputForm,
   inputForm,
   resolveUrl,
+  resolveShareUrl,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
@@ -228,6 +239,7 @@ function StuffNodeDetail({
   outputForm?: OutputForm;
   inputForm?: InputForm;
   resolveUrl?: ResolveUrl;
+  resolveShareUrl?: ResolveShareUrl;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
@@ -253,6 +265,7 @@ function StuffNodeDetail({
             {...(producerPipeRef ? { producerPipeRef } : {})}
             {...(consumer ? { consumer } : {})}
             {...(resolveUrl ? { resolveUrl } : {})}
+            {...(resolveShareUrl ? { resolveShareUrl } : {})}
             theme={theme}
           />
         )
@@ -414,6 +427,7 @@ export function GraphViewer(props: GraphViewerProps) {
     outputForm,
     inputForm,
     resolveUrl,
+    resolveShareUrl,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1287,6 +1301,7 @@ export function GraphViewer(props: GraphViewerProps) {
             outputForm={outputForm}
             inputForm={inputForm}
             resolveUrl={resolveUrl}
+            resolveShareUrl={resolveShareUrl}
           />
         ) : null}
         {renderDetailExtra &&
