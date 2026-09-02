@@ -5,7 +5,7 @@ import "./detail/DetailPanel.css";
 import "./viewer/GraphToolbar.css";
 // The form kernel's utilities, because this entry renders kernel components:
 // the detail panel shows a stuff's data through `StuffResultPanel`, which is
-// the kernel's `ResultPanel`. Its styling is therefore this entry's problem,
+// the kernel's `StuffViewer`. Its styling is therefore this entry's problem,
 // not only `./form/react`'s — a host that only ever imports the graph (the
 // normal case: `GraphViewer` is usually pulled in on its own, often through a
 // dynamic import) would otherwise get the panel with a subset of its classes.

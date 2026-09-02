@@ -14,7 +14,7 @@ import {
 import {
   JsonView,
   ResultEnvProvider,
-  ResultPanel,
+  StuffViewer,
   useFieldStrings,
   type ResolveShareUrl,
   type ResolveUrl,
@@ -40,7 +40,7 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * authored order — and the output half of `pipe_io_contracts` gives the
  * payload's JSON Schema beside it, naming the property the content model wraps
  * the value under. `buildResultField` pairs them into a `RunField`, and
- * `ResultPanel` lays that out without ever inspecting the value: a table for a
+ * `StuffViewer` lays that out without ever inspecting the value: a table for a
  * list of records, a gallery for images, a sandboxed frame for markup, a
  * two-column grid for a structure. The JSON view survives as one of the panel's
  * two, because a receipt is worth having; "Pretty" and "HTML" do not, because
@@ -150,7 +150,7 @@ export function StuffResultPanel({
   );
 
   if (field) {
-    const panel = <ResultPanel field={field} value={stuff.data} />;
+    const panel = <StuffViewer field={field} value={stuff.data} />;
     return resolveUrl || resolveShareUrl ? (
       <ResultEnvProvider resolveUrl={resolveUrl} resolveShareUrl={resolveShareUrl}>
         {panel}

@@ -13,7 +13,7 @@ export interface ConceptDetailPanelProps {
   /**
    * Renders the data half. Supplied by the host (or by this package's own
    * `./form/react` entry, which renders it through the form kernel's
-   * descriptor-driven `ResultPanel`); see `stuffRender.ts` for why the graph
+   * descriptor-driven `StuffViewer`); see `stuffRender.ts` for why the graph
    * does not render data itself any more.
    *
    * Without it — or when it returns nothing for this item — the panel shows the

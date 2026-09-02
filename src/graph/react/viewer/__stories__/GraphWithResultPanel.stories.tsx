@@ -75,7 +75,7 @@ export const Light: Story = {
     await openFirstStuffNode(canvasElement);
     const canvas = within(canvasElement);
     // The panel opened on the DATA view, and it is the kernel's - the Result /
-    // JSON switch is `ResultPanel`'s, and no other component in this repo has
+    // JSON switch is `StuffViewer`'s, and no other component in this repo has
     // one. Asserting on it rather than on a value is deliberate: the payload
     // came from a live model and is not stable, but the fact that a descriptor
     // drove the layout is.
