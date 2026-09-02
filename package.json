@@ -76,7 +76,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "file:../mthds-form",
+    "@pipelex/mthds-form": "^0.5.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "smol-toml": "^1.7.0"
@@ -100,7 +100,6 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.1",
     "@eslint/js": "^9.39.4",
-    "@pipelex/mthds-form": "^0.5.0",
     "@storybook/addon-a11y": "^10.3.3",
     "@storybook/addon-docs": "^10.3.3",
     "@storybook/addon-onboarding": "^10.3.3",
