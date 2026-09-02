@@ -68,6 +68,86 @@ prompt = "Go"
     );
   });
 
+  it("reads the expanded input slot form to the same spec as the string form", () => {
+    // The standard states the two forms equivalent: `x = "S"` and
+    // `x = { concept = "S" }` are the same slot.
+    const bundleToml = (notes: string) => `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { title = "Text", notes = ${notes} }
+output = "Text"
+prompt = "Go"
+`;
+    const expanded = parseMthdsBundle(
+      bundleToml('{ concept = "Text?", hints = { intent = "prose" } }'),
+    );
+    const stringForm = parseMthdsBundle(bundleToml('"Text?"'));
+
+    expect(expanded.diagnostics).toEqual([]);
+    expect((expanded.bundle.pipes.p as PipeLLMBlueprint).inputs).toEqual(
+      (stringForm.bundle.pipes.p as PipeLLMBlueprint).inputs,
+    );
+    expect((expanded.bundle.pipes.p as PipeLLMBlueprint).inputs.notes).toMatchObject({
+      concept: { code: "Text", domain_code: "native" },
+      multiplicity: null,
+      presence: "optional",
+    });
+  });
+
+  it("keeps the slot but names a key the input slot form does not define", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { concept = "Text", widget = "textarea" } }
+output = "Text"
+prompt = "Go"
+`);
+    expect((bundle.pipes.p as PipeLLMBlueprint).inputs.notes).toMatchObject({
+      concept: { code: "Text", domain_code: "native" },
+    });
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({ code: "unknown-input-slot-key", path: "pipe.p.inputs.notes" }),
+    );
+  });
+
+  it("drops a slot table that carries no usable concept", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { hints = { intent = "prose" } } }
+output = "Text"
+prompt = "Go"
+`);
+    expect((bundle.pipes.p as PipeLLMBlueprint).inputs).toEqual({});
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({ code: "invalid-concept-ref", path: "pipe.p.inputs.notes" }),
+    );
+  });
+
+  it("refuses the expanded form on output, which is always a string", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+output = { concept = "Text" }
+prompt = "Go"
+`);
+    expect((bundle.pipes.p as PipeLLMBlueprint).output.concept).toMatchObject({
+      code: "Anything",
+      domain_code: "native",
+    });
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({ code: "missing-pipe-output", path: "pipe.p.output" }),
+    );
+  });
+
   it("treats a non-array steps value as empty with a warning", () => {
     const { bundle, diagnostics } = parseMthdsBundle(`
 domain = "d"

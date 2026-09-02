@@ -20,6 +20,7 @@ export type DiagnosticCode =
   | "unknown-pipe-type"
   | "retired-signature-tag"
   | "invalid-concept-ref"
+  | "unknown-input-slot-key"
   | "missing-pipe-output"
   | "invalid-sub-pipe"
   | "incomplete-batch-spec"

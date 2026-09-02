@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseConceptRef } from "../conceptRefs";
+import { parseConceptRef, parseInputSlot } from "../conceptRefs";
 
 describe("parseConceptRef", () => {
   it("parses a bare concept code", () => {
@@ -102,6 +102,8 @@ describe("parseConceptRef", () => {
   it("returns null for non-strings", () => {
     expect(parseConceptRef(undefined)).toBeNull();
     expect(parseConceptRef(42)).toBeNull();
+    // The expanded slot table is a slot form, not a ref form — `parseInputSlot`
+    // unwraps it, and `output` (which parses refs directly) never accepts one.
     expect(parseConceptRef({ concept: "Text" })).toBeNull();
   });
 
@@ -114,5 +116,60 @@ describe("parseConceptRef", () => {
     expect(parseConceptRef("Page?[]")).toBeNull();
     expect(parseConceptRef("Text??")).toBeNull();
     expect(parseConceptRef("Text?!")).toBeNull();
+  });
+});
+
+describe("parseInputSlot", () => {
+  it("reads the string form exactly as parseConceptRef does", () => {
+    expect(parseInputSlot("recruitment.CandidateProfile[]?")).toEqual({
+      ref: parseConceptRef("recruitment.CandidateProfile[]?"),
+      unknownKeys: [],
+    });
+  });
+
+  it("reads the expanded form to the same ref parts as the string form", () => {
+    expect(parseInputSlot({ concept: "Text" })).toEqual({
+      ref: parseConceptRef("Text"),
+      unknownKeys: [],
+    });
+  });
+
+  it("keeps multiplicity and presence working inside the expanded form", () => {
+    expect(parseInputSlot({ concept: "Text?" }).ref).toEqual({
+      domain: null,
+      code: "Text",
+      multiplicity: null,
+      presence: "optional",
+    });
+    expect(parseInputSlot({ concept: "legal.Clause[3]" }).ref).toEqual({
+      domain: "legal",
+      code: "Clause",
+      multiplicity: 3,
+      presence: "plain",
+    });
+  });
+
+  it("accepts hints and reports nothing — they are presentational, and dropped", () => {
+    expect(parseInputSlot({ concept: "Text", hints: { intent: "prose" } })).toEqual({
+      ref: parseConceptRef("Text"),
+      unknownKeys: [],
+    });
+  });
+
+  it("names keys the slot form does not define, and still reads the concept", () => {
+    const slot = parseInputSlot({ concept: "Text", description: "why", widget: "textarea" });
+    expect(slot.ref).toEqual(parseConceptRef("Text"));
+    expect(slot.unknownKeys).toEqual(["description", "widget"]);
+  });
+
+  it("returns a null ref for a slot table with no usable concept", () => {
+    expect(parseInputSlot({ hints: { intent: "prose" } }).ref).toBeNull();
+    expect(parseInputSlot({ concept: 42 }).ref).toBeNull();
+    expect(parseInputSlot({ concept: "has space" }).ref).toBeNull();
+  });
+
+  it("returns a null ref for values that are neither a ref string nor a table", () => {
+    expect(parseInputSlot(undefined)).toEqual({ ref: null, unknownKeys: [] });
+    expect(parseInputSlot(["Text"])).toEqual({ ref: null, unknownKeys: [] });
   });
 });

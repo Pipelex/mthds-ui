@@ -84,7 +84,39 @@ An io ref names a concept and then, optionally, two suffixes in a fixed order �
 
 Both suffixes belong to an **io slot**, never to concept inheritance: `refines` names a concept, so a `refines` carrying either is refused with an `invalid-concept-ref` warning rather than silently stripped down to the bare code.
 
-A ref the grammar does not accept is not fatal, but it is lossy in a way worth knowing: an input whose ref will not parse is **dropped from the pipe entirely** with an `invalid-concept-ref` warning, and an output that will not parse falls back to `native.Anything` with a `missing-pipe-output` warning. That is why the fixture sweep tolerates no warnings at all — a suffix the parser has not learned yet looks exactly like a method that never declared the slot.
+A ref the grammar does not accept is not fatal, but it is lossy in a way worth knowing: an input whose ref will not parse is **dropped from the pipe entirely** with an `invalid-concept-ref` warning, and an output that will not parse falls back to `native.Anything` with a `missing-pipe-output` warning. That is why the fixture sweep tolerates no warnings at all — a suffix the parser has not learned yet looks exactly like a method that never declared the slot, and a slot form it has not learned yet looks the same (see [Input Slot Declarations](#input-slot-declarations)).
+
+## Input Slot Declarations
+
+A value in a pipe's `inputs` table has two forms, and the standard (`docs/spec/mthds-format.md`, "Input slot declarations") states them equivalent:
+
+```toml
+[pipe.write_card.inputs]
+title = "BookTitle"
+notes = { concept = "Text?", hints = { intent = "prose" } }
+```
+
+`concept` is required and carries exactly the same grammar as the string form — ref, then multiplicity, then presence — so `{ concept = "Text?" }` resolves optional just as `"Text?"` does. `parseInputSlot` unwraps the table and hands `concept` to `parseConceptRef`, which means the resulting `StuffSpecInfo` is identical whichever form authored the slot. That identity is the point: a hinted input is an ordinary edge in the graph, and nothing downstream can tell how it was written.
+
+The expanded form is **inputs only**. `output` is always a string, so `output = { concept = "Text" }` does not parse and falls back to `native.Anything` with the usual `missing-pipe-output` warning.
+
+`hints` is read as a known key and then dropped. Its shape is not checked here either, and both of those are the same decision: **intent hints do not travel on the GraphSpec.**
+
+### Why hints are parsed and dropped
+
+Intent hints (`docs/spec/intent-hints.md`) are non-normative presentation intent, and they exist for renderers to honor — so a rendering library dropping them looks like a gap. It is not, and the reason is that the standard already routes them somewhere else.
+
+- **The GraphSpec has no place to put them.** pipelex's runtime `StuffSpec` and `Concept` carry no `hints` field — hints live on the *blueprints* (`ConceptBlueprint`, the structure-field blueprint, `InputSlotBlueprint`), and a GraphSpec's `pipe_registry` is serialized from the runtime objects. Adding a `hints` member to `StuffSpecInfo` would put a field in a static spec that a dry or live spec can never carry, which is exactly what `parity.test.ts` exists to prevent.
+- **The artifact that carries them is the input-form descriptor.** `docs/spec/input-form-descriptor.md` gives every field descriptor an optional `hints` object holding the node's *effective* hints — the key-by-key merge along the refinement chain and then the site layer — so a consumer reads one map and walks nothing. That merge needs the concept registry and the refinement chain, which is producer work, not something a graph renderer should be re-deriving from bundle text.
+- **This library already consumes that channel.** `src/form/` renders the descriptor through `@pipelex/mthds-form`, so the hint an author writes on a slot reaches this repo's form panel by the route the standard designed for it. See `docs/run-form-panel.md`.
+
+So a hint changes how a slot is *filled in*, never how it is *drawn*, and the static builder is the drawing half. If a graph card ever wants to honor `intent`, the change is to feed the viewer a descriptor beside the spec — not to widen `StuffSpecInfo`.
+
+### Unknown slot keys
+
+The slot table is closed: the spec says an unknown key MUST be rejected, and pipelex implements that as `extra="forbid"` on `InputSlotBlueprint`. This module renders rather than adjudicates, so it does neither of the two extremes. It reports the key with an `unknown-input-slot-key` warning naming it, and still resolves the slot from its `concept` — dropping the edge would lose more than the unknown key was worth, and staying silent would draw a clean graph for a bundle the runtime refuses.
+
+That is also the line between a key and a malformed `hints` table. An unknown key may be where a future version of the standard puts something that changes the slot, so it is named. A malformed `hints` is content this module never reads, so reporting it belongs to a validating implementation, not to the renderer.
 
 ## Native Concepts
 

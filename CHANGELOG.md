@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- **Expanded input-slot form in the static graph builder**: `inputs` values authored as `x = { concept = "S", hints = { … } }` now parse. The standard states the expanded form equivalent to the string form `x = "S"`, and the resolved slot is identical either way — multiplicity and presence markers keep working inside `concept`. Previously any such slot was uninterpretable and the input was dropped from the built `GraphSpec` with an `invalid-concept-ref` warning, so a method using intent hints rendered with missing edges. The expanded form is inputs-only; `output` is still always a string.
+- **`parseInputSlot` on the `./static-graph` entry**: The slot-form reader is exported beside `parseConceptRef`, with its `InputSlotParts` type. It returns the slot's ref parts (null when the concept ref is not interpretable) plus any keys the form does not define.
+- **`unknown-input-slot-key` diagnostic**: A key the input-slot form does not define is now named in a warning, and the slot still resolves from its `concept`. The runtime rejects such a bundle outright, so the renderer says so rather than drawing a clean graph for it.
+
+### Changed
+
+- **Intent hints are parsed and dropped, deliberately**: `hints` on an input slot is accepted and does not reach the `GraphSpec`. Hints travel to consumers on the input-form descriptor, which this library already renders through `@pipelex/mthds-form` — the runtime's `StuffSpec` has no `hints` field, so carrying them on a static spec would diverge from every dry and live spec. The rationale is written up in `docs/static-graph.md`.
+
 ## [v0.19.0] - 2026-08-29
 
 ### Added

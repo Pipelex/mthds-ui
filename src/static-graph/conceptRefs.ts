@@ -11,6 +11,8 @@
 
 import type { ConceptInfo, PresenceMarker, StuffSpecInfo } from "@graph/types";
 
+import { isPlainObject } from "./types";
+
 export const NATIVE_DOMAIN = "native";
 
 /**
@@ -90,6 +92,52 @@ export function parseConceptRef(raw: unknown): ConceptRefParts | null {
   };
 }
 
+// ─── Input slot declarations ─────────────────────────────────────────────────
+// A value in a pipe's `inputs` table has two forms, and the standard states
+// them equivalent (`docs/spec/mthds-format.md`, "Input slot declarations"):
+// the string form `x = "S"`, and the expanded form `x = { concept = "S",
+// hints = { … } }`, whose `concept` carries exactly the same grammar. The
+// expanded form is inputs-only — an `output` is always a string — so this
+// layer sits beside `parseConceptRef` rather than inside it.
+
+/**
+ * The keys the expanded slot table defines in this version of the standard.
+ * The form is deliberately closed: the spec says an unknown key MUST be
+ * rejected, which pipelex implements as `extra="forbid"` on its
+ * `InputSlotBlueprint`. This module renders rather than adjudicates, so it
+ * reports the key and reads past it — see `parseInputSlot`.
+ */
+const INPUT_SLOT_KEYS: ReadonlySet<string> = new Set(["concept", "hints"]);
+
+export interface InputSlotParts {
+  /** The slot's concept ref parts, or null when the slot is not interpretable. */
+  ref: ConceptRefParts | null;
+  /** Keys of an expanded slot table this version of the standard does not define. */
+  unknownKeys: string[];
+}
+
+/**
+ * Read one `inputs` value, whichever form authored it.
+ *
+ * `hints` is parsed as a known key and then dropped: intent hints are
+ * presentational, and the standard routes them to renderers through the
+ * input-form descriptor, not the GraphSpec (see `docs/static-graph.md`).
+ * Their shape is not checked here for the same reason — a malformed `hints`
+ * table is content this module never reads, so it is the validator's to
+ * report, not the renderer's. An unknown key is different: it may well be
+ * where a future standard puts something that changes the slot, so it is
+ * named rather than passed over.
+ */
+export function parseInputSlot(raw: unknown): InputSlotParts {
+  if (!isPlainObject(raw)) {
+    return { ref: parseConceptRef(raw), unknownKeys: [] };
+  }
+  return {
+    ref: parseConceptRef(raw.concept),
+    unknownKeys: Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key)),
+  };
+}
+
 // ─── Resolution to ConceptInfo ───────────────────────────────────────────────
 
 /**
@@ -156,6 +204,19 @@ export function resolveConceptInfo(
   return stubConceptInfo(parts.code, currentDomain);
 }
 
+/** Build a `StuffSpecInfo` from already-parsed ref parts. */
+function stuffSpecFromParts(
+  parts: ConceptRefParts,
+  currentDomain: string,
+  localConcepts: Record<string, ConceptInfo>,
+): StuffSpecInfo {
+  return {
+    concept: resolveConceptInfo(parts, currentDomain, localConcepts),
+    multiplicity: parts.multiplicity,
+    presence: parts.presence,
+  };
+}
+
 /** Resolve a raw concept ref string straight to a `StuffSpecInfo`, or null when unparseable. */
 export function resolveStuffSpec(
   raw: unknown,
@@ -163,10 +224,30 @@ export function resolveStuffSpec(
   localConcepts: Record<string, ConceptInfo>,
 ): StuffSpecInfo | null {
   const parts = parseConceptRef(raw);
-  if (parts === null) return null;
+  return parts === null ? null : stuffSpecFromParts(parts, currentDomain, localConcepts);
+}
+
+export interface ResolvedInputSlot {
+  /** The resolved slot, or null when its concept ref is not interpretable. */
+  spec: StuffSpecInfo | null;
+  /** Keys of an expanded slot table this version of the standard does not define. */
+  unknownKeys: string[];
+}
+
+/**
+ * Resolve one `inputs` value to a `StuffSpecInfo`, accepting either slot form.
+ * The `StuffSpecInfo` is identical whichever form authored it, which is what
+ * the standard means by calling `x = "S"` and `x = { concept = "S" }` the same
+ * slot.
+ */
+export function resolveInputSlot(
+  raw: unknown,
+  currentDomain: string,
+  localConcepts: Record<string, ConceptInfo>,
+): ResolvedInputSlot {
+  const { ref, unknownKeys } = parseInputSlot(raw);
   return {
-    concept: resolveConceptInfo(parts, currentDomain, localConcepts),
-    multiplicity: parts.multiplicity,
-    presence: parts.presence,
+    spec: ref === null ? null : stuffSpecFromParts(ref, currentDomain, localConcepts),
+    unknownKeys,
   };
 }

@@ -19,7 +19,12 @@ import type {
 } from "@graph/types";
 import { KNOWN_PIPE_TYPES } from "@graph/types";
 
-import { NATIVE_DOMAIN, nativeConceptInfo, resolveStuffSpec } from "./conceptRefs";
+import {
+  NATIVE_DOMAIN,
+  nativeConceptInfo,
+  resolveInputSlot,
+  resolveStuffSpec,
+} from "./conceptRefs";
 import type { Diagnostic } from "./types";
 import { boolOrNull, intOrNull, isPlainObject, strOrNull } from "./types";
 
@@ -72,8 +77,18 @@ function normalizeInputs(
     });
     return inputs;
   }
-  for (const [name, ref] of Object.entries(raw)) {
-    const spec = resolveStuffSpec(ref, ctx.domain, ctx.concepts);
+  for (const [name, slot] of Object.entries(raw)) {
+    const { spec, unknownKeys } = resolveInputSlot(slot, ctx.domain, ctx.concepts);
+    if (unknownKeys.length > 0) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "unknown-input-slot-key",
+        message:
+          `pipe "${pipeCode}": input "${name}" declares ${unknownKeys.map((key) => `"${key}"`).join(", ")}, ` +
+          "which the input slot form does not define — ignored here, rejected by the runtime",
+        path: `pipe.${pipeCode}.inputs.${name}`,
+      });
+    }
     if (spec === null) {
       ctx.diagnostics.push({
         severity: "warning",
