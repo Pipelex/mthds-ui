@@ -68,11 +68,28 @@ const PLURAL_IMAGES: PipeInputContract = {
   },
 };
 
+/**
+ * The output half of a contract, which the gate never reads — it is here only
+ * because `PipeIOContract` is a closed shape and demands it.
+ *
+ * `json_schema` became mandatory on the output contract when the standard grew
+ * `output_form`: a result's payload schema is what a renderer pairs the output
+ * descriptor with. `native.Text`'s is its real content model, wrapping the value
+ * under `text`, so this fixture states the shape a run actually produces rather
+ * than an empty object that would type-check and describe nothing.
+ */
 const OUTPUT = {
   concept_ref: "native.Text",
   multiplicity: "single",
   item_count: null,
   optional: false,
+  json_schema: {
+    description: "A text",
+    properties: { text: { description: "The text", title: "Text", type: "string" } },
+    required: ["text"],
+    title: "TextContent",
+    type: "object",
+  },
 } as const;
 
 /**

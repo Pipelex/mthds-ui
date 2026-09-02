@@ -1,0 +1,151 @@
+{
+  "data_pipeline.build_index": {
+    "field": {
+      "concept_ref": "data_pipeline.VectorIndex",
+      "description": "An indexed collection of vectors",
+      "kind": "unknown",
+      "name": "output",
+      "refines": [
+        "native.JSON"
+      ],
+      "required": true
+    }
+  },
+  "data_pipeline.chunk_text": {
+    "field": {
+      "concept_ref": "data_pipeline.TextChunk",
+      "description": "A segment of text split for processing",
+      "item": {
+        "concept_ref": "data_pipeline.TextChunk",
+        "description": "A segment of text split for processing",
+        "kind": "prose",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_pipeline.clean_text": {
+    "field": {
+      "concept_ref": "data_pipeline.CleanText",
+      "description": "Text that has been cleaned and normalized",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_pipeline.embed_chunks": {
+    "field": {
+      "concept_ref": "data_pipeline.Embedding",
+      "description": "Vector embedding of text",
+      "item": {
+        "concept_ref": "data_pipeline.Embedding",
+        "description": "Vector embedding of text",
+        "kind": "prose",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_pipeline.extract_raw": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_pipeline.ingest_pipeline": {
+    "field": {
+      "concept_ref": "data_pipeline.ValidationReport",
+      "description": "Report validating the index quality",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_pipeline.validate_index": {
+    "field": {
+      "concept_ref": "data_pipeline.ValidationReport",
+      "description": "Report validating the index quality",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

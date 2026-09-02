@@ -1,0 +1,125 @@
+{
+  "data_aggregation.combine_sources": {
+    "field": {
+      "concept_ref": "data_aggregation.CombinedData",
+      "description": "Data combined from multiple sources",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_aggregation.fetch_api": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_aggregation.gather_sources": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_aggregation.multi_source_pipeline": {
+    "field": {
+      "concept_ref": "data_aggregation.CombinedData",
+      "description": "Data combined from multiple sources",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_aggregation.search_academic": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_aggregation.search_web": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}

@@ -235,6 +235,20 @@ const PIPE_IO_CONTRACTS_NAME = "pipe_io_contracts.json";
  * keep out of the stories.
  */
 const INPUT_FORM_NAME = "input_form.json";
+/**
+ * The output twin of the descriptor above, and the third of the trio: every
+ * pipe's OUTPUT-form descriptor, keyed by the same namespaced `pipe_ref`.
+ *
+ * One `field` rather than a list of them, always named `output`, carrying no
+ * `presence` and no `gating` — a result is not a slot a caller fills. Paired
+ * with `output.json_schema` off the contract it is everything `ResultPanel`
+ * needs to render what a run produced, which is what makes the graph's stuff
+ * panel a descriptor-driven view rather than a JSON dump.
+ *
+ * Mode-independent like its siblings: a projection of what a pipe DECLARES, so
+ * the free DRY pass refreshes it and a paid LIVE one leaves it alone.
+ */
+const OUTPUT_FORM_NAME = "output_form.json";
 
 function die(message) {
   console.error(`\n✗ generate-fixtures: ${message}\n`);
@@ -386,17 +400,17 @@ function writeInputsTemplate(pipelineDir) {
 }
 
 /**
- * The bundle's two validate views — `pipe_io_contracts` and `input_form` —
- * parsed, as `{ pipe_io_contracts, input_form }`.
+ * The bundle's three validate views — `pipe_io_contracts`, `input_form` and
+ * `output_form` — parsed, under those same names.
  *
  * No pipelex CLI surfaces either today, so this goes through
  * `scripts/dump_validate_views.py` in the pipelex venv — see that file's header
  * for why, and for the ledger item that retires it. Offline and inference-free,
  * so it rides the free DRY pass.
  *
- * One invocation returns both because they must come from one library window:
- * the builders iterate the same loaded pipes and therefore share one key set,
- * which two separate dumps could not promise.
+ * One invocation returns all three because they must come from one library
+ * window: the builders iterate the same loaded pipes and therefore share one
+ * key set, which separate dumps could not promise.
  */
 function dumpViews(bundle, label) {
   let raw;
@@ -424,19 +438,21 @@ function dumpViews(bundle, label) {
   }
 }
 
-/** Both views, serialized the way they are committed beside the bundle. */
+/** Every view, serialized the way they are committed beside the bundle. */
 function serializeViews(views) {
   return {
     contracts: `${JSON.stringify(views.pipe_io_contracts, null, 2)}\n`,
     inputForm: `${JSON.stringify(views.input_form, null, 2)}\n`,
+    outputForm: `${JSON.stringify(views.output_form, null, 2)}\n`,
   };
 }
 
 function writeValidateViews(pipelineDir) {
   const bundle = path.join(PIPELINES_DIR, pipelineDir, "bundle.mthds");
-  const { contracts, inputForm } = serializeViews(dumpViews(bundle, pipelineDir));
+  const { contracts, inputForm, outputForm } = serializeViews(dumpViews(bundle, pipelineDir));
   writeFileSync(path.join(PIPELINES_DIR, pipelineDir, PIPE_IO_CONTRACTS_NAME), contracts);
   writeFileSync(path.join(PIPELINES_DIR, pipelineDir, INPUT_FORM_NAME), inputForm);
+  writeFileSync(path.join(PIPELINES_DIR, pipelineDir, OUTPUT_FORM_NAME), outputForm);
 }
 
 /**
@@ -553,24 +569,26 @@ async function formatSplit(splitRaw, prettierConfig) {
 }
 
 /**
- * (Re)write the form fixture from the `pipe_io_contracts.json` and
- * `input_form.json` files on disk.
+ * (Re)write the form fixture from the `pipe_io_contracts.json`,
+ * `input_form.json` and `output_form.json` files on disk.
  *
  * Derived from disk rather than from whatever this invocation happened to
  * refresh, for the same reason the spec barrels are: a partial run must still
  * emit a complete module, or the stories lose exports they import.
  *
- * BOTH files are required for a pipeline to appear. A pipeline holding only the
- * contract is a tree half-swept by a pre-`0.5.0` generator, and the two ways of
+ * ALL THREE files are required for a pipeline to appear. A pipeline holding
+ * fewer is a tree half-swept by an older generator, and the two ways of
  * treating it are not equally safe: emitting its split without a descriptor
- * would compile and render an empty form, while dropping it fails the story
- * that imports the missing export — loudly, at build time, naming the pipeline.
+ * would compile and render an EMPTY form or an empty result, while dropping it
+ * fails the story that imports the missing export — loudly, at build time,
+ * naming the pipeline.
  */
 async function writeFormFixture(allPipelines, prettierConfig) {
   const present = allPipelines.filter(
     (p) =>
       existsSync(path.join(PIPELINES_DIR, p, PIPE_IO_CONTRACTS_NAME)) &&
-      existsSync(path.join(PIPELINES_DIR, p, INPUT_FORM_NAME)),
+      existsSync(path.join(PIPELINES_DIR, p, INPUT_FORM_NAME)) &&
+      existsSync(path.join(PIPELINES_DIR, p, OUTPUT_FORM_NAME)),
   );
   const splitDir = path.join(CONTRACTS_DIR, "_generated");
   mkdirSync(splitDir, { recursive: true });
@@ -587,6 +605,7 @@ async function writeFormFixture(allPipelines, prettierConfig) {
         "utf-8",
       ),
       inputForm: readFileSync(path.join(PIPELINES_DIR, pipelineDir, INPUT_FORM_NAME), "utf-8"),
+      outputForm: readFileSync(path.join(PIPELINES_DIR, pipelineDir, OUTPUT_FORM_NAME), "utf-8"),
     })),
     // Corpus entries have no writable directory of their own (the vendored copy
     // is read-only), so their contracts go straight into the split module —
@@ -620,16 +639,17 @@ async function writeFormFixture(allPipelines, prettierConfig) {
     );
   }
 
-  for (const { slug, name, contracts, inputForm } of sources) {
+  for (const { slug, name, contracts, inputForm, outputForm } of sources) {
     const splitRaw =
       `/**\n` +
-      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's two\n` +
+      ` * Auto-generated by scripts/generate-fixtures.mjs — this bundle's three\n` +
       ` * validate views, each keyed by namespaced pipe_ref. DO NOT EDIT.\n` +
       ` * Regenerate with \`make fixtures-contracts\`.\n` +
       ` */\n` +
-      `import type { InputForm, PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
+      `import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
       `export const CONTRACTS_${name} = ${contracts.trim()} as unknown as PipeIOContracts;\n\n` +
-      `export const INPUT_FORM_${name} = ${inputForm.trim()} as unknown as InputForm;\n`;
+      `export const INPUT_FORM_${name} = ${inputForm.trim()} as unknown as InputForm;\n\n` +
+      `export const OUTPUT_FORM_${name} = ${outputForm.trim()} as unknown as OutputForm;\n`;
     writeFileSync(path.join(splitDir, `${slug}.ts`), await formatSplit(splitRaw, prettierConfig));
   }
 
@@ -648,13 +668,44 @@ async function writeFormFixture(allPipelines, prettierConfig) {
     ` * per-bundle validate-view split modules. DO NOT EDIT.\n` +
     ` * Regenerate with \`make fixtures-contracts\`.\n` +
     ` */\n` +
+    `import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";\n\n` +
     exported
       .map(
         ({ slug, name }) =>
-          `export { CONTRACTS_${name}, INPUT_FORM_${name} } from "./_generated/${slug}";`,
+          `export { CONTRACTS_${name}, INPUT_FORM_${name}, OUTPUT_FORM_${name} } from "./_generated/${slug}";`,
       )
       .join("\n") +
-    `\n`;
+    `\n\n` +
+    exported
+      .map(
+        ({ slug, name }) =>
+          `import { CONTRACTS_${name}, INPUT_FORM_${name}, OUTPUT_FORM_${name} } from "./_generated/${slug}";`,
+      )
+      .join("\n") +
+    `\n\n` +
+    `/** One method's three views, together — the shape a consumer actually holds. */\n` +
+    `export interface ArtifactSet {\n` +
+    `  contracts: PipeIOContracts;\n` +
+    `  inputForm: InputForm;\n` +
+    `  outputForm: OutputForm;\n` +
+    `}\n\n` +
+    `/**\n` +
+    ` * Every generated method's artifacts, keyed by the name its exports carry.\n` +
+    ` *\n` +
+    ` * The named exports above are what a story reaches for when it knows which\n` +
+    ` * method it is about; this map is for the stories that are PARAMETERISED by\n` +
+    ` * one — the 34 per-pipeline graph stories, which all want the same wiring\n` +
+    ` * against a different method. Without it each of those would restate three\n` +
+    ` * imports, and adding a fourth artifact later would mean editing 34 files.\n` +
+    ` */\n` +
+    `export const ARTIFACT_SETS: Record<string, ArtifactSet> = {\n` +
+    exported
+      .map(
+        ({ name }) =>
+          `  ${name}: { contracts: CONTRACTS_${name}, inputForm: INPUT_FORM_${name}, outputForm: OUTPUT_FORM_${name} },`,
+      )
+      .join("\n") +
+    `\n};\n`;
 
   const outPath = path.join(CONTRACTS_DIR, "_generated.contracts.ts");
   writeFileSync(outPath, await prettier.format(barrelRaw, { ...prettierConfig, parser: "typescript" }));

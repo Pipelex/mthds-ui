@@ -2,8 +2,25 @@
 
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
-import "./stuff/StuffViewer.css";
 import "./viewer/GraphToolbar.css";
+// The form kernel's utilities, because this entry renders kernel components:
+// the detail panel shows a stuff's data through `StuffResultPanel`, which is
+// the kernel's `StuffViewer`. Its styling is therefore this entry's problem,
+// not only `./form/react`'s — a host that only ever imports the graph (the
+// normal case: `GraphViewer` is usually pulled in on its own, often through a
+// dynamic import) would otherwise get the panel with a subset of its classes.
+//
+// A Tailwind host is supposed to generate these by scanning the kernel and does
+// not: content globs stop at the host's own source and node_modules is off the
+// sweep, so it gets exactly the classes it happens to use elsewhere. Nothing
+// errors — the result grid just loses its column template and a structured
+// result renders as a stack of labels each above its own value.
+//
+// See `../../form/react/index.ts` for why this is imported by the kernel's own
+// export name rather than copied into `dist/`, and why `theme.css` stays out.
+// Importing the same specifier from both entries is deliberate and free: a
+// bundler emits one copy.
+import "@pipelex/mthds-form/styles.css";
 
 // Viewer
 export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";
@@ -32,8 +49,10 @@ export { PipeCardBase } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardBaseProps } from "./nodes/pipe/PipeCardBase";
 export type { PipeCardData, PipeOperatorType, PipeStatus } from "./nodes/pipe/pipeCardTypes";
 
-// Stuff viewer
-export * from "./stuff";
+// The graph's data panel, rendered from the standard's own artifacts. Exported
+// for a host that wants the same view outside the graph.
+export { StuffResultPanel } from "./detail/StuffResultPanel";
+export type { StuffResultPanelProps, StuffResultRendererOptions } from "./detail/StuffResultPanel";
 
 // Detail panel
 export * from "./detail";

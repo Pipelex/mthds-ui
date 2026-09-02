@@ -1,0 +1,98 @@
+{
+  "data_processing.diamond_pipeline": {
+    "field": {
+      "concept_ref": "data_processing.MergedResult",
+      "description": "Result merged from all pathways",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_processing.merge_all": {
+    "field": {
+      "concept_ref": "data_processing.MergedResult",
+      "description": "Result merged from all pathways",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_processing.process_alpha": {
+    "field": {
+      "concept_ref": "data_processing.ProcessedData",
+      "description": "Data processed through one pathway",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_processing.process_beta": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_processing.process_delta": {
+    "field": {
+      "concept_ref": "native.Image",
+      "description": "An image",
+      "kind": "image",
+      "name": "output",
+      "required": true
+    }
+  },
+  "data_processing.process_gamma": {
+    "field": {
+      "concept_ref": "data_processing.ProcessedData",
+      "description": "Data processed through one pathway",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "data_processing.quad_process": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  }
+}

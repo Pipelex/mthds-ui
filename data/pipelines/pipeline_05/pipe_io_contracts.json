@@ -26,6 +26,38 @@
     "output": {
       "concept_ref": "text_analysis.Sentiment",
       "item_count": null,
+      "json_schema": {
+        "description": "Sentiment analysis result",
+        "properties": {
+          "confidence": {
+            "description": "Confidence score 0-1",
+            "title": "Confidence",
+            "type": "number"
+          },
+          "explanation": {
+            "description": "Why this sentiment was detected",
+            "title": "Explanation",
+            "type": "string"
+          },
+          "sentiment": {
+            "description": "The detected sentiment",
+            "enum": [
+              "positive",
+              "negative",
+              "neutral"
+            ],
+            "title": "Sentiment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sentiment",
+          "confidence",
+          "explanation"
+        ],
+        "title": "text_analysis.Sentiment",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -57,6 +89,21 @@
     "output": {
       "concept_ref": "text_analysis.AnalysisReport",
       "item_count": null,
+      "json_schema": {
+        "description": "Combined analysis report",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "text_analysis.AnalysisReport",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -88,6 +135,45 @@
     "output": {
       "concept_ref": "text_analysis.Keyword",
       "item_count": null,
+      "json_schema": {
+        "$defs": {
+          "text_analysis__Keyword": {
+            "description": "An extracted keyword with relevance score",
+            "properties": {
+              "keyword": {
+                "description": "The keyword text",
+                "title": "Keyword",
+                "type": "string"
+              },
+              "relevance": {
+                "description": "Relevance score 0-1",
+                "title": "Relevance",
+                "type": "number"
+              }
+            },
+            "required": [
+              "keyword",
+              "relevance"
+            ],
+            "title": "text_analysis__Keyword",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/text_analysis__Keyword"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "ListContent[text_analysis__Keyword]",
+        "type": "object"
+      },
       "multiplicity": "variable",
       "optional": false
     }
@@ -166,6 +252,21 @@
     "output": {
       "concept_ref": "text_analysis.AnalysisReport",
       "item_count": null,
+      "json_schema": {
+        "description": "Combined analysis report",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "text_analysis.AnalysisReport",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -197,6 +298,13 @@
     "output": {
       "concept_ref": "native.Composite",
       "item_count": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "A named composition of contents",
+        "properties": {},
+        "title": "native.Composite",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

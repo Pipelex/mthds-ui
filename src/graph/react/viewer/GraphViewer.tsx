@@ -14,6 +14,7 @@ import type {
   GraphNode,
   GraphEdge,
   GraphNodeData,
+  GraphSpecNodeIoItem,
   DataflowAnalysis,
   FoldMode,
   FoldToggleOptions,
@@ -41,9 +42,10 @@ import {
   buildValidationDecorations,
   resolveIssueTargetNodeId,
 } from "@graph/graphValidation";
-import type { ResolveStorageUrl, StuffViewerData } from "../stuff/stuffViewerTypes";
-import { findStuffDataByDigest } from "../stuff/stuffViewerUtils";
-import { StuffViewer } from "../stuff/StuffViewer";
+import { findStuffByDigest } from "@graph/stuffLookup";
+import type { InputForm, OutputForm, PipeIOContracts } from "@pipelex/mthds-form";
+import type { ResolveShareUrl, ResolveUrl } from "@pipelex/mthds-form/react";
+import { StuffResultPanel } from "../detail/StuffResultPanel";
 import { DetailPanel } from "../detail/DetailPanel";
 import { useResizable } from "../detail/useResizable";
 import { PipeDetailPanel } from "../detail/PipeDetailPanel";
@@ -130,7 +132,7 @@ export interface GraphViewerProps {
    */
   onThemeChange?: (mode: GraphThemeMode, resolvedTheme: GraphTheme) => void;
   onNavigateToPipe?: (pipeCode: string, status?: PipeStatus) => void;
-  onStuffNodeClick?: (stuffData: StuffViewerData) => void;
+  onStuffNodeClick?: (stuff: GraphSpecNodeIoItem) => void;
   onReactFlowInit?: (instance: AppRFInstance) => void;
   /** Layer 2 execution state: pipe_code → current status. Updates node status dots in real-time. */
   statusMap?: Record<string, PipeStatus>;
@@ -141,24 +143,56 @@ export interface GraphViewerProps {
   /** Render extra content below the built-in detail panel content for the selected node. */
   renderDetailExtra?: (nodeId: string, nodeData: GraphNodeData) => React.ReactNode;
   /**
-   * Resolver for `pipelex-storage://` URIs. Passed down to StuffViewer so it can
-   * exchange internal URIs for browser-fetchable presigned URLs when rendering media.
-   */
-  resolveStorageUrl?: ResolveStorageUrl;
-  /**
-   * Set to `false` when the host cannot render `<embed type="application/pdf">`
-   * — e.g. VS Code webviews, which run inside Electron without the Chromium
-   * PDFium plugin. Forwarded to StuffViewer.
+   * `pipe_io_contracts` for the method this spec is a run of — one half of what
+   * the detail panel needs to render a data node's VALUE.
    *
-   * Default: `true`.
+   * The graph renders results itself now. It used to take a render prop instead,
+   * because the form kernel was an optional peer and `./graph/react` had to keep
+   * resolving without it — an arrangement that made sense while the kernel only
+   * powered an optional run form, and stopped making sense the moment the
+   * standard's `output_form` became how this viewer shows a result at all. A
+   * viewer whose detail panel cannot show data is not a viewer, so the kernel is
+   * a required peer and the seam is gone.
+   *
+   * Omit these and the panel still works: it shows the concept's structure table
+   * and no data tab, which is the honest floor for a spec whose artifacts the
+   * host does not hold (a static graph, a spec restored without its validate
+   * report).
    */
-  canEmbedPdf?: boolean;
+  contracts?: PipeIOContracts;
   /**
-   * Replaces the default `window.open(url, "_blank")` behavior used by the
-   * StuffViewer toolbar and the PDF fallback tile. Wire this to your host's
-   * external-open mechanism (e.g. `vscode.env.openExternal` via postMessage).
+   * `output_form` from the SAME `/validate` call — the other half. The contract
+   * names the payload's shape; the descriptor says what the result IS.
    */
-  onOpenExternally?: (url: string, filename?: string) => void;
+  outputForm?: OutputForm;
+  /**
+   * `input_form`, optional even here. It is what lets a method's own INPUTS show
+   * their value: no pipe produced them, so no output descriptor describes them,
+   * and the CONSUMING pipe's descriptor for their slot is what names them.
+   */
+  inputForm?: InputForm;
+  /**
+   * Turns the runtime's own `pipelex-storage://…` reference into a URL a
+   * browser can fetch, so files in a result actually paint.
+   *
+   * Without it the panel falls back to whatever `public_url` the payload
+   * carries — which on the hosted platform is a PRESIGNED URL with an hour's
+   * life, baked into the stored result. Yesterday's run then shows broken
+   * images, and the URL answers `403` in a way that reads as a permissions
+   * problem rather than an expiry. A resolver is what makes a stored result
+   * durable, so supply one if your storage has an authenticated read path.
+   */
+  resolveUrl?: ResolveUrl;
+  /**
+   * Mints a URL that works OUTSIDE this page, for the copy control.
+   *
+   * Distinct from `resolveUrl` because the two answers genuinely differ: a
+   * display URL may be a path behind the host's own session — which is what
+   * lets a strict `img-src 'self'` stand — and that URL is useless to whoever
+   * pastes it. A shared one carries its own credential and is minted per click,
+   * since it starts expiring the moment it exists.
+   */
+  resolveShareUrl?: ResolveShareUrl;
   /**
    * State of the toolbar's validation widget. The widget renders only when this
    * is set — `undefined` (the default) disables the feature entirely. Reactive:
@@ -180,53 +214,78 @@ export interface GraphViewerProps {
   onValidationIssueClick?: (index: number, issue: ValidationIssue) => void;
 }
 
-/** Stuff node detail: concept structure + data viewer. */
+/** Stuff node detail: concept structure, plus whatever the host renders for its data. */
 function StuffNodeDetail({
   nodeId,
   stuffData,
+  producerPipeRef,
+  consumer,
   graphspec,
-  resolveStorageUrl,
-  canEmbedPdf,
-  onOpenExternally,
+  theme,
+  contracts,
+  outputForm,
+  inputForm,
+  resolveUrl,
+  resolveShareUrl,
 }: {
   /** Selected graph node id — identity for per-node panel state (tab reset). */
   nodeId: string;
-  stuffData: StuffViewerData;
+  stuffData: GraphSpecNodeIoItem;
+  producerPipeRef?: string;
+  consumer?: { pipeRef: string; slotName: string };
   graphspec: GraphSpec | null;
-  resolveStorageUrl?: ResolveStorageUrl;
-  canEmbedPdf?: boolean;
-  onOpenExternally?: (url: string, filename?: string) => void;
+  theme: GraphTheme;
+  contracts?: PipeIOContracts;
+  outputForm?: OutputForm;
+  inputForm?: InputForm;
+  resolveUrl?: ResolveUrl;
+  resolveShareUrl?: ResolveShareUrl;
 }) {
   const conceptInfo =
     stuffData.concept && graphspec ? resolveConceptRef(graphspec, stuffData.concept) : undefined;
   const isDryRun = graphSpecMode(graphspec) === GRAPH_SPEC_MODE.DRY;
 
-  return (
-    <>
-      {/* Concept structure (header + schema table) */}
-      {conceptInfo ? (
-        <ConceptDetailPanel
-          concept={conceptInfo}
-          ioData={stuffData}
-          isDryRun={isDryRun}
-          instanceKey={nodeId}
-          resolveStorageUrl={resolveStorageUrl}
-          canEmbedPdf={canEmbedPdf}
-          onOpenExternally={onOpenExternally}
-        />
-      ) : isDryRun ? (
-        <div className="detail-not-available">Dry run data hidden</div>
-      ) : (
-        /* Fallback: just show the StuffViewer if no concept info */
-        <StuffViewer
-          stuff={stuffData}
-          resolveStorageUrl={resolveStorageUrl}
-          canEmbedPdf={canEmbedPdf}
-          onOpenExternally={onOpenExternally}
-        />
-      )}
-    </>
-  );
+  // Built here rather than inside `ConceptDetailPanel` so both branches below
+  // render the SAME panel: a stuff with no concept in the spec is still a stuff
+  // whose value can be shown, and it is exactly the case the old fallback
+  // treated as second-class.
+  //
+  // Both artifacts or neither. The contract names the payload's shape and the
+  // descriptor says what the result IS, so a panel given one of the two would be
+  // guessing the other — which is the whole failure `output_form` exists to end.
+  const renderData =
+    contracts && outputForm
+      ? () => (
+          <StuffResultPanel
+            contracts={contracts}
+            outputForm={outputForm}
+            {...(inputForm ? { inputForm } : {})}
+            stuff={stuffData}
+            {...(conceptInfo ? { concept: conceptInfo } : {})}
+            {...(producerPipeRef ? { producerPipeRef } : {})}
+            {...(consumer ? { consumer } : {})}
+            {...(resolveUrl ? { resolveUrl } : {})}
+            {...(resolveShareUrl ? { resolveShareUrl } : {})}
+            theme={theme}
+          />
+        )
+      : undefined;
+
+  if (conceptInfo) {
+    return (
+      <ConceptDetailPanel
+        concept={conceptInfo}
+        ioData={stuffData}
+        isDryRun={isDryRun}
+        instanceKey={nodeId}
+        renderData={renderData}
+      />
+    );
+  }
+  if (isDryRun) return <div className="detail-not-available">Dry run data hidden</div>;
+  // No concept in the spec, so there is no structure to show and no tabs to
+  // choose between — just the data, if anything can render it.
+  return <>{renderData?.() ?? <div className="detail-not-available">No data</div>}</>;
 }
 
 /**
@@ -337,7 +396,11 @@ interface DetailSelection {
   nodeId: string;
   nodeData: GraphNodeData;
   conceptInfo?: ConceptInfo;
-  stuffData?: StuffViewerData;
+  stuffData?: GraphSpecNodeIoItem;
+  /** `domain.code` of the pipe that produced the stuff, when one did. */
+  producerPipeRef?: string;
+  /** The first pipe reading it, for the method inputs no pipe produced. */
+  consumer?: { pipeRef: string; slotName: string };
 }
 
 export function GraphViewer(props: GraphViewerProps) {
@@ -360,9 +423,11 @@ export function GraphViewer(props: GraphViewerProps) {
     onNodeSelect,
     onPaneClick,
     renderDetailExtra,
-    resolveStorageUrl,
-    canEmbedPdf,
-    onOpenExternally,
+    contracts,
+    outputForm,
+    inputForm,
+    resolveUrl,
+    resolveShareUrl,
     validationState,
     validationIssues,
     onValidationIssueClick,
@@ -1045,9 +1110,8 @@ export function GraphViewer(props: GraphViewerProps) {
           onNavigateToPipe(code, nodeData.pipeCardData?.status);
         }
       } else if (nodeData.isStuff && onStuffNodeClick && graphspec) {
-        const digest = stuffDigestFromId(node.id);
-        const sd = findStuffDataByDigest(graphspec, digest);
-        if (sd) onStuffNodeClick(sd);
+        const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));
+        if (found) onStuffNodeClick(found.item);
       }
 
       // Update detail panel (toggle off if same node clicked again)
@@ -1057,13 +1121,14 @@ export function GraphViewer(props: GraphViewerProps) {
       } else if (nodeData.isPipe || nodeData.isController) {
         setDetailSelection({ kind: "pipe", nodeId: node.id, nodeData });
       } else if (nodeData.isStuff && graphspec) {
-        const digest = stuffDigestFromId(node.id);
-        const sd = findStuffDataByDigest(graphspec, digest);
+        const found = findStuffByDigest(graphspec, stuffDigestFromId(node.id));
         setDetailSelection({
           kind: "stuff",
           nodeId: node.id,
           nodeData,
-          stuffData: sd ?? undefined,
+          stuffData: found?.item,
+          producerPipeRef: found?.producerPipeRef,
+          consumer: found?.consumer,
         });
       }
 
@@ -1228,10 +1293,15 @@ export function GraphViewer(props: GraphViewerProps) {
           <StuffNodeDetail
             nodeId={detailSelection.nodeId}
             stuffData={detailSelection.stuffData}
+            producerPipeRef={detailSelection.producerPipeRef}
+            consumer={detailSelection.consumer}
             graphspec={graphspec}
-            resolveStorageUrl={resolveStorageUrl}
-            canEmbedPdf={canEmbedPdf}
-            onOpenExternally={onOpenExternally}
+            theme={resolvedTheme}
+            contracts={contracts}
+            outputForm={outputForm}
+            inputForm={inputForm}
+            resolveUrl={resolveUrl}
+            resolveShareUrl={resolveShareUrl}
           />
         ) : null}
         {renderDetailExtra &&

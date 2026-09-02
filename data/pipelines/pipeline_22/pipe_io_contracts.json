@@ -91,6 +91,21 @@
     "output": {
       "concept_ref": "content_distribution.Analysis",
       "item_count": null,
+      "json_schema": {
+        "description": "Deep content analysis",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_distribution.Analysis",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -122,6 +137,13 @@
     "output": {
       "concept_ref": "native.Composite",
       "item_count": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "A named composition of contents",
+        "properties": {},
+        "title": "native.Composite",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -218,6 +240,21 @@
     "output": {
       "concept_ref": "content_distribution.DistributionReport",
       "item_count": null,
+      "json_schema": {
+        "description": "Report of all distribution actions",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_distribution.DistributionReport",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -249,6 +286,22 @@
     "output": {
       "concept_ref": "content_distribution.IndexEntry",
       "item_count": null,
+      "json_schema": {
+        "description": "Search index entry",
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "content_distribution.IndexEntry",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -280,6 +333,21 @@
     "output": {
       "concept_ref": "content_distribution.SentimentLog",
       "item_count": null,
+      "json_schema": {
+        "description": "Sentiment tracking log",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_distribution.SentimentLog",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -354,6 +422,21 @@
     "output": {
       "concept_ref": "content_distribution.DistributionReport",
       "item_count": null,
+      "json_schema": {
+        "description": "Report of all distribution actions",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_distribution.DistributionReport",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -385,6 +468,21 @@
     "output": {
       "concept_ref": "content_distribution.Summary",
       "item_count": null,
+      "json_schema": {
+        "description": "Executive summary",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_distribution.Summary",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

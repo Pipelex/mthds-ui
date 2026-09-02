@@ -1,0 +1,217 @@
+{
+  "recruitment.analyze_candidate": {
+    "field": {
+      "concept_ref": "recruitment.CandidateProfile",
+      "description": "Structured profile of a job candidate",
+      "fields": [
+        {
+          "description": "Full name",
+          "kind": "text",
+          "name": "name",
+          "required": true
+        },
+        {
+          "description": "Key skills",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "skills",
+          "required": false
+        },
+        {
+          "description": "Years of experience",
+          "integer": true,
+          "kind": "number",
+          "name": "experience_years",
+          "required": false
+        },
+        {
+          "description": "Brief profile summary",
+          "kind": "text",
+          "name": "summary",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "recruitment.compose_report": {
+    "field": {
+      "concept_ref": "recruitment.Report",
+      "description": "Formatted screening report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "recruitment.cv_screening": {
+    "field": {
+      "concept_ref": "recruitment.Report",
+      "description": "Formatted screening report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "recruitment.enrich_candidate": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "recruitment.extract_cv": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "recruitment.generate_card": {
+    "field": {
+      "concept_ref": "native.Image",
+      "description": "An image",
+      "kind": "image",
+      "name": "output",
+      "required": true
+    }
+  },
+  "recruitment.score_match": {
+    "field": {
+      "concept_ref": "recruitment.MatchScore",
+      "description": "Score for how well a candidate matches a role",
+      "fields": [
+        {
+          "description": "Match score 0-100",
+          "integer": false,
+          "kind": "number",
+          "name": "score",
+          "required": true
+        },
+        {
+          "description": "Key strengths",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "strengths",
+          "required": false
+        },
+        {
+          "description": "Skill gaps",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "gaps",
+          "required": false
+        },
+        {
+          "description": "Hiring recommendation",
+          "kind": "text",
+          "name": "recommendation",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "recruitment.search_candidate": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  }
+}

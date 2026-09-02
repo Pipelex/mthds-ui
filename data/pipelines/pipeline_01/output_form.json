@@ -1,0 +1,14 @@
+{
+  "text_processing.summarize": {
+    "field": {
+      "concept_ref": "text_processing.Summary",
+      "description": "A text summary of content",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

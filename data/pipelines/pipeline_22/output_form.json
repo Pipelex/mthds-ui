@@ -1,0 +1,83 @@
+{
+  "content_distribution.deep_analyze": {
+    "field": {
+      "concept_ref": "content_distribution.Analysis",
+      "description": "Deep content analysis",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_distribution.distribute": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "content_distribution.fanout_pipeline": {
+    "field": {
+      "concept_ref": "content_distribution.DistributionReport",
+      "description": "Report of all distribution actions",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_distribution.index_entities": {
+    "field": {
+      "concept_ref": "content_distribution.IndexEntry",
+      "description": "Search index entry",
+      "kind": "unknown",
+      "name": "output",
+      "refines": [
+        "native.JSON"
+      ],
+      "required": true
+    }
+  },
+  "content_distribution.log_sentiment": {
+    "field": {
+      "concept_ref": "content_distribution.SentimentLog",
+      "description": "Sentiment tracking log",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_distribution.report": {
+    "field": {
+      "concept_ref": "content_distribution.DistributionReport",
+      "description": "Report of all distribution actions",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_distribution.store_summary": {
+    "field": {
+      "concept_ref": "content_distribution.Summary",
+      "description": "Executive summary",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

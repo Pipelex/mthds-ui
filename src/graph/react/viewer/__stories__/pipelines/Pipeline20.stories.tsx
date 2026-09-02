@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { artifactsFor } from "../pipelineArtifacts";
 import { GraphViewer } from "../../GraphViewer";
 import { DRY_WIDE_PARALLEL } from "./specs/_generated/dry/pipeline_20";
 import { LIVE_WIDE_PARALLEL } from "./specs/_generated/live/pipeline_20";
@@ -22,7 +23,14 @@ const meta: Meta<typeof GraphViewer> = {
 export default meta;
 type Story = StoryObj<typeof GraphViewer>;
 
-const D = { initialDirection: "LR" as const, initialShowControllers: true };
+// Clicking a data node shows what this run actually produced, laid out from
+// the method's own `output_form` and `pipe_io_contracts` — the artifacts a
+// host holds beside the spec.
+const D = {
+  initialDirection: "LR" as const,
+  initialShowControllers: true,
+  ...artifactsFor("WIDE_PARALLEL"),
+};
 
 export const DryRun: Story = {
   args: { graphspec: DRY_WIDE_PARALLEL, ...D },

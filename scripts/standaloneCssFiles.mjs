@@ -16,7 +16,6 @@
 export const STANDALONE_CSS_FILES = [
   "node_modules/@xyflow/react/dist/style.css",
   "src/graph/react/graph-core.css",
-  "src/graph/react/stuff/StuffViewer.css",
   "src/graph/react/detail/DetailPanel.css",
   "src/graph/react/viewer/GraphToolbar.css",
   "src/standalone/standalone.css",

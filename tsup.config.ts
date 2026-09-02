@@ -22,6 +22,7 @@ export default defineConfig({
     "src/index.ts",
     "src/graph/index.ts",
     "src/graph/react/index.ts",
+    "src/form/index.ts",
     "src/form/react/index.ts",
     "src/shiki/index.ts",
     "src/static-graph/index.ts",
@@ -42,11 +43,11 @@ export default defineConfig({
     // would not resolve inside it — design Decision B.
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/react",
+    "@pipelex/mthds-form/styles.css",
     "react",
     "react-dom",
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
-    /stuff\/StuffViewer\.css$/,
     /viewer\/GraphToolbar\.css$/,
     /RunPanel\.css$/,
   ],
@@ -62,8 +63,6 @@ export default defineConfig({
   onSuccess: async () => {
     mkdirSync("dist/graph/react", { recursive: true });
     cpSync("src/graph/react/graph-core.css", "dist/graph/react/graph-core.css");
-    mkdirSync("dist/graph/react/stuff", { recursive: true });
-    cpSync("src/graph/react/stuff/StuffViewer.css", "dist/graph/react/stuff/StuffViewer.css");
     mkdirSync("dist/graph/react/detail", { recursive: true });
     cpSync("src/graph/react/detail/DetailPanel.css", "dist/graph/react/detail/DetailPanel.css");
     mkdirSync("dist/graph/react/viewer", { recursive: true });

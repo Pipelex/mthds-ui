@@ -1,0 +1,92 @@
+{
+  "translation.detect_language": {
+    "field": {
+      "concept_ref": "translation.ClassifiedText",
+      "description": "Text with detected language",
+      "fields": [
+        {
+          "description": "The original text",
+          "kind": "text",
+          "name": "text",
+          "required": true
+        },
+        {
+          "choices": [
+            "english",
+            "french",
+            "spanish",
+            "german",
+            "other"
+          ],
+          "description": "Detected language code",
+          "kind": "enum",
+          "name": "language",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "translation.passthrough": {
+    "field": {
+      "concept_ref": "translation.TranslatedText",
+      "description": "Text translated to English",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "translation.route_translation": {
+    "field": {
+      "concept_ref": "translation.TranslatedText",
+      "description": "Text translated to English",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "translation.translate_french": {
+    "field": {
+      "concept_ref": "translation.TranslatedText",
+      "description": "Text translated to English",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "translation.translate_other": {
+    "field": {
+      "concept_ref": "translation.TranslatedText",
+      "description": "Text translated to English",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "translation.translate_pipeline": {
+    "field": {
+      "concept_ref": "translation.TranslatedText",
+      "description": "Text translated to English",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

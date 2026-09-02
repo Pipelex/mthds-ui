@@ -1,5 +1,51 @@
 # Changelog
 
+## [v0.20.0] - 2026-09-02
+
+### Fixed
+
+- **The form kernel's styles ship with it, so a host stops rendering a subset of them.** Both React entries now import `@pipelex/mthds-form/styles.css`. A Tailwind host is supposed to generate those utilities by scanning the kernel and no host did: content globs stop at the host's own source and `node_modules` is off the sweep, so a host got exactly the classes it happened to use elsewhere and silently missed the rest. What showed was the result grid — its column template is an arbitrary value nothing else writes, so it was never generated, the grid fell back to a plain block, and a structured result rendered as a stack of labels each above its own value instead of two aligned columns. The gap was never limited to that class, and nothing reported it.
+
+  The host cannot fix this itself, which is why the fix is here: it does not depend on the kernel directly — that indirection is the point of the re-export — neither package exports `./package.json`, and the export entries carry no `require` condition, so both routes a Tailwind config could take to locate the kernel are closed. `./graph/react` imports it as well as `./form/react`, because `GraphViewer` is usually pulled in on its own, often through a dynamic import, with the form entry never touched. `theme.css` stays out: it defines the semantic tokens a shadcn host already owns.
+
+### Changed
+
+- **The bundled MTHDS JSON Schema moves to `pipelex` v0.55.0.** The copy under `data/schema/` stood at v0.43.1 and described neither the `hints` members on a concept and a structure field nor `InputSlotBlueprint` — the expanded form in which a pipe's `inputs` value may be a table, `x = { concept = "S", hints = { intent = "prose" } }`, rather than only the string `x = "S"`. Also arriving with the version: `PipeLLMBlueprint.templating_style`, and the removal of `LLMSetting.prompting_target` with its `PromptingTarget` definition, which the old copy would otherwise keep accepting after the language dropped them. This repo's refresh copies `pipelex/derived/` directly rather than pulling the hosted chain, so the copy tracks the release without waiting on the mthds site deploy; the schema taken here was verified byte-identical to the one generated at the released `v0.55.0` tag, so no unreleased blueprint shape rides along.
+
+- **BREAKING — `@pipelex/mthds-form` is a DEPENDENCY, re-exported from `./form` and `./form/react`, and the `renderStuffData` render prop is gone.** The kernel was optional and isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` took a render function instead of importing `ResultPanel`. That was right while the kernel powered only the run form — a host embedding a graph viewer need not offer a way to run methods — and it stopped being right the moment `output_form` became how the viewer shows a result **at all**. A viewer whose detail panel cannot display data is not a viewer.
+
+  Pass the artifacts instead: `<GraphViewer graphspec contracts outputForm inputForm />`. `StuffResultPanel` moved from `./form/react` to the graph's detail panel and is exported from `./graph/react`; `renderStuffResult`, `RenderStuffData` and `StuffRenderContext` are deleted. A consumer that passes no artifacts still gets the concept's structure table and no data tab — the floor for a static graph or a spec restored without its validate report.
+
+  **A dependency, not a peer**, and the route there is worth recording because the obvious answer failed. A _required peer_ is auto-installed by npm — `make smoke-pack` proved it — and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not a property a library can offer, so a host would still have had to declare the kernel itself, which is the thing this change exists to remove.
+
+  So it is a dependency, and the objection that used to rule that out — two copies means two React context identities, and a host's `FieldStringsProvider` silently fails to resolve inside our controls — is answered by the rule that comes with it: **a consumer imports the kernel through `@pipelex/mthds-ui/form` and `…/form/react`, never directly.** A host that declares nothing cannot produce a second copy. `make smoke-pack` asserts exactly that from a bare consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
+
+- **New `./form` entry** — the kernel's React-free surface, re-exported. The mirror of the kernel's own `.` entry (descriptor vocabulary, derivation, readiness, run gate, value plumbing), importable from a server action or a worker. `./form/react` re-exports the controls the same way.
+
+  The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
+
+## [Unreleased]
+
+- **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
+
+  The kernel is an **optional** peer isolated behind `./form/react`, so `GraphViewer` takes a render prop rather than importing it: `renderStuffData={renderStuffResult({ contracts, outputForm })}`, exported from `@pipelex/mthds-ui/form/react`. The graph owns the selection, the lookup and the panel; the renderer owns the view. A consumer that passes nothing gets the concept's structure table and no data tab — the deliberate floor, because a tab opening onto an empty pane reads as data that failed to load.
+
+  Removed from `GraphViewerProps`: `resolveStorageUrl`, `canEmbedPdf`, `onOpenExternally` — all three existed solely for `StuffViewer`. `onStuffNodeClick` now receives a `GraphSpecNodeIoItem` rather than the deleted `StuffViewerData`, and `ConceptDetailPanel`'s `ioData` takes the same one shape. The `./graph/react/stuff/StuffViewer.css` export-map entry is gone, and `dompurify` has left `dependencies` — it was there only to sanitize `data_html`.
+
+  **One capability is genuinely lost and is not replaced here.** `resolveStorageUrl` exchanged `pipelex-storage://` URIs for presigned URLs before painting media; the kernel has no equivalent seam yet, so a result carrying a storage reference shows the file named rather than rendered. That belongs in the kernel's file arms, where every consumer gets it.
+
+### Added
+
+- **`output_form` in the generated fixtures.** `scripts/dump_validate_views.py` now calls pipelex's `build_output_form` beside the two builders it already ran — all three from one library window, since they iterate the same loaded pipes and share one key set — and the generator writes `output_form.json` beside each pipeline's bundle and an `OUTPUT_FORM_*` export in each split module. A pipeline must carry all three files to appear in the fixture; emitting a split without a descriptor would compile and render an empty result, while dropping it fails the story that imports the missing export, loudly and by name.
+
+- **`findStuffByDigest` / `pipeRefOf`** (`@pipelex/mthds-ui/graph`) — the walk from a data item back to the pipe that produced it, which is the join both result artifacts are keyed by. Two passes, and the order is load-bearing: the same digest appears on the producer's `outputs` and on every consumer's `inputs`, and only the producer's copy is guaranteed to carry the payload. It also reports the first pipe that CONSUMES the item, which is the fallback identity for a method's own inputs.
+
+- **A method's own inputs render too.** They have no producing pipe, so no output descriptor describes them — but the CONSUMING pipe's `input_form` entry for their slot does: the same field, seen from the other side. Pass `inputForm` alongside the other two to `renderStuffResult` and the top of a graph shows what the run was actually given. **Single-valued slots only**, and that is a correctness boundary rather than caution: an input's `json_schema` describes what a caller SENDS, so a plural slot's is a bare array, while a stuff's payload is what the runtime HOLDS, which for a plural value is a `ListContent {items}` envelope. On the single arm the two are byte-identical by construction; on the plural arm they provably disagree, so the fallback declines.
+
+- **Every per-pipeline graph story shows its run's data.** All 34 `Graph - from run/NN …` stories now pass `renderStuffData`, wired through `stuffRendererFor(name)` and the generated `ARTIFACT_SETS` map — so clicking a data node in any of them shows what that step produced, or what the method was given, rather than a schema table. (`26 Wide Parallel` and `27 Wide Batch` are the exceptions and correctly so: their specs are built by generators, not by a bundle, so there are no artifacts to describe them.)
+
+- **`RenderStuffData` / `StuffRenderContext`** (`@pipelex/mthds-ui/graph/react`) — the seam's types, for a host rendering stuff data its own way.
+
 ## [v0.19.0] - 2026-08-29
 
 ### Added

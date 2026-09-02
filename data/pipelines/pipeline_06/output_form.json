@@ -1,0 +1,83 @@
+{
+  "report_generation.analyze_data": {
+    "field": {
+      "concept_ref": "report_generation.Insight",
+      "description": "Data insight extracted from analysis",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "report_generation.assemble_report": {
+    "field": {
+      "concept_ref": "report_generation.Report",
+      "description": "A formatted report combining visuals and text",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "report_generation.generate_chart": {
+    "field": {
+      "concept_ref": "report_generation.ChartSpec",
+      "description": "Specification for a chart visualization",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "report_generation.generate_outputs": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "report_generation.generate_table": {
+    "field": {
+      "concept_ref": "report_generation.TableData",
+      "description": "Structured table data",
+      "kind": "unknown",
+      "name": "output",
+      "refines": [
+        "native.JSON"
+      ],
+      "required": true
+    }
+  },
+  "report_generation.multi_format_report": {
+    "field": {
+      "concept_ref": "report_generation.Report",
+      "description": "A formatted report combining visuals and text",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "report_generation.write_narrative": {
+    "field": {
+      "concept_ref": "report_generation.Narrative",
+      "description": "Written narrative describing insights",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}
