@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [v0.20.0] - 2026-09-02
+
+### Fixed
+
+- **The form kernel's styles ship with it, so a host stops rendering a subset of them.** Both React entries now import `@pipelex/mthds-form/styles.css`. A Tailwind host is supposed to generate those utilities by scanning the kernel and no host did: content globs stop at the host's own source and `node_modules` is off the sweep, so a host got exactly the classes it happened to use elsewhere and silently missed the rest. What showed was the result grid — its column template is an arbitrary value nothing else writes, so it was never generated, the grid fell back to a plain block, and a structured result rendered as a stack of labels each above its own value instead of two aligned columns. The gap was never limited to that class, and nothing reported it.
+
+  The host cannot fix this itself, which is why the fix is here: it does not depend on the kernel directly — that indirection is the point of the re-export — neither package exports `./package.json`, and the export entries carry no `require` condition, so both routes a Tailwind config could take to locate the kernel are closed. `./graph/react` imports it as well as `./form/react`, because `GraphViewer` is usually pulled in on its own, often through a dynamic import, with the form entry never touched. `theme.css` stays out: it defines the semantic tokens a shadcn host already owns.
 
 ### Changed
 
@@ -10,7 +16,7 @@
 
   Pass the artifacts instead: `<GraphViewer graphspec contracts outputForm inputForm />`. `StuffResultPanel` moved from `./form/react` to the graph's detail panel and is exported from `./graph/react`; `renderStuffResult`, `RenderStuffData` and `StuffRenderContext` are deleted. A consumer that passes no artifacts still gets the concept's structure table and no data tab — the floor for a static graph or a spec restored without its validate report.
 
-  **A dependency, not a peer**, and the route there is worth recording because the obvious answer failed. A *required peer* is auto-installed by npm — `make smoke-pack` proved it — and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not a property a library can offer, so a host would still have had to declare the kernel itself, which is the thing this change exists to remove.
+  **A dependency, not a peer**, and the route there is worth recording because the obvious answer failed. A _required peer_ is auto-installed by npm — `make smoke-pack` proved it — and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not a property a library can offer, so a host would still have had to declare the kernel itself, which is the thing this change exists to remove.
 
   So it is a dependency, and the objection that used to rule that out — two copies means two React context identities, and a host's `FieldStringsProvider` silently fails to resolve inside our controls — is answered by the rule that comes with it: **a consumer imports the kernel through `@pipelex/mthds-ui/form` and `…/form/react`, never directly.** A host that declares nothing cannot produce a second copy. `make smoke-pack` asserts exactly that from a bare consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
 
@@ -19,8 +25,6 @@
   The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
 
 ## [Unreleased]
-
-### Changed
 
 - **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
 
