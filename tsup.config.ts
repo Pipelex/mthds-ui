@@ -43,6 +43,7 @@ export default defineConfig({
     // would not resolve inside it — design Decision B.
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/react",
+    "@pipelex/mthds-form/styles.css",
     "react",
     "react-dom",
     /graph-core\.css$/,
