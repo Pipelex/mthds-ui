@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **The bundled MTHDS JSON Schema moves to `pipelex` v0.55.0.** The copy under `data/schema/` stood at v0.43.1 and described neither the `hints` members on a concept and a structure field nor `InputSlotBlueprint` — the expanded form in which a pipe's `inputs` value may be a table, `x = { concept = "S", hints = { intent = "prose" } }`, rather than only the string `x = "S"`. Also arriving with the version: `PipeLLMBlueprint.templating_style`, and the removal of `LLMSetting.prompting_target` with its `PromptingTarget` definition, which the old copy would otherwise keep accepting after the language dropped them. This repo's refresh copies `pipelex/derived/` directly rather than pulling the hosted chain, so the copy tracks the release without waiting on the mthds site deploy; the schema taken here was verified byte-identical to the one generated at the released `v0.55.0` tag, so no unreleased blueprint shape rides along.
+
 ## [v0.19.0] - 2026-08-29
 
 ### Added
