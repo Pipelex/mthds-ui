@@ -5,7 +5,7 @@
 ### Added
 
 - **Expanded input-slot form in the static graph builder**: `inputs` values authored as `x = { concept = "S", hints = { … } }` now parse. The standard states the expanded form equivalent to the string form `x = "S"`, and the resolved slot is identical either way — multiplicity and presence markers keep working inside `concept`. Previously any such slot was uninterpretable and the input was dropped from the built `GraphSpec` with an `invalid-concept-ref` warning, so a method using intent hints rendered with missing edges. The expanded form is inputs-only; `output` is still always a string.
-- **`parseInputSlot` on the `./static-graph` entry**: The slot-form reader is exported beside `parseConceptRef`, with its `InputSlotParts` type. It returns the slot's ref parts (null when the concept ref is not interpretable) plus any keys the form does not define.
+- **`parseInputSlot` on the `./static-graph` entry**: The slot-form reader is exported beside `parseConceptRef`, with its `InputSlotParts` type. It returns the slot's ref parts (null when the concept ref is not interpretable), whether an expanded slot table declared no `concept` at all, and any keys the form does not define.
 - **`unknown-input-slot-key` diagnostic**: A key the input-slot form does not define is now named in a warning, and the slot still resolves from its `concept`. The runtime rejects such a bundle outright, so the renderer says so rather than drawing a clean graph for it.
 
 ### Changed

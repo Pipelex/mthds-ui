@@ -55,7 +55,7 @@ src/
   shiki/                          # Syntax highlighting (separate entry point)
   static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
     types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
-    conceptRefs.ts                #   Concept-ref parsing/resolution + native concept catalog
+    conceptRefs.ts                #   Concept-ref + input-slot parsing/resolution + native concept catalog
     normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
     parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
     mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)

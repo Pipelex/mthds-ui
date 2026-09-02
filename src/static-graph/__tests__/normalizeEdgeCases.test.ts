@@ -130,6 +130,58 @@ prompt = "Go"
     );
   });
 
+  it("says the `concept` key is missing rather than blaming a ref never written", () => {
+    // A hints-only slot is the likely author slip for the expanded form, and
+    // "uninterpretable concept ref" points at a ref that was never authored.
+    const { diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { hints = { intent = "prose" } } }
+output = "Text"
+prompt = "Go"
+`);
+    const notes = diagnostics.find((d) => d.path === "pipe.p.inputs.notes");
+    expect(notes?.message).toContain('no "concept"');
+    expect(notes?.message).not.toContain("uninterpretable");
+  });
+
+  it("still blames the ref when `concept` is present and will not parse", () => {
+    const { diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { concept = "has space" } }
+output = "Text"
+prompt = "Go"
+`);
+    const notes = diagnostics.find((d) => d.path === "pipe.p.inputs.notes");
+    expect(notes?.message).toContain("uninterpretable concept ref");
+  });
+
+  it("reports both an unknown key and a missing concept when a slot has neither", () => {
+    // The two diagnostics are pushed by independent guards in normalizeInputs;
+    // this is the only combination where both fire on one slot.
+    const { bundle, diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { widget = "textarea" } }
+output = "Text"
+prompt = "Go"
+`);
+    expect((bundle.pipes.p as PipeLLMBlueprint).inputs).toEqual({});
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({ code: "unknown-input-slot-key", path: "pipe.p.inputs.notes" }),
+    );
+    expect(diagnostics).toContainEqual(
+      expect.objectContaining({ code: "invalid-concept-ref", path: "pipe.p.inputs.notes" }),
+    );
+  });
+
   it("refuses the expanded form on output, which is always a string", () => {
     const { bundle, diagnostics } = parseMthdsBundle(`
 domain = "d"

@@ -100,6 +100,8 @@ notes = { concept = "Text?", hints = { intent = "prose" } }
 
 The expanded form is **inputs only**. `output` is always a string, so `output = { concept = "Text" }` does not parse and falls back to `native.Anything` with the usual `missing-pipe-output` warning.
 
+`concept` being required means a slot can fail two ways, and the `invalid-concept-ref` warning words itself for the one that happened: a slot table with no `concept` key at all is told the key is required, while a `concept` that was written and will not parse is told its ref is uninterpretable. The distinction matters because a hints-only slot — `notes = { hints = { intent = "prose" } }` — is the natural slip when reaching for the expanded form, and blaming a ref the author never wrote reads as a grammar problem when the fix is to add the key.
+
 `hints` is read as a known key and then dropped. Its shape is not checked here either, and both of those are the same decision: **intent hints do not travel on the GraphSpec.**
 
 ### Why hints are parsed and dropped

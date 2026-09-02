@@ -123,6 +123,7 @@ describe("parseInputSlot", () => {
   it("reads the string form exactly as parseConceptRef does", () => {
     expect(parseInputSlot("recruitment.CandidateProfile[]?")).toEqual({
       ref: parseConceptRef("recruitment.CandidateProfile[]?"),
+      missingConcept: false,
       unknownKeys: [],
     });
   });
@@ -130,6 +131,7 @@ describe("parseInputSlot", () => {
   it("reads the expanded form to the same ref parts as the string form", () => {
     expect(parseInputSlot({ concept: "Text" })).toEqual({
       ref: parseConceptRef("Text"),
+      missingConcept: false,
       unknownKeys: [],
     });
   });
@@ -152,6 +154,7 @@ describe("parseInputSlot", () => {
   it("accepts hints and reports nothing — they are presentational, and dropped", () => {
     expect(parseInputSlot({ concept: "Text", hints: { intent: "prose" } })).toEqual({
       ref: parseConceptRef("Text"),
+      missingConcept: false,
       unknownKeys: [],
     });
   });
@@ -168,8 +171,29 @@ describe("parseInputSlot", () => {
     expect(parseInputSlot({ concept: "has space" }).ref).toBeNull();
   });
 
+  it("tells an absent `concept` key apart from one that will not parse", () => {
+    // Both drop the slot, but they are different author mistakes, and the
+    // caller words its diagnostic from this flag.
+    expect(parseInputSlot({ hints: { intent: "prose" } }).missingConcept).toBe(true);
+    expect(parseInputSlot({}).missingConcept).toBe(true);
+    expect(parseInputSlot({ concept: "has space" }).missingConcept).toBe(false);
+    expect(parseInputSlot({ concept: 42 }).missingConcept).toBe(false);
+    // The string form declares no slot table at all, so nothing is missing
+    // from one — an unparseable string is a ref problem, whatever its value.
+    expect(parseInputSlot("has space").missingConcept).toBe(false);
+    expect(parseInputSlot(undefined).missingConcept).toBe(false);
+  });
+
   it("returns a null ref for values that are neither a ref string nor a table", () => {
-    expect(parseInputSlot(undefined)).toEqual({ ref: null, unknownKeys: [] });
-    expect(parseInputSlot(["Text"])).toEqual({ ref: null, unknownKeys: [] });
+    expect(parseInputSlot(undefined)).toEqual({
+      ref: null,
+      missingConcept: false,
+      unknownKeys: [],
+    });
+    expect(parseInputSlot(["Text"])).toEqual({
+      ref: null,
+      missingConcept: false,
+      unknownKeys: [],
+    });
   });
 });

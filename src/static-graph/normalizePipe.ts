@@ -78,7 +78,7 @@ function normalizeInputs(
     return inputs;
   }
   for (const [name, slot] of Object.entries(raw)) {
-    const { spec, unknownKeys } = resolveInputSlot(slot, ctx.domain, ctx.concepts);
+    const { spec, missingConcept, unknownKeys } = resolveInputSlot(slot, ctx.domain, ctx.concepts);
     if (unknownKeys.length > 0) {
       ctx.diagnostics.push({
         severity: "warning",
@@ -90,10 +90,17 @@ function normalizeInputs(
       });
     }
     if (spec === null) {
+      // Two ways to reach here, and they are different author mistakes: an
+      // expanded slot that never declared the required `concept` key, versus a
+      // ref that was written and does not parse. Saying "uninterpretable ref"
+      // for the first blames a ref the author never wrote, which reads as a
+      // grammar problem when the fix is to add the key.
       ctx.diagnostics.push({
         severity: "warning",
         code: "invalid-concept-ref",
-        message: `pipe "${pipeCode}": input "${name}" has an uninterpretable concept ref — skipped`,
+        message: missingConcept
+          ? `pipe "${pipeCode}": input "${name}" is a slot table with no "concept" — the key is required — skipped`
+          : `pipe "${pipeCode}": input "${name}" has an uninterpretable concept ref — skipped`,
         path: `pipe.${pipeCode}.inputs.${name}`,
       });
       continue;

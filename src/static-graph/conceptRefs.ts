@@ -112,6 +112,12 @@ const INPUT_SLOT_KEYS: ReadonlySet<string> = new Set(["concept", "hints"]);
 export interface InputSlotParts {
   /** The slot's concept ref parts, or null when the slot is not interpretable. */
   ref: ConceptRefParts | null;
+  /**
+   * True when an expanded slot table declares no `concept` at all. The key is
+   * required, so there is no ref for a diagnostic to be about — the caller says
+   * the key is missing rather than blaming a ref the author never wrote.
+   */
+  missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
 }
@@ -130,10 +136,11 @@ export interface InputSlotParts {
  */
 export function parseInputSlot(raw: unknown): InputSlotParts {
   if (!isPlainObject(raw)) {
-    return { ref: parseConceptRef(raw), unknownKeys: [] };
+    return { ref: parseConceptRef(raw), missingConcept: false, unknownKeys: [] };
   }
   return {
     ref: parseConceptRef(raw.concept),
+    missingConcept: raw.concept === undefined,
     unknownKeys: Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key)),
   };
 }
@@ -230,6 +237,8 @@ export function resolveStuffSpec(
 export interface ResolvedInputSlot {
   /** The resolved slot, or null when its concept ref is not interpretable. */
   spec: StuffSpecInfo | null;
+  /** True when an expanded slot table declares no `concept` at all — see {@link InputSlotParts}. */
+  missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
 }
@@ -245,9 +254,10 @@ export function resolveInputSlot(
   currentDomain: string,
   localConcepts: Record<string, ConceptInfo>,
 ): ResolvedInputSlot {
-  const { ref, unknownKeys } = parseInputSlot(raw);
+  const { ref, missingConcept, unknownKeys } = parseInputSlot(raw);
   return {
     spec: ref === null ? null : stuffSpecFromParts(ref, currentDomain, localConcepts),
+    missingConcept,
     unknownKeys,
   };
 }
