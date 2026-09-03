@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.22.0] - 2026-09-03
+
+### Fixed
+
+- **The graph's stuff panel names the STUFF, not the descriptor's root node.** Opening a data node headed its panel `output` — every result, every pipe. That is what `build_output_form` calls the root, and it is right in the artifact: the descriptor describes an output SLOT, which has no name of its own. It is wrong on screen, where the reader has just clicked a node called `report_pages` and the input panel beside it is headed `annual_report` — three surfaces naming one data item, and the middle one saying nothing. `StuffResultPanel` passes `stuff.name` through the kernel's new `StuffViewer` `name` prop. The graph is the one that knows which node was opened, so the graph is the one that says.
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to ^0.7.0.** The release that carries the `name` prop above, and three layout fixes to the result view: a structure's values are flushed to the right edge of their column instead of trailing the label, a table's header is a filled `bg-muted` band rather than a near-invisible hairline, and the table fills its box instead of stopping mid-way. Its open-row detail also stops overhanging the scroller by the width of the chevron column — invisible while the detail's values started at the left, a clean cut through the last characters of each once they ended at the right.
+
 ## [v0.21.0] - 2026-09-03
 
 ### Fixed

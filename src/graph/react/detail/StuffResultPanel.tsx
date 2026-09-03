@@ -150,7 +150,13 @@ export function StuffResultPanel({
   );
 
   if (field) {
-    const panel = <StuffViewer field={field} value={stuff.data} />;
+    // The STUFF's name, not the descriptor's. `build_output_form` names every
+    // pipe's root node `output` - correct in the artifact, where the descriptor
+    // describes an output SLOT with no name of its own, and wrong on screen,
+    // where the reader has just clicked a node called `report_pages` and every
+    // other surface calls it that. The graph is the one that knows, so the
+    // graph is the one that says.
+    const panel = <StuffViewer field={field} value={stuff.data} name={stuff.name} />;
     return resolveUrl || resolveShareUrl ? (
       <ResultEnvProvider resolveUrl={resolveUrl} resolveShareUrl={resolveShareUrl}>
         {panel}
