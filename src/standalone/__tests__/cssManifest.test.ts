@@ -17,7 +17,10 @@ import { describe, it, expect } from "vitest";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { STANDALONE_CSS_FILES } from "../../../scripts/standaloneCssFiles.mjs";
+import {
+  STANDALONE_CSS_FILES,
+  STANDALONE_CSS_ALIASES,
+} from "../../../scripts/standaloneCssFiles.mjs";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const SRC_DIR = path.join(REPO_ROOT, "src");
@@ -36,6 +39,19 @@ const SKIP_DIR_SEGMENTS = new Set(["__tests__", "__stories__", "node_modules"]);
  * render.
  */
 const UNREACHABLE_FROM_STANDALONE = ["src/form"];
+
+/**
+ * A wrapper stylesheet is checked against the file it stands for, not against
+ * itself. `src/styles/form-kernel.css` contains only an `@import` of the form
+ * kernel's built sheet under a cascade layer; the standalone bundle is a plain
+ * concatenation with no module resolution, so it ships the resolved sheet and
+ * the wrapper never appears in the manifest. The mapping lives beside the
+ * manifest so the two can never disagree - and the guard keeps its teeth: an
+ * unmapped, unlisted import still fails.
+ */
+function manifestKey(resolved: string): string {
+  return STANDALONE_CSS_ALIASES[resolved] ?? resolved;
+}
 const SOURCE_EXTS = new Set([".ts", ".tsx"]);
 const CSS_IMPORT_PATTERN = /import\s+["'](\.{1,2}\/[^"']+\.css)["']/g;
 
@@ -95,7 +111,7 @@ describe("standalone CSS manifest", () => {
     // Sanity: the walker actually found imports (catches a silently-broken regex).
     expect(imports.length).toBeGreaterThan(0);
 
-    const missing = imports.filter((entry) => !manifest.has(entry.resolved));
+    const missing = imports.filter((entry) => !manifest.has(manifestKey(entry.resolved)));
     expect(missing, formatMissing(missing)).toEqual([]);
   });
 

@@ -50,6 +50,7 @@ export default defineConfig({
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
     /RunPanel\.css$/,
+    /styles\/form-kernel\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {
@@ -69,6 +70,8 @@ export default defineConfig({
     cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
     mkdirSync("dist/form/react", { recursive: true });
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
+    mkdirSync("dist/styles", { recursive: true });
+    cpSync("src/styles/form-kernel.css", "dist/styles/form-kernel.css");
     prependUseClient("dist/form/react/index.js");
   },
 });

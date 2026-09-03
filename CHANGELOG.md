@@ -1,5 +1,26 @@
 # Changelog
 
+## [v0.21.0] - 2026-09-03
+
+### Fixed
+
+- **The form kernel's stylesheet now arrives in a cascade layer, so it stops overriding the host's own Tailwind.** v0.20.0 was right that the kernel's classes are ours to ship and wrong to ship them raw. `@pipelex/mthds-form/styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it lands in the host's `<head>` *after* the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning, and the failure looked nothing like a stylesheet problem:
+
+  - Its bare `.hidden { display: none }` outranked the host's `.sm\:inline` — equal specificity, ours last — so every `class="hidden sm:inline"` label in the host app vanished at every width. In `pipelex-app` that blanked the toolbar's Deploy / Dry Run / Run labels, the deploy dialog's tab labels and the responsive separators, leaving a row of unlabelled icons that appeared and disappeared with the flowchart.
+  - Its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything carrying a border width and no explicit colour class.
+
+  Both React entries now import `src/styles/form-kernel.css`, which is one line — `@import "@pipelex/mthds-form/styles.css" layer(mthds-form);`. Layered rules lose to unlayered rules regardless of source order, so a host keeps every declaration it makes itself and still gets the classes it never generated. A host with no Tailwind sees no change at all: a layer only decides conflicts, and there are none to decide. `theme.css` stays out as before — those tokens belong to the host.
+
+  **Why a layer rather than the alternatives.** Dropping the import returns to the arrangement v0.20.0 fixed, where a Tailwind host silently renders a subset of the controls. A Tailwind `prefix` renames every class in the kernel's source. An `important` selector strategy raises specificity but still emits a bare `.hidden`. The layer is the only option that changes who wins without changing a single class name.
+
+  `src/styles/__tests__/formKernelLayer.test.ts` guards the shape against a future edit that reinstates the direct import or drops the `layer()`, and `docs/run-form-panel.md` carries the full account.
+
+### Changed
+
+- **Storybook takes the shipped lane.** `.storybook/preview.ts` imported `@pipelex/mthds-form/styles.css` directly, which is the raw sheet this release exists to stop shipping — so the stories were exercising a lane no consumer takes. It now imports `src/styles/form-kernel.css`, the same wrapper the React entries use. It stays an explicit import rather than an inherited one because the stories reach components by their deep paths (`@form/react/RunPanel`, `@graph/react/viewer/GraphViewer`) and never through `index.ts`, so an entry's side-effect import never runs there. `theme.css` is still imported here: this repo runs no Tailwind of its own, and Storybook is the host that owes those tokens.
+
+- **The standalone bundle ships the kernel's utilities.** It never had them: `scripts/standaloneCssFiles.mjs` is a hand-maintained allow-list and the kernel's sheet had only ever been reached through a bare package specifier, which the manifest's regression guard does not scan for. The resolved sheet is now listed beside `@xyflow`'s, ordered with the vendor base sheets so our own component CSS keeps the last word. It goes in unlayered on purpose — a self-contained HTML has no host stylesheet to lose a tie to, and the bundle is a plain `readFileSync` concatenation that cannot resolve an `@import` anyway. `STANDALONE_CSS_ALIASES` records that the wrapper stands for the resolved file, so the guard keeps its teeth: an unmapped, unlisted CSS import still fails.
+
 ## [v0.20.0] - 2026-09-02
 
 ### Fixed
