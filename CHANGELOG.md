@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.22.1] - 2026-09-03
+
+### Fixed
+
+- **The lock file resolved the old kernel, so the release never published.** v0.22.0 moved `package.json` to `@pipelex/mthds-form@^0.7.0` and left `package-lock.json` on 0.6.0. `npm install` re-resolves and carries on, which is why Quality Checks stayed green through the whole PR; the Release workflow runs `npm ci --ignore-scripts`, which requires the manifest and the lock to agree, and refused — `lock file's @pipelex/mthds-form@0.6.0 does not satisfy @pipelex/mthds-form@0.7.0`. So v0.22.0 merged to `main` and published nothing.
+
+  The lock now resolves 0.7.0 from the registry with no `file:` entries: the local-development link that `pipelex-app`'s `make use-local` writes into this manifest must never reach it. Verified with the exact failing command, `npm ci --ignore-scripts`, before pushing.
+
+  This carries no code change over v0.22.0 — that version simply never became an artifact, and the version guard requires a bump over `main` to land the repair.
+
 ## [v0.22.0] - 2026-09-03
 
 ### Fixed
