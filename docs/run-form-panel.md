@@ -123,23 +123,23 @@ Two stylesheets, two owners.
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 ```
 
-**The controls are the kernel's, and bringing in their styling is your lane.** They are Tailwind classes over shadcn semantic tokens, and there are exactly two ways to serve them. Pick one — they are mutually exclusive:
+**The controls are the kernel's, and this library brings their styling with it.** They are Tailwind classes over shadcn semantic tokens, and both React entries (`./form/react` and `./graph/react`) import the kernel's prebuilt sheet themselves. You add nothing.
 
-1. **You run Tailwind.** Add the kernel's bundle to your `content` globs so its classes are not purged:
-   ```js
-   content: [..., "./node_modules/@pipelex/mthds-form/dist/**/*.js"],
-   ```
-2. **You do not run Tailwind.** Load the kernel's prebuilt pair, which carries Tailwind's preflight:
-   ```ts
-   import "@pipelex/mthds-form/theme.css";
-   import "@pipelex/mthds-form/styles.css";
-   ```
+That was not always true, and the history is the reason the current shape looks indirect. Until v0.20.0 the host had two mutually exclusive lanes: widen its Tailwind `content` globs into `node_modules/@pipelex/mthds-form/dist`, or load the prebuilt sheet by hand. Nobody took the first lane successfully — a content glob stops at the host's own source, `node_modules` is off the sweep, and a host that forgot got a form that was _mostly_ styled, because most of the controls' classes are used elsewhere in a typical app and survive the purge coincidentally. Only the ones unique to the controls disappeared: the input focus ring and border, the placeholder colour, the prose textarea's minimum height, the input background tint, the dropzone's drag-active state. What you saw read like someone broke the design system, not like a missing glob.
 
-**The trap, inherited verbatim in spirit from `pipelex-app/docs/form-kernel-package.md`:** a Tailwind host that forgets the content glob gets a form that is _mostly_ styled. Most of the controls' classes are used elsewhere in a typical app and survive the purge coincidentally; only the ones unique to the controls disappear — the input focus ring and border, the placeholder colour, the prose textarea's minimum height, the input background tint, the dropzone's drag-active state. What you see reads like someone broke the design system, not like a missing glob. If you suspect it, build the stylesheet with and without the entry and diff which selectors are present; do not eyeball the form.
+v0.20.0 made the import our problem and shipped it raw, which traded that failure for a louder one. `styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it arrives in the host's `<head>` after the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning: its bare `.hidden { display: none }` outranked the host's `.sm\:inline`, blanking every `class="hidden sm:inline"` label in the app at every width, and its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything with a border width and no explicit colour class.
 
-Do not do both. `styles.css` carries preflight, so loading it inside a host that compiles the classes itself double-loads the reset.
+v0.21.0 keeps the import and fixes the collision with a **cascade layer**. `src/styles/form-kernel.css` is the whole mechanism:
 
-This library deliberately imports neither into its own CSS. Storybook here takes lane 2, which makes these stories the first place that lane is exercised end to end — see `.storybook/preview.ts`.
+```css
+@import "@pipelex/mthds-form/styles.css" layer(mthds-form);
+```
+
+Layered rules lose to unlayered rules regardless of source order, so a host's own Tailwind keeps every declaration it makes, and we still supply the classes it never generated. Nothing changes for a host with no Tailwind: a layer only decides conflicts, and there are none to decide. `theme.css` stays out either way — it defines the semantic tokens (`--background`, `--border`, …) a shadcn host already owns, and pulling it in would let our copy repaint the host's palette.
+
+**What this means for you:** import `RunPanel.css` for the chrome, and nothing else. Do not add the kernel to your `content` globs and do not import `styles.css` yourself — either one puts a second, unlayered copy of the same utilities in the page, which is exactly the state the layer exists to prevent. `src/styles/__tests__/formKernelLayer.test.ts` guards the shape of the wrapper against a future edit that reinstates the direct import or drops the `layer()`.
+
+The one place the layer is deliberately absent is the **standalone bundle**, which is a plain `readFileSync` concatenation with no module resolution — it ships the resolved sheet listed in `scripts/standaloneCssFiles.mjs`, unlayered, ordered with the vendor base sheets so our own component CSS still has the last word. There is no host stylesheet in a self-contained HTML for it to lose a tie to.
 
 ### The theme bridge, and the hook for overriding tokens
 
