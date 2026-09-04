@@ -6,17 +6,17 @@ The dividing line, stated once, because everything below follows from it: **anyt
 
 ## Installing
 
-The kernel is an **optional peer dependency**. Graph-only consumers install nothing extra and nothing changes for them; a consumer that wants the form installs it alongside:
+The kernel is an ordinary **dependency** of this package, so install this package alone:
 
 ```bash
-npm install @pipelex/mthds-ui @pipelex/mthds-form mthds
+npm install @pipelex/mthds-ui
 ```
 
-`mthds` is in that line because the kernel declares it a required peer of its own and re-exports its protocol types; a package manager with peer auto-installation adds it either way, but naming it keeps the install correct for one that does not. This library never imports it.
+**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form` and `@pipelex/mthds-ui/form/react` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
 
-It is a peer, not a dependency, for a reason that bites silently if you get it wrong: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts. If this library carried its own nested copy of the kernel, a provider you mount above the panel would not resolve inside it — the panel would read the kernel's defaults while your app read yours, with nothing in the console to say why. One instance, shared, is the only arrangement that works.
+`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
 
-The same reasoning is why the panel lives behind `./form/react` and never leaks into `./graph/react`. An eslint rule (`no-restricted-imports` in `eslint.config.mjs`) confines every `@pipelex/mthds-form` import to `src/form/**`, and `make smoke-pack` checks the built package from a consumer that deliberately has no kernel installed.
+The kernel declares `mthds` as a required peer of its own and re-exports its protocol types. A package manager with peer auto-installation supplies it; one that does not will ask for it. This library never imports it.
 
 ## Using it
 

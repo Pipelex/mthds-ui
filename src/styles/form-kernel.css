@@ -13,7 +13,7 @@
  *     because the two have equal specificity and it happens to come last. Every
  *     `class="hidden sm:inline"` label in the host app disappears at every
  *     width. This is not hypothetical: it silently blanked the toolbar and
- *     dialog labels across `pipelex-app` the moment a graph mounted.
+ *     dialog labels across a consuming application the moment a graph mounted.
  *   - Its preflight re-bases `*, ::before, ::after { border: 0 solid #e5e7eb }`,
  *     replacing the host's own default border color, so every element with a
  *     border width and no explicit color class draws a pale grey hairline.

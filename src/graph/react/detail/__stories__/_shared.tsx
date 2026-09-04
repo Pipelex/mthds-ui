@@ -2,7 +2,7 @@
  * Shared decorator + helpers for Detail Panel stories.
  *
  * Every detail panel story renders the same way: a fixed-size dark surface that
- * mimics the side panel position in pipelex-app, with `DetailPanel` (the
+ * mimics the side panel position in a consuming application, with `DetailPanel` (the
  * resizable container) wrapping a per-pipe-type detail component.
  *
  * The PipeCompose builders here also serve as the canonical TypeScript

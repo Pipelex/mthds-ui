@@ -10,7 +10,7 @@
  * every tie it had no business winning:
  *
  *   - its bare `.hidden { display: none }` beat the host's `.sm\:inline`, so
- *     every `class="hidden sm:inline"` label in `pipelex-app` vanished at every
+ *     every `class="hidden sm:inline"` label in the host app vanished at every
  *     width (toolbar buttons, deploy dialog tabs, responsive separators);
  *   - its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced
  *     the host's default border color, painting a pale hairline under anything
