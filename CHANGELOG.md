@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to `^0.8.0`, and with it the controls' stylesheet changes what it asks of your tokens. This is breaking for a host that themes the form.** Both React entries import the kernel's prebuilt sheet themselves, so the kernel's Tailwind 4 migration arrives here whether or not your app ever names the package. A Tailwind 4 theme holds **whole colours**, so the sheet now emits `background-color: var(--background)` where it used to emit `background-color: hsl(var(--background))`. Define the shadcn tokens you override as complete colours — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)`, any of them — and not as the bare HSL triplets Tailwind 3 wanted.
+
+  **Getting it wrong is silent, which is the part worth reading twice.** A leftover triplet computes to `background-color: 240 5.9% 10%`, which is not a colour, so the browser **discards** the declaration instead of overriding with it. Nothing fails: the build is green, the token is defined and inspects correctly in devtools, and the control simply falls back to `transparent` or to the initial `canvastext`. What you see is a panel with no surface colour and a white label on a pale background — which reads like a contrast bug or a broken design system, and sends you looking anywhere except at a stylesheet. Searching for a rule that sets the colour finds nothing, because the rule that wins sets it to something unparseable.
+
+  Two consequences worth stating separately. If your app also depends on `@pipelex/mthds-form` directly, move that range to `^0.8.0` in the **same commit** — a caret range below 1.0 does not bridge a minor, so the two would otherwise resolve to different builds and install side by side, and only one of them would match your tokens. And if you pinned the kernel to a git commit to get a Tailwind 4 build ahead of its release, that pin has done its job: drop it, so your tree holds one copy again. `docs/run-form-panel.md` carries the corrected override example.
+
+### Fixed
+
+- **`docs/run-form-panel.md` told hosts to write token overrides in exactly the form that now breaks.** Its worked example set `--primary: 142 71% 45%`, a bare triplet, which under the kernel's Tailwind 4 build computes to nothing and is discarded. The example is now a complete colour, with the reason spelled out beside it. The same page also claimed the kernel is an optional peer named twice, in `peerDependencies` and `devDependencies`, and that no `make use-local` lane exists here — all three stale since the kernel became an ordinary `dependency` declared once at a registry range. `.claude/skills/bump-mthds-form/` carried the same three errors and is corrected too, along with its account of the contracts-fixture obligation, which has been discharged since the post-`0.3.0` adoption.
+
 ## [v0.22.0] - 2026-09-03
 
 ### Fixed

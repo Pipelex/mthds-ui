@@ -149,12 +149,14 @@ The container carries a stable class name, **`mthds-run-panel`**, as a documente
 
 ```css
 .mthds-run-panel {
-  --primary: 142 71% 45%;
-  --ring: 142 71% 45%;
+  --primary: hsl(142 71% 45%);
+  --ring: hsl(142 71% 45%);
 }
 ```
 
-A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto shadcn's raw HSL triplets — is **deliberately not built**. It needs runtime hex→HSL conversion, and it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
+**Write each token as a complete colour, not as a bare HSL triplet.** Since kernel `0.8.0` the controls are a Tailwind 4 build, and a Tailwind 4 theme holds whole colours: the sheet emits `background-color: var(--primary)` where it used to emit `background-color: hsl(var(--primary))`. So `--primary: 142 71% 45%` no longer composes into anything — it computes to `background-color: 142 71% 45%`, which is not a colour. The rule is then **discarded rather than overridden**, and a discarded declaration is the quietest failure CSS has: the build is green, the token is defined and inspectable, and the control simply falls back to `transparent` or to the initial `canvastext`. Any complete colour works — `hsl(…)`, `oklch(…)`, `#6b21a8` — which is also why the bridge below became easy.
+
+A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto the shadcn tokens — is still **not built**, but the reason has shrunk. It used to need runtime hex→HSL conversion, because the triplet form could not accept a hex value at all; whole colours take one directly, so what remains is only the judgement call: it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
 
 ### The one place the chrome does not follow the palette: the Run button
 
@@ -195,11 +197,11 @@ make use-local     # or: make ul   — build ../mthds-form, pack it, install the
 make use-npm       # or: make un   — back to the published version package.json pins
 ```
 
-`use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, which is why it is an optional peer at all (see "Installing" above); a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it — the exact failure the peer arrangement exists to prevent. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
+`use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, and a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
 
-Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten: the kernel is named twice there, in `peerDependencies` and `devDependencies`, and the two must agree. Moving that version is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten. The kernel is declared once there, as an ordinary `dependency` at a registry range — a host installs it transitively and never names it, unless it imports the kernel's own helpers itself. Moving that range is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
 
-A local kernel whose version falls outside the pinned range (developing the next minor, say) installs fine — the peer is declared optional, so npm does not treat the mismatch as a conflict. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
+A local kernel whose version falls outside the declared range (developing the next minor, say) installs fine, because `--no-save` puts it in `node_modules` without asking npm to reconcile it against the manifest. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
 
 ```bash
 node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"
