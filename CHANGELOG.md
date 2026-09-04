@@ -1,5 +1,33 @@
 # Changelog
 
+## [v0.23.0] - 2026-09-04
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to `^0.8.0`, and with it the controls' stylesheet changes what it asks of your tokens. This is breaking for a host that themes the form.** Both React entries import the kernel's prebuilt sheet themselves, so the kernel's Tailwind 4 migration arrives here whether or not your app ever names the package. A Tailwind 4 theme holds **whole colours**, so the sheet now emits `background-color: var(--background)` where it used to emit `background-color: hsl(var(--background))`. Define the shadcn tokens you override as complete colours — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)`, any of them — and not as the bare HSL triplets Tailwind 3 wanted.
+
+  **Getting it wrong is silent, which is the part worth reading twice.** A leftover triplet computes to `background-color: 240 5.9% 10%`, which is not a colour, so the browser **discards** the declaration instead of overriding with it. Nothing fails: the build is green, the token is defined and inspects correctly in devtools, and the control simply falls back to `transparent` or to the initial `canvastext`. What you see is a panel with no surface colour and a white label on a pale background — which reads like a contrast bug or a broken design system, and sends you looking anywhere except at a stylesheet. Searching for a rule that sets the colour finds nothing, because the rule that wins sets it to something unparseable.
+
+  **If your app declares `@pipelex/mthds-form` itself, the better move is to stop.** The kernel is a dependency of this package, so you get it without naming it, and a second declaration means a second copy in the tree — which breaks more than styling: the kernel ships React contexts, so `FieldStringsProvider` and `FieldPresentationProvider` mounted above the panel stop resolving inside it, and the panel reads the kernel's defaults while your app reads yours, silently. If you must keep the direct dependency because you import the kernel's own helpers, move it to `^0.8.0` in the **same commit** as this one: a caret range below 1.0 does not bridge a minor, so the two would otherwise resolve to different builds. And a git-commit pin taken to get a Tailwind 4 build ahead of its release has done its job — drop it.
+
+  **One support note.** The Tailwind 4 sheet uses `color-mix()`, `@property` and `@layer`, none of which the previous build used at all. They are widely available, but if your support matrix reaches browsers older than roughly 2023, check the panel before shipping. `README.md` and `docs/run-form-panel.md` carry the corrected override example.
+
+### Fixed
+
+- **The documentation told hosts to write token overrides in exactly the form this release breaks.** `README.md` and both of `docs/run-form-panel.md` and `docs/theming.md` gave the worked example as `--primary: 142 71% 45%`, the bare triplet that now computes to something which is not a colour and is discarded. All three are corrected to complete colours, with the discard mechanism spelled out beside each. The README matters most of the three: it is the only one that ships in the npm tarball, so it is what a consumer reads on the registry page.
+
+- **The README also carried pre-v0.20.0 styling advice that is now actively harmful.** It told hosts to add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to their Tailwind globs, or to import the kernel's `theme.css` and `styles.css` themselves. Either one puts a second, unlayered copy of the kernel's utilities in the page — precisely the state the cascade layer introduced in v0.21.0 exists to prevent, and the one `src/styles/__tests__/formKernelLayer.test.ts` guards against. It now says the stylesheet ships with the package and that you add nothing.
+
+- **Three documents still described the kernel as an optional peer, one of them contradicting itself.** `README.md` listed it in the peer-dependency table and told hosts to install it directly; `docs/run-form-panel.md` said "it is a peer, not a dependency" in its Installing section while its own later sections described a dependency; `CLAUDE.md`, the `Makefile` comments and `.claude/skills/bump-mthds-form/` said it was named twice, in `peerDependencies` and `devDependencies`. All of it stale since the kernel became an ordinary `dependency` declared once at a registry range. Declaring it yourself is now the thing to avoid, because a second declaration is a second copy and the kernel ships React contexts.
+
+- **`make use-npm` was broken, and it deleted the kernel before failing.** It resolved the version to restore by reading `package.json`'s `devDependencies` entry, which has not existed since the kernel moved to `dependencies`, so it ran `npm install @pipelex/mthds-form@undefined` — a 404 — one line after having already removed `node_modules/@pipelex/mthds-form`. Leaving dev mode left you with no kernel at all.
+
+- **The `/bump-mthds-form` skill's account of the contracts-fixture obligation is corrected** — that obligation has been discharged since the post-`0.3.0` adoption, and its note is kept rather than deleted, as the note itself asks.
+
+- **No closed-source repository is named in this package any more.** A consuming application was named by name in a comment in `src/styles/form-kernel.css`, which ships as `dist/styles/form-kernel.css`, and in `src/shiki/pipelexLightTheme.ts`, which reaches consumers through the emitted `.d.ts` and the source map. Both now say "a consuming application". `CLAUDE.md` gains the rule so it stays that way; already-dated changelog entries are left as the historical record they are.
+
+- **A second `## [Unreleased]` heading had been sitting in the middle of this changelog since v0.20.0, filing shipped work as unreleased.** The v0.20.0 cut inserted its own heading above the pending section instead of renaming it, so the `StuffViewer` deletion, the `output_form` fixtures and `findStuffByDigest` — all of which went out in v0.20.0 on 2026-09-02 — have been reading as unreleased ever since. The stray heading is removed and that content now sits under v0.20.0 where it shipped. Nothing moved between releases; only the heading that misfiled them is gone.
+
 ## [v0.22.0] - 2026-09-03
 
 ### Fixed
@@ -54,8 +82,6 @@
 - **New `./form` entry** — the kernel's React-free surface, re-exported. The mirror of the kernel's own `.` entry (descriptor vocabulary, derivation, readiness, run gate, value plumbing), importable from a server action or a worker. `./form/react` re-exports the controls the same way.
 
   The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
-
-## [Unreleased]
 
 - **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
 

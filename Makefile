@@ -95,13 +95,13 @@ schema-refresh:
 # Both targets install with `--no-save`, so package.json is never rewritten.
 # That is deliberate here and is the one place this diverges from the same pair
 # in ../pipelex-starter-js, which restores `@latest` and re-pins. The kernel is
-# named TWICE in this package.json — `peerDependencies` and `devDependencies` —
-# and the two must agree, so moving the version is a reviewed change that
-# belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+# named ONCE here, as an ordinary `dependency` at a registry range, so moving
+# that range is a reviewed change that belongs to the `/bump-mthds-form` skill,
+# not a side effect of leaving dev mode.
 #
 # We pack a tarball rather than symlink because a symlinked kernel is a second
-# React context identity for Vite to resolve, which is exactly the failure the
-# optional-peer arrangement exists to prevent. The tarball gives a real
+# React context identity for Vite to resolve, and one shared instance is the
+# only arrangement the kernel's React contexts survive. The tarball gives a real
 # directory in node_modules. Re-run `make use-local` after every kernel edit.
 #
 # The pack step passes `--ignore-scripts`: mthds-form's `prepare` re-runs its
@@ -149,7 +149,7 @@ use-local:
 
 use-npm:
 	rm -rf node_modules/@pipelex/mthds-form node_modules/.vite node_modules/.cache/storybook
-	npm install @pipelex/mthds-form@$$(node -p "require('./package.json').devDependencies['@pipelex/mthds-form']") --no-save
+	npm install @pipelex/mthds-form@$$(node -p "require('./package.json').dependencies['@pipelex/mthds-form']") --no-save
 	@echo "Restored npm-published @pipelex/mthds-form $$(node -p "require('./node_modules/@pipelex/mthds-form/package.json').version") (the range package.json pins). Run 'make use-local' to switch back."
 
 ul: use-local

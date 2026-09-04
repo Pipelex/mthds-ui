@@ -190,6 +190,12 @@ GraphSpec (JSON from pipelex-agent, or static builder output)
 
 ## Code Style
 
+### This repo is open source — never name a closed-source repo in it
+
+Not in source comments, docs, the README, config or tests. Say "a host" or "a consuming application" instead. A reader outside the company cannot follow a name they have no access to, and it leaks internal structure into a published MIT package — not only through the obvious files: `README.md` ships in the npm tarball, and a JSDoc comment reaches consumers through the emitted `.d.ts` and the source map even when the bundler drops it from the JS. `CHANGELOG.md` and `docs/` do not ship, but they are public on GitHub all the same.
+
+Already-dated changelog entries are the one exception, and they are left alone: they are a historical record, and rewriting a name that has been public since it was published un-leaks nothing.
+
 ### Formatting (Prettier)
 
 - Double quotes, semicolons, trailing commas (`"all"`)
@@ -301,7 +307,7 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 | `make use-npm` (`un`)     | Swap it back to the published version `package.json` pins       |
 | `make clean`              | Remove dist/ and node_modules/                                  |
 
-`use-local` / `use-npm` install with `--no-save` and never rewrite `package.json`. That is deliberate, and it is the one place this pair diverges from the same one in `../pipelex-starter-js`, which restores `@latest` and re-pins: here the kernel is named TWICE — `peerDependencies` and `devDependencies` — and the two must agree, so moving that version is a reviewed change owned by the `/bump-mthds-form` skill, not a side effect of leaving dev mode. `use-local` packs a tarball rather than symlinking (a symlinked kernel is a second React context identity — the failure the peer arrangement exists to prevent) and is a snapshot, so re-run it after every kernel edit. Both targets clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the same version string as the published one, so the optimizer's hash would not change and Storybook would keep serving the stale copy. See `docs/run-form-panel.md`.
+`use-local` / `use-npm` install with `--no-save` and never rewrite `package.json`. That is deliberate, and it is the one place this pair diverges from the same one in `../pipelex-starter-js`, which restores `@latest` and re-pins: here the kernel is named ONCE, as an ordinary `dependency` at a registry range, so moving that range is a reviewed change owned by the `/bump-mthds-form` skill, not a side effect of leaving dev mode. `use-local` packs a tarball rather than symlinking (a symlinked kernel is a second React context identity, and one shared instance is the only arrangement the kernel's React contexts survive) and is a snapshot, so re-run it after every kernel edit. Both targets clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the same version string as the published one, so the optimizer's hash would not change and Storybook would keep serving the stale copy. See `docs/run-form-panel.md`.
 
 ## Workflow Rules
 
