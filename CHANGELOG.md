@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v0.23.0] - 2026-09-04
 
 ### Changed
 
@@ -13,6 +13,8 @@
 ### Fixed
 
 - **`docs/run-form-panel.md` told hosts to write token overrides in exactly the form that now breaks.** Its worked example set `--primary: 142 71% 45%`, a bare triplet, which under the kernel's Tailwind 4 build computes to nothing and is discarded. The example is now a complete colour, with the reason spelled out beside it. The same page also claimed the kernel is an optional peer named twice, in `peerDependencies` and `devDependencies`, and that no `make use-local` lane exists here — all three stale since the kernel became an ordinary `dependency` declared once at a registry range. `.claude/skills/bump-mthds-form/` carried the same three errors and is corrected too, along with its account of the contracts-fixture obligation, which has been discharged since the post-`0.3.0` adoption.
+
+- **A second `## [Unreleased]` heading had been sitting in the middle of this changelog since v0.20.0, filing shipped work as unreleased.** The v0.20.0 cut inserted its own heading above the pending section instead of renaming it, so the `StuffViewer` deletion, the `output_form` fixtures and `findStuffByDigest` — all of which went out in v0.20.0 on 2026-09-02 — have been reading as unreleased ever since. The stray heading is removed and that content now sits under v0.20.0 where it shipped. Nothing moved between releases; only the heading that misfiled them is gone.
 
 ## [v0.22.0] - 2026-09-03
 
@@ -68,8 +70,6 @@
 - **New `./form` entry** — the kernel's React-free surface, re-exported. The mirror of the kernel's own `.` entry (descriptor vocabulary, derivation, readiness, run gate, value plumbing), importable from a server action or a worker. `./form/react` re-exports the controls the same way.
 
   The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
-
-## [Unreleased]
 
 - **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
 
