@@ -264,3 +264,28 @@ prompt = "Go"
     expect(merged.diagnostics).toEqual([]);
   });
 });
+
+describe("domain names colliding with Object.prototype", () => {
+  const bundle = (domain: string) => `
+domain = "${domain}"
+main_pipe = "p"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { ok = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+
+  // A `{}` namespace map made `domains[domain] ??= …` yield `Object.prototype`
+  // for these names, so the very next read of `.concepts` threw — from a module
+  // whose contract is that it never throws on content.
+  it.each(["__proto__", "constructor", "toString", "valueOf"])(
+    "merges a bundle whose domain is %s without throwing",
+    (domain) => {
+      const merged = mergeBundles([parsed(bundle(domain))]);
+      expect(merged.mainDomain).toBe(domain);
+      expect(Object.keys(merged.domains[domain].pipes)).toEqual(["p"]);
+    },
+  );
+});

@@ -84,7 +84,43 @@ An io ref names a concept and then, optionally, two suffixes in a fixed order �
 
 Both suffixes belong to an **io slot**, never to concept inheritance: `refines` names a concept, so a `refines` carrying either is refused with an `invalid-concept-ref` warning rather than silently stripped down to the bare code.
 
-A ref the grammar does not accept is not fatal, but it is lossy in a way worth knowing: an input whose ref will not parse is **dropped from the pipe entirely** with an `invalid-concept-ref` warning, and an output that will not parse falls back to `native.Anything` with a `missing-pipe-output` warning. That is why the fixture sweep tolerates no warnings at all — a suffix the parser has not learned yet looks exactly like a method that never declared the slot.
+A ref the grammar does not accept is not fatal, but it is lossy in a way worth knowing: an input whose ref will not parse is **dropped from the pipe entirely** with an `invalid-concept-ref` warning, and an output that will not parse falls back to `native.Anything` with a `missing-pipe-output` warning. That is why the fixture sweep tolerates no warnings at all — a suffix the parser has not learned yet looks exactly like a method that never declared the slot, and a slot form it has not learned yet looks the same (see [Input Slot Declarations](#input-slot-declarations)).
+
+## Input Slot Declarations
+
+A value in a pipe's `inputs` table has two forms, and the standard (`docs/spec/mthds-format.md`, "Input slot declarations") states them equivalent:
+
+```toml
+[pipe.write_card.inputs]
+title = "BookTitle"
+notes = { concept = "Text?", hints = { intent = "prose" } }
+```
+
+`concept` is required and carries exactly the same grammar as the string form — ref, then multiplicity, then presence — so `{ concept = "Text?" }` resolves optional just as `"Text?"` does. `parseInputSlot` unwraps the table and hands `concept` to `parseConceptRef`, which means the resulting `StuffSpecInfo` is identical whichever form authored the slot. That identity is the point: a hinted input is an ordinary edge in the graph, and nothing downstream can tell how it was written.
+
+The expanded form is **inputs only**. `output` is always a string, so `output = { concept = "Text" }` does not parse and falls back to `native.Anything` with the usual `missing-pipe-output` warning.
+
+`concept` being required means a slot can fail two ways, and the `invalid-concept-ref` warning words itself for the one that happened: a slot table with no `concept` key at all is told the key is required, while a `concept` that was written and will not parse is told its ref is uninterpretable. The distinction matters because a hints-only slot — `notes = { hints = { intent = "prose" } }` — is the natural slip when reaching for the expanded form, and blaming a ref the author never wrote reads as a grammar problem when the fix is to add the key.
+
+An input name written as an unquoted dotted path is the one shape that reads as a slot table without being one. The standard requires `"my_input.field_name" = "Text"` as a single quoted key, because TOML parses the unquoted form as a nested table — `my_input = { field_name = "Text" }` — which the expanded form would otherwise misread. That case is recognized and reported as itself: one warning naming the quoting rule, rather than an undefined-key warning plus a missing-`concept` warning, both true and neither mentioning the fix. What separates it from a genuine unknown key is the concept-code rule: a code MUST be `PascalCase`, so `{ field_name = "Text" }` can only be a nested field while `{ widget = "textarea" }` can only be a slot table with a key the form does not define.
+
+`hints` is read as a known key and then dropped. Its shape is not checked here either, and both of those are the same decision: **intent hints do not travel on the GraphSpec.**
+
+### Why hints are parsed and dropped
+
+Intent hints (`docs/spec/intent-hints.md`) are non-normative presentation intent, and they exist for renderers to honor — so a rendering library dropping them looks like a gap. It is not, and the reason is that the standard already routes them somewhere else.
+
+- **The GraphSpec has no place to put them.** pipelex's runtime `StuffSpec` and `Concept` carry no `hints` field — hints live on the *blueprints* (`ConceptBlueprint`, the structure-field blueprint, `InputSlotBlueprint`), and a GraphSpec's `pipe_registry` is serialized from the runtime objects. Adding a `hints` member to `StuffSpecInfo` would put a field in a static spec that a dry or live spec can never carry, which is exactly what `parity.test.ts` exists to prevent.
+- **The artifact that carries them is the input-form descriptor.** `docs/spec/input-form-descriptor.md` gives every field descriptor an optional `hints` object holding the node's *effective* hints — the key-by-key merge along the refinement chain and then the site layer — so a consumer reads one map and walks nothing. That merge needs the concept registry and the refinement chain, which is producer work, not something a graph renderer should be re-deriving from bundle text.
+- **This library already reads that channel.** `src/form/` renders the descriptor through `@pipelex/mthds-form`, so the hint an author writes on a slot reaches this repo's form panel by the route the standard designed for it — carried onto the field descriptor the panel is given. Honoring it in a control is the kernel's side of that seam and is not yet rendered at the pinned version, so an author testing this today sees the hint arrive and change nothing. See `docs/run-form-panel.md`.
+
+So a hint changes how a slot is *filled in*, never how it is *drawn*, and the static builder is the drawing half. If a graph card ever wants to honor `intent`, the change is to feed the viewer a descriptor beside the spec — not to widen `StuffSpecInfo`.
+
+### Unknown slot keys
+
+The slot table is closed: the spec says an unknown key MUST be rejected, and pipelex implements that as `extra="forbid"` on `InputSlotBlueprint`. This module renders rather than adjudicates, so it does neither of the two extremes. It reports the key with an `unknown-input-slot-key` warning naming it, and still resolves the slot from its `concept` — dropping the edge would lose more than the unknown key was worth, and staying silent would draw a clean graph for a bundle the runtime refuses.
+
+That is also the line between a key and a malformed `hints` table — and the line is not "what the runtime refuses", because the runtime refuses both (`hints` is typed `dict[str, str] | None`, so `hints = "prose"` is as invalid as an unknown key). The line is what could change the graph. An unknown key may be where a future version of the standard puts something that changes the slot, so it is named. A malformed `hints` cannot be: it is content this module never reads under any future reading, so reporting it belongs to a validating implementation, not to the renderer.
 
 ## Native Concepts
 
@@ -164,7 +200,7 @@ That is the valuable half. Running this repo's builder — a second, independent
 
 A fixture is a set of files, not a file. A multi-file entry keeps its library files beside the entry point — forward-declared signatures and the pipes that fill them — and those are fragments that only mean something merged, so both sweeps take every `.mthds` file in the entry directory. `parseFixtureBundles` reads them one at a time, because each file must parse on its own; `buildFixtureGraphs` passes the whole set in, with `bundle.mthds` (when there is one) leading so the merge is deterministic. Sweeping the entry point alone would build the corpus's multi-file entry into a one-node signature stub and report it as a pass.
 
-That is also why `buildFixtureGraphs` tolerates no diagnostic whatsoever, warnings included. Every entry is a canonical, runnable method, and the builder only reports something when it could not read what the method wrote — so on this material a warning and an error are the same news: either the builder has a gap or a fixture regressed. A `duplicate-pipe` warning would mean the merge stopped reading a signature and its concrete definition as one pipe; an `invalid-concept-ref` warning would mean a declared input silently vanished. Both pass every other assertion in the sweep, which is why severity is not the bar here.
+That is also why `buildFixtureGraphs` tolerates no diagnostic whatsoever, warnings included. Every entry is a canonical, runnable method, and almost every diagnostic means the builder could not read what the method wrote — so on this material a warning and an error are the same news: either the builder has a gap or a fixture regressed. `unknown-input-slot-key` is the one exception and the one to watch, because it reports a slot the builder read perfectly: when the standard adds a slot-table key and pipelex ships a `valid` entry using it, this sweep goes red on a bundle nothing is wrong with, and the cure is to teach `INPUT_SLOT_KEYS` the new key. A `duplicate-pipe` warning would mean the merge stopped reading a signature and its concrete definition as one pipe; an `invalid-concept-ref` warning would mean a declared input silently vanished. Both pass every other assertion in the sweep, which is why severity is not the bar here.
 
 **Only the entries the corpus marks `valid` are swept.** Each entry's `entry.toml` carries a `validity` of `valid` or `invalid`, and an invalid entry is surgically authored to trigger exactly one declared error — so under a zero-diagnostic rule it would report the corpus doing its job as a builder gap. This repo's declared slice takes the whole corpus rather than a filtered one (see the consumer registry in the `mthds-corpus-sync` skill), so the filter lives here, in `fixtureBundles.ts`. That red would be the mirror image of the vacuous green: a failure that means nothing, and that trains the next reader to loosen the gate.
 

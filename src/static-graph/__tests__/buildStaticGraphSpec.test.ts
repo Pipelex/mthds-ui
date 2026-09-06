@@ -175,6 +175,77 @@ output = "Text"
 prompt = "p"
 `;
 
+// ─── Input slot forms ────────────────────────────────────────────────────────
+//
+// The standard states the string form and the expanded form equivalent, so the
+// strongest assertion available is that the two build the *same graph* — not
+// merely that the expanded one builds something. What this guards is an input
+// slot silently vanishing from a hinted method: the expanded form used to be
+// unparseable, which dropped the slot and with it every edge feeding it.
+
+const SLOT_FORMS_STRING = `
+domain = "reading_circle"
+main_pipe = "make_card"
+
+[pipe.make_card]
+type = "PipeSequence"
+description = "Draft the notes, then write the card"
+inputs = { title = "Text" }
+output = "Text"
+steps = [
+  { pipe = "draft_notes", result = "notes" },
+  { pipe = "write_card", result = "card" },
+]
+
+[pipe.draft_notes]
+type = "PipeLLM"
+description = "Draft the host's notes"
+inputs = { title = "Text" }
+output = "Text"
+prompt = "Notes for @title"
+
+[pipe.write_card]
+type = "PipeLLM"
+description = "Write the card"
+inputs = { title = "Text", notes = "Text?" }
+output = "Text"
+prompt = "Card from @title and @notes"
+`;
+
+const SLOT_FORMS_EXPANDED = SLOT_FORMS_STRING.replace(
+  'inputs = { title = "Text", notes = "Text?" }',
+  'inputs = { title = "Text", notes = { concept = "Text?", hints = { intent = "prose" } } }',
+);
+
+describe("buildStaticGraphSpec — input slot forms", () => {
+  it("builds the identical graph from either slot form", () => {
+    const stringForm = build(SLOT_FORMS_STRING);
+    const expanded = build(SLOT_FORMS_EXPANDED);
+
+    expect(expanded.diagnostics).toEqual([]);
+    expect(expanded.spec).toEqual(stringForm.spec);
+  });
+
+  it("keeps the hinted slot bound to the step that produces it", () => {
+    // The bug this guards: the slot used to be dropped, so `write_card` declared
+    // only `title` and the notes dataflow vanished from the graph entirely.
+    const { spec } = build(SLOT_FORMS_EXPANDED);
+    const draft = nodeById(spec, "reading_circle.make_card/step_1");
+    const write = nodeById(spec, "reading_circle.make_card/step_2");
+
+    const notes = write.io.inputs.find((input) => input.name === "notes");
+    expect(notes).toBeDefined();
+    expect(notes?.digest).toBe(draft.io.outputs[0].digest);
+
+    // Presence rides the registry entry, not the io item — and it must survive
+    // being written inside `concept`, which is where the expanded form puts it.
+    expect(spec.pipe_registry?.["reading_circle.write_card"]?.inputs.notes).toMatchObject({
+      concept: { code: "Text", domain_code: "native" },
+      presence: "optional",
+    });
+  });
+});
+
 describe("buildStaticGraphSpec — dotted input names", () => {
   it("satisfies a dotted input from a binding for its prefix", () => {
     const { spec, diagnostics } = build(DOTTED);
