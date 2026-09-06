@@ -1,0 +1,37 @@
+/**
+ * The form kernel's Tailwind utilities, wrapped in a cascade layer.
+ *
+ * WHY THE LAYER, AND WHY THIS FILE EXISTS AT ALL
+ *
+ * `@pipelex/mthds-form/styles.css` is a COMPLETE Tailwind build: preflight plus
+ * every utility the kernel's controls use, unprefixed and unscoped. That is the
+ * right shape for its intended reader — a host with no Tailwind of its own — and
+ * exactly the wrong shape for a host that HAS one. Injected raw into such a host
+ * it is a second, later stylesheet full of colliding rules:
+ *
+ *   - Its bare `.hidden { display: none }` outranks the host's `.sm\:inline`,
+ *     because the two have equal specificity and it happens to come last. Every
+ *     `class="hidden sm:inline"` label in the host app disappears at every
+ *     width. This is not hypothetical: it silently blanked the toolbar and
+ *     dialog labels across a consuming application the moment a graph mounted.
+ *   - Its preflight re-bases `*, ::before, ::after { border: 0 solid #e5e7eb }`,
+ *     replacing the host's own default border color, so every element with a
+ *     border width and no explicit color class draws a pale grey hairline.
+ *
+ * Both are the same failure: our sheet loading LATER than the host's and winning
+ * ties it has no business winning. A cascade layer settles it by construction —
+ * layered rules lose to unlayered rules regardless of source order, so the host
+ * keeps every declaration it makes itself, and we still supply the classes it
+ * never generated. Nothing here changes for a host with no Tailwind: a layer
+ * only decides conflicts, and there are none to decide.
+ *
+ * The alternative — dropping the import and asking Tailwind hosts to widen their
+ * content globs into `node_modules` — is the arrangement that was already
+ * failing before the import was added. See the block comments in
+ * `../graph/react/index.ts` and `../form/react/index.ts` for why the kernel's
+ * classes cannot be left to the host to generate.
+ *
+ * `theme.css` stays out, layered or not: it defines the semantic tokens
+ * (`--background`, `--border`, …) a shadcn host already owns.
+ */
+@import "@pipelex/mthds-form/styles.css" layer(mthds-form);

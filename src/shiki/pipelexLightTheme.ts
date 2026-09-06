@@ -2,7 +2,7 @@ import type { ThemeRegistrationRaw } from "@shikijs/core";
 
 /**
  * Light counterpart of `pipelexDarkTheme` — same scopes, one-for-one.
- * Surfaces and neutrals match the pipelex-app light theme (warm cream
+ * Surfaces and neutrals match a consuming application's light theme (warm cream
  * `--card` background, warm near-black `--foreground` text, warm muted
  * grays) so the editor sits naturally inside the app instead of reading
  * as a stark-white third-party widget. The Pipelex brand accents (coral,

@@ -6,17 +6,17 @@ The dividing line, stated once, because everything below follows from it: **anyt
 
 ## Installing
 
-The kernel is an **optional peer dependency**. Graph-only consumers install nothing extra and nothing changes for them; a consumer that wants the form installs it alongside:
+The kernel is an ordinary **dependency** of this package, so install this package alone:
 
 ```bash
-npm install @pipelex/mthds-ui @pipelex/mthds-form mthds
+npm install @pipelex/mthds-ui
 ```
 
-`mthds` is in that line because the kernel declares it a required peer of its own and re-exports its protocol types; a package manager with peer auto-installation adds it either way, but naming it keeps the install correct for one that does not. This library never imports it.
+**Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form` and `@pipelex/mthds-ui/form/react` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
 
-It is a peer, not a dependency, for a reason that bites silently if you get it wrong: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts. If this library carried its own nested copy of the kernel, a provider you mount above the panel would not resolve inside it — the panel would read the kernel's defaults while your app read yours, with nothing in the console to say why. One instance, shared, is the only arrangement that works.
+`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
 
-The same reasoning is why the panel lives behind `./form/react` and never leaks into `./graph/react`. An eslint rule (`no-restricted-imports` in `eslint.config.mjs`) confines every `@pipelex/mthds-form` import to `src/form/**`, and `make smoke-pack` checks the built package from a consumer that deliberately has no kernel installed.
+The kernel declares `mthds` as a required peer of its own and re-exports its protocol types. A package manager with peer auto-installation supplies it; one that does not will ask for it. This library never imports it.
 
 ## Using it
 
@@ -123,23 +123,23 @@ Two stylesheets, two owners.
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 ```
 
-**The controls are the kernel's, and bringing in their styling is your lane.** They are Tailwind classes over shadcn semantic tokens, and there are exactly two ways to serve them. Pick one — they are mutually exclusive:
+**The controls are the kernel's, and this library brings their styling with it.** They are Tailwind classes over shadcn semantic tokens, and both React entries (`./form/react` and `./graph/react`) import the kernel's prebuilt sheet themselves. You add nothing.
 
-1. **You run Tailwind.** Add the kernel's bundle to your `content` globs so its classes are not purged:
-   ```js
-   content: [..., "./node_modules/@pipelex/mthds-form/dist/**/*.js"],
-   ```
-2. **You do not run Tailwind.** Load the kernel's prebuilt pair, which carries Tailwind's preflight:
-   ```ts
-   import "@pipelex/mthds-form/theme.css";
-   import "@pipelex/mthds-form/styles.css";
-   ```
+That was not always true, and the history is the reason the current shape looks indirect. Until v0.20.0 the host had two mutually exclusive lanes: widen its Tailwind `content` globs into `node_modules/@pipelex/mthds-form/dist`, or load the prebuilt sheet by hand. Nobody took the first lane successfully — a content glob stops at the host's own source, `node_modules` is off the sweep, and a host that forgot got a form that was _mostly_ styled, because most of the controls' classes are used elsewhere in a typical app and survive the purge coincidentally. Only the ones unique to the controls disappeared: the input focus ring and border, the placeholder colour, the prose textarea's minimum height, the input background tint, the dropzone's drag-active state. What you saw read like someone broke the design system, not like a missing glob.
 
-**The trap, inherited verbatim in spirit from `pipelex-app/docs/form-kernel-package.md`:** a Tailwind host that forgets the content glob gets a form that is _mostly_ styled. Most of the controls' classes are used elsewhere in a typical app and survive the purge coincidentally; only the ones unique to the controls disappear — the input focus ring and border, the placeholder colour, the prose textarea's minimum height, the input background tint, the dropzone's drag-active state. What you see reads like someone broke the design system, not like a missing glob. If you suspect it, build the stylesheet with and without the entry and diff which selectors are present; do not eyeball the form.
+v0.20.0 made the import our problem and shipped it raw, which traded that failure for a louder one. `styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it arrives in the host's `<head>` after the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning: its bare `.hidden { display: none }` outranked the host's `.sm\:inline`, blanking every `class="hidden sm:inline"` label in the app at every width, and its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything with a border width and no explicit colour class.
 
-Do not do both. `styles.css` carries preflight, so loading it inside a host that compiles the classes itself double-loads the reset.
+v0.21.0 keeps the import and fixes the collision with a **cascade layer**. `src/styles/form-kernel.css` is the whole mechanism:
 
-This library deliberately imports neither into its own CSS. Storybook here takes lane 2, which makes these stories the first place that lane is exercised end to end — see `.storybook/preview.ts`.
+```css
+@import "@pipelex/mthds-form/styles.css" layer(mthds-form);
+```
+
+Layered rules lose to unlayered rules regardless of source order, so a host's own Tailwind keeps every declaration it makes, and we still supply the classes it never generated. Nothing changes for a host with no Tailwind: a layer only decides conflicts, and there are none to decide. `theme.css` stays out either way — it defines the semantic tokens (`--background`, `--border`, …) a shadcn host already owns, and pulling it in would let our copy repaint the host's palette.
+
+**What this means for you:** import `RunPanel.css` for the chrome, and nothing else. Do not add the kernel to your `content` globs and do not import `styles.css` yourself — either one puts a second, unlayered copy of the same utilities in the page, which is exactly the state the layer exists to prevent. `src/styles/__tests__/formKernelLayer.test.ts` guards the shape of the wrapper against a future edit that reinstates the direct import or drops the `layer()`.
+
+The one place the layer is deliberately absent is the **standalone bundle**, which is a plain `readFileSync` concatenation with no module resolution — it ships the resolved sheet listed in `scripts/standaloneCssFiles.mjs`, unlayered, ordered with the vendor base sheets so our own component CSS still has the last word. There is no host stylesheet in a self-contained HTML for it to lose a tie to.
 
 ### The theme bridge, and the hook for overriding tokens
 
@@ -149,12 +149,14 @@ The container carries a stable class name, **`mthds-run-panel`**, as a documente
 
 ```css
 .mthds-run-panel {
-  --primary: 142 71% 45%;
-  --ring: 142 71% 45%;
+  --primary: hsl(142 71% 45%);
+  --ring: hsl(142 71% 45%);
 }
 ```
 
-A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto shadcn's raw HSL triplets — is **deliberately not built**. It needs runtime hex→HSL conversion, and it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
+**Write each token as a complete colour, not as a bare HSL triplet.** Since kernel `0.8.0` the controls are a Tailwind 4 build, and a Tailwind 4 theme holds whole colours: the sheet emits `background-color: var(--primary)` where it used to emit `background-color: hsl(var(--primary))`. So `--primary: 142 71% 45%` no longer composes into anything — it computes to `background-color: 142 71% 45%`, which is not a colour. The rule is then **discarded rather than overridden**, and a discarded declaration is the quietest failure CSS has: the build is green, the token is defined and inspectable, and the control simply falls back to `transparent` or to the initial `canvastext`. Any complete colour works — `hsl(…)`, `oklch(…)`, `#6b21a8` — which is also why the bridge below became easy.
+
+A full automatic bridge — mapping this library's `--surface-*` / `--text-*` values onto the shadcn tokens — is still **not built**, but the reason has shrunk. It used to need runtime hex→HSL conversion, because the triplet form could not accept a hex value at all; whole colours take one directly, so what remains is only the judgement call: it is not obvious the form should follow the graph canvas rather than the host app's design system. Ask for it if you want it.
 
 ### The one place the chrome does not follow the palette: the Run button
 
@@ -195,11 +197,11 @@ make use-local     # or: make ul   — build ../mthds-form, pack it, install the
 make use-npm       # or: make un   — back to the published version package.json pins
 ```
 
-`use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, which is why it is an optional peer at all (see "Installing" above); a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it — the exact failure the peer arrangement exists to prevent. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
+`use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, and a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
 
-Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten: the kernel is named twice there, in `peerDependencies` and `devDependencies`, and the two must agree. Moving that version is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten. The kernel is declared once there, as an ordinary `dependency` at a registry range — a host installs it transitively and never names it, unless it imports the kernel's own helpers itself. Moving that range is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
 
-A local kernel whose version falls outside the pinned range (developing the next minor, say) installs fine — the peer is declared optional, so npm does not treat the mismatch as a conflict. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
+A local kernel whose version falls outside the declared range (developing the next minor, say) installs fine, because `--no-save` puts it in `node_modules` without asking npm to reconcile it against the manifest. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
 
 ```bash
 node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"

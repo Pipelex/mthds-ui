@@ -1,0 +1,160 @@
+{
+  "content_moderation.approve_content": {
+    "field": {
+      "concept_ref": "content_moderation.ModerationResult",
+      "description": "Final moderation result",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_moderation.check_image_safety": {
+    "field": {
+      "concept_ref": "content_moderation.SafetyScore",
+      "description": "Content safety assessment score",
+      "fields": [
+        {
+          "description": "Safety score 0-1",
+          "integer": false,
+          "kind": "number",
+          "name": "score",
+          "required": true
+        },
+        {
+          "description": "Categories flagged",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "flagged_categories",
+          "required": false
+        },
+        {
+          "description": "Whether content is safe",
+          "kind": "boolean",
+          "name": "safe",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "content_moderation.check_text_safety": {
+    "field": {
+      "concept_ref": "content_moderation.SafetyScore",
+      "description": "Content safety assessment score",
+      "fields": [
+        {
+          "description": "Safety score 0-1",
+          "integer": false,
+          "kind": "number",
+          "name": "score",
+          "required": true
+        },
+        {
+          "description": "Categories flagged",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "flagged_categories",
+          "required": false
+        },
+        {
+          "description": "Whether content is safe",
+          "kind": "boolean",
+          "name": "safe",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "content_moderation.make_decision": {
+    "field": {
+      "concept_ref": "content_moderation.Decision",
+      "description": "Moderation decision",
+      "fields": [
+        {
+          "description": "Whether content is approved",
+          "kind": "boolean",
+          "name": "approved",
+          "required": true
+        },
+        {
+          "description": "Reason for decision",
+          "kind": "text",
+          "name": "reason",
+          "required": true
+        },
+        {
+          "choices": [
+            "approve",
+            "reject"
+          ],
+          "description": "Action to take",
+          "kind": "enum",
+          "name": "action",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "content_moderation.moderation_pipeline": {
+    "field": {
+      "concept_ref": "content_moderation.ModerationResult",
+      "description": "Final moderation result",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_moderation.parallel_checks": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "content_moderation.reject_content": {
+    "field": {
+      "concept_ref": "content_moderation.ModerationResult",
+      "description": "Final moderation result",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "content_moderation.route_action": {
+    "field": {
+      "concept_ref": "content_moderation.ModerationResult",
+      "description": "Final moderation result",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

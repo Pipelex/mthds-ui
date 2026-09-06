@@ -95,13 +95,13 @@ schema-refresh:
 # Both targets install with `--no-save`, so package.json is never rewritten.
 # That is deliberate here and is the one place this diverges from the same pair
 # in ../pipelex-starter-js, which restores `@latest` and re-pins. The kernel is
-# named TWICE in this package.json — `peerDependencies` and `devDependencies` —
-# and the two must agree, so moving the version is a reviewed change that
-# belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+# named ONCE here, as an ordinary `dependency` at a registry range, so moving
+# that range is a reviewed change that belongs to the `/bump-mthds-form` skill,
+# not a side effect of leaving dev mode.
 #
 # We pack a tarball rather than symlink because a symlinked kernel is a second
-# React context identity for Vite to resolve, which is exactly the failure the
-# optional-peer arrangement exists to prevent. The tarball gives a real
+# React context identity for Vite to resolve, and one shared instance is the
+# only arrangement the kernel's React contexts survive. The tarball gives a real
 # directory in node_modules. Re-run `make use-local` after every kernel edit.
 #
 # The pack step passes `--ignore-scripts`: mthds-form's `prepare` re-runs its
@@ -124,15 +124,32 @@ use-local:
 	@echo "Building ../mthds-form so dist/ is up-to-date..."
 	cd ../mthds-form && npm run build
 	@echo "Packing ../mthds-form into a tarball..."
-	@cd ../mthds-form && rm -f pipelex-mthds-form-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts) && mv $$TARBALL /tmp/pipelex-mthds-form-local.tgz
-	rm -rf node_modules/@pipelex/mthds-form node_modules/.vite node_modules/.cache/storybook
-	npm install /tmp/pipelex-mthds-form-local.tgz --no-save --silent
-	@rm -f /tmp/pipelex-mthds-form-local.tgz
+	@# `2>/dev/null | tail -1`, and both halves are needed. `--silent` does not
+	@# silence the build tsup runs on pack (nor browserslist's warning), so the
+	@# capture picks up several lines and `mv` fails with "is not a directory" —
+	@# naming a temp path, which reads like a filesystem problem rather than a
+	@# capture one. The filename is always the LAST line.
+	@# `mthds` is packed and installed TOO, and that is not optional. It is the
+	@# kernel's peer, this package pins it at an unpublished `^0.25.0`, and npm
+	@# prunes a devDependency it cannot resolve — so installing the kernel alone
+	@# silently removed it, the kernel's re-exported types became `any` under
+	@# skipLibCheck, and `tsc` stayed green while eslint complained about unsafe
+	@# `any` in files nobody had touched.
+	@#
+	@# Both siblings are reverted first: ../pipelex-app's own `use-local` rewrites
+	@# their manifests to point at each other, and packing one in that state bakes
+	@# `file:../mthds-js` into the tarball, which then refuses to install here.
+	@cd ../mthds-form && git checkout -- package.json
+	@cd ../mthds-js && git checkout -- package.json 2>/dev/null || true
+	@cd ../mthds-js && npm run build >/dev/null && rm -f mthds-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts 2>/dev/null | tail -1) && mv $$TARBALL /tmp/mthds-local.tgz
+	@cd ../mthds-form && rm -f pipelex-mthds-form-*.tgz && TARBALL=$$(npm pack --silent --ignore-scripts 2>/dev/null | tail -1) && mv $$TARBALL /tmp/pipelex-mthds-form-local.tgz
+	rm -rf node_modules/@pipelex/mthds-form node_modules/mthds node_modules/.vite node_modules/.cache/storybook
+	npm install /tmp/mthds-local.tgz /tmp/pipelex-mthds-form-local.tgz --no-save --silent
 	@echo "Now using local ../mthds-form (tarball install of $$(node -p "require('./node_modules/@pipelex/mthds-form/package.json').version")). Re-run after every kernel edit. 'make use-npm' to switch back."
 
 use-npm:
 	rm -rf node_modules/@pipelex/mthds-form node_modules/.vite node_modules/.cache/storybook
-	npm install @pipelex/mthds-form@$$(node -p "require('./package.json').devDependencies['@pipelex/mthds-form']") --no-save
+	npm install @pipelex/mthds-form@$$(node -p "require('./package.json').dependencies['@pipelex/mthds-form']") --no-save
 	@echo "Restored npm-published @pipelex/mthds-form $$(node -p "require('./node_modules/@pipelex/mthds-form/package.json').version") (the range package.json pins). Run 'make use-local' to switch back."
 
 ul: use-local

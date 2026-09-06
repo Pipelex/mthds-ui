@@ -1,6 +1,6 @@
 ---
 name: bump-mthds-form
-description: Bump the @pipelex/mthds-form optional peer dependency in mthds-ui to a newer published version. Reads the form kernel's CHANGELOG.md for the versions in between, checks each change against the seams this library consumes (the gate in src/form/runGate.ts, the controls in RunPanel.tsx, the tsup externals, the Storybook styling lane, the generated contracts fixtures), moves BOTH the peerDependencies and devDependencies ranges, honours the pending S2 contracts-reshape obligation, runs check/test/smoke-pack, and prepares a reviewable commit. Use whenever the user says "bump mthds-form", "bump the form kernel", "update @pipelex/mthds-form", "upgrade the form package", "is there a new mthds-form version", "pull in the new kernel", or asks to move this repo onto a newer form-kernel release — and reach for it too when someone asks whether RunPanel is on the latest kernel.
+description: Bump the @pipelex/mthds-form optional peer dependency in mthds-ui to a newer published version. Reads the form kernel's CHANGELOG.md for the versions in between, checks each change against the seams this library consumes (the gate in src/form/runGate.ts, the controls in RunPanel.tsx, the tsup externals, the Storybook styling lane, the generated contracts fixtures), moves the single dependencies range, runs check/test/smoke-pack, and prepares a reviewable commit. Use whenever the user says "bump mthds-form", "bump the form kernel", "update @pipelex/mthds-form", "upgrade the form package", "is there a new mthds-form version", "pull in the new kernel", or asks to move this repo onto a newer form-kernel release — and reach for it too when someone asks whether RunPanel is on the latest kernel.
 ---
 
 # Bump `@pipelex/mthds-form`
@@ -9,9 +9,9 @@ description: Bump the @pipelex/mthds-form optional peer dependency in mthds-ui t
 
 This is the sibling of `pipelex-starter-js`'s skill of the same name, and the staged-confirmation style is the same — every step that edits files or runs `npm install` is visible before moving on. **What differs is that this repo is a library, not an app**, and that changes three things fundamentally:
 
-1. **There are two version sites, not one.** The kernel is an _optional peer dependency_ (`peerDependencies` + `peerDependenciesMeta.optional`) **and** a `devDependency` for local work. The dev range is what `make check`/`make test` actually run against; the peer range is what a downstream host resolves. Moving one without the other produces a green suite that lies.
-2. **Moving the peer range is a breaking change for consumers of `@pipelex/mthds-ui`.** A host pinned to `^0.2.0` cannot satisfy `^0.3.0`. That earns a changelog bullet in this repo's own terms — the starter app never faces this, because it has no consumers.
-3. **There is an owed follow-up waiting on a specific kernel release** — the S2 contracts reshape, Step 6. It is the one step in this workflow that can quietly corrupt the fixture tree if taken at the wrong moment, so read that step before touching `make fixtures-contracts` for any reason.
+1. **The kernel is an ordinary `dependency`, declared once.** It was an optional peer named twice (`peerDependencies` + `devDependencies`) until `4462773` collapsed it to a single registry range under `dependencies`. A host therefore installs it transitively and never names it — which is also why this library's own copy of the kernel's prebuilt stylesheet is the one that reaches the page.
+2. **Moving that range is a breaking change for consumers of `@pipelex/mthds-ui`.** It changes which build of the kernel a host resolves, and with it the stylesheet this library imports. That earns a changelog bullet in this repo's own terms — the starter app never faces this, because it has no consumers.
+3. **The stylesheet's token contract travels with the range.** Since kernel `0.8.0` the sheet is a Tailwind 4 build reading whole colours, so a host defining shadcn tokens as bare HSL triplets loses them silently. Step 8 says what a changelog entry owes that host.
 
 Don't assume the sibling `../mthds-form` checkout exists — always keep the GitHub-raw fallback ready.
 
@@ -19,15 +19,14 @@ Don't assume the sibling `../mthds-form` checkout exists — always keep the Git
 
 Show the user:
 
-1. The peer range: `node -p "require('./package.json').peerDependencies['@pipelex/mthds-form']"`
-2. The dev range: `node -p "require('./package.json').devDependencies['@pipelex/mthds-form']"`
-3. What is actually installed: `node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"`
-4. The latest published version: `npm view @pipelex/mthds-form version`
-5. Working tree status (`git status --short`)
+1. The declared range: `node -p "require('./package.json').dependencies['@pipelex/mthds-form']"`
+2. What is actually installed: `node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"`
+3. The latest published version: `npm view @pipelex/mthds-form version`
+4. Working tree status (`git status --short`)
 
-**The two ranges should be identical.** If they have drifted, say so before doing anything else — a previous bump moved one and forgot the other, and the answer to "what version is this repo on?" depends on who is asking. Fix that as part of this bump.
+**If `package.json` names the kernel anywhere but `dependencies`, stop and say so** — the single-site arrangement is deliberate (`4462773`, "Declare the form kernel once, at a registry range") and a second site means someone reintroduced the peer/dev split this repo moved away from.
 
-There is no `make use-local` / `make use-npm` lane in this repo, so a mismatch between the installed version and the ranges means someone linked or hand-installed a build. Flag it and offer `npm install` to return to a clean baseline before bumping.
+A mismatch between the installed version and the declared range usually means `make use-local` is still in effect — that lane installs with `--no-save`, so the manifest looks untouched. `make use-npm` returns to a clean baseline; do that before bumping.
 
 A dirty tree is not a blocker — `make check` doesn't require a clean one — but note it, since your diff lands alongside whatever is already in flight. Ask before editing `package.json` / `package-lock.json` if either is already dirty.
 
@@ -97,7 +96,7 @@ The workspace principle applies here — flag and fix pre-existing bugs you find
 
 ## Step 5 — Apply the bump and run the checks
 
-1. Edit **both** `"@pipelex/mthds-form"` lines in `package.json` — `peerDependencies` and `devDependencies` — to `"^{TARGET_VERSION}"`. Keep the caret style; don't switch to an exact pin, and don't widen to `"^0.2.0 || ^0.3.0"` (the code can only be written against one shape, and the workspace runs no deprecation windows).
+1. Edit the single `"@pipelex/mthds-form"` line under `dependencies` in `package.json` to `"^{TARGET_VERSION}"`. Keep the caret style; don't switch to an exact pin, and don't widen to `"^0.2.0 || ^0.3.0"` (the code can only be written against one shape, and the workspace runs no deprecation windows).
 2. `npm install` — not `--package-lock-only`. Storybook's prebuilt CSS lane and the smoke test read the installed `dist/`, not the manifest.
 3. Confirm: `node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"` reads `TARGET_VERSION`.
 4. Run `make check && make test`. The node project runs the real gate over real contracts; the browser project runs the form stories against the kernel's real controls.
@@ -106,7 +105,7 @@ On failure, show the errors and connect them to the Step 4 checklist rather than
 
 ## Step 6 — The contracts fixtures: an owed step, and a foot-gun
 
-Read `wip/adopt-form/contracts-fixture-reshape-obligation.md` before deciding anything here. The short version:
+**This obligation is discharged** — the fixtures were reshaped in the change that moved this repo onto the post-`0.3.0` kernel, and `wip/adopt-form/contracts-fixture-reshape-obligation.md` is now a record of why the ordering was safe rather than something owed. Read it before touching `make fixtures-contracts` anyway, because the foot-gun below is still live: the dumper shells out to an editable pipelex install, so a stray regeneration reshapes fixtures whatever version it reports. The history it records:
 
 `pipelex` PR #1149 reshaped `pipe_io_contracts` — an input's boolean `optional` became a three-valued `presence`, and `multiplicity` gained a `fixed` arm carrying `item_count`. The fixtures in this repo are **pre-reshape**, and so was the kernel at `0.2.0`. They agree, which is exactly what hides the problem: nothing here can go red on its own.
 
@@ -114,7 +113,7 @@ The local pipelex venv is an _editable_ install pointing at the sibling checkout
 
 So:
 
-1. **Determine whether `TARGET_VERSION` takes the reshape.** The changelog is the first read, but ask the installed artifact rather than trusting that someone wrote a bullet — after Step 5's install, one grep settles it:
+1. **Confirm the installed kernel is post-S2** — it has been since `0.4.0`, but ask the artifact rather than trusting a changelog. After Step 5's install, one grep settles it:
 
    ```bash
    grep -rho "optional !== true\|\.presence\|item_count" node_modules/@pipelex/mthds-form/dist/ | sort | uniq -c
@@ -133,7 +132,7 @@ Before trusting any regeneration, the doc's own check tells you what the interpr
 
 If `presence` is in that list and the kernel is still pre-S2, do not refresh.
 
-When the obligation is discharged, delete `wip/adopt-form/contracts-fixture-reshape-obligation.md` in the same commit — a satisfied obligation left lying around gets re-satisfied by the next reader.
+Leave `wip/adopt-form/contracts-fixture-reshape-obligation.md` where it is. It opens by saying it is discharged, and it is kept deliberately: the ordering it records is why the regeneration was safe, and a reader who finds only a clean tree cannot reconstruct that.
 
 ## Step 7 — Prove the packaging contract, and look at the form
 
@@ -181,7 +180,7 @@ Then **offer** pushing and opening a PR — target branch `dev` per the workspac
 
 ## Rules
 
-- Move **both** ranges — the peer range and the dev range — or the suite passes against a version consumers cannot resolve.
+- The kernel is declared once, under `dependencies`. If you find a second site, stop and ask — it is drift, not a second range to keep in step.
 - Never use `git add .` or `git add -A`; stage only what this bump touched.
 - Never push or open a PR without explicit approval, and never merge one.
 - Never guess at a fix for a behaviour change (gate semantics, wire shapes, rendering) — flag it and let the user decide.

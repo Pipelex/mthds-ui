@@ -1,0 +1,122 @@
+{
+  "customer_support.caption_response": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.classify_request": {
+    "field": {
+      "concept_ref": "customer_support.ClassifiedRequest",
+      "description": "User request classified by type",
+      "fields": [
+        {
+          "description": "Original request",
+          "kind": "text",
+          "name": "request_text",
+          "required": true
+        },
+        {
+          "choices": [
+            "text_query",
+            "image_request"
+          ],
+          "description": "Request type",
+          "kind": "enum",
+          "name": "request_type",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "customer_support.draft_text": {
+    "field": {
+      "concept_ref": "customer_support.DraftResponse",
+      "description": "A draft response to the user",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.generate_response_image": {
+    "field": {
+      "concept_ref": "native.Image",
+      "description": "An image",
+      "kind": "image",
+      "name": "output",
+      "required": true
+    }
+  },
+  "customer_support.image_response_path": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.polish_text": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.route_response": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.smart_responder": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "customer_support.text_response_path": {
+    "field": {
+      "concept_ref": "customer_support.Response",
+      "description": "Final delivered response",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  }
+}

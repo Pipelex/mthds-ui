@@ -42,6 +42,21 @@
     "output": {
       "concept_ref": "content_moderation.ModerationResult",
       "item_count": null,
+      "json_schema": {
+        "description": "Final moderation result",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_moderation.ModerationResult",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -73,6 +88,41 @@
     "output": {
       "concept_ref": "content_moderation.SafetyScore",
       "item_count": null,
+      "json_schema": {
+        "description": "Content safety assessment score",
+        "properties": {
+          "flagged_categories": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Categories flagged",
+            "title": "Flagged Categories"
+          },
+          "safe": {
+            "description": "Whether content is safe",
+            "title": "Safe",
+            "type": "boolean"
+          },
+          "score": {
+            "description": "Safety score 0-1",
+            "title": "Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "score",
+          "safe"
+        ],
+        "title": "content_moderation.SafetyScore",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -104,6 +154,41 @@
     "output": {
       "concept_ref": "content_moderation.SafetyScore",
       "item_count": null,
+      "json_schema": {
+        "description": "Content safety assessment score",
+        "properties": {
+          "flagged_categories": {
+            "anyOf": [
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Categories flagged",
+            "title": "Flagged Categories"
+          },
+          "safe": {
+            "description": "Whether content is safe",
+            "title": "Safe",
+            "type": "boolean"
+          },
+          "score": {
+            "description": "Safety score 0-1",
+            "title": "Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "score",
+          "safe"
+        ],
+        "title": "content_moderation.SafetyScore",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -196,6 +281,37 @@
     "output": {
       "concept_ref": "content_moderation.Decision",
       "item_count": null,
+      "json_schema": {
+        "description": "Moderation decision",
+        "properties": {
+          "action": {
+            "description": "Action to take",
+            "enum": [
+              "approve",
+              "reject"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "approved": {
+            "description": "Whether content is approved",
+            "title": "Approved",
+            "type": "boolean"
+          },
+          "reason": {
+            "description": "Reason for decision",
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "approved",
+          "reason",
+          "action"
+        ],
+        "title": "content_moderation.Decision",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -227,6 +343,21 @@
     "output": {
       "concept_ref": "content_moderation.ModerationResult",
       "item_count": null,
+      "json_schema": {
+        "description": "Final moderation result",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_moderation.ModerationResult",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -258,6 +389,13 @@
     "output": {
       "concept_ref": "native.Composite",
       "item_count": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "A named composition of contents",
+        "properties": {},
+        "title": "native.Composite",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -305,6 +443,21 @@
     "output": {
       "concept_ref": "content_moderation.ModerationResult",
       "item_count": null,
+      "json_schema": {
+        "description": "Final moderation result",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_moderation.ModerationResult",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -352,6 +505,21 @@
     "output": {
       "concept_ref": "content_moderation.ModerationResult",
       "item_count": null,
+      "json_schema": {
+        "description": "Final moderation result",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_moderation.ModerationResult",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

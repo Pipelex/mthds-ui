@@ -1,0 +1,90 @@
+{
+  "native_sampler.count_words": {
+    "field": {
+      "concept_ref": "native.Number",
+      "description": "A number",
+      "integer": false,
+      "kind": "number",
+      "name": "output",
+      "required": true
+    }
+  },
+  "native_sampler.extract_facts": {
+    "field": {
+      "concept_ref": "native.JSON",
+      "description": "A JSON object",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "native_sampler.illustrate": {
+    "field": {
+      "concept_ref": "native.TextAndImages",
+      "description": "A text and an image",
+      "fields": [
+        {
+          "concept_ref": "native.Text",
+          "description": "A text content",
+          "kind": "prose",
+          "name": "text",
+          "required": false
+        },
+        {
+          "concept_ref": "native.Image",
+          "description": "A list of images that were extracted from the text",
+          "item": {
+            "concept_ref": "native.Image",
+            "description": "An image",
+            "kind": "image",
+            "required": true
+          },
+          "kind": "list",
+          "name": "images",
+          "required": false
+        },
+        {
+          "description": "The raw HTML of the fetched page, if requested",
+          "kind": "text",
+          "name": "raw_html",
+          "required": false
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "native_sampler.render_html": {
+    "field": {
+      "concept_ref": "native.Html",
+      "description": "HTML content",
+      "fields": [
+        {
+          "description": "The inner HTML of the content",
+          "kind": "text",
+          "name": "inner_html",
+          "required": true
+        },
+        {
+          "description": "The CSS class of the content",
+          "kind": "text",
+          "name": "css_class",
+          "required": false
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "native_sampler.sample_natives": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  }
+}

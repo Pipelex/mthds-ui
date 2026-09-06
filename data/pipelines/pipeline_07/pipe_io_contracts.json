@@ -26,6 +26,34 @@
     "output": {
       "concept_ref": "translation.ClassifiedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text with detected language",
+        "properties": {
+          "language": {
+            "description": "Detected language code",
+            "enum": [
+              "english",
+              "french",
+              "spanish",
+              "german",
+              "other"
+            ],
+            "title": "Language",
+            "type": "string"
+          },
+          "text": {
+            "description": "The original text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "language"
+        ],
+        "title": "translation.ClassifiedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -70,6 +98,21 @@
     "output": {
       "concept_ref": "translation.TranslatedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "translation.TranslatedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -114,6 +157,21 @@
     "output": {
       "concept_ref": "translation.TranslatedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "translation.TranslatedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -158,6 +216,21 @@
     "output": {
       "concept_ref": "translation.TranslatedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "translation.TranslatedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -202,6 +275,21 @@
     "output": {
       "concept_ref": "translation.TranslatedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "translation.TranslatedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -233,6 +321,21 @@
     "output": {
       "concept_ref": "translation.TranslatedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text translated to English",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "translation.TranslatedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

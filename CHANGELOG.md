@@ -12,6 +12,109 @@
 
 - **Intent hints are parsed and dropped, deliberately**: `hints` on an input slot is accepted and does not reach the `GraphSpec`. Hints travel to consumers on the input-form descriptor, which this library already renders through `@pipelex/mthds-form` — the runtime's `StuffSpec` has no `hints` field, so carrying them on a static spec would diverge from every dry and live spec. The rationale is written up in `docs/static-graph.md`.
 
+## [v0.23.0] - 2026-09-04
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to `^0.8.0`, and with it the controls' stylesheet changes what it asks of your tokens. This is breaking for a host that themes the form.** Both React entries import the kernel's prebuilt sheet themselves, so the kernel's Tailwind 4 migration arrives here whether or not your app ever names the package. A Tailwind 4 theme holds **whole colours**, so the sheet now emits `background-color: var(--background)` where it used to emit `background-color: hsl(var(--background))`. Define the shadcn tokens you override as complete colours — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)`, any of them — and not as the bare HSL triplets Tailwind 3 wanted.
+
+  **Getting it wrong is silent, which is the part worth reading twice.** A leftover triplet computes to `background-color: 240 5.9% 10%`, which is not a colour, so the browser **discards** the declaration instead of overriding with it. Nothing fails: the build is green, the token is defined and inspects correctly in devtools, and the control simply falls back to `transparent` or to the initial `canvastext`. What you see is a panel with no surface colour and a white label on a pale background — which reads like a contrast bug or a broken design system, and sends you looking anywhere except at a stylesheet. Searching for a rule that sets the colour finds nothing, because the rule that wins sets it to something unparseable.
+
+  **If your app declares `@pipelex/mthds-form` itself, the better move is to stop.** The kernel is a dependency of this package, so you get it without naming it, and a second declaration means a second copy in the tree — which breaks more than styling: the kernel ships React contexts, so `FieldStringsProvider` and `FieldPresentationProvider` mounted above the panel stop resolving inside it, and the panel reads the kernel's defaults while your app reads yours, silently. If you must keep the direct dependency because you import the kernel's own helpers, move it to `^0.8.0` in the **same commit** as this one: a caret range below 1.0 does not bridge a minor, so the two would otherwise resolve to different builds. And a git-commit pin taken to get a Tailwind 4 build ahead of its release has done its job — drop it.
+
+  **One support note.** The Tailwind 4 sheet uses `color-mix()`, `@property` and `@layer`, none of which the previous build used at all. They are widely available, but if your support matrix reaches browsers older than roughly 2023, check the panel before shipping. `README.md` and `docs/run-form-panel.md` carry the corrected override example.
+
+### Fixed
+
+- **The documentation told hosts to write token overrides in exactly the form this release breaks.** `README.md` and both of `docs/run-form-panel.md` and `docs/theming.md` gave the worked example as `--primary: 142 71% 45%`, the bare triplet that now computes to something which is not a colour and is discarded. All three are corrected to complete colours, with the discard mechanism spelled out beside each. The README matters most of the three: it is the only one that ships in the npm tarball, so it is what a consumer reads on the registry page.
+
+- **The README also carried pre-v0.20.0 styling advice that is now actively harmful.** It told hosts to add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to their Tailwind globs, or to import the kernel's `theme.css` and `styles.css` themselves. Either one puts a second, unlayered copy of the kernel's utilities in the page — precisely the state the cascade layer introduced in v0.21.0 exists to prevent, and the one `src/styles/__tests__/formKernelLayer.test.ts` guards against. It now says the stylesheet ships with the package and that you add nothing.
+
+- **Three documents still described the kernel as an optional peer, one of them contradicting itself.** `README.md` listed it in the peer-dependency table and told hosts to install it directly; `docs/run-form-panel.md` said "it is a peer, not a dependency" in its Installing section while its own later sections described a dependency; `CLAUDE.md`, the `Makefile` comments and `.claude/skills/bump-mthds-form/` said it was named twice, in `peerDependencies` and `devDependencies`. All of it stale since the kernel became an ordinary `dependency` declared once at a registry range. Declaring it yourself is now the thing to avoid, because a second declaration is a second copy and the kernel ships React contexts.
+
+- **`make use-npm` was broken, and it deleted the kernel before failing.** It resolved the version to restore by reading `package.json`'s `devDependencies` entry, which has not existed since the kernel moved to `dependencies`, so it ran `npm install @pipelex/mthds-form@undefined` — a 404 — one line after having already removed `node_modules/@pipelex/mthds-form`. Leaving dev mode left you with no kernel at all.
+
+- **The `/bump-mthds-form` skill's account of the contracts-fixture obligation is corrected** — that obligation has been discharged since the post-`0.3.0` adoption, and its note is kept rather than deleted, as the note itself asks.
+
+- **No closed-source repository is named in this package any more.** A consuming application was named by name in a comment in `src/styles/form-kernel.css`, which ships as `dist/styles/form-kernel.css`, and in `src/shiki/pipelexLightTheme.ts`, which reaches consumers through the emitted `.d.ts` and the source map. Both now say "a consuming application". `CLAUDE.md` gains the rule so it stays that way; already-dated changelog entries are left as the historical record they are.
+
+- **A second `## [Unreleased]` heading had been sitting in the middle of this changelog since v0.20.0, filing shipped work as unreleased.** The v0.20.0 cut inserted its own heading above the pending section instead of renaming it, so the `StuffViewer` deletion, the `output_form` fixtures and `findStuffByDigest` — all of which went out in v0.20.0 on 2026-09-02 — have been reading as unreleased ever since. The stray heading is removed and that content now sits under v0.20.0 where it shipped. Nothing moved between releases; only the heading that misfiled them is gone.
+
+## [v0.22.0] - 2026-09-03
+
+### Fixed
+
+- **The graph's stuff panel names the STUFF, not the descriptor's root node.** Opening a data node headed its panel `output` — every result, every pipe. That is what `build_output_form` calls the root, and it is right in the artifact: the descriptor describes an output SLOT, which has no name of its own. It is wrong on screen, where the reader has just clicked a node called `report_pages` and the input panel beside it is headed `annual_report` — three surfaces naming one data item, and the middle one saying nothing. `StuffResultPanel` passes `stuff.name` through the kernel's new `StuffViewer` `name` prop. The graph is the one that knows which node was opened, so the graph is the one that says.
+
+### Changed
+
+- **`@pipelex/mthds-form` moves to ^0.7.0.** The release that carries the `name` prop above, and three layout fixes to the result view: a structure's values are flushed to the right edge of their column instead of trailing the label, a table's header is a filled `bg-muted` band rather than a near-invisible hairline, and the table fills its box instead of stopping mid-way. Its open-row detail also stops overhanging the scroller by the width of the chevron column — invisible while the detail's values started at the left, a clean cut through the last characters of each once they ended at the right.
+
+## [v0.21.0] - 2026-09-03
+
+### Fixed
+
+- **The form kernel's stylesheet now arrives in a cascade layer, so it stops overriding the host's own Tailwind.** v0.20.0 was right that the kernel's classes are ours to ship and wrong to ship them raw. `@pipelex/mthds-form/styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it lands in the host's `<head>` *after* the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning, and the failure looked nothing like a stylesheet problem:
+
+  - Its bare `.hidden { display: none }` outranked the host's `.sm\:inline` — equal specificity, ours last — so every `class="hidden sm:inline"` label in the host app vanished at every width. In `pipelex-app` that blanked the toolbar's Deploy / Dry Run / Run labels, the deploy dialog's tab labels and the responsive separators, leaving a row of unlabelled icons that appeared and disappeared with the flowchart.
+  - Its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything carrying a border width and no explicit colour class.
+
+  Both React entries now import `src/styles/form-kernel.css`, which is one line — `@import "@pipelex/mthds-form/styles.css" layer(mthds-form);`. Layered rules lose to unlayered rules regardless of source order, so a host keeps every declaration it makes itself and still gets the classes it never generated. A host with no Tailwind sees no change at all: a layer only decides conflicts, and there are none to decide. `theme.css` stays out as before — those tokens belong to the host.
+
+  **Why a layer rather than the alternatives.** Dropping the import returns to the arrangement v0.20.0 fixed, where a Tailwind host silently renders a subset of the controls. A Tailwind `prefix` renames every class in the kernel's source. An `important` selector strategy raises specificity but still emits a bare `.hidden`. The layer is the only option that changes who wins without changing a single class name.
+
+  `src/styles/__tests__/formKernelLayer.test.ts` guards the shape against a future edit that reinstates the direct import or drops the `layer()`, and `docs/run-form-panel.md` carries the full account.
+
+### Changed
+
+- **Storybook takes the shipped lane.** `.storybook/preview.ts` imported `@pipelex/mthds-form/styles.css` directly, which is the raw sheet this release exists to stop shipping — so the stories were exercising a lane no consumer takes. It now imports `src/styles/form-kernel.css`, the same wrapper the React entries use. It stays an explicit import rather than an inherited one because the stories reach components by their deep paths (`@form/react/RunPanel`, `@graph/react/viewer/GraphViewer`) and never through `index.ts`, so an entry's side-effect import never runs there. `theme.css` is still imported here: this repo runs no Tailwind of its own, and Storybook is the host that owes those tokens.
+
+- **The standalone bundle ships the kernel's utilities.** It never had them: `scripts/standaloneCssFiles.mjs` is a hand-maintained allow-list and the kernel's sheet had only ever been reached through a bare package specifier, which the manifest's regression guard does not scan for. The resolved sheet is now listed beside `@xyflow`'s, ordered with the vendor base sheets so our own component CSS keeps the last word. It goes in unlayered on purpose — a self-contained HTML has no host stylesheet to lose a tie to, and the bundle is a plain `readFileSync` concatenation that cannot resolve an `@import` anyway. `STANDALONE_CSS_ALIASES` records that the wrapper stands for the resolved file, so the guard keeps its teeth: an unmapped, unlisted CSS import still fails.
+
+## [v0.20.0] - 2026-09-02
+
+### Fixed
+
+- **The form kernel's styles ship with it, so a host stops rendering a subset of them.** Both React entries now import `@pipelex/mthds-form/styles.css`. A Tailwind host is supposed to generate those utilities by scanning the kernel and no host did: content globs stop at the host's own source and `node_modules` is off the sweep, so a host got exactly the classes it happened to use elsewhere and silently missed the rest. What showed was the result grid — its column template is an arbitrary value nothing else writes, so it was never generated, the grid fell back to a plain block, and a structured result rendered as a stack of labels each above its own value instead of two aligned columns. The gap was never limited to that class, and nothing reported it.
+
+  The host cannot fix this itself, which is why the fix is here: it does not depend on the kernel directly — that indirection is the point of the re-export — neither package exports `./package.json`, and the export entries carry no `require` condition, so both routes a Tailwind config could take to locate the kernel are closed. `./graph/react` imports it as well as `./form/react`, because `GraphViewer` is usually pulled in on its own, often through a dynamic import, with the form entry never touched. `theme.css` stays out: it defines the semantic tokens a shadcn host already owns.
+
+### Changed
+
+- **The bundled MTHDS JSON Schema moves to `pipelex` v0.55.0.** The copy under `data/schema/` stood at v0.43.1 and described neither the `hints` members on a concept and a structure field nor `InputSlotBlueprint` — the expanded form in which a pipe's `inputs` value may be a table, `x = { concept = "S", hints = { intent = "prose" } }`, rather than only the string `x = "S"`. Also arriving with the version: `PipeLLMBlueprint.templating_style`, and the removal of `LLMSetting.prompting_target` with its `PromptingTarget` definition, which the old copy would otherwise keep accepting after the language dropped them. This repo's refresh copies `pipelex/derived/` directly rather than pulling the hosted chain, so the copy tracks the release without waiting on the mthds site deploy; the schema taken here was verified byte-identical to the one generated at the released `v0.55.0` tag, so no unreleased blueprint shape rides along.
+
+- **BREAKING — `@pipelex/mthds-form` is a DEPENDENCY, re-exported from `./form` and `./form/react`, and the `renderStuffData` render prop is gone.** The kernel was optional and isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` took a render function instead of importing `ResultPanel`. That was right while the kernel powered only the run form — a host embedding a graph viewer need not offer a way to run methods — and it stopped being right the moment `output_form` became how the viewer shows a result **at all**. A viewer whose detail panel cannot display data is not a viewer.
+
+  Pass the artifacts instead: `<GraphViewer graphspec contracts outputForm inputForm />`. `StuffResultPanel` moved from `./form/react` to the graph's detail panel and is exported from `./graph/react`; `renderStuffResult`, `RenderStuffData` and `StuffRenderContext` are deleted. A consumer that passes no artifacts still gets the concept's structure table and no data tab — the floor for a static graph or a spec restored without its validate report.
+
+  **A dependency, not a peer**, and the route there is worth recording because the obvious answer failed. A _required peer_ is auto-installed by npm — `make smoke-pack` proved it — and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not a property a library can offer, so a host would still have had to declare the kernel itself, which is the thing this change exists to remove.
+
+  So it is a dependency, and the objection that used to rule that out — two copies means two React context identities, and a host's `FieldStringsProvider` silently fails to resolve inside our controls — is answered by the rule that comes with it: **a consumer imports the kernel through `@pipelex/mthds-ui/form` and `…/form/react`, never directly.** A host that declares nothing cannot produce a second copy. `make smoke-pack` asserts exactly that from a bare consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
+
+- **New `./form` entry** — the kernel's React-free surface, re-exported. The mirror of the kernel's own `.` entry (descriptor vocabulary, derivation, readiness, run gate, value plumbing), importable from a server action or a worker. `./form/react` re-exports the controls the same way.
+
+  The `no-restricted-imports` / `no-restricted-syntax` block that policed the old boundary is removed — there is no boundary left to police. `shiki` is now the only optional peer.
+
+- **BREAKING — `StuffViewer` is deleted; the graph's data panel renders through the form kernel.** The old viewer offered three tabs (HTML, JSON, Pretty), which was an honest admission of an unanswerable question: a `GraphSpec` states a concept and a payload and nothing about what that payload IS, so it sniffed URLs, guessed MIME types from extensions and ran model-authored `data_html` through DOMPurify. The standard answers that question in artifacts built for it — `output_form` gives a pipe's result one descriptor node, and the output half of `pipe_io_contracts` gives the payload's JSON Schema beside it — so the panel now pairs them through `@pipelex/mthds-form`'s `buildResultField` and renders `ResultPanel`: a table for a list of records, a two-column grid for a structure, a gallery for images, a sandboxed frame for markup, markdown for prose. Nothing inspects the value to decide. See [docs/stuff-result-panel.md](docs/stuff-result-panel.md).
+
+  The kernel is an **optional** peer isolated behind `./form/react`, so `GraphViewer` takes a render prop rather than importing it: `renderStuffData={renderStuffResult({ contracts, outputForm })}`, exported from `@pipelex/mthds-ui/form/react`. The graph owns the selection, the lookup and the panel; the renderer owns the view. A consumer that passes nothing gets the concept's structure table and no data tab — the deliberate floor, because a tab opening onto an empty pane reads as data that failed to load.
+
+  Removed from `GraphViewerProps`: `resolveStorageUrl`, `canEmbedPdf`, `onOpenExternally` — all three existed solely for `StuffViewer`. `onStuffNodeClick` now receives a `GraphSpecNodeIoItem` rather than the deleted `StuffViewerData`, and `ConceptDetailPanel`'s `ioData` takes the same one shape. The `./graph/react/stuff/StuffViewer.css` export-map entry is gone, and `dompurify` has left `dependencies` — it was there only to sanitize `data_html`.
+
+  **One capability is genuinely lost and is not replaced here.** `resolveStorageUrl` exchanged `pipelex-storage://` URIs for presigned URLs before painting media; the kernel has no equivalent seam yet, so a result carrying a storage reference shows the file named rather than rendered. That belongs in the kernel's file arms, where every consumer gets it.
+
+### Added
+
+- **`output_form` in the generated fixtures.** `scripts/dump_validate_views.py` now calls pipelex's `build_output_form` beside the two builders it already ran — all three from one library window, since they iterate the same loaded pipes and share one key set — and the generator writes `output_form.json` beside each pipeline's bundle and an `OUTPUT_FORM_*` export in each split module. A pipeline must carry all three files to appear in the fixture; emitting a split without a descriptor would compile and render an empty result, while dropping it fails the story that imports the missing export, loudly and by name.
+
+- **`findStuffByDigest` / `pipeRefOf`** (`@pipelex/mthds-ui/graph`) — the walk from a data item back to the pipe that produced it, which is the join both result artifacts are keyed by. Two passes, and the order is load-bearing: the same digest appears on the producer's `outputs` and on every consumer's `inputs`, and only the producer's copy is guaranteed to carry the payload. It also reports the first pipe that CONSUMES the item, which is the fallback identity for a method's own inputs.
+
+- **A method's own inputs render too.** They have no producing pipe, so no output descriptor describes them — but the CONSUMING pipe's `input_form` entry for their slot does: the same field, seen from the other side. Pass `inputForm` alongside the other two to `renderStuffResult` and the top of a graph shows what the run was actually given. **Single-valued slots only**, and that is a correctness boundary rather than caution: an input's `json_schema` describes what a caller SENDS, so a plural slot's is a bare array, while a stuff's payload is what the runtime HOLDS, which for a plural value is a `ListContent {items}` envelope. On the single arm the two are byte-identical by construction; on the plural arm they provably disagree, so the fallback declines.
+
+- **Every per-pipeline graph story shows its run's data.** All 34 `Graph - from run/NN …` stories now pass `renderStuffData`, wired through `stuffRendererFor(name)` and the generated `ARTIFACT_SETS` map — so clicking a data node in any of them shows what that step produced, or what the method was given, rather than a schema table. (`26 Wide Parallel` and `27 Wide Batch` are the exceptions and correctly so: their specs are built by generators, not by a bundle, so there are no artifacts to describe them.)
+
+- **`RenderStuffData` / `StuffRenderContext`** (`@pipelex/mthds-ui/graph/react`) — the seam's types, for a host rendering stuff data its own way.
+
 ## [v0.19.0] - 2026-08-29
 
 ### Added

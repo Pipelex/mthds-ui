@@ -26,6 +26,21 @@
     "output": {
       "concept_ref": "content_etl.ProcessedImage",
       "item_count": null,
+      "json_schema": {
+        "description": "Processed image with metadata",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.ProcessedImage",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -256,6 +271,21 @@
     "output": {
       "concept_ref": "content_etl.CleanText",
       "item_count": null,
+      "json_schema": {
+        "description": "Cleaned and normalized text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.CleanText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -308,6 +338,21 @@
     "output": {
       "concept_ref": "content_etl.ProcessedContent",
       "item_count": null,
+      "json_schema": {
+        "description": "Combined processed content",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.ProcessedContent",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -538,6 +583,13 @@
     "output": {
       "concept_ref": "native.Composite",
       "item_count": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "A named composition of contents",
+        "properties": {},
+        "title": "native.Composite",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -569,6 +621,21 @@
     "output": {
       "concept_ref": "content_etl.EnrichedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text enriched with metadata",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.EnrichedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -665,6 +732,21 @@
     "output": {
       "concept_ref": "content_etl.ProcessedContent",
       "item_count": null,
+      "json_schema": {
+        "description": "Combined processed content",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.ProcessedContent",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -761,6 +843,233 @@
     "output": {
       "concept_ref": "native.Page",
       "item_count": null,
+      "json_schema": {
+        "$defs": {
+          "ImageContent": {
+            "description": "An image",
+            "properties": {
+              "caption": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The caption of the image",
+                "title": "Caption"
+              },
+              "filename": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The original filename of the image",
+                "title": "Filename"
+              },
+              "height": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The height of the image, in pixels",
+                "title": "Height"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The MIME type of the image",
+                "title": "Mime Type"
+              },
+              "public_url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The public URL of the image",
+                "title": "Public Url"
+              },
+              "source_negative_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source negative prompt of the image",
+                "title": "Source Negative Prompt"
+              },
+              "source_prompt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The source prompt of the image",
+                "title": "Source Prompt"
+              },
+              "url": {
+                "description": "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
+                "title": "Url",
+                "type": "string"
+              },
+              "width": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The width of the image, in pixels",
+                "title": "Width"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "ImageContent",
+            "type": "object"
+          },
+          "PageContent": {
+            "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+            "properties": {
+              "page_view": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/ImageContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The screenshot of the page"
+              },
+              "text_and_images": {
+                "$ref": "#/$defs/TextAndImagesContent",
+                "description": "The text and images content extracted from the page"
+              }
+            },
+            "required": [
+              "text_and_images"
+            ],
+            "title": "PageContent",
+            "type": "object"
+          },
+          "TextAndImagesContent": {
+            "properties": {
+              "images": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/ImageContent"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A list of images that were extracted from the text",
+                "title": "Images"
+              },
+              "raw_html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "The raw HTML of the fetched page, if requested",
+                "title": "Raw Html"
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/TextContent"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "A text content"
+              }
+            },
+            "title": "TextAndImagesContent",
+            "type": "object"
+          },
+          "TextContent": {
+            "description": "A text",
+            "properties": {
+              "text": {
+                "description": "The text",
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "TextContent",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/$defs/PageContent"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "ListContent[PageContent]",
+        "type": "object"
+      },
       "multiplicity": "variable",
       "optional": false
     }
@@ -991,6 +1300,21 @@
     "output": {
       "concept_ref": "native.Text",
       "item_count": null,
+      "json_schema": {
+        "description": "A text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "native.Text",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -1221,6 +1545,21 @@
     "output": {
       "concept_ref": "content_etl.ProcessedImage",
       "item_count": null,
+      "json_schema": {
+        "description": "Processed image with metadata",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.ProcessedImage",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -1451,6 +1790,21 @@
     "output": {
       "concept_ref": "content_etl.EnrichedText",
       "item_count": null,
+      "json_schema": {
+        "description": "Text enriched with metadata",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "content_etl.EnrichedText",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

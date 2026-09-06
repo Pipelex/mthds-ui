@@ -26,6 +26,21 @@
     "output": {
       "concept_ref": "report_generation.Insight",
       "item_count": null,
+      "json_schema": {
+        "description": "Data insight extracted from analysis",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "report_generation.Insight",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -100,6 +115,21 @@
     "output": {
       "concept_ref": "report_generation.Report",
       "item_count": null,
+      "json_schema": {
+        "description": "A formatted report combining visuals and text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "report_generation.Report",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -131,6 +161,21 @@
     "output": {
       "concept_ref": "report_generation.ChartSpec",
       "item_count": null,
+      "json_schema": {
+        "description": "Specification for a chart visualization",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "report_generation.ChartSpec",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -162,6 +207,13 @@
     "output": {
       "concept_ref": "native.Composite",
       "item_count": null,
+      "json_schema": {
+        "additionalProperties": true,
+        "description": "A named composition of contents",
+        "properties": {},
+        "title": "native.Composite",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -193,6 +245,22 @@
     "output": {
       "concept_ref": "report_generation.TableData",
       "item_count": null,
+      "json_schema": {
+        "description": "Structured table data",
+        "properties": {
+          "json_obj": {
+            "additionalProperties": true,
+            "description": "The JSON object",
+            "title": "Json Obj",
+            "type": "object"
+          }
+        },
+        "required": [
+          "json_obj"
+        ],
+        "title": "report_generation.TableData",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -224,6 +292,21 @@
     "output": {
       "concept_ref": "report_generation.Report",
       "item_count": null,
+      "json_schema": {
+        "description": "A formatted report combining visuals and text",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "report_generation.Report",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }
@@ -255,6 +338,21 @@
     "output": {
       "concept_ref": "report_generation.Narrative",
       "item_count": null,
+      "json_schema": {
+        "description": "Written narrative describing insights",
+        "properties": {
+          "text": {
+            "description": "The text",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "report_generation.Narrative",
+        "type": "object"
+      },
       "multiplicity": "single",
       "optional": false
     }

@@ -18,14 +18,14 @@ Released versions are listed on the [npm page](https://www.npmjs.com/package/@pi
 | --------------------- | -------- | ----------------------------------------- |
 | `react`, `react-dom`  | no       | React layer (`graph/react`, `form/react`) |
 | `shiki`               | no       | Syntax highlighting (`shiki`)             |
-| `@pipelex/mthds-form` | no       | Run form panel (`form/react`)             |
 
 ### Bundled dependencies
 
-| Dependency      | License | Used by                         |
-| --------------- | ------- | ------------------------------- |
-| `elkjs`         | EPL-2.0 | Graph layout engine             |
-| `@xyflow/react` | MIT     | Graph rendering (`graph/react`) |
+| Dependency            | License | Used by                                                    |
+| --------------------- | ------- | ---------------------------------------------------------- |
+| `elkjs`               | EPL-2.0 | Graph layout engine                                        |
+| `@xyflow/react`       | MIT     | Graph rendering (`graph/react`)                            |
+| `@pipelex/mthds-form` | MIT     | Run form panel + result view (`form/react`, `graph/react`) |
 
 `elkjs` (Eclipse Layout Kernel) is licensed under the [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/). See [NOTICE](./NOTICE) for details.
 
@@ -301,9 +301,7 @@ const final = applyControllers(nodes, edges, graphspec, analysis, true);
 
 `RunPanel` renders a pipe's input form from its IO contract: the fields, the readiness verdict on the Run button, and the wire-ready payload a run receives.
 
-```bash
-npm install @pipelex/mthds-form   # optional peer — graph-only consumers skip it
-```
+The form kernel ships as a dependency of this package, so there is nothing extra to install. Reach it through `@pipelex/mthds-ui/form` rather than importing it directly — a second declaration puts a second copy in your tree, and the kernel ships React contexts, so a provider you mount above the panel would stop resolving inside it.
 
 ```tsx
 import { getPipeIOContract } from "@pipelex/mthds-form";
@@ -325,7 +323,9 @@ const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
 
 `onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
 
-The controls are the kernel's, styled with Tailwind over shadcn tokens, so **bringing in their styling is the host's lane** — either add `./node_modules/@pipelex/mthds-form/dist/**/*.js` to your Tailwind `content` globs, or import the prebuilt `@pipelex/mthds-form/theme.css` + `styles.css`. Pick one; they are mutually exclusive, and a Tailwind host that forgets the glob gets a _mostly_-styled form that reads like a broken design system.
+The controls are the kernel's, styled with Tailwind over shadcn tokens, and **their stylesheet ships with this package**: both React entries import it under a cascade layer, so you add no Tailwind globs and import no kernel CSS yourself. Doing either puts a second, unlayered copy of the same utilities in the page, which is the state the layer exists to prevent.
+
+What you do supply is the shadcn token values, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
 
 Full contract, the styling trap, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
 

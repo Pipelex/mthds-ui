@@ -1,0 +1,243 @@
+{
+  "cv_matching.evaluate_cv": {
+    "field": {
+      "concept_ref": "cv_matching.CvEvaluation",
+      "description": "Evaluation of a CV against a job offer",
+      "fields": [
+        {
+          "description": "Name of the candidate",
+          "kind": "text",
+          "name": "candidate_name",
+          "required": true
+        },
+        {
+          "choices": [
+            "yes",
+            "no"
+          ],
+          "description": "Whether the CV matches: yes or no",
+          "kind": "enum",
+          "name": "match",
+          "required": true
+        },
+        {
+          "description": "Match score from 0 to 100",
+          "integer": false,
+          "kind": "number",
+          "name": "match_score",
+          "required": true
+        },
+        {
+          "description": "Key strengths relative to the job",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "strengths",
+          "required": false
+        },
+        {
+          "description": "Missing qualifications relative to the job",
+          "item": {
+            "kind": "unknown",
+            "required": true
+          },
+          "kind": "list",
+          "name": "gaps",
+          "required": false
+        },
+        {
+          "description": "Overall evaluation summary",
+          "kind": "text",
+          "name": "summary",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.extract_cv_pages": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.extract_job_pages": {
+    "field": {
+      "concept_ref": "native.Page",
+      "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+      "item": {
+        "concept_ref": "native.Page",
+        "description": "The content of a page of a document, comprising text and linked images and an optional page view image",
+        "fields": [
+          {
+            "concept_ref": "native.TextAndImages",
+            "description": "The text and images content extracted from the page",
+            "fields": [
+              {
+                "concept_ref": "native.Text",
+                "description": "A text content",
+                "kind": "prose",
+                "name": "text",
+                "required": false
+              },
+              {
+                "concept_ref": "native.Image",
+                "description": "A list of images that were extracted from the text",
+                "item": {
+                  "concept_ref": "native.Image",
+                  "description": "An image",
+                  "kind": "image",
+                  "required": true
+                },
+                "kind": "list",
+                "name": "images",
+                "required": false
+              },
+              {
+                "description": "The raw HTML of the fetched page, if requested",
+                "kind": "text",
+                "name": "raw_html",
+                "required": false
+              }
+            ],
+            "kind": "object",
+            "name": "text_and_images",
+            "required": true
+          },
+          {
+            "concept_ref": "native.Image",
+            "description": "The screenshot of the page",
+            "kind": "image",
+            "name": "page_view",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.generate_interview_questions": {
+    "field": {
+      "concept_ref": "cv_matching.InterviewQuestion",
+      "description": "A tailored interview question for a candidate",
+      "item": {
+        "concept_ref": "cv_matching.InterviewQuestion",
+        "description": "A tailored interview question for a candidate",
+        "kind": "prose",
+        "refines": [
+          "native.Text"
+        ],
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "cv_matching.route_by_match": {
+    "field": {
+      "concept_ref": "native.Anything",
+      "description": "Anything",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.screen_cvs": {
+    "field": {
+      "concept_ref": "native.Anything",
+      "description": "Anything",
+      "item": {
+        "concept_ref": "native.Anything",
+        "description": "Anything",
+        "kind": "unknown",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.screen_single_cv": {
+    "field": {
+      "concept_ref": "native.Anything",
+      "description": "Anything",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "cv_matching.write_refusal_email": {
+    "field": {
+      "concept_ref": "native.Text",
+      "description": "A text",
+      "kind": "prose",
+      "name": "output",
+      "required": true
+    }
+  }
+}

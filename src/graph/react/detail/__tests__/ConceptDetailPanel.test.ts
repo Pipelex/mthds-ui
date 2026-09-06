@@ -32,7 +32,7 @@ const GENERATED_IO_DATA = {
   digest: "candidate",
   name: "candidate",
   concept: "Candidate",
-  contentType: "application/json",
+  content_type: "application/json",
   data: {
     who: "Polyfactory Jane",
     blurb: "Generated dry-run payload that should not display",
@@ -73,11 +73,46 @@ describe("ConceptDetailPanel dry mode", () => {
       React.createElement(ConceptDetailPanel, {
         concept: CANDIDATE_CONCEPT,
         ioData: GENERATED_IO_DATA,
+        renderData: () => React.createElement("pre", null, JSON.stringify(GENERATED_IO_DATA.data)),
       }),
     );
 
     expect(html).toContain("Data");
     expect(html).toContain("Polyfactory Jane");
     expect(html).toContain("Generated dry-run payload");
+  });
+
+  it("offers no Data tab when nothing can render the data", () => {
+    // The panel stopped rendering data itself when StuffViewer was deleted: the
+    // view is the host's, supplied through `renderData`. A tab that opened onto
+    // an empty pane would read as data that failed to load rather than as a
+    // viewer that was never given a way to show it, so with no renderer there
+    // are no tabs at all - just the structure.
+    const html = renderToStaticMarkup(
+      React.createElement(ConceptDetailPanel, {
+        concept: CANDIDATE_CONCEPT,
+        ioData: GENERATED_IO_DATA,
+      }),
+    );
+
+    expect(html).not.toContain('role="tab"');
+    expect(html).toContain("Structure");
+    expect(html).not.toContain("Polyfactory Jane");
+  });
+
+  it("offers no Data tab when the renderer declines this item", () => {
+    // Returning nothing is the renderer's documented way of saying "not mine" -
+    // a method INPUT, which no pipe produced and no output descriptor
+    // describes. It must land in the same place as no renderer at all.
+    const html = renderToStaticMarkup(
+      React.createElement(ConceptDetailPanel, {
+        concept: CANDIDATE_CONCEPT,
+        ioData: GENERATED_IO_DATA,
+        renderData: () => null,
+      }),
+    );
+
+    expect(html).not.toContain('role="tab"');
+    expect(html).toContain("Structure");
   });
 });

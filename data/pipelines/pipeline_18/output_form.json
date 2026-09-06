@@ -1,0 +1,249 @@
+{
+  "code_review.compose_review": {
+    "field": {
+      "concept_ref": "code_review.CodeReview",
+      "description": "Complete code review report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "code_review.fetch_diff": {
+    "field": {
+      "concept_ref": "native.SearchResult",
+      "description": "A search result with answer and sources",
+      "fields": [
+        {
+          "description": "The answer to the search query",
+          "kind": "text",
+          "name": "answer",
+          "required": true
+        },
+        {
+          "concept_ref": "native.Document",
+          "description": "The source documents supporting the answer",
+          "item": {
+            "concept_ref": "native.Document",
+            "description": "A document",
+            "kind": "document",
+            "required": true
+          },
+          "kind": "list",
+          "name": "sources",
+          "required": true
+        }
+      ],
+      "kind": "object",
+      "name": "output",
+      "required": true
+    }
+  },
+  "code_review.logic_check": {
+    "field": {
+      "concept_ref": "code_review.ReviewFinding",
+      "description": "A finding from code review",
+      "item": {
+        "concept_ref": "code_review.ReviewFinding",
+        "description": "A finding from code review",
+        "fields": [
+          {
+            "choices": [
+              "critical",
+              "warning",
+              "info"
+            ],
+            "description": "Severity level",
+            "kind": "enum",
+            "name": "severity",
+            "required": true
+          },
+          {
+            "description": "Finding category",
+            "kind": "text",
+            "name": "category",
+            "required": true
+          },
+          {
+            "description": "Description of the finding",
+            "kind": "text",
+            "name": "description",
+            "required": true
+          },
+          {
+            "description": "Line reference in the diff",
+            "kind": "text",
+            "name": "line_ref",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "code_review.parallel_checks": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  },
+  "code_review.perf_check": {
+    "field": {
+      "concept_ref": "code_review.ReviewFinding",
+      "description": "A finding from code review",
+      "item": {
+        "concept_ref": "code_review.ReviewFinding",
+        "description": "A finding from code review",
+        "fields": [
+          {
+            "choices": [
+              "critical",
+              "warning",
+              "info"
+            ],
+            "description": "Severity level",
+            "kind": "enum",
+            "name": "severity",
+            "required": true
+          },
+          {
+            "description": "Finding category",
+            "kind": "text",
+            "name": "category",
+            "required": true
+          },
+          {
+            "description": "Description of the finding",
+            "kind": "text",
+            "name": "description",
+            "required": true
+          },
+          {
+            "description": "Line reference in the diff",
+            "kind": "text",
+            "name": "line_ref",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "code_review.review_pipeline": {
+    "field": {
+      "concept_ref": "code_review.CodeReview",
+      "description": "Complete code review report",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "code_review.security_check": {
+    "field": {
+      "concept_ref": "code_review.ReviewFinding",
+      "description": "A finding from code review",
+      "item": {
+        "concept_ref": "code_review.ReviewFinding",
+        "description": "A finding from code review",
+        "fields": [
+          {
+            "choices": [
+              "critical",
+              "warning",
+              "info"
+            ],
+            "description": "Severity level",
+            "kind": "enum",
+            "name": "severity",
+            "required": true
+          },
+          {
+            "description": "Finding category",
+            "kind": "text",
+            "name": "category",
+            "required": true
+          },
+          {
+            "description": "Description of the finding",
+            "kind": "text",
+            "name": "description",
+            "required": true
+          },
+          {
+            "description": "Line reference in the diff",
+            "kind": "text",
+            "name": "line_ref",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "code_review.style_check": {
+    "field": {
+      "concept_ref": "code_review.ReviewFinding",
+      "description": "A finding from code review",
+      "item": {
+        "concept_ref": "code_review.ReviewFinding",
+        "description": "A finding from code review",
+        "fields": [
+          {
+            "choices": [
+              "critical",
+              "warning",
+              "info"
+            ],
+            "description": "Severity level",
+            "kind": "enum",
+            "name": "severity",
+            "required": true
+          },
+          {
+            "description": "Finding category",
+            "kind": "text",
+            "name": "category",
+            "required": true
+          },
+          {
+            "description": "Description of the finding",
+            "kind": "text",
+            "name": "description",
+            "required": true
+          },
+          {
+            "description": "Line reference in the diff",
+            "kind": "text",
+            "name": "line_ref",
+            "required": true
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  }
+}

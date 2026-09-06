@@ -1,0 +1,76 @@
+{
+  "scheduling.decide": {
+    "field": {
+      "concept_ref": "scheduling.Verdict",
+      "description": "Whether the meeting request is accepted",
+      "kind": "boolean",
+      "name": "output",
+      "refines": [
+        "native.YesNo"
+      ],
+      "required": true
+    }
+  },
+  "scheduling.is_urgent": {
+    "field": {
+      "concept_ref": "native.YesNo",
+      "description": "The answer to a yes/no question",
+      "kind": "boolean",
+      "name": "output",
+      "required": true
+    }
+  },
+  "scheduling.read_dates": {
+    "field": {
+      "concept_ref": "native.Date",
+      "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+      "item": {
+        "concept_ref": "native.Date",
+        "description": "A calendar date, optionally with a time of day — as precise as its source states.",
+        "fields": [
+          {
+            "datetime": false,
+            "description": "The calendar date, in ISO 8601 (e.g. 2026-07-07). Always required.",
+            "kind": "date",
+            "name": "date",
+            "required": true
+          },
+          {
+            "description": "The time of day, in ISO 8601 (e.g. 15:40:00, or 15:40:00+02:00 with a UTC offset). Include it only when the source states a time — never invent a time. Keep the UTC offset exactly when the source states one.",
+            "format": "time",
+            "kind": "text",
+            "name": "time",
+            "required": false
+          }
+        ],
+        "kind": "object",
+        "required": true
+      },
+      "kind": "list",
+      "name": "output",
+      "required": true
+    }
+  },
+  "scheduling.read_slot": {
+    "field": {
+      "concept_ref": "native.Time",
+      "description": "A time of day, optionally with a UTC offset — as precise as its source states.",
+      "format": "time",
+      "kind": "text",
+      "name": "output",
+      "required": true
+    }
+  },
+  "scheduling.triage_request": {
+    "field": {
+      "concept_ref": "scheduling.Verdict",
+      "description": "Whether the meeting request is accepted",
+      "kind": "boolean",
+      "name": "output",
+      "refines": [
+        "native.YesNo"
+      ],
+      "required": true
+    }
+  }
+}

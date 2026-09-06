@@ -1,0 +1,68 @@
+{
+  "image_catalog.build_catalog": {
+    "field": {
+      "concept_ref": "image_catalog.CatalogEntry",
+      "description": "Complete catalog entry for an image",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "image_catalog.classify_image": {
+    "field": {
+      "concept_ref": "image_catalog.TagList",
+      "description": "List of classification tags",
+      "kind": "unknown",
+      "name": "output",
+      "refines": [
+        "native.JSON"
+      ],
+      "required": true
+    }
+  },
+  "image_catalog.describe_image": {
+    "field": {
+      "concept_ref": "image_catalog.Description",
+      "description": "Text description of an image",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "image_catalog.generate_thumbnail": {
+    "field": {
+      "concept_ref": "native.Image",
+      "description": "An image",
+      "kind": "image",
+      "name": "output",
+      "required": true
+    }
+  },
+  "image_catalog.image_pipeline": {
+    "field": {
+      "concept_ref": "image_catalog.CatalogEntry",
+      "description": "Complete catalog entry for an image",
+      "kind": "prose",
+      "name": "output",
+      "refines": [
+        "native.Text"
+      ],
+      "required": true
+    }
+  },
+  "image_catalog.parallel_analyze": {
+    "field": {
+      "concept_ref": "native.Composite",
+      "description": "A named composition of contents",
+      "kind": "unknown",
+      "name": "output",
+      "required": true
+    }
+  }
+}

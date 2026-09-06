@@ -96,7 +96,7 @@ Because pipelex emits `<body data-theme="system">` (its `ReactFlowTheme.SYSTEM`)
 Everything above governs the graph. `RunPanel` (`@pipelex/mthds-ui/form/react`) sits in **two** token systems at once, and they belong to different owners:
 
 - **The panel chrome is ours.** `RunPanel.css` uses the same semantic tokens as everything else here — `--surface-panel`, `--border-default`, `--text-default`, `--color-accent-strong`. The panel applies them to its own container via `getPaletteForTheme`, because the graph's are inline on the ReactFlow container and the panel sits outside it. So it themes correctly standing alone, with no viewer in the tree.
-- **The controls inside it are the form kernel's**, styled with Tailwind classes over shadcn's semantic tokens (`--background`, `--foreground`, `--primary`, `--ring`, …) — raw HSL triplets, a different naming scheme, and the host's to supply.
+- **The controls inside it are the form kernel's**, styled with Tailwind classes over shadcn's semantic tokens (`--background`, `--foreground`, `--primary`, `--ring`, …) — whole colours, a different naming scheme, and the host's to supply.
 
 The panel's `theme` prop drives both halves: it picks our palette AND toggles the kernel's `.dark` class on the same container. One prop, because a panel whose chrome and controls disagreed on the theme would look broken in a way no host could fix from outside.
 
@@ -104,11 +104,13 @@ To make the controls follow your brand, scope shadcn overrides to the panel's st
 
 ```css
 .mthds-run-panel {
-  --primary: 142 71% 45%;
-  --ring: 142 71% 45%;
+  --primary: hsl(142 71% 45%);
+  --ring: hsl(142 71% 45%);
 }
 ```
 
-**An automatic bridge between the two systems is deliberately not built.** Mapping our `--surface-*` / `--text-*` hex values onto shadcn's HSL triplets needs runtime conversion, and it is not obvious the form should follow the graph canvas rather than the host app's design system — a form living beside a graph is still part of the surrounding product. Left as an open question; ask if you want it.
+**Write each token as a complete colour, not a bare HSL triplet.** Since kernel `0.8.0` the controls are a Tailwind 4 build, and a Tailwind 4 theme holds whole colours: the sheet emits `background-color: var(--primary)` where it used to emit `background-color: hsl(var(--primary))`. So `--primary: 142 71% 45%` computes to `background-color: 142 71% 45%`, which is not a colour, and the browser **discards** the declaration rather than overriding with it — the quietest failure CSS has, because the token is defined, inspectable and simply never applied. Any complete colour works: `hsl(…)`, `oklch(…)`, `#6b21a8`.
+
+**An automatic bridge between the two systems is deliberately not built.** It no longer needs runtime hex→HSL conversion — whole colours take a hex value directly — so what remains is only the judgement call: it is not obvious the form should follow the graph canvas rather than the host app's design system, since a form living beside a graph is still part of the surrounding product. Left as an open question; ask if you want it.
 
 See [run-form-panel.md](./run-form-panel.md) for the two CSS lanes and the silent-purge trap that comes with them.
