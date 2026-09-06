@@ -123,6 +123,25 @@ export function isPlainObject(value: unknown): value is Record<string, unknown> 
   return proto === Object.prototype || proto === null;
 }
 
+/**
+ * An empty record for keys an author wrote.
+ *
+ * Every accumulator in this module is keyed by authored `.mthds` text — input
+ * names, concept codes, pipe codes, domain names — and a plain `{}` hands those
+ * keys `Object.prototype` to collide with. Three distinct failures follow, none
+ * of which the author is told about: `record[name] = value` for a name of
+ * `__proto__` invokes the prototype setter and creates no own key, so the entry
+ * vanishes with no diagnostic; `record[code]` for a code of `toString` returns a
+ * built-in function that reads as a declared entry; and `record[domain] ??= …`
+ * for a domain of `__proto__` yields `Object.prototype` itself, whose missing
+ * members then throw — breaking this module's contract that it never throws on
+ * content. A null prototype has nothing to collide with, so all three stop
+ * existing at once rather than needing a guard at every read and write.
+ */
+export function authoredRecord<T>(): Record<string, T> {
+  return Object.create(null) as Record<string, T>;
+}
+
 export function strOrNull(value: unknown): string | null {
   return typeof value === "string" && value.length > 0 ? value : null;
 }

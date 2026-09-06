@@ -125,6 +125,7 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("recruitment.CandidateProfile[]?"),
       missingConcept: false,
       unknownKeys: [],
+      dottedName: false,
     });
   });
 
@@ -133,6 +134,7 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("Text"),
       missingConcept: false,
       unknownKeys: [],
+      dottedName: false,
     });
   });
 
@@ -156,6 +158,7 @@ describe("parseInputSlot", () => {
       ref: parseConceptRef("Text"),
       missingConcept: false,
       unknownKeys: [],
+      dottedName: false,
     });
   });
 
@@ -189,11 +192,40 @@ describe("parseInputSlot", () => {
       ref: null,
       missingConcept: false,
       unknownKeys: [],
+      dottedName: false,
     });
     expect(parseInputSlot(["Text"])).toEqual({
       ref: null,
       missingConcept: false,
       unknownKeys: [],
+      dottedName: false,
     });
+  });
+});
+
+describe("parseInputSlot — unquoted dotted input names", () => {
+  it("flags the shape TOML makes of an unquoted dotted name", () => {
+    // `inputs = { my_input.field_name = "Text" }` reaches this layer as the
+    // slot `my_input` holding `{ field_name: "Text" }`.
+    expect(parseInputSlot({ field_name: "Text" }).dottedName).toBe(true);
+    expect(parseInputSlot({ a: "legal.Clause[]", b: "Text?" }).dottedName).toBe(true);
+  });
+
+  it("does not flag a slot table that declares a concept", () => {
+    expect(parseInputSlot({ concept: "Text", field_name: "Text" }).dottedName).toBe(false);
+  });
+
+  it("does not flag a genuine unknown key, whose value is no concept code", () => {
+    // The standard pins concept codes to PascalCase, which is the whole
+    // discriminator: `textarea` cannot be one, `Text` can only be one.
+    expect(parseInputSlot({ widget: "textarea" }).dottedName).toBe(false);
+    expect(parseInputSlot({ widget: 3 }).dottedName).toBe(false);
+    expect(parseInputSlot({ nested: { deeper: "Text" } }).dottedName).toBe(false);
+  });
+
+  it("does not flag the string form or an empty table", () => {
+    expect(parseInputSlot("Text").dottedName).toBe(false);
+    expect(parseInputSlot({}).dottedName).toBe(false);
+    expect(parseInputSlot({ hints: { intent: "prose" } }).dottedName).toBe(false);
   });
 });

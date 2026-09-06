@@ -19,7 +19,7 @@ import {
 } from "./conceptRefs";
 import { normalizePipe } from "./normalizePipe";
 import type { Diagnostic, ParseMthdsBundleResult, ParsedBundle } from "./types";
-import { isPlainObject, strOrNull, UNKNOWN_DOMAIN } from "./types";
+import { authoredRecord, isPlainObject, strOrNull, UNKNOWN_DOMAIN } from "./types";
 
 // ─── Concept structure → JSON schema (display-only, best-effort) ─────────────
 
@@ -68,7 +68,7 @@ function deriveJsonSchema(
   description: string,
 ): Record<string, unknown> | undefined {
   if (!isPlainObject(structure)) return undefined;
-  const properties: Record<string, unknown> = {};
+  const properties = authoredRecord<unknown>();
   const required: string[] = [];
   for (const [name, spec] of Object.entries(structure)) {
     if (typeof spec === "string") {
@@ -127,7 +127,7 @@ function parseConcepts(
   domain: string,
   diagnostics: Diagnostic[],
 ): Record<string, ConceptInfo> {
-  const concepts: Record<string, ConceptInfo> = {};
+  const concepts = authoredRecord<ConceptInfo>();
   if (raw === undefined) return concepts;
   if (!isPlainObject(raw)) {
     diagnostics.push({
@@ -185,8 +185,8 @@ function emptyBundle(): ParsedBundle {
     description: null,
     main_pipe: null,
     system_prompt: null,
-    concepts: {},
-    pipes: {},
+    concepts: authoredRecord<ConceptInfo>(),
+    pipes: authoredRecord<PipeBlueprintUnion>(),
   };
 }
 

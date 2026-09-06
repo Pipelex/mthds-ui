@@ -162,8 +162,10 @@ prompt = "Go"
   });
 
   it("reports both an unknown key and a missing concept when a slot has neither", () => {
-    // The two diagnostics are pushed by independent guards in normalizeInputs;
-    // this is the only combination where both fire on one slot.
+    // The two diagnostics are pushed by independent guards in normalizeInputs,
+    // so they fire together whenever a slot has both an unknown key and no
+    // usable concept — here with no `concept` key at all, and equally with a
+    // `concept` that was written and will not parse.
     const { bundle, diagnostics } = parseMthdsBundle(`
 domain = "d"
 [pipe.p]
@@ -612,5 +614,94 @@ prompt = "Go"
     expect(diagnostics).toContainEqual(
       expect.objectContaining({ code: "invalid-pipe-entry", path: "pipe.broken" }),
     );
+  });
+});
+
+// ─── Authored keys that collide with Object.prototype ────────────────────────
+//
+// Every accumulator in this module is keyed by text an author wrote, so a name
+// like `__proto__` or a code like `toString` used to reach `Object.prototype`
+// instead of an own key. All three failures below were silent or worse — a
+// dropped input with no diagnostic, a built-in function standing in for a
+// concept, and a thrown TypeError from a module that promises never to throw on
+// content. `authoredRecord` is the single guard; these are its regression.
+
+describe("authored keys colliding with Object.prototype", () => {
+  const pipeWith = (inputs: string) => `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = ${inputs}
+output = "Text"
+prompt = "Go"
+`;
+
+  it("keeps an input named __proto__ instead of dropping it silently", () => {
+    const { bundle, diagnostics } = parseMthdsBundle(
+      pipeWith('{ __proto__ = "Text", ok = "Text" }'),
+    );
+    const inputs = (bundle.pipes.p as PipeLLMBlueprint).inputs;
+    expect(Object.keys(inputs).sort()).toEqual(["__proto__", "ok"]);
+    expect(Object.getPrototypeOf(inputs)).not.toBe(Object.prototype);
+    expect(diagnostics).toEqual([]);
+  });
+
+  it("does not resolve a concept code off Object.prototype", () => {
+    // `resolveConceptInfo` takes the record from its caller, so the guard is at
+    // the lookup: on a plain `{}`, `toString` is truthy and is a function.
+    for (const code of ["toString", "constructor", "valueOf", "hasOwnProperty"]) {
+      const info = resolveConceptInfo(parseConceptRef(code)!, "d", {});
+      expect(typeof info).toBe("object");
+      expect(info.code).toBe(code);
+      expect(info.domain_code).toBe("d");
+    }
+  });
+
+  it("carries a concept named toString through the bundle as a concept", () => {
+    const { bundle } = parseMthdsBundle(pipeWith('{ notes = { concept = "toString" } }'));
+    const notes = (bundle.pipes.p as PipeLLMBlueprint).inputs.notes;
+    expect(typeof notes.concept).toBe("object");
+    expect(notes.concept.code).toBe("toString");
+  });
+});
+
+// ─── Unquoted dotted input names ─────────────────────────────────────────────
+
+describe("unquoted dotted input names", () => {
+  const dotted = (key: string) => `
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { ${key} = "Text" }
+output = "Text"
+prompt = "Go"
+`;
+
+  it("names the quoting rule instead of blaming the slot form", () => {
+    const { diagnostics } = parseMthdsBundle(dotted("my_input.field_name"));
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0].code).toBe("invalid-concept-ref");
+    expect(diagnostics[0].message).toContain("unquoted");
+    expect(diagnostics[0].message).toContain('"my_input.field_name"');
+  });
+
+  it("still reports a genuine unknown key, whose value is no concept code", () => {
+    // `textarea` cannot be a concept code (the standard pins them PascalCase),
+    // which is exactly what keeps this apart from the dotted-name case.
+    const { diagnostics } = parseMthdsBundle(`
+domain = "d"
+[pipe.p]
+type = "PipeLLM"
+description = "P"
+inputs = { notes = { widget = "textarea" } }
+output = "Text"
+prompt = "Go"
+`);
+    expect(diagnostics.map((d) => d.code).sort()).toEqual([
+      "invalid-concept-ref",
+      "unknown-input-slot-key",
+    ]);
   });
 });

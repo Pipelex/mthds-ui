@@ -120,6 +120,39 @@ export interface InputSlotParts {
   missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
+  /**
+   * True when the table is not a slot table at all but the wreckage of an
+   * unquoted dotted input name — see {@link looksLikeUnquotedDottedName}.
+   */
+  dottedName: boolean;
+}
+
+/** A concept code as the standard pins it: `[A-Z][a-zA-Z0-9]*`. */
+const CONCEPT_CODE_RE = /^[A-Z][A-Za-z0-9]*$/;
+
+/**
+ * Recognize the slip the standard names explicitly: "A dotted input name MUST
+ * be written as a single quoted TOML key (`"my_input.field_name" = "Text"`),
+ * never as an unquoted dotted path: TOML parses the latter as nested tables,
+ * which the expanded slot form would misread as a slot table"
+ * (`docs/spec/mthds-format.md`, "Input names").
+ *
+ * `inputs = { my_input.field_name = "Text" }` arrives here as a slot named
+ * `my_input` holding `{ field_name: "Text" }` — a table with no `concept` whose
+ * every undefined key names a concept ref. Without this the author is told the
+ * slot declares an undefined key and then that it has no `concept`, two true
+ * sentences that between them never mention the quoting rule that is the fix.
+ *
+ * The concept-code rule is what keeps this apart from a genuine unknown key: a
+ * code MUST be `PascalCase`, so `{ widget = "textarea" }` cannot be mistaken
+ * for a nested field, while `{ field_name = "Text" }` can only be one.
+ */
+function looksLikeUnquotedDottedName(raw: Record<string, unknown>, unknownKeys: string[]): boolean {
+  if (raw.concept !== undefined || unknownKeys.length === 0) return false;
+  return unknownKeys.every((key) => {
+    const parts = parseConceptRef(raw[key]);
+    return parts !== null && CONCEPT_CODE_RE.test(parts.code);
+  });
 }
 
 /**
@@ -136,12 +169,19 @@ export interface InputSlotParts {
  */
 export function parseInputSlot(raw: unknown): InputSlotParts {
   if (!isPlainObject(raw)) {
-    return { ref: parseConceptRef(raw), missingConcept: false, unknownKeys: [] };
+    return {
+      ref: parseConceptRef(raw),
+      missingConcept: false,
+      unknownKeys: [],
+      dottedName: false,
+    };
   }
+  const unknownKeys = Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key));
   return {
     ref: parseConceptRef(raw.concept),
     missingConcept: raw.concept === undefined,
-    unknownKeys: Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key)),
+    unknownKeys,
+    dottedName: looksLikeUnquotedDottedName(raw, unknownKeys),
   };
 }
 
@@ -203,8 +243,10 @@ export function resolveConceptInfo(
   // priority"), but it also makes a bundle that declares a native-named concept
   // invalid outright — so this branch is only reachable on a bundle pipelex
   // rejects. Tracked in `wip/native-concept-shadowing.md`.
-  const local = localConcepts[parts.code];
-  if (local) return local;
+  // `hasOwn`, not a truthiness test: `localConcepts` is a caller-supplied
+  // record, and on a plain `{}` a code of `toString` or `constructor` reads a
+  // built-in off `Object.prototype` and returns a function as the concept.
+  if (Object.hasOwn(localConcepts, parts.code)) return localConcepts[parts.code];
   if (parts.domain === null && isNativeConceptCode(parts.code)) {
     return nativeConceptInfo(parts.code);
   }
@@ -241,6 +283,8 @@ export interface ResolvedInputSlot {
   missingConcept: boolean;
   /** Keys of an expanded slot table this version of the standard does not define. */
   unknownKeys: string[];
+  /** True when the table is the wreckage of an unquoted dotted input name — see {@link InputSlotParts}. */
+  dottedName: boolean;
 }
 
 /**
@@ -254,10 +298,11 @@ export function resolveInputSlot(
   currentDomain: string,
   localConcepts: Record<string, ConceptInfo>,
 ): ResolvedInputSlot {
-  const { ref, missingConcept, unknownKeys } = parseInputSlot(raw);
+  const { ref, missingConcept, unknownKeys, dottedName } = parseInputSlot(raw);
   return {
     spec: ref === null ? null : stuffSpecFromParts(ref, currentDomain, localConcepts),
     missingConcept,
     unknownKeys,
+    dottedName,
   };
 }

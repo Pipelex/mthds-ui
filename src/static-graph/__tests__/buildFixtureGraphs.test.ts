@@ -3,12 +3,16 @@
 // reporting nothing at all along the way.
 //
 // No diagnostic is tolerated here, warnings included. Every fixture in both
-// piles is a canonical, runnable method, and the builder only ever emits a
-// diagnostic when it could not read something the method wrote: `error` means
-// a whole unit was dropped, `warning` means a lenient fallback stood in for
-// authored content. On material this clean, both readings are the same news —
-// either the builder has a gap or a fixture regressed — and both deserve a red
-// test. Tolerating warnings once let optional inputs (`Text?`) vanish from two
+// piles is a canonical, runnable method, and a diagnostic on one has only three
+// readings: `error` means a whole unit was dropped, `warning` means a lenient
+// fallback stood in for authored content, and `unknown-input-slot-key` means
+// the builder read the slot fine but the runtime would refuse the bundle. On
+// material this clean the first two are the same news — either the builder has
+// a gap or a fixture regressed — and both deserve a red test. The third is the
+// one to watch when this gate next goes red for a reason that is neither: when
+// the standard adds a slot-table key and pipelex ships a `valid` entry using
+// it, this sweep reddens on a bundle nothing is wrong with, and the cure is to
+// teach `INPUT_SLOT_KEYS` the new key rather than to loosen the gate. Tolerating warnings once let optional inputs (`Text?`) vanish from two
 // corpus entries with the sweep still green, which is exactly the silent pass
 // the piles below are meant to make impossible.
 //

@@ -8,9 +8,14 @@
 - **`parseInputSlot` on the `./static-graph` entry**: The slot-form reader is exported beside `parseConceptRef`, with its `InputSlotParts` type. It returns the slot's ref parts (null when the concept ref is not interpretable), whether an expanded slot table declared no `concept` at all, and any keys the form does not define.
 - **`unknown-input-slot-key` diagnostic**: A key the input-slot form does not define is now named in a warning, and the slot still resolves from its `concept`. The runtime rejects such a bundle outright, so the renderer says so rather than drawing a clean graph for it.
 
+### Fixed
+
+- **Authored keys can no longer collide with `Object.prototype`**: every record the static-graph module keys by authored `.mthds` text — input names, concept codes, pipe codes, domain names — is built with a null prototype. Three failures went with it, all of them silent or worse: an input named `__proto__` invoked the prototype setter instead of creating a key, so the slot vanished from the graph with no diagnostic at all; a concept code of `toString` or `constructor` resolved to a built-in function that then travelled into the concept registry as if it were a concept; and a bundle declaring `domain = "__proto__"` made the builder throw, breaking its contract that it never throws on content.
+- **An unquoted dotted input name is reported as itself**: `inputs = { my_input.field_name = "Text" }` is the slip the standard names explicitly, since TOML nests it into a table the expanded slot form would misread. It now produces one warning naming the quoting rule instead of an undefined-key warning plus a missing-`concept` warning, neither of which mentioned the fix.
+
 ### Changed
 
-- **Intent hints are parsed and dropped, deliberately**: `hints` on an input slot is accepted and does not reach the `GraphSpec`. Hints travel to consumers on the input-form descriptor, which this library already renders through `@pipelex/mthds-form` — the runtime's `StuffSpec` has no `hints` field, so carrying them on a static spec would diverge from every dry and live spec. The rationale is written up in `docs/static-graph.md`.
+- **Intent hints are parsed and dropped, deliberately**: `hints` on an input slot is accepted and does not reach the `GraphSpec`. Hints travel to consumers on the input-form descriptor, which this library already reads through `@pipelex/mthds-form` — the runtime's `StuffSpec` has no `hints` field, so carrying them on a static spec would diverge from every dry and live spec. The rationale is written up in `docs/static-graph.md`.
 
 ## [v0.23.0] - 2026-09-04
 
