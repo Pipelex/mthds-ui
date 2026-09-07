@@ -1,154 +1,73 @@
 ---
 name: release
 description: >
-  Automates the mthds-ui release workflow: bumps the version in package.json,
-  finalizes the CHANGELOG.md Unreleased section, runs quality checks and tests,
-  creates a release/vX.Y.Z branch, commits, pushes, and opens a PR to main.
-  Use when user says "release", "cut a release", "bump version", "prepare a
-  release", "make a release", "ship it", "create release branch", or any
-  variation of shipping a new version of mthds-ui. The user can optionally
-  provide changelog content inline when invoking the skill (e.g.
-  "/release Added StuffViewer component"), which will be used as the changelog
-  entry for this version.
+  Cut a release of mthds-ui, the shared MTHDS graph and run-form rendering
+  library published to npm as @pipelex/mthds-ui: the release/vX.Y.Z worktree,
+  the package.json bump and the package-lock.json that follows, the changelog
+  entry, the quality and packaging gates, one commit, and a pull request to
+  main. Use when the user says "release", "cut a release", "bump version",
+  "prepare a release", "make a release", "ship it", "create release branch",
+  "promote dev to main", "tag a version", or any variation of shipping a new
+  version of mthds-ui. Changelog content passed inline ("/release Added a
+  standalone graph viewer") becomes the entry. The merge is landed by
+  /ledger-land, never by this skill.
 ---
 
-# mthds-ui Release Workflow
+# Releasing mthds-ui
 
-This skill handles the full release cycle for the `@pipelex/mthds-ui` npm package.
+The procedure is the workspace release play, [`docs/releasing.md`](../../../../docs/releasing.md) at the workspace root — read it first, then run it with what follows. The repo key is `mthds-ui`, the base is `dev`, and the pull request targets `main`: `guard-branches.yml` refuses any head branch but `release/vX.Y.Z` into `main`, so there is no other way in. The release worktree is `_mthds-ui--release`, made with `wt add mthds-ui release --branch release/vX.Y.Z`. The repo declares neither `.worktree.toml` nor `.worktreeinclude`, so `wt` resolves the base from `origin/dev` and provisions with the Makefile's `install` target (`npm install`), whose `prepare` script runs `npm run build` — which is why a fresh worktree arrives with `dist/` already built.
 
-## Files touched
+## What ships
 
-- **`package.json`** — the `version` field (line 3)
-- **`CHANGELOG.md`** — add `[vX.Y.Z] - YYYY-MM-DD` entry (remove `[Unreleased]` if present)
-- **`package-lock.json`** — regenerated via `npm install`
+The merge to `main` publishes, from `.github/workflows/release.yml`, which fires on the push to `main` (`on: push: branches: [main]`) and never on the pull request:
 
-## Workflow
+- **The `@pipelex/mthds-ui` package on npm**, by the `publish` job, with `npm publish --ignore-scripts --access public --provenance`. Before it publishes, the job re-runs the whole gate from a clean checkout — `npm ci --ignore-scripts`, `npx playwright install chromium`, `make check`, `make test`, `npm run build` — and then asserts that `dist/standalone/graph-viewer.js` and `dist/standalone/graph-viewer.css` exist. Both `--ignore-scripts` are deliberate, and the workflow's own comments give two different reasons for them: on `npm ci` the flag skips the `prepare` hook so the build happens once, in the explicit Build step, instead of three times over; on `npm publish` it keeps that same hook from rebuilding and clobbering the artifacts the standalone-bundle check has just validated.
+- **An already-published version is a green no-op, and this is the trap of the repo.** The job reads the number out of `package.json`, asks `npm view "@pipelex/mthds-ui@$VERSION" version`, and guards every step that follows on `already_published == 'false'`. A merge to `main` that forgot the bump therefore installs nothing, publishes nothing, tags nothing and **reports success**. Nothing on the push side catches it; `version-check.yml` on the pull request is the only thing standing between an unbumped branch and that silent no-op.
+- **The `vX.Y.Z` tag**, created by the same job with `git tag "v$VERSION"` and pushed. It is a **lightweight** tag, so always read the tags with `--tags` — a bare `git describe` finds no annotated tag here.
+- **The GitHub Release**, by the `github-release` job, whose notes are the changelog section for `## [vX.Y.Z] - ` with its blank lines dropped and every line's leading whitespace stripped. When no such heading is found the step warns, sets the notes empty and exits 0, so the Release ships carrying the bare line `Release vX.Y.Z` rather than failing. That job is guarded on `already_published == 'false'` as well, so the unbumped merge produces no Release either.
 
-### 1. Pre-flight checks
+The landing verifies the publish — the run, the registry's answer, the tag:
 
-- Read the current version from `package.json`.
-- Read `CHANGELOG.md` to understand the current state (create it if it doesn't exist).
-- Run `git status` and `git log origin/main..HEAD` to assess the working tree:
-  - If there are **uncommitted changes** (staged or unstaged), warn the user and
-    ask whether to commit them as part of the release, stash them, or abort.
-  - If there are **unpushed commits** on the current branch, list them so the
-    user is aware — these will be included in the release branch.
-
-### 2. Determine the bump type
-
-Ask the user which kind of version bump they want — **patch**, **minor**, or
-**major** — unless they already specified it. Show the current version and what
-the new version would be for each option so the choice is concrete.
-
-### 3. Run quality checks
-
-Run `make check && make test`. This is the gate — if it fails, stop and report
-the errors so they can be fixed before retrying. Do not proceed past this step
-on failure.
-
-### 4. Ensure we're on the right branch
-
-The release branch must be named `release/vX.Y.Z` where X.Y.Z is the **new**
-version. All file modifications (changelog, version bump, lock) must happen on
-this branch.
-
-- If already on `release/vX.Y.Z` matching the new version, stay on it.
-- If on `dev`, `main`, or any other branch, create and switch to
-  `release/vX.Y.Z` from the current HEAD.
-- If on a `release/` branch for a **different** version, warn the user and ask
-  how to proceed.
-
-### 5. Finalize the changelog
-
-Add a new version entry at the top of the changelog for the release.
-
-1. If there is an `## [Unreleased]` section, **remove it** (including any blank
-   lines that follow it) and replace it with the new version heading. Any
-   content that was under `[Unreleased]` becomes the content of the new version.
-2. If there is no `[Unreleased]` section, insert the new version heading
-   directly after the `# Changelog` title.
-3. **Never add an `[Unreleased]` heading.** The changelog should only contain
-   concrete version entries.
-4. If the user provided changelog content when invoking the skill (e.g.
-   `/release Added StuffViewer component`), **merge** that content with any
-   existing `[Unreleased]` content (do not discard either source). Format the
-   combined content properly under the appropriate headings (e.g. `### Added`,
-   `### Changed`, `### Fixed`), inferring headings from the content when
-   possible.
-5. If the release has no changelog content yet (neither from an `[Unreleased]`
-   section nor from inline user input), ask the user what to include before
-   proceeding.
-6. If `CHANGELOG.md` doesn't exist yet, create it with the standard structure.
-7. The result should look like:
-
-```markdown
-# Changelog
-
-## [vX.Y.Z] - YYYY-MM-DD
-
-### Changed
-
-- ...
-
-## [vPREVIOUS] - PREVIOUS-DATE
-
-...
+```bash
+gh run list --workflow=release.yml --branch main --limit 3 --json conclusion,headSha,url   # the run whose headSha is the merge SHA: success
+npm view @pipelex/mthds-ui version                                                         # the registry's answer: X.Y.Z
+git fetch --tags --prune origin && git tag --list vX.Y.Z                                   # the tag
 ```
 
-### 6. Bump the version in package.json
+A green run is not on its own evidence that anything shipped, because the no-op above is green too. The registry's answer and the tag are what settle it.
 
-Edit `package.json` line 3 to the new version string. Only change the version
-field — don't touch anything else.
+## Version files and the lock
 
-### 7. Regenerate the lockfile
+- **`package.json`** — the `version` field, and nothing else in the file. Every reader takes it the same way, `node -p "require('./package.json').version"`: `version-check.yml` on the pull request and `release.yml` on the push both do exactly that, so there is no format to preserve beyond valid JSON.
+- **`package-lock.json`** — regenerated by `npm install` after the bump, which rewrites the number in both places it appears, the root `version` and `packages[""].version`. Never hand-edit it, and do not expect to be stopped: the repo tracks `.claude/hooks/protect-lockfiles.sh`, a `PreToolUse` hook written to refuse precisely that edit and to name `npm install` instead, but no tracked settings file registers it, and a worktree is provisioned without any machine-local settings — so in the release worktree this is a rule you keep rather than a guard that catches you. Nothing on the pull request catches a lock that disagrees with the manifest — `quality-checks.yml` runs `npm install`, which repairs it silently — so the first reader that would refuse is `npm ci` in `release.yml`, after the merge.
+- **Also stamped:** nothing. The number lives in `package.json` and the lock alone — no version literal in `src/`, none in the README, none in `docs/`. `pnpm-lock.yaml` is tracked but records no version of this package and predates the current dependency set; the toolchain is npm throughout, and the release does not touch it.
 
-Run `npm install` to regenerate `package-lock.json`. This ensures the lockfile
-reflects the new version in `package.json`. If this step fails, stop and report
-the error.
+## Gates
 
-### 8. Commit and push
+Run in the worktree, in this order, before the commit:
 
-Stage all release-related changes. This includes at minimum `package.json`,
-`CHANGELOG.md`, and `package-lock.json`, plus any other files the user chose to
-include in step 1 (e.g. previously uncommitted work that belongs in this
-release).
+1. **`make check`** — `eslint src/`, `prettier --check "src/**/*.{ts,tsx}"`, `tsc --noEmit`. It rewrites nothing, so a red format check is cured with `make format`, and whatever that rewrote then joins the release commit. Note the Makefile's `check` does **not** run the tests while `package.json`'s `check` script does; the release runs both targets below, so the difference only bites if you reach for the npm script instead.
+2. **`make test`** — `npx vitest run`, which `vitest.config.mts` splits into two projects: the Node unit tests, and a Storybook project running in headless Chromium through Playwright. The browser project needs the Playwright browser present, and `wt add`'s provisioning does not install it — CI runs `npx playwright install chromium` before every one of these runs, so do that once in a fresh worktree if the Storybook project fails to launch. `quality-checks.yml` runs these same two targets on the pull request, so a red here is a red pull request there.
+3. **`make smoke-pack`** — `node scripts/smoke-pack.mjs`, which packs the tarball, installs it into a throwaway consumer declaring only this package and React, and inspects it from the outside: that every declared export resolves to a file that ships, that every exported stylesheet is actually imported by the JS that needs it, that both React entries keep their `"use client"`, that the form kernel arrives as a dependency in exactly one copy, and that the React-free entries never reach it. **Nothing in CI runs it** — not on the pull request, not on the push — and the tarball is the entire product of this release, so it is the release's own gate. It is slow (it builds through `npm pack`'s `prepare` hook and installs from the registry, so it needs the network) and it exits non-zero listing the checks that failed. Red blocks the release: every property it covers has a history of failing silently, which is why it exists.
 
-Commit with the message:
+## The release commit
 
-```
-bump version to X.Y.Z
-```
+`package.json`, `package-lock.json`, `CHANGELOG.md`, and whatever `make format` rewrote if a format failure sent you there — staged by name.
 
-Push the branch to origin with `-u` to set up tracking.
+## CI on the release pull request
 
-### 9. Open a PR
+- **`guard-branches.yml`** (`pull_request_target`) — the `gate-main` job fires when the base is `main` and refuses any head that does not match `^release\/v[0-9]+\.[0-9]+\.[0-9]+$`, so the release branch name is the only way in. Its `protect-workflows` job separately refuses a `.github/workflows/` change from an author whose association is `CONTRIBUTOR`, `FIRST_TIME_CONTRIBUTOR` or `NONE`. Its third job, `gate-release`, never sees the release pull request — it fires when the base is `dev` or a `release/v…` branch, which is what a mid-release fix onto the open release branch meets, and it holds the head to the workspace's closed set of branch prefixes (`fix`, `feature`, `refactor`, `chore`, `docs`, `ci-cd`, `changelog`, `codex`), with a head named `dev` exempted outright.
+- **`version-check.yml`** — runs on any pull request whose base is `main` or a `release/vX.Y.Z` branch, and asserts the release twice over: that `package.json`'s version is strictly greater than the one on `main`, compared component by component, and that it equals the version in the head branch's name.
+- **`changelog-check.yml`** — the job runs only when the head starts with `release/v`, then demands the exact `^release/v([0-9]+\.[0-9]+\.[0-9]+)$` form and greps `## [vX.Y.Z] -` out of `CHANGELOG.md`, printing every version heading it did find when it fails. It asserts nothing about `[Unreleased]`; leaving none behind is the play's rule, not CI's.
+- **`quality-checks.yml`** — on every pull request, with no branch filter: `npm install`, `npx playwright install chromium`, `make check`, `make test`. Its `npm install` runs the `prepare` script, so the build is exercised here too, implicitly rather than as a step of its own.
+- **`cla.yml`** — the CLA assistant, allowlisted through the `CLA_ALLOWLIST` repository variable.
 
-Create a pull request targeting `main` with:
+## Particulars
 
-- **Title:** `Release vX.Y.Z`
-- **Body:** Include:
-  - The changelog entries for this version (copied from CHANGELOG.md)
-  - A note about the version bump from old to new
-
-Use this format for the PR body:
-
-```markdown
-## Release vX.Y.Z
-
-Bumps version from `A.B.C` to `X.Y.Z`.
-
-### Changelog
-
-<paste the changelog entries for this version here>
-```
-
-Report the PR URL back to the user.
-
-## Important details
-
-- The version follows semver: `MAJOR.MINOR.PATCH`.
-- Always confirm the bump type with the user before making changes.
-- If `make check` or `make test` fails, the release is blocked — help the user
-  fix the issues rather than skipping the checks.
-- Today's date for the changelog entry: use the current date in `YYYY-MM-DD`
-  format.
+- **The changelog headings carry the `v`** — `## [vX.Y.Z] - YYYY-MM-DD`, which is exactly what `changelog-check.yml` greps for and what `release.yml` slices the GitHub Release notes out of.
+- **No `[Unreleased]` heading is left behind, and this repo has been bitten by it.** The v0.20.0 cut inserted its own heading above the pending section instead of renaming it, leaving a second `## [Unreleased]` in the middle of the changelog that filed already-shipped work as unreleased until v0.23.0 found and repaired it. CI never noticed, because it checks only that the version's own heading exists. Rewrite the `[Unreleased]` heading into the release heading; never insert above it.
+- **The changelog is public, so it names no closed-source repo.** `CLAUDE.md`'s "This repo is open source" rule covers the changelog alongside the source, the README, the docs and the config: a reader outside the company cannot follow a name they have no access to, and the file sits on GitHub whether or not it ships in the tarball. Say "a host" or "a consuming application", and describe what changed rather than who asked for it — the rule binds this skill's own text as much as the entry it writes. Entries already dated are the one exception and are left exactly as they are.
+- **No pre-release form.** `guard-branches.yml` refuses a head like `release/v0.24.0-rc.1` into `main` outright, and `changelog-check.yml` does not quietly skip it either: its job condition is `startsWith(github.head_ref, 'release/v')`, so the job runs and then fails the exact-form regex. Ship a plain `X.Y.Z`.
+- **The form kernel's range is not this skill's to move.** `@pipelex/mthds-form` is named once, as an ordinary `dependencies` range, and moving it is a reviewed change owned by the `/bump-mthds-form` skill — and a breaking change for consumers of this package, since it decides which build of the kernel, and with it which stylesheet token contract, a host resolves. When the range moved during the cycle, the changelog entry owes hosts that story. `make use-local` swaps `node_modules` onto a build of `../mthds-form` with `--no-save`, so a manifest that looks untouched can still be running a local kernel; `make use-npm` is the way back, and a fresh release worktree starts from the published kernel regardless.
+- **The vendored corpus and the copied schema are dev-only and are not release gates.** `data/mthds-corpus/` is a copy of the corpus owned by `pipelex`, delivered by the workspace `mthds-corpus-sync` skill and never edited here, and `data/schema/mthds_schema.json` is refreshed by `make schema-refresh`. The tests sweep the corpus; nothing reads the schema, which `src/static-graph/` cites in comments as its authoring-surface reference contract and which no module or test loads. `package.json`'s `"files": ["dist"]` keeps both out of the tarball either way, so drift in them belongs to those skills rather than to a release.
+- **A publish reaches no consumer on its own, and the consumers are not pinned alike.** Some take this package by a caret range below 1.0, which does not bridge a minor; others pin an exact version, which does not bridge even a patch; one names a git commit rather than a registry range, so a publish never reaches it at all. Derive the list at release time rather than trusting a written one, since a written one goes stale silently as repos are added: `find <workspace-root> -maxdepth 5 -name package.json -not -path '*/node_modules/*' | xargs grep -l '@pipelex/mthds-ui'`, then read the range each match declares. `ledger/ledger.toml` declares no `release_followups` for this repo, so nothing arms those bumps by derivation — file one against each consumer yourself, alongside the release item.
