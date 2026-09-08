@@ -11,6 +11,8 @@
 
 import type { ConceptInfo, PresenceMarker, StuffSpecInfo } from "@graph/types";
 
+import { isPlainObject } from "./types";
+
 export const NATIVE_DOMAIN = "native";
 
 /**
@@ -90,6 +92,99 @@ export function parseConceptRef(raw: unknown): ConceptRefParts | null {
   };
 }
 
+// ─── Input slot declarations ─────────────────────────────────────────────────
+// A value in a pipe's `inputs` table has two forms, and the standard states
+// them equivalent (`docs/spec/mthds-format.md`, "Input slot declarations"):
+// the string form `x = "S"`, and the expanded form `x = { concept = "S",
+// hints = { … } }`, whose `concept` carries exactly the same grammar. The
+// expanded form is inputs-only — an `output` is always a string — so this
+// layer sits beside `parseConceptRef` rather than inside it.
+
+/**
+ * The keys the expanded slot table defines in this version of the standard.
+ * The form is deliberately closed: the spec says an unknown key MUST be
+ * rejected, which pipelex implements as `extra="forbid"` on its
+ * `InputSlotBlueprint`. This module renders rather than adjudicates, so it
+ * reports the key and reads past it — see `parseInputSlot`.
+ */
+const INPUT_SLOT_KEYS: ReadonlySet<string> = new Set(["concept", "hints"]);
+
+export interface InputSlotParts {
+  /** The slot's concept ref parts, or null when the slot is not interpretable. */
+  ref: ConceptRefParts | null;
+  /**
+   * True when an expanded slot table declares no `concept` at all. The key is
+   * required, so there is no ref for a diagnostic to be about — the caller says
+   * the key is missing rather than blaming a ref the author never wrote.
+   */
+  missingConcept: boolean;
+  /** Keys of an expanded slot table this version of the standard does not define. */
+  unknownKeys: string[];
+  /**
+   * True when the table is not a slot table at all but the wreckage of an
+   * unquoted dotted input name — see {@link looksLikeUnquotedDottedName}.
+   */
+  dottedName: boolean;
+}
+
+/** A concept code as the standard pins it: `[A-Z][a-zA-Z0-9]*`. */
+const CONCEPT_CODE_RE = /^[A-Z][A-Za-z0-9]*$/;
+
+/**
+ * Recognize the slip the standard names explicitly: "A dotted input name MUST
+ * be written as a single quoted TOML key (`"my_input.field_name" = "Text"`),
+ * never as an unquoted dotted path: TOML parses the latter as nested tables,
+ * which the expanded slot form would misread as a slot table"
+ * (`docs/spec/mthds-format.md`, "Input names").
+ *
+ * `inputs = { my_input.field_name = "Text" }` arrives here as a slot named
+ * `my_input` holding `{ field_name: "Text" }` — a table with no `concept` whose
+ * every undefined key names a concept ref. Without this the author is told the
+ * slot declares an undefined key and then that it has no `concept`, two true
+ * sentences that between them never mention the quoting rule that is the fix.
+ *
+ * The concept-code rule is what keeps this apart from a genuine unknown key: a
+ * code MUST be `PascalCase`, so `{ widget = "textarea" }` cannot be mistaken
+ * for a nested field, while `{ field_name = "Text" }` can only be one.
+ */
+function looksLikeUnquotedDottedName(raw: Record<string, unknown>, unknownKeys: string[]): boolean {
+  if (raw.concept !== undefined || unknownKeys.length === 0) return false;
+  return unknownKeys.every((key) => {
+    const parts = parseConceptRef(raw[key]);
+    return parts !== null && CONCEPT_CODE_RE.test(parts.code);
+  });
+}
+
+/**
+ * Read one `inputs` value, whichever form authored it.
+ *
+ * `hints` is parsed as a known key and then dropped: intent hints are
+ * presentational, and the standard routes them to renderers through the
+ * input-form descriptor, not the GraphSpec (see `docs/static-graph.md`).
+ * Their shape is not checked here for the same reason — a malformed `hints`
+ * table is content this module never reads, so it is the validator's to
+ * report, not the renderer's. An unknown key is different: it may well be
+ * where a future standard puts something that changes the slot, so it is
+ * named rather than passed over.
+ */
+export function parseInputSlot(raw: unknown): InputSlotParts {
+  if (!isPlainObject(raw)) {
+    return {
+      ref: parseConceptRef(raw),
+      missingConcept: false,
+      unknownKeys: [],
+      dottedName: false,
+    };
+  }
+  const unknownKeys = Object.keys(raw).filter((key) => !INPUT_SLOT_KEYS.has(key));
+  return {
+    ref: parseConceptRef(raw.concept),
+    missingConcept: raw.concept === undefined,
+    unknownKeys,
+    dottedName: looksLikeUnquotedDottedName(raw, unknownKeys),
+  };
+}
+
 // ─── Resolution to ConceptInfo ───────────────────────────────────────────────
 
 /**
@@ -148,12 +243,27 @@ export function resolveConceptInfo(
   // priority"), but it also makes a bundle that declares a native-named concept
   // invalid outright — so this branch is only reachable on a bundle pipelex
   // rejects. Tracked in `wip/native-concept-shadowing.md`.
-  const local = localConcepts[parts.code];
-  if (local) return local;
+  // `hasOwn`, not a truthiness test: `localConcepts` is a caller-supplied
+  // record, and on a plain `{}` a code of `toString` or `constructor` reads a
+  // built-in off `Object.prototype` and returns a function as the concept.
+  if (Object.hasOwn(localConcepts, parts.code)) return localConcepts[parts.code];
   if (parts.domain === null && isNativeConceptCode(parts.code)) {
     return nativeConceptInfo(parts.code);
   }
   return stubConceptInfo(parts.code, currentDomain);
+}
+
+/** Build a `StuffSpecInfo` from already-parsed ref parts. */
+function stuffSpecFromParts(
+  parts: ConceptRefParts,
+  currentDomain: string,
+  localConcepts: Record<string, ConceptInfo>,
+): StuffSpecInfo {
+  return {
+    concept: resolveConceptInfo(parts, currentDomain, localConcepts),
+    multiplicity: parts.multiplicity,
+    presence: parts.presence,
+  };
 }
 
 /** Resolve a raw concept ref string straight to a `StuffSpecInfo`, or null when unparseable. */
@@ -163,10 +273,36 @@ export function resolveStuffSpec(
   localConcepts: Record<string, ConceptInfo>,
 ): StuffSpecInfo | null {
   const parts = parseConceptRef(raw);
-  if (parts === null) return null;
+  return parts === null ? null : stuffSpecFromParts(parts, currentDomain, localConcepts);
+}
+
+export interface ResolvedInputSlot {
+  /** The resolved slot, or null when its concept ref is not interpretable. */
+  spec: StuffSpecInfo | null;
+  /** True when an expanded slot table declares no `concept` at all — see {@link InputSlotParts}. */
+  missingConcept: boolean;
+  /** Keys of an expanded slot table this version of the standard does not define. */
+  unknownKeys: string[];
+  /** True when the table is the wreckage of an unquoted dotted input name — see {@link InputSlotParts}. */
+  dottedName: boolean;
+}
+
+/**
+ * Resolve one `inputs` value to a `StuffSpecInfo`, accepting either slot form.
+ * The `StuffSpecInfo` is identical whichever form authored it, which is what
+ * the standard means by calling `x = "S"` and `x = { concept = "S" }` the same
+ * slot.
+ */
+export function resolveInputSlot(
+  raw: unknown,
+  currentDomain: string,
+  localConcepts: Record<string, ConceptInfo>,
+): ResolvedInputSlot {
+  const { ref, missingConcept, unknownKeys, dottedName } = parseInputSlot(raw);
   return {
-    concept: resolveConceptInfo(parts, currentDomain, localConcepts),
-    multiplicity: parts.multiplicity,
-    presence: parts.presence,
+    spec: ref === null ? null : stuffSpecFromParts(ref, currentDomain, localConcepts),
+    missingConcept,
+    unknownKeys,
+    dottedName,
   };
 }

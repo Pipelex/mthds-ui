@@ -1,5 +1,33 @@
 # Changelog
 
+## [v0.24.0] - 2026-09-08
+
+### Added
+
+- **Expanded input-slot form in the static graph builder**: `inputs` values authored as `x = { concept = "S", hints = { … } }` now parse. The standard states the expanded form equivalent to the string form `x = "S"`, and the resolved slot is identical either way — multiplicity and presence markers keep working inside `concept`. Previously any such slot was uninterpretable and the input was dropped from the built `GraphSpec` with an `invalid-concept-ref` warning, so a method using intent hints rendered with missing edges. The expanded form is inputs-only; `output` is still always a string.
+
+- **`parseInputSlot` on the `./static-graph` entry**: The slot-form reader is exported beside `parseConceptRef`, with its `InputSlotParts` type. It returns the slot's ref parts (null when the concept ref is not interpretable), whether an expanded slot table declared no `concept` at all, and any keys the form does not define.
+
+- **`unknown-input-slot-key` diagnostic**: A key the input-slot form does not define is now named in a warning, and the slot still resolves from its `concept`. The runtime rejects such a bundle outright, so the renderer says so rather than drawing a clean graph for it.
+
+### Fixed
+
+- **Authored keys can no longer collide with `Object.prototype`**: every record the static-graph module keys by authored `.mthds` text — input names, concept codes, pipe codes, domain names — is built with a null prototype. Three failures went with it, all of them silent or worse: an input named `__proto__` invoked the prototype setter instead of creating a key, so the slot vanished from the graph with no diagnostic at all; a concept code of `toString` or `constructor` resolved to a built-in function that then travelled into the concept registry as if it were a concept; and a bundle declaring `domain = "__proto__"` made the builder throw, breaking its contract that it never throws on content.
+
+- **An unquoted dotted input name is reported as itself**: `inputs = { my_input.field_name = "Text" }` is the slip the standard names explicitly, since TOML nests it into a table the expanded slot form would misread. It now produces one warning naming the quoting rule instead of an undefined-key warning plus a missing-`concept` warning, neither of which mentioned the fix.
+
+- **The release workflow is recoverable, and its notes reach GitHub as written**: tag creation and the `github-release` job were gated on the version being unpublished, so any failure after a successful `npm publish` was permanent — npm never hands a version number back, and every rerun skipped both steps. They now check `git ls-remote` and `gh release view` instead, so a rerun backfills whichever is missing, tagging the commit npm actually published (read from the version's `gitHead`) rather than whichever commit runs the recovery, while a push that does not move the version stays the deliberate no-op it always was. Notes extraction no longer demands the ` - <date>` suffix a documented dateless heading lacks, no longer drops the entry's last line, and no longer strips the blank lines and indentation that Markdown needs — filters that turned a structured entry into one run-on block on v0.23.0's release page. Because that makes extraction lenient, the publish job now refuses outright to publish a version carrying no `## [vX.Y.Z]` heading, and `changelog-check.yml` asserts the identical anchored dateless form on the release pull request.
+
+### Changed
+
+- **`pnpm-lock.yaml` is removed.** This repo installs with npm and tracks `package-lock.json`; the pnpm lockfile had not been regenerated since April, carried no `@pipelex/mthds-form` entry at all, and still listed `dompurify`, which left `dependencies` in v0.20.0. It never reached the npm tarball, so no consumer was affected — but `pnpm install` here produced a wrong tree.
+
+- **Stale prose about the form kernel is swept.** Several comments still called `@pipelex/mthds-form` an optional peer, and one called it a required peer — it has been an ordinary `dependency` since v0.20.0, and the difference matters, because npm auto-installs a required peer and pnpm does not. `tsup.config.ts`, `eslint.config.mjs`, the `Makefile`, `src/standalone/__tests__/cssManifest.test.ts`, a `ConceptDetail` story and the `/bump-mthds-form` skill are corrected. `src/form/react/RunPanel.css` is the one that shipped: as `dist/form/react/RunPanel.css` it told hosts that bringing in the kernel's control styling was their lane, which stopped being true when both React entries began importing the stylesheet themselves.
+
+- **The cascade layer's rationale is accurate for kernel 0.8.0.** `src/styles/form-kernel.css`, its regression test and `docs/run-form-panel.md` justified the layer partly by the kernel preflight's `border: 0 solid #e5e7eb` painting a pale grey hairline. Tailwind 4 defaults the border colour to `currentColor`, so 0.8.0 emits `border: 0 solid` and that symptom is gone. The layer is unchanged and still needed: the shorthand still resets what the host declared, and the `.hidden` versus `.sm:inline` collision it mainly exists for is untouched.
+
+- **Intent hints are parsed and dropped, deliberately**: `hints` on an input slot is accepted and does not reach the `GraphSpec`. Hints travel to consumers on the input-form descriptor, which this library already reads through `@pipelex/mthds-form` — the runtime's `StuffSpec` has no `hints` field, so carrying them on a static spec would diverge from every dry and live spec. The rationale is written up in `docs/static-graph.md`.
+
 ## [v0.23.0] - 2026-09-04
 
 ### Changed

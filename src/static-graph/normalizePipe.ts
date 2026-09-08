@@ -19,9 +19,14 @@ import type {
 } from "@graph/types";
 import { KNOWN_PIPE_TYPES } from "@graph/types";
 
-import { NATIVE_DOMAIN, nativeConceptInfo, resolveStuffSpec } from "./conceptRefs";
+import {
+  NATIVE_DOMAIN,
+  nativeConceptInfo,
+  resolveInputSlot,
+  resolveStuffSpec,
+} from "./conceptRefs";
 import type { Diagnostic } from "./types";
-import { boolOrNull, intOrNull, isPlainObject, strOrNull } from "./types";
+import { authoredRecord, boolOrNull, intOrNull, isPlainObject, strOrNull } from "./types";
 
 export interface NormalizePipeContext {
   domain: string;
@@ -61,7 +66,7 @@ function normalizeInputs(
   pipeCode: string,
   ctx: NormalizePipeContext,
 ): Record<string, StuffSpecInfo> {
-  const inputs: Record<string, StuffSpecInfo> = {};
+  const inputs = authoredRecord<StuffSpecInfo>();
   if (raw === undefined || raw === null) return inputs;
   if (!isPlainObject(raw)) {
     ctx.diagnostics.push({
@@ -72,13 +77,49 @@ function normalizeInputs(
     });
     return inputs;
   }
-  for (const [name, ref] of Object.entries(raw)) {
-    const spec = resolveStuffSpec(ref, ctx.domain, ctx.concepts);
-    if (spec === null) {
+  for (const [name, slot] of Object.entries(raw)) {
+    const { spec, missingConcept, unknownKeys, dottedName } = resolveInputSlot(
+      slot,
+      ctx.domain,
+      ctx.concepts,
+    );
+    if (dottedName) {
+      // Not a slot table at all — an unquoted dotted input name, which TOML
+      // nests and the expanded form would otherwise misread. Reported alone,
+      // because the two generic diagnostics below are both true of it and
+      // neither mentions the quoting rule that is the fix.
       ctx.diagnostics.push({
         severity: "warning",
         code: "invalid-concept-ref",
-        message: `pipe "${pipeCode}": input "${name}" has an uninterpretable concept ref — skipped`,
+        message:
+          `pipe "${pipeCode}": input "${name}" reads as a slot table but looks like an unquoted ` +
+          `dotted input name — write it as one quoted key ("${name}.${unknownKeys.join(".")}" = …) — skipped`,
+        path: `pipe.${pipeCode}.inputs.${name}`,
+      });
+      continue;
+    }
+    if (unknownKeys.length > 0) {
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "unknown-input-slot-key",
+        message:
+          `pipe "${pipeCode}": input "${name}" declares ${unknownKeys.map((key) => `"${key}"`).join(", ")}, ` +
+          "which the input slot form does not define — ignored here, and the runtime refuses the bundle",
+        path: `pipe.${pipeCode}.inputs.${name}`,
+      });
+    }
+    if (spec === null) {
+      // Two ways to reach here, and they are different author mistakes: an
+      // expanded slot that never declared the required `concept` key, versus a
+      // ref that was written and does not parse. Saying "uninterpretable ref"
+      // for the first blames a ref the author never wrote, which reads as a
+      // grammar problem when the fix is to add the key.
+      ctx.diagnostics.push({
+        severity: "warning",
+        code: "invalid-concept-ref",
+        message: missingConcept
+          ? `pipe "${pipeCode}": input "${name}" is a slot table with no "concept" — the key is required — skipped`
+          : `pipe "${pipeCode}": input "${name}" has an uninterpretable concept ref — skipped`,
         path: `pipe.${pipeCode}.inputs.${name}`,
       });
       continue;

@@ -14,7 +14,11 @@
  *     width (toolbar buttons, deploy dialog tabs, responsive separators);
  *   - its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced
  *     the host's default border color, painting a pale hairline under anything
- *     with a border width and no explicit color class.
+ *     with a border width and no explicit color class. (Kernel 0.8.0 emits
+ *     `border: 0 solid` — Tailwind 4 defaults the color to `currentColor` — so
+ *     that second symptom no longer appears. The shorthand still resets the
+ *     host's border color, and the `.hidden` collision above, which is the
+ *     reason the layer mainly exists, is unchanged.)
  *
  * The fix is the cascade layer in `../form-kernel.css`: layered rules lose to
  * unlayered ones whatever the source order, so the host keeps what it declares

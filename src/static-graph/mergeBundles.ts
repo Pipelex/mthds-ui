@@ -8,10 +8,10 @@
 // merging, io concept stubs are re-pointed at the declarations that other files
 // contributed (a pipe in file A can reference a concept declared in file B).
 
-import type { PipeBlueprintUnion, StuffSpecInfo } from "@graph/types";
+import type { ConceptInfo, PipeBlueprintUnion, StuffSpecInfo } from "@graph/types";
 
 import type { Diagnostic, DomainNamespace, MergedMethodSet, ParsedBundle } from "./types";
-import { UNKNOWN_DOMAIN } from "./types";
+import { authoredRecord, UNKNOWN_DOMAIN } from "./types";
 
 function enrichPipeConcepts(
   pipe: PipeBlueprintUnion,
@@ -23,7 +23,7 @@ function enrichPipeConcepts(
       ? { ...spec, concept: declared }
       : spec;
   };
-  const inputs: Record<string, StuffSpecInfo> = {};
+  const inputs = authoredRecord<StuffSpecInfo>();
   for (const [name, spec] of Object.entries(pipe.inputs)) {
     inputs[name] = enrichSpec(spec);
   }
@@ -40,14 +40,18 @@ function enrichPipeConcepts(
  */
 export function mergeBundles(bundles: ParsedBundle[]): MergedMethodSet {
   const diagnostics: Diagnostic[] = [];
-  const domains: Record<string, DomainNamespace> = {};
+  const domains = authoredRecord<DomainNamespace>();
   let mainDomain: string | null = null;
   let mainPipe: string | null = null;
   let description: string | null = null;
 
   for (const bundle of bundles) {
     const domain = bundle.domain ?? UNKNOWN_DOMAIN;
-    const namespace = (domains[domain] ??= { domain, concepts: {}, pipes: {} });
+    const namespace = (domains[domain] ??= {
+      domain,
+      concepts: authoredRecord<ConceptInfo>(),
+      pipes: authoredRecord<PipeBlueprintUnion>(),
+    });
     if (mainDomain === null && bundle.domain !== null) mainDomain = bundle.domain;
     if (mainPipe === null && bundle.main_pipe !== null) {
       mainPipe = bundle.main_pipe;
