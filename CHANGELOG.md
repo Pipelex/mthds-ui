@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v0.24.0] - 2026-09-08
 
 ### Added
 
@@ -16,13 +16,7 @@
 
 - **An unquoted dotted input name is reported as itself**: `inputs = { my_input.field_name = "Text" }` is the slip the standard names explicitly, since TOML nests it into a table the expanded slot form would misread. It now produces one warning naming the quoting rule instead of an undefined-key warning plus a missing-`concept` warning, neither of which mentioned the fix.
 
-- **The release workflow could leave a published version permanently without a git tag or a GitHub release.** Tag creation and the whole `github-release` job were gated on `already_published == 'false'`, so any failure after a successful `npm publish` was unrecoverable: npm never hands a version number back, and every rerun saw the version as published and skipped both steps. The tag step now checks `git ls-remote` and the release job checks `gh release view`, so a rerun backfills whichever is missing while a push that does not move the version stays the deliberate no-op it always was. Backfill tags the commit npm actually published, read from the version's `gitHead`, rather than whichever commit happens to be running the recovery — the two diverge exactly when a failed release is fixed by pushing a follow-up commit to `main`, which is how v0.22.0 was recovered. When `gitHead` cannot be read the step falls back to the running commit, which is correct on the normal path because that is the publishing run.
-
-- **A dateless changelog heading silently produced generic release notes.** The extraction required `## [vX.Y.Z] - <date>`, but the dateless `## [vX.Y.Z]` is a documented heading too, and an entry written that way fell through to the "Release vX.Y.Z" fallback without a warning. Both greps are now anchored at the start of the line and no longer demand the date suffix. Because that makes extraction lenient, the publish job gains the hard gate that makes leniency safe: it refuses to publish a version with no `## [vX.Y.Z]` heading at all, repeated at the last moment before the irreversible step, since a version bump reaching `main` any other way would otherwise publish with no entry. `changelog-check.yml`, which runs the same check on the release PR, is relaxed to the identical anchored dateless form — it demanded the ` - <date>` suffix, so a dateless heading the other two now accept could never have reached `main` by the normal route.
-
-- **The last line of a changelog entry was dropped when no blank line preceded the next version heading.** `END_LINE` is already the section's last line, and the `sed` range subtracted one from it a second time.
-
-- **Release notes reach GitHub as they were written.** The extracted entry was run through `sed '/^$/d'` and a leading-whitespace strip, which is fatal to Markdown: blank lines are what separate paragraphs and close lists, and leading indentation is what keeps a continuation paragraph inside its list item. A structured entry arrived on the release page as one run-on block with its `###` sub-headings swallowed into the bullet above — v0.23.0's release page shows exactly that. Both filters are gone.
+- **The release workflow is recoverable, and its notes reach GitHub as written**: tag creation and the `github-release` job were gated on the version being unpublished, so any failure after a successful `npm publish` was permanent — npm never hands a version number back, and every rerun skipped both steps. They now check `git ls-remote` and `gh release view` instead, so a rerun backfills whichever is missing, tagging the commit npm actually published (read from the version's `gitHead`) rather than whichever commit runs the recovery, while a push that does not move the version stays the deliberate no-op it always was. Notes extraction no longer demands the ` - <date>` suffix a documented dateless heading lacks, no longer drops the entry's last line, and no longer strips the blank lines and indentation that Markdown needs — filters that turned a structured entry into one run-on block on v0.23.0's release page. Because that makes extraction lenient, the publish job now refuses outright to publish a version carrying no `## [vX.Y.Z]` heading, and `changelog-check.yml` asserts the identical anchored dateless form on the release pull request.
 
 ### Changed
 
