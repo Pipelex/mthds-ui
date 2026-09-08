@@ -32,11 +32,12 @@ const SKIP_DIR_SEGMENTS = new Set(["__tests__", "__stories__", "node_modules"]);
  * asked to ship stylesheets for. The bundle has exactly one entry point —
  * `src/standalone/adapter.ts`, the graph viewer.
  *
- * `src/form/` is out because the run panel renders the form kernel's controls,
- * and `@pipelex/mthds-form` is an OPTIONAL PEER that the standalone IIFE by
- * construction does not have (design Decision B). Listing `RunPanel.css` in the
- * manifest would inline a stylesheet for a component no standalone HTML can
- * render.
+ * `src/form/` is out because the standalone bundle has no run panel: its single
+ * entry point is the graph viewer, which never reaches `src/form/`. What decides
+ * this is REACHABILITY, not installability — the kernel became an ordinary
+ * dependency rather than an optional peer, and that changed nothing here.
+ * Listing `RunPanel.css` in the manifest would inline a stylesheet for a
+ * component no standalone HTML can render.
  */
 const UNREACHABLE_FROM_STANDALONE = ["src/form"];
 

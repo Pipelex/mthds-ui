@@ -4,10 +4,11 @@
 /*                                                                            */
 /* This file styles the PANEL and nothing inside a field. The controls are    */
 /* the kernel's, styled with Tailwind classes over shadcn semantic tokens,    */
-/* and bringing those in is the HOST's lane — either a Tailwind build that    */
-/* scans the kernel's dist, or its prebuilt `theme.css` + `styles.css`. See   */
-/* `docs/run-form-panel.md`; this stylesheet deliberately imports neither, so */
-/* no host inherits Tailwind's preflight from us.                            */
+/* and this package brings those in ITSELF — both React entries import        */
+/* `../../styles/form-kernel.css`, which pulls the kernel's prebuilt sheet in */
+/* under a cascade layer so it can never outrank a host's own Tailwind. The   */
+/* host adds nothing; saying otherwise was true only before v0.20.0. See      */
+/* `docs/run-form-panel.md`. This stylesheet imports no kernel CSS itself.    */
 
 .mthds-run-panel {
   display: flex;

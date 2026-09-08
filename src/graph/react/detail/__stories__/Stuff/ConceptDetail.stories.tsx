@@ -60,12 +60,11 @@ export const DryRunSchemaOnly: Story = {
 /**
  * A stand-in for the host's data view.
  *
- * These are `./graph/react` stories, and the graph entry may not import the
- * form kernel — it is an optional peer, isolated behind `./form/react`. That is
- * not a limitation being worked around here: it is the panel's contract on
- * display. `ConceptDetailPanel` owns the header, the structure table and the
- * tabs; the data view arrives through `renderData`. The real one is
- * `renderStuffResult` from this package's own `./form/react` entry — see
+ * This is the panel's contract on display, not a limitation being worked
+ * around: `ConceptDetailPanel` owns the header, the structure table and the
+ * tabs, and the data view arrives through `renderData`. The graph does not
+ * render data — a renderer is passed in. The real one is `renderStuffResult`
+ * from this package's own `./form/react` entry — see
  * `Form/Graph With Result Panel`.
  */
 function PlainData() {

@@ -14,7 +14,6 @@ jobs:
 
     outputs:
       version: ${{ steps.get_version.outputs.version }}
-      already_published: ${{ steps.check_published.outputs.already_published }}
 
     steps:
       - name: Checkout code
@@ -47,6 +46,23 @@ jobs:
             echo "Version $VERSION is not yet published"
             echo "already_published=false" >> $GITHUB_OUTPUT
           fi
+
+      # The same gate `changelog-check.yml` runs on the release PR, repeated at
+      # the last moment before the irreversible step. That gate only sees PRs
+      # from a `release/v*` branch, so a version bump reaching `main` any other
+      # way would otherwise publish with no entry - and npm never gives a
+      # version number back. Gated on already_published so that a push which
+      # does not move the version stays the deliberate no-op described above.
+      - name: Assert the changelog has an entry for this version
+        if: steps.check_published.outputs.already_published == 'false'
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
+        run: |
+          if ! grep -qE "^## \[v${VERSION//./\\.}\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md has no '## [v$VERSION]' heading - refusing to publish $VERSION. Rename '## [Unreleased]' and push again."
+            exit 1
+          fi
+          echo "Changelog entry found for v$VERSION."
 
       - name: Install dependencies
         if: steps.check_published.outputs.already_published == 'false'
@@ -86,20 +102,27 @@ jobs:
         # npm itself, not in user lifecycle scripts, so it's unaffected.
         run: npm publish --ignore-scripts --access public --provenance
 
-      - name: Create git tag
-        if: steps.check_published.outputs.already_published == 'false'
+      # Not gated on already_published: if a previous run published to npm but
+      # failed before tagging, the rerun must still be able to backfill the
+      # tag. The existence check is what keeps a no-bump push a no-op.
+      - name: Create git tag if missing
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
-          git tag "v$VERSION"
-          git push origin "v$VERSION"
+          if git ls-remote --exit-code origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists"
+          else
+            git tag "v$VERSION"
+            git push origin "v$VERSION"
+          fi
 
+  # Not gated on already_published either, for the same recovery reason: the
+  # release must be creatable on a rerun even when npm already has the version.
   github-release:
     name: Create GitHub Release
     needs:
       - publish
-    if: needs.publish.outputs.already_published == 'false'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -107,39 +130,70 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check if release already exists
+        id: check_release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.publish.outputs.version }}"
+          if gh release view "v$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release v$VERSION already exists"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Extract changelog notes for current version
+        if: steps.check_release.outputs.exists == 'false'
         run: |
           VERSION="${{ needs.publish.outputs.version }}"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Extracting changelog for version v$VERSION"
 
-          START_LINE=$(grep -n "## \[v$VERSION\] - " CHANGELOG.md | cut -d: -f1)
+          # Anchored, and dateless. A release entry is written
+          # `## [vX.Y.Z] - <date>`, but the changelog format documents the
+          # dateless `## [vX.Y.Z]` as well, and demanding the ` - ` suffix made
+          # such an entry fall through to generic release notes without a word.
+          START_LINE=$(grep -n "^## \[v$VERSION\]" CHANGELOG.md | head -1 | cut -d: -f1)
 
+          # Deliberately a warning here, where the publish job hard-fails: this
+          # job also runs on the recovery path, backfilling a release for a
+          # version npm already has. Failing it would leave that version
+          # permanently without a GitHub release, which is the opposite of what
+          # the gate is for. The heading is enforced before publishing instead.
           if [ -z "$START_LINE" ]; then
             echo "Warning: No changelog entry found for version v$VERSION"
             echo "CHANGELOG_NOTES=" >> $GITHUB_ENV
             exit 0
           fi
 
-          NEXT_VERSION_LINE=$(tail -n +$((START_LINE + 1)) CHANGELOG.md | grep -n "^## \[v.*\] - " | head -1 | cut -d: -f1)
+          NEXT_VERSION_LINE=$(tail -n +$((START_LINE + 1)) CHANGELOG.md | grep -n "^## \[v" | head -1 | cut -d: -f1)
 
           if [ -z "$NEXT_VERSION_LINE" ]; then
             CHANGELOG_CONTENT=$(tail -n +$START_LINE CHANGELOG.md)
           else
+            # NEXT_VERSION_LINE counts from START_LINE + 1, so the next heading
+            # sits at START_LINE + NEXT_VERSION_LINE and this section's last
+            # line is the one before it — which is END_LINE. Subtracting one a
+            # second time when printing dropped that line.
             END_LINE=$((START_LINE + NEXT_VERSION_LINE - 1))
-            CHANGELOG_CONTENT=$(sed -n "$START_LINE,$((END_LINE - 1))p" CHANGELOG.md)
+            CHANGELOG_CONTENT=$(sed -n "$START_LINE,${END_LINE}p" CHANGELOG.md)
           fi
 
-          HEADER_LINE=$(echo "$CHANGELOG_CONTENT" | head -1)
-          CONTENT_LINES=$(echo "$CHANGELOG_CONTENT" | tail -n +2 | sed '/^$/d' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
-
-          CHANGELOG_CONTENT=$(printf "%s\n\n%s" "$HEADER_LINE" "$CONTENT_LINES")
-
+          # The entry reaches the release page exactly as it was written. This
+          # step used to run it through `sed '/^$/d'` and a leading-whitespace
+          # strip, which is fatal to Markdown: blank lines are what separate
+          # paragraphs and close lists, and leading indentation is what keeps a
+          # continuation paragraph inside its list item. Without them a
+          # structured entry renders as one run-on block with its sub-headings
+          # swallowed into the bullet above. Command substitution has already
+          # dropped the trailing blank lines before the next heading.
           echo "CHANGELOG_NOTES<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Create GitHub Release
+        if: steps.check_release.outputs.exists == 'false'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |

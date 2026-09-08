@@ -87,8 +87,8 @@ schema-refresh:
 	cp ../pipelex/derived/mthds_schema.json data/schema/mthds_schema.json
 
 # ── Local form-kernel development ──────────────────────────────────────────
-# By default the optional peer `@pipelex/mthds-form` comes from npm, at the
-# range package.json pins. `make use-local` swaps node_modules over to a build
+# By default `@pipelex/mthds-form` comes from npm, at the range package.json
+# pins it to under `dependencies`. `make use-local` swaps node_modules over to a build
 # of the sibling ../mthds-form so the kernel and this library can be developed
 # side by side; `make use-npm` swaps back.
 #
