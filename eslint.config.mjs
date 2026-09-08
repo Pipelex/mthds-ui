@@ -33,18 +33,18 @@ export default tseslint.config(
     },
   },
   {
-    // Import isolation for the optional peer (design Decision B,
-    // `wip/adopt-form/design.md`): `@pipelex/mthds-form` is reachable only from
-    // `src/form/**`, which is exported behind its own `./form/react` entry.
-    // Every other entry must keep resolving with the kernel not installed.
+    // Retired boundary, kept as a marker of where it used to run (design
+    // Decision B, `wip/adopt-form/design.md`).
     files: ["src/**/*.ts", "src/**/*.tsx"],
     ignores: ["src/form/**"],
     rules: {
-      // The kernel is a REQUIRED peer now, so there is no import boundary left
-      // to police. It was restricted to `src/form/**` while it was OPTIONAL and
-      // `./graph/react` had to keep resolving without it; that stopped being
-      // true when the graph's detail panel began rendering results through it.
-      // See docs/stuff-result-panel.md for why the optionality went.
+      // `@pipelex/mthds-form` was restricted to `src/form/**` while it was an
+      // OPTIONAL peer and `./graph/react` had to keep resolving without it.
+      // That stopped being true when the graph's detail panel began rendering
+      // results through the kernel, so there is no boundary left to police —
+      // the kernel is an ordinary DEPENDENCY (not a required peer: npm
+      // auto-installs those and pnpm does not, which is why that route was
+      // rejected). See docs/stuff-result-panel.md for why the optionality went.
     },
   },
   ...storybook.configs["flat/recommended"],

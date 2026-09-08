@@ -14,9 +14,13 @@
  *     `class="hidden sm:inline"` label in the host app disappears at every
  *     width. This is not hypothetical: it silently blanked the toolbar and
  *     dialog labels across a consuming application the moment a graph mounted.
- *   - Its preflight re-bases `*, ::before, ::after { border: 0 solid #e5e7eb }`,
- *     replacing the host's own default border color, so every element with a
- *     border width and no explicit color class draws a pale grey hairline.
+ *   - Its preflight re-bases `*, ::before, ::after { border: 0 solid }`. A
+ *     shorthand always sets every longhand, so the host's own default border
+ *     color is still replaced — but with `currentColor`, which is Tailwind 4's
+ *     default. Through kernel 0.7.0 the declaration carried `#e5e7eb` and the
+ *     symptom was a pale grey hairline under anything with a border width and
+ *     no explicit color class. That symptom is gone as of 0.8.0; the collision
+ *     is milder, and the layer settles it either way.
  *
  * Both are the same failure: our sheet loading LATER than the host's and winning
  * ties it has no business winning. A cascade layer settles it by construction —

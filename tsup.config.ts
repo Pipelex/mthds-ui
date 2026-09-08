@@ -37,10 +37,12 @@ export default defineConfig({
     "@shikijs/core",
     "@shikijs/engine-oniguruma",
     "@shikijs/themes",
-    // The form kernel is an OPTIONAL PEER and carries React contexts
+    // The form kernel carries React contexts
     // (FieldStringsProvider, FieldPresentationProvider). Bundling a copy here
     // would give the panel a second context identity, so a host's provider
-    // would not resolve inside it — design Decision B.
+    // would not resolve inside it — design Decision B. It is a dependency now
+    // rather than an optional peer, which makes this MORE important, not less:
+    // nothing stops the bundler from inlining a package that is always present.
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/react",
     "@pipelex/mthds-form/styles.css",

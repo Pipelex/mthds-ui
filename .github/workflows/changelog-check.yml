@@ -22,8 +22,12 @@ jobs:
             VERSION="${BASH_REMATCH[1]}"
             echo "Checking release branch v$VERSION against changelog..."
 
-            # Look for the version in the changelog
-            if ! grep -q "## \[v$VERSION\] -" CHANGELOG.md; then
+            # Anchored and dateless, matching the assert in `release.yml` and
+            # the extraction that builds the release notes. Requiring the
+            # ` - <date>` suffix here would reject the dateless `## [vX.Y.Z]`
+            # heading the changelog format documents, so a heading those two
+            # accept could never reach `main` by the normal route.
+            if ! grep -qE "^## \[v${VERSION//./\\.}\]" CHANGELOG.md; then
               echo "::error::No changelog entry found for version v$VERSION"
               echo "The following versions are in the changelog:"
               grep -E "^## \[v[0-9]+\.[0-9]+\.[0-9]+\]" CHANGELOG.md
