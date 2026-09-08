@@ -47,8 +47,9 @@ jobs:
             echo "already_published=false" >> $GITHUB_OUTPUT
           fi
 
-      # The same gate `changelog-check.yml` runs on the release PR, repeated at
-      # the last moment before the irreversible step. That gate only sees PRs
+      # The gate `changelog-check.yml` runs on the release PR, in the same
+      # anchored dateless form, repeated at the last moment before the
+      # irreversible step. That gate only sees PRs
       # from a `release/v*` branch, so a version bump reaching `main` any other
       # way would otherwise publish with no entry - and npm never gives a
       # version number back. Gated on already_published so that a push which
@@ -112,10 +113,32 @@ jobs:
           VERSION="${{ steps.get_version.outputs.version }}"
           if git ls-remote --exit-code origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
             echo "Tag v$VERSION already exists"
-          else
-            git tag "v$VERSION"
-            git push origin "v$VERSION"
+            exit 0
           fi
+
+          # Tag the commit npm ACTUALLY published, which is not always the one
+          # running this step. Backfill is reachable from any push to `main`
+          # carrying an already-published version, and fixing a failed release
+          # by pushing a follow-up commit is how this repo has recovered before
+          # (v0.22.0: the release merge failed, a lock-refresh commit published).
+          # Had that failure landed after `npm publish` instead of before, this
+          # step would have tagged the follow-up commit while the artifact came
+          # from the merge — and since the tag then exists, every later run takes
+          # the branch above and the wrong association becomes permanent.
+          #
+          # npm records the publishing commit as `gitHead`. On the normal path it
+          # equals this run's SHA. When it cannot be read at all — the registry
+          # has not propagated the publish this run just made — falling back to
+          # this run's SHA is exactly right, because that IS the publishing run.
+          PUBLISHED_SHA="$(npm view "@pipelex/mthds-ui@$VERSION" gitHead 2>/dev/null || true)"
+          TARGET_SHA="$GITHUB_SHA"
+          if [ -n "$PUBLISHED_SHA" ] && [ "$PUBLISHED_SHA" != "$GITHUB_SHA" ]; then
+            echo "::warning::npm published $VERSION from $PUBLISHED_SHA, not $GITHUB_SHA. Tagging the published commit."
+            git fetch --depth=1 origin "$PUBLISHED_SHA"
+            TARGET_SHA="$PUBLISHED_SHA"
+          fi
+          git tag "v$VERSION" "$TARGET_SHA"
+          git push origin "v$VERSION"
 
   # Not gated on already_published either, for the same recovery reason: the
   # release must be creatable on a rerun even when npm already has the version.
@@ -154,7 +177,7 @@ jobs:
           # `## [vX.Y.Z] - <date>`, but the changelog format documents the
           # dateless `## [vX.Y.Z]` as well, and demanding the ` - ` suffix made
           # such an entry fall through to generic release notes without a word.
-          START_LINE=$(grep -n "^## \[v$VERSION\]" CHANGELOG.md | head -1 | cut -d: -f1)
+          START_LINE=$(grep -n "^## \[v${VERSION//./\\.}\]" CHANGELOG.md | head -1 | cut -d: -f1)
 
           # Deliberately a warning here, where the publish job hard-fails: this
           # job also runs on the recovery path, backfilling a release for a
@@ -188,9 +211,16 @@ jobs:
           # structured entry renders as one run-on block with its sub-headings
           # swallowed into the bullet above. Command substitution has already
           # dropped the trailing blank lines before the next heading.
-          echo "CHANGELOG_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$CHANGELOG_CONTENT" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          # Random delimiter, per GitHub's own guidance: the entry now reaches
+          # this heredoc verbatim, so a fixed marker is a line of CHANGELOG.md
+          # away from closing the block early and having the remainder parsed as
+          # further environment assignments.
+          DELIM="CHANGELOG_EOF_$(openssl rand -hex 16)"
+          {
+            echo "CHANGELOG_NOTES<<$DELIM"
+            echo "$CHANGELOG_CONTENT"
+            echo "$DELIM"
+          } >> "$GITHUB_ENV"
 
       - name: Create GitHub Release
         if: steps.check_release.outputs.exists == 'false'
