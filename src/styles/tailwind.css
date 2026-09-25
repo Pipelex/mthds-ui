@@ -31,9 +31,18 @@
  *     version at the top.
  *
  * A path that does not exist is skipped silently, which is why both are listed:
- * whichever layout the host's package manager chose, one of them is the copy of
- * the kernel this package imports, and the host never names a path into
+ * in the layouts pnpm and npm give this package, one of them is the copy of the
+ * kernel this package imports, and the host never names a path into
  * `node_modules` or declares the kernel itself.
+ *
+ * ONE LAYOUT ESCAPES BOTH
+ *
+ * A tree holding two versions of this package that share a kernel range can
+ * have npm nest one of them, under the workspace or dependency that asked for
+ * it, while the kernel they share is hoisted further up. No path fixed relative
+ * to this file reaches a kernel an arbitrary number of levels above it, so both
+ * candidates are skipped, silently, and the host adds its own `@source` at the
+ * kernel's `dist` (`docs/run-form-panel.md`).
  *
  * No JavaScript imports this file, and a host WITHOUT Tailwind never loads it:
  * it imports `@pipelex/mthds-ui/form-kernel.css` instead. Never both.

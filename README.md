@@ -344,7 +344,7 @@ The controls inside `RunPanel`, and inside the graph's detail panel, are the for
 /* …and the @theme inline mapping of the shadcn tokens the kernel's setup lists. */
 ```
 
-`tailwind.css` points Tailwind at the copy of the kernel this package depends on, under pnpm and npm alike, so you write no path into `node_modules` and do not declare `@pipelex/mthds-form` yourself. The rest of the kernel's setup stays yours: `tw-animate-css` animates the select popover and the tooltip, without the token mapping a class such as `bg-background` compiles to nothing, and the `@custom-variant` line, which a shadcn/ui codebase already has, keys `dark:` to the `.dark` class the kernel follows rather than to the operating system's preference.
+`tailwind.css` points Tailwind at the copy of the kernel this package depends on, wherever pnpm or npm put it beside or under this package, so you write no path into `node_modules` and do not declare `@pipelex/mthds-form` yourself. One layout escapes it: when your tree holds two versions of this package, npm can nest one below a kernel hoisted further up, and the controls then render unstyled without a warning; [docs/run-form-panel.md](./docs/run-form-panel.md) gives the one-line remedy. The rest of the kernel's setup stays yours: `tw-animate-css` animates the select popover and the tooltip, without the token mapping a class such as `bg-background` compiles to nothing, and the `@custom-variant` line, which a shadcn/ui codebase already has, keys `dark:` to the `.dark` class the kernel follows rather than to the operating system's preference.
 
 **A host without Tailwind** imports the prebuilt stylesheet once, from its entry:
 
