@@ -55,7 +55,7 @@ A prompt that starts the work: "Implement `wip/kernel-layer-beats-v4/plan.md` fr
 - [x] `grep form-kernel dist/graph/react/index.js dist/form/react/index.js` finds nothing, and `dist/styles/` holds both host stylesheets.
 - [x] Storybook: open a `RunPanel` story and a story whose detail panel shows a structured result through `StuffResultPanel`, in both themes, with `/browse`, and confirm the controls are styled as they were. The styling lane there is unchanged, since Storybook imports the wrapper itself, so this checks that nothing else moved.
 - [x] Update this plan: completed phases, the SHA they landed in, any difference the smoke oracle surfaced and how it was settled, and open questions.
-- [x] `/rev`: profile 3, round 1, recorded below under "Checkpoint A review".
+- [x] `/rev`: profile 3, rounds 1 and 2, recorded below under "Checkpoint A review".
 
 ### Checkpoint A record
 
@@ -96,6 +96,23 @@ Phases 1 and 2 landed together in `df85e4c` on `feature/Kernel-layer-beats-v4`.
 
 - `StuffResultPanel` installs the kernel's `ResultEnvProvider` with `resolveUrl` and `resolveShareUrl` only, so a `GraphViewer` host cannot pass the kernel's `proseImages` (images in prose now render as links until a host opts in) or `tableColumns` (result tables now show five columns). Whether the viewer should forward them is a product question for the next change to the panel.
 - The Storybook pass saw the dark result panel's text keep the light palette, which is the pre-existing `theme` defect recorded above, unchanged by the bump.
+
+### Checkpoint A review, round 2
+
+`/rev 3` reviewed `0aefba5` against `origin/dev` at round 2, bar `defects`, with the same three reviewers and one verifier. code-review reported nothing, again having read only the source and config files. Codex raised one finding. cubic raised three, one of them round 1's deferral again.
+
+- **Fixed in `014bcf1`: the React peer floor.** Kernel `0.9.0` brought in `@json-render/react`, whose only peer is `react ^19.2.3`, while this package and the kernel both advertised `^19`. The verifier measured a host pinning React 19.1.0:
+  - default npm warns `ERESOLVE` and installs one React;
+  - `--strict-peer-deps` fails the install;
+  - pnpm reports the unmet peer;
+  - nothing breaks at runtime, since only the kernel's `./generative` entry loads json-render.
+
+  Codex's claim of a second React copy was refuted. The peers moved to `^19.2.3` here, and the kernel's side is L-260925-829b91. If the kernel takes `@json-render` off its main entries, this floor can come down at the next bump.
+- **Fixed in `e610877`: the release skill's description of the smoke gate.** It said every exported stylesheet is imported by the JS that needs it, which is the inverse of what the gate now asserts for the two host stylesheets. It named neither the Tailwind 4 host check nor its pnpm requirement, and it called the toolchain "npm throughout".
+- **Fixed in `b02ff19`: `tailwind.css`'s claim to cover every layout.** The README, `docs/run-form-panel.md` and the file's own comment said one of the two paths finds the kernel whichever layout a package manager chose. The verifier built a counter-example with npm workspaces: two apps pinning versions of this package that share a kernel range, one copy of this package nested under its app, and the kernel hoisted to the root. That host compiled none of the kernel's utility selectors, with no warning, and one `@source` line in the host fixed it. The docs now name that layout and the remedy.
+- **Deferred, verified, an improvement: resolve the kernel instead of guessing its path.** In scratch, the verifier replaced `tailwind.css` with `@config "./kernel-source.config.mjs"`. That config resolves `@pipelex/mthds-form/styles.css` through `createRequire(import.meta.url)` and returns `content: [<kernel dist>/**/*]`, and the nested layout then compiled every selector. A glob of `**/*.js` alone left 8 missing, because the kernel's non-JS files under `dist` also carry class names. The approach depends on Tailwind 4's legacy `@config` path, and the smoke check would have to cover the nested-below-hoisted layout, so it is a design change for later rather than a fix for this round.
+- **Still deferred: the smoke host scans its own program.** cubic raised round 1's deferral again, unchanged, and the trace under "Checkpoint A review" stands.
+- **A side note from the verifier.** `smoke-pack` tells a machine without pnpm to run `corepack enable`, which holds on Node 22 and 24, the versions `engines` and CI use. Node 25 and later no longer bundle corepack. The release skill now says so, and the script's message could say so too.
 
 ## Phase 3: proof in real hosts
 
