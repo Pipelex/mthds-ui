@@ -55,7 +55,7 @@ A prompt that starts the work: "Implement `wip/kernel-layer-beats-v4/plan.md` fr
 - [x] `grep form-kernel dist/graph/react/index.js dist/form/react/index.js` finds nothing, and `dist/styles/` holds both host stylesheets.
 - [x] Storybook: open a `RunPanel` story and a story whose detail panel shows a structured result through `StuffResultPanel`, in both themes, with `/browse`, and confirm the controls are styled as they were. The styling lane there is unchanged, since Storybook imports the wrapper itself, so this checks that nothing else moved.
 - [x] Update this plan: completed phases, the SHA they landed in, any difference the smoke oracle surfaced and how it was settled, and open questions.
-- [ ] `/rev`.
+- [x] `/rev`: profile 3, round 1, recorded below under "Checkpoint A review".
 
 ### Checkpoint A record
 
@@ -83,6 +83,19 @@ Phases 1 and 2 landed together in `df85e4c` on `feature/Kernel-layer-beats-v4`.
 - `docs/run-form-panel.md` names v0.25.0 as the release that stopped the injection, on the plan's premise that the release is the next minor. If the release number differs, that sentence changes with it. Source comments and the changelog name no future version.
 - The Storybook pass found a pre-existing defect, unrelated to this change and identical on `dev`: in a dark graph the result panel's text keeps the light palette, because `StuffResultPanel` declares a `theme` prop and never reads it, so nothing applies the kernel's `.dark` class. Filed as L-260925-a49396, owned here.
 - `make smoke-pack` now requires `pnpm` on the path. A release workflow that runs the smoke check would need `corepack enable` first; nothing in CI runs it today.
+
+### Checkpoint A review
+
+`/rev 3` reviewed `6f4e868` against `origin/dev` at round 1, bar `open`, with cubic, Codex in review mode and the official code-review at level `low`; one verifier checked what they raised. Codex and code-review reported nothing, the latter having read the source and config files only. cubic raised three findings, and the verifier confirmed all three.
+
+- **Fixed in `48cc00e`: stale references to the result panel's old render prop.** `docs/stuff-result-panel.md` documented `renderStuffResult`, which no longer exists; the `input_form` fallback it described is reached through `GraphViewer`'s `inputForm` prop. The verifier found more of the same kind: two story titles the page named, the page's and `StuffResultPanel`'s claim that no storage resolver exists when `GraphViewer` has had `resolveUrl` since `724b172`, a story comment, and `GraphViewer`'s JSDoc still calling the kernel a required peer.
+- **Fixed in `ff7eac4`: the token-fallback claim was false for the pinned kernel.** `form-kernel.css` and `docs/run-form-panel.md` said a host defining no tokens gets the light palette, which holds only from kernel `0.9.0`, while `^0.8.0` resolved to `0.8.0` alone. The kernel moved to `^0.11.0` through `/bump-mthds-form`. Its smoke host then surfaced two differences: `.static`, compiled from a kernel test file and now a named source-only selector, and the generative entry's `dark:block` / `dark:hidden` pair, which compiled under `prefers-color-scheme` because the documented Tailwind 4 setup never declared the `.dark` class variant. The host, the README and `docs/run-form-panel.md` now declare it, and the kernel-side causes are filed as L-260925-5ec39b. Kernel `0.11.0` also stops drawing a dropzone for a file field with no upload path, so the `File Input` story gained an `uploadFile` and `File Input Without Upload` asserts the link-only lane.
+- **Deferred, verified: the smoke host scans its own program.** `scripts/smoke-pack.mjs` passes `base: consumer` to the Tailwind plugin, and with no `source(...)` on the host's `@import "tailwindcss"`, automatic source detection reads `**/*` under the consumer, which includes the generated host program. The verifier measured it with `@tailwindcss/postcss` 4.3.3: the leak compiles exactly one kernel selector, `.inline`, from the program's `"@theme inline {"` text, and the kernel's shipped JavaScript produces `.inline` anyway, so no result depends on it today; with both `@source` paths broken, every other selector still goes missing. It would matter if the program text gained more utility-shaped words, or if the kernel's JavaScript stopped containing "inline" while its source kept it. The fix is to point `base` at an empty directory, or one holding only `host.css`, while keeping `from: hostFile` so the kernel's stylesheet still resolves; the header's "every kernel utility missing" should then allow for `.contents` and `.static`.
+
+**Open questions it left.**
+
+- `StuffResultPanel` installs the kernel's `ResultEnvProvider` with `resolveUrl` and `resolveShareUrl` only, so a `GraphViewer` host cannot pass the kernel's `proseImages` (images in prose now render as links until a host opts in) or `tableColumns` (result tables now show five columns). Whether the viewer should forward them is a product question for the next change to the panel.
+- The Storybook pass saw the dark result panel's text keep the light palette, which is the pre-existing `theme` defect recorded above, unchanged by the bump.
 
 ## Phase 3: proof in real hosts
 
