@@ -108,6 +108,58 @@ describe("selectPrimaryMthdsSource", () => {
       const sources = [source("one.mthds", WITHOUT_MAIN), opened];
       expect(selectPrimaryMthdsSource(sources, opened)).toBe(opened);
     });
+
+    it("reads the listed entry, not the preferred copy, and returns the listed entry", () => {
+      // An editor's unsaved buffer may already declare main_pipe while the
+      // listed file, which is what the merge reads, does not yet.
+      const sources = [source("bundle.mthds", WITH_MAIN), source("variant.mthds", WITHOUT_MAIN)];
+      const unsavedCopy = source("variant.mthds", WITH_MAIN);
+      expect(selectPrimaryMthdsSource(sources, unsavedCopy)).toBe(sources[0]);
+      const listedWithMain = [
+        source("bundle.mthds", WITH_MAIN),
+        source("variant.mthds", WITH_MAIN),
+      ];
+      const staleCopy = source("variant.mthds", WITHOUT_MAIN);
+      expect(selectPrimaryMthdsSource(listedWithMain, staleCopy)).toBe(listedWithMain[1]);
+    });
+
+    it("ignores a preferred file that is not in the list", () => {
+      const outsider = source("elsewhere.mthds", WITH_MAIN);
+      const sources = [source("one.mthds", WITHOUT_MAIN), source("bundle.mthds", WITH_MAIN)];
+      expect(selectPrimaryMthdsSource(sources, outsider)).toBe(sources[1]);
+      const noMain = [source("one.mthds", WITHOUT_MAIN), source("two.mthds", WITHOUT_MAIN)];
+      expect(selectPrimaryMthdsSource(noMain, source("x.mthds", WITHOUT_MAIN))).toBe(noMain[0]);
+      expect(selectPrimaryMthdsSource([], outsider)).toBeUndefined();
+    });
+  });
+});
+
+describe("selectPrimaryMthdsSource and orderMthdsSources agree", () => {
+  it.each([
+    [
+      "an unsaved copy that gained main_pipe",
+      [source("bundle.mthds", WITH_MAIN), source("variant.mthds", WITHOUT_MAIN)],
+      source("variant.mthds", WITH_MAIN),
+    ],
+    [
+      "a stale copy that lost main_pipe",
+      [source("bundle.mthds", WITH_MAIN), source("variant.mthds", WITH_MAIN)],
+      source("variant.mthds", WITHOUT_MAIN),
+    ],
+    [
+      "a name in another path form",
+      [source("method/variant.mthds", WITH_MAIN), source("method/bundle.mthds", WITH_MAIN)],
+      source("variant.mthds", WITH_MAIN),
+    ],
+    [
+      "a preferred file that is not listed",
+      [source("one.mthds", WITHOUT_MAIN), source("two.mthds", WITHOUT_MAIN)],
+      source("x.mthds", WITHOUT_MAIN),
+    ],
+  ])("on %s", (_case, sources, preferred) => {
+    expect(selectPrimaryMthdsSource(sources, preferred)).toBe(
+      orderMthdsSources(sources, preferred)[0],
+    );
   });
 });
 
