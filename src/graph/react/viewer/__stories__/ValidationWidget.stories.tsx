@@ -1,6 +1,7 @@
 // The toolbar validation widget across its states, driven the way a host
 // (e.g. the VS Code extension) drives it: static graph rendered immediately,
-// `validationState` flowing validating → valid | invalid | error.
+// `validationState` flowing validating → valid | invalid | error, plus the
+// `unvalidated` state of a host that has no validator at all.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -14,6 +15,30 @@ import bundleGarments from "../../../../../data/static/garments_from_moodboard/b
 
 const staticResult = buildStaticGraphSpecFromToml(bundleGarments);
 const staticIssues = staticDiagnosticsToValidationIssues(staticResult.diagnostics);
+
+// A method the static builder has notes about, of both kinds: one pinned to a
+// drawn pipe (`summarize` declares no output, so its node is ringed) and some it
+// cannot pin to any node (no `main_pipe`, and a step naming a pipe that does not exist).
+const annotatedResult = buildStaticGraphSpecFromToml(`
+domain = "demo"
+
+[pipe.flow]
+type = "PipeSequence"
+description = "Summarize, then run a step nobody declared"
+inputs = { text = "Text" }
+output = "Text"
+steps = [
+  { pipe = "summarize", result = "summary" },
+  { pipe = "missing_step", result = "out" },
+]
+
+[pipe.summarize]
+type = "PipeLLM"
+description = "Summarize the text"
+inputs = { text = "Text" }
+prompt = "Summarize: @text"
+`);
+const annotatedIssues = staticDiagnosticsToValidationIssues(annotatedResult.diagnostics);
 
 const validatorIssues: ValidationIssue[] = [
   {
@@ -53,7 +78,7 @@ const meta: Meta<typeof GraphViewer> = {
   argTypes: {
     validationState: {
       control: { type: "inline-radio" },
-      options: [undefined, "validating", "valid", "invalid", "error"],
+      options: [undefined, "validating", "valid", "invalid", "error", "unvalidated"],
     },
     toolbarPosition: {
       control: { type: "select" },
@@ -125,6 +150,26 @@ export const ErrorState: Story = {
       },
       ...staticIssues,
     ],
+  },
+};
+
+/**
+ * No validator anywhere — the standalone page drawing a method from its source.
+ * The static notes are the whole list, and the label says no verdict exists.
+ */
+export const Unvalidated: Story = {
+  args: {
+    graphspec: annotatedResult.spec,
+    validationState: "unvalidated",
+    validationIssues: annotatedIssues,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(annotatedIssues.length).toBeGreaterThan(1);
+    const canvas = within(canvasElement);
+    const toggle = await canvas.findByRole("button", { name: /not validated — \d+ issues/i });
+    await userEvent.click(toggle);
+    const panel = canvas.getByRole("region", { name: "Validation issues" });
+    await expect(within(panel).getAllByRole("listitem")).toHaveLength(annotatedIssues.length);
   },
 };
 

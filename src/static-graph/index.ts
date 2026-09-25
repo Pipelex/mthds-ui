@@ -24,6 +24,14 @@ export { mergeBundles } from "./mergeBundles";
 export type { StaticGraphOptions, StaticGraphResult } from "./buildStaticGraphSpec";
 export { buildStaticGraphSpec, buildStaticGraphSpecFromToml } from "./buildStaticGraphSpec";
 export { staticDiagnosticsToValidationIssues } from "./validationIssues";
+export type { MthdsSource } from "./sourceOrder";
+export {
+  DEFAULT_BUNDLE_FILE_NAME,
+  hasTopLevelMainPipe,
+  orderMthdsSources,
+  selectPrimaryMthdsSource,
+} from "./sourceOrder";
+export { MTHDS_SOURCES_EMBED_ID, serializeMthdsSourcesEmbed } from "./mthdsSourcesEmbed";
 // Re-exported here so React-free hosts (e.g. the VS Code extension host) can
 // consume the canonical pipe-ref parsing without importing the graph module.
 export type { ParsedPipeRef } from "@graph/pipeRefs";

@@ -96,7 +96,7 @@ Because pipelex emits `<body data-theme="system">` (its `ReactFlowTheme.SYSTEM`)
 Everything above governs the graph. `RunPanel` (`@pipelex/mthds-ui/form/react`) sits in **two** token systems at once, and they belong to different owners:
 
 - **The panel chrome is ours.** `RunPanel.css` uses the same semantic tokens as everything else here — `--surface-panel`, `--border-default`, `--text-default`, `--color-accent-strong`. The panel applies them to its own container via `getPaletteForTheme`, because the graph's are inline on the ReactFlow container and the panel sits outside it. So it themes correctly standing alone, with no viewer in the tree.
-- **The controls inside it are the form kernel's**, styled with Tailwind classes over shadcn's semantic tokens (`--background`, `--foreground`, `--primary`, `--ring`, …) — whole colours, a different naming scheme, and the host's to supply.
+- **The controls inside it are the form kernel's**, styled with Tailwind classes over shadcn's semantic tokens (`--background`, `--foreground`, `--primary`, `--ring`, …) — whole colours, a different naming scheme, and the host's to supply. The CSS those classes compile to is the host's to load as well: a host with Tailwind 4 imports `@pipelex/mthds-ui/tailwind.css` and compiles them, a host without Tailwind imports `@pipelex/mthds-ui/form-kernel.css`. See `docs/run-form-panel.md`, "Styling, and the trap in it".
 
 The panel's `theme` prop drives both halves: it picks our palette AND toggles the kernel's `.dark` class on the same container. One prop, because a panel whose chrome and controls disagreed on the theme would look broken in a way no host could fix from outside.
 

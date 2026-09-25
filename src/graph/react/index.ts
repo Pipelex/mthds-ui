@@ -3,26 +3,27 @@
 import "./graph-core.css";
 import "./detail/DetailPanel.css";
 import "./viewer/GraphToolbar.css";
-// The form kernel's utilities, because this entry renders kernel components:
-// the detail panel shows a stuff's data through `StuffResultPanel`, which is
-// the kernel's `StuffViewer`. Its styling is therefore this entry's problem,
-// not only `./form/react`'s - a host that only ever imports the graph (the
-// normal case: `GraphViewer` is usually pulled in on its own, often through a
-// dynamic import) would otherwise get the panel with a subset of its classes.
+// No form kernel stylesheet is imported here, on purpose. The detail panel
+// renders kernel controls (`StuffResultPanel` is the kernel's result view), and
+// the host styles those in the way its kind of host needs: a host with
+// Tailwind 4 compiles the kernel's classes itself, with
+// `@import "@pipelex/mthds-ui/tailwind.css"` in place of the `@source` line of
+// the kernel's documented setup, and a host without Tailwind imports
+// `@pipelex/mthds-ui/form-kernel.css` once. The README's "Styling the form
+// controls" section is the host's side of it.
 //
-// A Tailwind host is supposed to generate these by scanning the kernel and does
-// not: content globs stop at the host's own source and node_modules is off the
-// sweep, so it gets exactly the classes it happens to use elsewhere. Nothing
-// errors - the result grid just loses its column template and a structured
-// result renders as a stack of labels each above its own value.
-//
-// The import goes through `../../styles/form-kernel.css` rather than straight
-// at the kernel's sheet, because that sheet is a complete unscoped Tailwind
-// build and needs a cascade layer around it before it is safe to inject into a
-// host that has Tailwind of its own. That file explains what it broke.
-// Importing the same specifier from both entries is deliberate and free: a
-// bundler emits one copy.
-import "../../styles/form-kernel.css";
+// Do not put an import back. v0.20.0 made the kernel's sheet this entry's job
+// because Tailwind 3 hosts kept forgetting a content glob into node_modules and
+// silently lost the classes only the kernel uses; v0.21.0 wrapped the sheet in
+// a cascade layer after the raw copy beat the host's own responsive variants.
+// Neither arrangement works. The sheet is a complete Tailwind build, and in a
+// Tailwind 4 host its preflight belongs below the host's base while its
+// utilities belong above the host's base and below the host's utilities, which
+// one `@import … layer()` cannot express: appended, the layer outranked every
+// variant the host wrote; named first, the host's preflight stripped the
+// kernel's utilities. In a host without Tailwind, the preflight reset every
+// browser default on the page the moment a graph mounted.
+// `docs/run-form-panel.md` has the full account.
 
 // Viewer
 export { GraphViewer, applyStatusOverrides } from "./viewer/GraphViewer";

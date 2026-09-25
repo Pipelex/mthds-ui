@@ -299,9 +299,31 @@ export const PluralInput: Story = {
   },
 };
 
-/** A file input: the dropzone control, rendered by the kernel. */
+/**
+ * A file input: the dropzone control, rendered by the kernel. It needs an
+ * `uploadFile`, because a dropzone is only offered where a file can be stored.
+ */
 export const FileInput: Story = {
+  args: {
+    ...EXTRACT,
+    title: "extract_and_analyze",
+    uploadFile: (file) =>
+      Promise.resolve({ url: `https://files.test/${file.name}`, filename: file.name }),
+  },
+};
+
+/**
+ * The same file input on a panel given no `uploadFile`: with nowhere to store a
+ * file, the kernel offers a link input and says why, instead of a dropzone that
+ * would accept a file and silently discard it.
+ */
+export const FileInputWithoutUpload: Story = {
   args: { ...EXTRACT, title: "extract_and_analyze" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(/cannot be uploaded here/i)).toBeInTheDocument();
+    await expect(canvasElement.querySelector('input[type="file"]')).toBeNull();
+  },
 };
 
 /** An image input beside two structured concepts, each with nested fields. */

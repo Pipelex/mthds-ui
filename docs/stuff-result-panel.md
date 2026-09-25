@@ -25,9 +25,11 @@ Pass the artifacts; the viewer renders the result itself:
 
 There was a render prop here for about a day (`renderStuffData`), and it was the wrong shape. `@pipelex/mthds-form` was an **optional** peer isolated behind `./form/react`, so `./graph/react` had to keep resolving without it and `GraphViewer` could not import `ResultPanel` — hence a function passed in from outside.
 
-That optionality made sense while the kernel powered only the run form, which is genuinely an add-on: a host embedding a graph viewer need not offer a way to run methods. It stopped making sense the moment `output_form` became **how this viewer shows a result at all**. A viewer whose detail panel cannot display data is not a viewer, so the kernel is a required peer, `GraphViewer` imports the panel directly, and the seam is gone.
+That optionality made sense while the kernel powered only the run form, which is genuinely an add-on: a host embedding a graph viewer need not offer a way to run methods. It stopped making sense the moment `output_form` became **how this viewer shows a result at all**. A viewer whose detail panel cannot display data is not a viewer, so the kernel stopped being optional, `GraphViewer` imports the panel directly, and the seam is gone.
 
 **A dependency, and the route there is worth recording.** The obvious answer — a *required* peer — is auto-installed by npm and **not by pnpm**, which reports it unmet and installs nothing even with `auto-install-peers=true`. A property that holds on one package manager is not one a library can offer. So the kernel is a dependency and is re-exported from `./form` and `./form/react`; a host installs this package alone and imports everything from it. The objection to depending on a package carrying React context — two copies, two context identities — is answered by the rule that comes with it: **import the kernel through those entries, never directly.** A host that declares nothing cannot produce a second copy, and `make smoke-pack` asserts exactly one copy from a bare consumer.
+
+**The panel's controls are the kernel's, and styling them is a step the host takes.** Neither React entry imports a stylesheet for them, so a host that only shows graphs still loads one: `@pipelex/mthds-ui/tailwind.css` in a Tailwind 4 build, or `@pipelex/mthds-ui/form-kernel.css` in a host without Tailwind. A Tailwind 4 host that forgets gets a panel that is mostly styled, missing exactly the classes only the kernel uses, and a host without Tailwind gets unstyled controls. See `docs/run-form-panel.md`, "Styling, and the trap in it".
 
 The division of labour is unchanged: **the graph owns the selection and the lookup**, resolving the clicked node's digest to a `StuffLocation` (`src/graph/stuffLookup.ts`) and handing `StuffResultPanel` the item, its concept, the producing pipe and the first consuming one.
 
@@ -41,10 +43,10 @@ The second pass exists for the items no pipe produced — a method's own declare
 
 ## The method's own inputs
 
-Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `renderStuffResult` takes an optional third artifact:
+Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `GraphViewer` takes an optional third artifact, the `input_form` from the same `/validate` call:
 
 ```tsx
-renderStuffResult({ contracts, inputForm, outputForm })
+<GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
 ```
 
 **The fallback fires on single-valued slots only, and that is a correctness boundary rather than caution.** An input's `json_schema` describes what a caller **sends**, so a plural slot's is a bare array; a stuff's payload is what the runtime **holds**, which for a plural value is a `ListContent {items}` envelope. The two disagree exactly where the standard says they do, and rendering a plural input against its caller-side schema would unwrap by a property that is not there. On the single arm they are byte-identical by construction — both are `render_stuff_spec`'s output — so the fallback is exact there and declines everywhere else.
@@ -53,7 +55,7 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 ## What was given up
 
-**`resolveStorageUrl` is gone, and its capability with it.** `StuffViewer` took a resolver and exchanged `pipelex-storage://` URIs for presigned URLs before painting media; the kernel has no equivalent seam yet, so a result carrying a storage reference now shows the file **named** rather than rendered. That is a real gap. Porting it belongs in the kernel's file arms, where every consumer gets it, rather than being re-implemented here for one host.
+**`resolveStorageUrl` went, and its capability came back as `resolveUrl`.** `StuffViewer` took a resolver and exchanged `pipelex-storage://` URIs for fetchable URLs before painting media, and for a while its replacement had no such seam, so a result carrying a storage reference showed the file **named** rather than rendered. `GraphViewer`'s `resolveUrl` closes that gap: it is threaded to `StuffResultPanel` and installed as the kernel's `ResultEnvProvider`, so the kernel's own file arms do the painting. Without it the panel falls back to whatever `public_url` the payload carries, which on a hosted runtime is typically a presigned URL that expires, so a stored result's images break a while after the run. `resolveShareUrl` is its sibling for the copy control, minting a URL that works outside the host's page.
 
 `canEmbedPdf` and `onOpenExternally` went with it — both existed solely for `StuffViewer`'s PDF tile and its toolbar.
 
@@ -61,6 +63,6 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 ## Stories
 
-`Form/Graph with ResultPanel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts` and `output_form`, wired with one prop. `Without A Renderer` is the same graph with none, showing the floor.
+`Graph/Result panel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts`, `output_form` and `input_form`, passed as the viewer's three artifact props. `A Method Input` opens a method's own input through the `input_form` fallback, and `Without Artifacts` is the same graph with none, showing the floor.
 
 Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories spread `artifactsFor(name)` into their args, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `{}` — the viewer's own documented "no data view" path rather than a second one.

@@ -1,6 +1,6 @@
 {
   "name": "@pipelex/mthds-ui",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Shared graph rendering logic for MTHDS method visualization",
   "license": "MIT",
   "repository": {
@@ -51,7 +51,9 @@
     "./static-graph": {
       "import": "./dist/static-graph/index.js",
       "types": "./dist/static-graph/index.d.ts"
-    }
+    },
+    "./tailwind.css": "./dist/styles/tailwind.css",
+    "./form-kernel.css": "./dist/styles/form-kernel.css"
   },
   "files": [
     "dist"
@@ -76,14 +78,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pipelex/mthds-form": "^0.8.0",
+    "@pipelex/mthds-form": "^0.11.0",
     "@xyflow/react": "^12",
     "elkjs": "^0.11.1",
     "smol-toml": "^1.7.0"
   },
   "peerDependencies": {
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "shiki": "^3.22.0"
   },
   "peerDependenciesMeta": {

@@ -14,14 +14,14 @@ npm install @pipelex/mthds-ui
 
 **Do not declare `@pipelex/mthds-form` yourself, and reach it through `@pipelex/mthds-ui/form` and `@pipelex/mthds-ui/form/react` rather than importing it directly.** A second declaration is a second copy in the tree, and that bites silently: `FieldStringsProvider` and `FieldPresentationProvider` are React contexts, so with two copies a provider you mount above the panel does not resolve inside it — the panel reads the kernel's defaults while your app reads yours, with nothing in the console to say why. A host that declares nothing cannot produce a second copy, which is what makes the dependency arrangement safe where a nested copy would not be.
 
-`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it.
+`make smoke-pack` asserts exactly that from a scratch consumer declaring only this package and React: the kernel arrives without being named, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, and `.`, `./graph` and `./static-graph` never reach it. The controls' styling is a separate step a host takes itself; see "Styling, and the trap in it" below.
 
 The kernel declares `mthds` as a required peer of its own and re-exports its protocol types. A package manager with peer auto-installation supplies it; one that does not will ask for it. This library never imports it.
 
 ## Using it
 
 ```tsx
-import { getPipeInputForm, getPipeIOContract } from "@pipelex/mthds-form";
+import { getPipeInputForm, getPipeIOContract } from "@pipelex/mthds-ui/form";
 import { RunPanel } from "@pipelex/mthds-ui/form/react";
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 
@@ -71,7 +71,7 @@ function MethodPanel({ contracts, inputForm, domain, pipeCode, onExecute }) {
 
 This library renders; it never executes. `onRun` hands you a payload and stops there — no API client, no upload, no storage-URL resolution. That is deliberate, and it is the same boundary the kernel draws with its own `FieldEnv`.
 
-**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win.
+**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win. To show a failure on the field that took the file, pass the message in `env.uploadErrors`, keyed by the `fieldId` your upload was handed, and remove the entry when the next file is dropped there. A panel given neither `uploadFile` nor `env.onDropFile` has nowhere to store a file, so its file fields offer no dropzone: each shows a link input and a line saying files cannot be uploaded here. `env.allowUrl: false` removes the link input, which leaves such a field with no way in, and the kernel throws while rendering it, naming its path.
 
 Two consequences of an upload being slow, both handled here so a host does not have to think about them.
 
@@ -123,23 +123,61 @@ Two stylesheets, two owners.
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 ```
 
-**The controls are the kernel's, and this library brings their styling with it.** They are Tailwind classes over shadcn semantic tokens, and both React entries (`./form/react` and `./graph/react`) import the kernel's prebuilt sheet themselves. You add nothing.
+**The controls are the kernel's, and the host styles them.** They are Tailwind classes over shadcn semantic tokens, and neither React entry imports a stylesheet for them: the detail panel inside `./graph/react` renders the same controls through `StuffResultPanel`, so a host that only shows graphs needs this too. What a host loads depends on whether it runs Tailwind, and **a host loads one of the two, never both**.
 
-That was not always true, and the history is the reason the current shape looks indirect. Until v0.20.0 the host had two mutually exclusive lanes: widen its Tailwind `content` globs into `node_modules/@pipelex/mthds-form/dist`, or load the prebuilt sheet by hand. Nobody took the first lane successfully — a content glob stops at the host's own source, `node_modules` is off the sweep, and a host that forgot got a form that was _mostly_ styled, because most of the controls' classes are used elsewhere in a typical app and survive the purge coincidentally. Only the ones unique to the controls disappeared: the input focus ring and border, the placeholder colour, the prose textarea's minimum height, the input background tint, the dropzone's drag-active state. What you saw read like someone broke the design system, not like a missing glob.
+### A host with Tailwind 4
 
-v0.20.0 made the import our problem and shipped it raw, which traded that failure for a louder one. `styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it arrives in the host's `<head>` after the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning: its bare `.hidden { display: none }` outranked the host's `.sm\:inline`, blanking every `class="hidden sm:inline"` label in the app at every width, and its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything with a border width and no explicit colour class. That second symptom is history as of kernel 0.8.0, which emits `border: 0 solid` because Tailwind 4 defaults the border colour to `currentColor`; the shorthand still resets what the host declared, and the `.hidden` collision — the reason the layer mainly exists — is unchanged.
-
-v0.21.0 keeps the import and fixes the collision with a **cascade layer**. `src/styles/form-kernel.css` is the whole mechanism:
+Follow the kernel's own Tailwind 4 setup, [A host that runs Tailwind](https://github.com/Pipelex/mthds-form/blob/main/docs/theming.md#a-host-that-runs-tailwind-the-common-case), with one line replaced: where it writes an `@source` path into `node_modules`, import this package's `tailwind.css` instead.
 
 ```css
-@import "@pipelex/mthds-form/styles.css" layer(mthds-form);
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@pipelex/mthds-ui/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* …the rest of the shadcn mapping: border, input, ring, the primary,
+     secondary, destructive, muted, accent, popover and card pairs, and
+     --radius-lg, -md and -sm. A shadcn/ui codebase already has all of it. */
+}
 ```
 
-Layered rules lose to unlayered rules regardless of source order, so a host's own Tailwind keeps every declaration it makes, and we still supply the classes it never generated. Nothing changes for a host with no Tailwind: a layer only decides conflicts, and there are none to decide. `theme.css` stays out either way — it defines the semantic tokens (`--background`, `--border`, …) a shadcn host already owns, and pulling it in would let our copy repaint the host's palette.
+`tailwind.css` holds nothing but two `@source` directives written relative to its own place in the installed package. Tailwind resolves an imported package stylesheet to its real path before reading them, so one of the two finds the copy of the kernel this package depends on in the layouts package managers give it: pnpm's virtual store, npm hoisting the kernel beside this package, or npm nesting it under this package. You never write a path into `node_modules`, and you never declare the kernel yourself, which under pnpm used to be the only way such a path resolved.
 
-**What this means for you:** import `RunPanel.css` for the chrome, and nothing else. Do not add the kernel to your `content` globs and do not import `styles.css` yourself — either one puts a second, unlayered copy of the same utilities in the page, which is exactly the state the layer exists to prevent. `src/styles/__tests__/formKernelLayer.test.ts` guards the shape of the wrapper against a future edit that reinstates the direct import or drops the `layer()`.
+**One layout escapes both paths.** When your tree holds two versions of this package that share a kernel range, as a workspace whose apps pin different versions can, npm may install one of them nested under the app or dependency that asked for it while the kernel they share is hoisted further up. A path fixed relative to this package cannot reach a kernel an arbitrary number of levels above it, so Tailwind skips both candidates without a word and every class only the kernel uses compiles to nothing. `npm ls @pipelex/mthds-ui` shows the nesting. The remedy is one line of your own beside the import, naming the kernel's `dist` where it resolves, relative to your stylesheet: from `apps/web/app/globals.css`, that is `@source "../../../node_modules/@pipelex/mthds-form/dist";`.
 
-The one place the layer is deliberately absent is the **standalone bundle**, which is a plain `readFileSync` concatenation with no module resolution — it ships the resolved sheet listed in `scripts/standaloneCssFiles.mjs`, unlayered, ordered with the vendor base sheets so our own component CSS still has the last word. There is no host stylesheet in a self-contained HTML for it to lose a tie to.
+The rest of the kernel's setup stays yours, because scanning finds class names and your theme is what compiles them. `tw-animate-css` supplies the utilities the select popover's and the tooltip's transitions use, and the `@theme inline` mapping is what gives `bg-background` or `border-input` a value: without it they compile to nothing, however well the scan found them. The package does not ship the mapping, because the mapping is your design system. The `@custom-variant` line makes a `dark:` utility follow the `.dark` class, the convention the kernel's dark mode follows and the class `RunPanel`'s `theme` sets; a shadcn/ui codebase already declares it, and without it Tailwind keys `dark:` to the operating system's preference instead. Do not import `form-kernel.css` in this setup; your build already produces those utilities, and the prebuilt sheet would add a second preflight.
+
+### A host without Tailwind
+
+Import the prebuilt sheet once, from your entry:
+
+```ts
+import "@pipelex/mthds-ui/form-kernel.css";
+```
+
+It is the kernel's `styles.css` under a cascade layer named `mthds-form`, and it is a complete Tailwind build, so two things come with it. **The preflight applies to the whole page, not only to the controls:** every browser default you have not restated goes, so headings drop to body size, lists lose their markers, and paragraphs and the body lose their margins. A dedicated panel such as a webview expects exactly that; a page of ordinary content that embeds a graph should restate the defaults it wants to keep. **The layer is what lets your rules win:** layered rules lose to unlayered ones whatever the load order, so every declaration you make yourself beats the kernel's utilities and its preflight on a tie.
+
+The tokens are yours either way. Since kernel `0.9.0` every kernel utility reads its token with a fallback, so a page that defines none renders the kernel's light neutral palette, in light and under `.dark` alike; define them, as complete colours, to brand the controls or to make `.dark` do something.
+
+### Hosts that cannot use either
+
+A Tailwind 3 host, and a Tailwind 4 host that configures a prefix, are not supported. The kernel's classes are unprefixed Tailwind 4 class names: a Tailwind 3 build compiles the ones only Tailwind 4 knows to nothing, and a prefixed build generates none of them. Such a host would therefore depend on the prebuilt sheet, whose preflight must rank below the host's own base styles while its utilities must rank above them, and no single position in the cascade gives both.
+
+### Why the package stopped injecting the sheet
+
+Until v0.20.0 the host had two lanes, both its own: widen its Tailwind 3 `content` globs into `node_modules/@pipelex/mthds-form/dist`, or load the prebuilt sheet by hand. The first failed quietly and often. A content glob stops at the host's own source, and a host that forgot got a form that was _mostly_ styled, because most of the controls' classes are used elsewhere in a typical app; only the classes unique to the controls disappeared, and what you saw read like a broken design system rather than a missing line.
+
+v0.20.0 made the sheet this package's job, and both React entries imported it raw. It arrived in the host's `<head>` after the host's own stylesheet the moment a graph mounted, and its bare `.hidden { display: none }` beat the host's `.sm\:inline`, blanking every `class="hidden sm:inline"` label in the host at every width. v0.21.0 wrapped the sheet in the `mthds-form` cascade layer, on the claim that layered rules lose to the host's unlayered ones and that nothing changes for a host without Tailwind. Both halves of that claim turned out to be false, and v0.25.0 stopped injecting the sheet altogether.
+
+No position in the cascade could have fixed it, because a complete Tailwind build is two things with different needs. Its preflight must rank below the host's base styles, or it resets them. Its utilities must rank above the host's base, or the host's preflight strips them, and below the host's utilities, or they beat the host's responsive variants. An `@import … layer()` gives the whole sheet one position. A Tailwind 4 host keeps its theme, base and utilities in real cascade layers, named before the kernel's sheet arrives, so appended, `mthds-form` ranked above the host's `utilities`, and the kernel's bare `.w-full`, `.flex-col` and `.hidden` beat every responsive variant the host wrote. Named first, it ranked below the host's `base`, where Tailwind 4's preflight sets `padding: 0` and `border: 0 solid` on every element, so every kernel utility the host had not compiled itself lost its padding and border. The only Tailwind 4 arrangement that worked was to compile the kernel's classes in the host and rank the sheet lowest, at which point the sheet did nothing at all. And in a host without Tailwind, the preflight reset the browser defaults of the host's whole page, which is the same class of failure the layer was introduced to stop.
+
+So the decision became who loads the sheet rather than where it goes. A host with Tailwind 4 compiles the kernel's classes and never loads it; a host without Tailwind loads it, knowing what the preflight does. `src/styles/__tests__/formKernelLayer.test.ts` fails if any shipped source file imports a kernel stylesheet again, and `make smoke-pack` compiles a minimal Tailwind 4 host against the packed tarball under npm and pnpm and requires every utility in the kernel's prebuilt sheet to appear in its output.
+
+The **standalone bundle** is a host without Tailwind, and loads the sheet the way one does. It is a plain `readFileSync` concatenation with no module resolution, so it ships the resolved sheet listed in `scripts/standaloneCssFiles.mjs`, unlayered, ordered with the vendor base sheets so this library's own component CSS still has the last word. A self-contained HTML has no host stylesheet for it to lose a tie to, and no host page for its preflight to reset.
 
 ### The theme bridge, and the hook for overriding tokens
 
@@ -199,7 +237,7 @@ make use-npm       # or: make un   — back to the published version package.jso
 
 `use-local` is a **tarball install, not a symlink**, and that is the whole point. The kernel ships React contexts, and a symlinked checkout is a second module identity for Vite to resolve, so a provider mounted above the panel would silently fail to resolve inside it. The tarball puts one real directory in `node_modules`. It is a snapshot, so **re-run `make use-local` after every kernel edit**; nothing watches.
 
-Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten. The kernel is declared once there, as an ordinary `dependency` at a registry range — a host installs it transitively and never names it, unless it imports the kernel's own helpers itself. Moving that range is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
+Two details the targets handle for you. They clear Vite's pre-bundle cache, because `.storybook/main.ts` names the kernel in `optimizeDeps.include` and a local build usually carries the _same_ version string as the published one — the optimizer's hash would not change and Storybook would keep serving the stale copy. And they install with `--no-save`, so `package.json` is never rewritten. The kernel is declared once there, as an ordinary `dependency` at a registry range — a host installs it transitively and never names it, reaching the kernel's own helpers through `@pipelex/mthds-ui/form`. Moving that range is a reviewed change that belongs to the `/bump-mthds-form` skill, not a side effect of leaving dev mode.
 
 A local kernel whose version falls outside the declared range (developing the next minor, say) installs fine, because `--no-save` puts it in `node_modules` without asking npm to reconcile it against the manifest. It is also the case where forgetting `make use-npm` is easiest to miss, so check what is actually installed before trusting a green run:
 
@@ -210,6 +248,10 @@ node -p "require('./node_modules/@pipelex/mthds-form/package.json').version"
 ## Where things live
 
 ```
+src/styles/
+  tailwind.css                  # @pipelex/mthds-ui/tailwind.css: the kernel's @source paths, for a Tailwind 4 host
+  form-kernel.css               # @pipelex/mthds-ui/form-kernel.css: the kernel's sheet, layered, for a host without Tailwind
+  __tests__/formKernelLayer.test.ts
 src/form/
   runGate.ts                    # the submit path, React-free and unit-tested
   __tests__/runGate.test.ts

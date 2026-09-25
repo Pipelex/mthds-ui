@@ -152,7 +152,7 @@ export interface GraphViewerProps {
    * powered an optional run form, and stopped making sense the moment the
    * standard's `output_form` became how this viewer shows a result at all. A
    * viewer whose detail panel cannot show data is not a viewer, so the kernel is
-   * a required peer and the seam is gone.
+   * a dependency of this package and the seam is gone.
    *
    * Omit these and the panel still works: it shows the concept's structure table
    * and no data tab, which is the honest floor for a spec whose artifacts the

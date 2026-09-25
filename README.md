@@ -12,6 +12,8 @@ npm install @pipelex/mthds-ui
 
 Released versions are listed on the [npm page](https://www.npmjs.com/package/@pipelex/mthds-ui) and the [GitHub releases page](https://github.com/Pipelex/mthds-ui/releases).
 
+If you render the React components, one setup step follows the install: the form controls that `RunPanel` and the graph's detail panel render need a stylesheet that your app loads itself. See [Styling the form controls](#styling-the-form-controls).
+
 ### Peer dependencies
 
 | Dependency            | Required | Used by                                   |
@@ -39,7 +41,7 @@ function MethodGraph({ graphspec }) {
 }
 ```
 
-That's it. `GraphViewer` handles layout, styling, CSS variables, and all ReactFlow internals. All props except `graphspec` are optional with sensible defaults.
+That's it. `GraphViewer` handles layout, styling, CSS variables, and all ReactFlow internals. All props except `graphspec` are optional with sensible defaults. The one exception to "styling" is the detail panel's data view, which shows a result through the form kernel's controls; those are styled by your app, as [Styling the form controls](#styling-the-form-controls) describes.
 
 ### Next.js (App Router)
 
@@ -268,12 +270,15 @@ See `graphConfig.ts` for the full default palette.
 
 ## Entry points
 
-| Import path                     | Content                                                            |
-| ------------------------------- | ------------------------------------------------------------------ |
-| `@pipelex/mthds-ui`             | Pure-TS graph logic — types, builders, layout, controllers, config |
-| `@pipelex/mthds-ui/graph/react` | React components — `GraphViewer`, label helpers, type converters   |
-| `@pipelex/mthds-ui/form/react`  | `RunPanel` — a pipe's input form (needs `@pipelex/mthds-form`)     |
-| `@pipelex/mthds-ui/shiki`       | MTHDS syntax highlighting with shiki                               |
+| Import path                         | Content                                                            |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| `@pipelex/mthds-ui`                 | Pure-TS graph logic — types, builders, layout, controllers, config |
+| `@pipelex/mthds-ui/graph/react`     | React components — `GraphViewer`, label helpers, type converters   |
+| `@pipelex/mthds-ui/form`            | The form kernel's React-free surface, re-exported                  |
+| `@pipelex/mthds-ui/form/react`      | `RunPanel` — a pipe's input form — and the kernel's controls       |
+| `@pipelex/mthds-ui/shiki`           | MTHDS syntax highlighting with shiki                               |
+| `@pipelex/mthds-ui/tailwind.css`    | Where the kernel's classes are, for a Tailwind 4 host              |
+| `@pipelex/mthds-ui/form-kernel.css` | The kernel's prebuilt stylesheet, for a host without Tailwind      |
 
 ## Pure TypeScript usage
 
@@ -304,7 +309,7 @@ const final = applyControllers(nodes, edges, graphspec, analysis, true);
 The form kernel ships as a dependency of this package, so there is nothing extra to install. Reach it through `@pipelex/mthds-ui/form` rather than importing it directly — a second declaration puts a second copy in your tree, and the kernel ships React contexts, so a provider you mount above the panel would stop resolving inside it.
 
 ```tsx
-import { getPipeIOContract } from "@pipelex/mthds-form";
+import { getPipeIOContract } from "@pipelex/mthds-ui/form";
 import { RunPanel } from "@pipelex/mthds-ui/form/react";
 import "@pipelex/mthds-ui/form/react/RunPanel.css";
 
@@ -323,11 +328,37 @@ const contract = getPipeIOContract(pipeIoContracts, domain, pipeCode);
 
 `onRun` fires only once the kernel's run gate passes. This library renders and never executes: no API client, no upload, no storage resolution — the host injects all three.
 
-The controls are the kernel's, styled with Tailwind over shadcn tokens, and **their stylesheet ships with this package**: both React entries import it under a cascade layer, so you add no Tailwind globs and import no kernel CSS yourself. Doing either puts a second, unlayered copy of the same utilities in the page, which is the state the layer exists to prevent.
+### Styling the form controls
 
-What you do supply is the shadcn token values, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
+The controls inside `RunPanel`, and inside the graph's detail panel, are the form kernel's, styled with Tailwind classes over the shadcn tokens. No entry of this package imports a stylesheet for them: your app loads one, and which one depends on whether it runs Tailwind. **Load one of the two, never both.**
 
-Full contract, the styling trap, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
+**A host with Tailwind 4** follows the kernel's documented setup, [A host that runs Tailwind](https://github.com/Pipelex/mthds-form/blob/main/docs/theming.md#a-host-that-runs-tailwind-the-common-case), and imports this package's `tailwind.css` in place of that setup's `@source` line:
+
+```css
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@pipelex/mthds-ui/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* …and the @theme inline mapping of the shadcn tokens the kernel's setup lists. */
+```
+
+`tailwind.css` points Tailwind at the copy of the kernel this package depends on, wherever pnpm or npm put it beside or under this package, so you write no path into `node_modules` and do not declare `@pipelex/mthds-form` yourself. One layout escapes it: when your tree holds two versions of this package, npm can nest one below a kernel hoisted further up, and the controls then render unstyled without a warning; [docs/run-form-panel.md](./docs/run-form-panel.md) gives the one-line remedy. The rest of the kernel's setup stays yours: `tw-animate-css` animates the select popover and the tooltip, without the token mapping a class such as `bg-background` compiles to nothing, and the `@custom-variant` line, which a shadcn/ui codebase already has, keys `dark:` to the `.dark` class the kernel follows rather than to the operating system's preference.
+
+**A host without Tailwind** imports the prebuilt stylesheet once, from its entry:
+
+```ts
+import "@pipelex/mthds-ui/form-kernel.css";
+```
+
+It carries Tailwind's preflight, which resets the browser's default styles across your whole page (heading sizes, list markers, margins), and a cascade layer that lets every rule you write yourself win a tie against it.
+
+Tailwind 3 hosts and Tailwind 4 hosts that configure a prefix are not supported: their builds cannot generate the kernel's unprefixed Tailwind 4 classes, and the prebuilt sheet cannot sit in their cascade, because its preflight must rank below their base styles while its utilities must rank above them.
+
+Either way, the shadcn token values are yours to supply, and each must be a **complete colour** — `hsl(240 10% 3.9%)`, `#0a0711`, `oklch(…)` — never a bare HSL triplet. Since kernel `0.8.0` the sheet emits `background-color: var(--background)` rather than `hsl(var(--background))`, so a triplet computes to something that is not a colour and the browser discards the declaration instead of overriding with it: green build, token inspectable, style silently absent.
+
+Full contract, why this package stopped loading the kernel's stylesheet itself, the `.dark` bridge and the `mthds-run-panel` token hook: [docs/run-form-panel.md](./docs/run-form-panel.md).
 
 ## Shiki integration
 

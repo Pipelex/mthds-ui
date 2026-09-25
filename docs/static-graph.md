@@ -29,6 +29,73 @@ Order only decides which bundle's `main_pipe` and `description` the merged set a
 
 Passing the root file alone is not a smaller version of this: the entry pipe is a signature there, so the walk renders a single unexpanded leaf card.
 
+### Which file leads
+
+A host holding a method as a list of files puts them in order with `orderMthdsSources`, the rule every host shares rather than each keeping its own copy:
+
+```ts
+import { buildStaticGraphSpecFromToml, orderMthdsSources } from "@pipelex/mthds-ui/static-graph";
+
+const ordered = orderMthdsSources(files); // files: { name, content }[]
+const { spec, diagnostics } = buildStaticGraphSpecFromToml(ordered.map((file) => file.content));
+```
+
+The file declaring a top-level `main_pipe` leads, `bundle.mthds` when several do, and the rest keep the order they were given in, so a host wanting a deterministic merge only has to list its files deterministically. When no file declares `main_pipe`, the order stays as given. `selectPrimaryMthdsSource` returns the leading file alone.
+
+Both take an optional `preferred` file, the one an editor has open. It leads whenever it declares `main_pipe` itself, which is how a directory holding several variants of an entry point graphs the variant being edited, and it also leads when no file declares one. Both find it in the list by its exact `name` and read the listed entry, so a host can pass its own plain `{ name, content }` object for the open file, the result keeps the type of the list's own entries with whatever fields a host adds to them, and the two always agree on which file leads. The whole `name` is compared: `variant.mthds` does not find a listed `method/variant.mthds`, and a `preferred` whose name is not in the list is ignored.
+
+`hasTopLevelMainPipe` is a line scan rather than a TOML parse, so a syntax error further down a half-written file does not demote the file that plainly declares the entry point. Only the last path segment of a file's `name` is compared with `bundle.mthds`, without regard to case.
+
+## Drawing a method in a standalone page
+
+The standalone viewer bundle, `dist/standalone/graph-viewer.js`, is one script a page loads with a plain `<script>` tag, from jsDelivr for instance. It carries the static builder, so a page that embeds a method's `.mthds` files draws the method by itself, the way a Mermaid page carries its diagram's text and loads the renderer: no build step, no Pipelex install, no run. This is the complete page:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Research brief</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@X.Y.Z/dist/standalone/graph-viewer.css"
+    />
+  </head>
+  <body>
+    <div id="app-container"><div id="root"></div></div>
+    <script type="application/json" id="mthds-sources">
+      [
+        {
+          "name": "bundle.mthds",
+          "content": "domain = \"market_research\"\nmain_pipe = \"write_research_brief\"\n…"
+        }
+      ]
+    </script>
+    <script type="application/json" id="pipelex-config">
+      { "direction": "TB", "theme": "system" }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@X.Y.Z/dist/standalone/graph-viewer.js"></script>
+  </body>
+</html>
+```
+
+The embed contract:
+
+- **The element** is `<script type="application/json" id="mthds-sources">`. The JSON type keeps the browser from running it. Its id carries no `pipelex-` prefix, unlike the `pipelex-graphspec` and `pipelex-config` embeds, because what it holds is the standard's own artifact.
+- **Its content** is a JSON array with one `{ "name": string, "content": string }` object per `.mthds` file of the method, the same shape as an `mthds_sources[]` entry on the hosted API. `name` is the file name, non-empty and distinct from the others; `content` is the file's text. Any other key is ignored.
+- **Every `<` is written as `\u003c`**. JSON reads the escape back as `<`, while the HTML parser never meets one inside the element. Without it, a method whose text contains `</script>` ends the element early and the rest of its text is parsed as HTML, and a `<!--` changes how the element is tokenized; a prompt quoting a line of HTML is enough. Escaping every `<`, rather than matching `</script>`, is what makes it hold: the parser also ends the element on `</script ` and `</script/`, in any case.
+- **The files may come in any order.** The bundle applies `orderMthdsSources` itself (see [Which file leads](#which-file-leads)), so an embedder never implements the rule; listing the rest in name order keeps the merge deterministic.
+- **`pipelex-config` is optional** and takes the same keys as on a GraphSpec page: `direction`, `foldMode`, `showControllers`, `theme`, `toolbarPosition` and the rest of `GraphConfig`.
+- **A page carries one graph.** Embedding a non-empty `pipelex-graphspec` beside `mthds-sources` is an error. An element that is empty or holds only whitespace counts as absent.
+- **The page needs `#root` inside `#app-container`**: the viewer mounts on `#root`, and `graph-viewer.css` sizes `#app-container` to the window. The bundle mounts once, when the document has loaded.
+
+A TypeScript host writes the element's text with `serializeMthdsSourcesEmbed(files)` from `@pipelex/mthds-ui/static-graph`, which checks the list against this contract, keeps only `name` and `content`, and applies the escape; `MTHDS_SOURCES_EMBED_ID` is the element's id. `JSON.stringify` has no HTML-safe mode, so a host in another language writes the escape itself, as `json.dumps(sources).replace("<", "\\u003c")` in Python, or lets Jinja's `tojson` filter do it, which escapes `<` among a few other characters.
+
+The builder's diagnostics reach the viewer through `staticDiagnosticsToValidationIssues`, under the toolbar widget's `unvalidated` state (see `docs/validation-widget.md`): the toolbar shows an information mark with the count, its dropdown lists every note, and a note the builder pinned to a pipe rings that pipe's nodes. The state exists because nothing validated the method. The notes are what reading the source turned up, and a note the builder could not pin to any node, such as a file that is not valid TOML, would otherwise leave an empty canvas and no explanation. A method the builder read without a note shows no widget at all. A malformed embed (JSON that does not parse, anything other than a non-empty array, an entry without a `name` or `content` string, a repeated name) shows the error screen, naming the entry at fault.
+
+Pin an exact version in both URLs, and add `integrity` and `crossorigin="anonymous"` attributes as pipelex's generated graph pages do, so the page keeps drawing the same way and the browser refuses a file that changed. Carrying the builder adds about 40 KB to a viewer bundle of about 800 KB.
+
 ## Mode Contract
 
 GraphSpec metadata now has an explicit mode:
@@ -71,14 +138,14 @@ invocations can share a `pipe_code`.
 
 An io ref names a concept and then, optionally, two suffixes in a fixed order — multiplicity before presence:
 
-| Ref        | Multiplicity          | Presence                                             |
-| ---------- | --------------------- | ---------------------------------------------------- |
-| `Text`     | `null` (single)       | `plain`                                              |
-| `Text[]`   | `true` (many)         | `plain`                                              |
-| `Text[3]`  | `3`                   | `plain`                                              |
-| `Text?`    | `null`                | `optional` — the slot may legitimately hold no value |
-| `Text!`    | `null`                | `force` — a use-site assertion that a value is there |
-| `Text[]?`  | `true`                | `optional`                                           |
+| Ref       | Multiplicity    | Presence                                             |
+| --------- | --------------- | ---------------------------------------------------- |
+| `Text`    | `null` (single) | `plain`                                              |
+| `Text[]`  | `true` (many)   | `plain`                                              |
+| `Text[3]` | `3`             | `plain`                                              |
+| `Text?`   | `null`          | `optional` — the slot may legitimately hold no value |
+| `Text!`   | `null`          | `force` — a use-site assertion that a value is there |
+| `Text[]?` | `true`          | `optional`                                           |
 
 `parseConceptRef` mirrors the suffix half of the runtime's `MULTIPLICITY_PATTERN` (`pipelex/core/pipes/variable_multiplicity.py`) exactly, so the two agree on every multiplicity/presence combination and reject the same malformed ones — `Text?[]` and `Text??` are not refs. The identifier half is deliberately looser here, as everywhere in this module: the runtime requires each dotted segment to start with a letter or underscore, while this parser accepts a leading digit (`1Text`) and repeated dots (`a..b.C`). A static renderer gains nothing from rejecting a name the runtime would reject anyway, so it renders what it was given. Both suffixes land on `StuffSpecInfo`, as `multiplicity` and `presence`, matching what pipelex serializes into a dry or live spec's `pipe_registry`; an absent `presence` reads as `plain`, the runtime's own default.
 
@@ -110,11 +177,11 @@ An input name written as an unquoted dotted path is the one shape that reads as 
 
 Intent hints (`docs/spec/intent-hints.md`) are non-normative presentation intent, and they exist for renderers to honor — so a rendering library dropping them looks like a gap. It is not, and the reason is that the standard already routes them somewhere else.
 
-- **The GraphSpec has no place to put them.** pipelex's runtime `StuffSpec` and `Concept` carry no `hints` field — hints live on the *blueprints* (`ConceptBlueprint`, the structure-field blueprint, `InputSlotBlueprint`), and a GraphSpec's `pipe_registry` is serialized from the runtime objects. Adding a `hints` member to `StuffSpecInfo` would put a field in a static spec that a dry or live spec can never carry, which is exactly what `parity.test.ts` exists to prevent.
-- **The artifact that carries them is the input-form descriptor.** `docs/spec/input-form-descriptor.md` gives every field descriptor an optional `hints` object holding the node's *effective* hints — the key-by-key merge along the refinement chain and then the site layer — so a consumer reads one map and walks nothing. That merge needs the concept registry and the refinement chain, which is producer work, not something a graph renderer should be re-deriving from bundle text.
+- **The GraphSpec has no place to put them.** pipelex's runtime `StuffSpec` and `Concept` carry no `hints` field — hints live on the _blueprints_ (`ConceptBlueprint`, the structure-field blueprint, `InputSlotBlueprint`), and a GraphSpec's `pipe_registry` is serialized from the runtime objects. Adding a `hints` member to `StuffSpecInfo` would put a field in a static spec that a dry or live spec can never carry, which is exactly what `parity.test.ts` exists to prevent.
+- **The artifact that carries them is the input-form descriptor.** `docs/spec/input-form-descriptor.md` gives every field descriptor an optional `hints` object holding the node's _effective_ hints — the key-by-key merge along the refinement chain and then the site layer — so a consumer reads one map and walks nothing. That merge needs the concept registry and the refinement chain, which is producer work, not something a graph renderer should be re-deriving from bundle text.
 - **This library already reads that channel.** `src/form/` renders the descriptor through `@pipelex/mthds-form`, so the hint an author writes on a slot reaches this repo's form panel by the route the standard designed for it — carried onto the field descriptor the panel is given. Honoring it in a control is the kernel's side of that seam and is not yet rendered at the pinned version, so an author testing this today sees the hint arrive and change nothing. See `docs/run-form-panel.md`.
 
-So a hint changes how a slot is *filled in*, never how it is *drawn*, and the static builder is the drawing half. If a graph card ever wants to honor `intent`, the change is to feed the viewer a descriptor beside the spec — not to widen `StuffSpecInfo`.
+So a hint changes how a slot is _filled in_, never how it is _drawn_, and the static builder is the drawing half. If a graph card ever wants to honor `intent`, the change is to feed the viewer a descriptor beside the spec — not to widen `StuffSpecInfo`.
 
 ### Unknown slot keys
 
@@ -204,7 +271,7 @@ That is also why `buildFixtureGraphs` tolerates no diagnostic whatsoever, warnin
 
 **Only the entries the corpus marks `valid` are swept.** Each entry's `entry.toml` carries a `validity` of `valid` or `invalid`, and an invalid entry is surgically authored to trigger exactly one declared error — so under a zero-diagnostic rule it would report the corpus doing its job as a builder gap. This repo's declared slice takes the whole corpus rather than a filtered one (see the consumer registry in the `mthds-corpus-sync` skill), so the filter lives here, in `fixtureBundles.ts`. That red would be the mirror image of the vacuous green: a failure that means nothing, and that trains the next reader to loosen the gate.
 
-**`validity` is the right axis here, and `fails_at` is not — measured against `pipelex` v0.51.0.** That release gave each non-excluded `error.*` vocabulary tag a `fails_at` of `schema` or `runtime`, naming the earliest layer of checking that rejects a bundle carrying the fault, and the contract's consumer rule is that a *structural* sweep expects a diagnostic exactly on the `schema` ones. This builder is not a structural sweep. It resolves pipe references, so it sits between a schema check and the `pipelex` runtime, and it sees faults on both sides of that line: running it over every invalid entry, the two `schema` entries (`invalid_missing_pipe_type`, `invalid_unknown_pipe_type`) report diagnostics as the rule predicts — but so do two `runtime` ones, `invalid_pipe_code_syntax` and `invalid_unresolved_pipe_dependency`, each on an unresolvable `main_pipe` or step. Branching on `fails_at` here would therefore go red on those two. `validity` stays the filter, and the fact that four entries produce diagnostics is what makes it load-bearing rather than decorative.
+**`validity` is the right axis here, and `fails_at` is not — measured against `pipelex` v0.51.0.** That release gave each non-excluded `error.*` vocabulary tag a `fails_at` of `schema` or `runtime`, naming the earliest layer of checking that rejects a bundle carrying the fault, and the contract's consumer rule is that a _structural_ sweep expects a diagnostic exactly on the `schema` ones. This builder is not a structural sweep. It resolves pipe references, so it sits between a schema check and the `pipelex` runtime, and it sees faults on both sides of that line: running it over every invalid entry, the two `schema` entries (`invalid_missing_pipe_type`, `invalid_unknown_pipe_type`) report diagnostics as the rule predicts — but so do two `runtime` ones, `invalid_pipe_code_syntax` and `invalid_unresolved_pipe_dependency`, each on an unresolvable `main_pipe` or step. Branching on `fails_at` here would therefore go red on those two. `validity` stays the filter, and the fact that four entries produce diagnostics is what makes it load-bearing rather than decorative.
 
 A directory holding no `.mthds` file at all throws, rather than dropping silently from the sweep — and so does an entry whose manifest is missing, unreadable, or carries a validity the contract does not define, because an entry the helper cannot classify is an entry it would otherwise drop unnoticed.
 

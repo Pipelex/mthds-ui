@@ -1,18 +1,18 @@
 import type { Preview } from "@storybook/react-vite";
 import "../src/graph/react/graph-core.css";
-// The form kernel's shadcn TOKENS — stock neutral values for `--background`,
-// `--border`, `--primary`, … This repo runs no Tailwind of its own (design
-// Decision D) and the entries deliberately ship no `theme.css`, since those
+// Storybook is a host WITHOUT Tailwind (this repo runs none of its own, design
+// Decision D), so it styles the form kernel's controls the way such a host does.
+//
+// The kernel's shadcn TOKENS — stock neutral values for `--background`,
+// `--border`, `--primary`, … The package ships no `theme.css`, since those
 // tokens belong to the host; Storybook is the host here, so it supplies them.
 //
-// The kernel's UTILITIES come through the same wrapper a consumer gets,
-// `src/styles/form-kernel.css`, which pulls the kernel's sheet into a cascade
-// layer. Imported explicitly rather than inherited from a React entry because
-// the stories import components by their deep paths (`@form/react/RunPanel`,
-// `@graph/react/viewer/GraphViewer`), never through `index.ts`, so the entries'
-// own side-effect imports never run here. Never import
-// `@pipelex/mthds-form/styles.css` directly: that is the raw, unlayered sheet
-// these stories exist to stop us from shipping again.
+// The kernel's UTILITIES come through `src/styles/form-kernel.css`, the file a
+// host without Tailwind imports as `@pipelex/mthds-ui/form-kernel.css`: the
+// kernel's sheet under a cascade layer. No React entry imports it; the host
+// does, and this is the host doing it. Never import
+// `@pipelex/mthds-form/styles.css` directly here: that is the raw, unlayered
+// sheet, which is not the lane a consumer takes.
 import "@pipelex/mthds-form/theme.css";
 import "../src/styles/form-kernel.css";
 

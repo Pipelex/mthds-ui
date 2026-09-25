@@ -12,6 +12,9 @@ The widget renders only when `GraphViewer` receives a `validationState`; `undefi
 | `valid` | The validator accepted the method | Green check |
 | `invalid` | The validator rejected the method | Red cross + issue-count badge |
 | `error` | No verdict could be produced (validator unavailable, timeout, auth…) | Warning triangle |
+| `unvalidated` | The host has no validator at all; the issues are what reading the source found | Information mark + issue-count badge |
+
+`unvalidated` is for a host that renders a method without ever validating it, such as the standalone page that draws a method from its embedded `.mthds` files (see `docs/static-graph.md`). None of the four lifecycle states fits it: `invalid` and `valid` would claim a verdict nobody produced, `validating` would spin forever, and `error` says a validator failed to run. The button keeps its neutral colour and badges its notes in the warning tone, and its label reads "Not validated — 2 issues found reading the source".
 
 Constants and types are exported from the package root: `VALIDATION_STATE`, `ValidationState`, `ValidationIssue`.
 

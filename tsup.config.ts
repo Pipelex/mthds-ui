@@ -45,14 +45,12 @@ export default defineConfig({
     // nothing stops the bundler from inlining a package that is always present.
     "@pipelex/mthds-form",
     "@pipelex/mthds-form/react",
-    "@pipelex/mthds-form/styles.css",
     "react",
     "react-dom",
     /graph-core\.css$/,
     /detail\/DetailPanel\.css$/,
     /viewer\/GraphToolbar\.css$/,
     /RunPanel\.css$/,
-    /styles\/form-kernel\.css$/,
   ],
   esbuildOptions(options) {
     options.alias = {
@@ -72,8 +70,13 @@ export default defineConfig({
     cpSync("src/graph/react/viewer/GraphToolbar.css", "dist/graph/react/viewer/GraphToolbar.css");
     mkdirSync("dist/form/react", { recursive: true });
     cpSync("src/form/react/RunPanel.css", "dist/form/react/RunPanel.css");
+    // The two stylesheets a HOST imports, never this package's JavaScript, so
+    // they have no `external` pattern: only this copy and an `exports` entry.
+    // `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so it
+    // must land exactly here.
     mkdirSync("dist/styles", { recursive: true });
     cpSync("src/styles/form-kernel.css", "dist/styles/form-kernel.css");
+    cpSync("src/styles/tailwind.css", "dist/styles/tailwind.css");
     prependUseClient("dist/form/react/index.js");
   },
 });

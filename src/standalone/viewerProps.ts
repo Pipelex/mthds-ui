@@ -10,6 +10,8 @@ import type {
   FoldMode,
   GraphThemeMode,
   ToolbarPosition,
+  ValidationIssue,
+  ValidationState,
 } from "@graph/types";
 import { FOLD_MODE, GRAPH_DIRECTION, GRAPH_THEME_MODE, TOOLBAR_POSITION } from "@graph/types";
 
@@ -20,6 +22,9 @@ export interface StandaloneViewerProps {
   initialShowControllers: boolean;
   initialFoldMode: FoldMode;
   theme: GraphThemeMode;
+  /** Set only when the page built its graph from `mthds-sources` and the builder left notes. */
+  validationState?: ValidationState;
+  validationIssues?: ValidationIssue[];
 }
 
 /**

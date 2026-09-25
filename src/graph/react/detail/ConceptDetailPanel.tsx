@@ -11,10 +11,9 @@ export interface ConceptDetailPanelProps {
   /** Whether this is a dry run (schema only, no real data). */
   isDryRun?: boolean;
   /**
-   * Renders the data half. Supplied by the host (or by this package's own
-   * `./form/react` entry, which renders it through the form kernel's
-   * descriptor-driven `StuffViewer`); see `stuffRender.ts` for why the graph
-   * does not render data itself any more.
+   * Renders the data half. `GraphViewer` supplies it as a `StuffResultPanel`,
+   * the form kernel's descriptor-driven result view, when the host passed the
+   * `contracts` and `outputForm` artifacts; see `docs/stuff-result-panel.md`.
    *
    * Without it — or when it returns nothing for this item — the panel shows the
    * structure table alone and no tabs, which is what a viewer that has not been

@@ -22,6 +22,10 @@ export function validationLabel(state: ValidationState, issueCount: number): str
       return `Method is invalid — ${issues}`;
     case VALIDATION_STATE.ERROR:
       return "Validation could not run";
+    case VALIDATION_STATE.UNVALIDATED:
+      return issueCount > 0
+        ? `Not validated — ${issues} found reading the source`
+        : "Not validated";
     default: {
       const _exhaustive: never = state;
       return _exhaustive;
@@ -79,6 +83,8 @@ export function validationEmptyText(state: ValidationState): string {
       return "No details available.";
     case VALIDATION_STATE.ERROR:
       return "Validation could not run.";
+    case VALIDATION_STATE.UNVALIDATED:
+      return "Nothing found reading the source. The method has not been validated.";
     default: {
       const _exhaustive: never = state;
       return _exhaustive;
