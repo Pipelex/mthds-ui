@@ -69,15 +69,20 @@ export function selectPrimaryMthdsSource<T extends MthdsSource>(
  * The files in the order the static builder should merge them: the primary
  * file (see {@link selectPrimaryMthdsSource}) first, then the rest in the order
  * given. The rest keep their order so a host that wants a deterministic merge
- * only has to list its files deterministically. Returns a new array; when the
- * primary is not among `sources` (a `preferred` from outside the list), that
- * array is a copy in the given order.
+ * only has to list its files deterministically. Returns a new array.
+ *
+ * `preferred` is matched against `sources` by `name`, so a host may pass its
+ * own object for the open file rather than the list's. A `preferred` whose name
+ * is not listed is ignored: it cannot lead a list it is not in, and the order
+ * is then the one given no `preferred` at all.
  */
 export function orderMthdsSources<T extends MthdsSource>(
   sources: readonly T[],
   preferred?: T,
 ): T[] {
-  const primary = selectPrimaryMthdsSource(sources, preferred);
+  const listed =
+    preferred === undefined ? undefined : sources.find((source) => source.name === preferred.name);
+  const primary = selectPrimaryMthdsSource(sources, listed);
   const index = primary === undefined ? -1 : sources.indexOf(primary);
   if (index <= 0) return [...sources];
   return [sources[index], ...sources.slice(0, index), ...sources.slice(index + 1)];

@@ -42,7 +42,7 @@ const { spec, diagnostics } = buildStaticGraphSpecFromToml(ordered.map((file) =>
 
 The file declaring a top-level `main_pipe` leads, `bundle.mthds` when several do, and the rest keep the order they were given in, so a host wanting a deterministic merge only has to list its files deterministically. When no file declares `main_pipe`, the order stays as given. `selectPrimaryMthdsSource` returns the leading file alone.
 
-Both take an optional `preferred` file, the one an editor has open. It leads whenever it declares `main_pipe` itself, which is how a directory holding several variants of an entry point graphs the variant being edited, and it also leads when no file declares one.
+Both take an optional `preferred` file, the one an editor has open. It leads whenever it declares `main_pipe` itself, which is how a directory holding several variants of an entry point graphs the variant being edited, and it also leads when no file declares one. `orderMthdsSources` finds it in the list by `name`, so a host can pass its own object for the open file; a `preferred` whose name is not in the list is ignored.
 
 `hasTopLevelMainPipe` is a line scan rather than a TOML parse, so a syntax error further down a half-written file does not demote the file that plainly declares the entry point. Only the last path segment of a file's `name` is compared with `bundle.mthds`, without regard to case.
 

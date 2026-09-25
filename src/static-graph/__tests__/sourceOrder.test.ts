@@ -142,10 +142,24 @@ describe("orderMthdsSources", () => {
     expect(names(orderMthdsSources(sources))).toEqual(["one.mthds", "two.mthds"]);
   });
 
-  it("keeps the given order when the preferred file is not in the list", () => {
+  it("leads with a preferred file matched by name, not by identity", () => {
+    // An editor host builds its own object for the open file; a copy with the
+    // listed name must lead exactly as the listed entry would.
+    const sources = [
+      source("helper.mthds", WITHOUT_MAIN),
+      source("bundle.mthds", WITH_MAIN),
+      source("variant.mthds", WITH_MAIN),
+    ];
+    const openedCopy = source("variant.mthds", WITH_MAIN);
+    const ordered = orderMthdsSources(sources, openedCopy);
+    expect(names(ordered)).toEqual(["variant.mthds", "helper.mthds", "bundle.mthds"]);
+    expect(ordered[0]).toBe(sources[2]);
+  });
+
+  it("orders as if none were given when the preferred file is not in the list", () => {
     const outsider = source("elsewhere.mthds", WITH_MAIN);
     const sources = [source("one.mthds", WITHOUT_MAIN), source("bundle.mthds", WITH_MAIN)];
-    expect(names(orderMthdsSources(sources, outsider))).toEqual(["one.mthds", "bundle.mthds"]);
+    expect(names(orderMthdsSources(sources, outsider))).toEqual(["bundle.mthds", "one.mthds"]);
   });
 
   it("returns an empty array for an empty list", () => {
