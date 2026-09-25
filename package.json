@@ -51,7 +51,9 @@
     "./static-graph": {
       "import": "./dist/static-graph/index.js",
       "types": "./dist/static-graph/index.d.ts"
-    }
+    },
+    "./tailwind.css": "./dist/styles/tailwind.css",
+    "./form-kernel.css": "./dist/styles/form-kernel.css"
   },
   "files": [
     "dist"

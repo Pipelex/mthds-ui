@@ -1,0 +1,42 @@
+/**
+ * Where the form kernel's classes are, for a host with Tailwind 4.
+ *
+ * The kernel's controls are styled with Tailwind utilities that live in its
+ * shipped JavaScript, not in the host's source tree, so a host's build has to be
+ * told to scan it. The kernel's documented Tailwind 4 setup (its
+ * `docs/theming.md`, "A host that runs Tailwind") does that with an `@source`
+ * line naming a path into `node_modules`. This file replaces THAT LINE and
+ * nothing else: a host writes
+ *
+ *   @import "@pipelex/mthds-ui/tailwind.css";
+ *
+ * among its other `@import`s, in any position, since `@source` does not depend
+ * on order. The rest of the kernel's setup stays the host's: `tw-animate-css`,
+ * whose utilities the select popover's and the tooltip's transitions use, and
+ * the `@theme inline` mapping of the shadcn tokens, without which a class such
+ * as `bg-background` compiles to nothing however well the scan found it.
+ *
+ * WHY TWO PATHS
+ *
+ * Tailwind resolves an imported package stylesheet to its REAL path and resolves
+ * that file's `@source` directives relative to it, so both paths below are
+ * relative to where this file lands, `dist/styles/` inside this package. An
+ * explicit `@source` is scanned even inside `node_modules`.
+ *
+ *   - `../../../mthds-form/dist` is the kernel as a sibling of this package:
+ *     in a pnpm virtual store, where every dependency of this package is linked
+ *     beside it, and in an npm tree that hoisted the kernel to the top.
+ *   - `../../node_modules/@pipelex/mthds-form/dist` is the kernel nested under
+ *     this package, which npm does when the host's tree already holds another
+ *     version at the top.
+ *
+ * A path that does not exist is skipped silently, which is why both are listed:
+ * whichever layout the host's package manager chose, one of them is the copy of
+ * the kernel this package imports, and the host never names a path into
+ * `node_modules` or declares the kernel itself.
+ *
+ * No JavaScript imports this file, and a host WITHOUT Tailwind never loads it:
+ * it imports `@pipelex/mthds-ui/form-kernel.css` instead. Never both.
+ */
+@source "../../../mthds-form/dist";
+@source "../../node_modules/@pipelex/mthds-form/dist";

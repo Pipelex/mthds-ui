@@ -12,6 +12,10 @@
 
 - **`unvalidated` validation widget state**: `VALIDATION_STATE.UNVALIDATED` is for a host that renders a method without validating it. It lists the issues reading the source turned up under the label "Not validated", where `invalid` or `valid` would have claimed a verdict nobody produced. A TypeScript host with an exhaustive `switch` or `Record` over `ValidationState` must add the new member.
 
+### Changed
+
+- **The React entries no longer load the form kernel's stylesheet (Breaking)**: `./graph/react` and `./form/react` stopped importing the kernel's prebuilt sheet, because no single cascade position served a host with Tailwind 4 (appended, its utilities beat the host's responsive variants; named first, the host's preflight stripped the controls) and its preflight reset the browser defaults of a whole page without Tailwind. A Tailwind 4 host now follows the kernel's documented Tailwind 4 setup with `@import "@pipelex/mthds-ui/tailwind.css"` in place of its `@source` line, and no longer declares `@pipelex/mthds-form` or names the `mthds-form` layer; a host without Tailwind imports `@pipelex/mthds-ui/form-kernel.css` once, or the controls in `RunPanel` and in the graph's detail panel render unstyled. Tailwind 3 hosts and Tailwind 4 hosts with a prefix are not supported.
+
 ## [v0.24.0] - 2026-09-08
 
 ### Added

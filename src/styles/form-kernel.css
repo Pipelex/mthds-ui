@@ -1,41 +1,41 @@
 /**
- * The form kernel's Tailwind utilities, wrapped in a cascade layer.
+ * The form kernel's prebuilt stylesheet, for a host WITHOUT Tailwind.
  *
- * WHY THE LAYER, AND WHY THIS FILE EXISTS AT ALL
+ * Such a host imports it once, from its own entry:
  *
- * `@pipelex/mthds-form/styles.css` is a COMPLETE Tailwind build: preflight plus
- * every utility the kernel's controls use, unprefixed and unscoped. That is the
- * right shape for its intended reader — a host with no Tailwind of its own — and
- * exactly the wrong shape for a host that HAS one. Injected raw into such a host
- * it is a second, later stylesheet full of colliding rules:
+ *   import "@pipelex/mthds-ui/form-kernel.css";
  *
- *   - Its bare `.hidden { display: none }` outranks the host's `.sm\:inline`,
- *     because the two have equal specificity and it happens to come last. Every
- *     `class="hidden sm:inline"` label in the host app disappears at every
- *     width. This is not hypothetical: it silently blanked the toolbar and
- *     dialog labels across a consuming application the moment a graph mounted.
- *   - Its preflight re-bases `*, ::before, ::after { border: 0 solid }`. A
- *     shorthand always sets every longhand, so the host's own default border
- *     color is still replaced — but with `currentColor`, which is Tailwind 4's
- *     default. Through kernel 0.7.0 the declaration carried `#e5e7eb` and the
- *     symptom was a pale grey hairline under anything with a border width and
- *     no explicit color class. That symptom is gone as of 0.8.0; the collision
- *     is milder, and the layer settles it either way.
+ * No JavaScript in this package imports it. From v0.20.0 through v0.24.0 both
+ * React entries injected it into every host, and no single position in the
+ * cascade served a host that has Tailwind of its own; the block comments in
+ * `../graph/react/index.ts` and `../form/react/index.ts` say why.
  *
- * Both are the same failure: our sheet loading LATER than the host's and winning
- * ties it has no business winning. A cascade layer settles it by construction —
- * layered rules lose to unlayered rules regardless of source order, so the host
- * keeps every declaration it makes itself, and we still supply the classes it
- * never generated. Nothing here changes for a host with no Tailwind: a layer
- * only decides conflicts, and there are none to decide.
+ * WHAT A HOST GETS WITH IT
  *
- * The alternative — dropping the import and asking Tailwind hosts to widen their
- * content globs into `node_modules` — is the arrangement that was already
- * failing before the import was added. See the block comments in
- * `../graph/react/index.ts` and `../form/react/index.ts` for why the kernel's
- * classes cannot be left to the host to generate.
+ * `@pipelex/mthds-form/styles.css` is a COMPLETE Tailwind build: every utility
+ * the kernel's controls use, unprefixed and unscoped, and Tailwind's preflight.
+ * The preflight is what lets the controls render with no framework underneath,
+ * and it applies to the whole page, not only to the controls: it resets every
+ * browser default the host does not restate itself, so headings drop to body
+ * size, lists lose their markers, and paragraphs and the body lose their
+ * margins. A dedicated panel such as a webview expects that; a page of ordinary
+ * content that embeds a graph restates the defaults it wants to keep.
  *
- * `theme.css` stays out, layered or not: it defines the semantic tokens
- * (`--background`, `--border`, …) a shadcn host already owns.
+ * WHY THE LAYER
+ *
+ * Layered rules lose to unlayered rules whatever the source order, so the
+ * host's own rules win every tie against the kernel's utilities and preflight,
+ * even though this sheet may load after the host's. In a host without Tailwind
+ * that is the whole question, which is why the layer stays.
+ *
+ * A HOST WITH TAILWIND 4 MUST NOT IMPORT THIS FILE. It compiles the kernel's
+ * classes itself, through `@pipelex/mthds-ui/tailwind.css` (`./tailwind.css`
+ * beside this file), and this sheet would put a second preflight in its page,
+ * ranked wherever the host's layers leave it.
+ *
+ * `theme.css` stays out: it defines the semantic tokens (`--background`,
+ * `--border`, …) that belong to the host. Every utility in the kernel's sheet
+ * carries a fallback, so a host that defines no tokens renders the kernel's
+ * light neutral palette.
  */
 @import "@pipelex/mthds-form/styles.css" layer(mthds-form);
