@@ -43,10 +43,10 @@ The second pass exists for the items no pipe produced — a method's own declare
 
 ## The method's own inputs
 
-Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `renderStuffResult` takes an optional third artifact:
+Those have no `producerPipeRef`, so no `output_form` entry describes them. What does describe them is the **consuming** pipe's `input_form` entry for the slot they arrive in: the same field, seen from the other side. `findStuffByDigest` therefore also reports the first consumer (`{ pipeRef, slotName }`), and `GraphViewer` takes an optional third artifact, the `input_form` from the same `/validate` call:
 
 ```tsx
-renderStuffResult({ contracts, inputForm, outputForm })
+<GraphViewer graphspec={spec} contracts={…} outputForm={…} inputForm={…} />
 ```
 
 **The fallback fires on single-valued slots only, and that is a correctness boundary rather than caution.** An input's `json_schema` describes what a caller **sends**, so a plural slot's is a bare array; a stuff's payload is what the runtime **holds**, which for a plural value is a `ListContent {items}` envelope. The two disagree exactly where the standard says they do, and rendering a plural input against its caller-side schema would unwrap by a property that is not there. On the single arm they are byte-identical by construction — both are `render_stuff_spec`'s output — so the fallback is exact there and declines everywhere else.
@@ -55,7 +55,7 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 ## What was given up
 
-**`resolveStorageUrl` is gone, and its capability with it.** `StuffViewer` took a resolver and exchanged `pipelex-storage://` URIs for presigned URLs before painting media; the kernel has no equivalent seam yet, so a result carrying a storage reference now shows the file **named** rather than rendered. That is a real gap. Porting it belongs in the kernel's file arms, where every consumer gets it, rather than being re-implemented here for one host.
+**`resolveStorageUrl` went, and its capability came back as `resolveUrl`.** `StuffViewer` took a resolver and exchanged `pipelex-storage://` URIs for fetchable URLs before painting media, and for a while its replacement had no such seam, so a result carrying a storage reference showed the file **named** rather than rendered. `GraphViewer`'s `resolveUrl` closes that gap: it is threaded to `StuffResultPanel` and installed as the kernel's `ResultEnvProvider`, so the kernel's own file arms do the painting. Without it the panel falls back to whatever `public_url` the payload carries, which on a hosted runtime is typically a presigned URL that expires, so a stored result's images break a while after the run. `resolveShareUrl` is its sibling for the copy control, minting a URL that works outside the host's page.
 
 `canEmbedPdf` and `onOpenExternally` went with it — both existed solely for `StuffViewer`'s PDF tile and its toolbar.
 
@@ -63,6 +63,6 @@ An input node is wrapped into the output descriptor's `{ field }` shape before `
 
 ## Stories
 
-`Form/Graph with ResultPanel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts` and `output_form`, wired with one prop. `Without A Renderer` is the same graph with none, showing the floor.
+`Graph/Result panel` is the demonstration: the LIVE `GraphSpec` of `data/pipelines/pipeline_09` beside its generated `pipe_io_contracts`, `output_form` and `input_form`, passed as the viewer's three artifact props. `A Method Input` opens a method's own input through the `input_form` fallback, and `Without Artifacts` is the same graph with none, showing the floor.
 
 Every per-pipeline story carries it as well — all 34 `Graph - from run/NN …` stories spread `artifactsFor(name)` into their args, which looks the method up in the generated `ARTIFACT_SETS` map. Two exceptions, and correctly so: `26 Wide Parallel` and `27 Wide Batch` build their specs with generators rather than from a bundle, so no artifacts describe them and the helper returns `{}` — the viewer's own documented "no data view" path rather than a second one.

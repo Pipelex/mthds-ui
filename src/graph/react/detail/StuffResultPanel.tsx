@@ -73,14 +73,12 @@ import type { ConceptInfo, GraphSpecNodeIoItem, GraphTheme } from "@graph/types"
  * both are `render_stuff_spec`'s output — so the fallback is exact there and
  * declines everywhere else.
  *
- * ## What it deliberately does not do
+ * ## Stored files
  *
- * It does not resolve `pipelex-storage://` URIs. `StuffViewer` took a
- * `resolveStorageUrl` and exchanged them for presigned URLs before painting
- * media; the kernel has no such seam yet, so a result carrying a storage
- * reference shows the file named rather than rendered. That is a real gap, not
- * an oversight — porting it belongs in the kernel's file arms, where every
- * consumer gets it, rather than being re-implemented here for one host.
+ * It does not resolve `pipelex-storage://` URIs itself. A host that can passes
+ * `resolveUrl`, which is installed as the kernel's `ResultEnvProvider` so the
+ * kernel's own file arms paint the file; without one, the panel paints whatever
+ * `public_url` the payload carries.
  */
 export interface StuffResultRendererOptions {
   /** `pipe_io_contracts` for the method being displayed. */
