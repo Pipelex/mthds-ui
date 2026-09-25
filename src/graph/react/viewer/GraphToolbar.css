@@ -145,8 +145,12 @@
   pointer-events: none;
 }
 
+/* `unvalidated` keeps the button's neutral colour — there is no verdict to
+   colour it with — and badges its notes in the warning tone, like the other
+   states whose issues are notes rather than a rejection. */
 .graph-toolbar-validation-btn--valid .graph-toolbar-validation-badge,
-.graph-toolbar-validation-btn--error .graph-toolbar-validation-badge {
+.graph-toolbar-validation-btn--error .graph-toolbar-validation-badge,
+.graph-toolbar-validation-btn--unvalidated .graph-toolbar-validation-badge {
   background: var(--color-warning);
 }
 

@@ -1,26 +1,17 @@
 /**
- * End-to-end standalone load test. Mirrors the data-load sequence the
- * standalone adapter runs once `pipelex-config` / `pipelex-graphspec` are
+ * End-to-end standalone load test for a page embedding a GraphSpec. Runs the
+ * loader the adapter calls once `pipelex-config` / `pipelex-graphspec` are
  * available, and asserts every malformed-input failure is observable (thrown)
- * rather than silently swallowed.
+ * rather than silently swallowed. The `mthds-sources` embed has its own suite
+ * in `mthdsSourcesEmbed.test.ts`.
  */
 import { describe, it, expect } from "vitest";
-import { validateGraphSpec } from "@graph/validateGraphSpec";
-import { buildViewerProps, type StandaloneViewerProps } from "../viewerProps";
+import type { StandaloneViewerProps } from "../viewerProps";
 import { parseJsonScriptText } from "../readJsonScript";
+import { loadStandaloneEmbeds } from "../loadEmbeds";
 
-/**
- * Replays the adapter's load steps: parse → validate → build props. Uses the
- * real `parseJsonScriptText` (the same reader the adapter wraps over the
- * `<script>` `textContent`) so this replay can't drift from production — the
- * earlier copy parsed with bare `JSON.parse` and so never exercised the
- * empty/whitespace guard.
- */
 function loadStandalone(configText: string, graphspecText: string): StandaloneViewerProps {
-  const rawConfig = parseJsonScriptText(configText, "pipelex-config");
-  const rawGraphspec = parseJsonScriptText(graphspecText, "pipelex-graphspec");
-  const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
-  return buildViewerProps(rawConfig, graphspec);
+  return loadStandaloneEmbeds({ config: configText, graphspec: graphspecText, mthdsSources: null });
 }
 
 const VALID_GRAPHSPEC = JSON.stringify({

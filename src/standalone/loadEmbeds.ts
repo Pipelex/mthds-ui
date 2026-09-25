@@ -1,0 +1,118 @@
+/**
+ * What the standalone page embeds, turned into `GraphViewer` props. Pure and
+ * DOM-free, so the whole load (parse, order, build, validate) is unit-tested
+ * as the adapter runs it rather than through a replay that could drift.
+ *
+ * A page carries its graph one of two ways, never both:
+ *
+ * - `pipelex-graphspec`: a GraphSpec produced elsewhere, such as pipelex's own
+ *   dry-run or live-run graph page.
+ * - `mthds-sources`: the method's `.mthds` files, from which the static graph is
+ *   built here, in the browser. Its id carries no `pipelex-` prefix because the
+ *   files are the standard's own artifact, not a Pipelex one.
+ */
+import type { ValidationIssue } from "@graph/types";
+import { VALIDATION_STATE } from "@graph/types";
+import { validateGraphSpec } from "@graph/validateGraphSpec";
+import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
+import { orderMthdsSources, type MthdsSource } from "@static-graph/sourceOrder";
+import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
+import { parseJsonScriptText } from "./readJsonScript";
+import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
+
+/** The ids of the `<script type="application/json">` elements the adapter reads. */
+export const EMBED_ID = {
+  CONFIG: "pipelex-config",
+  GRAPHSPEC: "pipelex-graphspec",
+  MTHDS_SOURCES: "mthds-sources",
+} as const;
+
+/** The text content of each embed, as found in the page; absent ones are `null`. */
+export interface EmbedTexts {
+  config: string | null | undefined;
+  graphspec: string | null | undefined;
+  mthdsSources: string | null | undefined;
+}
+
+function describeEntry(index: number): string {
+  return `<script id="${EMBED_ID.MTHDS_SOURCES}"> entry ${index}`;
+}
+
+/**
+ * Check the parsed `mthds-sources` JSON against the embed contract: a non-empty
+ * array of `{ "name": string, "content": string }`, names non-empty and
+ * distinct. Throws with the offending entry named, so a page written wrong
+ * says so on the error screen instead of drawing a partial method.
+ */
+export function parseMthdsSourcesEmbed(raw: unknown): MthdsSource[] {
+  if (!Array.isArray(raw)) {
+    throw new Error(
+      `<script id="${EMBED_ID.MTHDS_SOURCES}"> must hold a JSON array of ` +
+        `{ "name", "content" } objects, one per .mthds file.`,
+    );
+  }
+  if (raw.length === 0) {
+    throw new Error(`<script id="${EMBED_ID.MTHDS_SOURCES}"> lists no .mthds file.`);
+  }
+  const seen = new Set<string>();
+  return raw.map((entry: unknown, index) => {
+    if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
+      throw new Error(`${describeEntry(index)} is not a { "name", "content" } object.`);
+    }
+    const { name, content } = entry as Record<string, unknown>;
+    if (typeof name !== "string" || name.trim() === "") {
+      throw new Error(`${describeEntry(index)} has no "name" string.`);
+    }
+    if (typeof content !== "string") {
+      throw new Error(`${describeEntry(index)} ("${name}") has no "content" string.`);
+    }
+    if (seen.has(name)) {
+      throw new Error(`${describeEntry(index)} repeats the name "${name}".`);
+    }
+    seen.add(name);
+    return { name, content };
+  });
+}
+
+/**
+ * Build the static graph for an embedded method. The files are put in merge
+ * order first (the one declaring `main_pipe` leads, `bundle.mthds` when
+ * several do), so no embedder has to know the rule. The builder's diagnostics
+ * become the viewer's validation issues under the `unvalidated` state: nothing
+ * validated this method, and a note the builder could not pin to a node
+ * (unparseable TOML, a missing entry pipe) would otherwise be invisible.
+ */
+function loadFromSources(rawConfig: unknown, rawSources: unknown): StandaloneViewerProps {
+  const sources = orderMthdsSources(parseMthdsSourcesEmbed(rawSources));
+  const { spec, diagnostics } = buildStaticGraphSpecFromToml(sources.map((file) => file.content));
+  // Validated at the same boundary as an embedded spec: `GraphViewer` validates
+  // during render, where a failure would blank the page instead of reaching the
+  // error screen.
+  const props = buildViewerProps(rawConfig, validateGraphSpec(spec));
+  const issues: ValidationIssue[] = staticDiagnosticsToValidationIssues(diagnostics);
+  if (issues.length === 0) return props;
+  return { ...props, validationState: VALIDATION_STATE.UNVALIDATED, validationIssues: issues };
+}
+
+/**
+ * Turn the page's embeds into viewer props. Throws on anything malformed (bad
+ * JSON, a bad config token, a failed GraphSpec check, a malformed sources
+ * embed, or both graph embeds at once), which the adapter shows on its error
+ * screen. With neither graph embed, the viewer renders its empty state.
+ */
+export function loadStandaloneEmbeds(texts: EmbedTexts): StandaloneViewerProps {
+  const rawConfig = parseJsonScriptText(texts.config, EMBED_ID.CONFIG);
+  const rawGraphspec = parseJsonScriptText(texts.graphspec, EMBED_ID.GRAPHSPEC);
+  const rawSources = parseJsonScriptText(texts.mthdsSources, EMBED_ID.MTHDS_SOURCES);
+  if (rawGraphspec !== null && rawSources !== null) {
+    throw new Error(
+      `The page embeds both <script id="${EMBED_ID.GRAPHSPEC}"> and ` +
+        `<script id="${EMBED_ID.MTHDS_SOURCES}">; a page carries one graph, so embed one of them.`,
+    );
+  }
+  if (rawSources !== null) return loadFromSources(rawConfig, rawSources);
+  // Validate an embedded spec at the boundary — fail loudly on malformed input
+  // rather than rendering fabricated content downstream.
+  const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
+  return buildViewerProps(rawConfig, graphspec);
+}

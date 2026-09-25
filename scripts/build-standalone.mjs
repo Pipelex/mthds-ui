@@ -31,6 +31,7 @@ esbuild.buildSync({
     "react-dom": reactDomDir,
     "react/jsx-runtime": reactDir + "/jsx-runtime",
     "@graph": path.resolve("./src/graph"),
+    "@static-graph": path.resolve("./src/static-graph"),
     // elkjs loaded via CDN — use shim that reads window.ELK
     "elkjs/lib/elk.bundled.js": path.resolve("./src/standalone/elk-shim.ts"),
   },

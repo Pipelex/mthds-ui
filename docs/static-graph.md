@@ -29,6 +29,71 @@ Order only decides which bundle's `main_pipe` and `description` the merged set a
 
 Passing the root file alone is not a smaller version of this: the entry pipe is a signature there, so the walk renders a single unexpanded leaf card.
 
+### Which file leads
+
+A host holding a method as a list of files puts them in order with `orderMthdsSources`, the rule every host shares rather than each keeping its own copy:
+
+```ts
+import { buildStaticGraphSpecFromToml, orderMthdsSources } from "@pipelex/mthds-ui/static-graph";
+
+const ordered = orderMthdsSources(files); // files: { name, content }[]
+const { spec, diagnostics } = buildStaticGraphSpecFromToml(ordered.map((file) => file.content));
+```
+
+The file declaring a top-level `main_pipe` leads, `bundle.mthds` when several do, and the rest keep the order they were given in, so a host wanting a deterministic merge only has to list its files deterministically. When no file declares `main_pipe`, the order stays as given. `selectPrimaryMthdsSource` returns the leading file alone.
+
+Both take an optional `preferred` file, the one an editor has open. It leads whenever it declares `main_pipe` itself, which is how a directory holding several variants of an entry point graphs the variant being edited, and it also leads when no file declares one.
+
+`hasTopLevelMainPipe` is a line scan rather than a TOML parse, so a syntax error further down a half-written file does not demote the file that plainly declares the entry point. Only the last path segment of a file's `name` is compared with `bundle.mthds`, without regard to case.
+
+## Drawing a method in a standalone page
+
+The standalone viewer bundle, `dist/standalone/graph-viewer.js`, is one script a page loads with a plain `<script>` tag, from jsDelivr for instance. It carries the static builder, so a page that embeds a method's `.mthds` files draws the method by itself, the way a Mermaid page carries its diagram's text and loads the renderer: no build step, no Pipelex install, no run. This is the complete page:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Research brief</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@X.Y.Z/dist/standalone/graph-viewer.css"
+    />
+  </head>
+  <body>
+    <div id="app-container"><div id="root"></div></div>
+    <script type="application/json" id="mthds-sources">
+      [
+        {
+          "name": "bundle.mthds",
+          "content": "domain = \"market_research\"\nmain_pipe = \"write_research_brief\"\n…"
+        }
+      ]
+    </script>
+    <script type="application/json" id="pipelex-config">
+      { "direction": "TB", "theme": "system" }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/elkjs@0.11.1/lib/elk.bundled.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pipelex/mthds-ui@X.Y.Z/dist/standalone/graph-viewer.js"></script>
+  </body>
+</html>
+```
+
+The embed contract:
+
+- **The element** is `<script type="application/json" id="mthds-sources">`. The JSON type keeps the browser from running it. Its id carries no `pipelex-` prefix, unlike the `pipelex-graphspec` and `pipelex-config` embeds, because what it holds is the standard's own artifact.
+- **Its content** is a JSON array with one `{ "name": string, "content": string }` object per `.mthds` file of the method, the same shape as an `mthds_sources[]` entry on the hosted API. `name` is the file name, non-empty and distinct from the others; `content` is the file's text. Any other key is ignored.
+- **Every `<` is written as `<`**, which in JavaScript is `JSON.stringify(sources).replace(/</g, "\\u003c")`. JSON reads the escape back as `<`, while the HTML parser never meets one inside the element. Without it, a method whose text contains `</script>` ends the element early and the rest of its text is parsed as HTML, and a `<!--` changes how the element is tokenized; a prompt quoting a line of HTML is enough.
+- **The files may come in any order.** The bundle applies `orderMthdsSources` itself (see [Which file leads](#which-file-leads)), so an embedder never implements the rule; listing the rest in name order keeps the merge deterministic.
+- **`pipelex-config` is optional** and takes the same keys as on a GraphSpec page: `direction`, `foldMode`, `showControllers`, `theme`, `toolbarPosition` and the rest of `GraphConfig`.
+- **A page carries one graph.** Embedding a non-empty `pipelex-graphspec` beside `mthds-sources` is an error. An element that is empty or holds only whitespace counts as absent.
+- **The page needs `#root` inside `#app-container`**: the viewer mounts on `#root`, and `graph-viewer.css` sizes `#app-container` to the window. The bundle mounts once, when the document has loaded.
+
+The builder's diagnostics reach the viewer through `staticDiagnosticsToValidationIssues`, under the toolbar widget's `unvalidated` state (see `docs/validation-widget.md`): the toolbar shows an information mark with the count, its dropdown lists every note, and a note the builder pinned to a pipe rings that pipe's nodes. The state exists because nothing validated the method. The notes are what reading the source turned up, and a note the builder could not pin to any node, such as a file that is not valid TOML, would otherwise leave an empty canvas and no explanation. A method the builder read without a note shows no widget at all. A malformed embed (JSON that does not parse, anything other than a non-empty array, an entry without a `name` or `content` string, a repeated name) shows the error screen, naming the entry at fault.
+
+Pin an exact version in both URLs, and add `integrity` and `crossorigin="anonymous"` attributes as pipelex's generated graph pages do, so the page keeps drawing the same way and the browser refuses a file that changed. Carrying the builder adds about 40 KB to a viewer bundle of about 800 KB.
+
 ## Mode Contract
 
 GraphSpec metadata now has an explicit mode:

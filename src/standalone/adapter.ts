@@ -2,7 +2,10 @@
  * Standalone adapter for embedding GraphViewer in a single HTML file.
  * Mirrors the VS Code extension adapter pattern (module-scoped state + manual re-render).
  *
- * Config parsing lives in `./viewerProps` so it can be unit-tested without a DOM.
+ * The embeds are turned into props by `./loadEmbeds` (config parsing in
+ * `./viewerProps`), so the whole load can be unit-tested without a DOM. A page
+ * embeds either a GraphSpec (`pipelex-graphspec`) or the method's `.mthds`
+ * files (`mthds-sources`), from which the static graph is built in the browser.
  *
  * Theming: the in-graph toolbar is the single theme toggle. The library owns
  * the tri-state (`dark | light | system`) and the `prefers-color-scheme`
@@ -12,12 +15,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import type { GraphTheme, GraphThemeMode } from "@graph/types";
-import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { GraphViewer, resolveActiveTheme } from "@graph/react/viewer/GraphViewer";
 import { getPaletteForTheme } from "@graph/graphConfig";
 import { detectSystemTheme } from "@graph/react/viewer/useSystemTheme";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
-import { parseJsonScriptText } from "./readJsonScript";
+import { EMBED_ID, loadStandaloneEmbeds } from "./loadEmbeds";
 
 // ─── Module-scoped state (same pattern as VS Code extension adapter) ────
 
@@ -26,8 +28,8 @@ let renderApp: (() => void) | null = null;
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
-function readJsonScript(id: string): unknown {
-  return parseJsonScriptText(document.getElementById(id)?.textContent, id);
+function readEmbedText(id: string): string | null {
+  return document.getElementById(id)?.textContent ?? null;
 }
 
 /**
@@ -71,8 +73,8 @@ function App() {
 }
 
 /**
- * Visible fallback for a malformed embedded config or spec. The parse/validate
- * helpers throw by design so the failure surfaces — but the data load runs in a
+ * Visible fallback for a malformed embedded config, spec or method. The loader
+ * throws by design so the failure surfaces — but the data load runs in a
  * detached `setTimeout` callback, where an uncaught throw would silently abort
  * and leave the placeholder first render blank. Styled with explicit colors
  * (not the `--chrome-*` vars) so it stays legible even when the failure is the
@@ -109,12 +111,11 @@ function mount() {
   // Load data after initial mount (next tick), same as VS Code postMessage arrival
   setTimeout(() => {
     try {
-      const rawConfig = readJsonScript("pipelex-config");
-      const rawGraphspec = readJsonScript("pipelex-graphspec");
-      // Validate the embedded spec at the boundary — fail loudly on malformed
-      // input rather than rendering fabricated content downstream.
-      const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
-      viewerProps = buildViewerProps(rawConfig, graphspec);
+      viewerProps = loadStandaloneEmbeds({
+        config: readEmbedText(EMBED_ID.CONFIG),
+        graphspec: readEmbedText(EMBED_ID.GRAPHSPEC),
+        mthdsSources: readEmbedText(EMBED_ID.MTHDS_SOURCES),
+      });
 
       // Paint initial page chrome from the parsed mode. `onThemeChange` does not
       // fire on mount, so resolve `system` here through the same library helper
@@ -127,8 +128,9 @@ function mount() {
       // Re-render with data (triggers GraphViewer's graphspec useEffect)
       renderApp?.();
     } catch (err) {
-      // The parse/validate helpers throw on malformed embedded input (a bad
-      // theme/direction/foldMode token, invalid JSON, a failed GraphSpec check).
+      // The loader throws on malformed embedded input (a bad theme/direction/
+      // foldMode token, invalid JSON, a failed GraphSpec check, a malformed
+      // sources embed) and the static builder can throw on hostile input.
       // That is intentional — but this callback is detached on a timer, so an
       // uncaught throw aborts here and leaves the placeholder first render blank
       // with no signal. Surface the failure in the UI instead.

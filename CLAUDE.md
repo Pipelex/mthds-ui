@@ -62,9 +62,10 @@ src/
     normalizePipe.ts              #   Authored TOML pipe shape → PipeBlueprintUnion registry shape
     parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
     mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)
+    sourceOrder.ts                #   Which file of a multi-file method leads the merge (shared with hosts)
     buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
 docs/
-  static-graph.md                 # Static GraphSpec API, mode contract, display behavior
+  static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed
 ```
 
 The `static-graph/` module reuses the blueprint types from `graph/types.ts` (no parallel type universe) and uses the `@static-graph/*` path alias. Its authoring-surface reference contract is `data/schema/mthds_schema.json`, re-copied from `pipelex/derived/` via `make schema-refresh` — a dev-time reference, not a runtime dependency. Static specs must carry `meta: { format: "mthds", mode: "static" }`; renderer behavior must check that explicit mode only.
