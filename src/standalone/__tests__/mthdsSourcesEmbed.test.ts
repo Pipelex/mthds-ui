@@ -173,6 +173,16 @@ steps = [{ pipe = "missing_step", result = "out" }]
       expect(props.validationState).toBe(VALIDATION_STATE.UNVALIDATED);
       expect(props.validationIssues?.some((issue) => issue.severity === "error")).toBe(true);
     });
+
+    it("name the file a parse error is in when several are embedded", () => {
+      const props = loadSources([
+        { name: "bundle.mthds", content: summarizer("Summarize it") },
+        { name: "broken.mthds", content: 'domain = "demo"\n[pipe.x' },
+      ]);
+      const errors = props.validationIssues?.filter((issue) => issue.severity === "error");
+      expect(errors?.length).toBeGreaterThan(0);
+      expect(errors?.every((issue) => issue.file === "broken.mthds")).toBe(true);
+    });
   });
 
   it("refuses a page that embeds both a GraphSpec and method sources", () => {
@@ -189,6 +199,16 @@ steps = [{ pipe = "missing_step", result = "out" }]
   it("treats an empty sources element like an absent one", () => {
     const props = loadStandaloneEmbeds({ config: "{}", graphspec: null, mthdsSources: "\n  \n" });
     expect(props.graphspec).toBeNull();
+  });
+
+  it("refuses a sources element holding JSON null instead of treating it as absent", () => {
+    expect(() =>
+      loadStandaloneEmbeds({ config: null, graphspec: null, mthdsSources: "null" }),
+    ).toThrow(/JSON array/);
+    const spec = buildStaticGraphSpecFromToml(summarizer("Summarize it")).spec;
+    expect(() =>
+      loadStandaloneEmbeds({ config: null, graphspec: embedText(spec), mthdsSources: "null" }),
+    ).toThrow(/embeds both/);
   });
 });
 

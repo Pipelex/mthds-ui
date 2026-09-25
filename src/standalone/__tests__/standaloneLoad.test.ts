@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from "vitest";
 import type { StandaloneViewerProps } from "../viewerProps";
-import { parseJsonScriptText } from "../readJsonScript";
+import { isBlankScriptText, parseJsonScriptText } from "../readJsonScript";
 import { loadStandaloneEmbeds } from "../loadEmbeds";
 
 function loadStandalone(configText: string, graphspecText: string): StandaloneViewerProps {
@@ -57,6 +57,20 @@ describe("parseJsonScriptText", () => {
 
   it("throws with the script id on malformed JSON", () => {
     expect(() => parseJsonScriptText("{not json", "pipelex-config")).toThrow(/pipelex-config/);
+  });
+});
+
+describe("isBlankScriptText", () => {
+  it("counts missing, empty and whitespace-only text as absent", () => {
+    expect(isBlankScriptText(null)).toBe(true);
+    expect(isBlankScriptText(undefined)).toBe(true);
+    expect(isBlankScriptText("")).toBe(true);
+    expect(isBlankScriptText("\n      \n    ")).toBe(true);
+  });
+
+  it("counts JSON null as present, unlike parseJsonScriptText's result", () => {
+    expect(isBlankScriptText("null")).toBe(false);
+    expect(parseJsonScriptText("null", "mthds-sources")).toBeNull();
   });
 });
 

@@ -14,10 +14,12 @@
 import type { ValidationIssue } from "@graph/types";
 import { VALIDATION_STATE } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
-import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
+import { buildStaticGraphSpec } from "@static-graph/buildStaticGraphSpec";
+import { mergeBundles } from "@static-graph/mergeBundles";
+import { parseMthdsBundle } from "@static-graph/parseMthdsBundle";
 import { orderMthdsSources, type MthdsSource } from "@static-graph/sourceOrder";
 import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
-import { parseJsonScriptText } from "./readJsonScript";
+import { isBlankScriptText, parseJsonScriptText } from "./readJsonScript";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
 
 /** The ids of the `<script type="application/json">` elements the adapter reads. */
@@ -81,15 +83,29 @@ export function parseMthdsSourcesEmbed(raw: unknown): MthdsSource[] {
  * become the viewer's validation issues under the `unvalidated` state: nothing
  * validated this method, and a note the builder could not pin to a node
  * (unparseable TOML, a missing entry pipe) would otherwise be invisible.
+ *
+ * The stages run one by one rather than through `buildStaticGraphSpecFromToml`
+ * so each file's own notes carry its name: a parse error's message gives a
+ * line number, and with several files embedded that alone does not say where.
  */
 function loadFromSources(rawConfig: unknown, rawSources: unknown): StandaloneViewerProps {
   const sources = orderMthdsSources(parseMthdsSourcesEmbed(rawSources));
-  const { spec, diagnostics } = buildStaticGraphSpecFromToml(sources.map((file) => file.content));
+  const parsed = sources.map((file) => parseMthdsBundle(file.content));
+  const merged = mergeBundles(parsed.map((result) => result.bundle));
+  const { spec, diagnostics } = buildStaticGraphSpec(merged);
   // Validated at the same boundary as an embedded spec: `GraphViewer` validates
   // during render, where a failure would blank the page instead of reaching the
   // error screen.
   const props = buildViewerProps(rawConfig, validateGraphSpec(spec));
-  const issues: ValidationIssue[] = staticDiagnosticsToValidationIssues(diagnostics);
+  const issues: ValidationIssue[] = [
+    ...sources.flatMap((file, index) =>
+      staticDiagnosticsToValidationIssues(parsed[index].diagnostics).map((issue) => ({
+        ...issue,
+        file: file.name,
+      })),
+    ),
+    ...staticDiagnosticsToValidationIssues([...merged.diagnostics, ...diagnostics]),
+  ];
   if (issues.length === 0) return props;
   return { ...props, validationState: VALIDATION_STATE.UNVALIDATED, validationIssues: issues };
 }
@@ -104,13 +120,17 @@ export function loadStandaloneEmbeds(texts: EmbedTexts): StandaloneViewerProps {
   const rawConfig = parseJsonScriptText(texts.config, EMBED_ID.CONFIG);
   const rawGraphspec = parseJsonScriptText(texts.graphspec, EMBED_ID.GRAPHSPEC);
   const rawSources = parseJsonScriptText(texts.mthdsSources, EMBED_ID.MTHDS_SOURCES);
-  if (rawGraphspec !== null && rawSources !== null) {
+  // Presence is read off the text, not the parsed value: a sources element
+  // holding JSON `null` is a malformed embed for the error screen, not an
+  // absent one that would quietly render the empty viewer.
+  const hasSources = !isBlankScriptText(texts.mthdsSources);
+  if (rawGraphspec !== null && hasSources) {
     throw new Error(
       `The page embeds both <script id="${EMBED_ID.GRAPHSPEC}"> and ` +
         `<script id="${EMBED_ID.MTHDS_SOURCES}">; a page carries one graph, so embed one of them.`,
     );
   }
-  if (rawSources !== null) return loadFromSources(rawConfig, rawSources);
+  if (hasSources) return loadFromSources(rawConfig, rawSources);
   // Validate an embedded spec at the boundary — fail loudly on malformed input
   // rather than rendering fabricated content downstream.
   const graphspec = rawGraphspec === null ? null : validateGraphSpec(rawGraphspec);
