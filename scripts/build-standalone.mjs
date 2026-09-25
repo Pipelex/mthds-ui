@@ -6,6 +6,7 @@ import esbuild from "esbuild";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
+import { findInlineScriptHazard, findInlineStyleHazard } from "./inlineHazards.mjs";
 import { STANDALONE_CSS_FILES } from "./standaloneCssFiles.mjs";
 
 const require = createRequire(import.meta.url);
@@ -31,6 +32,7 @@ esbuild.buildSync({
     "react-dom": reactDomDir,
     "react/jsx-runtime": reactDir + "/jsx-runtime",
     "@graph": path.resolve("./src/graph"),
+    "@static-graph": path.resolve("./src/static-graph"),
     // elkjs loaded via CDN — use shim that reads window.ELK
     "elkjs/lib/elk.bundled.js": path.resolve("./src/standalone/elk-shim.ts"),
   },
@@ -54,14 +56,18 @@ console.log("Assembling standalone HTML...");
 const template = readFileSync("./src/standalone/graph-standalone.html", "utf-8");
 const js = readFileSync("./dist/standalone/graph-viewer.js", "utf-8");
 
-// Escape closing tags to prevent premature tag closure in HTML
-const escapedJs = js.replace(/<\/script>/gi, "<\\/script>");
-const escapedCss = css.replace(/<\/style>/gi, "<\\/style>");
+// Checked, not rewritten: esbuild already escapes every `</script` it emits,
+// and a text replace over minified code would be redundant where it is right
+// and would change the program where it is wrong. See inlineHazards.mjs.
+const hazard = findInlineScriptHazard(js) ?? findInlineStyleHazard(css);
+if (hazard !== null) {
+  throw new Error(`Cannot inline the standalone bundle into its HTML page: ${hazard}.`);
+}
 
 // Use function replacer to avoid $-pattern interpretation in String.replace
 const html = template
-  .replace("<!--PIPELEX_CSS-->", () => escapedCss)
-  .replace("<!--PIPELEX_JS-->", () => escapedJs);
+  .replace("<!--PIPELEX_CSS-->", () => css)
+  .replace("<!--PIPELEX_JS-->", () => js);
 
 writeFileSync("./dist/standalone/graph-standalone.html", html);
 

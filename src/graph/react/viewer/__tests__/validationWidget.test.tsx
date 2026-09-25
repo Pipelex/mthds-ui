@@ -16,12 +16,16 @@ describe("validationLabel", () => {
     expect(validationLabel(VALIDATION_STATE.VALID, 0)).toBe("Method is valid");
     expect(validationLabel(VALIDATION_STATE.INVALID, 3)).toBe("Method is invalid — 3 issues");
     expect(validationLabel(VALIDATION_STATE.ERROR, 0)).toBe("Validation could not run");
+    expect(validationLabel(VALIDATION_STATE.UNVALIDATED, 0)).toBe("Not validated");
   });
 
   it("appends the issue count with singular/plural handling", () => {
     expect(validationLabel(VALIDATION_STATE.INVALID, 1)).toBe("Method is invalid — 1 issue");
     expect(validationLabel(VALIDATION_STATE.VALIDATING, 2)).toBe("Validating method… — 2 issues");
     expect(validationLabel(VALIDATION_STATE.VALID, 1)).toBe("Method is valid — 1 issue");
+    expect(validationLabel(VALIDATION_STATE.UNVALIDATED, 2)).toBe(
+      "Not validated — 2 issues found reading the source",
+    );
   });
 });
 
@@ -31,6 +35,9 @@ describe("validationEmptyText", () => {
     expect(validationEmptyText(VALIDATION_STATE.VALID)).toBe("No issues found.");
     expect(validationEmptyText(VALIDATION_STATE.INVALID)).toBe("No details available.");
     expect(validationEmptyText(VALIDATION_STATE.ERROR)).toBe("Validation could not run.");
+    expect(validationEmptyText(VALIDATION_STATE.UNVALIDATED)).toBe(
+      "Nothing found reading the source. The method has not been validated.",
+    );
   });
 });
 
@@ -41,6 +48,7 @@ describe("validationIcon", () => {
       validationIcon(VALIDATION_STATE.VALID),
       validationIcon(VALIDATION_STATE.INVALID),
       validationIcon(VALIDATION_STATE.ERROR),
+      validationIcon(VALIDATION_STATE.UNVALIDATED),
     ];
     expect(new Set(icons).size).toBe(icons.length);
   });

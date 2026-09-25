@@ -9,6 +9,10 @@
  * substitutes an empty value leaves the script body as whitespace (e.g.
  * `"\n      \n    "`) rather than `""`. Without the trim, that whitespace
  * reaches `JSON.parse` and throws instead of returning the null/initial state.
+ *
+ * A `null` return therefore does not say whether the embed was absent or held
+ * JSON `null`; a caller that must tell the two apart reads
+ * {@link isBlankScriptText} on the text.
  */
 export function parseJsonScriptText(text: string | null | undefined, id: string): unknown {
   const trimmed = text?.trim();
@@ -19,4 +23,9 @@ export function parseJsonScriptText(text: string | null | undefined, id: string)
     const message = err instanceof Error ? err.message : String(err);
     throw new Error(`Failed to parse JSON from <script id="${id}">: ${message}`);
   }
+}
+
+/** Whether an embed's text counts as absent: missing, empty, or whitespace only. */
+export function isBlankScriptText(text: string | null | undefined): boolean {
+  return !text?.trim();
 }

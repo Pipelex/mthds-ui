@@ -700,12 +700,16 @@ export function toolbarSide(position: ToolbarPosition): ToolbarSide {
  * host's validation lifecycle, not the static analyzer's: `validating` while a
  * verdict is being produced, `valid`/`invalid` once one exists, and `error`
  * when no verdict could be produced at all (validator unavailable, timeout…).
+ * `unvalidated` is for a host with no validator at all, such as a page drawing
+ * a method from its source: no verdict exists or is coming, and the issues are
+ * what reading the source turned up.
  */
 export const VALIDATION_STATE = {
   VALIDATING: "validating",
   VALID: "valid",
   INVALID: "invalid",
   ERROR: "error",
+  UNVALIDATED: "unvalidated",
 } as const;
 
 export type ValidationState = (typeof VALIDATION_STATE)[keyof typeof VALIDATION_STATE];

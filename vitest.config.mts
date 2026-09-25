@@ -36,6 +36,7 @@ export default defineConfig({
         "src/static-graph/normalizePipe.ts",
         "src/static-graph/parseMthdsBundle.ts",
         "src/static-graph/mergeBundles.ts",
+        "src/static-graph/sourceOrder.ts",
       ],
       thresholds: {
         statements: 90,
@@ -50,7 +51,7 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          include: ["src/**/*.test.ts", "src/**/*.test.mts"],
+          include: ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.test.mts"],
           exclude: ["node_modules/**"],
           environment: "node",
         },
