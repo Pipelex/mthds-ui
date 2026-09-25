@@ -32,14 +32,26 @@ describe("findInlineScriptHazard", () => {
     },
   );
 
-  it("reports a `<script` inside an open `<!--`", () => {
-    expect(findInlineScriptHazard('a="<!--";b="<script>";c="-->"')).toMatch(
-      /inside a `<!--` opened at offset 3/,
-    );
+  it("passes a `<script` inside a `<!--` that a later `-->` closes", () => {
+    // The `-->` returns the tokenizer from the double-escaped state to plain
+    // script data, so the real end tag ends the element as usual.
+    expect(findInlineScriptHazard('a="<!--";b="<script>";c="-->"')).toBeNull();
+  });
+
+  it.each([["<!-->"], ["<!--->"]])("passes a `<script` after %j, which closes itself", (open) => {
+    expect(findInlineScriptHazard(`a="${open}";b="<script>"`)).toBeNull();
   });
 
   it("reports a `<script` after a `<!--` that is never closed", () => {
-    expect(findInlineScriptHazard('a="<!--";b=`<script id="x">`')).toMatch(/inside a `<!--`/);
+    expect(findInlineScriptHazard('a="<!--";b=`<script id="x">`')).toMatch(
+      /inside a `<!--` opened at offset 3 that no `-->` closes/,
+    );
+  });
+
+  it("reports the unclosed section after a closed one", () => {
+    expect(findInlineScriptHazard('a="<!-- -->";b="<!--";c="<script>"')).toMatch(
+      /`<script` at offset 25 sits inside a `<!--` opened at offset 16/,
+    );
   });
 
   it("ignores `<script` not followed by a space, `/` or `>`", () => {

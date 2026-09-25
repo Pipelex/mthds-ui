@@ -23,15 +23,15 @@
  * - `</script` followed by anything ends the element, in any case. The end tag
  *   also closes on `</script ` and `</script/`, which a replace matching
  *   `</script>` alone misses.
- * - A `<!--` that is still open when a `<script` (followed by a space, `/` or
- *   `>`) appears switches the tokenizer into its double-escaped state, where
- *   the element's real end tag no longer ends it and the page swallows
- *   everything after it. esbuild does not escape either sequence. A `<!--`
- *   closed by `-->` before any `<script` is harmless, and so is a `<script`
- *   outside such a section.
- *
- * A `<!-->` is treated as open until the next `-->`, which can only report a
- * hazard that is not there, never miss one.
+ * - A `<script` (followed by a space, `/` or `>`) inside a `<!--` that no
+ *   `-->` closes. The `<!--` switches the tokenizer into its escaped state and
+ *   the `<script` into its double-escaped state, where the element's real end
+ *   tag only steps back to the escaped state, so the element never ends and
+ *   the page swallows everything after it. A `-->` returns the tokenizer to
+ *   plain script data from either state, so a section it closes is harmless
+ *   whatever it contains, and so is a `<script` outside every section.
+ *   `<!-->` and `<!--->` close themselves. esbuild escapes neither `<!--` nor
+ *   `<script`.
  *
  * @param {string} js
  * @returns {string | null}
@@ -41,13 +41,18 @@ export function findInlineScriptHazard(js) {
   if (endTag) {
     return `\`${endTag[0]}\` at offset ${endTag.index} would end the <script> element early`;
   }
-  for (const section of js.matchAll(/<!--([\s\S]*?)(?:-->|$)/g)) {
-    const opener = /<script[\s/>]/i.exec(section[1]);
+  // Each section runs from its `<!--` to the `-->` closing it, or to the end of
+  // the code when none does; only that last, unclosed one can hold a hazard.
+  for (const section of js.matchAll(/<!--(?:-?>|([\s\S]*?)(-->|$))/g)) {
+    const [, text, closer] = section;
+    if (text === undefined || closer === "-->") continue;
+    const opener = /<script[\s/>]/i.exec(text);
     if (opener) {
       const offset = section.index + "<!--".length + opener.index;
       return (
         `\`<script\` at offset ${offset} sits inside a \`<!--\` opened at offset ` +
-        `${section.index}, so the <script> element's real end tag would not end it`
+        `${section.index} that no \`-->\` closes, so the <script> element's real end tag ` +
+        `would not end it`
       );
     }
   }
