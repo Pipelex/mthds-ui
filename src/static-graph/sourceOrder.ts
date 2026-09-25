@@ -12,7 +12,12 @@
  * one can pass it straight through.
  */
 export interface MthdsSource {
-  /** File name, or a path ending in one. Only the last segment is read. */
+  /**
+   * File name, or a path ending in one. The whole string is the file's
+   * identity: a `preferred` file is matched against it exactly, and an embed
+   * lists each name once. Only the `bundle.mthds` tie-break reads the last
+   * segment alone.
+   */
   name: string;
   /** The file's `.mthds` TOML text. */
   content: string;
