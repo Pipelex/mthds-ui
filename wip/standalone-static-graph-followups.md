@@ -1,0 +1,10 @@
+# Standalone static graph — deferred follow-ups
+
+Findings from the review of `feature/Standalone-static-graph` (item L-260925-940363) that were confirmed and deliberately not fixed on that branch.
+
+## From the round 1 `/rev` pass (profile 3, bar `open`, reviewed at `c84eded`)
+
+- **`hasTopLevelMainPipe` reads inside multiline strings** (Codex, `src/static-graph/sourceOrder.ts:36-42`). The scan is line by line and has no notion of a TOML multiline string, so text inside a top-level `description = """…"""` or `system_prompt = '''…'''` is read as TOML. A line such as `[example]` inside the string ends the scan early and returns `false` although a real `main_pipe` follows, and a line such as `main_pipe = "fake"` returns `true` for a file that declares none. Confirmed by the verifier end to end: with `alt.mthds` (declaring `main_pipe = "alt_run"`) and `bundle.mthds` (a multiline `description` containing `[example]`, then `main_pipe = "bundle_run"`), the graph is drawn from `alt_run`; without the multiline string, `bundle.mthds` leads and the graph is drawn from `bundle_run`.
+  - **Why deferred:** it only changes the result when two or more files declare `main_pipe` and one of them carries such a line inside a top-level multiline string placed before its `main_pipe` or its first table. A method where a single file declares `main_pipe` is unaffected, because the merge finds the real `main_pipe` whatever the order. None of the `.mthds` files under `data/` has a top-level multiline string in that position. The VS Code extension's private copy of the scanner has the same limitation.
+  - **Fix shape:** track whether the scan is inside a `"""` or `'''` string (an opening delimiter on a `key = ` line without its closing one on the same line) and skip lines until the closing delimiter. Keep it a lenient scan rather than a TOML parse: the scan exists because an editor asks about half-written files.
+  - **Verify with:** a `hasTopLevelMainPipe` test for each direction (`[example]` and `main_pipe = "fake"` inside a multiline string), and an `orderMthdsSources` test with the two-file case above.
