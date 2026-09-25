@@ -63,6 +63,7 @@ src/
     parseMthdsBundle.ts           #   .mthds TOML text → ParsedBundle (lenient, never throws)
     mergeBundles.ts               #   ParsedBundle[] → MergedMethodSet (per-domain namespaces)
     sourceOrder.ts                #   Which file of a multi-file method leads the merge (shared with hosts)
+    mthdsSourcesEmbed.ts          #   The mthds-sources embed: its contract check and the serializer hosts write it with
     buildStaticGraphSpec.ts       #   The static walk: MergedMethodSet → GraphSpec (meta.mode "static")
 docs/
   static-graph.md                 # Static GraphSpec API, mode contract, display behavior, standalone embed

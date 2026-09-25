@@ -10,8 +10,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { VALIDATION_STATE } from "@graph/types";
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
+import { serializeMthdsSourcesEmbed } from "@static-graph/mthdsSourcesEmbed";
 import type { MthdsSource } from "@static-graph/sourceOrder";
-import { loadStandaloneEmbeds, parseMthdsSourcesEmbed } from "../loadEmbeds";
+import { loadStandaloneEmbeds } from "../loadEmbeds";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const MULTI_FILE_ENTRY = path.join(
@@ -19,20 +20,12 @@ const MULTI_FILE_ENTRY = path.join(
   "data/mthds-corpus/entries/feature_multi_file_library_research_brief",
 );
 
-/**
- * The serialization the embed contract prescribes: JSON, with every `<`
- * written as `\u003c` so nothing in a method's text can end the script
- * element early or open an HTML comment inside it.
- */
-function embedText(value: unknown): string {
-  return JSON.stringify(value).replace(/</g, "\\u003c");
-}
-
-function loadSources(sources: unknown, configText: string | null = null) {
+/** Load a page whose sources element was written the way a host writes it. */
+function loadSources(sources: readonly MthdsSource[], configText: string | null = null) {
   return loadStandaloneEmbeds({
     config: configText,
     graphspec: null,
-    mthdsSources: embedText(sources),
+    mthdsSources: serializeMthdsSourcesEmbed(sources),
   });
 }
 
@@ -134,12 +127,6 @@ describe("mthds-sources embed", () => {
   describe("text that looks like HTML", () => {
     const HOSTILE = 'Ends at </script><script>alert("x")</script> and opens <!-- a comment';
 
-    it("serializes with no `<` left for the HTML parser to act on", () => {
-      const text = embedText([{ name: "bundle.mthds", content: summarizer(HOSTILE) }]);
-      expect(text).not.toContain("<");
-      expect(text).toContain("\\u003c/script>");
-    });
-
     it("round-trips a TOML containing </script> into the drawn method", () => {
       const props = loadSources([{ name: "bundle.mthds", content: summarizer(HOSTILE) }]);
       expect(props.graphspec?.pipe_registry?.["demo.summarize"]?.description).toBe(HOSTILE);
@@ -190,8 +177,10 @@ steps = [{ pipe = "missing_step", result = "out" }]
     expect(() =>
       loadStandaloneEmbeds({
         config: null,
-        graphspec: embedText(spec),
-        mthdsSources: embedText([{ name: "bundle.mthds", content: summarizer("Summarize it") }]),
+        graphspec: JSON.stringify(spec),
+        mthdsSources: serializeMthdsSourcesEmbed([
+          { name: "bundle.mthds", content: summarizer("Summarize it") },
+        ]),
       }),
     ).toThrow(/embeds both/);
   });
@@ -201,47 +190,19 @@ steps = [{ pipe = "missing_step", result = "out" }]
     expect(props.graphspec).toBeNull();
   });
 
+  it("names the embed when its JSON does not parse", () => {
+    expect(() =>
+      loadStandaloneEmbeds({ config: null, graphspec: null, mthdsSources: "[{" }),
+    ).toThrow(/mthds-sources/);
+  });
+
   it("refuses a sources element holding JSON null instead of treating it as absent", () => {
     expect(() =>
       loadStandaloneEmbeds({ config: null, graphspec: null, mthdsSources: "null" }),
     ).toThrow(/JSON array/);
     const spec = buildStaticGraphSpecFromToml(summarizer("Summarize it")).spec;
     expect(() =>
-      loadStandaloneEmbeds({ config: null, graphspec: embedText(spec), mthdsSources: "null" }),
+      loadStandaloneEmbeds({ config: null, graphspec: JSON.stringify(spec), mthdsSources: "null" }),
     ).toThrow(/embeds both/);
-  });
-});
-
-describe("parseMthdsSourcesEmbed", () => {
-  it("keeps name and content and drops anything else", () => {
-    expect(parseMthdsSourcesEmbed([{ name: "bundle.mthds", content: "x", extra: true }])).toEqual([
-      { name: "bundle.mthds", content: "x" },
-    ]);
-  });
-
-  it.each([
-    ["an object instead of an array", { name: "bundle.mthds", content: "" }, /JSON array/],
-    ["an empty array", [], /lists no \.mthds file/],
-    ["an entry that is not an object", ["bundle.mthds"], /entry 0 is not/],
-    ["an entry that is an array", [["bundle.mthds", ""]], /entry 0 is not/],
-    ["a missing name", [{ content: "" }], /entry 0 has no "name"/],
-    ["a blank name", [{ name: "  ", content: "" }], /entry 0 has no "name"/],
-    ["a missing content", [{ name: "bundle.mthds" }], /"bundle\.mthds"\) has no "content"/],
-    [
-      "a repeated name",
-      [
-        { name: "bundle.mthds", content: "" },
-        { name: "bundle.mthds", content: "" },
-      ],
-      /entry 1 repeats the name "bundle\.mthds"/,
-    ],
-  ])("throws on %s", (_label, raw, message) => {
-    expect(() => parseMthdsSourcesEmbed(raw)).toThrow(message);
-  });
-
-  it("names the embed when its JSON does not parse", () => {
-    expect(() =>
-      loadStandaloneEmbeds({ config: null, graphspec: null, mthdsSources: "[{" }),
-    ).toThrow(/mthds-sources/);
   });
 });

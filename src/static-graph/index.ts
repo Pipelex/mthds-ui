@@ -31,6 +31,7 @@ export {
   orderMthdsSources,
   selectPrimaryMthdsSource,
 } from "./sourceOrder";
+export { MTHDS_SOURCES_EMBED_ID, serializeMthdsSourcesEmbed } from "./mthdsSourcesEmbed";
 // Re-exported here so React-free hosts (e.g. the VS Code extension host) can
 // consume the canonical pipe-ref parsing without importing the graph module.
 export type { ParsedPipeRef } from "@graph/pipeRefs";

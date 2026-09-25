@@ -8,6 +8,8 @@
 
 - **`orderMthdsSources` on the `./static-graph` entry**: the rule for which file of a multi-file method leads the merge (the one declaring a top-level `main_pipe`, `bundle.mthds` when several do, the rest kept in the order given) is exported with `selectPrimaryMthdsSource`, `hasTopLevelMainPipe`, `DEFAULT_BUNDLE_FILE_NAME` and the `MthdsSource` type, so a host no longer keeps a private copy. An optional `preferred` file, such as the one open in an editor, leads whenever it declares `main_pipe` itself; `orderMthdsSources` finds it in the list by `name`, so a host can pass its own object for it.
 
+- **`serializeMthdsSourcesEmbed` and `MTHDS_SOURCES_EMBED_ID` on the `./static-graph` entry**: a TypeScript host writes the `mthds-sources` element's text with `serializeMthdsSourcesEmbed(files)`, which checks the list against the embed contract, keeps only `name` and `content`, and escapes every `<`, instead of copying the escape from the docs.
+
 - **`unvalidated` validation widget state**: `VALIDATION_STATE.UNVALIDATED` is for a host that renders a method without validating it. It lists the issues reading the source turned up under the label "Not validated", where `invalid` or `valid` would have claimed a verdict nobody produced. A TypeScript host with an exhaustive `switch` or `Record` over `ValidationState` must add the new member.
 
 ## [v0.24.0] - 2026-09-08

@@ -16,8 +16,9 @@ import { VALIDATION_STATE } from "@graph/types";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
 import { buildStaticGraphSpec } from "@static-graph/buildStaticGraphSpec";
 import { mergeBundles } from "@static-graph/mergeBundles";
+import { MTHDS_SOURCES_EMBED_ID, parseMthdsSourcesEmbed } from "@static-graph/mthdsSourcesEmbed";
 import { parseMthdsBundle } from "@static-graph/parseMthdsBundle";
-import { orderMthdsSources, type MthdsSource } from "@static-graph/sourceOrder";
+import { orderMthdsSources } from "@static-graph/sourceOrder";
 import { staticDiagnosticsToValidationIssues } from "@static-graph/validationIssues";
 import { isBlankScriptText, parseJsonScriptText } from "./readJsonScript";
 import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
@@ -26,7 +27,7 @@ import { buildViewerProps, type StandaloneViewerProps } from "./viewerProps";
 export const EMBED_ID = {
   CONFIG: "pipelex-config",
   GRAPHSPEC: "pipelex-graphspec",
-  MTHDS_SOURCES: "mthds-sources",
+  MTHDS_SOURCES: MTHDS_SOURCES_EMBED_ID,
 } as const;
 
 /** The text content of each embed, as found in the page; absent ones are `null`. */
@@ -34,46 +35,6 @@ export interface EmbedTexts {
   config: string | null | undefined;
   graphspec: string | null | undefined;
   mthdsSources: string | null | undefined;
-}
-
-function describeEntry(index: number): string {
-  return `<script id="${EMBED_ID.MTHDS_SOURCES}"> entry ${index}`;
-}
-
-/**
- * Check the parsed `mthds-sources` JSON against the embed contract: a non-empty
- * array of `{ "name": string, "content": string }`, names non-empty and
- * distinct. Throws with the offending entry named, so a page written wrong
- * says so on the error screen instead of drawing a partial method.
- */
-export function parseMthdsSourcesEmbed(raw: unknown): MthdsSource[] {
-  if (!Array.isArray(raw)) {
-    throw new Error(
-      `<script id="${EMBED_ID.MTHDS_SOURCES}"> must hold a JSON array of ` +
-        `{ "name", "content" } objects, one per .mthds file.`,
-    );
-  }
-  if (raw.length === 0) {
-    throw new Error(`<script id="${EMBED_ID.MTHDS_SOURCES}"> lists no .mthds file.`);
-  }
-  const seen = new Set<string>();
-  return raw.map((entry: unknown, index) => {
-    if (entry === null || typeof entry !== "object" || Array.isArray(entry)) {
-      throw new Error(`${describeEntry(index)} is not a { "name", "content" } object.`);
-    }
-    const { name, content } = entry as Record<string, unknown>;
-    if (typeof name !== "string" || name.trim() === "") {
-      throw new Error(`${describeEntry(index)} has no "name" string.`);
-    }
-    if (typeof content !== "string") {
-      throw new Error(`${describeEntry(index)} ("${name}") has no "content" string.`);
-    }
-    if (seen.has(name)) {
-      throw new Error(`${describeEntry(index)} repeats the name "${name}".`);
-    }
-    seen.add(name);
-    return { name, content };
-  });
 }
 
 /**
