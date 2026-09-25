@@ -34,8 +34,8 @@
  * ranked wherever the host's layers leave it.
  *
  * `theme.css` stays out: it defines the semantic tokens (`--background`,
- * `--border`, …) that belong to the host. Every utility in the kernel's sheet
- * carries a fallback, so a host that defines no tokens renders the kernel's
- * light neutral palette.
+ * `--border`, …) that belong to the host. Since kernel `0.9.0` every utility in
+ * the kernel's sheet reads its token with a fallback, so a host that defines no
+ * tokens renders the kernel's light neutral palette.
  */
 @import "@pipelex/mthds-form/styles.css" layer(mthds-form);

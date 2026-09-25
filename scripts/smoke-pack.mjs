@@ -41,8 +41,8 @@
  *    construction has not installed it.
  * 5. A minimal Tailwind 4 host compiles every utility the kernel's controls
  *    need. Its stylesheet is the kernel's documented Tailwind 4 setup and
- *    nothing more — `tailwindcss`, `tw-animate-css`, an `@theme inline` token
- *    mapping — with `@import "@pipelex/mthds-ui/tailwind.css"` in place of the
+ *    nothing more — `tailwindcss`, `tw-animate-css`, the `.dark` class variant
+ *    the kernel's dark mode follows, an `@theme inline` token mapping — with `@import "@pipelex/mthds-ui/tailwind.css"` in place of the
  *    setup's `@source` line. The oracle is the kernel's own prebuilt
  *    `styles.css`: every selector in its `utilities` layer must appear in the
  *    host's output. Finding one kernel class would prove only that the scan
@@ -119,6 +119,12 @@ const SOURCE_ONLY_KERNEL_SELECTORS = new Map([
     "`display: contents`, compiled from the word \"contents\" in comments in the kernel's " +
       "`src/react/result-field.tsx` and its tests; no shipped JavaScript contains the word",
   ],
+  [
+    ".static",
+    "`position: static`, compiled from `static getDerivedStateFromError` in the kernel's " +
+      "`src/react/__tests__/file-ways-in.test.tsx`, which its `@source` reaches; no shipped " +
+      "JavaScript contains the word",
+  ],
 ]);
 
 /**
@@ -176,6 +182,8 @@ const hostCss = [
   '@import "tailwindcss";',
   '@import "tw-animate-css";',
   '@import "@pipelex/mthds-ui/tailwind.css";',
+  "",
+  "@custom-variant dark (&:is(.dark *));",
   "",
   "@theme inline {",
   ...mapping,

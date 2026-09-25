@@ -71,7 +71,7 @@ function MethodPanel({ contracts, inputForm, domain, pipeCode, onExecute }) {
 
 This library renders; it never executes. `onRun` hands you a payload and stops there — no API client, no upload, no storage-URL resolution. That is deliberate, and it is the same boundary the kernel draws with its own `FieldEnv`.
 
-**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win.
+**Files.** The panel does the bookkeeping and you do the transfer: supply `uploadFile(file, fieldId)`, and the panel marks the field busy while it runs and writes `{ url, filename }` back at the field's dotted path when it resolves. A failed upload is swallowed — you own how a failure is announced, because you own the transport — and the field simply stays empty. That holds however your function fails: `uploadFile` need not be `async`, so one that validates before it starts the request throws where an `async` spelling of the same body would reject, and the panel treats the two identically. It has to, or the form would wedge on the difference — a field marked busy by a drop whose upload never began stays busy, and a busy field cannot be retried. If you would rather own the whole loop, pass `env.onDropFile` and `env.uploadingIds` instead; yours win. To show a failure on the field that took the file, pass the message in `env.uploadErrors`, keyed by the `fieldId` your upload was handed, and remove the entry when the next file is dropped there. A panel given neither `uploadFile` nor `env.onDropFile` has nowhere to store a file, so its file fields offer no dropzone: each shows a link input and a line saying files cannot be uploaded here. `env.allowUrl: false` removes the link input, which leaves such a field with no way in, and the kernel throws while rendering it, naming its path.
 
 Two consequences of an upload being slow, both handled here so a host does not have to think about them.
 
@@ -134,6 +134,8 @@ Follow the kernel's own Tailwind 4 setup, [A host that runs Tailwind](https://gi
 @import "tw-animate-css";
 @import "@pipelex/mthds-ui/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -145,7 +147,7 @@ Follow the kernel's own Tailwind 4 setup, [A host that runs Tailwind](https://gi
 
 `tailwind.css` holds nothing but two `@source` directives written relative to its own place in the installed package. Tailwind resolves an imported package stylesheet to its real path before reading them, so one of the two finds the copy of the kernel this package depends on whichever layout your package manager chose: pnpm's virtual store, npm hoisting the kernel, or npm nesting it under this package. You never write a path into `node_modules`, and you never declare the kernel yourself, which under pnpm used to be the only way such a path resolved.
 
-The rest of the kernel's setup stays yours, because scanning finds class names and your theme is what compiles them. `tw-animate-css` supplies the utilities the select popover's and the tooltip's transitions use, and the `@theme inline` mapping is what gives `bg-background` or `border-input` a value: without it they compile to nothing, however well the scan found them. The package does not ship the mapping, because the mapping is your design system. Do not import `form-kernel.css` in this setup; your build already produces those utilities, and the prebuilt sheet would add a second preflight.
+The rest of the kernel's setup stays yours, because scanning finds class names and your theme is what compiles them. `tw-animate-css` supplies the utilities the select popover's and the tooltip's transitions use, and the `@theme inline` mapping is what gives `bg-background` or `border-input` a value: without it they compile to nothing, however well the scan found them. The package does not ship the mapping, because the mapping is your design system. The `@custom-variant` line makes a `dark:` utility follow the `.dark` class, the convention the kernel's dark mode follows and the class `RunPanel`'s `theme` sets; a shadcn/ui codebase already declares it, and without it Tailwind keys `dark:` to the operating system's preference instead. Do not import `form-kernel.css` in this setup; your build already produces those utilities, and the prebuilt sheet would add a second preflight.
 
 ### A host without Tailwind
 
@@ -157,7 +159,7 @@ import "@pipelex/mthds-ui/form-kernel.css";
 
 It is the kernel's `styles.css` under a cascade layer named `mthds-form`, and it is a complete Tailwind build, so two things come with it. **The preflight applies to the whole page, not only to the controls:** every browser default you have not restated goes, so headings drop to body size, lists lose their markers, and paragraphs and the body lose their margins. A dedicated panel such as a webview expects exactly that; a page of ordinary content that embeds a graph should restate the defaults it wants to keep. **The layer is what lets your rules win:** layered rules lose to unlayered ones whatever the load order, so every declaration you make yourself beats the kernel's utilities and its preflight on a tie.
 
-The tokens are yours either way. Every kernel utility reads its token with a fallback, so a page that defines none renders the kernel's light neutral palette; define them, as complete colours, to brand the controls or to make `.dark` do something.
+The tokens are yours either way. Since kernel `0.9.0` every kernel utility reads its token with a fallback, so a page that defines none renders the kernel's light neutral palette, in light and under `.dark` alike; define them, as complete colours, to brand the controls or to make `.dark` do something.
 
 ### Hosts that cannot use either
 
