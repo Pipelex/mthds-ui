@@ -38,7 +38,8 @@ src/
       viewer/
         GraphViewer.tsx           # Unified ReactFlow viewer component
         renderLabel.tsx           # Label rendering + hydration
-      stuffRender.ts              # The seam a host renders a stuff node's DATA through
+      detail/
+        StuffResultPanel.tsx      # The graph's data panel, through the kernel's ResultPanel
       nodes/
         controller/
           ControllerGroupNode.tsx # Custom controller group node
@@ -52,9 +53,11 @@ src/
     react/
       RunPanel.tsx                #   The panel — fields, readiness, the gate
       RunPanel.css                #   Panel chrome only (this repo's tokens, no Tailwind)
-      StuffResultPanel.tsx        #   The graph's data panel, through the kernel's ResultPanel
       index.ts                    #   Barrel for the ./form/react entry
       __stories__/contracts/      #   Generated pipe_io_contracts + input_form + output_form fixtures
+  styles/                         # Stylesheets a HOST imports to style the kernel's controls; no JS imports them:
+    tailwind.css                  #   ./tailwind.css — the kernel's @source paths, for a Tailwind 4 host
+    form-kernel.css               #   ./form-kernel.css — the kernel's sheet under a layer, for a host without Tailwind
   shiki/                          # Syntax highlighting (separate entry point)
   static-graph/                   # Static method-graph module (separate entry point, pure TS, no React):
     types.ts                      #   Diagnostic, ParsedBundle, MergedMethodSet + narrowing helpers
@@ -102,7 +105,9 @@ When you add `import "./Foo.css"` to any source file, you MUST also:
 
 Verify after building: `grep "Foo.css" dist/graph/react/index.js` must show the import, and the file must exist at `dist/<same-relative-path>/Foo.css`. If either is missing, the bundler ate the stylesheet.
 
-**There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no form kernel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML. The test names whichever choice you have not made yet.
+**A stylesheet a HOST imports itself is the other case, and it takes neither step 1 nor a JavaScript importer.** `src/styles/tailwind.css` and `src/styles/form-kernel.css` are loaded by the host's own build, never by this package's JavaScript, so they get a `cpSync` in `onSuccess` and an entry in `package.json` `exports`, and NO `external` pattern. `make smoke-pack` asserts the inverse for them: no JavaScript in the package imports either. The React entries import no kernel stylesheet on purpose — injecting one into every host is what v0.20.0 through v0.24.0 did, and no cascade position for it served a Tailwind 4 host (`docs/run-form-panel.md`). `tailwind.css`'s `@source` paths are relative to `dist/styles/`, so its copy must land exactly there.
+
+**There is a THIRD place to consider, and it is a decision rather than a registration:** `scripts/standaloneCssFiles.mjs`, the hand-maintained manifest for the standalone IIFE bundle, guarded by `src/standalone/__tests__/cssManifest.test.ts`. That bundle has exactly one entry point (`src/standalone/adapter.ts`, the graph viewer), so a stylesheet it cannot reach must be EXCLUDED rather than listed — `src/form/` is excluded there because the standalone build by construction has no run panel, and listing `RunPanel.css` would inline dead CSS into every standalone HTML. The test names whichever choice you have not made yet.
 
 ## The form kernel is a DEPENDENCY, re-exported; `shiki` is the only optional peer
 
@@ -120,7 +125,7 @@ What still holds, and what to keep:
 2. **The React-free entries stay React-free and kernel-free.** `.`, `./graph` and `./static-graph` are importable from a CLI or a worker with nothing installed, and a stray value import from a pure module would take that away silently.
 3. **`shiki` is the only optional peer left**, behind `./shiki`: optional in `peerDependencies` + `peerDependenciesMeta`, a devDependency for local work, `external` in tsup, its own entry.
 
-`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, and every React entry keeps its `"use client"`.
+`make smoke-pack` proves all of it from outside, in a consumer declaring only this package and React: the kernel arrives, it is a dependency rather than a peer, there is **exactly one copy** in the tree, both React entries import it rather than inlining it, the React-free entries never reach it, every React entry keeps its `"use client"`, and a minimal Tailwind 4 host importing `@pipelex/mthds-ui/tailwind.css` compiles every utility in the kernel's prebuilt sheet under npm and pnpm, so `pnpm` must be on the path.
 
 **`"use client"` survives because the smoke test says so, not because of the prepend.** `tsup.config.ts`'s `onSuccess` re-prepends it onto `dist/form/react/index.js`, but at the pinned toolchain that is belt-and-braces: esbuild preserves the directive prologue on its own, which `dist/graph/react/index.js` proves — same source directive, no prepend call, directive present. Keep the fixup (idempotent, costs nothing if a future bundler starts stripping), but do not rely on it, and do not assume a new React entry is covered because that one is. Verify by hand with `head -1 dist/form/react/index.js`.
 
@@ -320,5 +325,5 @@ Coverage is configured at the top level of `vitest.config.mts` (not per-project)
 5. **Keep the type boundary clean** — domain types in pure modules, ReactFlow types in `react/` only.
 6. **Add tests when adding exported functions** — at minimum, test happy path and null/empty cases.
 7. **Never hand-write or hand-edit GraphSpec JSON** — regenerate pipeline fixtures with `make fixtures` (see "Regenerating fixtures"). The `_generated.*.ts` files are build artifacts; edit the `.mthds` bundle and regenerate instead.
-8. **The graph does not render data — a renderer is passed in.** `StuffViewer` is deleted. `GraphViewer`'s `renderStuffData` prop takes the view, and `renderStuffResult` from `./form/react` is the one this package ships (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
+8. **The graph renders data only through the kernel's `output_form`.** `StuffViewer` is deleted. `GraphViewer` renders a stuff's value with `StuffResultPanel` when a host passes `contracts` and `outputForm`, and shows the structure table alone otherwise (see `docs/stuff-result-panel.md`). Do not add payload sniffing back to the graph entries: the standard states what a result IS in `output_form`, and guessing from the value is the mistake that component existed to demonstrate.
 9. **Don't reinvent the wheel.** Before writing custom behavior, check whether a dependency already ships it — hooks, utilities, components, APIs. Reuse the library's logic aggressively. Only replace a library's UI chrome when it genuinely doesn't fit the design, and even then keep driving it with the library's behavior underneath.

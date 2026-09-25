@@ -62,10 +62,10 @@ export const DryRunSchemaOnly: Story = {
  *
  * This is the panel's contract on display, not a limitation being worked
  * around: `ConceptDetailPanel` owns the header, the structure table and the
- * tabs, and the data view arrives through `renderData`. The graph does not
- * render data — a renderer is passed in. The real one is `renderStuffResult`
- * from this package's own `./form/react` entry — see
- * `Form/Graph With Result Panel`.
+ * tabs, and the data view arrives through `renderData`. The panel does not
+ * render data — a renderer is passed in. In the graph, `GraphViewer` passes
+ * `StuffResultPanel`'s kernel-driven view when a host supplies `contracts` and
+ * `outputForm` — see `Graph/Result panel`.
  */
 function PlainData() {
   return <div className="detail-not-available">(the host renders the data here)</div>;

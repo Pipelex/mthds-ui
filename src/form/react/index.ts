@@ -3,11 +3,33 @@
 /**
  * The `./form/react` entry — the run-form panel over `@pipelex/mthds-form`.
  *
- * The kernel is a REQUIRED peer of this package now, so this entry is no longer
- * the only one allowed to import it. It stayed optional while it powered only
- * this run form; it stopped being optional the moment the graph's detail panel
- * began rendering results through it, because a viewer whose detail panel
- * cannot show data is not a viewer. See `docs/stuff-result-panel.md`.
+ * The kernel is a DEPENDENCY of this package, so this entry is no longer the
+ * only one allowed to import it. It stayed an optional peer while it powered
+ * only this run form; it stopped being optional the moment the graph's detail
+ * panel began rendering results through it, because a viewer whose detail
+ * panel cannot show data is not a viewer. See `docs/stuff-result-panel.md`.
+ */
+
+/**
+ * No form kernel stylesheet is imported here, on purpose: the host styles the
+ * kernel's controls in the way its kind of host needs. A host with Tailwind 4
+ * compiles the kernel's classes itself, with
+ * `@import "@pipelex/mthds-ui/tailwind.css"` in place of the `@source` line of
+ * the kernel's documented setup; a host without Tailwind imports
+ * `@pipelex/mthds-ui/form-kernel.css` once. The README's "Styling the form
+ * controls" section is the host's side of it.
+ *
+ * Do not put an import back. v0.20.0 made the kernel's sheet this entry's job,
+ * because Tailwind 3 hosts kept forgetting a content glob into `node_modules`
+ * and silently lost the classes only the kernel uses (the result grid's column
+ * template was the one that showed). v0.21.0 wrapped the sheet in a cascade
+ * layer after the raw copy beat the host's own responsive variants. Neither
+ * arrangement works, because the sheet is a complete Tailwind build whose two
+ * halves need different places in a Tailwind 4 host's cascade: appended, the
+ * layer outranked every variant the host wrote; named first, the host's
+ * preflight stripped the kernel's utilities. In a host without Tailwind, the
+ * preflight reset every browser default on the page the moment a panel
+ * mounted. `docs/run-form-panel.md` has the full account.
  */
 
 /**
@@ -17,29 +39,6 @@
  * kernel directly beside this package is the one thing that can reintroduce the
  * two-context-identities bug.
  */
-/**
- * The kernel's own utilities, shipped beside its code.
- *
- * A Tailwind host is meant to generate these by scanning the kernel, and does
- * not: content globs stop at the host's own source and node_modules is off the
- * sweep, so the host gets exactly the classes it happens to use elsewhere and
- * silently misses the rest. The result grid's arbitrary column template is the
- * one that shows - without it a record renders as a stack of labels each above
- * its own value instead of two aligned columns - but the gap is not limited to
- * that class, and nothing reports it.
- *
- * Imported HERE rather than left to the host for the same reason the graph
- * imports its own: a stylesheet a host must remember to add is one that will be
- * missing somewhere.
- *
- * It goes through `../../styles/form-kernel.css`, which pulls the kernel's
- * sheet into a cascade LAYER, and that indirection is the whole point: the
- * kernel ships a complete unscoped Tailwind build, so injected raw it wins
- * every tie against a host's own utilities purely by loading later. Read that
- * file for what it broke and why the layer settles it.
- */
-import "../../styles/form-kernel.css";
-
 export * from "@pipelex/mthds-form/react";
 
 export { RunPanel } from "./RunPanel";
