@@ -225,4 +225,16 @@ describe("orderMthdsSources", () => {
     ];
     expect(orderMthdsSources(sources)[0].uri).toBe("file:///m/bundle.mthds");
   });
+
+  it("carries the host's own fields through a preferred file built without them", () => {
+    // The open file is a plain MthdsSource; were `preferred` typed as the list's
+    // element type, it would infer that as `T` and `.uri` would not type-check.
+    const sources = [
+      { name: "bundle.mthds", content: WITH_MAIN, uri: "file:///m/bundle.mthds" },
+      { name: "variant.mthds", content: WITH_MAIN, uri: "file:///m/variant.mthds" },
+    ];
+    const opened = source("variant.mthds", WITH_MAIN);
+    expect(orderMthdsSources(sources, opened)[0].uri).toBe("file:///m/variant.mthds");
+    expect(selectPrimaryMthdsSource(sources, opened)?.uri).toBe("file:///m/variant.mthds");
+  });
 });

@@ -64,13 +64,15 @@ function isDefaultBundle(source: MthdsSource): boolean {
  * `preferred` is matched against `sources` by `name`, and the listed entry is
  * what is read and returned, so a host may pass its own object for the open
  * file rather than the list's: the result is always a member of `sources`,
- * because the merge reads the list and not `preferred`. A `preferred` whose
+ * because the merge reads the list and not `preferred`. That is also why
+ * `preferred` is a plain `MthdsSource`: it cannot narrow the result's type and
+ * strip the fields a host's own list entries carry. A `preferred` whose
  * name is not listed is ignored: it cannot lead a list it is not in, and the
  * answer is then the one given no `preferred` at all.
  */
 export function selectPrimaryMthdsSource<T extends MthdsSource>(
   sources: readonly T[],
-  preferred?: T,
+  preferred?: MthdsSource,
 ): T | undefined {
   const listed =
     preferred === undefined ? undefined : sources.find((source) => source.name === preferred.name);
@@ -88,7 +90,7 @@ export function selectPrimaryMthdsSource<T extends MthdsSource>(
  */
 export function orderMthdsSources<T extends MthdsSource>(
   sources: readonly T[],
-  preferred?: T,
+  preferred?: MthdsSource,
 ): T[] {
   const primary = selectPrimaryMthdsSource(sources, preferred);
   const index = primary === undefined ? -1 : sources.indexOf(primary);
