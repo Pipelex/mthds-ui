@@ -4,6 +4,7 @@ import {
   NODE_TYPE_PIPE_CARD,
   NODE_TYPE_STUFF,
   graphSpecMode,
+  multiplicitySuffix,
   stuffNodeId,
 } from "./types";
 import { buildDataflowAnalysis, buildChildToControllerMap } from "./graphAnalysis";
@@ -77,7 +78,10 @@ export function buildDataflowGraph(
   for (const [digest, stuffInfo] of Object.entries(analysis.stuffRegistry)) {
     const stuffId = stuffNodeId(digest);
     const label = stuffInfo.name;
-    const concept = stuffInfo.concept || "";
+    // The marked ref (`Document[]`), so a list reads as a list on the canvas.
+    const concept = stuffInfo.concept
+      ? stuffInfo.concept + multiplicitySuffix(stuffInfo.multiplicity)
+      : "";
     const textWidth =
       Math.max(label.length, concept.length) * STUFF_CHAR_WIDTH_PX + STUFF_LABEL_PADDING;
     const stuffWidth = Math.max(MIN_STUFF_WIDTH, textWidth);

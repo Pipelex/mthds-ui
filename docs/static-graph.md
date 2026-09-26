@@ -223,6 +223,8 @@ expanded mode, and on the folded batch card when the controller is folded:
 - `xmany` for unbounded list multiplicity such as `Text[]`
 - `x?` when the list multiplicity cannot be inferred
 
+A list-valued stuff carries its marker wherever the graph names its concept. The static builder writes `multiplicity` on every io item of a plural stuff — `true` for `Document[]`, the count for `Document[5]` — and leaves the key off a single-valued one, `Document[1]` included, because the standard reads a count of one as single. The renderer appends the marker to the concept on the stuff node, on the pipe card's pills and on the pipe detail panel's pills, and a stuff's own detail panel heads with `Document[]` and states that it is a list before the concept's description, which describes one item. A batch's item stuff is single and its aggregate is a list, as the runtime has them. Opening a concept from a pipe's pill shows the bare concept, since that view is about the type rather than a stuff. `validateGraphSpec` refuses a present `multiplicity` that is not a boolean, a positive integer or `null`, since a malformed one would otherwise display as single without a word. A graph produced by a run carries no `multiplicity` yet — pipelex's io items have no such field — so it reads every stuff as single until its producer emits one; the renderer needs no change when it does.
+
 Producer-less `parallel_combine` targets are classified as combined stuff rather
 than external inputs. This applies to both dry and static graphs.
 

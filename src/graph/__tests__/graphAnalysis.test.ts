@@ -133,6 +133,28 @@ describe("buildDataflowAnalysis", () => {
     expect(result.stuffConsumers["d1"]).toEqual(["op1"]);
   });
 
+  it("carries an io item's multiplicity into the registry", () => {
+    const gs: GraphSpec = {
+      nodes: [
+        {
+          pipe_code: "op1",
+          kind: "operator",
+          status: "scheduled",
+          id: "op1",
+          pipe_type: "PipeExtract",
+          io: {
+            inputs: [{ digest: "d1", name: "cvs", concept: "Document", multiplicity: true }],
+            outputs: [{ digest: "d2", name: "pages", concept: "Page", multiplicity: 3 }],
+          },
+        },
+      ],
+      edges: [],
+    };
+    const result = buildDataflowAnalysis(gs)!;
+    expect(result.stuffRegistry["d1"].multiplicity).toBe(true);
+    expect(result.stuffRegistry["d2"].multiplicity).toBe(3);
+  });
+
   it("does not track controllers as producers/consumers", () => {
     const gs: GraphSpec = {
       nodes: [

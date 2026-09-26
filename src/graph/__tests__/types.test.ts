@@ -13,6 +13,8 @@ import {
   CONTROLLER_PADDING_TOP,
   CONTROLLER_PADDING_BOTTOM,
   ARROW_CLOSED_MARKER,
+  isPluralMultiplicity,
+  multiplicitySuffix,
 } from "../types";
 import { makeGraphNode, makeStuffNode } from "./testUtils";
 
@@ -172,5 +174,32 @@ describe("constants", () => {
 
   it("ARROW_CLOSED_MARKER equals 'arrowclosed'", () => {
     expect(ARROW_CLOSED_MARKER).toBe("arrowclosed");
+  });
+});
+
+describe("stuff multiplicity", () => {
+  it("marks a variable-length list as []", () => {
+    expect(isPluralMultiplicity(true)).toBe(true);
+    expect(multiplicitySuffix(true)).toBe("[]");
+  });
+
+  it("marks a fixed count of two or more as [N]", () => {
+    expect(isPluralMultiplicity(2)).toBe(true);
+    expect(multiplicitySuffix(5)).toBe("[5]");
+  });
+
+  it("reads a count of one as single, as the standard does", () => {
+    expect(isPluralMultiplicity(1)).toBe(false);
+    expect(multiplicitySuffix(1)).toBe("");
+  });
+
+  it.each([null, false, undefined])("reads %s as single", (multiplicity) => {
+    expect(isPluralMultiplicity(multiplicity)).toBe(false);
+    expect(multiplicitySuffix(multiplicity)).toBe("");
+  });
+
+  it.each([0, -3, 2.5, Number.NaN])("reads the malformed count %s as single", (multiplicity) => {
+    expect(isPluralMultiplicity(multiplicity)).toBe(false);
+    expect(multiplicitySuffix(multiplicity)).toBe("");
   });
 });

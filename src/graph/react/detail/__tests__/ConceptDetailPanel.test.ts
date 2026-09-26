@@ -116,3 +116,53 @@ describe("ConceptDetailPanel dry mode", () => {
     expect(html).toContain("Structure");
   });
 });
+
+describe("ConceptDetailPanel multiplicity", () => {
+  const DOCUMENT: ConceptInfo = {
+    code: "Document",
+    domain_code: "native",
+    description: "A document",
+    structure_class_name: "DocumentContent",
+  };
+
+  function render(multiplicity?: boolean | number | null): string {
+    return renderToStaticMarkup(
+      React.createElement(ConceptDetailPanel, {
+        concept: DOCUMENT,
+        ioData: { name: "cvs", digest: "input:cvs", concept: "Document", multiplicity },
+        isDryRun: true,
+      }),
+    );
+  }
+
+  it("names a variable-length list with its marker and says it is a list", () => {
+    const html = render(true);
+    expect(html).toContain('<span class="detail-concept-code">Document[]</span>');
+    expect(html).toContain("A variable-length list of Document items");
+    // The concept's own description still describes one item.
+    expect(html).toContain("A document");
+  });
+
+  it("names a fixed-count list with its count", () => {
+    const html = render(5);
+    expect(html).toContain('<span class="detail-concept-code">Document[5]</span>');
+    expect(html).toContain("A fixed-length list of exactly 5 Document items");
+  });
+
+  it.each([undefined, null, false, 1])(
+    "renders a single-valued stuff (%s) exactly as before",
+    (multiplicity) => {
+      const html = render(multiplicity);
+      expect(html).toContain('<span class="detail-concept-code">Document</span>');
+      expect(html).not.toContain("detail-multiplicity");
+    },
+  );
+
+  it("shows a bare concept opened from a pipe's io pill, with no io item", () => {
+    const html = renderToStaticMarkup(
+      React.createElement(ConceptDetailPanel, { concept: DOCUMENT }),
+    );
+    expect(html).toContain('<span class="detail-concept-code">Document</span>');
+    expect(html).not.toContain("detail-multiplicity");
+  });
+});

@@ -28,6 +28,32 @@ describe("buildPipeCardPayload", () => {
     });
   });
 
+  it("marks a plural io item's concept on its pill, and leaves a single one bare", () => {
+    const node: PipeCallNode = {
+      kind: "operator",
+      id: "op1",
+      pipe_code: "extract_pages",
+      pipe_type: "PipeExtract",
+      description: "Extract the pages of each CV",
+      domain_code: "demo",
+      status: "scheduled",
+      io: {
+        inputs: [
+          { name: "cvs", concept: "Document", multiplicity: true },
+          { name: "job_offer", concept: "Document" },
+        ],
+        outputs: [{ name: "pages", concept: "Page", multiplicity: 5 }],
+      },
+    };
+
+    const payload = buildPipeCardPayload(node);
+    expect(payload.inputs).toEqual([
+      { name: "cvs", concept: "Document[]" },
+      { name: "job_offer", concept: "Document" },
+    ]);
+    expect(payload.outputs).toEqual([{ name: "pages", concept: "Page[5]" }]);
+  });
+
   it("carries the controller pipeType through unchanged", () => {
     for (const pipeType of [
       "PipeSequence",

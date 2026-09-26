@@ -409,6 +409,21 @@ describe("validateGraphSpec — IO items", () => {
     io.inputs = [{ name: "text" }];
     expect(() => validateGraphSpec(spec)).not.toThrow();
   });
+
+  it.each([true, false, null, 1, 3])("accepts multiplicity %s", (multiplicity) => {
+    const spec = makeValidSpec();
+    const io = (spec.nodes as Record<string, unknown>[])[0].io as Record<string, unknown>;
+    (io.inputs as Record<string, unknown>[])[0].multiplicity = multiplicity;
+    expect(() => validateGraphSpec(spec)).not.toThrow();
+  });
+
+  it.each(["[]", 0, -2, 1.5, {}])("throws on a malformed multiplicity %j", (multiplicity) => {
+    // A marker the renderer cannot read would otherwise display as a single value.
+    const spec = makeValidSpec();
+    const io = (spec.nodes as Record<string, unknown>[])[0].io as Record<string, unknown>;
+    (io.outputs as Record<string, unknown>[])[0].multiplicity = multiplicity;
+    expectInvalid(spec, "nodes[0].io.outputs[0].multiplicity");
+  });
 });
 
 // ─── Phase 4 — edges ─────────────────────────────────────────────────────

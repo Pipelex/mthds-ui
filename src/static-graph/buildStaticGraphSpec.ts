@@ -27,9 +27,11 @@ import type {
   PipeParallelBlueprint,
   PipeSequenceBlueprint,
   PipeType,
+  StuffMultiplicity,
   StuffSpecInfo,
   SubPipeSpec,
 } from "@graph/types";
+import { isPluralMultiplicity } from "@graph/types";
 
 import { nativeConceptInfo } from "./conceptRefs";
 import { mergeBundles } from "./mergeBundles";
@@ -134,7 +136,7 @@ interface StuffRecord {
   digest: string;
   name: string;
   concept: ConceptInfo;
-  multiplicity: number | boolean | null;
+  multiplicity: StuffMultiplicity;
 }
 
 type Scope = Map<string, StuffRecord>;
@@ -344,7 +346,14 @@ function mintStuff(
  * renders (verified against the dry fixtures).
  */
 function ioItem(stuff: StuffRecord, slotName?: string | null): GraphSpecNodeIoItem {
-  return { name: slotName ?? stuff.name, digest: stuff.digest, concept: stuff.concept.code };
+  const item: GraphSpecNodeIoItem = {
+    name: slotName ?? stuff.name,
+    digest: stuff.digest,
+    concept: stuff.concept.code,
+  };
+  // Carried only on a plural stuff, so a single-valued io item stays exactly as it was.
+  if (isPluralMultiplicity(stuff.multiplicity)) item.multiplicity = stuff.multiplicity;
+  return item;
 }
 
 function addEdge(
