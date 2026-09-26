@@ -98,9 +98,24 @@ function requireNumber(value: unknown, path: string): number {
   return value;
 }
 
-function requireNullableNumber(value: unknown, path: string): void {
-  if (value === null) return;
-  requireNumber(value, path);
+/**
+ * A cost, which may arrive absent where its producer wrote `null`, normalized to `null`
+ * when — and only when — the rated-call count says `null` is what it was.
+ *
+ * Some hosts drop `null` values from the JSON they relay (ChatGPT does, on the way to
+ * an MCP App view), so every unrated cost reaches the renderer as a missing key. Absence
+ * alone is ambiguous: a dropped `null`, or a cost the producer failed to write. Invariant
+ * 2 on `GraphSpecNodeUsage` settles it: `cost` is `null` exactly when no call was rated.
+ * With no rated call the value can only have been `null`. With one, a missing cost is a
+ * real gap, and reading it as unrated would understate what the run spent, so it fails.
+ */
+function normalizeCost(value: unknown, ratedCalls: number, path: string): number | null {
+  if (value === null) return null;
+  if (value === undefined) {
+    if (ratedCalls === 0) return null;
+    fail(path, `expected a finite number for ${ratedCalls} rated call(s), got undefined`);
+  }
+  return requireNumber(value, path);
 }
 
 /**
@@ -131,25 +146,30 @@ function requireNumberRecord(value: unknown, path: string): void {
  * This is the whole point of the boundary: types alone are a compile-time
  * fiction, so a malformed `usage` from a stale or hostile spec would otherwise
  * flow through as trusted data and be rendered as a dollar figure. In
- * particular `cost` MUST be `number | null` and nothing else — an absent or
- * string cost silently becoming "unrated" would understate what a run spent.
+ * particular `cost` MUST come out as `number | null` and nothing else — a string
+ * cost, or an absent one on calls that were rated, silently becoming "unrated"
+ * would understate what a run spent. The counts stay required: an absent count
+ * is not a relayed `null`, since the producer never writes one.
  */
 function validateUsage(usage: unknown, path: string): void {
   if (!isPlainObject(usage)) {
     fail(path, `expected an object, got ${describe(usage)}`);
   }
   requireNumber(usage.inference_calls, `${path}.inference_calls`);
-  requireNumber(usage.rated_inference_calls, `${path}.rated_inference_calls`);
+  const ratedCalls = requireNumber(usage.rated_inference_calls, `${path}.rated_inference_calls`);
   requireNumberRecord(usage.nb_tokens_by_category, `${path}.nb_tokens_by_category`);
   requireNumber(usage.total_tokens, `${path}.total_tokens`);
-  requireNullableNumber(usage.cost, `${path}.cost`);
+  usage.cost = normalizeCost(usage.cost, ratedCalls, `${path}.cost`);
   usage.cost_input = normalizeNullableNumber(usage.cost_input, `${path}.cost_input`);
   usage.cost_output = normalizeNullableNumber(usage.cost_output, `${path}.cost_output`);
   requireNumber(usage.subtree_inference_calls, `${path}.subtree_inference_calls`);
-  requireNumber(usage.subtree_rated_inference_calls, `${path}.subtree_rated_inference_calls`);
+  const subtreeRatedCalls = requireNumber(
+    usage.subtree_rated_inference_calls,
+    `${path}.subtree_rated_inference_calls`,
+  );
   requireNumberRecord(usage.subtree_nb_tokens_by_category, `${path}.subtree_nb_tokens_by_category`);
   requireNumber(usage.subtree_total_tokens, `${path}.subtree_total_tokens`);
-  requireNullableNumber(usage.subtree_cost, `${path}.subtree_cost`);
+  usage.subtree_cost = normalizeCost(usage.subtree_cost, subtreeRatedCalls, `${path}.subtree_cost`);
   usage.subtree_cost_input = normalizeNullableNumber(
     usage.subtree_cost_input,
     `${path}.subtree_cost_input`,
@@ -197,8 +217,11 @@ function normalizeModelUsageList(value: unknown, path: string): unknown[] {
       requireNonEmptyString(entry.model_type, `${entryPath}.model_type`);
     }
     requireNumber(entry.inference_calls, `${entryPath}.inference_calls`);
-    requireNumber(entry.rated_inference_calls, `${entryPath}.rated_inference_calls`);
-    requireNullableNumber(entry.cost, `${entryPath}.cost`);
+    const ratedCalls = requireNumber(
+      entry.rated_inference_calls,
+      `${entryPath}.rated_inference_calls`,
+    );
+    entry.cost = normalizeCost(entry.cost, ratedCalls, `${entryPath}.cost`);
   });
   return value;
 }
@@ -295,9 +318,11 @@ function validateEdge(edge: unknown, path: string): void {
  * `GraphSpecValidationError` on the first violation.
  *
  * **Mutates the input in place:** on success it returns the *same* object
- * (typed as `GraphSpec`), and where a node has no `io` key it writes
+ * (typed as `GraphSpec`), with its normalizations written directly onto the
+ * passed-in object: where a node has no `io` key it writes
  * `io = { inputs: [], outputs: [] }` (and fills absent `io.inputs` /
- * `io.outputs` arrays) directly onto the passed-in object. Pass a fresh
+ * `io.outputs` arrays), and an absent unrated cost is written as `null`, so
+ * code downstream never meets `undefined` where the types promise `null`. Pass a fresh
  * parse result (e.g. straight from `JSON.parse`) — do not pass a frozen or
  * externally shared object.
  */

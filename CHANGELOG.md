@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- **A graph relayed by a host that drops nulls renders**: ChatGPT removes `null` values from what it relays to an MCP App view, so an executed graph shown there arrived with every unrated cost missing, and `validateGraphSpec` threw inside `GraphViewer`, leaving the view blank. An absent `cost`, `subtree_cost` or per-model `cost` is now read as `null` when its rated-call count is zero, and still refused when calls were rated, so a missing price is never shown as unrated. Opening a template-mode PipeCompose in the detail panel no longer throws when its `construct_blueprint` arrived absent.
+
 ## [v0.25.0] - 2026-09-25
 
 ### Added

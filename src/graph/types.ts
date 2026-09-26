@@ -266,6 +266,12 @@ export interface GraphSpecEdge {
 
 // ─── Concept and Pipe registry types ───────────────────────────────────────
 // Serialized from Python Concept and PipeAbstract instances via model_dump().
+//
+// Unlike `usage`, the registries cross the boundary unvalidated, so a `T | null`
+// field below is not normalized: a host that drops `null` values from the JSON it
+// relays (ChatGPT does, on the way to an MCP App view) delivers it with the key
+// absent. Test these fields with `!= null`, optional chaining or truthiness, never
+// with a strict `=== null` / `!== null`.
 
 export interface ConceptInfo {
   code: string;
