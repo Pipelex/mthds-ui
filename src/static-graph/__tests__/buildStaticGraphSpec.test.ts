@@ -910,6 +910,44 @@ prompt = "p"
       "multiplicity",
     );
   });
+
+  it("carries a controller invocation's nb_output down to the step that produces its output", () => {
+    // The runtime copies a step's run params, its output multiplicity included,
+    // into the steps of the sequence it invokes and into a condition's outcome.
+    const toml = `
+domain = "ideas"
+main_pipe = "brainstorm"
+
+[concept.Idea]
+description = "A product idea"
+
+[pipe.brainstorm]
+type = "PipeSequence"
+description = "Brainstorm three ideas"
+inputs = { topic = "Text" }
+output = "Idea[3]"
+steps = [{ pipe = "draft_seq", result = "ideas", nb_output = 3 }]
+
+[pipe.draft_seq]
+type = "PipeSequence"
+description = "Draft an idea"
+inputs = { topic = "Text" }
+output = "Idea"
+steps = [{ pipe = "write_idea", result = "idea" }]
+
+[pipe.write_idea]
+type = "PipeLLM"
+description = "Write one idea"
+inputs = { topic = "Text" }
+output = "Idea"
+prompt = "p"
+`;
+    const { spec } = build(toml);
+    const writer = nodeById(spec, "ideas.brainstorm/step_1/step_1");
+    expect(writer.io.outputs[0]).toMatchObject({ concept: "Idea", multiplicity: 3 });
+    // The controllers expose the same stuff, so they carry the same marker.
+    expect(nodeById(spec, "ideas.brainstorm").io.outputs[0].multiplicity).toBe(3);
+  });
 });
 
 const NESTED = `
