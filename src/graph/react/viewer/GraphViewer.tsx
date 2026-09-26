@@ -54,6 +54,7 @@ import type { AppNode, AppEdge, AppRFInstance } from "../rfTypes";
 import { toAppNodes, toAppEdges } from "../rfTypes";
 import { buildGraph } from "@graph/graphBuilders";
 import { validateGraphSpec } from "@graph/validateGraphSpec";
+import { withDeclaredMultiplicity } from "@graph/declaredMultiplicity";
 import { applyFolds, findCousinControllers } from "@graph/graphFolds";
 import { getLayoutedElements } from "@graph/graphLayout";
 import { applyControllers } from "@graph/graphControllers";
@@ -436,8 +437,11 @@ export function GraphViewer(props: GraphViewerProps) {
   // Single boundary validator for the React render path — mirrors the standalone
   // adapter (src/standalone/adapter.ts). Memoized on prop identity so it runs
   // once per spec; validateGraphSpec normalizes io in place and is idempotent.
+  // A run-produced spec then gets each plural stuff's multiplicity from its
+  // declared slots, so the canvas, the pills and the detail panel all read it.
   const graphspec = React.useMemo(
-    () => (graphspecProp === null ? null : validateGraphSpec(graphspecProp)),
+    () =>
+      graphspecProp === null ? null : withDeclaredMultiplicity(validateGraphSpec(graphspecProp)),
     [graphspecProp],
   );
 

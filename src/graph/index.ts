@@ -7,6 +7,7 @@ export * from "./graphFolds";
 export * from "./graphValidation";
 export * from "./pipeRefs";
 export * from "./stuffLookup";
+export * from "./declaredMultiplicity";
 export * from "./elkGraphBuilder";
 export * from "./graphLayout";
 export * from "./graphControllers";
