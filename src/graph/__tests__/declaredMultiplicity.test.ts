@@ -180,6 +180,19 @@ function makeNestedInvokedSpec(innerType: PipeControllerType): GraphSpec {
   };
 }
 
+/** `flow`, a sequence of the steps given, which ran the children given, in order. */
+function makeSequenceSpec(steps: SubPipeSpec[], children: GraphSpecNode[]): GraphSpec {
+  return {
+    meta: { format: "mthds", mode: "dry" },
+    nodes: [controller("n0", "flow", "PipeSequence", []), ...children],
+    edges: children.map((child) => contains("n0", child.id)),
+    pipe_registry: {
+      "demo.flow": controllerBlueprint("flow", "PipeSequence", steps),
+      "demo.idea": blueprint("idea", {}, null),
+    },
+  };
+}
+
 function multiplicitiesOf(spec: GraphSpec, digest: string) {
   return spec.nodes
     .flatMap((node) => [...node.io.inputs, ...node.io.outputs])
@@ -246,6 +259,37 @@ describe("withDeclaredMultiplicity", () => {
   ] as const)("hands a count down through a %s to a step without one", (innerType, expected) => {
     const spec = withDeclaredMultiplicity(makeNestedInvokedSpec(innerType));
     expect(multiplicitiesOf(spec, "draft")).toEqual([expected]);
+  });
+
+  it("pairs a sequence's children with its steps by position, not by a result two steps share", () => {
+    const second = operator("n2", "idea", [], ["idea"]);
+    second.io.outputs[0].digest = "idea_2";
+    const spec = withDeclaredMultiplicity(
+      makeSequenceSpec(
+        [
+          { pipe_code: "demo.idea", output_name: "idea", output_multiplicity: 3 },
+          { pipe_code: "demo.idea", output_name: "idea", output_multiplicity: null },
+        ],
+        [operator("n1", "idea", [], ["idea"]), second],
+      ),
+    );
+    expect(multiplicitiesOf(spec, "idea")).toEqual([3]);
+    expect(multiplicitiesOf(spec, "idea_2")).toEqual([undefined]);
+  });
+
+  it("reads the count of a sequence step that names no result", () => {
+    // The runtime names such a step's output after its concept.
+    const spec = withDeclaredMultiplicity(
+      makeSequenceSpec(
+        [
+          { pipe_code: "demo.idea", output_name: null, output_multiplicity: 3 },
+          { pipe_code: "demo.idea", output_name: "final", output_multiplicity: null },
+        ],
+        [operator("n1", "idea", [], ["idea"]), operator("n2", "idea", [], ["final"])],
+      ),
+    );
+    expect(multiplicitiesOf(spec, "idea")).toEqual([3]);
+    expect(multiplicitiesOf(spec, "final")).toEqual([undefined]);
   });
 
   it("returns a new spec and leaves the one given untouched", () => {

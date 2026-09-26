@@ -85,12 +85,17 @@ export function withDeclaredMultiplicity(spec: GraphSpec): GraphSpec {
  * A step's `nb_output` or `multiple_output` lives on its controller's sub-pipe
  * as `output_multiplicity`, never on the invoked pipe's registry entry, which
  * two steps may share at different counts. A step reaches its node through the
- * controller's `contains` edge, matched on the name the runtime gives that
- * node's output: the step's `result`. A step declaring none runs under the one
- * its sequence or condition was itself invoked at, since the runtime copies run
- * params down; a parallel's branches and a batch's branch do not inherit it.
- * Only a count or `true` is recorded, the values that override a pipe's own
- * declaration.
+ * controller's `contains` edges. A sequence runs its steps one at a time and
+ * stops at a failure, so its children are a prefix of its steps, in order, and
+ * they pair by position: a step's `result` is optional and two steps may write
+ * the same one, so a name cannot pair them. A parallel's branches each carry a
+ * distinct `result`, which names the child's output, and a branch that failed
+ * before starting leaves a gap, so they pair by name.
+ *
+ * A step declaring no count runs under the one its sequence or condition was
+ * itself invoked at, since the runtime copies run params down; a parallel's
+ * branches and a batch's branch do not inherit it. Only a count or `true` is
+ * recorded, the values that override a pipe's own declaration.
  */
 function invokedMultiplicities(spec: GraphSpec): Map<string, StuffMultiplicity> {
   const byId = new Map(spec.nodes.map((node) => [node.id, node]));
@@ -121,21 +126,21 @@ function invokedMultiplicities(spec: GraphSpec): Map<string, StuffMultiplicity> 
     const ref = pipeRefOf(node);
     const blueprint = ref === undefined ? undefined : spec.pipe_registry?.[ref];
     // The registry crosses the boundary unvalidated, so a step list may be absent.
-    const steps: SubPipeSpec[] | undefined =
-      blueprint?.type === "PipeSequence"
-        ? blueprint.sequential_sub_pipes
-        : blueprint?.type === "PipeParallel"
-          ? blueprint.parallel_sub_pipes
-          : undefined;
+    const sequence: SubPipeSpec[] | undefined =
+      blueprint?.type === "PipeSequence" ? blueprint.sequential_sub_pipes : undefined;
+    const branches: SubPipeSpec[] | undefined =
+      blueprint?.type === "PipeParallel" ? blueprint.parallel_sub_pipes : undefined;
     const inherited =
       blueprint?.type === "PipeSequence" || blueprint?.type === "PipeCondition"
         ? multiplicity
         : null;
-    for (const child of children.get(node.id) ?? []) {
+    (children.get(node.id) ?? []).forEach((child, index) => {
       const names = new Set(child.io.outputs.map((output) => output.name));
-      const step = steps?.find((sub) => sub.output_name != null && names.has(sub.output_name));
+      const step =
+        sequence?.[index] ??
+        branches?.find((sub) => sub.output_name != null && names.has(sub.output_name));
       visit(child, step?.output_multiplicity ?? inherited);
-    }
+    });
   };
   for (const node of spec.nodes) {
     if (!contained.has(node.id)) visit(node, null);
