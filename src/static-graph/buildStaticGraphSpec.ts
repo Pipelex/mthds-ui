@@ -27,9 +27,11 @@ import type {
   PipeParallelBlueprint,
   PipeSequenceBlueprint,
   PipeType,
+  StuffMultiplicity,
   StuffSpecInfo,
   SubPipeSpec,
 } from "@graph/types";
+import { isPluralMultiplicity } from "@graph/types";
 
 import { nativeConceptInfo } from "./conceptRefs";
 import { mergeBundles } from "./mergeBundles";
@@ -134,7 +136,7 @@ interface StuffRecord {
   digest: string;
   name: string;
   concept: ConceptInfo;
-  multiplicity: number | boolean | null;
+  multiplicity: StuffMultiplicity;
 }
 
 type Scope = Map<string, StuffRecord>;
@@ -344,7 +346,14 @@ function mintStuff(
  * renders (verified against the dry fixtures).
  */
 function ioItem(stuff: StuffRecord, slotName?: string | null): GraphSpecNodeIoItem {
-  return { name: slotName ?? stuff.name, digest: stuff.digest, concept: stuff.concept.code };
+  const item: GraphSpecNodeIoItem = {
+    name: slotName ?? stuff.name,
+    digest: stuff.digest,
+    concept: stuff.concept.code,
+  };
+  // Carried only on a plural stuff, so a single-valued io item stays exactly as it was.
+  if (isPluralMultiplicity(stuff.multiplicity)) item.multiplicity = stuff.multiplicity;
+  return item;
 }
 
 function addEdge(
@@ -577,13 +586,16 @@ function walkSubPipe(
   nodeId: string,
   parentId: string,
   scope: Scope,
+  inheritedMultiplicity: Invocation["outputMultiplicity"] = null,
 ): WalkResult | null {
   if (sub.batch_params != null) {
     return walkInlineBatch(ctx, sub, domain, nodeId, parentId, scope);
   }
   return walkPipe(ctx, sub.pipe_code, domain, nodeId, parentId, scope, {
     resultName: sub.output_name ?? null,
-    outputMultiplicity: sub.output_multiplicity,
+    // A step with no `nb_output`/`multiple_output` of its own runs under the one
+    // its controller was invoked with, as the runtime copies the run params down.
+    outputMultiplicity: sub.output_multiplicity ?? inheritedMultiplicity,
   });
 }
 
@@ -654,6 +666,7 @@ function finishSequence(
       `${nodeId}/step_${index + 1}`,
       nodeId,
       scope,
+      inv.outputMultiplicity,
     );
     if (result === null) return;
     if (result.output !== null) {
@@ -786,7 +799,9 @@ function finishCondition(
         // The runtime stores whichever branch runs under the condition's own
         // slot name, so every branch's output carries it (dry-run parity).
         resultName: inv.resultName,
-        outputMultiplicity: null,
+        // The chosen outcome runs under the condition's own run params, its
+        // invocation's `nb_output`/`multiple_output` included.
+        outputMultiplicity: inv.outputMultiplicity,
         outcomeValue: entry.values.join(" | "),
       },
     );

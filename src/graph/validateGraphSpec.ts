@@ -89,6 +89,19 @@ function validateIoItem(item: unknown, path: string): void {
   }
   // `name` is guaranteed by pipelex; `concept` and `digest` stay tolerant.
   requireNonEmptyString(item.name, `${path}.name`);
+  // `multiplicity` may be absent (a producer predating it, or a single value),
+  // but a present one must be the registry's encoding: a malformed marker would
+  // otherwise read as single without a word, which is the drop it exists to end.
+  const multiplicity = item.multiplicity;
+  if (
+    multiplicity !== undefined &&
+    multiplicity !== null &&
+    typeof multiplicity !== "boolean" &&
+    !(Number.isInteger(multiplicity) && (multiplicity as number) >= 1)
+  ) {
+    const got = typeof multiplicity === "number" ? String(multiplicity) : describe(multiplicity);
+    fail(`${path}.multiplicity`, `expected a boolean, a positive integer or null, got ${got}`);
+  }
 }
 
 function requireNumber(value: unknown, path: string): number {

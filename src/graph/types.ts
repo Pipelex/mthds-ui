@@ -83,12 +83,41 @@ export function stuffDigestFromId(id: string): string {
   return id.slice(STUFF_ID_PREFIX.length);
 }
 
+// ─── Stuff multiplicity ─────────────────────────────────────────────────────
+// How many values a stuff holds, in the encoding the pipe registry already uses
+// for `StuffSpecInfo.multiplicity`: `true` for a variable-length list (`Code[]`),
+// an integer for a fixed count (`Code[N]`), `null`/`false`/absent for a single
+// value. A count of exactly one is single throughout the MTHDS standard —
+// `Code[1]` is a way of writing `Code`, never a one-item list — so it reads as
+// single here too.
+
+export type StuffMultiplicity = number | boolean | null;
+
+/** Whether a multiplicity declares a list: variable-length, or a fixed count of at least two. */
+export function isPluralMultiplicity(multiplicity: StuffMultiplicity | undefined): boolean {
+  return multiplicity === true || (Number.isInteger(multiplicity) && (multiplicity as number) > 1);
+}
+
+/** The authored marker for a multiplicity — `"[]"`, `"[N]"`, or `""` for a single value. */
+export function multiplicitySuffix(multiplicity: StuffMultiplicity | undefined): string {
+  if (!isPluralMultiplicity(multiplicity)) return "";
+  return multiplicity === true ? "[]" : `[${multiplicity as number}]`;
+}
+
 // ─── GraphSpec types (from pipelex-agent --view output) ─────────────────────
 
 export interface GraphSpecNodeIoItem {
   name: string;
   digest?: string;
+  /** The bare concept code or ref, never carrying a multiplicity marker — that is `multiplicity`. */
   concept?: string;
+  /**
+   * How many values the stuff holds (see `StuffMultiplicity`). Emitted only on a
+   * plural stuff; absent means single. The static builder writes it, and a
+   * runtime graph carries it once its producer emits it, so a renderer must read
+   * absence as single rather than as unknown.
+   */
+  multiplicity?: StuffMultiplicity;
   content_type?: string;
   preview?: string;
   size?: number;
@@ -299,7 +328,7 @@ export type PresenceMarker = "plain" | "optional" | "force";
 
 export interface StuffSpecInfo {
   concept: ConceptInfo;
-  multiplicity?: number | boolean | null;
+  multiplicity?: StuffMultiplicity;
   presence?: PresenceMarker;
 }
 
@@ -571,10 +600,16 @@ export function isDryGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined)
 
 // ─── Dataflow analysis result ───────────────────────────────────────────────
 
+/** One stuff as the dataflow analysis registers it, from the first io item naming its digest. */
+export interface StuffRegistryEntry {
+  name: string;
+  concept?: string;
+  multiplicity?: StuffMultiplicity;
+  contentType?: string;
+}
+
 export interface DataflowAnalysis {
-  readonly stuffRegistry: Readonly<
-    Record<string, { name: string; concept?: string; contentType?: string }>
-  >;
+  readonly stuffRegistry: Readonly<Record<string, StuffRegistryEntry>>;
   readonly stuffProducers: Readonly<Record<string, string>>;
   readonly stuffConsumers: Readonly<Record<string, readonly string[]>>;
   readonly controllerNodeIds: ReadonlySet<string>;

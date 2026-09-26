@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 
 import { buildStaticGraphSpecFromToml } from "@static-graph/buildStaticGraphSpec";
 import { GraphViewer } from "../GraphViewer";
 import {
+  STATIC_CV_BATCH_SCREENING,
   STATIC_CV_SCREENING,
   STATIC_DEEP_NESTING,
   STATIC_MEETING_TRIAGE,
@@ -87,6 +89,36 @@ signature_for = "PipeLLM"
 
 export const CvScreening: Story = {
   args: { graphspec: STATIC_CV_SCREENING, ...D },
+};
+
+/**
+ * A method taking a list: `cvs` is declared `Document[]` and batched one CV at a
+ * time. The list reads as a list on its canvas node and in its detail panel,
+ * while the batch item `cv_pdf` stays a single `Document`.
+ */
+export const CvBatchScreening: Story = {
+  args: { graphspec: STATIC_CV_BATCH_SCREENING, ...D },
+  play: async ({ canvasElement }) => {
+    const cvs = await waitFor(
+      () => {
+        const el = canvasElement.querySelector<HTMLElement>('[data-id="stuff_input:cvs"]');
+        if (!el) throw new Error("no cvs stuff node");
+        return el;
+      },
+      { timeout: 10000 },
+    );
+    await expect(cvs.textContent).toContain("Document[]");
+    await userEvent.click(cvs);
+    const panel = await waitFor(() => {
+      const el = canvasElement.querySelector<HTMLElement>(".detail-panel-content");
+      if (!el) throw new Error("no detail panel");
+      return el;
+    });
+    await expect(panel.querySelector(".detail-concept-code")?.textContent).toBe("Document[]");
+    await expect(
+      within(panel).getByText("A variable-length list of Document items"),
+    ).toBeInTheDocument();
+  },
 };
 
 export const SimpleBatch: Story = {

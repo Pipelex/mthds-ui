@@ -8,6 +8,8 @@
 
 ### Fixed
 
+- **A list-valued stuff reads as a list**: a stuff declared `Document[]` or `Document[5]` now shows that marker on its canvas node, on the pipe card's and the pipe detail panel's pills, and in its detail panel's header, which also states that it is a list; each of them used to show a bare `Document`. The static builder writes a new optional `multiplicity` on `GraphSpecNodeIoItem` for a plural stuff (`true`, or the count), `validateGraphSpec` refuses a malformed one, and `isPluralMultiplicity` and `multiplicitySuffix` are exported for a host that renders io items itself. A graph produced by a run still reads every stuff as single until pipelex emits the field.
+
 - **A graph relayed by a host that drops nulls renders**: ChatGPT removes `null` values from what it relays to an MCP App view, so an executed graph shown there arrived with every unrated cost missing, and `validateGraphSpec` threw inside `GraphViewer`, leaving the view blank. An absent `cost`, `subtree_cost` or per-model `cost` is now read as `null` when its rated-call count is zero, and still refused when calls were rated, so a missing price is never shown as unrated. Opening a template-mode PipeCompose in the detail panel no longer throws when its `construct_blueprint` arrived absent.
 
 ## [v0.25.0] - 2026-09-25

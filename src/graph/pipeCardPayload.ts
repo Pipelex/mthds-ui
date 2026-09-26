@@ -1,4 +1,13 @@
-import type { GraphSpecMode, PipeCallNode, PipeCardPayload } from "./types";
+import type { GraphSpecMode, GraphSpecNodeIoItem, PipeCallNode, PipeCardPayload } from "./types";
+import { multiplicitySuffix } from "./types";
+
+/** An io item as a card pill: its name, and its concept with the multiplicity marker (`Document[]`). */
+function ioPill(item: GraphSpecNodeIoItem): { name: string; concept: string } {
+  return {
+    name: item.name,
+    concept: item.concept ? item.concept + multiplicitySuffix(item.multiplicity) : "",
+  };
+}
 
 /**
  * Build a PipeCardPayload from a pipe-call node.
@@ -16,8 +25,8 @@ export function buildPipeCardPayload(
     pipeType: node.pipe_type,
     description: node.description,
     status: node.status,
-    inputs: node.io.inputs.map((i) => ({ name: i.name, concept: i.concept ?? "" })),
-    outputs: node.io.outputs.map((o) => ({ name: o.name, concept: o.concept ?? "" })),
+    inputs: node.io.inputs.map(ioPill),
+    outputs: node.io.outputs.map(ioPill),
   };
   if (graphMode !== undefined) payload.graphMode = graphMode;
   if (node.tags !== undefined) payload.tags = node.tags;
