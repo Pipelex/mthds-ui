@@ -27,6 +27,7 @@ import type {
   PipeParallelBlueprint,
   PipeSequenceBlueprint,
   PipeType,
+  StuffSpecInfo,
   SubPipeSpec,
 } from "@graph/types";
 
@@ -324,11 +325,11 @@ function mintStuff(
   digest: string,
   name: string,
   concept: ConceptInfo,
-  multiplicity: number | boolean | null,
+  multiplicity: StuffSpecInfo["multiplicity"],
 ): StuffRecord {
   const existing = ctx.stuffByDigest.get(digest);
   if (existing !== undefined) return existing;
-  const record: StuffRecord = { digest, name, concept, multiplicity };
+  const record: StuffRecord = { digest, name, concept, multiplicity: multiplicity ?? null };
   ctx.stuffByDigest.set(digest, record);
   registerConcept(ctx, concept);
   return record;
@@ -577,11 +578,11 @@ function walkSubPipe(
   parentId: string,
   scope: Scope,
 ): WalkResult | null {
-  if (sub.batch_params !== null) {
+  if (sub.batch_params != null) {
     return walkInlineBatch(ctx, sub, domain, nodeId, parentId, scope);
   }
   return walkPipe(ctx, sub.pipe_code, domain, nodeId, parentId, scope, {
-    resultName: sub.output_name,
+    resultName: sub.output_name ?? null,
     outputMultiplicity: sub.output_multiplicity,
   });
 }
@@ -656,7 +657,7 @@ function finishSequence(
     );
     if (result === null) return;
     if (result.output !== null) {
-      if (sub.output_name !== null) scope.set(sub.output_name, result.output);
+      if (sub.output_name != null) scope.set(sub.output_name, result.output);
       lastOutput = result.output;
     }
     for (const [name, stuff] of result.eachOutputs) scope.set(name, stuff);
@@ -693,7 +694,7 @@ function finishParallel(
   const eachOutputs: [string, StuffRecord][] = [];
   if (blueprint.add_each_output) {
     for (const { sub, result } of branchResults) {
-      if (sub.output_name !== null && result.output !== null) {
+      if (sub.output_name != null && result.output !== null) {
         eachOutputs.push([sub.output_name, result.output]);
       }
     }
@@ -729,7 +730,7 @@ function finishCondition(
   inv: Invocation,
 ): WalkResult {
   const conditionScope: Scope = new Map(scope);
-  if (blueprint.add_alias_from_expression_to !== null) {
+  if (blueprint.add_alias_from_expression_to != null) {
     const alias = blueprint.add_alias_from_expression_to;
     // The alias points at whatever the expression evaluates to at run time —
     // statically typed as native.Dynamic.
@@ -957,7 +958,7 @@ function walkInlineBatch(
 
   const ioInputs = bindInputs(ctx, blueprint, scope);
   const inv: Invocation = {
-    resultName: sub.output_name,
+    resultName: sub.output_name ?? null,
     outputMultiplicity: sub.output_multiplicity,
   };
   const node = emitNode(ctx, {

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- **Nullable registry fields are optional too (Breaking)**: every `T | null` field of `ConceptInfo`, `StuffSpecInfo`, `TemplateBlueprint`, `SubPipeSpec` and the `PipeBlueprintUnion` members is now declared `field?: T | null`, because the pipe and concept registries pass `validateGraphSpec` unnormalized and a host that drops nulls delivers those fields absent. A TypeScript consumer that tested one with a strict `!== null` and then used the value now gets a compile error where it used to get a runtime `TypeError`; test with `!= null`, optional chaining or truthiness instead.
+
 ### Fixed
 
 - **A graph relayed by a host that drops nulls renders**: ChatGPT removes `null` values from what it relays to an MCP App view, so an executed graph shown there arrived with every unrated cost missing, and `validateGraphSpec` threw inside `GraphViewer`, leaving the view blank. An absent `cost`, `subtree_cost` or per-model `cost` is now read as `null` when its rated-call count is zero, and still refused when calls were rated, so a missing price is never shown as unrated. Opening a template-mode PipeCompose in the detail panel no longer throws when its `construct_blueprint` arrived absent.
