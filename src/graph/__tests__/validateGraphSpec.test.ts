@@ -793,3 +793,80 @@ describe("usage: null — what pydantic actually emits", () => {
     expect(() => validateGraphSpec(raw)).not.toThrow();
   });
 });
+
+describe("an absent cost — how a host that drops nulls delivers one", () => {
+  // ChatGPT removes null-valued keys from what it relays to an MCP App view, so an
+  // unrated cost arrives with no key at all. Invariant 2 (`cost` is null exactly when
+  // no call was rated) is what tells a dropped null from a cost that went missing.
+  // Factories, not constants: the validator normalizes in place, so a shared object
+  // would carry one test's written `cost: null` into the next.
+  const unratedUsage = () => ({
+    inference_calls: 1,
+    rated_inference_calls: 0,
+    nb_tokens_by_category: {},
+    total_tokens: 0,
+    subtree_inference_calls: 1,
+    subtree_rated_inference_calls: 0,
+    subtree_nb_tokens_by_category: {},
+    subtree_total_tokens: 0,
+  });
+  const unratedModel = () => ({
+    inference_model_name: "local-model",
+    inference_model_id: "local-model",
+    model_type: "llm",
+    inference_calls: 1,
+    rated_inference_calls: 0,
+  });
+
+  it("reads an absent cost on unrated calls as null, at every level", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...unratedUsage(),
+      by_model: [unratedModel()],
+      subtree_by_model: [unratedModel()],
+    };
+    raw.usage = { total: unratedUsage(), unattributed: unratedUsage() };
+
+    const spec = validateGraphSpec(raw);
+    const usage = spec.nodes[0].usage;
+
+    // `toBeNull`, not `toBeUndefined`: the value is WRITTEN, so a consumer testing
+    // `cost === null` reads it as unrated rather than as a number.
+    expect(usage?.cost).toBeNull();
+    expect(usage?.subtree_cost).toBeNull();
+    expect(usage?.by_model[0].cost).toBeNull();
+    expect(usage?.subtree_by_model[0].cost).toBeNull();
+    expect(spec.usage?.total.cost).toBeNull();
+    expect(spec.usage?.unattributed.cost).toBeNull();
+    expect(spec.usage?.unattributed.subtree_cost).toBeNull();
+  });
+
+  it("rejects an absent cost on rated calls rather than reading it as unrated", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...unratedUsage(),
+      rated_inference_calls: 1,
+      subtree_rated_inference_calls: 1,
+      subtree_cost: 0.0043,
+    };
+    expectInvalid(raw, "nodes[0].usage.cost");
+  });
+
+  it("rejects an absent subtree cost on rated subtree calls", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...unratedUsage(),
+      subtree_rated_inference_calls: 1,
+    };
+    expectInvalid(raw, "nodes[0].usage.subtree_cost");
+  });
+
+  it("rejects an absent model cost on rated calls to that model", () => {
+    const raw = makeValidSpec();
+    (raw.nodes as Record<string, unknown>[])[0].usage = {
+      ...unratedUsage(),
+      by_model: [{ ...unratedModel(), rated_inference_calls: 1 }],
+    };
+    expectInvalid(raw, "nodes[0].usage.by_model[0].cost");
+  });
+});
