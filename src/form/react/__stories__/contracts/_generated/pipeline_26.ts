@@ -1304,7 +1304,10 @@ export const CONTRACTS_CV_MATCHING = {
     output: {
       concept_ref: "native.Anything",
       item_count: null,
-      json_schema: {},
+      json_schema: {
+        description: "Anything",
+        title: "native.Anything",
+      },
       multiplicity: "single",
       optional: false,
     },
@@ -1487,7 +1490,27 @@ export const CONTRACTS_CV_MATCHING = {
     output: {
       concept_ref: "native.Anything",
       item_count: null,
-      json_schema: {},
+      json_schema: {
+        $defs: {
+          StuffContent: {
+            properties: {},
+            title: "StuffContent",
+            type: "object",
+          },
+        },
+        properties: {
+          items: {
+            items: {
+              $ref: "#/$defs/StuffContent",
+            },
+            title: "Items",
+            type: "array",
+          },
+        },
+        required: ["items"],
+        title: "ListContent",
+        type: "object",
+      },
       multiplicity: "variable",
       optional: false,
     },
@@ -1798,7 +1821,10 @@ export const CONTRACTS_CV_MATCHING = {
     output: {
       concept_ref: "native.Anything",
       item_count: null,
-      json_schema: {},
+      json_schema: {
+        description: "Anything",
+        title: "native.Anything",
+      },
       multiplicity: "single",
       optional: false,
     },

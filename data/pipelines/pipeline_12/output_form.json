@@ -54,7 +54,15 @@
       "item": {
         "concept_ref": "data_enrichment.Record",
         "description": "A data record to enrich",
-        "kind": "unknown",
+        "fields": [
+          {
+            "description": "The JSON object",
+            "kind": "unknown",
+            "name": "json_obj",
+            "required": true
+          }
+        ],
+        "kind": "object",
         "refines": [
           "native.JSON"
         ],

@@ -159,8 +159,16 @@
       {
         "concept_ref": "data_pipeline.VectorIndex",
         "description": "An indexed collection of vectors",
+        "fields": [
+          {
+            "description": "The JSON object",
+            "kind": "unknown",
+            "name": "json_obj",
+            "required": true
+          }
+        ],
         "gating": true,
-        "kind": "unknown",
+        "kind": "object",
         "name": "index",
         "presence": "plain",
         "refines": [

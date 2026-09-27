@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Dual Analysis Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_38eb89cc0e": {"text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n \u2022 item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n \u2022 item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n \u2022 item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```"}, "s_23a15a6349": {"text": "vXXmfuZCDDjteXdQhJTl"}, "s_160209f1f7": {"sentiment": "positive", "confidence": -676761.339172452, "explanation": "VplmmgmZiFjzWVzNEYYL"}, "s_9920ec1d63": {"items": [{"keyword": "xUMPkeiyRDTjafdwCodV", "relevance": 597.852782231598}, {"keyword": "AXuPWlcxERWkJiQZEtnV", "relevance": 3790403021.61505}, {"keyword": "TEklKkOAFyqorODvsBzR", "relevance": -0.85636011423101}]}, "s_175b9ebbcc": {"sentiment": {"sentiment": "positive", "confidence": -676761.339172452, "explanation": "VplmmgmZiFjzWVzNEYYL"}, "keywords": {"items": [{"keyword": "xUMPkeiyRDTjafdwCodV", "relevance": 597.852782231598}, {"keyword": "AXuPWlcxERWkJiQZEtnV", "relevance": 3790403021.61505}, {"keyword": "TEklKkOAFyqorODvsBzR", "relevance": -0.85636011423101}]}}};
-const stuffDataText = {"s_38eb89cc0e": "                                        Text Analysis Report                                        \n\nSentiment                                                                                           \n\n                                        sentiment: positive                                         \n\n                                   confidence: -676761.339172452                                    \n\n            explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)             \n\nVplmmgmZiFjzWVzNEYYL                                                                                \n\nKeywords                                                                                            \n\nkeywords: ```                                                                                       \n\n\u2022 item #1:                                                                                          \n\n                                   keyword: xUMPkeiyRDTjafdwCodV                                    \n\n                                    relevance: 597.852782231598                                     \n\n\u2022 item #2:                                                                                          \n\n                                   keyword: AXuPWlcxERWkJiQZEtnV                                    \n\n                                    relevance: 3790403021.61505                                     \n\n\u2022 item #3:                                                                                          \n\n                                   keyword: TEklKkOAFyqorODvsBzR                                    \n\n                                    relevance: -0.85636011423101                                    \n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n", "s_23a15a6349": "vXXmfuZCDDjteXdQhJTl                                                                                \n", "s_160209f1f7": " Attribute                    \u2503 Value                                           \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n sentiment                    \u2502 positive                                        \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n confidence                   \u2502 -676761.339172452                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n explanation                  \u2502 VplmmgmZiFjzWVzNEYYL                            \n", "s_9920ec1d63": "   1    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  keyword                \u2502 xUMPkeiyRDTjafdwCodV                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  relevance              \u2502 597.852782231598                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   2    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  keyword                \u2502 AXuPWlcxERWkJiQZEtnV                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  relevance              \u2502 3790403021.61505                            \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n   3    \u2502  Attribute              \u2503 Value                                       \n        \u2502 \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \n        \u2502  keyword                \u2502 TEklKkOAFyqorODvsBzR                        \n        \u2502 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \n        \u2502  relevance              \u2502 -0.85636011423101                           \n", "s_175b9ebbcc": "{\n    \"sentiment\": {\n        \"sentiment\": \"positive\",\n        \"confidence\": -676761.339172452,\n        \"explanation\": \"VplmmgmZiFjzWVzNEYYL\"\n    },\n    \"keywords\": {\n        \"items\": [\n            {\n                \"keyword\": \"xUMPkeiyRDTjafdwCodV\",\n                \"relevance\": 597.852782231598\n            },\n            {\n                \"keyword\": \"AXuPWlcxERWkJiQZEtnV\",\n                \"relevance\": 3790403021.61505\n            },\n            {\n                \"keyword\": \"TEklKkOAFyqorODvsBzR\",\n                \"relevance\": -0.85636011423101\n            }\n        ]\n    }\n}\n"};
-const stuffDataHtml = {"s_38eb89cc0e": "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: -676761.339172452\n\n# explanation: VplmmgmZiFjzWVzNEYYL.sentiment (confidence: -676761.339172452)\nVplmmgmZiFjzWVzNEYYL\n\n## Keywords\nkeywords: ```\n\n \u2022 item #1:\n\n# keyword: xUMPkeiyRDTjafdwCodV\n\n# relevance: 597.852782231598\n\n \u2022 item #2:\n\n# keyword: AXuPWlcxERWkJiQZEtnV\n\n# relevance: 3790403021.61505\n\n \u2022 item #3:\n\n# keyword: TEklKkOAFyqorODvsBzR\n\n# relevance: -0.85636011423101\n\n```", "s_23a15a6349": "vXXmfuZCDDjteXdQhJTl", "s_160209f1f7": "<table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table>", "s_9920ec1d63": "<ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul>", "s_175b9ebbcc": "<table><tr><th>sentiment</th><td><table><tr><th>sentiment</th><td>positive</td></tr><tr><th>confidence</th><td>-676761.339172452</td></tr><tr><th>explanation</th><td>VplmmgmZiFjzWVzNEYYL</td></tr></table></td></tr><tr><th>keywords</th><td><ul><li><table><tr><th>keyword</th><td>xUMPkeiyRDTjafdwCodV</td></tr><tr><th>relevance</th><td>597.852782231598</td></tr></table></li><li><table><tr><th>keyword</th><td>AXuPWlcxERWkJiQZEtnV</td></tr><tr><th>relevance</th><td>3790403021.61505</td></tr></table></li><li><table><tr><th>keyword</th><td>TEklKkOAFyqorODvsBzR</td></tr><tr><th>relevance</th><td>-0.85636011423101</td></tr></table></li></ul></td></tr></table>"};
-const stuffMetadata = {"s_38eb89cc0e": {"name": "report", "concept": "AnalysisReport"}, "s_23a15a6349": {"name": "text", "concept": "Text"}, "s_160209f1f7": {"name": "sentiment", "concept": "Sentiment"}, "s_9920ec1d63": {"name": "keywords", "concept": "Keyword"}, "s_175b9ebbcc": {"name": "analysis_bundle", "concept": "Composite"}};
+// Embedded stuff data from graph
+const stuffDataJson = {"s_5319ff6e18": {"text": "# Text Analysis Report\n\n## Sentiment\n# sentiment: positive\n\n# confidence: 831081541658.336\n\n# explanation: lMIqXHUdCmuzdSjLjHAg.sentiment (confidence: 831081541658.336)\nlMIqXHUdCmuzdSjLjHAg\n\n## Keywords\n\u003ckeywords>\n\n \u2022 item #1:\n\n# keyword: GirGnDVfoDpMVouccXlE\n\n# relevance: -48642659.8960516\n\n \u2022 item #2:\n\n# keyword: YQcDJtYhWnESVuFPUwvI\n\n# relevance: -79116226.664259\n\n \u2022 item #3:\n\n# keyword: BfOtymzUhoqFEdYxXSIz\n\n# relevance: 479.531852466278\n\n\u003c/keywords>"}, "s_2cb06bee3e": {"text": "sQsDIoXfsVNddavoIETT"}, "s_4239adfd05": {"sentiment": "positive", "confidence": 831081541658.336, "explanation": "lMIqXHUdCmuzdSjLjHAg"}, "s_6badcd87d2": {"items": [{"keyword": "GirGnDVfoDpMVouccXlE", "relevance": -48642659.8960516}, {"keyword": "YQcDJtYhWnESVuFPUwvI", "relevance": -79116226.664259}, {"keyword": "BfOtymzUhoqFEdYxXSIz", "relevance": 479.531852466278}]}, "s_f46ebcdecc": {"sentiment": {"sentiment": "positive", "confidence": 831081541658.336, "explanation": "lMIqXHUdCmuzdSjLjHAg"}, "keywords": {"items": [{"keyword": "GirGnDVfoDpMVouccXlE", "relevance": -48642659.8960516}, {"keyword": "YQcDJtYhWnESVuFPUwvI", "relevance": -79116226.664259}, {"keyword": "BfOtymzUhoqFEdYxXSIz", "relevance": 479.531852466278}]}}};
+const stuffMetadata = {"s_5319ff6e18": {"name": "report", "concept": "AnalysisReport"}, "s_2cb06bee3e": {"name": "text", "concept": "Text"}, "s_4239adfd05": {"name": "sentiment", "concept": "Sentiment"}, "s_6badcd87d2": {"name": "keywords", "concept": "Keyword[]"}, "s_f46ebcdecc": {"name": "analysis_bundle", "concept": "Composite"}};
 const stuffContentType = {};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_55b1a68b2f[\"dual_analysis_pipeline\"]\n        subgraph sg_n_35d4989aab[\"parallel_analyze\"]\n            n_a3f7009b1f[\"analyze_sentiment\"]\n            s_160209f1f7([\"sentiment\u003cbr/\u003eSentiment\"]):::stuff\n            n_d0fdf30a80[\"extract_keywords\"]\n            s_9920ec1d63([\"keywords\u003cbr/\u003eKeyword\"]):::stuff\n            s_175b9ebbcc([\"analysis_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_5d7eaa4fa4[\"merge_results\"]\n        s_38eb89cc0e([\"report\u003cbr/\u003eAnalysisReport\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_23a15a6349([\"text\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_5d7eaa4fa4 --\u003e s_38eb89cc0e\n    n_d0fdf30a80 --\u003e s_9920ec1d63\n    n_a3f7009b1f --\u003e s_160209f1f7\n    s_23a15a6349 --\u003e n_a3f7009b1f\n    s_23a15a6349 --\u003e n_d0fdf30a80\n    s_9920ec1d63 --\u003e n_5d7eaa4fa4\n    s_160209f1f7 --\u003e n_5d7eaa4fa4\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_160209f1f7 -.-\u003e s_175b9ebbcc\n    s_9920ec1d63 -.-\u003e s_175b9ebbcc\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_35d4989aab fill:#e6ffe6\n    style sg_n_55b1a68b2f fill:#e6f3ff";
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_8f9c9346e1[\"dual_analysis_pipeline\"]\n        subgraph sg_n_87c2e0851b[\"parallel_analyze\"]\n            n_f854e5280b[\"analyze_sentiment\"]\n            s_4239adfd05([\"sentiment\u003cbr/\u003eSentiment\"]):::stuff\n            n_96f84c9fc1[\"extract_keywords\"]\n            s_6badcd87d2([\"keywords\u003cbr/\u003eKeyword#91;#93;\"]):::stuff\n            s_f46ebcdecc([\"analysis_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_35f7725c48[\"merge_results\"]\n        s_5319ff6e18([\"report\u003cbr/\u003eAnalysisReport\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_2cb06bee3e([\"text\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_96f84c9fc1 --\u003e s_6badcd87d2\n    n_35f7725c48 --\u003e s_5319ff6e18\n    n_f854e5280b --\u003e s_4239adfd05\n    s_6badcd87d2 --\u003e n_35f7725c48\n    s_4239adfd05 --\u003e n_35f7725c48\n    s_2cb06bee3e --\u003e n_f854e5280b\n    s_2cb06bee3e --\u003e n_96f84c9fc1\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_4239adfd05 -.-\u003e s_f46ebcdecc\n    s_6badcd87d2 -.-\u003e s_f46ebcdecc\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_87c2e0851b fill:#e6ffe6\n    style sg_n_8f9c9346e1 fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

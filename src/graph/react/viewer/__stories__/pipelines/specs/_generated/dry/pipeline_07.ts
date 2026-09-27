@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SIMPLE_CONDITION = {
-  graph_id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380",
-  created_at: "2026-08-14T10:48:25.450489Z",
+  graph_id: "ba5dc880-db21-416f-806d-4b68ce2fc19a",
+  created_at: "2026-09-27T08:49:51.813411Z",
   pipeline_ref: { domain: "translation", main_pipe: "translate_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_0",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_0",
       kind: "controller",
       pipe_code: "translate_pipeline",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.450489Z",
-        ended_at: "2026-08-14T10:48:25.511055Z",
-        duration: 0.060566,
+        started_at: "2026-09-27T08:49:51.813411Z",
+        ended_at: "2026-09-27T08:49:51.822336Z",
+        duration: 0.008925,
       },
       io: {
         inputs: [
@@ -31,11 +31,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nBnmw",
-            data: { text: "FirOABAwANCMdXWRquZS" },
-            data_text:
-              "FirOABAwANCMdXWRquZS                                                                                \n",
-            data_html: "FirOABAwANCMdXWRquZS",
+            digest: "QDrfp",
+            data: { text: "svabJVvsbLUFViKRxVer" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -46,14 +44,11 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PjFr3",
+            digest: "Robhy",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nDZtyJghDgDMMLNDNeBHK\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom english to English:                                                                            \n\nIbyKTVHhehxrPQULWSWK                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -91,7 +86,7 @@ export const DRY_SIMPLE_CONDITION = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
       kind: "operator",
       pipe_code: "detect_language",
       pipe_type: "PipeLLM",
@@ -100,9 +95,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.455904Z",
-        ended_at: "2026-08-14T10:48:25.468335Z",
-        duration: 0.012431,
+        started_at: "2026-09-27T08:49:51.814593Z",
+        ended_at: "2026-09-27T08:49:51.816662Z",
+        duration: 0.002069,
       },
       io: {
         inputs: [
@@ -112,11 +107,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nBnmw",
-            data: { text: "FirOABAwANCMdXWRquZS" },
-            data_text:
-              "FirOABAwANCMdXWRquZS                                                                                \n",
-            data_html: "FirOABAwANCMdXWRquZS",
+            digest: "QDrfp",
+            data: { text: "svabJVvsbLUFViKRxVer" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -127,12 +120,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f4eXy",
-            data: { text: "IbyKTVHhehxrPQULWSWK", language: "english" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ IbyKTVHhehxrPQULWSWK                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ english                                            \n",
-            data_html:
-              "<table><tr><th>text</th><td>IbyKTVHhehxrPQULWSWK</td></tr><tr><th>language</th><td>english</td></tr></table>",
+            digest: "TwAu2",
+            data: { text: "DZtyJghDgDMMLNDNeBHK", language: "english" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -182,12 +172,12 @@ export const DRY_SIMPLE_CONDITION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Detect the language of the following text and classify it:\n\n<text>\nFirOABAwANCMdXWRquZS\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass translation__ClassifiedText(StructuredContent):\n    """Text with detected language"""\n    text: str  # The original text\n    language: Literal[\n        "english",\n        "french",\n        "spanish",\n        "german",\n        "other",\n    ]  # Detected language code\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Detect the language of the following text and classify it:\n\n<text>\nsvabJVvsbLUFViKRxVer\n</text>\n\n---\nThe instance we want to generate will be for the following class:\nclass translation__ClassifiedText(StructuredContent):\n    """Text with detected language"""\n    text: str  # The original text\n    language: Literal[\n        "english",\n        "french",\n        "spanish",\n        "german",\n        "other",\n    ]  # Detected language code\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
       kind: "controller",
       pipe_code: "route_translation",
       pipe_type: "PipeCondition",
@@ -196,9 +186,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.471889Z",
-        ended_at: "2026-08-14T10:48:25.508895Z",
-        duration: 0.037006,
+        started_at: "2026-09-27T08:49:51.816744Z",
+        ended_at: "2026-09-27T08:49:51.822182Z",
+        duration: 0.005438,
       },
       io: {
         inputs: [
@@ -208,12 +198,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f4eXy",
-            data: { text: "IbyKTVHhehxrPQULWSWK", language: "english" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ IbyKTVHhehxrPQULWSWK                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ english                                            \n",
-            data_html:
-              "<table><tr><th>text</th><td>IbyKTVHhehxrPQULWSWK</td></tr><tr><th>language</th><td>english</td></tr></table>",
+            digest: "TwAu2",
+            data: { text: "DZtyJghDgDMMLNDNeBHK", language: "english" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -224,14 +211,11 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PjFr3",
+            digest: "Robhy",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nDZtyJghDgDMMLNDNeBHK\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom english to English:                                                                            \n\nIbyKTVHhehxrPQULWSWK                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -269,7 +253,7 @@ export const DRY_SIMPLE_CONDITION = {
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_3",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_3",
       kind: "operator",
       pipe_code: "passthrough",
       pipe_type: "PipeCompose",
@@ -278,9 +262,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.475598Z",
-        ended_at: "2026-08-14T10:48:25.479946Z",
-        duration: 0.004348,
+        started_at: "2026-09-27T08:49:51.817511Z",
+        ended_at: "2026-09-27T08:49:51.818337Z",
+        duration: 0.000826,
       },
       io: {
         inputs: [
@@ -290,12 +274,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f4eXy",
-            data: { text: "IbyKTVHhehxrPQULWSWK", language: "english" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ IbyKTVHhehxrPQULWSWK                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ english                                            \n",
-            data_html:
-              "<table><tr><th>text</th><td>IbyKTVHhehxrPQULWSWK</td></tr><tr><th>language</th><td>english</td></tr></table>",
+            digest: "TwAu2",
+            data: { text: "DZtyJghDgDMMLNDNeBHK", language: "english" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -306,11 +287,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2VVLU",
-            data: { text: "IbyKTVHhehxrPQULWSWK" },
-            data_text:
-              "IbyKTVHhehxrPQULWSWK                                                                                \n",
-            data_html: "IbyKTVHhehxrPQULWSWK",
+            digest: "6bAzN",
+            data: { text: "DZtyJghDgDMMLNDNeBHK" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -336,10 +315,10 @@ export const DRY_SIMPLE_CONDITION = {
         subtree_cost_output: null,
         subtree_by_model: [],
       },
-      execution_data: { compose_mode: "template", rendered_text: "IbyKTVHhehxrPQULWSWK" },
+      execution_data: { compose_mode: "template", rendered_text: "DZtyJghDgDMMLNDNeBHK" },
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_4",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_4",
       kind: "operator",
       pipe_code: "translate_french",
       pipe_type: "PipeLLM",
@@ -348,9 +327,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.479986Z",
-        ended_at: "2026-08-14T10:48:25.494338Z",
-        duration: 0.014352,
+        started_at: "2026-09-27T08:49:51.818369Z",
+        ended_at: "2026-09-27T08:49:51.820181Z",
+        duration: 0.001812,
       },
       io: {
         inputs: [
@@ -360,12 +339,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f4eXy",
-            data: { text: "IbyKTVHhehxrPQULWSWK", language: "english" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ IbyKTVHhehxrPQULWSWK                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ english                                            \n",
-            data_html:
-              "<table><tr><th>text</th><td>IbyKTVHhehxrPQULWSWK</td></tr><tr><th>language</th><td>english</td></tr></table>",
+            digest: "TwAu2",
+            data: { text: "DZtyJghDgDMMLNDNeBHK", language: "english" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -376,14 +352,11 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NM5Nv",
+            digest: "gvwko",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nDZtyJghDgDMMLNDNeBHK\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following     \nFrench text to English:                                                                             \n\nIbyKTVHhehxrPQULWSWK                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following French text to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -433,12 +406,12 @@ export const DRY_SIMPLE_CONDITION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Translate the following French text to English:\n\nIbyKTVHhehxrPQULWSWK",
+          "Translate the following French text to English:\n\nDZtyJghDgDMMLNDNeBHK",
         structuring_path: "text",
       },
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_5",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_5",
       kind: "operator",
       pipe_code: "translate_other",
       pipe_type: "PipeLLM",
@@ -447,9 +420,9 @@ export const DRY_SIMPLE_CONDITION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:25.494421Z",
-        ended_at: "2026-08-14T10:48:25.508385Z",
-        duration: 0.013964,
+        started_at: "2026-09-27T08:49:51.820220Z",
+        ended_at: "2026-09-27T08:49:51.822031Z",
+        duration: 0.001811,
       },
       io: {
         inputs: [
@@ -459,12 +432,9 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "f4eXy",
-            data: { text: "IbyKTVHhehxrPQULWSWK", language: "english" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n text                      │ IbyKTVHhehxrPQULWSWK                               \n───────────────────────────┼────────────────────────────────────────────────────\n language                  │ english                                            \n",
-            data_html:
-              "<table><tr><th>text</th><td>IbyKTVHhehxrPQULWSWK</td></tr><tr><th>language</th><td>english</td></tr></table>",
+            digest: "TwAu2",
+            data: { text: "DZtyJghDgDMMLNDNeBHK", language: "english" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -475,14 +445,11 @@ export const DRY_SIMPLE_CONDITION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PjFr3",
+            digest: "Robhy",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nDZtyJghDgDMMLNDNeBHK\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Translate the following text\nfrom english to English:                                                                            \n\nIbyKTVHhehxrPQULWSWK                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -532,16 +499,16 @@ export const DRY_SIMPLE_CONDITION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Translate the following text from english to English:\n\nIbyKTVHhehxrPQULWSWK",
+          "Translate the following text from english to English:\n\nDZtyJghDgDMMLNDNeBHK",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:edge_0",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_0",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:edge_0",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_0",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -550,9 +517,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:edge_1",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_0",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:edge_1",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_0",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -561,9 +528,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:edge_2",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_3",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:edge_2",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -572,9 +539,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:edge_3",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_4",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:edge_3",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -583,9 +550,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:edge_4",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_5",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:edge_4",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -594,9 +561,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:asm_edge_0",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_2",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:asm_edge_0",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_2",
       kind: "data",
       optional: false,
       label: "classified",
@@ -605,9 +572,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:asm_edge_1",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_3",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:asm_edge_1",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_3",
       kind: "data",
       optional: false,
       label: "classified",
@@ -616,9 +583,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:asm_edge_2",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_4",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:asm_edge_2",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_4",
       kind: "data",
       optional: false,
       label: "classified",
@@ -627,9 +594,9 @@ export const DRY_SIMPLE_CONDITION = {
       meta: {},
     },
     {
-      id: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:asm_edge_3",
-      source: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_1",
-      target: "d568c1e7-00b3-45eb-ac84-1d46bc17e380:node_5",
+      id: "ba5dc880-db21-416f-806d-4b68ce2fc19a:asm_edge_3",
+      source: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_1",
+      target: "ba5dc880-db21-416f-806d-4b68ce2fc19a:node_5",
       kind: "data",
       optional: false,
       label: "classified",
@@ -728,13 +695,13 @@ export const DRY_SIMPLE_CONDITION = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "detect_language",
+          pipe_code: "translation.detect_language",
           output_name: "classified",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "route_translation",
+          pipe_code: "translation.route_translation",
           output_name: "translated",
           output_multiplicity: null,
           batch_params: null,
@@ -786,6 +753,7 @@ export const DRY_SIMPLE_CONDITION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "translation.route_translation": {
       pipe_category: "PipeController",
@@ -818,8 +786,8 @@ export const DRY_SIMPLE_CONDITION = {
         presence: "plain",
       },
       expression: "{{ classified.language }}",
-      outcome_map: { english: "passthrough", french: "translate_french" },
-      default_outcome: "translate_other",
+      outcome_map: { english: "translation.passthrough", french: "translation.translate_french" },
+      default_outcome: "translation.translate_other",
       add_alias_from_expression_to: null,
     },
     "translation.passthrough": {
@@ -903,6 +871,7 @@ export const DRY_SIMPLE_CONDITION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "translation.translate_other": {
       pipe_category: "PipeOperator",
@@ -950,6 +919,7 @@ export const DRY_SIMPLE_CONDITION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -974,6 +944,7 @@ export const DRY_SIMPLE_CONDITION = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",

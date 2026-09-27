@@ -1,41 +1,41 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_875297e8fa["screen_candidate"]
-        subgraph sg_n_c54dae76f8["route_on_match"]
-            n_0ea6b8688e["generate_interview_questions"]
-            s_78ba6d8c27(["decision_output<br/>InterviewQuestion"]):::stuff
-            n_1c36ef207e["write_refusal_email"]
-            s_d48fd1f1a7(["decision_output<br/>Email"]):::stuff
+    subgraph sg_n_0ea7c3fa5b["screen_candidate"]
+        subgraph sg_n_c2baa5b9f4["route_on_match"]
+            n_6af1ba452d["generate_interview_questions"]
+            s_fc6833eabd(["decision_output<br/>InterviewQuestion#91;#93;"]):::stuff
+            n_e20a0d7541["write_refusal_email"]
+            s_4dbac5d2b8(["decision_output<br/>Email"]):::stuff
         end
-        n_65806b4ef3["analyze_match"]
-        s_c8dbab3291(["match_result<br/>DetailedMatchResult"]):::stuff
-        n_21a6a736cb["extract_cv"]
-        s_30b8ade8f8(["cv_pages<br/>Page"]):::stuff
-        n_94e5ab3e1a["extract_job_offer"]
-        s_d3a9aea685(["job_offer_pages<br/>Page"]):::stuff
+        n_a7ec44536f["analyze_match"]
+        s_a674c771e9(["match_result<br/>DetailedMatchResult"]):::stuff
+        n_986da22ba8["extract_cv"]
+        s_e07fd8cd15(["cv_pages<br/>Page#91;#93;"]):::stuff
+        n_a757778300["extract_job_offer"]
+        s_3e3640a014(["job_offer_pages<br/>Page#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_f6a802afeb(["cv<br/>Document"]):::stuff
-    s_ff61e8ed0f(["job_offer<br/>Document"]):::stuff
+    s_0ec50d9dff(["cv<br/>Document"]):::stuff
+    s_f335437010(["job_offer<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_65806b4ef3 --> s_c8dbab3291
-    n_1c36ef207e --> s_d48fd1f1a7
-    n_94e5ab3e1a --> s_d3a9aea685
-    n_21a6a736cb --> s_30b8ade8f8
-    n_0ea6b8688e --> s_78ba6d8c27
-    s_c8dbab3291 --> n_0ea6b8688e
-    s_c8dbab3291 --> n_1c36ef207e
-    s_ff61e8ed0f --> n_94e5ab3e1a
-    s_f6a802afeb --> n_21a6a736cb
-    s_d3a9aea685 --> n_65806b4ef3
-    s_d3a9aea685 --> n_0ea6b8688e
-    s_d3a9aea685 --> n_1c36ef207e
-    s_30b8ade8f8 --> n_65806b4ef3
-    s_30b8ade8f8 --> n_0ea6b8688e
-    s_30b8ade8f8 --> n_1c36ef207e
+    n_a757778300 --> s_3e3640a014
+    n_a7ec44536f --> s_a674c771e9
+    n_986da22ba8 --> s_e07fd8cd15
+    n_e20a0d7541 --> s_4dbac5d2b8
+    n_6af1ba452d --> s_fc6833eabd
+    s_3e3640a014 --> n_a7ec44536f
+    s_3e3640a014 --> n_6af1ba452d
+    s_3e3640a014 --> n_e20a0d7541
+    s_a674c771e9 --> n_6af1ba452d
+    s_a674c771e9 --> n_e20a0d7541
+    s_e07fd8cd15 --> n_a7ec44536f
+    s_e07fd8cd15 --> n_6af1ba452d
+    s_e07fd8cd15 --> n_e20a0d7541
+    s_0ec50d9dff --> n_986da22ba8
+    s_f335437010 --> n_a757778300
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -43,5 +43,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_875297e8fa fill:#e6f3ff
-    style sg_n_c54dae76f8 fill:#e6ffe6
+    style sg_n_0ea7c3fa5b fill:#e6f3ff
+    style sg_n_c2baa5b9f4 fill:#e6ffe6

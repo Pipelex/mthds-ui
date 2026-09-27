@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_NESTED_SEQ_PAR_SEQ = {
-  graph_id: "08f60cd3-c789-4c22-be97-dedabd594309",
-  created_at: "2026-08-14T10:48:51.837286Z",
+  graph_id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4",
+  created_at: "2026-09-27T08:50:06.978416Z",
   pipeline_ref: { domain: "content_etl", main_pipe: "etl_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_0",
       kind: "controller",
       pipe_code: "etl_pipeline",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.837286Z",
-        ended_at: "2026-08-14T10:48:52.011019Z",
-        duration: 0.173733,
+        started_at: "2026-09-27T08:50:06.978416Z",
+        ended_at: "2026-09-27T08:50:07.002180Z",
+        duration: 0.023764,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "URtuxlOqKNxBxHTedMYo",
+            content_type: "wgPhcOXlFkMNxgEVcyaX",
             preview: null,
             size: null,
-            digest: "8zuZY",
+            digest: "WDyPU",
             data: {
-              url: "qwjvYxDdZijbZzvjHjVJ",
-              public_url: "IdNHikQKelGrodAMgxmW",
-              mime_type: "URtuxlOqKNxBxHTedMYo",
-              filename: "jNVAxvuyYwWfJPffWGUr",
-              title: "DOmQWsNSVxdFPcbKWpUI",
-              snippet: "CGvdmtfwxmuNuFPqrCVZ",
+              url: "XjQzHxbIHMFmILNgcfWx",
+              public_url: "iVsZzrprPGztNsVKXKyj",
+              mime_type: "wgPhcOXlFkMNxgEVcyaX",
+              filename: "nniUTLhsLZZxUSEgbRKW",
+              title: "bxGUfEvGdCncXNcIJOOR",
+              snippet: "tAGCFVqgVlLcZPtPUFvv",
             },
-            data_text: "DOmQWsNSVxdFPcbKWpUI (qwjvYxDdZijbZzvjHjVJ)\n  CGvdmtfwxmuNuFPqrCVZ\n",
-            data_html:
-              '<a href="IdNHikQKelGrodAMgxmW" class="msg-document">DOmQWsNSVxdFPcbKWpUI</a><br/><small>CGvdmtfwxmuNuFPqrCVZ</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,14 +51,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TRfLK",
+            digest: "iTkre",
             data: {
-              text: "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
+              text: "# Processed Content\n\n## Text\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    \n</clean_text>\n\n## Images\n<processed_image>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    \n</processed_image>",
             },
-            data_text:
-              "                                         Processed Content                                          \n\nText                                                                                                \n\nclean_text: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,        \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add        \nsemantic tags and structure to this cleaned text:                                                   \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n\n                                                                                                    \n                                                                                                    \n ## Images                                                                                          \n processed_image: ```                                                                               \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Generate concise captions for each image described:                                            \n                                                                                                    \n <described>                                                                                        \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Identify and desc                                                                              \n                                                                                                    \n",
-            data_html:
-              "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -98,7 +93,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
       kind: "operator",
       pipe_code: "extract_content",
       pipe_type: "PipeExtract",
@@ -107,30 +102,28 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.844294Z",
-        ended_at: "2026-08-14T10:48:51.855802Z",
-        duration: 0.011508,
+        started_at: "2026-09-27T08:50:06.979574Z",
+        ended_at: "2026-09-27T08:50:06.982881Z",
+        duration: 0.003307,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "URtuxlOqKNxBxHTedMYo",
+            content_type: "wgPhcOXlFkMNxgEVcyaX",
             preview: null,
             size: null,
-            digest: "8zuZY",
+            digest: "WDyPU",
             data: {
-              url: "qwjvYxDdZijbZzvjHjVJ",
-              public_url: "IdNHikQKelGrodAMgxmW",
-              mime_type: "URtuxlOqKNxBxHTedMYo",
-              filename: "jNVAxvuyYwWfJPffWGUr",
-              title: "DOmQWsNSVxdFPcbKWpUI",
-              snippet: "CGvdmtfwxmuNuFPqrCVZ",
+              url: "XjQzHxbIHMFmILNgcfWx",
+              public_url: "iVsZzrprPGztNsVKXKyj",
+              mime_type: "wgPhcOXlFkMNxgEVcyaX",
+              filename: "nniUTLhsLZZxUSEgbRKW",
+              title: "bxGUfEvGdCncXNcIJOOR",
+              snippet: "tAGCFVqgVlLcZPtPUFvv",
             },
-            data_text: "DOmQWsNSVxdFPcbKWpUI (qwjvYxDdZijbZzvjHjVJ)\n  CGvdmtfwxmuNuFPqrCVZ\n",
-            data_html:
-              '<a href="IdNHikQKelGrodAMgxmW" class="msg-document">DOmQWsNSVxdFPcbKWpUI</a><br/><small>CGvdmtfwxmuNuFPqrCVZ</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -141,7 +134,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -178,10 +171,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -215,7 +205,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
       kind: "controller",
       pipe_code: "dual_process",
       pipe_type: "PipeParallel",
@@ -224,9 +214,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.859887Z",
-        ended_at: "2026-08-14T10:48:51.985910Z",
-        duration: 0.126023,
+        started_at: "2026-09-27T08:50:06.983003Z",
+        ended_at: "2026-09-27T08:50:06.997776Z",
+        duration: 0.014773,
       },
       io: {
         inputs: [
@@ -236,7 +226,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -273,10 +263,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -287,14 +274,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AB6uR",
+            digest: "3qi7q",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add semantic tags and       \nstructure to this cleaned text:                                                                     \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -303,14 +287,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "c6Y35",
+            digest: "XTRxp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate concise captions   \nfor each image described:                                                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -319,19 +300,16 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AeEZR",
+            digest: "JHov9",
             data: {
               clean_text: {
-                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    ",
               },
               processed_image: {
-                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+                text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    ",
               },
             },
-            data_text:
-              '{\n    "clean_text": {\n        "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nAdd semantic tags and structure to this cleaned text:\\n\\n<clean_text>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Clean the foll\\n    "\n    },\n    "processed_image": {\n        "text": "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    \nGenerate concise captions for each image described:\\n\\n<described>\\nDRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\\n    user_text:\\n    Identify and desc\\n    "\n    }\n}\n',
-            data_html:
-              "<table><tr><th>clean_text</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    </td></tr><tr><th>processed_image</th><td>DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    </td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -373,7 +351,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
       kind: "controller",
       pipe_code: "text_branch",
       pipe_type: "PipeSequence",
@@ -382,9 +360,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.864613Z",
-        ended_at: "2026-08-14T10:48:51.937429Z",
-        duration: 0.072816,
+        started_at: "2026-09-27T08:50:06.984922Z",
+        ended_at: "2026-09-27T08:50:06.991068Z",
+        duration: 0.006146,
       },
       io: {
         inputs: [
@@ -394,7 +372,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -431,10 +409,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -445,14 +420,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AB6uR",
+            digest: "3qi7q",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add semantic tags and       \nstructure to this cleaned text:                                                                     \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -490,7 +462,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_4",
       kind: "operator",
       pipe_code: "clean_text",
       pipe_type: "PipeLLM",
@@ -499,9 +471,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.869546Z",
-        ended_at: "2026-08-14T10:48:51.921307Z",
-        duration: 0.051761,
+        started_at: "2026-09-27T08:50:06.986883Z",
+        ended_at: "2026-09-27T08:50:06.989596Z",
+        duration: 0.002713,
       },
       io: {
         inputs: [
@@ -511,7 +483,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -548,10 +520,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -562,14 +531,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "GeH6m",
+            digest: "jQJPz",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the following text by \nremoving artifacts, headers, and footers:                                                           \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -624,7 +590,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_5",
       kind: "operator",
       pipe_code: "enrich_text",
       pipe_type: "PipeLLM",
@@ -633,9 +599,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.925429Z",
-        ended_at: "2026-08-14T10:48:51.935007Z",
-        duration: 0.009578,
+        started_at: "2026-09-27T08:50:06.989845Z",
+        ended_at: "2026-09-27T08:50:06.990919Z",
+        duration: 0.001074,
       },
       io: {
         inputs: [
@@ -645,14 +611,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "GeH6m",
+            digest: "jQJPz",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the following text by \nremoving artifacts, headers, and footers:                                                           \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -663,14 +626,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AB6uR",
+            digest: "3qi7q",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add semantic tags and       \nstructure to this cleaned text:                                                                     \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -720,12 +680,12 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    \n</clean_text>",
+          "Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing artifacts, headers, and footers:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY \n    \n</clean_text>",
         structuring_path: "text",
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
       kind: "controller",
       pipe_code: "image_branch",
       pipe_type: "PipeSequence",
@@ -734,9 +694,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.940541Z",
-        ended_at: "2026-08-14T10:48:51.974364Z",
-        duration: 0.033823,
+        started_at: "2026-09-27T08:50:06.991121Z",
+        ended_at: "2026-09-27T08:50:06.996435Z",
+        duration: 0.005314,
       },
       io: {
         inputs: [
@@ -746,7 +706,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -783,10 +743,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -797,14 +754,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "c6Y35",
+            digest: "XTRxp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate concise captions   \nfor each image described:                                                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -842,7 +796,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_7",
       kind: "operator",
       pipe_code: "extract_images",
       pipe_type: "PipeLLM",
@@ -851,9 +805,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.946057Z",
-        ended_at: "2026-08-14T10:48:51.957184Z",
-        duration: 0.011127,
+        started_at: "2026-09-27T08:50:06.992780Z",
+        ended_at: "2026-09-27T08:50:06.994939Z",
+        duration: 0.002159,
       },
       io: {
         inputs: [
@@ -863,7 +817,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "ACtpT",
+            digest: "EdJiw",
             data: {
               items: [
                 {
@@ -900,10 +854,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -914,14 +865,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PDUci",
+            digest: "fhiUa",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Identify and describe any   \nimages or figures found in these pages:                                                             \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN:                                                                            \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -976,7 +924,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_8",
       kind: "operator",
       pipe_code: "caption_images",
       pipe_type: "PipeLLM",
@@ -985,9 +933,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.961697Z",
-        ended_at: "2026-08-14T10:48:51.971564Z",
-        duration: 0.009867,
+        started_at: "2026-09-27T08:50:06.995159Z",
+        ended_at: "2026-09-27T08:50:06.996299Z",
+        duration: 0.00114,
       },
       io: {
         inputs: [
@@ -997,14 +945,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "PDUci",
+            digest: "fhiUa",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Identify and describe any   \nimages or figures found in these pages:                                                             \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN:                                                                            \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1015,14 +960,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "c6Y35",
+            digest: "XTRxp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate concise captions   \nfor each image described:                                                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1072,12 +1014,12 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    \n</described>",
+          "Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figures found in these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN:\n    \n</described>",
         structuring_path: "text",
       },
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_9",
       kind: "operator",
       pipe_code: "combine_results",
       pipe_type: "PipeCompose",
@@ -1086,9 +1028,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:51.992874Z",
-        ended_at: "2026-08-14T10:48:52.005947Z",
-        duration: 0.013073,
+        started_at: "2026-09-27T08:50:06.998690Z",
+        ended_at: "2026-09-27T08:50:07.001186Z",
+        duration: 0.002496,
       },
       io: {
         inputs: [
@@ -1098,14 +1040,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "AB6uR",
+            digest: "3qi7q",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add semantic tags and       \nstructure to this cleaned text:                                                                     \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -1114,14 +1053,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "c6Y35",
+            digest: "XTRxp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate concise captions   \nfor each image described:                                                                           \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1132,14 +1068,11 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "TRfLK",
+            digest: "iTkre",
             data: {
-              text: "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
+              text: "# Processed Content\n\n## Text\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    \n</clean_text>\n\n## Images\n<processed_image>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    \n</processed_image>",
             },
-            data_text:
-              "                                         Processed Content                                          \n\nText                                                                                                \n\nclean_text: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,        \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Add        \nsemantic tags and structure to this cleaned text:                                                   \n\n<clean_text> DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean the  \nfoll                                                                                                \n\n                                                                                                    \n                                                                                                    \n ## Images                                                                                          \n processed_image: ```                                                                               \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Generate concise captions for each image described:                                            \n                                                                                                    \n <described>                                                                                        \n DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,      \n max_tokens=None, prompting_target=None) • prompt=LLM Prompt:                                       \n     user_text:                                                                                     \n     Identify and desc                                                                              \n                                                                                                    \n",
-            data_html:
-              "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n&lt;clean_text&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n&lt;described&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1168,15 +1101,15 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "# Processed Content\n\n## Text\nclean_text: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the foll\n    \n```\n\n## Images\nprocessed_image: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and desc\n    \n```",
+          "# Processed Content\n\n## Text\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Add semantic tags and structure to this cleaned text:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean the following text by removing \n    \n</clean_text>\n\n## Images\n<processed_image>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate concise captions for each image described:\n\n<described>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Identify and describe any images or figu\n    \n</processed_image>",
       },
     },
   ],
   edges: [
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_0",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_0",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_0",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -1185,9 +1118,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_1",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_1",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_0",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -1196,9 +1129,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_2",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_2",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -1207,9 +1140,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_3",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_3",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -1218,9 +1151,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_4",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_4",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -1229,9 +1162,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_5",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_5",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -1240,9 +1173,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_6",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_6",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -1251,9 +1184,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_7",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_7",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -1262,9 +1195,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:edge_8",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_0",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:edge_8",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_0",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_9",
       kind: "contains",
       optional: false,
       label: null,
@@ -1273,9 +1206,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_0",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_0",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1284,9 +1217,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_1",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_1",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1295,9 +1228,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_2",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_2",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_4",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1306,9 +1239,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_3",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_4",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_5",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_3",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_4",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_5",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -1317,9 +1250,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_4",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_4",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1328,9 +1261,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_5",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_1",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_5",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_1",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_7",
       kind: "data",
       optional: false,
       label: "pages",
@@ -1339,9 +1272,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_6",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_7",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_8",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_6",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_7",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_8",
       kind: "data",
       optional: false,
       label: "described",
@@ -1350,9 +1283,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_7",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_7",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_9",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -1361,9 +1294,9 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_8",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_9",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_8",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_9",
       kind: "data",
       optional: false,
       label: "processed_image",
@@ -1372,25 +1305,25 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_9",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_3",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_9",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_3",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "AB6uR",
-      target_stuff_digest: "AeEZR",
+      source_stuff_digest: "3qi7q",
+      target_stuff_digest: "JHov9",
       meta: {},
     },
     {
-      id: "08f60cd3-c789-4c22-be97-dedabd594309:asm_edge_10",
-      source: "08f60cd3-c789-4c22-be97-dedabd594309:node_6",
-      target: "08f60cd3-c789-4c22-be97-dedabd594309:node_2",
+      id: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:asm_edge_10",
+      source: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_6",
+      target: "7affecc7-5d10-4e73-9525-6a8241f6a9a4:node_2",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "c6Y35",
-      target_stuff_digest: "AeEZR",
+      source_stuff_digest: "XTRxp",
+      target_stuff_digest: "JHov9",
       meta: {},
     },
   ],
@@ -1484,19 +1417,19 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_content",
+          pipe_code: "content_etl.extract_content",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "dual_process",
+          pipe_code: "content_etl.dual_process",
           output_name: "processed_parts",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "combine_results",
+          pipe_code: "content_etl.combine_results",
           output_name: "processed",
           output_multiplicity: null,
           batch_params: null,
@@ -1577,13 +1510,13 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "text_branch",
+          pipe_code: "content_etl.text_branch",
           output_name: "clean_text",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "image_branch",
+          pipe_code: "content_etl.image_branch",
           output_name: "processed_image",
           output_multiplicity: null,
           batch_params: null,
@@ -1624,13 +1557,13 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "clean_text",
+          pipe_code: "content_etl.clean_text",
           output_name: "clean_text",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "enrich_text",
+          pipe_code: "content_etl.enrich_text",
           output_name: "enriched",
           output_multiplicity: null,
           batch_params: null,
@@ -1684,6 +1617,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_etl.enrich_text": {
       pipe_category: "PipeOperator",
@@ -1730,6 +1664,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_etl.image_branch": {
       pipe_category: "PipeController",
@@ -1764,13 +1699,13 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_images",
+          pipe_code: "content_etl.extract_images",
           output_name: "described",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "caption_images",
+          pipe_code: "content_etl.caption_images",
           output_name: "captioned",
           output_multiplicity: null,
           batch_params: null,
@@ -1823,6 +1758,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_etl.caption_images": {
       pipe_category: "PipeOperator",
@@ -1869,6 +1805,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_etl.combine_results": {
       pipe_category: "PipeOperator",
@@ -1940,6 +1877,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1992,6 +1930,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2078,12 +2017,15 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",
@@ -2164,6 +2106,7 @@ export const DRY_NESTED_SEQ_PAR_SEQ = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",

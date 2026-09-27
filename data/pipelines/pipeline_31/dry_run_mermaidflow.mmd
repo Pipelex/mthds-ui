@@ -1,72 +1,72 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_bce428acf7["qualify_rfp"]
-        subgraph sg_n_8877a6d23b["assess_all_requirements"]
-            n_3f1cef0e19["assess_single_requirement"]
-            s_46a8dbbf3c(["requirement<br/>RFPRequirement"]):::stuff
-            s_1ae7eaa69b(["capability_match<br/>CapabilityMatch"]):::stuff
-            n_64202665d1["assess_single_requirement"]
-            s_60a82f6bf8(["requirement<br/>RFPRequirement"]):::stuff
-            s_2afbd75d2e(["capability_match<br/>CapabilityMatch"]):::stuff
-            n_f7d4a4f28f["assess_single_requirement"]
-            s_b344b32183(["requirement<br/>RFPRequirement"]):::stuff
-            s_1b7448f146(["capability_match<br/>CapabilityMatch"]):::stuff
+    subgraph sg_n_1729eca93e["qualify_rfp"]
+        subgraph sg_n_85ad9edaaf["assess_all_requirements"]
+            n_dbfb64dd0c["assess_single_requirement"]
+            s_22a0f4ea2a(["requirement<br/>RFPRequirement"]):::stuff
+            s_edbf9ba5d3(["capability_match<br/>CapabilityMatch"]):::stuff
+            n_018c4dfb63["assess_single_requirement"]
+            s_6c838383c9(["requirement<br/>RFPRequirement"]):::stuff
+            s_232569a9d2(["capability_match<br/>CapabilityMatch"]):::stuff
+            n_ae88e82e16["assess_single_requirement"]
+            s_98d7376781(["requirement<br/>RFPRequirement"]):::stuff
+            s_afac4b4d8b(["capability_match<br/>CapabilityMatch"]):::stuff
         end
-        subgraph sg_n_307d42ebb8["extract_documents"]
-            n_553863372d["extract_capabilities"]
-            s_01bc5f8960(["capabilities_pages<br/>Page"]):::stuff
-            n_91c7e1eaf1["extract_rfp"]
-            s_5f84965c52(["rfp_pages<br/>Page"]):::stuff
-            s_9fca229a66(["all_pages<br/>Composite"]):::stuff
+        subgraph sg_n_489e7921e0["extract_documents"]
+            n_401e415ed8["extract_capabilities"]
+            s_9c8fab4568(["capabilities_pages<br/>Page#91;#93;"]):::stuff
+            n_f950ee3480["extract_rfp"]
+            s_b766a23b5c(["rfp_pages<br/>Page#91;#93;"]):::stuff
+            s_a0fbeb7662(["all_pages<br/>Composite"]):::stuff
         end
-        n_de715fbdfc["build_qualification_matrix"]
-        s_2cd37b8c7e(["qualification_matrix<br/>QualificationMatrix"]):::stuff
-        n_88335fb0d8["generate_executive_summary"]
-        s_9459c10ad9(["executive_summary<br/>BidSummary"]):::stuff
-        n_01ffa6e6fa["parse_requirements"]
-        s_8a5024cca6(["requirements<br/>RFPRequirement"]):::stuff
+        n_01f0840149["build_qualification_matrix"]
+        s_d60e084347(["qualification_matrix<br/>QualificationMatrix"]):::stuff
+        n_4ed0b9653c["generate_executive_summary"]
+        s_8cb8017399(["executive_summary<br/>BidSummary"]):::stuff
+        n_3d2a9adf2e["parse_requirements"]
+        s_7b604564e8(["requirements<br/>RFPRequirement#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_683bc86e90(["capabilities<br/>Document"]):::stuff
-    s_7eee303e94(["capability_matches<br/>CapabilityMatch"]):::stuff
-    s_c9a8236c7d(["rfp<br/>Document"]):::stuff
+    s_24fb5fc6b0(["capabilities<br/>Document"]):::stuff
+    s_cba360cb81(["capability_matches<br/>CapabilityMatch#91;#93;"]):::stuff
+    s_7b38b86e9b(["rfp<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_91c7e1eaf1 --> s_5f84965c52
-    n_88335fb0d8 --> s_9459c10ad9
-    n_553863372d --> s_01bc5f8960
-    n_01ffa6e6fa --> s_8a5024cca6
-    n_de715fbdfc --> s_2cd37b8c7e
-    n_3f1cef0e19 --> s_1ae7eaa69b
-    n_64202665d1 --> s_2afbd75d2e
-    n_f7d4a4f28f --> s_1b7448f146
-    s_5f84965c52 --> n_88335fb0d8
-    s_5f84965c52 --> n_01ffa6e6fa
-    s_5f84965c52 --> n_de715fbdfc
-    s_01bc5f8960 --> n_3f1cef0e19
-    s_01bc5f8960 --> n_64202665d1
-    s_01bc5f8960 --> n_f7d4a4f28f
-    s_46a8dbbf3c --> n_3f1cef0e19
-    s_60a82f6bf8 --> n_64202665d1
-    s_b344b32183 --> n_f7d4a4f28f
-    s_683bc86e90 --> n_553863372d
-    s_2cd37b8c7e --> n_88335fb0d8
-    s_c9a8236c7d --> n_91c7e1eaf1
-    s_7eee303e94 --> n_de715fbdfc
+    n_f950ee3480 --> s_b766a23b5c
+    n_01f0840149 --> s_d60e084347
+    n_401e415ed8 --> s_9c8fab4568
+    n_3d2a9adf2e --> s_7b604564e8
+    n_dbfb64dd0c --> s_edbf9ba5d3
+    n_018c4dfb63 --> s_232569a9d2
+    n_ae88e82e16 --> s_afac4b4d8b
+    n_4ed0b9653c --> s_8cb8017399
+    s_b766a23b5c --> n_4ed0b9653c
+    s_b766a23b5c --> n_3d2a9adf2e
+    s_b766a23b5c --> n_01f0840149
+    s_d60e084347 --> n_4ed0b9653c
+    s_9c8fab4568 --> n_dbfb64dd0c
+    s_9c8fab4568 --> n_018c4dfb63
+    s_9c8fab4568 --> n_ae88e82e16
+    s_22a0f4ea2a --> n_dbfb64dd0c
+    s_6c838383c9 --> n_018c4dfb63
+    s_98d7376781 --> n_ae88e82e16
+    s_7b38b86e9b --> n_f950ee3480
+    s_cba360cb81 --> n_01f0840149
+    s_24fb5fc6b0 --> n_401e415ed8
 
     %% Batch edges: list-item relationships
-    s_8a5024cca6 -."[0]".-> s_46a8dbbf3c
-    s_8a5024cca6 -."[1]".-> s_60a82f6bf8
-    s_8a5024cca6 -."[2]".-> s_b344b32183
-    s_1ae7eaa69b -."[0]".-> s_7eee303e94
-    s_2afbd75d2e -."[1]".-> s_7eee303e94
-    s_1b7448f146 -."[2]".-> s_7eee303e94
+    s_7b604564e8 -."[0]".-> s_22a0f4ea2a
+    s_7b604564e8 -."[1]".-> s_6c838383c9
+    s_7b604564e8 -."[2]".-> s_98d7376781
+    s_edbf9ba5d3 -."[0]".-> s_cba360cb81
+    s_232569a9d2 -."[1]".-> s_cba360cb81
+    s_afac4b4d8b -."[2]".-> s_cba360cb81
 
     %% Parallel combine edges: branch outputs → combined output
-    s_5f84965c52 -.-> s_9fca229a66
-    s_01bc5f8960 -.-> s_9fca229a66
+    s_b766a23b5c -.-> s_a0fbeb7662
+    s_9c8fab4568 -.-> s_a0fbeb7662
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -74,6 +74,6 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_307d42ebb8 fill:#e6ffe6
-    style sg_n_8877a6d23b fill:#e6ffe6
-    style sg_n_bce428acf7 fill:#e6f3ff
+    style sg_n_1729eca93e fill:#e6f3ff
+    style sg_n_489e7921e0 fill:#e6ffe6
+    style sg_n_85ad9edaaf fill:#e6ffe6

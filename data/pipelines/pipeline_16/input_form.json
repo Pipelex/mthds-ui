@@ -16,8 +16,16 @@
       {
         "concept_ref": "image_catalog.TagList",
         "description": "List of classification tags",
+        "fields": [
+          {
+            "description": "The JSON object",
+            "kind": "unknown",
+            "name": "json_obj",
+            "required": true
+          }
+        ],
         "gating": true,
-        "kind": "unknown",
+        "kind": "object",
         "name": "tags",
         "presence": "plain",
         "refines": [

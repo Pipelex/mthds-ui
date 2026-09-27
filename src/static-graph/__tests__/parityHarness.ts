@@ -21,22 +21,30 @@
 //    paths line up.
 // 3. **Runtime-field stripping (implicit).** The canonical form only reads
 //    structural fields — `kind`, `pipe_code`, `pipe_type`, `domain_code`,
-//    `contains` edges, and io `name`/`digest`/`concept`. `timing`, `metrics`,
-//    `execution_data`, previews and data payloads never enter the comparison.
+//    `contains` edges, and io `name`/`digest`/`concept`/`multiplicity`.
+//    `timing`, `metrics`, `execution_data`, previews and data payloads never
+//    enter the comparison.
 // 4. **Elaboration collapse — not implemented.** No fixture bundle uses
 //    `structuring_method = "preliminary_text"`, so the dry corpus contains no
 //    `<code>__draft_text` + synthetic PipeStructure expansion to collapse. If
 //    a future fixture introduces one, parity will fail with extra dry-side
 //    nodes and this rule needs implementing.
+// 5. **Multiplicity reads as list or single.** pipelex writes `true` on the io
+//    items of a stuff whose value is a list and never an item count, while the
+//    static builder writes the declared count for `Code[N]`. Both sides are
+//    compared on whether the renderer shows a list, which is what the runtime
+//    states; a declared count is a detail only the static side can carry.
 //
 // Stuff identity: digests are not comparable across sides (random dry strings
 // vs deterministic static strings), so a stuff is identified by its *relation
 // signature* — producer path (or `-` for producer-less stuff: external
-// inputs, batch items/aggregates, condition alias stuff), name, concept, and
-// the sorted consumer paths. Signatures are compared as multisets.
+// inputs, batch items/aggregates, condition alias stuff), name, concept,
+// whether it is a list, and the sorted consumer paths. Signatures are compared
+// as multisets.
 
 import { buildDataflowAnalysis } from "@graph/graphAnalysis";
 import type { GraphSpec } from "@graph/types";
+import { isPluralMultiplicity } from "@graph/types";
 
 // ─── Batch fan-out collapse ──────────────────────────────────────────────────
 
@@ -77,7 +85,7 @@ export function collapseBatchFanOut(spec: GraphSpec): GraphSpec {
 export interface CanonicalGraph {
   /** One signature line per node: path + structural fields. */
   nodeSignatures: string[];
-  /** One signature line per stuff: producer path, name, concept, consumer paths. */
+  /** One signature line per stuff: producer path, name, concept, list or single, consumer paths. */
   stuffSignatures: string[];
 }
 
@@ -136,9 +144,10 @@ export function canonicalizeGraph(spec: GraphSpec): CanonicalGraph {
       const consumers = [
         ...new Set((analysis.stuffConsumers[digest] ?? []).map((id) => pathOf.get(id) ?? id)),
       ].sort();
+      const list = isPluralMultiplicity(info.multiplicity) ? "yes" : "no";
       return (
         `stuff producer=${producer} name=${info.name} concept=${info.concept ?? "-"} ` +
-        `consumers=[${consumers.join(", ")}]`
+        `list=${list} consumers=[${consumers.join(", ")}]`
       );
     })
     .sort();

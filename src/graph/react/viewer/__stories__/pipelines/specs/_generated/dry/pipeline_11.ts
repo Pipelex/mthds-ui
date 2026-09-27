@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_NESTED_SEQ_COND_SEQ = {
-  graph_id: "09d19f1d-d521-456f-8270-45dd04b393fd",
-  created_at: "2026-08-14T10:48:56.072509Z",
+  graph_id: "8f850240-d70c-4a97-93dd-c868e5292989",
+  created_at: "2026-09-27T08:50:11.900487Z",
   pipeline_ref: { domain: "customer_support", main_pipe: "smart_responder", entrypoint: null },
   nodes: [
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_0",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_0",
       kind: "controller",
       pipe_code: "smart_responder",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.072509Z",
-        ended_at: "2026-08-14T10:48:56.177316Z",
-        duration: 0.104807,
+        started_at: "2026-09-27T08:50:11.900487Z",
+        ended_at: "2026-09-27T08:50:11.912712Z",
+        duration: 0.012225,
       },
       io: {
         inputs: [
@@ -31,11 +31,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DWr33",
-            data: { text: "YhUQjOYNXKwGmsdFAEYC" },
-            data_text:
-              "YhUQjOYNXKwGmsdFAEYC                                                                                \n",
-            data_html: "YhUQjOYNXKwGmsdFAEYC",
+            digest: "3TyAb",
+            data: { text: "IRyXdOIxemnJkCGSntvR" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -46,14 +44,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NgUuY",
+            digest: "cRjhN",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -91,7 +86,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
       kind: "operator",
       pipe_code: "classify_request",
       pipe_type: "PipeLLM",
@@ -100,9 +95,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.078154Z",
-        ended_at: "2026-08-14T10:48:56.091562Z",
-        duration: 0.013408,
+        started_at: "2026-09-27T08:50:11.901727Z",
+        ended_at: "2026-09-27T08:50:11.903858Z",
+        duration: 0.002131,
       },
       io: {
         inputs: [
@@ -112,11 +107,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "DWr33",
-            data: { text: "YhUQjOYNXKwGmsdFAEYC" },
-            data_text:
-              "YhUQjOYNXKwGmsdFAEYC                                                                                \n",
-            data_html: "YhUQjOYNXKwGmsdFAEYC",
+            digest: "3TyAb",
+            data: { text: "IRyXdOIxemnJkCGSntvR" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -127,12 +120,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -182,12 +172,12 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Classify this user request as either a text query or an image request:\n\n<request>\nYhUQjOYNXKwGmsdFAEYC\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass customer_support__ClassifiedRequest(StructuredContent):\n    """User request classified by type"""\n    request_text: str  # Original request\n    request_type: Literal[\n        "text_query",\n        "image_request",\n    ]  # Request type\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Classify this user request as either a text query or an image request:\n\n<request>\nIRyXdOIxemnJkCGSntvR\n</request>\n\n---\nThe instance we want to generate will be for the following class:\nclass customer_support__ClassifiedRequest(StructuredContent):\n    """User request classified by type"""\n    request_text: str  # Original request\n    request_type: Literal[\n        "text_query",\n        "image_request",\n    ]  # Request type\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_2",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_2",
       kind: "controller",
       pipe_code: "route_response",
       pipe_type: "PipeCondition",
@@ -196,9 +186,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.094635Z",
-        ended_at: "2026-08-14T10:48:56.175155Z",
-        duration: 0.08052,
+        started_at: "2026-09-27T08:50:11.903947Z",
+        ended_at: "2026-09-27T08:50:11.912580Z",
+        duration: 0.008633,
       },
       io: {
         inputs: [
@@ -208,12 +198,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -224,14 +211,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NgUuY",
+            digest: "cRjhN",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -269,7 +253,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_3",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_3",
       kind: "controller",
       pipe_code: "image_response_path",
       pipe_type: "PipeSequence",
@@ -278,9 +262,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.097595Z",
-        ended_at: "2026-08-14T10:48:56.137874Z",
-        duration: 0.040279,
+        started_at: "2026-09-27T08:50:11.904719Z",
+        ended_at: "2026-09-27T08:50:11.909107Z",
+        duration: 0.004388,
       },
       io: {
         inputs: [
@@ -290,12 +274,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -306,14 +287,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "j6pVx",
+            digest: "5wjUp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: FsYyCitSOtPDoUCMPYcO\nImage: None\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: gYTSIDqOunQVtNAEQLco\nImage: None\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: FsYyCitSOtPDoUCMPYcO Image: None                                                           \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: FsYyCitSOtPDoUCMPYcO\nImage: None\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -351,7 +329,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_4",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_4",
       kind: "operator",
       pipe_code: "generate_response_image",
       pipe_type: "PipeImgGen",
@@ -360,9 +338,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.102191Z",
-        ended_at: "2026-08-14T10:48:56.115062Z",
-        duration: 0.012871,
+        started_at: "2026-09-27T08:50:11.905156Z",
+        ended_at: "2026-09-27T08:50:11.907013Z",
+        duration: 0.001857,
       },
       io: {
         inputs: [
@@ -372,12 +350,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -388,12 +363,12 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "kd6rq",
+            digest: "BREg3",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              source_prompt: "FsYyCitSOtPDoUCMPYcO",
+              source_prompt: "gYTSIDqOunQVtNAEQLco",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -401,10 +376,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nFsYyCitSOtPDoUCMPYcO\n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -432,14 +404,14 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       execution_data: {
         resolved_model: "@default-general",
-        rendered_prompt: "FsYyCitSOtPDoUCMPYcO",
+        rendered_prompt: "gYTSIDqOunQVtNAEQLco",
         rendered_negative_prompt: null,
         aspect_ratio: "square",
         nb_images: 1,
       },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_5",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_5",
       kind: "operator",
       pipe_code: "caption_response",
       pipe_type: "PipeLLM",
@@ -448,9 +420,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.120776Z",
-        ended_at: "2026-08-14T10:48:56.135063Z",
-        duration: 0.014287,
+        started_at: "2026-09-27T08:50:11.907328Z",
+        ended_at: "2026-09-27T08:50:11.908960Z",
+        duration: 0.001632,
       },
       io: {
         inputs: [
@@ -460,12 +432,12 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "kd6rq",
+            digest: "BREg3",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
-              source_prompt: "FsYyCitSOtPDoUCMPYcO",
+              source_prompt: "gYTSIDqOunQVtNAEQLco",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -473,10 +445,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nFsYyCitSOtPDoUCMPYcO\n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
           {
@@ -485,12 +454,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -501,14 +467,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "j6pVx",
+            digest: "5wjUp",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: FsYyCitSOtPDoUCMPYcO\nImage: None\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: gYTSIDqOunQVtNAEQLco\nImage: None\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Write a caption and         \nexplanation for this generated image, given the original request:                                   \n\nRequest: FsYyCitSOtPDoUCMPYcO Image: None                                                           \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Write a caption and explanation for this generated image, given the original request:\n\nRequest: FsYyCitSOtPDoUCMPYcO\nImage: None\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -558,12 +521,12 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Write a caption and explanation for this generated image, given the original request:\n\nRequest: FsYyCitSOtPDoUCMPYcO\nImage: None",
+          "Write a caption and explanation for this generated image, given the original request:\n\nRequest: gYTSIDqOunQVtNAEQLco\nImage: None",
         structuring_path: "text",
       },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_6",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_6",
       kind: "controller",
       pipe_code: "text_response_path",
       pipe_type: "PipeSequence",
@@ -572,9 +535,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.137924Z",
-        ended_at: "2026-08-14T10:48:56.174708Z",
-        duration: 0.036784,
+        started_at: "2026-09-27T08:50:11.909135Z",
+        ended_at: "2026-09-27T08:50:11.912440Z",
+        duration: 0.003305,
       },
       io: {
         inputs: [
@@ -584,12 +547,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -600,14 +560,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NgUuY",
+            digest: "cRjhN",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -645,7 +602,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       execution_data: { step_count: 2 },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_7",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_7",
       kind: "operator",
       pipe_code: "draft_text",
       pipe_type: "PipeLLM",
@@ -654,9 +611,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.142824Z",
-        ended_at: "2026-08-14T10:48:56.154384Z",
-        duration: 0.01156,
+        started_at: "2026-09-27T08:50:11.909640Z",
+        ended_at: "2026-09-27T08:50:11.910885Z",
+        duration: 0.001245,
       },
       io: {
         inputs: [
@@ -666,12 +623,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "CYeix",
-            data: { request_text: "FsYyCitSOtPDoUCMPYcO", request_type: "text_query" },
-            data_text:
-              " Attribute                     ┃ Value                                          \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n request_text                  │ FsYyCitSOtPDoUCMPYcO                           \n───────────────────────────────┼────────────────────────────────────────────────\n request_type                  │ text_query                                     \n",
-            data_html:
-              "<table><tr><th>request_text</th><td>FsYyCitSOtPDoUCMPYcO</td></tr><tr><th>request_type</th><td>text_query</td></tr></table>",
+            digest: "ZMXi2",
+            data: { request_text: "gYTSIDqOunQVtNAEQLco", request_type: "image_request" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -682,14 +636,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SaTx8",
+            digest: "hTB45",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\ngYTSIDqOunQVtNAEQLco\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Draft a helpful response to \nthis request:                                                                                       \n\nFsYyCitSOtPDoUCMPYcO                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -738,12 +689,12 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
         resolved_model_for_object: "claude-4.6-sonnet",
         is_multiple_output: false,
         rendered_system_prompt: null,
-        rendered_user_prompt: "Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO",
+        rendered_user_prompt: "Draft a helpful response to this request:\n\ngYTSIDqOunQVtNAEQLco",
         structuring_path: "text",
       },
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:node_8",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:node_8",
       kind: "operator",
       pipe_code: "polish_text",
       pipe_type: "PipeLLM",
@@ -752,9 +703,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:56.160346Z",
-        ended_at: "2026-08-14T10:48:56.171928Z",
-        duration: 0.011582,
+        started_at: "2026-09-27T08:50:11.911185Z",
+        ended_at: "2026-09-27T08:50:11.912297Z",
+        duration: 0.001112,
       },
       io: {
         inputs: [
@@ -764,14 +715,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SaTx8",
+            digest: "hTB45",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\ngYTSIDqOunQVtNAEQLco\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Draft a helpful response to \nthis request:                                                                                       \n\nFsYyCitSOtPDoUCMPYcO                                                                                \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -782,14 +730,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "NgUuY",
+            digest: "cRjhN",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to \n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Polish and improve this     \ndraft response for clarity and helpfulness:                                                         \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Polish and improve this draft response for clarity and helpfulness:\n\n&lt;draft&gt;\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -839,16 +784,16 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\nFsYyCitSOtPDoUCMPYcO\n    \n</draft>",
+          "Polish and improve this draft response for clarity and helpfulness:\n\n<draft>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Draft a helpful response to this request:\n\ngYTSIDqOunQVtNAEQLco\n    \n</draft>",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_0",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_0",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_0",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_0",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -857,9 +802,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_1",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_0",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_2",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_1",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_0",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -868,9 +813,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_2",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_2",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_3",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_2",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_2",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -879,9 +824,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_3",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_3",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_4",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_3",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_3",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -890,9 +835,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_4",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_3",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_5",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_4",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_3",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -901,9 +846,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_5",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_2",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_6",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_5",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_2",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -912,9 +857,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_6",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_6",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_7",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_6",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_6",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -923,9 +868,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:edge_7",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_6",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_8",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:edge_7",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_6",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -934,9 +879,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_0",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_2",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_0",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_2",
       kind: "data",
       optional: false,
       label: "classified",
@@ -945,9 +890,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_1",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_3",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_1",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_3",
       kind: "data",
       optional: false,
       label: "classified",
@@ -956,9 +901,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_2",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_4",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_2",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_4",
       kind: "data",
       optional: false,
       label: "classified",
@@ -967,9 +912,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_3",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_4",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_5",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_3",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_4",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_5",
       kind: "data",
       optional: false,
       label: "image",
@@ -978,9 +923,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_4",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_5",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_4",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_5",
       kind: "data",
       optional: false,
       label: "classified",
@@ -989,9 +934,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_5",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_6",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_5",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_6",
       kind: "data",
       optional: false,
       label: "classified",
@@ -1000,9 +945,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_6",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_1",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_7",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_6",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_1",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_7",
       kind: "data",
       optional: false,
       label: "classified",
@@ -1011,9 +956,9 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       meta: {},
     },
     {
-      id: "09d19f1d-d521-456f-8270-45dd04b393fd:asm_edge_7",
-      source: "09d19f1d-d521-456f-8270-45dd04b393fd:node_7",
-      target: "09d19f1d-d521-456f-8270-45dd04b393fd:node_8",
+      id: "8f850240-d70c-4a97-93dd-c868e5292989:asm_edge_7",
+      source: "8f850240-d70c-4a97-93dd-c868e5292989:node_7",
+      target: "8f850240-d70c-4a97-93dd-c868e5292989:node_8",
       kind: "data",
       optional: false,
       label: "draft",
@@ -1112,13 +1057,13 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "classify_request",
+          pipe_code: "customer_support.classify_request",
           output_name: "classified",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "route_response",
+          pipe_code: "customer_support.route_response",
           output_name: "response",
           output_multiplicity: null,
           batch_params: null,
@@ -1171,6 +1116,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "customer_support.route_response": {
       pipe_category: "PipeController",
@@ -1203,8 +1149,11 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
         presence: "plain",
       },
       expression: "{{ classified.request_type }}",
-      outcome_map: { text_query: "text_response_path", image_request: "image_response_path" },
-      default_outcome: "text_response_path",
+      outcome_map: {
+        text_query: "customer_support.text_response_path",
+        image_request: "customer_support.image_response_path",
+      },
+      default_outcome: "customer_support.text_response_path",
       add_alias_from_expression_to: null,
     },
     "customer_support.image_response_path": {
@@ -1239,13 +1188,13 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "generate_response_image",
+          pipe_code: "customer_support.generate_response_image",
           output_name: "image",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "caption_response",
+          pipe_code: "customer_support.caption_response",
           output_name: "captioned",
           output_multiplicity: null,
           batch_params: null,
@@ -1358,6 +1307,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "customer_support.text_response_path": {
       pipe_category: "PipeController",
@@ -1391,13 +1341,13 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "draft_text",
+          pipe_code: "customer_support.draft_text",
           output_name: "draft",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "polish_text",
+          pipe_code: "customer_support.polish_text",
           output_name: "polished",
           output_multiplicity: null,
           batch_params: null,
@@ -1449,6 +1399,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "customer_support.polish_text": {
       pipe_category: "PipeOperator",
@@ -1496,6 +1447,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -1520,6 +1472,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
@@ -1555,6 +1508,7 @@ export const DRY_NESTED_SEQ_COND_SEQ = {
       structure_class_name: "ImageContent",
       refines: null,
       json_schema: {
+        description: "An image",
         properties: {
           url: {
             description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",

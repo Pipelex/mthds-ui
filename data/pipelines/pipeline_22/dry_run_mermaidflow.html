@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Fanout Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_dc01e9da97": {"text": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```"}, "s_8cfa781f7a": {"url": "VoKnJRDPoArWRXazPAiX", "public_url": "AvSCCfyNJbrPjbwXQXdt", "mime_type": "kHgcxYTUUFBftLvRsviw", "filename": "ergfBiNgsncHtOCjMdJx", "title": "fnMvfKbnzCrOyjSRAWtR", "snippet": "VrMGGXdLimfFCxmWOnku"}, "s_57f9d2eef5": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n<document>\n[Document 1]\n</document>\n    \nuser_documents:\n  PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')\n"}, "s_cfba1e6687": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "}, "s_e0fcb35562": {"json_obj": {"TkjvrsIAaAhuQEYALtUi": "abe11c835a"}}, "s_1930892749": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "}, "s_e3a43f6b49": {"summary": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    "}, "index_entry": {"json_obj": {"TkjvrsIAaAhuQEYALtUi": "abe11c835a"}}, "sentiment_log": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n<analysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    "}}};
-const stuffDataText = {"s_dc01e9da97": "                                        Distribution Report                                         \n\nSummary Stored                                                                                      \n\nsummary: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,           \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Create a   \nconcise executive summary:                                                                          \n\n\n                                                                                                    \n                                                                                                    \n ## Entities Indexed                                                                                \n index_entry: ```                                                                                   \n {                                                                                                  \n     \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"                                                           \n }                                                                                                  \n                                                                                                    \n\nSentiment Logged                                                                                    \n\nsentiment_log: ``` DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,     \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Log the    \nsentiment trends:                                                                                   \n\n\n                                                                                                    \n                                                                                                    \n                                                                                                    \n", "s_8cfa781f7a": "fnMvfKbnzCrOyjSRAWtR (VoKnJRDPoArWRXazPAiX)\n  VrMGGXdLimfFCxmWOnku\n", "s_57f9d2eef5": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Perform a deep analysis of  \nthis document covering summary, entities, and sentiment:                                            \n\n\nuser_documents: PromptDocumentUri(uri='VoKnJRDPoArWRXazPAiX')                                       \n", "s_cfba1e6687": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Create a concise executive  \nsummary:                                                                                            \n\n", "s_e0fcb35562": "{\n    \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n}\n", "s_1930892749": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Log the sentiment trends:   \n\n", "s_e3a43f6b49": "{\n    \"summary\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nCreate a concise executive summary:\\n\\n<analysis>\\nDRY RUN: llm_gen_text \u2022 \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndo\\n    \"\n    },\n    \"index_entry\": {\n        \"json_obj\": {\n            \"TkjvrsIAaAhuQEYALtUi\": \"abe11c835a\"\n        }\n    },\n    \"sentiment_log\": {\n        \"text\": \"DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    \nLog the sentiment trends:\\n\\n<analysis>\\nDRY RUN: llm_gen_text \u2022 \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) \u2022 prompt=LLM Prompt:\\n    user_text:\\n    Perform a deep analysis of this \ndocument cov\\n    \"\n    }\n}\n"};
-const stuffDataHtml = {"s_dc01e9da97": "# Distribution Report\n\n## Summary Stored\nsummary: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    \n```\n\n## Entities Indexed\nindex_entry: ```\n{\n    &quot;TkjvrsIAaAhuQEYALtUi&quot;: &quot;abe11c835a&quot;\n}\n```\n\n## Sentiment Logged\nsentiment_log: ```\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    \n```", "s_8cfa781f7a": "<a href=\"AvSCCfyNJbrPjbwXQXdt\" class=\"msg-document\">fnMvfKbnzCrOyjSRAWtR</a><br/><small>VrMGGXdLimfFCxmWOnku</small>", "s_57f9d2eef5": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n&lt;document&gt;\n[Document 1]\n&lt;/document&gt;\n    \nuser_documents:\n  PromptDocumentUri(uri=&#x27;VoKnJRDPoArWRXazPAiX&#x27;)\n", "s_cfba1e6687": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    ", "s_e0fcb35562": "<table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table>", "s_1930892749": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    ", "s_e3a43f6b49": "<table><tr><th>summary</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this do\n    </td></tr><tr><th>index_entry</th><td><table ><tr><th>TkjvrsIAaAhuQEYALtUi</th><td>abe11c835a</td></tr></table></td></tr><tr><th>sentiment_log</th><td>DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n&lt;analysis&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document cov\n    </td></tr></table>"};
-const stuffMetadata = {"s_dc01e9da97": {"name": "distribution_report", "concept": "DistributionReport"}, "s_8cfa781f7a": {"name": "document", "concept": "Document"}, "s_57f9d2eef5": {"name": "analysis", "concept": "Analysis"}, "s_cfba1e6687": {"name": "summary", "concept": "Summary"}, "s_e0fcb35562": {"name": "index_entry", "concept": "IndexEntry"}, "s_1930892749": {"name": "sentiment_log", "concept": "SentimentLog"}, "s_e3a43f6b49": {"name": "distribution_bundle", "concept": "Composite"}};
-const stuffContentType = {"s_8cfa781f7a": "kHgcxYTUUFBftLvRsviw"};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_52a0235ecc[\"fanout_pipeline\"]\n        subgraph sg_n_69e6b0cf19[\"distribute\"]\n            n_4ef6e81fa4[\"index_entities\"]\n            s_e0fcb35562([\"index_entry\u003cbr/\u003eIndexEntry\"]):::stuff\n            n_4d750e1cfb[\"log_sentiment\"]\n            s_1930892749([\"sentiment_log\u003cbr/\u003eSentimentLog\"]):::stuff\n            n_32fbf639f0[\"store_summary\"]\n            s_cfba1e6687([\"summary\u003cbr/\u003eSummary\"]):::stuff\n            s_e3a43f6b49([\"distribution_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_34e1e62c4e[\"deep_analyze\"]\n        s_57f9d2eef5([\"analysis\u003cbr/\u003eAnalysis\"]):::stuff\n        n_a8e763da30[\"report\"]\n        s_dc01e9da97([\"distribution_report\u003cbr/\u003eDistributionReport\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_8cfa781f7a([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_34e1e62c4e --\u003e s_57f9d2eef5\n    n_4ef6e81fa4 --\u003e s_e0fcb35562\n    n_4d750e1cfb --\u003e s_1930892749\n    n_a8e763da30 --\u003e s_dc01e9da97\n    n_32fbf639f0 --\u003e s_cfba1e6687\n    s_57f9d2eef5 --\u003e n_32fbf639f0\n    s_57f9d2eef5 --\u003e n_4ef6e81fa4\n    s_57f9d2eef5 --\u003e n_4d750e1cfb\n    s_e0fcb35562 --\u003e n_a8e763da30\n    s_1930892749 --\u003e n_a8e763da30\n    s_8cfa781f7a --\u003e n_34e1e62c4e\n    s_cfba1e6687 --\u003e n_a8e763da30\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_cfba1e6687 -.-\u003e s_e3a43f6b49\n    s_e0fcb35562 -.-\u003e s_e3a43f6b49\n    s_1930892749 -.-\u003e s_e3a43f6b49\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_52a0235ecc fill:#e6f3ff\n    style sg_n_69e6b0cf19 fill:#e6ffe6";
+// Embedded stuff data from graph
+const stuffDataJson = {"s_908997b1d3": {"text": "# Distribution Report\n\n## Summary Stored\n\u003csummary>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary\n    \n\u003c/summary>\n\n## Entities Indexed\n\u003cindex_entry>\n{\n    \"nmPPLRJIMNDDCtdbbuMR\": \"bf1398a389\"\n}\n\u003c/index_entry>\n\n## Sentiment Logged\n\u003csentiment_log>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities\n    \n\u003c/sentiment_log>"}, "s_0e0f38931d": {"url": "AbFOJTbbXKtqgcTvWmhO", "public_url": "IxMTwVWMUWSSiHKzWlfM", "mime_type": "WLDAoiyiuzuONytKFGgU", "filename": "sArcRwCcDYAZRcaZlAMC", "title": "ypiauzJBZnWJLkOKisXe", "snippet": "uyUjvdImRogJgVMWbJZM"}, "s_0e4aeb0a4b": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities, and sentiment:\n\n\u003cdocument>\n[Document 1]\n\u003c/document>\n    \nuser_documents:\n  PromptDocumentUri(uri='AbFOJTbbXKtqgcTvWmhO')\n"}, "s_07e0c1bf72": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary\n    "}, "s_0621fd8729": {"json_obj": {"nmPPLRJIMNDDCtdbbuMR": "bf1398a389"}}, "s_44164dc2fc": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities\n    "}, "s_d58ffa6468": {"summary": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Create a concise executive summary:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary\n    "}, "index_entry": {"json_obj": {"nmPPLRJIMNDDCtdbbuMR": "bf1398a389"}}, "sentiment_log": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Log the sentiment trends:\n\n\u003canalysis>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Perform a deep analysis of this document covering summary, entities\n    "}}};
+const stuffMetadata = {"s_908997b1d3": {"name": "distribution_report", "concept": "DistributionReport"}, "s_0e0f38931d": {"name": "document", "concept": "Document"}, "s_0e4aeb0a4b": {"name": "analysis", "concept": "Analysis"}, "s_07e0c1bf72": {"name": "summary", "concept": "Summary"}, "s_0621fd8729": {"name": "index_entry", "concept": "IndexEntry"}, "s_44164dc2fc": {"name": "sentiment_log", "concept": "SentimentLog"}, "s_d58ffa6468": {"name": "distribution_bundle", "concept": "Composite"}};
+const stuffContentType = {"s_0e0f38931d": "WLDAoiyiuzuONytKFGgU"};
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_90adcc0bf7[\"fanout_pipeline\"]\n        subgraph sg_n_b8431be1cf[\"distribute\"]\n            n_ab80c4c466[\"index_entities\"]\n            s_0621fd8729([\"index_entry\u003cbr/\u003eIndexEntry\"]):::stuff\n            n_3d6bc2a0bc[\"log_sentiment\"]\n            s_44164dc2fc([\"sentiment_log\u003cbr/\u003eSentimentLog\"]):::stuff\n            n_7cc738463a[\"store_summary\"]\n            s_07e0c1bf72([\"summary\u003cbr/\u003eSummary\"]):::stuff\n            s_d58ffa6468([\"distribution_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_e52908a71a[\"deep_analyze\"]\n        s_0e4aeb0a4b([\"analysis\u003cbr/\u003eAnalysis\"]):::stuff\n        n_fe43ed918e[\"report\"]\n        s_908997b1d3([\"distribution_report\u003cbr/\u003eDistributionReport\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_0e0f38931d([\"document\u003cbr/\u003eDocument\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_e52908a71a --\u003e s_0e4aeb0a4b\n    n_3d6bc2a0bc --\u003e s_44164dc2fc\n    n_fe43ed918e --\u003e s_908997b1d3\n    n_ab80c4c466 --\u003e s_0621fd8729\n    n_7cc738463a --\u003e s_07e0c1bf72\n    s_0e4aeb0a4b --\u003e n_7cc738463a\n    s_0e4aeb0a4b --\u003e n_ab80c4c466\n    s_0e4aeb0a4b --\u003e n_3d6bc2a0bc\n    s_44164dc2fc --\u003e n_fe43ed918e\n    s_0621fd8729 --\u003e n_fe43ed918e\n    s_07e0c1bf72 --\u003e n_fe43ed918e\n    s_0e0f38931d --\u003e n_e52908a71a\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_07e0c1bf72 -.-\u003e s_d58ffa6468\n    s_0621fd8729 -.-\u003e s_d58ffa6468\n    s_44164dc2fc -.-\u003e s_d58ffa6468\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_90adcc0bf7 fill:#e6f3ff\n    style sg_n_b8431be1cf fill:#e6ffe6";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

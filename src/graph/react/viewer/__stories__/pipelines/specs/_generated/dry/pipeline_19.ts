@@ -5,8 +5,8 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_CONTENT_MODERATION = {
-  graph_id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795",
-  created_at: "2026-08-14T10:49:27.930535Z",
+  graph_id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f",
+  created_at: "2026-09-27T08:50:52.125443Z",
   pipeline_ref: {
     domain: "content_moderation",
     main_pipe: "moderation_pipeline",
@@ -14,7 +14,7 @@ export const DRY_CONTENT_MODERATION = {
   },
   nodes: [
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_0",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_0",
       kind: "controller",
       pipe_code: "moderation_pipeline",
       pipe_type: "PipeSequence",
@@ -23,9 +23,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.930535Z",
-        ended_at: "2026-08-14T10:49:28.005496Z",
-        duration: 0.074961,
+        started_at: "2026-09-27T08:50:52.125443Z",
+        ended_at: "2026-09-27T08:50:52.139702Z",
+        duration: 0.014259,
       },
       io: {
         inputs: [
@@ -35,11 +35,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "4Zz2n",
-            data: { text: "VdfRllnDJgwALdknhxUc" },
-            data_text:
-              "VdfRllnDJgwALdknhxUc                                                                                \n",
-            data_html: "VdfRllnDJgwALdknhxUc",
+            digest: "FiFHa",
+            data: { text: "CgWknTEqnhyfuoQDktUv" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -50,11 +48,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2zmVg",
-            data: { text: "REJECTED: OYbbKZrKXPRKIaojRvwO" },
-            data_text:
-              "REJECTED: OYbbKZrKXPRKIaojRvwO                                                                      \n",
-            data_html: "REJECTED: OYbbKZrKXPRKIaojRvwO",
+            digest: "8f2Dq",
+            data: { text: "REJECTED: ZDtsIIeczXvnUQqRmPOp" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -92,7 +88,7 @@ export const DRY_CONTENT_MODERATION = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
       kind: "controller",
       pipe_code: "parallel_checks",
       pipe_type: "PipeParallel",
@@ -101,9 +97,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.935450Z",
-        ended_at: "2026-08-14T10:49:27.966776Z",
-        duration: 0.031326,
+        started_at: "2026-09-27T08:50:52.126409Z",
+        ended_at: "2026-09-27T08:50:52.132829Z",
+        duration: 0.00642,
       },
       io: {
         inputs: [
@@ -113,11 +109,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "4Zz2n",
-            data: { text: "VdfRllnDJgwALdknhxUc" },
-            data_text:
-              "VdfRllnDJgwALdknhxUc                                                                                \n",
-            data_html: "VdfRllnDJgwALdknhxUc",
+            digest: "FiFHa",
+            data: { text: "CgWknTEqnhyfuoQDktUv" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -128,12 +122,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nwFVM",
-            data: { score: 5709241087.87077, flagged_categories: ["a89b285a"], safe: false },
-            data_text:
-              " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ 5709241087.87077                     \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ a89b285a                     \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
-            data_html:
-              "<table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "eafDH",
+            data: { score: 7078021938907.13, flagged_categories: ["e53be0"], safe: false },
+            multiplicity: null,
             extra: {},
           },
           {
@@ -142,12 +133,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "86pmv",
-            data: { score: 70271055.9299064, flagged_categories: ["f7fd2"], safe: false },
-            data_text:
-              " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 70271055.9299064                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ f7fd2                       \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ False                               \n",
-            data_html:
-              "<table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "4mnyG",
+            data: { score: -93.9651104978593, flagged_categories: ["ce8"], safe: true },
+            multiplicity: null,
             extra: {},
           },
           {
@@ -156,19 +144,12 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "MvTDp",
+            digest: "KEN5V",
             data: {
-              text_score: {
-                score: 5709241087.87077,
-                flagged_categories: ["a89b285a"],
-                safe: false,
-              },
-              image_score: { score: 70271055.9299064, flagged_categories: ["f7fd2"], safe: false },
+              text_score: { score: 7078021938907.13, flagged_categories: ["e53be0"], safe: false },
+              image_score: { score: -93.9651104978593, flagged_categories: ["ce8"], safe: true },
             },
-            data_text:
-              '{\n    "text_score": {\n        "score": 5709241087.87077,\n        "flagged_categories": [\n            "a89b285a"\n        ],\n        "safe": false\n    },\n    "image_score": {\n        "score": 70271055.9299064,\n        "flagged_categories": [\n            "f7fd2"\n        ],\n        "safe": false\n    }\n}\n',
-            data_html:
-              "<table><tr><th>text_score</th><td><table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table></td></tr><tr><th>image_score</th><td><table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table></td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -210,7 +191,7 @@ export const DRY_CONTENT_MODERATION = {
       },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_2",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_2",
       kind: "operator",
       pipe_code: "check_text_safety",
       pipe_type: "PipeLLM",
@@ -219,9 +200,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.938725Z",
-        ended_at: "2026-08-14T10:49:27.948673Z",
-        duration: 0.009948,
+        started_at: "2026-09-27T08:50:52.127187Z",
+        ended_at: "2026-09-27T08:50:52.129953Z",
+        duration: 0.002766,
       },
       io: {
         inputs: [
@@ -231,11 +212,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "4Zz2n",
-            data: { text: "VdfRllnDJgwALdknhxUc" },
-            data_text:
-              "VdfRllnDJgwALdknhxUc                                                                                \n",
-            data_html: "VdfRllnDJgwALdknhxUc",
+            digest: "FiFHa",
+            data: { text: "CgWknTEqnhyfuoQDktUv" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -246,12 +225,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nwFVM",
-            data: { score: 5709241087.87077, flagged_categories: ["a89b285a"], safe: false },
-            data_text:
-              " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ 5709241087.87077                     \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ a89b285a                     \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
-            data_html:
-              "<table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "eafDH",
+            data: { score: 7078021938907.13, flagged_categories: ["e53be0"], safe: false },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -301,12 +277,12 @@ export const DRY_CONTENT_MODERATION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nVdfRllnDJgwALdknhxUc\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    """Content safety assessment score"""\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Assess the safety of this text content. Check for hate speech, violence, explicit content:\n\n<content>\nCgWknTEqnhyfuoQDktUv\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    """Content safety assessment score"""\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_3",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_3",
       kind: "operator",
       pipe_code: "check_image_safety",
       pipe_type: "PipeLLM",
@@ -315,9 +291,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.952038Z",
-        ended_at: "2026-08-14T10:49:27.961056Z",
-        duration: 0.009018,
+        started_at: "2026-09-27T08:50:52.130198Z",
+        ended_at: "2026-09-27T08:50:52.132492Z",
+        duration: 0.002294,
       },
       io: {
         inputs: [
@@ -327,11 +303,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "4Zz2n",
-            data: { text: "VdfRllnDJgwALdknhxUc" },
-            data_text:
-              "VdfRllnDJgwALdknhxUc                                                                                \n",
-            data_html: "VdfRllnDJgwALdknhxUc",
+            digest: "FiFHa",
+            data: { text: "CgWknTEqnhyfuoQDktUv" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -342,12 +316,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "86pmv",
-            data: { score: 70271055.9299064, flagged_categories: ["f7fd2"], safe: false },
-            data_text:
-              " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 70271055.9299064                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ f7fd2                       \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ False                               \n",
-            data_html:
-              "<table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "4mnyG",
+            data: { score: -93.9651104978593, flagged_categories: ["ce8"], safe: true },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -397,12 +368,12 @@ export const DRY_CONTENT_MODERATION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Assess the safety of any images referenced in this content:\n\n<content>\nVdfRllnDJgwALdknhxUc\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    """Content safety assessment score"""\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Assess the safety of any images referenced in this content:\n\n<content>\nCgWknTEqnhyfuoQDktUv\n</content>\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__SafetyScore(StructuredContent):\n    """Content safety assessment score"""\n    score: float  # Safety score 0-1\n    flagged_categories: List[Any] | None = None  # Categories flagged\n    safe: bool  # Whether content is safe\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
       kind: "operator",
       pipe_code: "make_decision",
       pipe_type: "PipeLLM",
@@ -411,9 +382,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.971466Z",
-        ended_at: "2026-08-14T10:49:27.982509Z",
-        duration: 0.011043,
+        started_at: "2026-09-27T08:50:52.133432Z",
+        ended_at: "2026-09-27T08:50:52.136179Z",
+        duration: 0.002747,
       },
       io: {
         inputs: [
@@ -423,12 +394,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nwFVM",
-            data: { score: 5709241087.87077, flagged_categories: ["a89b285a"], safe: false },
-            data_text:
-              " Attribute                               ┃ Value                                \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                   │ 5709241087.87077                     \n─────────────────────────────────────────┼──────────────────────────────────────\n flagged_categories                      │   1   │ a89b285a                     \n─────────────────────────────────────────┼──────────────────────────────────────\n safe                                    │ False                                \n",
-            data_html:
-              "<table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "eafDH",
+            data: { score: 7078021938907.13, flagged_categories: ["e53be0"], safe: false },
+            multiplicity: null,
             extra: {},
           },
           {
@@ -437,12 +405,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "86pmv",
-            data: { score: 70271055.9299064, flagged_categories: ["f7fd2"], safe: false },
-            data_text:
-              " Attribute                                ┃ Value                               \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n score                                    │ 70271055.9299064                    \n──────────────────────────────────────────┼─────────────────────────────────────\n flagged_categories                       │   1   │ f7fd2                       \n──────────────────────────────────────────┼─────────────────────────────────────\n safe                                     │ False                               \n",
-            data_html:
-              "<table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>",
+            digest: "4mnyG",
+            data: { score: -93.9651104978593, flagged_categories: ["ce8"], safe: true },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -453,12 +418,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KZwek",
-            data: { approved: false, reason: "OYbbKZrKXPRKIaojRvwO", action: "reject" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ OYbbKZrKXPRKIaojRvwO                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            data_html:
-              "<table><tr><th>approved</th><td>False</td></tr><tr><th>reason</th><td>OYbbKZrKXPRKIaojRvwO</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            digest: "nTy9n",
+            data: { approved: false, reason: "ZDtsIIeczXvnUQqRmPOp", action: "approve" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -508,12 +470,12 @@ export const DRY_CONTENT_MODERATION = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Based on these safety assessments, make a moderation decision:\n\nText safety: score=5709241087.87077, safe=False\nImage safety: score=70271055.9299064, safe=False\n\nFlagged categories:\nText: [\'a89b285a\']\nImage: [\'f7fd2\']\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__Decision(StructuredContent):\n    """Moderation decision"""\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        "approve",\n        "reject",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Based on these safety assessments, make a moderation decision:\n\nText safety: score=7078021938907.13, safe=False\nImage safety: score=-93.9651104978593, safe=True\n\nFlagged categories:\nText: [\'e53be0\']\nImage: [\'ce8\']\n\n---\nThe instance we want to generate will be for the following class:\nclass content_moderation__Decision(StructuredContent):\n    """Moderation decision"""\n    approved: bool  # Whether content is approved\n    reason: str  # Reason for decision\n    action: Literal[\n        "approve",\n        "reject",\n    ]  # Action to take\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_5",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_5",
       kind: "controller",
       pipe_code: "route_action",
       pipe_type: "PipeCondition",
@@ -522,9 +484,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.985886Z",
-        ended_at: "2026-08-14T10:49:28.003496Z",
-        duration: 0.01761,
+        started_at: "2026-09-27T08:50:52.136253Z",
+        ended_at: "2026-09-27T08:50:52.139553Z",
+        duration: 0.0033,
       },
       io: {
         inputs: [
@@ -534,12 +496,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KZwek",
-            data: { approved: false, reason: "OYbbKZrKXPRKIaojRvwO", action: "reject" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ OYbbKZrKXPRKIaojRvwO                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            data_html:
-              "<table><tr><th>approved</th><td>False</td></tr><tr><th>reason</th><td>OYbbKZrKXPRKIaojRvwO</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            digest: "nTy9n",
+            data: { approved: false, reason: "ZDtsIIeczXvnUQqRmPOp", action: "approve" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -550,11 +509,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2zmVg",
-            data: { text: "REJECTED: OYbbKZrKXPRKIaojRvwO" },
-            data_text:
-              "REJECTED: OYbbKZrKXPRKIaojRvwO                                                                      \n",
-            data_html: "REJECTED: OYbbKZrKXPRKIaojRvwO",
+            digest: "8f2Dq",
+            data: { text: "REJECTED: ZDtsIIeczXvnUQqRmPOp" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -583,7 +540,7 @@ export const DRY_CONTENT_MODERATION = {
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_6",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_6",
       kind: "operator",
       pipe_code: "approve_content",
       pipe_type: "PipeCompose",
@@ -592,9 +549,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.988971Z",
-        ended_at: "2026-08-14T10:49:27.993216Z",
-        duration: 0.004245,
+        started_at: "2026-09-27T08:50:52.137016Z",
+        ended_at: "2026-09-27T08:50:52.137841Z",
+        duration: 0.000825,
       },
       io: {
         inputs: [
@@ -604,12 +561,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KZwek",
-            data: { approved: false, reason: "OYbbKZrKXPRKIaojRvwO", action: "reject" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ OYbbKZrKXPRKIaojRvwO                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            data_html:
-              "<table><tr><th>approved</th><td>False</td></tr><tr><th>reason</th><td>OYbbKZrKXPRKIaojRvwO</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            digest: "nTy9n",
+            data: { approved: false, reason: "ZDtsIIeczXvnUQqRmPOp", action: "approve" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -620,11 +574,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Umo2d",
-            data: { text: "APPROVED: OYbbKZrKXPRKIaojRvwO" },
-            data_text:
-              "APPROVED: OYbbKZrKXPRKIaojRvwO                                                                      \n",
-            data_html: "APPROVED: OYbbKZrKXPRKIaojRvwO",
+            digest: "Z4iW2",
+            data: { text: "APPROVED: ZDtsIIeczXvnUQqRmPOp" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -650,10 +602,10 @@ export const DRY_CONTENT_MODERATION = {
         subtree_cost_output: null,
         subtree_by_model: [],
       },
-      execution_data: { compose_mode: "template", rendered_text: "APPROVED: OYbbKZrKXPRKIaojRvwO" },
+      execution_data: { compose_mode: "template", rendered_text: "APPROVED: ZDtsIIeczXvnUQqRmPOp" },
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_7",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_7",
       kind: "operator",
       pipe_code: "reject_content",
       pipe_type: "PipeCompose",
@@ -662,9 +614,9 @@ export const DRY_CONTENT_MODERATION = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:27.993252Z",
-        ended_at: "2026-08-14T10:49:28.003180Z",
-        duration: 0.009928,
+        started_at: "2026-09-27T08:50:52.137875Z",
+        ended_at: "2026-09-27T08:50:52.139407Z",
+        duration: 0.001532,
       },
       io: {
         inputs: [
@@ -674,12 +626,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "KZwek",
-            data: { approved: false, reason: "OYbbKZrKXPRKIaojRvwO", action: "reject" },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n approved                  │ False                                              \n───────────────────────────┼────────────────────────────────────────────────────\n reason                    │ OYbbKZrKXPRKIaojRvwO                               \n───────────────────────────┼────────────────────────────────────────────────────\n action                    │ reject                                             \n",
-            data_html:
-              "<table><tr><th>approved</th><td>False</td></tr><tr><th>reason</th><td>OYbbKZrKXPRKIaojRvwO</td></tr><tr><th>action</th><td>reject</td></tr></table>",
+            digest: "nTy9n",
+            data: { approved: false, reason: "ZDtsIIeczXvnUQqRmPOp", action: "approve" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -690,11 +639,9 @@ export const DRY_CONTENT_MODERATION = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2zmVg",
-            data: { text: "REJECTED: OYbbKZrKXPRKIaojRvwO" },
-            data_text:
-              "REJECTED: OYbbKZrKXPRKIaojRvwO                                                                      \n",
-            data_html: "REJECTED: OYbbKZrKXPRKIaojRvwO",
+            digest: "8f2Dq",
+            data: { text: "REJECTED: ZDtsIIeczXvnUQqRmPOp" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -720,14 +667,14 @@ export const DRY_CONTENT_MODERATION = {
         subtree_cost_output: null,
         subtree_by_model: [],
       },
-      execution_data: { compose_mode: "template", rendered_text: "REJECTED: OYbbKZrKXPRKIaojRvwO" },
+      execution_data: { compose_mode: "template", rendered_text: "REJECTED: ZDtsIIeczXvnUQqRmPOp" },
     },
   ],
   edges: [
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_0",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_0",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_0",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_0",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -736,9 +683,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_1",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_2",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_1",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -747,9 +694,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_2",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_3",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_2",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -758,9 +705,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_3",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_0",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_3",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_0",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -769,9 +716,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_4",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_0",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_5",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_4",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_0",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -780,9 +727,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_5",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_5",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_6",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_5",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_5",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -791,9 +738,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:edge_6",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_5",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_7",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:edge_6",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_5",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -802,9 +749,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_0",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_0",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
       kind: "data",
       optional: false,
       label: "text_score",
@@ -813,9 +760,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_1",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_1",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
       kind: "data",
       optional: false,
       label: "image_score",
@@ -824,9 +771,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_2",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_5",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_2",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_5",
       kind: "data",
       optional: false,
       label: "decision",
@@ -835,9 +782,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_3",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_6",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_3",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_6",
       kind: "data",
       optional: false,
       label: "decision",
@@ -846,9 +793,9 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_4",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_4",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_7",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_4",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_4",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_7",
       kind: "data",
       optional: false,
       label: "decision",
@@ -857,25 +804,25 @@ export const DRY_CONTENT_MODERATION = {
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_5",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_2",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_5",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_2",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "nwFVM",
-      target_stuff_digest: "MvTDp",
+      source_stuff_digest: "eafDH",
+      target_stuff_digest: "KEN5V",
       meta: {},
     },
     {
-      id: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:asm_edge_6",
-      source: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_3",
-      target: "cbaa8ddc-e095-4b85-beb5-37a1ac0ef795:node_1",
+      id: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:asm_edge_6",
+      source: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_3",
+      target: "19f43c6a-683e-49ca-9bcd-a43660c1b10f:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "86pmv",
-      target_stuff_digest: "MvTDp",
+      source_stuff_digest: "4mnyG",
+      target_stuff_digest: "KEN5V",
       meta: {},
     },
   ],
@@ -969,19 +916,19 @@ export const DRY_CONTENT_MODERATION = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "parallel_checks",
+          pipe_code: "content_moderation.parallel_checks",
           output_name: "safety_scores_bundle",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "make_decision",
+          pipe_code: "content_moderation.make_decision",
           output_name: "decision",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "route_action",
+          pipe_code: "content_moderation.route_action",
           output_name: "result",
           output_multiplicity: null,
           batch_params: null,
@@ -1020,13 +967,13 @@ export const DRY_CONTENT_MODERATION = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "check_text_safety",
+          pipe_code: "content_moderation.check_text_safety",
           output_name: "text_score",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "check_image_safety",
+          pipe_code: "content_moderation.check_image_safety",
           output_name: "image_score",
           output_multiplicity: null,
           batch_params: null,
@@ -1080,6 +1027,7 @@ export const DRY_CONTENT_MODERATION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_moderation.check_image_safety": {
       pipe_category: "PipeOperator",
@@ -1126,6 +1074,7 @@ export const DRY_CONTENT_MODERATION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_moderation.make_decision": {
       pipe_category: "PipeOperator",
@@ -1184,6 +1133,7 @@ export const DRY_CONTENT_MODERATION = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "content_moderation.route_action": {
       pipe_category: "PipeController",
@@ -1216,8 +1166,11 @@ export const DRY_CONTENT_MODERATION = {
         presence: "plain",
       },
       expression: "{{ decision.action }}",
-      outcome_map: { approve: "approve_content", reject: "reject_content" },
-      default_outcome: "reject_content",
+      outcome_map: {
+        approve: "content_moderation.approve_content",
+        reject: "content_moderation.reject_content",
+      },
+      default_outcome: "content_moderation.reject_content",
       add_alias_from_expression_to: null,
     },
     "content_moderation.approve_content": {
@@ -1315,6 +1268,7 @@ export const DRY_CONTENT_MODERATION = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",

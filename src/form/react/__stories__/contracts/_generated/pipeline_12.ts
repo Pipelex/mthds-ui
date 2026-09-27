@@ -629,8 +629,16 @@ export const INPUT_FORM_BATCH_WITH_INNER_SEQ = {
       {
         concept_ref: "data_enrichment.Record",
         description: "A data record to enrich",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "record",
         presence: "plain",
         refines: ["native.JSON"],
@@ -664,8 +672,16 @@ export const INPUT_FORM_BATCH_WITH_INNER_SEQ = {
       {
         concept_ref: "data_enrichment.Record",
         description: "A data record to enrich",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "record",
         presence: "plain",
         refines: ["native.JSON"],
@@ -721,8 +737,16 @@ export const INPUT_FORM_BATCH_WITH_INNER_SEQ = {
       {
         concept_ref: "data_enrichment.Record",
         description: "A data record to enrich",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "record",
         presence: "plain",
         refines: ["native.JSON"],
@@ -780,7 +804,15 @@ export const OUTPUT_FORM_BATCH_WITH_INNER_SEQ = {
       item: {
         concept_ref: "data_enrichment.Record",
         description: "A data record to enrich",
-        kind: "unknown",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
+        kind: "object",
         refines: ["native.JSON"],
         required: true,
       },

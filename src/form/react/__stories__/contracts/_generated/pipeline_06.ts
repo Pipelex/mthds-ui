@@ -365,8 +365,16 @@ export const INPUT_FORM_THREE_WAY_PARALLEL = {
       {
         concept_ref: "report_generation.TableData",
         description: "Structured table data",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "table_data",
         presence: "plain",
         refines: ["native.JSON"],
@@ -499,7 +507,15 @@ export const OUTPUT_FORM_THREE_WAY_PARALLEL = {
     field: {
       concept_ref: "report_generation.TableData",
       description: "Structured table data",
-      kind: "unknown",
+      fields: [
+        {
+          description: "The JSON object",
+          kind: "unknown",
+          name: "json_obj",
+          required: true,
+        },
+      ],
+      kind: "object",
       name: "output",
       refines: ["native.JSON"],
       required: true,

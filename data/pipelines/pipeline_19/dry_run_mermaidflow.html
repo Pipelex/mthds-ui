@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Moderation Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_7b6bd14d3d": {"text": "REJECTED: OYbbKZrKXPRKIaojRvwO"}, "s_0389bb151c": {"text": "VdfRllnDJgwALdknhxUc"}, "s_349c0b3b22": {"score": 5709241087.87077, "flagged_categories": ["a89b285a"], "safe": false}, "s_f278e60709": {"score": 70271055.9299064, "flagged_categories": ["f7fd2"], "safe": false}, "s_7b3a39cb48": {"text_score": {"score": 5709241087.87077, "flagged_categories": ["a89b285a"], "safe": false}, "image_score": {"score": 70271055.9299064, "flagged_categories": ["f7fd2"], "safe": false}}, "s_119abecbc1": {"approved": false, "reason": "OYbbKZrKXPRKIaojRvwO", "action": "reject"}, "s_422afed1cf": {"text": "APPROVED: OYbbKZrKXPRKIaojRvwO"}};
-const stuffDataText = {"s_7b6bd14d3d": "REJECTED: OYbbKZrKXPRKIaojRvwO                                                                      \n", "s_0389bb151c": "VdfRllnDJgwALdknhxUc                                                                                \n", "s_349c0b3b22": " Attribute                               \u2503 Value                                \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n score                                   \u2502 5709241087.87077                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n flagged_categories                      \u2502   1   \u2502 a89b285a                     \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n safe                                    \u2502 False                                \n", "s_f278e60709": " Attribute                                \u2503 Value                               \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n score                                    \u2502 70271055.9299064                    \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n flagged_categories                       \u2502   1   \u2502 f7fd2                       \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n safe                                     \u2502 False                               \n", "s_7b3a39cb48": "{\n    \"text_score\": {\n        \"score\": 5709241087.87077,\n        \"flagged_categories\": [\n            \"a89b285a\"\n        ],\n        \"safe\": false\n    },\n    \"image_score\": {\n        \"score\": 70271055.9299064,\n        \"flagged_categories\": [\n            \"f7fd2\"\n        ],\n        \"safe\": false\n    }\n}\n", "s_119abecbc1": " Attribute                 \u2503 Value                                              \n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n approved                  \u2502 False                                              \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n reason                    \u2502 OYbbKZrKXPRKIaojRvwO                               \n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n action                    \u2502 reject                                             \n", "s_422afed1cf": "APPROVED: OYbbKZrKXPRKIaojRvwO                                                                      \n"};
-const stuffDataHtml = {"s_7b6bd14d3d": "REJECTED: OYbbKZrKXPRKIaojRvwO", "s_0389bb151c": "VdfRllnDJgwALdknhxUc", "s_349c0b3b22": "<table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>", "s_f278e60709": "<table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table>", "s_7b3a39cb48": "<table><tr><th>text_score</th><td><table><tr><th>score</th><td>5709241087.87077</td></tr><tr><th>flagged_categories</th><td><ul><li>a89b285a</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table></td></tr><tr><th>image_score</th><td><table><tr><th>score</th><td>70271055.9299064</td></tr><tr><th>flagged_categories</th><td><ul><li>f7fd2</li></ul></td></tr><tr><th>safe</th><td>False</td></tr></table></td></tr></table>", "s_119abecbc1": "<table><tr><th>approved</th><td>False</td></tr><tr><th>reason</th><td>OYbbKZrKXPRKIaojRvwO</td></tr><tr><th>action</th><td>reject</td></tr></table>", "s_422afed1cf": "APPROVED: OYbbKZrKXPRKIaojRvwO"};
-const stuffMetadata = {"s_7b6bd14d3d": {"name": "result", "concept": "ModerationResult"}, "s_0389bb151c": {"name": "content", "concept": "Text"}, "s_349c0b3b22": {"name": "text_score", "concept": "SafetyScore"}, "s_f278e60709": {"name": "image_score", "concept": "SafetyScore"}, "s_7b3a39cb48": {"name": "safety_scores_bundle", "concept": "Composite"}, "s_119abecbc1": {"name": "decision", "concept": "Decision"}, "s_422afed1cf": {"name": "result", "concept": "ModerationResult"}};
+// Embedded stuff data from graph
+const stuffDataJson = {"s_8cda509695": {"text": "REJECTED: ZDtsIIeczXvnUQqRmPOp"}, "s_7b7043370b": {"text": "CgWknTEqnhyfuoQDktUv"}, "s_f25b81c4bf": {"score": 7078021938907.13, "flagged_categories": ["e53be0"], "safe": false}, "s_a00a9b1161": {"score": -93.9651104978593, "flagged_categories": ["ce8"], "safe": true}, "s_e1558b161e": {"text_score": {"score": 7078021938907.13, "flagged_categories": ["e53be0"], "safe": false}, "image_score": {"score": -93.9651104978593, "flagged_categories": ["ce8"], "safe": true}}, "s_78be715d23": {"approved": false, "reason": "ZDtsIIeczXvnUQqRmPOp", "action": "approve"}, "s_3ec37173c0": {"text": "APPROVED: ZDtsIIeczXvnUQqRmPOp"}};
+const stuffMetadata = {"s_8cda509695": {"name": "result", "concept": "ModerationResult"}, "s_7b7043370b": {"name": "content", "concept": "Text"}, "s_f25b81c4bf": {"name": "text_score", "concept": "SafetyScore"}, "s_a00a9b1161": {"name": "image_score", "concept": "SafetyScore"}, "s_e1558b161e": {"name": "safety_scores_bundle", "concept": "Composite"}, "s_78be715d23": {"name": "decision", "concept": "Decision"}, "s_3ec37173c0": {"name": "result", "concept": "ModerationResult"}};
 const stuffContentType = {};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_61933526e5[\"moderation_pipeline\"]\n        subgraph sg_n_808a28ae2a[\"parallel_checks\"]\n            n_95a45a423a[\"check_image_safety\"]\n            s_f278e60709([\"image_score\u003cbr/\u003eSafetyScore\"]):::stuff\n            n_26d17c090c[\"check_text_safety\"]\n            s_349c0b3b22([\"text_score\u003cbr/\u003eSafetyScore\"]):::stuff\n            s_7b3a39cb48([\"safety_scores_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        subgraph sg_n_4bb9c06c54[\"route_action\"]\n            n_ef3d167675[\"approve_content\"]\n            s_422afed1cf([\"result\u003cbr/\u003eModerationResult\"]):::stuff\n            n_bbf8dd20ce[\"reject_content\"]\n            s_7b6bd14d3d([\"result\u003cbr/\u003eModerationResult\"]):::stuff\n        end\n        n_acf7354278[\"make_decision\"]\n        s_119abecbc1([\"decision\u003cbr/\u003eDecision\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_0389bb151c([\"content\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_bbf8dd20ce --\u003e s_7b6bd14d3d\n    n_95a45a423a --\u003e s_f278e60709\n    n_acf7354278 --\u003e s_119abecbc1\n    n_ef3d167675 --\u003e s_422afed1cf\n    n_26d17c090c --\u003e s_349c0b3b22\n    s_0389bb151c --\u003e n_26d17c090c\n    s_0389bb151c --\u003e n_95a45a423a\n    s_f278e60709 --\u003e n_acf7354278\n    s_119abecbc1 --\u003e n_ef3d167675\n    s_119abecbc1 --\u003e n_bbf8dd20ce\n    s_349c0b3b22 --\u003e n_acf7354278\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_349c0b3b22 -.-\u003e s_7b3a39cb48\n    s_f278e60709 -.-\u003e s_7b3a39cb48\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_4bb9c06c54 fill:#e6ffe6\n    style sg_n_61933526e5 fill:#e6f3ff\n    style sg_n_808a28ae2a fill:#e6ffe6";
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_dc4a1f7464[\"moderation_pipeline\"]\n        subgraph sg_n_0664313341[\"parallel_checks\"]\n            n_7f6b6ca3ac[\"check_image_safety\"]\n            s_a00a9b1161([\"image_score\u003cbr/\u003eSafetyScore\"]):::stuff\n            n_4dd18030ad[\"check_text_safety\"]\n            s_f25b81c4bf([\"text_score\u003cbr/\u003eSafetyScore\"]):::stuff\n            s_e1558b161e([\"safety_scores_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        subgraph sg_n_366046e112[\"route_action\"]\n            n_d37ce93721[\"approve_content\"]\n            s_3ec37173c0([\"result\u003cbr/\u003eModerationResult\"]):::stuff\n            n_3782937b29[\"reject_content\"]\n            s_8cda509695([\"result\u003cbr/\u003eModerationResult\"]):::stuff\n        end\n        n_11d99fe744[\"make_decision\"]\n        s_78be715d23([\"decision\u003cbr/\u003eDecision\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_7b7043370b([\"content\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_7f6b6ca3ac --\u003e s_a00a9b1161\n    n_3782937b29 --\u003e s_8cda509695\n    n_d37ce93721 --\u003e s_3ec37173c0\n    n_4dd18030ad --\u003e s_f25b81c4bf\n    n_11d99fe744 --\u003e s_78be715d23\n    s_a00a9b1161 --\u003e n_11d99fe744\n    s_7b7043370b --\u003e n_4dd18030ad\n    s_7b7043370b --\u003e n_7f6b6ca3ac\n    s_f25b81c4bf --\u003e n_11d99fe744\n    s_78be715d23 --\u003e n_d37ce93721\n    s_78be715d23 --\u003e n_3782937b29\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_f25b81c4bf -.-\u003e s_e1558b161e\n    s_a00a9b1161 -.-\u003e s_e1558b161e\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_0664313341 fill:#e6ffe6\n    style sg_n_366046e112 fill:#e6ffe6\n    style sg_n_dc4a1f7464 fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

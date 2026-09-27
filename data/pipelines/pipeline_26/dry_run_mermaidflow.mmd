@@ -1,68 +1,68 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_69629af7b4["screen_cvs"]
-        subgraph sg_n_79130e8cf0["screen_single_cv_batch"]
-            subgraph sg_n_38b591f500["screen_single_cv"]
-                subgraph sg_n_0d904b7d5a["route_by_match"]
-                    n_08431e7f56["generate_interview_questions"]
-                    s_127b543a6d(["output<br/>InterviewQuestion"]):::stuff
-                    n_7392bacace["write_refusal_email"]
-                    s_a88eb6aa7e(["output<br/>Text"]):::stuff
+    subgraph sg_n_d319fb70c5["screen_cvs"]
+        subgraph sg_n_c07491e008["screen_single_cv_batch"]
+            subgraph sg_n_0c32d9d1f9["screen_single_cv"]
+                subgraph sg_n_56c9dbd605["route_by_match"]
+                    n_cca91801c0["generate_interview_questions"]
+                    s_d8b54f0988(["output<br/>InterviewQuestion#91;#93;"]):::stuff
+                    n_5ec7af00e1["write_refusal_email"]
+                    s_6a73b837a8(["output<br/>Text"]):::stuff
                 end
-                n_ba8c2c5772["evaluate_cv"]
-                s_c0f90ed106(["evaluation<br/>CvEvaluation"]):::stuff
-                n_bdaeaff352["extract_cv_pages"]
-                s_4ddbf976d6(["cv<br/>Document"]):::stuff
-                s_bad34eb6e0(["cv_pages<br/>Page"]):::stuff
+                n_cb211fbd18["evaluate_cv"]
+                s_f129f5a027(["evaluation<br/>CvEvaluation"]):::stuff
+                n_ab412237d1["extract_cv_pages"]
+                s_5344669143(["cv<br/>Document"]):::stuff
+                s_f1deb66d95(["cv_pages<br/>Page#91;#93;"]):::stuff
             end
-            subgraph sg_n_de39b70b21["screen_single_cv"]
-                subgraph sg_n_82f3156694["route_by_match"]
-                    n_283c39da11["generate_interview_questions"]
-                    s_6f75a6c3f8(["output<br/>InterviewQuestion"]):::stuff
-                    n_ef201faa08["write_refusal_email"]
-                    s_71e53db09e(["output<br/>Text"]):::stuff
+            subgraph sg_n_6a9d4cea9b["screen_single_cv"]
+                subgraph sg_n_84ed9a1fa2["route_by_match"]
+                    n_273b9438e0["generate_interview_questions"]
+                    s_92a4017e6d(["output<br/>InterviewQuestion#91;#93;"]):::stuff
+                    n_2dff4ece55["write_refusal_email"]
+                    s_ffbc742ed7(["output<br/>Text"]):::stuff
                 end
-                n_ce0ac5c892["evaluate_cv"]
-                s_100686aa3c(["evaluation<br/>CvEvaluation"]):::stuff
-                n_9f86e36189["extract_cv_pages"]
-                s_9d1ba42e08(["cv<br/>Document"]):::stuff
-                s_170e828067(["cv_pages<br/>Page"]):::stuff
+                n_f3e8d72eea["evaluate_cv"]
+                s_4e85f30e82(["evaluation<br/>CvEvaluation"]):::stuff
+                n_2bd4d3c76b["extract_cv_pages"]
+                s_c5bfd3f1f7(["cv<br/>Document"]):::stuff
+                s_785231edfd(["cv_pages<br/>Page#91;#93;"]):::stuff
             end
         end
-        n_84ca4b4e8b["extract_job_pages"]
-        s_00cb418b02(["job_pages<br/>Page"]):::stuff
+        n_50e2fc8b0e["extract_job_pages"]
+        s_0f1e2c3639(["job_pages<br/>Page#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_fb4dd82ef8(["job_offer<br/>Document"]):::stuff
+    s_2d8a4eebca(["job_offer<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_bdaeaff352 --> s_bad34eb6e0
-    n_9f86e36189 --> s_170e828067
-    n_ef201faa08 --> s_71e53db09e
-    n_ce0ac5c892 --> s_100686aa3c
-    n_84ca4b4e8b --> s_00cb418b02
-    n_ba8c2c5772 --> s_c0f90ed106
-    n_7392bacace --> s_a88eb6aa7e
-    n_08431e7f56 --> s_127b543a6d
-    n_283c39da11 --> s_6f75a6c3f8
-    s_4ddbf976d6 --> n_bdaeaff352
-    s_9d1ba42e08 --> n_9f86e36189
-    s_fb4dd82ef8 --> n_84ca4b4e8b
-    s_bad34eb6e0 --> n_ba8c2c5772
-    s_170e828067 --> n_ce0ac5c892
-    s_100686aa3c --> n_283c39da11
-    s_100686aa3c --> n_ef201faa08
-    s_00cb418b02 --> n_ce0ac5c892
-    s_00cb418b02 --> n_ba8c2c5772
-    s_c0f90ed106 --> n_08431e7f56
-    s_c0f90ed106 --> n_7392bacace
+    n_cb211fbd18 --> s_f129f5a027
+    n_ab412237d1 --> s_f1deb66d95
+    n_50e2fc8b0e --> s_0f1e2c3639
+    n_cca91801c0 --> s_d8b54f0988
+    n_273b9438e0 --> s_92a4017e6d
+    n_f3e8d72eea --> s_4e85f30e82
+    n_2dff4ece55 --> s_ffbc742ed7
+    n_2bd4d3c76b --> s_785231edfd
+    n_5ec7af00e1 --> s_6a73b837a8
+    s_f129f5a027 --> n_cca91801c0
+    s_f129f5a027 --> n_5ec7af00e1
+    s_5344669143 --> n_ab412237d1
+    s_c5bfd3f1f7 --> n_2bd4d3c76b
+    s_f1deb66d95 --> n_cb211fbd18
+    s_0f1e2c3639 --> n_f3e8d72eea
+    s_0f1e2c3639 --> n_cb211fbd18
+    s_2d8a4eebca --> n_50e2fc8b0e
+    s_4e85f30e82 --> n_273b9438e0
+    s_4e85f30e82 --> n_2dff4ece55
+    s_785231edfd --> n_f3e8d72eea
 
     %% Batch edges: list-item relationships
-    s_b3db0e4098(["results<br/>Anything"]):::stuff
-    s_a88eb6aa7e -."[0]".-> s_b3db0e4098
-    s_71e53db09e -."[1]".-> s_b3db0e4098
+    s_758c7ee9b6(["results<br/>Anything#91;#93;"]):::stuff
+    s_6a73b837a8 -."[0]".-> s_758c7ee9b6
+    s_ffbc742ed7 -."[1]".-> s_758c7ee9b6
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -70,9 +70,9 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_0d904b7d5a fill:#ffe6f0
-    style sg_n_38b591f500 fill:#fffde6
-    style sg_n_69629af7b4 fill:#e6f3ff
-    style sg_n_79130e8cf0 fill:#e6ffe6
-    style sg_n_82f3156694 fill:#ffe6f0
-    style sg_n_de39b70b21 fill:#fffde6
+    style sg_n_0c32d9d1f9 fill:#fffde6
+    style sg_n_56c9dbd605 fill:#ffe6f0
+    style sg_n_6a9d4cea9b fill:#fffde6
+    style sg_n_84ed9a1fa2 fill:#ffe6f0
+    style sg_n_c07491e008 fill:#e6ffe6
+    style sg_n_d319fb70c5 fill:#e6f3ff

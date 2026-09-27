@@ -1,33 +1,33 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_55b1a68b2f["dual_analysis_pipeline"]
-        subgraph sg_n_35d4989aab["parallel_analyze"]
-            n_a3f7009b1f["analyze_sentiment"]
-            s_160209f1f7(["sentiment<br/>Sentiment"]):::stuff
-            n_d0fdf30a80["extract_keywords"]
-            s_9920ec1d63(["keywords<br/>Keyword"]):::stuff
-            s_175b9ebbcc(["analysis_bundle<br/>Composite"]):::stuff
+    subgraph sg_n_8f9c9346e1["dual_analysis_pipeline"]
+        subgraph sg_n_87c2e0851b["parallel_analyze"]
+            n_f854e5280b["analyze_sentiment"]
+            s_4239adfd05(["sentiment<br/>Sentiment"]):::stuff
+            n_96f84c9fc1["extract_keywords"]
+            s_6badcd87d2(["keywords<br/>Keyword#91;#93;"]):::stuff
+            s_f46ebcdecc(["analysis_bundle<br/>Composite"]):::stuff
         end
-        n_5d7eaa4fa4["merge_results"]
-        s_38eb89cc0e(["report<br/>AnalysisReport"]):::stuff
+        n_35f7725c48["merge_results"]
+        s_5319ff6e18(["report<br/>AnalysisReport"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_23a15a6349(["text<br/>Text"]):::stuff
+    s_2cb06bee3e(["text<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_5d7eaa4fa4 --> s_38eb89cc0e
-    n_d0fdf30a80 --> s_9920ec1d63
-    n_a3f7009b1f --> s_160209f1f7
-    s_23a15a6349 --> n_a3f7009b1f
-    s_23a15a6349 --> n_d0fdf30a80
-    s_9920ec1d63 --> n_5d7eaa4fa4
-    s_160209f1f7 --> n_5d7eaa4fa4
+    n_96f84c9fc1 --> s_6badcd87d2
+    n_35f7725c48 --> s_5319ff6e18
+    n_f854e5280b --> s_4239adfd05
+    s_6badcd87d2 --> n_35f7725c48
+    s_4239adfd05 --> n_35f7725c48
+    s_2cb06bee3e --> n_f854e5280b
+    s_2cb06bee3e --> n_96f84c9fc1
 
     %% Parallel combine edges: branch outputs → combined output
-    s_160209f1f7 -.-> s_175b9ebbcc
-    s_9920ec1d63 -.-> s_175b9ebbcc
+    s_4239adfd05 -.-> s_f46ebcdecc
+    s_6badcd87d2 -.-> s_f46ebcdecc
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -35,5 +35,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_35d4989aab fill:#e6ffe6
-    style sg_n_55b1a68b2f fill:#e6f3ff
+    style sg_n_87c2e0851b fill:#e6ffe6
+    style sg_n_8f9c9346e1 fill:#e6f3ff

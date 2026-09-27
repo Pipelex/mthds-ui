@@ -17,3 +17,5 @@ mthds-wip/
 .pipelex/.env
 
 yarn.lock
+
+__pycache__/

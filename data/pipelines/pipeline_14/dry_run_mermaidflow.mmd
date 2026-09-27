@@ -1,34 +1,34 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_2d95bab326["all_types_chain"]
-        n_9df644fa08["step_compose"]
-        s_4284733f72(["output<br/>FinalOutput"]):::stuff
-        n_cb6876b07d["step_extract"]
-        s_6ea4a5bf49(["pages<br/>Page"]):::stuff
-        n_b218811469["step_imggen"]
-        s_766003cd16(["visualization<br/>Image"]):::stuff
-        n_af5d4f8f98["step_llm"]
-        s_1be2b55c9a(["analysis<br/>Analysis"]):::stuff
-        n_38873a3fd1["step_search"]
-        s_0674426790(["search_result<br/>SearchResult"]):::stuff
+    subgraph sg_n_e1510af5c5["all_types_chain"]
+        n_60948fa139["step_compose"]
+        s_fd15778a6a(["output<br/>FinalOutput"]):::stuff
+        n_5632abeb68["step_extract"]
+        s_c808072e94(["pages<br/>Page#91;#93;"]):::stuff
+        n_69d00cf055["step_imggen"]
+        s_cba4b8fc08(["visualization<br/>Image"]):::stuff
+        n_a4ed38fdaf["step_llm"]
+        s_6ff1e0c222(["analysis<br/>Analysis"]):::stuff
+        n_44f414bc73["step_search"]
+        s_1f84af2d1b(["search_result<br/>SearchResult"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_48d87427c9(["document<br/>Document"]):::stuff
+    s_7bc34cd905(["document<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_cb6876b07d --> s_6ea4a5bf49
-    n_af5d4f8f98 --> s_1be2b55c9a
-    n_38873a3fd1 --> s_0674426790
-    n_9df644fa08 --> s_4284733f72
-    n_b218811469 --> s_766003cd16
-    s_6ea4a5bf49 --> n_af5d4f8f98
-    s_1be2b55c9a --> n_38873a3fd1
-    s_1be2b55c9a --> n_b218811469
-    s_1be2b55c9a --> n_9df644fa08
-    s_0674426790 --> n_9df644fa08
-    s_48d87427c9 --> n_cb6876b07d
+    n_5632abeb68 --> s_c808072e94
+    n_69d00cf055 --> s_cba4b8fc08
+    n_60948fa139 --> s_fd15778a6a
+    n_a4ed38fdaf --> s_6ff1e0c222
+    n_44f414bc73 --> s_1f84af2d1b
+    s_c808072e94 --> n_a4ed38fdaf
+    s_7bc34cd905 --> n_5632abeb68
+    s_6ff1e0c222 --> n_44f414bc73
+    s_6ff1e0c222 --> n_69d00cf055
+    s_6ff1e0c222 --> n_60948fa139
+    s_1f84af2d1b --> n_60948fa139
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -36,4 +36,4 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_2d95bab326 fill:#e6f3ff
+    style sg_n_e1510af5c5 fill:#e6f3ff
