@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, waitFor, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { GraphViewer } from "../GraphViewer";
+import type { SaveFiles } from "@pipelex/mthds-form";
 import { GRAPH_THEME } from "@graph/types";
 import { LIVE_CV_SCREENING } from "./pipelines/specs/_generated.live";
 import {
@@ -67,6 +68,18 @@ async function openFirstStuffNode(canvasElement: HTMLElement) {
   const stuff = canvasElement.querySelector<HTMLElement>('.react-flow__node[data-id*="stuff_"]');
   await expect(stuff).not.toBeNull();
   await userEvent.click(stuff!);
+}
+
+/** The open detail panel, once the kernel has drawn a result in it. */
+async function detailPanel(canvasElement: HTMLElement) {
+  const el = await waitFor(() => {
+    const found = canvasElement.querySelector<HTMLElement>(".detail-panel-content");
+    if (!found) throw new Error("no detail panel");
+    return found;
+  });
+  const panel = within(el);
+  await waitFor(() => expect(panel.getByRole("button", { name: "Result" })).toBeInTheDocument());
+  return panel;
 }
 
 export const Light: Story = {
@@ -148,5 +161,52 @@ export const WithoutArtifacts: Story = {
     const canvas = within(canvasElement);
     await waitFor(() => expect(canvas.getByText("Structure")).toBeInTheDocument());
     await expect(canvas.queryByRole("tab", { name: "Data" })).toBeNull();
+  },
+};
+
+/**
+ * A host that saves files its own way: the panel's Download hands the planned
+ * files to the host's `saveFiles` instead of saving them in the browser tab.
+ *
+ * This is what a host whose view runs in a sandboxed frame needs, since the
+ * tab's object URL, clicked link and popup are all refused there. The function
+ * goes on `GraphViewer` rather than on a provider around it, because the panel
+ * installs its own provider for `resolveUrl`, which would shadow an outer one.
+ */
+export const HostSavesTheFiles: Story = {
+  args: {
+    ...args,
+    theme: GRAPH_THEME.LIGHT,
+    saveFiles: fn<SaveFiles>(() => Promise.resolve({ failed: [] })),
+  },
+  play: async ({ args: storyArgs, canvasElement }) => {
+    await openFirstStuffNode(canvasElement);
+    const panel = await detailPanel(canvasElement);
+    await userEvent.click(panel.getByRole("button", { name: "Download" }));
+    const saveFiles = storyArgs.saveFiles as ReturnType<typeof fn<SaveFiles>>;
+    await waitFor(() => expect(saveFiles).toHaveBeenCalledTimes(1));
+    // The data always goes down as its JSON copy, whatever else the stuff
+    // holds, so the plan the host receives carries that one at least.
+    const [files] = saveFiles.mock.calls[0]!;
+    await expect(files.some((file) => file.kind === "data" && file.text !== undefined)).toBe(true);
+    // Nothing reported failed, so the panel says nothing went missing.
+    await expect(panel.queryByText(/could not be saved/)).toBeNull();
+  },
+};
+
+/**
+ * A host that draws no download controls in the graph's panel: `downloads`
+ * hides the whole-result Download and every file's own button.
+ */
+export const DownloadsHidden: Story = {
+  args: {
+    ...args,
+    theme: GRAPH_THEME.DARK,
+    downloads: { result: false, files: false },
+  },
+  play: async ({ canvasElement }) => {
+    await openFirstStuffNode(canvasElement);
+    const panel = await detailPanel(canvasElement);
+    await expect(panel.queryByRole("button", { name: /^Download/ })).toBeNull();
   },
 };
