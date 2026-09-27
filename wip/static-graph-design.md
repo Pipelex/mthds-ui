@@ -139,8 +139,9 @@ Both sides normalize to a canonical structural form, and the comparison runs ove
 3. **Runtime-field stripping (implicit).** The canonical form only reads structural fields; `timing`, `metrics`, `execution_data`, previews and payloads never enter the comparison.
 4. **Elaboration collapse — not implemented.** No fixture bundle uses `structuring_method = "preliminary_text"`, so there is no `__draft_text` expansion in the corpus to collapse. If a future fixture introduces one, parity fails loudly and the rule needs implementing.
 5. **Dry-side `concept=Anything` is a wildcard.** The runtime loses the concept on stuff it assembles itself (batch aggregates are typed `Anything` in dry graphs); the static side keeps the declared concept — strictly richer, accepted.
+6. **Multiplicity reads as list or single.** pipelex writes `multiplicity: true` on the io items of a stuff whose value is a list and never an item count, while the static builder writes the declared count for `Code[N]`; both sides are compared on whether the renderer shows a list.
 
-Stuff identity across sides: digests are not comparable (random dry strings vs deterministic static strings), so a stuff is identified by its relation signature — producer path (or none), name, concept, sorted consumer paths — compared as multisets. Harness sensitivity is itself tested (a dropped node or rewired consumer must produce divergences), so the suite cannot pass vacuously.
+Stuff identity across sides: digests are not comparable (random dry strings vs deterministic static strings), so a stuff is identified by its relation signature — producer path (or none), name, concept, whether it is a list, sorted consumer paths — compared as multisets. Harness sensitivity is itself tested (a dropped node, a rewired consumer or a list read as single must produce divergences), so the suite cannot pass vacuously.
 
 **Builder semantics the harness forced into alignment with the runtime** (all verified against dry fixtures, landed at 1c):
 
