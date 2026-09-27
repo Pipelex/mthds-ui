@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_RFP_QUALIFIER = {
-  graph_id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1",
-  created_at: "2026-08-14T10:50:10.161691Z",
+  graph_id: "9823bc27-906c-4c09-bdb7-2ef22163bff3",
+  created_at: "2026-09-27T08:51:41.282884Z",
   pipeline_ref: { domain: "rfp_qualification", main_pipe: "qualify_rfp", entrypoint: null },
   nodes: [
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
       kind: "controller",
       pipe_code: "qualify_rfp",
       pipe_type: "PipeSequence",
@@ -20,50 +20,46 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.161691Z",
-        ended_at: "2026-08-14T10:50:10.356303Z",
-        duration: 0.194612,
+        started_at: "2026-09-27T08:51:41.282884Z",
+        ended_at: "2026-09-27T08:51:41.328130Z",
+        duration: 0.045246,
       },
       io: {
         inputs: [
           {
             name: "rfp",
             concept: "Document",
-            content_type: "idXlrsYcVMGUEfrWdRlU",
+            content_type: "umBSqLTbjGpJDymawyER",
             preview: null,
             size: null,
-            digest: "aQGxg",
+            digest: "WqsHd",
             data: {
-              url: "xJiERSrwnxylxzFsoYrl",
-              public_url: "iXujaLMehkfmWVvZOgVa",
-              mime_type: "idXlrsYcVMGUEfrWdRlU",
-              filename: "XnMEbVOsxVTnzEumCNoU",
-              title: "TTcbEpueCUxRjNLfBuIN",
-              snippet: "WLFmPdGYRQQomEyeXWVs",
+              url: "jSJIdEwqqnaqKfpXyIVd",
+              public_url: "VdNZlgJIOJhEtoheTUtf",
+              mime_type: "umBSqLTbjGpJDymawyER",
+              filename: "qULAMejsGaepSmBGVbgR",
+              title: "MCoNzTPWPWFreSFamSDz",
+              snippet: "MYjhgIYrdWPmLEgFOXRG",
             },
-            data_text: "TTcbEpueCUxRjNLfBuIN (xJiERSrwnxylxzFsoYrl)\n  WLFmPdGYRQQomEyeXWVs\n",
-            data_html:
-              '<a href="iXujaLMehkfmWVvZOgVa" class="msg-document">TTcbEpueCUxRjNLfBuIN</a><br/><small>WLFmPdGYRQQomEyeXWVs</small>',
+            multiplicity: null,
             extra: {},
           },
           {
             name: "capabilities",
             concept: "Document",
-            content_type: "DDFmAjoGYaqhOcNrGKaN",
+            content_type: "GptMGYtQmxEtCQQIXGJW",
             preview: null,
             size: null,
-            digest: "KQN7d",
+            digest: "aEdcn",
             data: {
-              url: "TBFfqFedGCljBkwSAtZM",
-              public_url: "FjBDYQmrNAbqPOBgbwIP",
-              mime_type: "DDFmAjoGYaqhOcNrGKaN",
-              filename: "WmGUfTfycWPuFrFFgokb",
-              title: "vcPUeLUkoXGgxcGtRiEl",
-              snippet: "ovtbpzrwrKewzfRZFDDd",
+              url: "xpchceSxhWgwOBjAEmpT",
+              public_url: "NEeztbbquaQPMCGkfsln",
+              mime_type: "GptMGYtQmxEtCQQIXGJW",
+              filename: "gviTTcBjagOLTVnsOrET",
+              title: "fpeptSLfDsgnGOHlrqgt",
+              snippet: "svANDFCmLUMErVzOoAKu",
             },
-            data_text: "vcPUeLUkoXGgxcGtRiEl (TBFfqFedGCljBkwSAtZM)\n  ovtbpzrwrKewzfRZFDDd\n",
-            data_html:
-              '<a href="FjBDYQmrNAbqPOBgbwIP" class="msg-document">vcPUeLUkoXGgxcGtRiEl</a><br/><small>ovtbpzrwrKewzfRZFDDd</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -74,14 +70,11 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9PNtK",
+            digest: "eSHjV",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: False\nConfidence: low\nMatch breakdown: 5977 / 876 fully matched, 7437 partial, 5616 unmatched\nWin probability: low\nCritical gaps: XjtZIWv\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: True\nConfidence: medium\nMatch breakdown: 5199 / 3048 fully matched, 5023 partial, 1115 unmatched\nWin probability: high\nCritical gaps: Rzq\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9,        \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: system_text: You are a senior business \ndevelopment director writing an executive summary for leadership. Your summary must be concise      \n(under 500 words), actionable, and structured for quick decision-making.                            \n\nStructure:                                                                                          \n\n 1 One-line recommendation (Go / No-Go / Condition                                                  \n   user_text: Write an executive summary for the following RFP qualification assessment.            \n\nQualification Matrix                                                                                \n\nGo recommendation: False Confidence: low Match breakdown: 5977 / 876 fully matched, 7437 partial,   \n5616 unmatched Win probability: low Critical gaps: XjtZIWv                                          \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: False\nConfidence: low\nMatch breakdown: 5977 / 876 fully matched, 7437 partial, 5616 unmatched\nWin probability: low\nCritical gaps: XjtZIWv\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -119,7 +112,7 @@ export const DRY_RFP_QUALIFIER = {
       execution_data: { step_count: 5 },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
       kind: "controller",
       pipe_code: "extract_documents",
       pipe_type: "PipeParallel",
@@ -128,50 +121,46 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.168492Z",
-        ended_at: "2026-08-14T10:50:10.234371Z",
-        duration: 0.065879,
+        started_at: "2026-09-27T08:51:41.284076Z",
+        ended_at: "2026-09-27T08:51:41.292428Z",
+        duration: 0.008352,
       },
       io: {
         inputs: [
           {
             name: "rfp",
             concept: "Document",
-            content_type: "idXlrsYcVMGUEfrWdRlU",
+            content_type: "umBSqLTbjGpJDymawyER",
             preview: null,
             size: null,
-            digest: "aQGxg",
+            digest: "WqsHd",
             data: {
-              url: "xJiERSrwnxylxzFsoYrl",
-              public_url: "iXujaLMehkfmWVvZOgVa",
-              mime_type: "idXlrsYcVMGUEfrWdRlU",
-              filename: "XnMEbVOsxVTnzEumCNoU",
-              title: "TTcbEpueCUxRjNLfBuIN",
-              snippet: "WLFmPdGYRQQomEyeXWVs",
+              url: "jSJIdEwqqnaqKfpXyIVd",
+              public_url: "VdNZlgJIOJhEtoheTUtf",
+              mime_type: "umBSqLTbjGpJDymawyER",
+              filename: "qULAMejsGaepSmBGVbgR",
+              title: "MCoNzTPWPWFreSFamSDz",
+              snippet: "MYjhgIYrdWPmLEgFOXRG",
             },
-            data_text: "TTcbEpueCUxRjNLfBuIN (xJiERSrwnxylxzFsoYrl)\n  WLFmPdGYRQQomEyeXWVs\n",
-            data_html:
-              '<a href="iXujaLMehkfmWVvZOgVa" class="msg-document">TTcbEpueCUxRjNLfBuIN</a><br/><small>WLFmPdGYRQQomEyeXWVs</small>',
+            multiplicity: null,
             extra: {},
           },
           {
             name: "capabilities",
             concept: "Document",
-            content_type: "DDFmAjoGYaqhOcNrGKaN",
+            content_type: "GptMGYtQmxEtCQQIXGJW",
             preview: null,
             size: null,
-            digest: "KQN7d",
+            digest: "aEdcn",
             data: {
-              url: "TBFfqFedGCljBkwSAtZM",
-              public_url: "FjBDYQmrNAbqPOBgbwIP",
-              mime_type: "DDFmAjoGYaqhOcNrGKaN",
-              filename: "WmGUfTfycWPuFrFFgokb",
-              title: "vcPUeLUkoXGgxcGtRiEl",
-              snippet: "ovtbpzrwrKewzfRZFDDd",
+              url: "xpchceSxhWgwOBjAEmpT",
+              public_url: "NEeztbbquaQPMCGkfsln",
+              mime_type: "GptMGYtQmxEtCQQIXGJW",
+              filename: "gviTTcBjagOLTVnsOrET",
+              title: "fpeptSLfDsgnGOHlrqgt",
+              snippet: "svANDFCmLUMErVzOoAKu",
             },
-            data_text: "vcPUeLUkoXGgxcGtRiEl (TBFfqFedGCljBkwSAtZM)\n  ovtbpzrwrKewzfRZFDDd\n",
-            data_html:
-              '<a href="FjBDYQmrNAbqPOBgbwIP" class="msg-document">vcPUeLUkoXGgxcGtRiEl</a><br/><small>ovtbpzrwrKewzfRZFDDd</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -182,7 +171,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5ABjR",
+            digest: "99Vnr",
             data: {
               items: [
                 {
@@ -219,10 +208,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
           {
@@ -231,7 +217,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Grxki",
+            digest: "HG8QX",
             data: {
               items: [
                 {
@@ -268,10 +254,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
           {
@@ -280,7 +263,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "dUNbm",
+            digest: "YavhQ",
             data: {
               rfp_pages: {
                 items: [
@@ -355,10 +338,7 @@ export const DRY_RFP_QUALIFIER = {
                 ],
               },
             },
-            data_text:
-              '{\n    "rfp_pages": {\n        "items": [\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            }\n        ]\n    },\n    "capabilities_pages": {\n        "items": [\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            },\n            {\n                "text_and_images": {\n                    "text": {\n                        "text": "DRY RUN: OCR text"\n                    },\n                    "images": [],\n                    "raw_html": null\n                },\n                "page_view": null\n            }\n        ]\n    }\n}\n',
-            data_html:
-              "<table><tr><th>rfp_pages</th><td><ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul></td></tr><tr><th>capabilities_pages</th><td><ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul></td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -391,7 +371,7 @@ export const DRY_RFP_QUALIFIER = {
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_2",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_2",
       kind: "operator",
       pipe_code: "extract_rfp",
       pipe_type: "PipeExtract",
@@ -400,30 +380,28 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.209560Z",
-        ended_at: "2026-08-14T10:50:10.216233Z",
-        duration: 0.006673,
+        started_at: "2026-09-27T08:51:41.284897Z",
+        ended_at: "2026-09-27T08:51:41.288729Z",
+        duration: 0.003832,
       },
       io: {
         inputs: [
           {
             name: "rfp",
             concept: "Document",
-            content_type: "idXlrsYcVMGUEfrWdRlU",
+            content_type: "umBSqLTbjGpJDymawyER",
             preview: null,
             size: null,
-            digest: "aQGxg",
+            digest: "WqsHd",
             data: {
-              url: "xJiERSrwnxylxzFsoYrl",
-              public_url: "iXujaLMehkfmWVvZOgVa",
-              mime_type: "idXlrsYcVMGUEfrWdRlU",
-              filename: "XnMEbVOsxVTnzEumCNoU",
-              title: "TTcbEpueCUxRjNLfBuIN",
-              snippet: "WLFmPdGYRQQomEyeXWVs",
+              url: "jSJIdEwqqnaqKfpXyIVd",
+              public_url: "VdNZlgJIOJhEtoheTUtf",
+              mime_type: "umBSqLTbjGpJDymawyER",
+              filename: "qULAMejsGaepSmBGVbgR",
+              title: "MCoNzTPWPWFreSFamSDz",
+              snippet: "MYjhgIYrdWPmLEgFOXRG",
             },
-            data_text: "TTcbEpueCUxRjNLfBuIN (xJiERSrwnxylxzFsoYrl)\n  WLFmPdGYRQQomEyeXWVs\n",
-            data_html:
-              '<a href="iXujaLMehkfmWVvZOgVa" class="msg-document">TTcbEpueCUxRjNLfBuIN</a><br/><small>WLFmPdGYRQQomEyeXWVs</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -434,7 +412,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5ABjR",
+            digest: "99Vnr",
             data: {
               items: [
                 {
@@ -471,10 +449,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -508,7 +483,7 @@ export const DRY_RFP_QUALIFIER = {
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_3",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_3",
       kind: "operator",
       pipe_code: "extract_capabilities",
       pipe_type: "PipeExtract",
@@ -517,30 +492,28 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.219446Z",
-        ended_at: "2026-08-14T10:50:10.224964Z",
-        duration: 0.005518,
+        started_at: "2026-09-27T08:51:41.288836Z",
+        ended_at: "2026-09-27T08:51:41.291774Z",
+        duration: 0.002938,
       },
       io: {
         inputs: [
           {
             name: "capabilities",
             concept: "Document",
-            content_type: "DDFmAjoGYaqhOcNrGKaN",
+            content_type: "GptMGYtQmxEtCQQIXGJW",
             preview: null,
             size: null,
-            digest: "KQN7d",
+            digest: "aEdcn",
             data: {
-              url: "TBFfqFedGCljBkwSAtZM",
-              public_url: "FjBDYQmrNAbqPOBgbwIP",
-              mime_type: "DDFmAjoGYaqhOcNrGKaN",
-              filename: "WmGUfTfycWPuFrFFgokb",
-              title: "vcPUeLUkoXGgxcGtRiEl",
-              snippet: "ovtbpzrwrKewzfRZFDDd",
+              url: "xpchceSxhWgwOBjAEmpT",
+              public_url: "NEeztbbquaQPMCGkfsln",
+              mime_type: "GptMGYtQmxEtCQQIXGJW",
+              filename: "gviTTcBjagOLTVnsOrET",
+              title: "fpeptSLfDsgnGOHlrqgt",
+              snippet: "svANDFCmLUMErVzOoAKu",
             },
-            data_text: "vcPUeLUkoXGgxcGtRiEl (TBFfqFedGCljBkwSAtZM)\n  ovtbpzrwrKewzfRZFDDd\n",
-            data_html:
-              '<a href="FjBDYQmrNAbqPOBgbwIP" class="msg-document">vcPUeLUkoXGgxcGtRiEl</a><br/><small>ovtbpzrwrKewzfRZFDDd</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -551,7 +524,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Grxki",
+            digest: "HG8QX",
             data: {
               items: [
                 {
@@ -588,10 +561,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -625,7 +595,7 @@ export const DRY_RFP_QUALIFIER = {
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_4",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_4",
       kind: "operator",
       pipe_code: "parse_requirements",
       pipe_type: "PipeLLM",
@@ -635,9 +605,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.238641Z",
-        ended_at: "2026-08-14T10:50:10.253847Z",
-        duration: 0.015206,
+        started_at: "2026-09-27T08:51:41.292866Z",
+        ended_at: "2026-09-27T08:51:41.297306Z",
+        duration: 0.00444,
       },
       io: {
         inputs: [
@@ -647,7 +617,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5ABjR",
+            digest: "99Vnr",
             data: {
               items: [
                 {
@@ -684,10 +654,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -698,33 +665,30 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "JfLhG",
+            digest: "VKpKr",
             data: {
               items: [
                 {
-                  title: "dWFawXzkkRwvzOpYlyna",
-                  description: "xiNeFkSccfahgJScPmPQ",
+                  title: "JTxBmfZyBilAamMZETkV",
+                  description: "qpJLCSzdmlEAFpzTEgoK",
+                  category: "functional",
+                  priority: "important",
+                },
+                {
+                  title: "abidCwGAjaxIysllpXzu",
+                  description: "fiKeLPMhiDFjAJhSdIZD",
                   category: "organizational",
                   priority: "desirable",
                 },
                 {
-                  title: "xVxSHlJaAEktBXvIlsFf",
-                  description: "wIbyUQMTXpSNNnhfGEVM",
-                  category: "compliance",
-                  priority: "mandatory",
-                },
-                {
-                  title: "fzfWEIZtqCSpnZiWWiwc",
-                  description: "gafWScTLJFsbIKpZgFtt",
-                  category: "technical",
-                  priority: "important",
+                  title: "jKFFqXCOOUUhOXAaausr",
+                  description: "WIULtSnvsvtMlceNcUor",
+                  category: "functional",
+                  priority: "desirable",
                 },
               ],
             },
-            data_text:
-              "   1    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ dWFawXzkkRwvzOpYlyna                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ xiNeFkSccfahgJScPmPQ                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ organizational                           \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ desirable                                \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ xVxSHlJaAEktBXvIlsFf                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ wIbyUQMTXpSNNnhfGEVM                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ compliance                               \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ mandatory                                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ fzfWEIZtqCSpnZiWWiwc                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ gafWScTLJFsbIKpZgFtt                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ technical                                \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ important                                \n",
-            data_html:
-              "<ul><li><table><tr><th>title</th><td>dWFawXzkkRwvzOpYlyna</td></tr><tr><th>description</th><td>xiNeFkSccfahgJScPmPQ</td></tr><tr><th>category</th><td>organizational</td></tr><tr><th>priority</th><td>desirable</td></tr></table></li><li><table><tr><th>title</th><td>xVxSHlJaAEktBXvIlsFf</td></tr><tr><th>description</th><td>wIbyUQMTXpSNNnhfGEVM</td></tr><tr><th>category</th><td>compliance</td></tr><tr><th>priority</th><td>mandatory</td></tr></table></li><li><table><tr><th>title</th><td>fzfWEIZtqCSpnZiWWiwc</td></tr><tr><th>description</th><td>gafWScTLJFsbIKpZgFtt</td></tr><tr><th>category</th><td>technical</td></tr><tr><th>priority</th><td>important</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -780,7 +744,7 @@ export const DRY_RFP_QUALIFIER = {
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "controller",
       pipe_code: "assess_all_requirements",
       pipe_type: "PipeBatch",
@@ -789,9 +753,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.258185Z",
-        ended_at: "2026-08-14T10:50:10.312595Z",
-        duration: 0.05441,
+        started_at: "2026-09-27T08:51:41.297400Z",
+        ended_at: "2026-09-27T08:51:41.316939Z",
+        duration: 0.019539,
       },
       io: {
         inputs: [
@@ -801,33 +765,30 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "JfLhG",
+            digest: "VKpKr",
             data: {
               items: [
                 {
-                  title: "dWFawXzkkRwvzOpYlyna",
-                  description: "xiNeFkSccfahgJScPmPQ",
+                  title: "JTxBmfZyBilAamMZETkV",
+                  description: "qpJLCSzdmlEAFpzTEgoK",
+                  category: "functional",
+                  priority: "important",
+                },
+                {
+                  title: "abidCwGAjaxIysllpXzu",
+                  description: "fiKeLPMhiDFjAJhSdIZD",
                   category: "organizational",
                   priority: "desirable",
                 },
                 {
-                  title: "xVxSHlJaAEktBXvIlsFf",
-                  description: "wIbyUQMTXpSNNnhfGEVM",
-                  category: "compliance",
-                  priority: "mandatory",
-                },
-                {
-                  title: "fzfWEIZtqCSpnZiWWiwc",
-                  description: "gafWScTLJFsbIKpZgFtt",
-                  category: "technical",
-                  priority: "important",
+                  title: "jKFFqXCOOUUhOXAaausr",
+                  description: "WIULtSnvsvtMlceNcUor",
+                  category: "functional",
+                  priority: "desirable",
                 },
               ],
             },
-            data_text:
-              "   1    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ dWFawXzkkRwvzOpYlyna                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ xiNeFkSccfahgJScPmPQ                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ organizational                           \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ desirable                                \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ xVxSHlJaAEktBXvIlsFf                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ wIbyUQMTXpSNNnhfGEVM                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ compliance                               \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ mandatory                                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                 ┃ Value                                    \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  title                     │ fzfWEIZtqCSpnZiWWiwc                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  description               │ gafWScTLJFsbIKpZgFtt                     \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  category                  │ technical                                \n        │ ───────────────────────────┼───────────────────────────────────────── \n        │  priority                  │ important                                \n",
-            data_html:
-              "<ul><li><table><tr><th>title</th><td>dWFawXzkkRwvzOpYlyna</td></tr><tr><th>description</th><td>xiNeFkSccfahgJScPmPQ</td></tr><tr><th>category</th><td>organizational</td></tr><tr><th>priority</th><td>desirable</td></tr></table></li><li><table><tr><th>title</th><td>xVxSHlJaAEktBXvIlsFf</td></tr><tr><th>description</th><td>wIbyUQMTXpSNNnhfGEVM</td></tr><tr><th>category</th><td>compliance</td></tr><tr><th>priority</th><td>mandatory</td></tr></table></li><li><table><tr><th>title</th><td>fzfWEIZtqCSpnZiWWiwc</td></tr><tr><th>description</th><td>gafWScTLJFsbIKpZgFtt</td></tr><tr><th>category</th><td>technical</td></tr><tr><th>priority</th><td>important</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
           {
@@ -836,7 +797,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Grxki",
+            digest: "HG8QX",
             data: {
               items: [
                 {
@@ -873,10 +834,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -887,36 +845,33 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kJuxa",
+            digest: "XRJXq",
             data: {
               items: [
                 {
-                  requirement_title: "uuTjDVLjOMmfjwSINJyE",
-                  match_level: "partial_match",
-                  evidence: "odnrWzKQouhDDaxtJGOn",
-                  gap_description: "UWbydTyBreKhRNsfLjNi",
-                  effort_to_close: "high",
-                },
-                {
-                  requirement_title: "ZyoPWbsvfQCZTuIRpHVR",
+                  requirement_title: "zNqmPajPSgKySSkLxWkA",
                   match_level: "no_match",
-                  evidence: "DONYTQPiPjhHHXNuFszX",
-                  gap_description: "jZUFHDtGyFARlbpHxGuI",
+                  evidence: "SWKSACNnvsAgYkNdvBcb",
+                  gap_description: "hgnNehIfPWrvTKDybXuy",
                   effort_to_close: "low",
                 },
                 {
-                  requirement_title: "VRlCVujWRwctztwnjrUJ",
-                  match_level: "no_match",
-                  evidence: "TJTwvIsVvNWpjJBgguLO",
-                  gap_description: "FuBuIVTXdSkZOqPYkKji",
+                  requirement_title: "nTnMvjqNavCyliphjKGi",
+                  match_level: "partial_match",
+                  evidence: "cyBeSgAdqFSRSdqwmyMx",
+                  gap_description: "KCgLuxRdfXdxbqbQuHWE",
                   effort_to_close: "high",
+                },
+                {
+                  requirement_title: "XXWPBmAHIzRVCzqNVTLM",
+                  match_level: "partial_match",
+                  evidence: "MaqMAqTqNoNhLWYDfWRA",
+                  gap_description: "vrsUGXgponqQrUtERrrD",
+                  effort_to_close: "medium",
                 },
               ],
             },
-            data_text:
-              "   1    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ uuTjDVLjOMmfjwSINJyE               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ partial_match                      \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ odnrWzKQouhDDaxtJGOn               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ UWbydTyBreKhRNsfLjNi               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ high                               \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ ZyoPWbsvfQCZTuIRpHVR               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ no_match                           \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ DONYTQPiPjhHHXNuFszX               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ jZUFHDtGyFARlbpHxGuI               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ low                                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ VRlCVujWRwctztwnjrUJ               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ no_match                           \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ TJTwvIsVvNWpjJBgguLO               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ FuBuIVTXdSkZOqPYkKji               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ high                               \n",
-            data_html:
-              "<ul><li><table><tr><th>requirement_title</th><td>uuTjDVLjOMmfjwSINJyE</td></tr><tr><th>match_level</th><td>partial_match</td></tr><tr><th>evidence</th><td>odnrWzKQouhDDaxtJGOn</td></tr><tr><th>gap_description</th><td>UWbydTyBreKhRNsfLjNi</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table></li><li><table><tr><th>requirement_title</th><td>ZyoPWbsvfQCZTuIRpHVR</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>DONYTQPiPjhHHXNuFszX</td></tr><tr><th>gap_description</th><td>jZUFHDtGyFARlbpHxGuI</td></tr><tr><th>effort_to_close</th><td>low</td></tr></table></li><li><table><tr><th>requirement_title</th><td>VRlCVujWRwctztwnjrUJ</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>TJTwvIsVvNWpjJBgguLO</td></tr><tr><th>gap_description</th><td>FuBuIVTXdSkZOqPYkKji</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -951,10 +906,13 @@ export const DRY_RFP_QUALIFIER = {
           },
         ],
       },
-      execution_data: { item_count: 3, branch_pipe_code: "assess_single_requirement" },
+      execution_data: {
+        item_count: 3,
+        branch_pipe_code: "rfp_qualification.assess_single_requirement",
+      },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_6",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_6",
       kind: "operator",
       pipe_code: "assess_single_requirement",
       pipe_type: "PipeLLM",
@@ -963,9 +921,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.265559Z",
-        ended_at: "2026-08-14T10:50:10.277739Z",
-        duration: 0.01218,
+        started_at: "2026-09-27T08:51:41.300085Z",
+        ended_at: "2026-09-27T08:51:41.305187Z",
+        duration: 0.005102,
       },
       io: {
         inputs: [
@@ -975,17 +933,163 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "JfLhG-branch-0",
+            digest: "VKpKr-branch-0",
             data: {
-              title: "dWFawXzkkRwvzOpYlyna",
-              description: "xiNeFkSccfahgJScPmPQ",
+              title: "JTxBmfZyBilAamMZETkV",
+              description: "qpJLCSzdmlEAFpzTEgoK",
+              category: "functional",
+              priority: "important",
+            },
+            multiplicity: null,
+            extra: {},
+          },
+          {
+            name: "capabilities_pages",
+            concept: "Page",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "HG8QX",
+            data: {
+              items: [
+                {
+                  text_and_images: {
+                    text: { text: "DRY RUN: OCR text" },
+                    images: [],
+                    raw_html: null,
+                  },
+                  page_view: null,
+                },
+                {
+                  text_and_images: {
+                    text: { text: "DRY RUN: OCR text" },
+                    images: [],
+                    raw_html: null,
+                  },
+                  page_view: null,
+                },
+                {
+                  text_and_images: {
+                    text: { text: "DRY RUN: OCR text" },
+                    images: [],
+                    raw_html: null,
+                  },
+                  page_view: null,
+                },
+                {
+                  text_and_images: {
+                    text: { text: "DRY RUN: OCR text" },
+                    images: [],
+                    raw_html: null,
+                  },
+                  page_view: null,
+                },
+              ],
+            },
+            multiplicity: true,
+            extra: {},
+          },
+        ],
+        outputs: [
+          {
+            name: "capability_match",
+            concept: "CapabilityMatch",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "YXNa4-branch-0",
+            data: {
+              requirement_title: "zNqmPajPSgKySSkLxWkA",
+              match_level: "no_match",
+              evidence: "SWKSACNnvsAgYkNdvBcb",
+              gap_description: "hgnNehIfPWrvTKDybXuy",
+              effort_to_close: "low",
+            },
+            multiplicity: null,
+            extra: {},
+          },
+        ],
+      },
+      error: null,
+      tags: {},
+      metrics: {},
+      usage: {
+        inference_calls: 1,
+        rated_inference_calls: 0,
+        nb_tokens_by_category: {},
+        total_tokens: 0,
+        cost: null,
+        cost_input: null,
+        cost_output: null,
+        by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+        subtree_inference_calls: 1,
+        subtree_rated_inference_calls: 0,
+        subtree_nb_tokens_by_category: {},
+        subtree_total_tokens: 0,
+        subtree_cost: null,
+        subtree_cost_input: null,
+        subtree_cost_output: null,
+        subtree_by_model: [
+          {
+            inference_model_name: "dry_run",
+            inference_model_id: "dry_run",
+            model_type: "llm",
+            inference_calls: 1,
+            rated_inference_calls: 0,
+            cost: null,
+          },
+        ],
+      },
+      execution_data: {
+        resolved_model: "claude-4.8-opus",
+        resolved_model_for_object: "claude-4.8-opus",
+        is_multiple_output: false,
+        rendered_system_prompt:
+          'You are a bid/no-bid assessment specialist. Given a single requirement from an RFP and a companys capabilities document, determine how well the company can meet this requirement.\n\nBe honest and precise:\n- "full_match" means the company clearly demonstrates this capability with evidence (past projects, certifications, existing solutions).\n- "partial_match" means the company has relevant but incomplete capabilities — they could plausibly address it with some effort.\n- "no_match" means the company lacks the capability and closing the gap would be significant.\n\nAlways cite specific evidence from the capabilities document. If there is a gap, describe it concretely and estimate the effort needed to close it.',
+        rendered_user_prompt:
+          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: JTxBmfZyBilAamMZETkV\nCategory: functional\nPriority: important\nDescription: qpJLCSzdmlEAFpzTEgoK\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+        structuring_path: "object_direct",
+      },
+    },
+    {
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_7",
+      kind: "operator",
+      pipe_code: "assess_single_requirement",
+      pipe_type: "PipeLLM",
+      description: "Assess how well the companys capabilities meet a single RFP requirement.",
+      domain_code: "rfp_qualification",
+      status: "succeeded",
+      skip_reason: null,
+      timing: {
+        started_at: "2026-09-27T08:51:41.305868Z",
+        ended_at: "2026-09-27T08:51:41.310908Z",
+        duration: 0.00504,
+      },
+      io: {
+        inputs: [
+          {
+            name: "requirement",
+            concept: "RFPRequirement",
+            content_type: null,
+            preview: null,
+            size: null,
+            digest: "VKpKr-branch-1",
+            data: {
+              title: "abidCwGAjaxIysllpXzu",
+              description: "fiKeLPMhiDFjAJhSdIZD",
               category: "organizational",
               priority: "desirable",
             },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n title                        │ dWFawXzkkRwvzOpYlyna                            \n──────────────────────────────┼─────────────────────────────────────────────────\n description                  │ xiNeFkSccfahgJScPmPQ                            \n──────────────────────────────┼─────────────────────────────────────────────────\n category                     │ organizational                                  \n──────────────────────────────┼─────────────────────────────────────────────────\n priority                     │ desirable                                       \n",
-            data_html:
-              "<table><tr><th>title</th><td>dWFawXzkkRwvzOpYlyna</td></tr><tr><th>description</th><td>xiNeFkSccfahgJScPmPQ</td></tr><tr><th>category</th><td>organizational</td></tr><tr><th>priority</th><td>desirable</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -994,7 +1098,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Grxki",
+            digest: "HG8QX",
             data: {
               items: [
                 {
@@ -1031,10 +1135,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -1045,18 +1146,15 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "muTi2-branch-0",
+            digest: "YXNa4-branch-1",
             data: {
-              requirement_title: "uuTjDVLjOMmfjwSINJyE",
+              requirement_title: "nTnMvjqNavCyliphjKGi",
               match_level: "partial_match",
-              evidence: "odnrWzKQouhDDaxtJGOn",
-              gap_description: "UWbydTyBreKhRNsfLjNi",
+              evidence: "cyBeSgAdqFSRSdqwmyMx",
+              gap_description: "KCgLuxRdfXdxbqbQuHWE",
               effort_to_close: "high",
             },
-            data_text:
-              " Attribute                           ┃ Value                                    \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n requirement_title                   │ uuTjDVLjOMmfjwSINJyE                     \n─────────────────────────────────────┼──────────────────────────────────────────\n match_level                         │ partial_match                            \n─────────────────────────────────────┼──────────────────────────────────────────\n evidence                            │ odnrWzKQouhDDaxtJGOn                     \n─────────────────────────────────────┼──────────────────────────────────────────\n gap_description                     │ UWbydTyBreKhRNsfLjNi                     \n─────────────────────────────────────┼──────────────────────────────────────────\n effort_to_close                     │ high                                     \n",
-            data_html:
-              "<table><tr><th>requirement_title</th><td>uuTjDVLjOMmfjwSINJyE</td></tr><tr><th>match_level</th><td>partial_match</td></tr><tr><th>evidence</th><td>odnrWzKQouhDDaxtJGOn</td></tr><tr><th>gap_description</th><td>UWbydTyBreKhRNsfLjNi</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1107,12 +1205,12 @@ export const DRY_RFP_QUALIFIER = {
         rendered_system_prompt:
           'You are a bid/no-bid assessment specialist. Given a single requirement from an RFP and a companys capabilities document, determine how well the company can meet this requirement.\n\nBe honest and precise:\n- "full_match" means the company clearly demonstrates this capability with evidence (past projects, certifications, existing solutions).\n- "partial_match" means the company has relevant but incomplete capabilities — they could plausibly address it with some effort.\n- "no_match" means the company lacks the capability and closing the gap would be significant.\n\nAlways cite specific evidence from the capabilities document. If there is a gap, describe it concretely and estimate the effort needed to close it.',
         rendered_user_prompt:
-          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: dWFawXzkkRwvzOpYlyna\nCategory: organizational\nPriority: desirable\nDescription: xiNeFkSccfahgJScPmPQ\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: abidCwGAjaxIysllpXzu\nCategory: organizational\nPriority: desirable\nDescription: fiKeLPMhiDFjAJhSdIZD\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_7",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_8",
       kind: "operator",
       pipe_code: "assess_single_requirement",
       pipe_type: "PipeLLM",
@@ -1121,9 +1219,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.281097Z",
-        ended_at: "2026-08-14T10:50:10.292949Z",
-        duration: 0.011852,
+        started_at: "2026-09-27T08:51:41.311605Z",
+        ended_at: "2026-09-27T08:51:41.316429Z",
+        duration: 0.004824,
       },
       io: {
         inputs: [
@@ -1133,17 +1231,14 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "JfLhG-branch-1",
+            digest: "VKpKr-branch-2",
             data: {
-              title: "xVxSHlJaAEktBXvIlsFf",
-              description: "wIbyUQMTXpSNNnhfGEVM",
-              category: "compliance",
-              priority: "mandatory",
+              title: "jKFFqXCOOUUhOXAaausr",
+              description: "WIULtSnvsvtMlceNcUor",
+              category: "functional",
+              priority: "desirable",
             },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n title                        │ xVxSHlJaAEktBXvIlsFf                            \n──────────────────────────────┼─────────────────────────────────────────────────\n description                  │ wIbyUQMTXpSNNnhfGEVM                            \n──────────────────────────────┼─────────────────────────────────────────────────\n category                     │ compliance                                      \n──────────────────────────────┼─────────────────────────────────────────────────\n priority                     │ mandatory                                       \n",
-            data_html:
-              "<table><tr><th>title</th><td>xVxSHlJaAEktBXvIlsFf</td></tr><tr><th>description</th><td>wIbyUQMTXpSNNnhfGEVM</td></tr><tr><th>category</th><td>compliance</td></tr><tr><th>priority</th><td>mandatory</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -1152,7 +1247,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Grxki",
+            digest: "HG8QX",
             data: {
               items: [
                 {
@@ -1189,10 +1284,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -1203,18 +1295,15 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "muTi2-branch-1",
+            digest: "YXNa4-branch-2",
             data: {
-              requirement_title: "ZyoPWbsvfQCZTuIRpHVR",
-              match_level: "no_match",
-              evidence: "DONYTQPiPjhHHXNuFszX",
-              gap_description: "jZUFHDtGyFARlbpHxGuI",
-              effort_to_close: "low",
+              requirement_title: "XXWPBmAHIzRVCzqNVTLM",
+              match_level: "partial_match",
+              evidence: "MaqMAqTqNoNhLWYDfWRA",
+              gap_description: "vrsUGXgponqQrUtERrrD",
+              effort_to_close: "medium",
             },
-            data_text:
-              " Attribute                           ┃ Value                                    \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n requirement_title                   │ ZyoPWbsvfQCZTuIRpHVR                     \n─────────────────────────────────────┼──────────────────────────────────────────\n match_level                         │ no_match                                 \n─────────────────────────────────────┼──────────────────────────────────────────\n evidence                            │ DONYTQPiPjhHHXNuFszX                     \n─────────────────────────────────────┼──────────────────────────────────────────\n gap_description                     │ jZUFHDtGyFARlbpHxGuI                     \n─────────────────────────────────────┼──────────────────────────────────────────\n effort_to_close                     │ low                                      \n",
-            data_html:
-              "<table><tr><th>requirement_title</th><td>ZyoPWbsvfQCZTuIRpHVR</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>DONYTQPiPjhHHXNuFszX</td></tr><tr><th>gap_description</th><td>jZUFHDtGyFARlbpHxGuI</td></tr><tr><th>effort_to_close</th><td>low</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1265,170 +1354,12 @@ export const DRY_RFP_QUALIFIER = {
         rendered_system_prompt:
           'You are a bid/no-bid assessment specialist. Given a single requirement from an RFP and a companys capabilities document, determine how well the company can meet this requirement.\n\nBe honest and precise:\n- "full_match" means the company clearly demonstrates this capability with evidence (past projects, certifications, existing solutions).\n- "partial_match" means the company has relevant but incomplete capabilities — they could plausibly address it with some effort.\n- "no_match" means the company lacks the capability and closing the gap would be significant.\n\nAlways cite specific evidence from the capabilities document. If there is a gap, describe it concretely and estimate the effort needed to close it.',
         rendered_user_prompt:
-          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: xVxSHlJaAEktBXvIlsFf\nCategory: compliance\nPriority: mandatory\nDescription: wIbyUQMTXpSNNnhfGEVM\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: jKFFqXCOOUUhOXAaausr\nCategory: functional\nPriority: desirable\nDescription: WIULtSnvsvtMlceNcUor\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_8",
-      kind: "operator",
-      pipe_code: "assess_single_requirement",
-      pipe_type: "PipeLLM",
-      description: "Assess how well the companys capabilities meet a single RFP requirement.",
-      domain_code: "rfp_qualification",
-      status: "succeeded",
-      skip_reason: null,
-      timing: {
-        started_at: "2026-08-14T10:50:10.296232Z",
-        ended_at: "2026-08-14T10:50:10.307763Z",
-        duration: 0.011531,
-      },
-      io: {
-        inputs: [
-          {
-            name: "requirement",
-            concept: "RFPRequirement",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "JfLhG-branch-2",
-            data: {
-              title: "fzfWEIZtqCSpnZiWWiwc",
-              description: "gafWScTLJFsbIKpZgFtt",
-              category: "technical",
-              priority: "important",
-            },
-            data_text:
-              " Attribute                    ┃ Value                                           \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n title                        │ fzfWEIZtqCSpnZiWWiwc                            \n──────────────────────────────┼─────────────────────────────────────────────────\n description                  │ gafWScTLJFsbIKpZgFtt                            \n──────────────────────────────┼─────────────────────────────────────────────────\n category                     │ technical                                       \n──────────────────────────────┼─────────────────────────────────────────────────\n priority                     │ important                                       \n",
-            data_html:
-              "<table><tr><th>title</th><td>fzfWEIZtqCSpnZiWWiwc</td></tr><tr><th>description</th><td>gafWScTLJFsbIKpZgFtt</td></tr><tr><th>category</th><td>technical</td></tr><tr><th>priority</th><td>important</td></tr></table>",
-            extra: {},
-          },
-          {
-            name: "capabilities_pages",
-            concept: "Page",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "Grxki",
-            data: {
-              items: [
-                {
-                  text_and_images: {
-                    text: { text: "DRY RUN: OCR text" },
-                    images: [],
-                    raw_html: null,
-                  },
-                  page_view: null,
-                },
-                {
-                  text_and_images: {
-                    text: { text: "DRY RUN: OCR text" },
-                    images: [],
-                    raw_html: null,
-                  },
-                  page_view: null,
-                },
-                {
-                  text_and_images: {
-                    text: { text: "DRY RUN: OCR text" },
-                    images: [],
-                    raw_html: null,
-                  },
-                  page_view: null,
-                },
-                {
-                  text_and_images: {
-                    text: { text: "DRY RUN: OCR text" },
-                    images: [],
-                    raw_html: null,
-                  },
-                  page_view: null,
-                },
-              ],
-            },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
-            extra: {},
-          },
-        ],
-        outputs: [
-          {
-            name: "capability_match",
-            concept: "CapabilityMatch",
-            content_type: null,
-            preview: null,
-            size: null,
-            digest: "muTi2-branch-2",
-            data: {
-              requirement_title: "VRlCVujWRwctztwnjrUJ",
-              match_level: "no_match",
-              evidence: "TJTwvIsVvNWpjJBgguLO",
-              gap_description: "FuBuIVTXdSkZOqPYkKji",
-              effort_to_close: "high",
-            },
-            data_text:
-              " Attribute                           ┃ Value                                    \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n requirement_title                   │ VRlCVujWRwctztwnjrUJ                     \n─────────────────────────────────────┼──────────────────────────────────────────\n match_level                         │ no_match                                 \n─────────────────────────────────────┼──────────────────────────────────────────\n evidence                            │ TJTwvIsVvNWpjJBgguLO                     \n─────────────────────────────────────┼──────────────────────────────────────────\n gap_description                     │ FuBuIVTXdSkZOqPYkKji                     \n─────────────────────────────────────┼──────────────────────────────────────────\n effort_to_close                     │ high                                     \n",
-            data_html:
-              "<table><tr><th>requirement_title</th><td>VRlCVujWRwctztwnjrUJ</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>TJTwvIsVvNWpjJBgguLO</td></tr><tr><th>gap_description</th><td>FuBuIVTXdSkZOqPYkKji</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table>",
-            extra: {},
-          },
-        ],
-      },
-      error: null,
-      tags: {},
-      metrics: {},
-      usage: {
-        inference_calls: 1,
-        rated_inference_calls: 0,
-        nb_tokens_by_category: {},
-        total_tokens: 0,
-        cost: null,
-        cost_input: null,
-        cost_output: null,
-        by_model: [
-          {
-            inference_model_name: "dry_run",
-            inference_model_id: "dry_run",
-            model_type: "llm",
-            inference_calls: 1,
-            rated_inference_calls: 0,
-            cost: null,
-          },
-        ],
-        subtree_inference_calls: 1,
-        subtree_rated_inference_calls: 0,
-        subtree_nb_tokens_by_category: {},
-        subtree_total_tokens: 0,
-        subtree_cost: null,
-        subtree_cost_input: null,
-        subtree_cost_output: null,
-        subtree_by_model: [
-          {
-            inference_model_name: "dry_run",
-            inference_model_id: "dry_run",
-            model_type: "llm",
-            inference_calls: 1,
-            rated_inference_calls: 0,
-            cost: null,
-          },
-        ],
-      },
-      execution_data: {
-        resolved_model: "claude-4.8-opus",
-        resolved_model_for_object: "claude-4.8-opus",
-        is_multiple_output: false,
-        rendered_system_prompt:
-          'You are a bid/no-bid assessment specialist. Given a single requirement from an RFP and a companys capabilities document, determine how well the company can meet this requirement.\n\nBe honest and precise:\n- "full_match" means the company clearly demonstrates this capability with evidence (past projects, certifications, existing solutions).\n- "partial_match" means the company has relevant but incomplete capabilities — they could plausibly address it with some effort.\n- "no_match" means the company lacks the capability and closing the gap would be significant.\n\nAlways cite specific evidence from the capabilities document. If there is a gap, describe it concretely and estimate the effort needed to close it.',
-        rendered_user_prompt:
-          'Assess the following RFP requirement against the companys capabilities.\n\n## Requirement\nTitle: fzfWEIZtqCSpnZiWWiwc\nCategory: technical\nPriority: important\nDescription: gafWScTLJFsbIKpZgFtt\n\n## Company Capabilities\n<capabilities_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</capabilities_pages>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__CapabilityMatch(StructuredContent):\n    """Assessment of how well company capabilities meet a single RFP requirement."""\n    requirement_title: str  # Title of the assessed requirement\n    match_level: Literal[\n        "full_match",\n        "partial_match",\n        "no_match",\n    ]  # How well the company meets this requirement\n    evidence: str  # Specific company capabilities, past projects, or certifications that support the match\n    gap_description: str  # Description of what is missing or weak if partial or no match, empty string if full match\n    effort_to_close: Literal[\n        "none",\n        "low",\n        "medium",\n        "high",\n    ] | None = None  # Estimated effort to close the gap if any\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
-        structuring_path: "object_direct",
-      },
-    },
-    {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_9",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_9",
       kind: "operator",
       pipe_code: "build_qualification_matrix",
       pipe_type: "PipeLLM",
@@ -1438,9 +1369,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.317241Z",
-        ended_at: "2026-08-14T10:50:10.334084Z",
-        duration: 0.016843,
+        started_at: "2026-09-27T08:51:41.317482Z",
+        ended_at: "2026-09-27T08:51:41.322435Z",
+        duration: 0.004953,
       },
       io: {
         inputs: [
@@ -1450,7 +1381,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5ABjR",
+            digest: "99Vnr",
             data: {
               items: [
                 {
@@ -1487,10 +1418,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
           {
@@ -1499,36 +1427,33 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "kJuxa",
+            digest: "XRJXq",
             data: {
               items: [
                 {
-                  requirement_title: "uuTjDVLjOMmfjwSINJyE",
-                  match_level: "partial_match",
-                  evidence: "odnrWzKQouhDDaxtJGOn",
-                  gap_description: "UWbydTyBreKhRNsfLjNi",
-                  effort_to_close: "high",
-                },
-                {
-                  requirement_title: "ZyoPWbsvfQCZTuIRpHVR",
+                  requirement_title: "zNqmPajPSgKySSkLxWkA",
                   match_level: "no_match",
-                  evidence: "DONYTQPiPjhHHXNuFszX",
-                  gap_description: "jZUFHDtGyFARlbpHxGuI",
+                  evidence: "SWKSACNnvsAgYkNdvBcb",
+                  gap_description: "hgnNehIfPWrvTKDybXuy",
                   effort_to_close: "low",
                 },
                 {
-                  requirement_title: "VRlCVujWRwctztwnjrUJ",
-                  match_level: "no_match",
-                  evidence: "TJTwvIsVvNWpjJBgguLO",
-                  gap_description: "FuBuIVTXdSkZOqPYkKji",
+                  requirement_title: "nTnMvjqNavCyliphjKGi",
+                  match_level: "partial_match",
+                  evidence: "cyBeSgAdqFSRSdqwmyMx",
+                  gap_description: "KCgLuxRdfXdxbqbQuHWE",
                   effort_to_close: "high",
+                },
+                {
+                  requirement_title: "XXWPBmAHIzRVCzqNVTLM",
+                  match_level: "partial_match",
+                  evidence: "MaqMAqTqNoNhLWYDfWRA",
+                  gap_description: "vrsUGXgponqQrUtERrrD",
+                  effort_to_close: "medium",
                 },
               ],
             },
-            data_text:
-              "   1    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ uuTjDVLjOMmfjwSINJyE               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ partial_match                      \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ odnrWzKQouhDDaxtJGOn               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ UWbydTyBreKhRNsfLjNi               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ high                               \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ ZyoPWbsvfQCZTuIRpHVR               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ no_match                           \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ DONYTQPiPjhHHXNuFszX               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ jZUFHDtGyFARlbpHxGuI               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ low                                \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │  Attribute                       ┃ Value                              \n        │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n        │  requirement_title               │ VRlCVujWRwctztwnjrUJ               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  match_level                     │ no_match                           \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  evidence                        │ TJTwvIsVvNWpjJBgguLO               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  gap_description                 │ FuBuIVTXdSkZOqPYkKji               \n        │ ─────────────────────────────────┼─────────────────────────────────── \n        │  effort_to_close                 │ high                               \n",
-            data_html:
-              "<ul><li><table><tr><th>requirement_title</th><td>uuTjDVLjOMmfjwSINJyE</td></tr><tr><th>match_level</th><td>partial_match</td></tr><tr><th>evidence</th><td>odnrWzKQouhDDaxtJGOn</td></tr><tr><th>gap_description</th><td>UWbydTyBreKhRNsfLjNi</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table></li><li><table><tr><th>requirement_title</th><td>ZyoPWbsvfQCZTuIRpHVR</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>DONYTQPiPjhHHXNuFszX</td></tr><tr><th>gap_description</th><td>jZUFHDtGyFARlbpHxGuI</td></tr><tr><th>effort_to_close</th><td>low</td></tr></table></li><li><table><tr><th>requirement_title</th><td>VRlCVujWRwctztwnjrUJ</td></tr><tr><th>match_level</th><td>no_match</td></tr><tr><th>evidence</th><td>TJTwvIsVvNWpjJBgguLO</td></tr><tr><th>gap_description</th><td>FuBuIVTXdSkZOqPYkKji</td></tr><tr><th>effort_to_close</th><td>high</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -1539,23 +1464,20 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SDHte",
+            digest: "GR5Et",
             data: {
-              go_recommendation: false,
-              confidence: "low",
-              total_requirements: 876,
-              fully_matched: 5977,
-              partially_matched: 7437,
-              not_matched: 5616,
-              critical_gaps: "XjtZIWveFMUuSzAfJgWu",
-              key_strengths: "JLDgDsHloPcdAZHtrriY",
-              win_probability: "low",
-              strategic_considerations: "YHmUrdfZIAxEbDnJpPQP",
+              go_recommendation: true,
+              confidence: "medium",
+              total_requirements: 3048,
+              fully_matched: 5199,
+              partially_matched: 5023,
+              not_matched: 1115,
+              critical_gaps: "RzqDsaOXxVoNyePxVFiG",
+              key_strengths: "LHoRxjvakiOhyPiadEfg",
+              win_probability: "high",
+              strategic_considerations: "ngsSayzhZLMxSTSoNyIu",
             },
-            data_text:
-              " Attribute                                 ┃ Value                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n go_recommendation                         │ False                              \n───────────────────────────────────────────┼────────────────────────────────────\n confidence                                │ low                                \n───────────────────────────────────────────┼────────────────────────────────────\n total_requirements                        │ 876                                \n───────────────────────────────────────────┼────────────────────────────────────\n fully_matched                             │ 5977                               \n───────────────────────────────────────────┼────────────────────────────────────\n partially_matched                         │ 7437                               \n───────────────────────────────────────────┼────────────────────────────────────\n not_matched                               │ 5616                               \n───────────────────────────────────────────┼────────────────────────────────────\n critical_gaps                             │ XjtZIWveFMUuSzAfJgWu               \n───────────────────────────────────────────┼────────────────────────────────────\n key_strengths                             │ JLDgDsHloPcdAZHtrriY               \n───────────────────────────────────────────┼────────────────────────────────────\n win_probability                           │ low                                \n───────────────────────────────────────────┼────────────────────────────────────\n strategic_considerations                  │ YHmUrdfZIAxEbDnJpPQP               \n",
-            data_html:
-              "<table><tr><th>go_recommendation</th><td>False</td></tr><tr><th>confidence</th><td>low</td></tr><tr><th>total_requirements</th><td>876</td></tr><tr><th>fully_matched</th><td>5977</td></tr><tr><th>partially_matched</th><td>7437</td></tr><tr><th>not_matched</th><td>5616</td></tr><tr><th>critical_gaps</th><td>XjtZIWveFMUuSzAfJgWu</td></tr><tr><th>key_strengths</th><td>JLDgDsHloPcdAZHtrriY</td></tr><tr><th>win_probability</th><td>low</td></tr><tr><th>strategic_considerations</th><td>YHmUrdfZIAxEbDnJpPQP</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1606,12 +1528,12 @@ export const DRY_RFP_QUALIFIER = {
         rendered_system_prompt:
           'You are a senior bid manager making a go/no-go decision on an RFP response. Based on the individual requirement assessments, build an overall qualification picture.\n\nApply these decision rules:\n- If any mandatory requirement has "no_match", strongly lean toward no-go unless strategic factors override.\n- Count matches at each level. A bid with >70% full or partial match on mandatory requirements is generally worth pursuing.\n- Factor in the total effort to close gaps: if many gaps require "high" effort, the bid may not be realistic.\n- Consider competitive positioning: strong matches on differentiating requirements matter more than commodity ones.\n\nBe direct in your recommendation. Business leaders need clarity, not hedging.',
         rendered_user_prompt:
-          'Based on the following individual requirement assessments and the original RFP, produce an overall qualification matrix with a clear go/no-go recommendation.\n\n## Original RFP\n<rfp_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</rfp_pages>\n\n## Individual Assessments\n<capability_matches>\n\n • item #1:\n\n# requirement_title: uuTjDVLjOMmfjwSINJyE\n\n# match_level: partial_match\n\n# evidence: odnrWzKQouhDDaxtJGOn\n\n# gap_description: UWbydTyBreKhRNsfLjNi\n\n# effort_to_close: high\n\n • item #2:\n\n# requirement_title: ZyoPWbsvfQCZTuIRpHVR\n\n# match_level: no_match\n\n# evidence: DONYTQPiPjhHHXNuFszX\n\n# gap_description: jZUFHDtGyFARlbpHxGuI\n\n# effort_to_close: low\n\n • item #3:\n\n# requirement_title: VRlCVujWRwctztwnjrUJ\n\n# match_level: no_match\n\n# evidence: TJTwvIsVvNWpjJBgguLO\n\n# gap_description: FuBuIVTXdSkZOqPYkKji\n\n# effort_to_close: high\n\n</capability_matches>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__QualificationMatrix(StructuredContent):\n    """Aggregated go/no-go qualification assessment across all RFP requirements."""\n    go_recommendation: bool  # Whether the company should bid on this RFP\n    confidence: Literal[\n        "high",\n        "medium",\n        "low",\n    ]  # Confidence in the recommendation\n    total_requirements: int  # Total number of requirements analyzed\n    fully_matched: int  # Number of requirements fully matched\n    partially_matched: int  # Number of requirements partially matched\n    not_matched: int  # Number of requirements not matched at all\n    critical_gaps: str  # Summary of the most important unmet mandatory requirements\n    key_strengths: str  # Summary of the strongest competitive advantages for this bid\n    win_probability: Literal[\n        "high",\n        "moderate",\n        "low",\n        "very_low",\n    ]  # Estimated probability of winning the bid\n    strategic_considerations: str  # Strategic factors beyond requirement matching: relationship, market positioning, learning opportunity\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Based on the following individual requirement assessments and the original RFP, produce an overall qualification matrix with a clear go/no-go recommendation.\n\n## Original RFP\n<rfp_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</rfp_pages>\n\n## Individual Assessments\n<capability_matches>\n\n • item #1:\n\n# requirement_title: zNqmPajPSgKySSkLxWkA\n\n# match_level: no_match\n\n# evidence: SWKSACNnvsAgYkNdvBcb\n\n# gap_description: hgnNehIfPWrvTKDybXuy\n\n# effort_to_close: low\n\n • item #2:\n\n# requirement_title: nTnMvjqNavCyliphjKGi\n\n# match_level: partial_match\n\n# evidence: cyBeSgAdqFSRSdqwmyMx\n\n# gap_description: KCgLuxRdfXdxbqbQuHWE\n\n# effort_to_close: high\n\n • item #3:\n\n# requirement_title: XXWPBmAHIzRVCzqNVTLM\n\n# match_level: partial_match\n\n# evidence: MaqMAqTqNoNhLWYDfWRA\n\n# gap_description: vrsUGXgponqQrUtERrrD\n\n# effort_to_close: medium\n\n</capability_matches>\n\n---\nThe instance we want to generate will be for the following class:\nclass rfp_qualification__QualificationMatrix(StructuredContent):\n    """Aggregated go/no-go qualification assessment across all RFP requirements."""\n    go_recommendation: bool  # Whether the company should bid on this RFP\n    confidence: Literal[\n        "high",\n        "medium",\n        "low",\n    ]  # Confidence in the recommendation\n    total_requirements: int  # Total number of requirements analyzed\n    fully_matched: int  # Number of requirements fully matched\n    partially_matched: int  # Number of requirements partially matched\n    not_matched: int  # Number of requirements not matched at all\n    critical_gaps: str  # Summary of the most important unmet mandatory requirements\n    key_strengths: str  # Summary of the strongest competitive advantages for this bid\n    win_probability: Literal[\n        "high",\n        "moderate",\n        "low",\n        "very_low",\n    ]  # Estimated probability of winning the bid\n    strategic_considerations: str  # Strategic factors beyond requirement matching: relationship, market positioning, learning opportunity\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_10",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_10",
       kind: "operator",
       pipe_code: "generate_executive_summary",
       pipe_type: "PipeLLM",
@@ -1621,9 +1543,9 @@ export const DRY_RFP_QUALIFIER = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:50:10.339227Z",
-        ended_at: "2026-08-14T10:50:10.353942Z",
-        duration: 0.014715,
+        started_at: "2026-09-27T08:51:41.323558Z",
+        ended_at: "2026-09-27T08:51:41.327974Z",
+        duration: 0.004416,
       },
       io: {
         inputs: [
@@ -1633,23 +1555,20 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "SDHte",
+            digest: "GR5Et",
             data: {
-              go_recommendation: false,
-              confidence: "low",
-              total_requirements: 876,
-              fully_matched: 5977,
-              partially_matched: 7437,
-              not_matched: 5616,
-              critical_gaps: "XjtZIWveFMUuSzAfJgWu",
-              key_strengths: "JLDgDsHloPcdAZHtrriY",
-              win_probability: "low",
-              strategic_considerations: "YHmUrdfZIAxEbDnJpPQP",
+              go_recommendation: true,
+              confidence: "medium",
+              total_requirements: 3048,
+              fully_matched: 5199,
+              partially_matched: 5023,
+              not_matched: 1115,
+              critical_gaps: "RzqDsaOXxVoNyePxVFiG",
+              key_strengths: "LHoRxjvakiOhyPiadEfg",
+              win_probability: "high",
+              strategic_considerations: "ngsSayzhZLMxSTSoNyIu",
             },
-            data_text:
-              " Attribute                                 ┃ Value                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n go_recommendation                         │ False                              \n───────────────────────────────────────────┼────────────────────────────────────\n confidence                                │ low                                \n───────────────────────────────────────────┼────────────────────────────────────\n total_requirements                        │ 876                                \n───────────────────────────────────────────┼────────────────────────────────────\n fully_matched                             │ 5977                               \n───────────────────────────────────────────┼────────────────────────────────────\n partially_matched                         │ 7437                               \n───────────────────────────────────────────┼────────────────────────────────────\n not_matched                               │ 5616                               \n───────────────────────────────────────────┼────────────────────────────────────\n critical_gaps                             │ XjtZIWveFMUuSzAfJgWu               \n───────────────────────────────────────────┼────────────────────────────────────\n key_strengths                             │ JLDgDsHloPcdAZHtrriY               \n───────────────────────────────────────────┼────────────────────────────────────\n win_probability                           │ low                                \n───────────────────────────────────────────┼────────────────────────────────────\n strategic_considerations                  │ YHmUrdfZIAxEbDnJpPQP               \n",
-            data_html:
-              "<table><tr><th>go_recommendation</th><td>False</td></tr><tr><th>confidence</th><td>low</td></tr><tr><th>total_requirements</th><td>876</td></tr><tr><th>fully_matched</th><td>5977</td></tr><tr><th>partially_matched</th><td>7437</td></tr><tr><th>not_matched</th><td>5616</td></tr><tr><th>critical_gaps</th><td>XjtZIWveFMUuSzAfJgWu</td></tr><tr><th>key_strengths</th><td>JLDgDsHloPcdAZHtrriY</td></tr><tr><th>win_probability</th><td>low</td></tr><tr><th>strategic_considerations</th><td>YHmUrdfZIAxEbDnJpPQP</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -1658,7 +1577,7 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "5ABjR",
+            digest: "99Vnr",
             data: {
               items: [
                 {
@@ -1695,10 +1614,7 @@ export const DRY_RFP_QUALIFIER = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -1709,14 +1625,11 @@ export const DRY_RFP_QUALIFIER = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9PNtK",
+            digest: "eSHjV",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: False\nConfidence: low\nMatch breakdown: 5977 / 876 fully matched, 7437 partial, 5616 unmatched\nWin probability: low\nCritical gaps: XjtZIWv\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: True\nConfidence: medium\nMatch breakdown: 5199 / 3048 fully matched, 5023 partial, 1115 unmatched\nWin probability: high\nCritical gaps: Rzq\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9,        \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: system_text: You are a senior business \ndevelopment director writing an executive summary for leadership. Your summary must be concise      \n(under 500 words), actionable, and structured for quick decision-making.                            \n\nStructure:                                                                                          \n\n 1 One-line recommendation (Go / No-Go / Condition                                                  \n   user_text: Write an executive summary for the following RFP qualification assessment.            \n\nQualification Matrix                                                                                \n\nGo recommendation: False Confidence: low Match breakdown: 5977 / 876 fully matched, 7437 partial,   \n5616 unmatched Win probability: low Critical gaps: XjtZIWv                                          \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=@default-premium, temperature=0.9, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    system_text:\n    You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Condition\n    \n    user_text:\n    Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: False\nConfidence: low\nMatch breakdown: 5977 / 876 fully matched, 7437 partial, 5616 unmatched\nWin probability: low\nCritical gaps: XjtZIWv\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -1767,16 +1680,16 @@ export const DRY_RFP_QUALIFIER = {
         rendered_system_prompt:
           "You are a senior business development director writing an executive summary for leadership. Your summary must be concise (under 500 words), actionable, and structured for quick decision-making.\n\nStructure:\n1. One-line recommendation (Go / No-Go / Conditional Go)\n2. Key numbers (match rate, critical gaps count)\n3. Top 3 strengths that differentiate the company for this bid\n4. Top 3 risks or gaps and their mitigation options\n5. Recommended next steps if Go (team allocation, timeline, partnerships needed)",
         rendered_user_prompt:
-          "Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: False\nConfidence: low\nMatch breakdown: 5977 / 876 fully matched, 7437 partial, 5616 unmatched\nWin probability: low\nCritical gaps: XjtZIWveFMUuSzAfJgWu\nKey strengths: JLDgDsHloPcdAZHtrriY\nStrategic considerations: YHmUrdfZIAxEbDnJpPQP\n\n## Original RFP\n<rfp_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</rfp_pages>",
+          "Write an executive summary for the following RFP qualification assessment.\n\n## Qualification Matrix\nGo recommendation: True\nConfidence: medium\nMatch breakdown: 5199 / 3048 fully matched, 5023 partial, 1115 unmatched\nWin probability: high\nCritical gaps: RzqDsaOXxVoNyePxVFiG\nKey strengths: LHoRxjvakiOhyPiadEfg\nStrategic considerations: ngsSayzhZLMxSTSoNyIu\n\n## Original RFP\n<rfp_pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #3:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #4:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n</rfp_pages>",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_0",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_0",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -1785,9 +1698,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_1",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_2",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_1",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -1796,9 +1709,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_2",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_3",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_2",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -1807,9 +1720,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_3",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_4",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_3",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -1818,9 +1731,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_4",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_4",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -1829,9 +1742,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_5",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_6",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_5",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -1840,9 +1753,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_6",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_7",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_6",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_7",
       kind: "contains",
       optional: false,
       label: null,
@@ -1851,9 +1764,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_7",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_8",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_7",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_8",
       kind: "contains",
       optional: false,
       label: null,
@@ -1862,9 +1775,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_8",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_9",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_8",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_9",
       kind: "contains",
       optional: false,
       label: null,
@@ -1873,9 +1786,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:edge_9",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_0",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_10",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:edge_9",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_0",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_10",
       kind: "contains",
       optional: false,
       label: null,
@@ -1884,9 +1797,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_0",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_4",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_0",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_4",
       kind: "data",
       optional: false,
       label: "rfp_pages",
@@ -1895,9 +1808,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_1",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_4",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_1",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_4",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "data",
       optional: false,
       label: "requirements",
@@ -1906,9 +1819,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_2",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_2",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "data",
       optional: false,
       label: "capabilities_pages",
@@ -1917,9 +1830,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_3",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_6",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_3",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_6",
       kind: "data",
       optional: false,
       label: "capabilities_pages",
@@ -1928,9 +1841,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_4",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_7",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_4",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_7",
       kind: "data",
       optional: false,
       label: "capabilities_pages",
@@ -1939,9 +1852,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_5",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_8",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_5",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_8",
       kind: "data",
       optional: false,
       label: "capabilities_pages",
@@ -1950,9 +1863,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_6",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_9",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_6",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_9",
       kind: "data",
       optional: false,
       label: "rfp_pages",
@@ -1961,9 +1874,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_7",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_9",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_7",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_9",
       kind: "data",
       optional: false,
       label: "capability_matches",
@@ -1972,9 +1885,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_8",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_9",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_10",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_8",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_9",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_10",
       kind: "data",
       optional: false,
       label: "qualification_matrix",
@@ -1983,9 +1896,9 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_9",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_10",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_9",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_10",
       kind: "data",
       optional: false,
       label: "rfp_pages",
@@ -1994,91 +1907,91 @@ export const DRY_RFP_QUALIFIER = {
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_10",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_6",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_10",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_6",
       kind: "batch_item",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "JfLhG",
-      target_stuff_digest: "JfLhG-branch-0",
+      source_stuff_digest: "VKpKr",
+      target_stuff_digest: "VKpKr-branch-0",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_11",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_7",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_11",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_7",
       kind: "batch_item",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "JfLhG",
-      target_stuff_digest: "JfLhG-branch-1",
+      source_stuff_digest: "VKpKr",
+      target_stuff_digest: "VKpKr-branch-1",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_12",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_8",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_12",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_8",
       kind: "batch_item",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "JfLhG",
-      target_stuff_digest: "JfLhG-branch-2",
+      source_stuff_digest: "VKpKr",
+      target_stuff_digest: "VKpKr-branch-2",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_13",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_6",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_13",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_6",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[0]",
-      source_stuff_digest: "muTi2-branch-0",
-      target_stuff_digest: "kJuxa",
+      source_stuff_digest: "YXNa4-branch-0",
+      target_stuff_digest: "XRJXq",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_14",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_7",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_14",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_7",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[1]",
-      source_stuff_digest: "muTi2-branch-1",
-      target_stuff_digest: "kJuxa",
+      source_stuff_digest: "YXNa4-branch-1",
+      target_stuff_digest: "XRJXq",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_15",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_8",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_5",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_15",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_8",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_5",
       kind: "batch_aggregate",
       optional: false,
       label: "[2]",
-      source_stuff_digest: "muTi2-branch-2",
-      target_stuff_digest: "kJuxa",
+      source_stuff_digest: "YXNa4-branch-2",
+      target_stuff_digest: "XRJXq",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_16",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_2",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_16",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_2",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "5ABjR",
-      target_stuff_digest: "dUNbm",
+      source_stuff_digest: "99Vnr",
+      target_stuff_digest: "YavhQ",
       meta: {},
     },
     {
-      id: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:asm_edge_17",
-      source: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_3",
-      target: "0ac121f4-e9b4-4495-b8d2-9dc2adb15fa1:node_1",
+      id: "9823bc27-906c-4c09-bdb7-2ef22163bff3:asm_edge_17",
+      source: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_3",
+      target: "9823bc27-906c-4c09-bdb7-2ef22163bff3:node_1",
       kind: "parallel_combine",
       optional: false,
       label: null,
-      source_stuff_digest: "Grxki",
-      target_stuff_digest: "dUNbm",
+      source_stuff_digest: "HG8QX",
+      target_stuff_digest: "YavhQ",
       meta: {},
     },
   ],
@@ -2185,31 +2098,31 @@ export const DRY_RFP_QUALIFIER = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_documents",
+          pipe_code: "rfp_qualification.extract_documents",
           output_name: "all_pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "parse_requirements",
+          pipe_code: "rfp_qualification.parse_requirements",
           output_name: "requirements",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "assess_all_requirements",
+          pipe_code: "rfp_qualification.assess_all_requirements",
           output_name: "capability_matches",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "build_qualification_matrix",
+          pipe_code: "rfp_qualification.build_qualification_matrix",
           output_name: "qualification_matrix",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "generate_executive_summary",
+          pipe_code: "rfp_qualification.generate_executive_summary",
           output_name: "executive_summary",
           output_multiplicity: null,
           batch_params: null,
@@ -2259,13 +2172,13 @@ export const DRY_RFP_QUALIFIER = {
       },
       parallel_sub_pipes: [
         {
-          pipe_code: "extract_rfp",
+          pipe_code: "rfp_qualification.extract_rfp",
           output_name: "rfp_pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "extract_capabilities",
+          pipe_code: "rfp_qualification.extract_capabilities",
           output_name: "capabilities_pages",
           output_multiplicity: null,
           batch_params: null,
@@ -2409,6 +2322,7 @@ export const DRY_RFP_QUALIFIER = {
       },
       llm_choices: { for_text: "$engineering-structured", for_object: null },
       output_multiplicity: true,
+      templating_style: null,
     },
     "rfp_qualification.assess_all_requirements": {
       pipe_category: "PipeController",
@@ -2452,7 +2366,7 @@ export const DRY_RFP_QUALIFIER = {
         multiplicity: true,
         presence: "plain",
       },
-      branch_pipe_code: "assess_single_requirement",
+      branch_pipe_code: "rfp_qualification.assess_single_requirement",
       batch_params: { input_list_stuff_name: "requirements", input_item_stuff_name: "requirement" },
     },
     "rfp_qualification.assess_single_requirement": {
@@ -2519,6 +2433,7 @@ export const DRY_RFP_QUALIFIER = {
       },
       llm_choices: { for_text: "$engineering-structured", for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "rfp_qualification.build_qualification_matrix": {
       pipe_category: "PipeOperator",
@@ -2586,6 +2501,7 @@ export const DRY_RFP_QUALIFIER = {
       },
       llm_choices: { for_text: "$engineering-structured", for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "rfp_qualification.generate_executive_summary": {
       pipe_category: "PipeOperator",
@@ -2654,6 +2570,7 @@ export const DRY_RFP_QUALIFIER = {
       },
       llm_choices: { for_text: "$writing-creative", for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -2680,6 +2597,7 @@ export const DRY_RFP_QUALIFIER = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2747,6 +2665,7 @@ export const DRY_RFP_QUALIFIER = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -2833,12 +2752,15 @@ export const DRY_RFP_QUALIFIER = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",

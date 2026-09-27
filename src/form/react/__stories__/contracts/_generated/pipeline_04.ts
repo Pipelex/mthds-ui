@@ -1029,8 +1029,16 @@ export const INPUT_FORM_LONG_SEQUENCE = {
       {
         concept_ref: "data_pipeline.VectorIndex",
         description: "An indexed collection of vectors",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "index",
         presence: "plain",
         refines: ["native.JSON"],
@@ -1045,7 +1053,15 @@ export const OUTPUT_FORM_LONG_SEQUENCE = {
     field: {
       concept_ref: "data_pipeline.VectorIndex",
       description: "An indexed collection of vectors",
-      kind: "unknown",
+      fields: [
+        {
+          description: "The JSON object",
+          kind: "unknown",
+          name: "json_obj",
+          required: true,
+        },
+      ],
+      kind: "object",
       name: "output",
       refines: ["native.JSON"],
       required: true,

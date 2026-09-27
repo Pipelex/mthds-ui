@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_LONG_SEQUENCE = {
-  graph_id: "ede784d0-cdae-4493-87c3-15fa45e61d67",
-  created_at: "2026-08-14T10:48:13.770687Z",
+  graph_id: "c7a776a0-33b2-45af-9e90-ee2137776849",
+  created_at: "2026-09-27T08:49:36.524770Z",
   pipeline_ref: { domain: "data_pipeline", main_pipe: "ingest_pipeline", entrypoint: null },
   nodes: [
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
       kind: "controller",
       pipe_code: "ingest_pipeline",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.770687Z",
-        ended_at: "2026-08-14T10:48:13.909253Z",
-        duration: 0.138566,
+        started_at: "2026-09-27T08:49:36.524770Z",
+        ended_at: "2026-09-27T08:49:36.539170Z",
+        duration: 0.0144,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "xfqcJmKvpUZjCJjeyHKY",
+            content_type: "tSYsLxIYSSdsWRPQOvaw",
             preview: null,
             size: null,
-            digest: "4Rar7",
+            digest: "7v4KJ",
             data: {
-              url: "IIcqOQAcGHaRuiaiRCEf",
-              public_url: "QAeojBTpMBhycRYoIhfc",
-              mime_type: "xfqcJmKvpUZjCJjeyHKY",
-              filename: "ZYyvdjwHTljpxZFHlEFj",
-              title: "VkQgZLIqiusyVADPYNSa",
-              snippet: "XaluvxhojLbKAloZoJrw",
+              url: "TeXfvQdOCRXGEyCEAfSU",
+              public_url: "TdVFYCcvoQDPzNuvNTuQ",
+              mime_type: "tSYsLxIYSSdsWRPQOvaw",
+              filename: "qNCtwgqlNrJgKIwloBgY",
+              title: "OelAyGMQoaMTXtrfDkYZ",
+              snippet: "CrahGWlHyjvfEpFyrmsW",
             },
-            data_text: "VkQgZLIqiusyVADPYNSa (IIcqOQAcGHaRuiaiRCEf)\n  XaluvxhojLbKAloZoJrw\n",
-            data_html:
-              '<a href="QAeojBTpMBhycRYoIhfc" class="msg-document">VkQgZLIqiusyVADPYNSa</a><br/><small>XaluvxhojLbKAloZoJrw</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,14 +51,11 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "F3tFy",
+            digest: "k8zny",
             data: {
-              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>\n    ',
+              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "aNcBxkeqWRdecSuciQRQ": "95d4033"\n}\n</index>\n    ',
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;gMIHCyGbMwhXupMghJRZ&quot;: &quot;73e9c3ed09&quot;\n}\n&lt;/index&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -98,7 +93,7 @@ export const DRY_LONG_SEQUENCE = {
       execution_data: { step_count: 6 },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_1",
       kind: "operator",
       pipe_code: "extract_raw",
       pipe_type: "PipeExtract",
@@ -107,30 +102,28 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.775781Z",
-        ended_at: "2026-08-14T10:48:13.782703Z",
-        duration: 0.006922,
+        started_at: "2026-09-27T08:49:36.525947Z",
+        ended_at: "2026-09-27T08:49:36.529017Z",
+        duration: 0.00307,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "xfqcJmKvpUZjCJjeyHKY",
+            content_type: "tSYsLxIYSSdsWRPQOvaw",
             preview: null,
             size: null,
-            digest: "4Rar7",
+            digest: "7v4KJ",
             data: {
-              url: "IIcqOQAcGHaRuiaiRCEf",
-              public_url: "QAeojBTpMBhycRYoIhfc",
-              mime_type: "xfqcJmKvpUZjCJjeyHKY",
-              filename: "ZYyvdjwHTljpxZFHlEFj",
-              title: "VkQgZLIqiusyVADPYNSa",
-              snippet: "XaluvxhojLbKAloZoJrw",
+              url: "TeXfvQdOCRXGEyCEAfSU",
+              public_url: "TdVFYCcvoQDPzNuvNTuQ",
+              mime_type: "tSYsLxIYSSdsWRPQOvaw",
+              filename: "qNCtwgqlNrJgKIwloBgY",
+              title: "OelAyGMQoaMTXtrfDkYZ",
+              snippet: "CrahGWlHyjvfEpFyrmsW",
             },
-            data_text: "VkQgZLIqiusyVADPYNSa (IIcqOQAcGHaRuiaiRCEf)\n  XaluvxhojLbKAloZoJrw\n",
-            data_html:
-              '<a href="QAeojBTpMBhycRYoIhfc" class="msg-document">VkQgZLIqiusyVADPYNSa</a><br/><small>XaluvxhojLbKAloZoJrw</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -141,7 +134,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "azKns",
+            digest: "MJRjP",
             data: {
               items: [
                 {
@@ -178,10 +171,7 @@ export const DRY_LONG_SEQUENCE = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -215,7 +205,7 @@ export const DRY_LONG_SEQUENCE = {
       },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_2",
       kind: "operator",
       pipe_code: "clean_text",
       pipe_type: "PipeLLM",
@@ -224,9 +214,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.786955Z",
-        ended_at: "2026-08-14T10:48:13.801429Z",
-        duration: 0.014474,
+        started_at: "2026-09-27T08:49:36.529322Z",
+        ended_at: "2026-09-27T08:49:36.531820Z",
+        duration: 0.002498,
       },
       io: {
         inputs: [
@@ -236,7 +226,7 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "azKns",
+            digest: "MJRjP",
             data: {
               items: [
                 {
@@ -273,10 +263,7 @@ export const DRY_LONG_SEQUENCE = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -287,14 +274,11 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9W4cb",
+            digest: "jyxaU",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -349,7 +333,7 @@ export const DRY_LONG_SEQUENCE = {
       },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_3",
       kind: "operator",
       pipe_code: "chunk_text",
       pipe_type: "PipeLLM",
@@ -358,9 +342,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.805955Z",
-        ended_at: "2026-08-14T10:48:13.816035Z",
-        duration: 0.01008,
+        started_at: "2026-09-27T08:49:36.532053Z",
+        ended_at: "2026-09-27T08:49:36.534056Z",
+        duration: 0.002003,
       },
       io: {
         inputs: [
@@ -370,14 +354,11 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "9W4cb",
+            digest: "jyxaU",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Clean and normalize the     \nfollowing text. Remove headers, footers, page numbers, and artifacts:                               \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -388,18 +369,15 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EXJja",
+            digest: "6JCLY",
             data: {
               items: [
-                { text: "CfzwdaLHRdComFYzBEyy" },
-                { text: "toThwHUWnZqEeHGwSyEx" },
-                { text: "pwQGvoCuCozmLRLqtEio" },
+                { text: "RqCnJEXwWHmbAQNqfYco" },
+                { text: "EKOIGTqjTnGDbWacHbvx" },
+                { text: "VRLAGagOmgCoAjdAybbE" },
               ],
             },
-            data_text:
-              "   1    │ CfzwdaLHRdComFYzBEyy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ toThwHUWnZqEeHGwSyEx                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ pwQGvoCuCozmLRLqtEio                                                  \n",
-            data_html:
-              "<ul><li>CfzwdaLHRdComFYzBEyy</li><li>toThwHUWnZqEeHGwSyEx</li><li>pwQGvoCuCozmLRLqtEio</li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -449,12 +427,12 @@ export const DRY_LONG_SEQUENCE = {
         is_multiple_output: true,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    \n</clean_text>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__TextChunk(TextContent):\n    """A segment of text split for processing"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Split the following text into semantic chunks. Each chunk should be a self-contained paragraph or section:\n\n<clean_text>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Clean and normalize the following text. Remove headers, footers, page numbers, and artifacts:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n    \n</clean_text>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__TextChunk(TextContent):\n    """A segment of text split for processing"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_list",
       },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_4",
       kind: "operator",
       pipe_code: "embed_chunks",
       pipe_type: "PipeLLM",
@@ -463,9 +441,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.820521Z",
-        ended_at: "2026-08-14T10:48:13.876858Z",
-        duration: 0.056337,
+        started_at: "2026-09-27T08:49:36.534275Z",
+        ended_at: "2026-09-27T08:49:36.535930Z",
+        duration: 0.001655,
       },
       io: {
         inputs: [
@@ -475,18 +453,15 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "EXJja",
+            digest: "6JCLY",
             data: {
               items: [
-                { text: "CfzwdaLHRdComFYzBEyy" },
-                { text: "toThwHUWnZqEeHGwSyEx" },
-                { text: "pwQGvoCuCozmLRLqtEio" },
+                { text: "RqCnJEXwWHmbAQNqfYco" },
+                { text: "EKOIGTqjTnGDbWacHbvx" },
+                { text: "VRLAGagOmgCoAjdAybbE" },
               ],
             },
-            data_text:
-              "   1    │ CfzwdaLHRdComFYzBEyy                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ toThwHUWnZqEeHGwSyEx                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ pwQGvoCuCozmLRLqtEio                                                  \n",
-            data_html:
-              "<ul><li>CfzwdaLHRdComFYzBEyy</li><li>toThwHUWnZqEeHGwSyEx</li><li>pwQGvoCuCozmLRLqtEio</li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -497,18 +472,15 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FQwpw",
+            digest: "FU3Qf",
             data: {
               items: [
-                { text: "FJwwnVOxvtJliHPPITQG" },
-                { text: "ghWtDkWKlnoUWMfJrLNA" },
-                { text: "KMgCQUNuDSTykdjrcpvA" },
+                { text: "rzofTzWzeTgLjESFCCAR" },
+                { text: "sFiwysjGqxCbFAfZrjhM" },
+                { text: "ODCSysQoJDeocKGdtCWT" },
               ],
             },
-            data_text:
-              "   1    │ FJwwnVOxvtJliHPPITQG                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ghWtDkWKlnoUWMfJrLNA                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ KMgCQUNuDSTykdjrcpvA                                                  \n",
-            data_html:
-              "<ul><li>FJwwnVOxvtJliHPPITQG</li><li>ghWtDkWKlnoUWMfJrLNA</li><li>KMgCQUNuDSTykdjrcpvA</li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -558,12 +530,12 @@ export const DRY_LONG_SEQUENCE = {
         is_multiple_output: true,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nCfzwdaLHRdComFYzBEyy\n\n • item #2:\n\ntoThwHUWnZqEeHGwSyEx\n\n • item #3:\n\npwQGvoCuCozmLRLqtEio\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    """Vector embedding of text"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Generate a semantic summary for each text chunk that captures its meaning:\n\n<chunks>\n\n • item #1:\n\nRqCnJEXwWHmbAQNqfYco\n\n • item #2:\n\nEKOIGTqjTnGDbWacHbvx\n\n • item #3:\n\nVRLAGagOmgCoAjdAybbE\n\n</chunks>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__Embedding(TextContent):\n    """Vector embedding of text"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_list",
       },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_5",
       kind: "operator",
       pipe_code: "build_index",
       pipe_type: "PipeLLM",
@@ -572,9 +544,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.881848Z",
-        ended_at: "2026-08-14T10:48:13.893852Z",
-        duration: 0.012004,
+        started_at: "2026-09-27T08:49:36.536141Z",
+        ended_at: "2026-09-27T08:49:36.537814Z",
+        duration: 0.001673,
       },
       io: {
         inputs: [
@@ -584,18 +556,15 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "FQwpw",
+            digest: "FU3Qf",
             data: {
               items: [
-                { text: "FJwwnVOxvtJliHPPITQG" },
-                { text: "ghWtDkWKlnoUWMfJrLNA" },
-                { text: "KMgCQUNuDSTykdjrcpvA" },
+                { text: "rzofTzWzeTgLjESFCCAR" },
+                { text: "sFiwysjGqxCbFAfZrjhM" },
+                { text: "ODCSysQoJDeocKGdtCWT" },
               ],
             },
-            data_text:
-              "   1    │ FJwwnVOxvtJliHPPITQG                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ ghWtDkWKlnoUWMfJrLNA                                                  \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ KMgCQUNuDSTykdjrcpvA                                                  \n",
-            data_html:
-              "<ul><li>FJwwnVOxvtJliHPPITQG</li><li>ghWtDkWKlnoUWMfJrLNA</li><li>KMgCQUNuDSTykdjrcpvA</li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -606,10 +575,9 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrbax",
-            data: { json_obj: { gMIHCyGbMwhXupMghJRZ: "73e9c3ed09" } },
-            data_text: '{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n',
-            data_html: "<table ><tr><th>gMIHCyGbMwhXupMghJRZ</th><td>73e9c3ed09</td></tr></table>",
+            digest: "n22Sz",
+            data: { json_obj: { aNcBxkeqWRdecSuciQRQ: "95d4033" } },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -659,12 +627,12 @@ export const DRY_LONG_SEQUENCE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nFJwwnVOxvtJliHPPITQG\n\n • item #2:\n\nghWtDkWKlnoUWMfJrLNA\n\n • item #3:\n\nKMgCQUNuDSTykdjrcpvA\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    """An indexed collection of vectors"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Organize the following embeddings into a structured index with categories and cross-references:\n\n<embeddings>\n\n • item #1:\n\nrzofTzWzeTgLjESFCCAR\n\n • item #2:\n\nsFiwysjGqxCbFAfZrjhM\n\n • item #3:\n\nODCSysQoJDeocKGdtCWT\n\n</embeddings>\n\n---\nThe instance we want to generate will be for the following class:\nclass data_pipeline__VectorIndex(JSONContent):\n    """An indexed collection of vectors"""\n    # No additional fields\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:node_6",
       kind: "operator",
       pipe_code: "validate_index",
       pipe_type: "PipeLLM",
@@ -673,9 +641,9 @@ export const DRY_LONG_SEQUENCE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:13.898346Z",
-        ended_at: "2026-08-14T10:48:13.907010Z",
-        duration: 0.008664,
+        started_at: "2026-09-27T08:49:36.538037Z",
+        ended_at: "2026-09-27T08:49:36.539022Z",
+        duration: 0.000985,
       },
       io: {
         inputs: [
@@ -685,10 +653,9 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrbax",
-            data: { json_obj: { gMIHCyGbMwhXupMghJRZ: "73e9c3ed09" } },
-            data_text: '{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n',
-            data_html: "<table ><tr><th>gMIHCyGbMwhXupMghJRZ</th><td>73e9c3ed09</td></tr></table>",
+            digest: "n22Sz",
+            data: { json_obj: { aNcBxkeqWRdecSuciQRQ: "95d4033" } },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -699,14 +666,11 @@ export const DRY_LONG_SEQUENCE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "F3tFy",
+            digest: "k8zny",
             data: {
-              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>\n    ',
+              text: 'DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "aNcBxkeqWRdecSuciQRQ": "95d4033"\n}\n</index>\n    ',
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Validate the following      \nvector index for completeness and quality. Report any issues:                                       \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Validate the following vector index for completeness and quality. Report any issues:\n\n&lt;index&gt;\n{\n    &quot;gMIHCyGbMwhXupMghJRZ&quot;: &quot;73e9c3ed09&quot;\n}\n&lt;/index&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -756,16 +720,16 @@ export const DRY_LONG_SEQUENCE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "gMIHCyGbMwhXupMghJRZ": "73e9c3ed09"\n}\n</index>',
+          'Validate the following vector index for completeness and quality. Report any issues:\n\n<index>\n{\n    "aNcBxkeqWRdecSuciQRQ": "95d4033"\n}\n</index>',
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_0",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_0",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -774,9 +738,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_1",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_1",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -785,9 +749,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_2",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_2",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -796,9 +760,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_3",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_3",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -807,9 +771,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_4",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_4",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -818,9 +782,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:edge_5",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_0",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:edge_5",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_0",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_6",
       kind: "contains",
       optional: false,
       label: null,
@@ -829,9 +793,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_0",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_1",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:asm_edge_0",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_1",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -840,9 +804,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_1",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_2",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:asm_edge_1",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_2",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_3",
       kind: "data",
       optional: false,
       label: "clean_text",
@@ -851,9 +815,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_2",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_3",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:asm_edge_2",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_3",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_4",
       kind: "data",
       optional: false,
       label: "chunks",
@@ -862,9 +826,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_3",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_4",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:asm_edge_3",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_4",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_5",
       kind: "data",
       optional: false,
       label: "embeddings",
@@ -873,9 +837,9 @@ export const DRY_LONG_SEQUENCE = {
       meta: {},
     },
     {
-      id: "ede784d0-cdae-4493-87c3-15fa45e61d67:asm_edge_4",
-      source: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_5",
-      target: "ede784d0-cdae-4493-87c3-15fa45e61d67:node_6",
+      id: "c7a776a0-33b2-45af-9e90-ee2137776849:asm_edge_4",
+      source: "c7a776a0-33b2-45af-9e90-ee2137776849:node_5",
+      target: "c7a776a0-33b2-45af-9e90-ee2137776849:node_6",
       kind: "data",
       optional: false,
       label: "index",
@@ -974,37 +938,37 @@ export const DRY_LONG_SEQUENCE = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "extract_raw",
+          pipe_code: "data_pipeline.extract_raw",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "clean_text",
+          pipe_code: "data_pipeline.clean_text",
           output_name: "clean_text",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "chunk_text",
+          pipe_code: "data_pipeline.chunk_text",
           output_name: "chunks",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "embed_chunks",
+          pipe_code: "data_pipeline.embed_chunks",
           output_name: "embeddings",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "build_index",
+          pipe_code: "data_pipeline.build_index",
           output_name: "index",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "validate_index",
+          pipe_code: "data_pipeline.validate_index",
           output_name: "report",
           output_multiplicity: null,
           batch_params: null,
@@ -1099,6 +1063,7 @@ export const DRY_LONG_SEQUENCE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "data_pipeline.chunk_text": {
       pipe_category: "PipeOperator",
@@ -1146,6 +1111,7 @@ export const DRY_LONG_SEQUENCE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: true,
+      templating_style: null,
     },
     "data_pipeline.embed_chunks": {
       pipe_category: "PipeOperator",
@@ -1193,6 +1159,7 @@ export const DRY_LONG_SEQUENCE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: true,
+      templating_style: null,
     },
     "data_pipeline.build_index": {
       pipe_category: "PipeOperator",
@@ -1240,6 +1207,7 @@ export const DRY_LONG_SEQUENCE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "data_pipeline.validate_index": {
       pipe_category: "PipeOperator",
@@ -1287,6 +1255,7 @@ export const DRY_LONG_SEQUENCE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -1311,6 +1280,7 @@ export const DRY_LONG_SEQUENCE = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1363,6 +1333,7 @@ export const DRY_LONG_SEQUENCE = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1449,12 +1420,15 @@ export const DRY_LONG_SEQUENCE = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",

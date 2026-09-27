@@ -1,31 +1,31 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_eff0aa18d8["triage_request"]
-        n_f6d19b2960["decide"]
-        s_de3174429b(["verdict<br/>Verdict"]):::stuff
-        n_28af9f17c1["is_urgent"]
-        s_15ddd489b5(["urgent<br/>YesNo"]):::stuff
-        n_709ad2f7d3["read_dates"]
-        s_a2a1f1172b(["dates<br/>Date"]):::stuff
-        n_782fa0e266["read_slot"]
-        s_1efc606188(["slot<br/>Time"]):::stuff
+    subgraph sg_n_9724357103["triage_request"]
+        n_065518d347["decide"]
+        s_22d421de67(["verdict<br/>Verdict"]):::stuff
+        n_f1f23b0287["is_urgent"]
+        s_2e99c54aac(["urgent<br/>YesNo"]):::stuff
+        n_26f5e2e6f8["read_dates"]
+        s_4996781779(["dates<br/>Date#91;#93;"]):::stuff
+        n_4ad31e397f["read_slot"]
+        s_682bfab42b(["slot<br/>Time"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_e8944c69d7(["request<br/>Text"]):::stuff
+    s_51f124c4d5(["request<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_f6d19b2960 --> s_de3174429b
-    n_782fa0e266 --> s_1efc606188
-    n_709ad2f7d3 --> s_a2a1f1172b
-    n_28af9f17c1 --> s_15ddd489b5
-    s_1efc606188 --> n_f6d19b2960
-    s_a2a1f1172b --> n_f6d19b2960
-    s_15ddd489b5 --> n_f6d19b2960
-    s_e8944c69d7 --> n_709ad2f7d3
-    s_e8944c69d7 --> n_782fa0e266
-    s_e8944c69d7 --> n_28af9f17c1
+    n_f1f23b0287 --> s_2e99c54aac
+    n_4ad31e397f --> s_682bfab42b
+    n_065518d347 --> s_22d421de67
+    n_26f5e2e6f8 --> s_4996781779
+    s_2e99c54aac --> n_065518d347
+    s_682bfab42b --> n_065518d347
+    s_4996781779 --> n_065518d347
+    s_51f124c4d5 --> n_26f5e2e6f8
+    s_51f124c4d5 --> n_4ad31e397f
+    s_51f124c4d5 --> n_f1f23b0287
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -33,4 +33,4 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_eff0aa18d8 fill:#e6f3ff
+    style sg_n_9724357103 fill:#e6f3ff

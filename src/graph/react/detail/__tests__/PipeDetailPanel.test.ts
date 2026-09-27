@@ -171,3 +171,24 @@ describe("PipeDetailPanel mode chrome", () => {
     expect(html).toContain("runtime_value");
   });
 });
+
+describe("PipeDetailPanel io pills", () => {
+  it("marks a plural input's concept and leaves a single one bare", () => {
+    const node: GraphSpecNode = {
+      ...makeNode(),
+      io: {
+        inputs: [
+          { name: "cvs", concept: "Document", digest: "cvs", multiplicity: true },
+          { name: "job_offer", concept: "Document", digest: "offer" },
+        ],
+        outputs: [{ name: "scores", concept: "Score", digest: "scores", multiplicity: 4 }],
+      },
+    };
+    const spec: GraphSpec = { meta: { format: "mthds", mode: "static" }, nodes: [node], edges: [] };
+    const html = renderToStaticMarkup(React.createElement(PipeDetailPanel, { node, spec }));
+
+    expect(html).toContain('<span class="detail-io-concept">Document[]</span>');
+    expect(html).toContain('<span class="detail-io-concept">Document</span>');
+    expect(html).toContain('<span class="detail-io-concept">Score[4]</span>');
+  });
+});

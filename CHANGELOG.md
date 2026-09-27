@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.26.0] - 2026-09-27
+
+### Changed
+
+- **Nullable registry fields are optional too (Breaking)**: every `T | null` field of `ConceptInfo`, `StuffSpecInfo`, `TemplateBlueprint`, `SubPipeSpec` and the `PipeBlueprintUnion` members is now declared `field?: T | null`, because the pipe and concept registries pass `validateGraphSpec` unnormalized and a host that drops nulls delivers those fields absent. A TypeScript consumer that tested one with a strict `!== null` and then used the value now gets a compile error where it used to get a runtime `TypeError`; test with `!= null`, optional chaining or truthiness instead.
+
+### Fixed
+
+- **A list-valued stuff reads as a list**: a stuff declared `Document[]` or `Document[5]` now shows that marker on its canvas node, on the pipe card's and the pipe detail panel's pills, and in its detail panel's header, which also states that it is a list; each of them used to show a bare `Document`. The static builder writes a new optional `multiplicity` on `GraphSpecNodeIoItem` for a plural stuff (`true`, or the count), `validateGraphSpec` refuses a malformed one, and `isPluralMultiplicity` and `multiplicitySuffix` are exported for a host that renders io items itself. A graph produced by a run shows the marker from the `multiplicity` its producer writes on each io item, which pipelex writes as `true` for a list and never as a count, and reads every stuff as single when its producer writes none.
+
+- **A graph relayed by a host that drops nulls renders**: ChatGPT removes `null` values from what it relays to an MCP App view, so an executed graph shown there arrived with every unrated cost missing, and `validateGraphSpec` threw inside `GraphViewer`, leaving the view blank. An absent `cost`, `subtree_cost` or per-model `cost` is now read as `null` when its rated-call count is zero, and still refused when calls were rated, so a missing price is never shown as unrated. Opening a template-mode PipeCompose in the detail panel no longer throws when its `construct_blueprint` arrived absent.
+
 ## [v0.25.0] - 2026-09-25
 
 ### Added
@@ -88,8 +100,7 @@
 
 ### Fixed
 
-- **The form kernel's stylesheet now arrives in a cascade layer, so it stops overriding the host's own Tailwind.** v0.20.0 was right that the kernel's classes are ours to ship and wrong to ship them raw. `@pipelex/mthds-form/styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it lands in the host's `<head>` *after* the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning, and the failure looked nothing like a stylesheet problem:
-
+- **The form kernel's stylesheet now arrives in a cascade layer, so it stops overriding the host's own Tailwind.** v0.20.0 was right that the kernel's classes are ours to ship and wrong to ship them raw. `@pipelex/mthds-form/styles.css` is a **complete** Tailwind build — preflight, plus every utility unprefixed and unscoped — and it is code-split, so it lands in the host's `<head>` _after_ the host's own stylesheet the moment a graph mounts. From that instant it won every tie it had no business winning, and the failure looked nothing like a stylesheet problem:
   - Its bare `.hidden { display: none }` outranked the host's `.sm\:inline` — equal specificity, ours last — so every `class="hidden sm:inline"` label in the host app vanished at every width. In `pipelex-app` that blanked the toolbar's Deploy / Dry Run / Run labels, the deploy dialog's tab labels and the responsive separators, leaving a row of unlabelled icons that appeared and disappeared with the flowchart.
   - Its preflight `*, ::before, ::after { border: 0 solid #e5e7eb }` replaced the host's default border colour, painting a pale hairline under anything carrying a border width and no explicit colour class.
 

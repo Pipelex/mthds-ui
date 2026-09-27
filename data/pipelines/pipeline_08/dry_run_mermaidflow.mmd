@@ -1,54 +1,54 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_d038001232["batch_ocr_pipeline"]
-        subgraph sg_n_5da962c352["summarize_page_batch"]
-            n_80c520e6ce["summarize_page"]
-            s_8129482685(["page<br/>Page"]):::stuff
-            s_5511c5911e(["page_summary<br/>PageSummary"]):::stuff
-            n_e307aa66b2["summarize_page"]
-            s_e9bb06a366(["page<br/>Page"]):::stuff
-            s_1a28c03de1(["page_summary<br/>PageSummary"]):::stuff
-            n_88fbbf1cb5["summarize_page"]
-            s_39f40ec319(["page<br/>Page"]):::stuff
-            s_d3543762ec(["page_summary<br/>PageSummary"]):::stuff
-            n_8e7c84e3bd["summarize_page"]
-            s_be53b0e563(["page<br/>Page"]):::stuff
-            s_b50fb1e650(["page_summary<br/>PageSummary"]):::stuff
+    subgraph sg_n_7bd9a7b51d["batch_ocr_pipeline"]
+        subgraph sg_n_d3de1effd5["summarize_page_batch"]
+            n_e2a4302f17["summarize_page"]
+            s_3637893b88(["page<br/>Page"]):::stuff
+            s_3798992dca(["page_summary<br/>PageSummary"]):::stuff
+            n_7fb5c13bdf["summarize_page"]
+            s_e7d1aacf52(["page<br/>Page"]):::stuff
+            s_1370a9cccf(["page_summary<br/>PageSummary"]):::stuff
+            n_337a16fc80["summarize_page"]
+            s_5e4a782443(["page<br/>Page"]):::stuff
+            s_97150428ca(["page_summary<br/>PageSummary"]):::stuff
+            n_2664321d27["summarize_page"]
+            s_4d0fa8a25f(["page<br/>Page"]):::stuff
+            s_b7c8abd63a(["page_summary<br/>PageSummary"]):::stuff
         end
-        n_940f47b9b9["combine_summaries"]
-        s_9e94821bdc(["document_summary<br/>DocumentSummary"]):::stuff
-        n_d950cfcadd["extract_pages"]
-        s_4353d5d0f1(["pages<br/>Page"]):::stuff
+        n_14c9599fed["combine_summaries"]
+        s_f603c40427(["document_summary<br/>DocumentSummary"]):::stuff
+        n_10bbe7efc5["extract_pages"]
+        s_41f5c957dd(["pages<br/>Page#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_4a1f610a3c(["document<br/>Document"]):::stuff
-    s_77c48c8c80(["page_summaries<br/>PageSummary"]):::stuff
+    s_61902f9ccc(["document<br/>Document"]):::stuff
+    s_7bbb0d9e2e(["page_summaries<br/>PageSummary#91;#93;"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_80c520e6ce --> s_5511c5911e
-    n_e307aa66b2 --> s_1a28c03de1
-    n_88fbbf1cb5 --> s_d3543762ec
-    n_8e7c84e3bd --> s_b50fb1e650
-    n_d950cfcadd --> s_4353d5d0f1
-    n_940f47b9b9 --> s_9e94821bdc
-    s_8129482685 --> n_80c520e6ce
-    s_e9bb06a366 --> n_e307aa66b2
-    s_39f40ec319 --> n_88fbbf1cb5
-    s_be53b0e563 --> n_8e7c84e3bd
-    s_77c48c8c80 --> n_940f47b9b9
-    s_4a1f610a3c --> n_d950cfcadd
+    n_10bbe7efc5 --> s_41f5c957dd
+    n_e2a4302f17 --> s_3798992dca
+    n_7fb5c13bdf --> s_1370a9cccf
+    n_337a16fc80 --> s_97150428ca
+    n_2664321d27 --> s_b7c8abd63a
+    n_14c9599fed --> s_f603c40427
+    s_61902f9ccc --> n_10bbe7efc5
+    s_3637893b88 --> n_e2a4302f17
+    s_e7d1aacf52 --> n_7fb5c13bdf
+    s_5e4a782443 --> n_337a16fc80
+    s_4d0fa8a25f --> n_2664321d27
+    s_7bbb0d9e2e --> n_14c9599fed
 
     %% Batch edges: list-item relationships
-    s_4353d5d0f1 -."[0]".-> s_8129482685
-    s_4353d5d0f1 -."[1]".-> s_e9bb06a366
-    s_4353d5d0f1 -."[2]".-> s_39f40ec319
-    s_4353d5d0f1 -."[3]".-> s_be53b0e563
-    s_5511c5911e -."[0]".-> s_77c48c8c80
-    s_1a28c03de1 -."[1]".-> s_77c48c8c80
-    s_d3543762ec -."[2]".-> s_77c48c8c80
-    s_b50fb1e650 -."[3]".-> s_77c48c8c80
+    s_41f5c957dd -."[0]".-> s_3637893b88
+    s_41f5c957dd -."[1]".-> s_e7d1aacf52
+    s_41f5c957dd -."[2]".-> s_5e4a782443
+    s_41f5c957dd -."[3]".-> s_4d0fa8a25f
+    s_3798992dca -."[0]".-> s_7bbb0d9e2e
+    s_1370a9cccf -."[1]".-> s_7bbb0d9e2e
+    s_97150428ca -."[2]".-> s_7bbb0d9e2e
+    s_b7c8abd63a -."[3]".-> s_7bbb0d9e2e
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -56,5 +56,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_5da962c352 fill:#e6ffe6
-    style sg_n_d038001232 fill:#e6f3ff
+    style sg_n_7bd9a7b51d fill:#e6f3ff
+    style sg_n_d3de1effd5 fill:#e6ffe6

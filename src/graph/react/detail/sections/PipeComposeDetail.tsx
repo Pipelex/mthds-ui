@@ -174,9 +174,11 @@ export function PipeComposeSection({
     FieldResolution
   > | null;
 
+  // Loose `!= null`: a host that drops nulls delivers a template-mode blueprint with
+  // no `construct_blueprint` key at all (see the registry types in types.ts).
   const constructBlueprint = blueprint.construct_blueprint;
   const hasConstruct =
-    constructBlueprint !== null && Object.keys(constructBlueprint.fields).length > 0;
+    constructBlueprint != null && Object.keys(constructBlueprint.fields).length > 0;
 
   return (
     <>

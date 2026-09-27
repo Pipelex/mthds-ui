@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_ALL_PIPE_TYPES = {
-  graph_id: "76e6d563-6e5c-44e2-9a27-42b367d20dde",
-  created_at: "2026-08-14T10:49:08.207586Z",
+  graph_id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7",
+  created_at: "2026-09-27T08:50:26.769065Z",
   pipeline_ref: { domain: "pipe_showcase", main_pipe: "all_types_chain", entrypoint: null },
   nodes: [
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
       kind: "controller",
       pipe_code: "all_types_chain",
       pipe_type: "PipeSequence",
@@ -19,30 +19,28 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.207586Z",
-        ended_at: "2026-08-14T10:49:08.281873Z",
-        duration: 0.074287,
+        started_at: "2026-09-27T08:50:26.769065Z",
+        ended_at: "2026-09-27T08:50:26.783853Z",
+        duration: 0.014788,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "XJiqScBMxdQGNnVZvUBG",
+            content_type: "NWnyRTmAXEsjWQcOSrgd",
             preview: null,
             size: null,
-            digest: "d5C8X",
+            digest: "WHUPp",
             data: {
-              url: "kizSLTgvMRisXKWLUUGh",
-              public_url: "aGBIqKKUdsuHSZhnNrjo",
-              mime_type: "XJiqScBMxdQGNnVZvUBG",
-              filename: "MAsIsFJBaPACbzIijSsT",
-              title: "PxkrkJAOGopezZddiNqS",
-              snippet: "xvIgflCgJGumFijGbbIp",
+              url: "OCACWMOJEXXQFNlWiojq",
+              public_url: "ePnJQvBqTbJwAvLVhToW",
+              mime_type: "NWnyRTmAXEsjWQcOSrgd",
+              filename: "WvMKMnSHuJqivUakQjKF",
+              title: "NMHoySaBGbyBQwmmIVYh",
+              snippet: "RzhbJtsZVZTXYJXnuBbb",
             },
-            data_text: "PxkrkJAOGopezZddiNqS (kizSLTgvMRisXKWLUUGh)\n  xvIgflCgJGumFijGbbIp\n",
-            data_html:
-              '<a href="aGBIqKKUdsuHSZhnNrjo" class="msg-document">PxkrkJAOGopezZddiNqS</a><br/><small>xvIgflCgJGumFijGbbIp</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -53,14 +51,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jdoTt",
+            digest: "WAC3F",
             data: {
-              text: "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```",
+              text: "# Complete Analysis\n\n## Analysis\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n</analysis>\n\n## Related Research\n<search_result>\neKlGWLsLYYtNtSlgNklB\n\nSources:\n- uCljbStRRDhWDMNktPFj: mWhtRomvePsjeytUvoeJ\n  LDMsbKYqpjhFdLVKSZrV\n- yhBuHjSlNuRuLJSuIemn: eDLndgOojLBjqaeDZOqQ\n  cstPyeQRWHbOiuIApfSp\n- DtRxBLdknXkZdXuxDIIX: geQmvBHoyzzGjvIiejbW\n  MbBetcRnYOMYaajfMxSZ\n</search_result>",
             },
-            data_text:
-              "                                         Complete Analysis                                          \n\nAnalysis                                                                                            \n\nanalysis: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,          \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\ncontent of these pages:                                                                             \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n\n                                                                                                    \n                                                                                                    \n ## Related Research                                                                                \n search_result: ```                                                                                 \n iJpfIymADOjYTqBAaTug                                                                               \n                                                                                                    \n Sources:                                                                                           \n - pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN                                                       \n   rPoFmwgzviEWWYQkAsXj                                                                             \n - myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu                                                       \n   rjAmoyfvtBRKNlvvzUTw                                                                             \n - UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU                                                       \n   VyKzXGKtnHEWLFiDnayH                                                                             \n                                                                                                    \n",
-            data_html:
-              "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -98,7 +93,7 @@ export const DRY_ALL_PIPE_TYPES = {
       execution_data: { step_count: 5 },
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_1",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_1",
       kind: "operator",
       pipe_code: "step_extract",
       pipe_type: "PipeExtract",
@@ -107,30 +102,28 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.213044Z",
-        ended_at: "2026-08-14T10:49:08.220410Z",
-        duration: 0.007366,
+        started_at: "2026-09-27T08:50:26.770216Z",
+        ended_at: "2026-09-27T08:50:26.773348Z",
+        duration: 0.003132,
       },
       io: {
         inputs: [
           {
             name: "document",
             concept: "Document",
-            content_type: "XJiqScBMxdQGNnVZvUBG",
+            content_type: "NWnyRTmAXEsjWQcOSrgd",
             preview: null,
             size: null,
-            digest: "d5C8X",
+            digest: "WHUPp",
             data: {
-              url: "kizSLTgvMRisXKWLUUGh",
-              public_url: "aGBIqKKUdsuHSZhnNrjo",
-              mime_type: "XJiqScBMxdQGNnVZvUBG",
-              filename: "MAsIsFJBaPACbzIijSsT",
-              title: "PxkrkJAOGopezZddiNqS",
-              snippet: "xvIgflCgJGumFijGbbIp",
+              url: "OCACWMOJEXXQFNlWiojq",
+              public_url: "ePnJQvBqTbJwAvLVhToW",
+              mime_type: "NWnyRTmAXEsjWQcOSrgd",
+              filename: "WvMKMnSHuJqivUakQjKF",
+              title: "NMHoySaBGbyBQwmmIVYh",
+              snippet: "RzhbJtsZVZTXYJXnuBbb",
             },
-            data_text: "PxkrkJAOGopezZddiNqS (kizSLTgvMRisXKWLUUGh)\n  xvIgflCgJGumFijGbbIp\n",
-            data_html:
-              '<a href="aGBIqKKUdsuHSZhnNrjo" class="msg-document">PxkrkJAOGopezZddiNqS</a><br/><small>xvIgflCgJGumFijGbbIp</small>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -141,7 +134,7 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2dbUd",
+            digest: "KRSP9",
             data: {
               items: [
                 {
@@ -178,10 +171,7 @@ export const DRY_ALL_PIPE_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -215,7 +205,7 @@ export const DRY_ALL_PIPE_TYPES = {
       },
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
       kind: "operator",
       pipe_code: "step_llm",
       pipe_type: "PipeLLM",
@@ -224,9 +214,9 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.224595Z",
-        ended_at: "2026-08-14T10:49:08.236505Z",
-        duration: 0.01191,
+        started_at: "2026-09-27T08:50:26.773651Z",
+        ended_at: "2026-09-27T08:50:26.776158Z",
+        duration: 0.002507,
       },
       io: {
         inputs: [
@@ -236,7 +226,7 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "2dbUd",
+            digest: "KRSP9",
             data: {
               items: [
                 {
@@ -273,10 +263,7 @@ export const DRY_ALL_PIPE_TYPES = {
                 },
               ],
             },
-            data_text:
-              "   1    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   2    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   3    │ DRY RUN: OCR text                                                     \n────────┼───────────────────────────────────────────────────────────────────────\n   4    │ DRY RUN: OCR text                                                     \n",
-            data_html:
-              "<ul><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li><li><table><tr><th>text_and_images</th><td>DRY RUN: OCR text</td></tr></table></li></ul>",
+            multiplicity: true,
             extra: {},
           },
         ],
@@ -287,14 +274,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrs75",
+            digest: "aJbLA",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the content of these\npages:                                                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -349,7 +333,7 @@ export const DRY_ALL_PIPE_TYPES = {
       },
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_3",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_3",
       kind: "operator",
       pipe_code: "step_search",
       pipe_type: "PipeSearch",
@@ -358,9 +342,9 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.240956Z",
-        ended_at: "2026-08-14T10:49:08.249912Z",
-        duration: 0.008956,
+        started_at: "2026-09-27T08:50:26.776296Z",
+        ended_at: "2026-09-27T08:50:26.780307Z",
+        duration: 0.004011,
       },
       io: {
         inputs: [
@@ -370,14 +354,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrs75",
+            digest: "aJbLA",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the content of these\npages:                                                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -388,40 +369,37 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "YU9D8",
+            digest: "eZYz3",
             data: {
-              answer: "iJpfIymADOjYTqBAaTug",
+              answer: "eKlGWLsLYYtNtSlgNklB",
               sources: [
                 {
-                  url: "ExzpBHaODRGxSGlvSCtN",
-                  public_url: "RxYRDPFRHwzPLgJrshUg",
-                  mime_type: "dAhtyAttwlufqtwmMPuv",
-                  filename: "nGhBkgctMyaNxbHKKRLw",
-                  title: "pEBDUXASEoIEurflbHxS",
-                  snippet: "rPoFmwgzviEWWYQkAsXj",
+                  url: "mWhtRomvePsjeytUvoeJ",
+                  public_url: "NCFAfcKemMJgYuDzzIyY",
+                  mime_type: "ouoaGASfOzjkwFdZyfvo",
+                  filename: "bJkpstzHLHeUnMztgevW",
+                  title: "uCljbStRRDhWDMNktPFj",
+                  snippet: "LDMsbKYqpjhFdLVKSZrV",
                 },
                 {
-                  url: "ysliDavxrrKuqWhkSAwu",
-                  public_url: "GJhZBkegrBeVKsegYcek",
-                  mime_type: "jTzBVMyTZmOvTJePsKrg",
-                  filename: "FFABuAkejKBbupWnjhFr",
-                  title: "myOvJZySCRkzodKlAQpo",
-                  snippet: "rjAmoyfvtBRKNlvvzUTw",
+                  url: "eDLndgOojLBjqaeDZOqQ",
+                  public_url: "dZmuTVlSvWPnACvFmOgr",
+                  mime_type: "aLNumBoazBKduVAdkLxV",
+                  filename: "bckEKKpSWOaeTymbIhGZ",
+                  title: "yhBuHjSlNuRuLJSuIemn",
+                  snippet: "cstPyeQRWHbOiuIApfSp",
                 },
                 {
-                  url: "vESEuVVvuwyWxCqoIDAU",
-                  public_url: "McoAeurTUWpBZFYWehVb",
-                  mime_type: "BqJezOoUkpahdWkhXHGa",
-                  filename: "ksxTPyOincJsJKgNbJoT",
-                  title: "UtkRJwTeDuqJGMOLHlst",
-                  snippet: "VyKzXGKtnHEWLFiDnayH",
+                  url: "geQmvBHoyzzGjvIiejbW",
+                  public_url: "qQXHhDOisQCxZyWOSuli",
+                  mime_type: "gkLsRQngXOBeVlmmgNPQ",
+                  filename: "JOVuguOqEJBSlgKjlNji",
+                  title: "DtRxBLdknXkZdXuxDIIX",
+                  snippet: "MbBetcRnYOMYaajfMxSZ",
                 },
               ],
             },
-            data_text:
-              "Search Result:\niJpfIymADOjYTqBAaTug                                                                                \n\nSources (3):\npEBDUXASEoIEurflbHxS (ExzpBHaODRGxSGlvSCtN)\n  rPoFmwgzviEWWYQkAsXj\n\nmyOvJZySCRkzodKlAQpo (ysliDavxrrKuqWhkSAwu)\n  rjAmoyfvtBRKNlvvzUTw\n\nUtkRJwTeDuqJGMOLHlst (vESEuVVvuwyWxCqoIDAU)\n  VyKzXGKtnHEWLFiDnayH\n",
-            data_html:
-              '<div><p>iJpfIymADOjYTqBAaTug</p><h4>Sources</h4><ul><li><a href="RxYRDPFRHwzPLgJrshUg" class="msg-document">pEBDUXASEoIEurflbHxS</a><br/><small>rPoFmwgzviEWWYQkAsXj</small></li><li><a href="GJhZBkegrBeVKsegYcek" class="msg-document">myOvJZySCRkzodKlAQpo</a><br/><small>rjAmoyfvtBRKNlvvzUTw</small></li><li><a href="McoAeurTUWpBZFYWehVb" class="msg-document">UtkRJwTeDuqJGMOLHlst</a><br/><small>VyKzXGKtnHEWLFiDnayH</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -449,13 +427,13 @@ export const DRY_ALL_PIPE_TYPES = {
       },
       execution_data: {
         rendered_query:
-          "Find related research for: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+          "Find related research for: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
         resolved_model: "linkup-standard",
         is_structured_output: false,
       },
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_4",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_4",
       kind: "operator",
       pipe_code: "step_imggen",
       pipe_type: "PipeImgGen",
@@ -464,9 +442,9 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.256403Z",
-        ended_at: "2026-08-14T10:49:08.266683Z",
-        duration: 0.01028,
+        started_at: "2026-09-27T08:50:26.780469Z",
+        ended_at: "2026-09-27T08:50:26.781994Z",
+        duration: 0.001525,
       },
       io: {
         inputs: [
@@ -476,14 +454,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrs75",
+            digest: "aJbLA",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the content of these\npages:                                                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -494,13 +469,13 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: "image/jpeg",
             preview: null,
             size: null,
-            digest: "njX4p",
+            digest: "Rbu24",
             data: {
               url: "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               public_url:
                 "https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg",
               source_prompt:
-                "Infographic summarizing: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+                "Infographic summarizing: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
               source_negative_prompt: null,
               caption: null,
               mime_type: "image/jpeg",
@@ -508,10 +483,7 @@ export const DRY_ALL_PIPE_TYPES = {
               height: 1024,
               filename: null,
             },
-            data_text:
-              "Image:\nURL: https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg     \nPublic URL: Open Image\nSize: 1024x1024\nMIME Type: image/jpeg\n\nSource Prompt:\nInfographic summarizing: DRY RUN: llm_gen_text • \nllm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, \nprompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n",
-            data_html:
-              '<img src="https://storage.googleapis.com/public_test_files_7fa6_4277_9ab/fashion/fashion_photo_1.jpg" class="msg-img">',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -540,14 +512,14 @@ export const DRY_ALL_PIPE_TYPES = {
       execution_data: {
         resolved_model: "@default-general",
         rendered_prompt:
-          "Infographic summarizing: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+          "Infographic summarizing: DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
         rendered_negative_prompt: null,
         aspect_ratio: "square",
         nb_images: 1,
       },
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_5",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_5",
       kind: "operator",
       pipe_code: "step_compose",
       pipe_type: "PipeCompose",
@@ -556,9 +528,9 @@ export const DRY_ALL_PIPE_TYPES = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:08.271107Z",
-        ended_at: "2026-08-14T10:49:08.278739Z",
-        duration: 0.007632,
+        started_at: "2026-09-27T08:50:26.782193Z",
+        ended_at: "2026-09-27T08:50:26.783712Z",
+        duration: 0.001519,
       },
       io: {
         inputs: [
@@ -568,14 +540,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Mrs75",
+            digest: "aJbLA",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the content of these\npages:                                                                                              \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    ",
+            multiplicity: null,
             extra: {},
           },
           {
@@ -584,40 +553,37 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "YU9D8",
+            digest: "eZYz3",
             data: {
-              answer: "iJpfIymADOjYTqBAaTug",
+              answer: "eKlGWLsLYYtNtSlgNklB",
               sources: [
                 {
-                  url: "ExzpBHaODRGxSGlvSCtN",
-                  public_url: "RxYRDPFRHwzPLgJrshUg",
-                  mime_type: "dAhtyAttwlufqtwmMPuv",
-                  filename: "nGhBkgctMyaNxbHKKRLw",
-                  title: "pEBDUXASEoIEurflbHxS",
-                  snippet: "rPoFmwgzviEWWYQkAsXj",
+                  url: "mWhtRomvePsjeytUvoeJ",
+                  public_url: "NCFAfcKemMJgYuDzzIyY",
+                  mime_type: "ouoaGASfOzjkwFdZyfvo",
+                  filename: "bJkpstzHLHeUnMztgevW",
+                  title: "uCljbStRRDhWDMNktPFj",
+                  snippet: "LDMsbKYqpjhFdLVKSZrV",
                 },
                 {
-                  url: "ysliDavxrrKuqWhkSAwu",
-                  public_url: "GJhZBkegrBeVKsegYcek",
-                  mime_type: "jTzBVMyTZmOvTJePsKrg",
-                  filename: "FFABuAkejKBbupWnjhFr",
-                  title: "myOvJZySCRkzodKlAQpo",
-                  snippet: "rjAmoyfvtBRKNlvvzUTw",
+                  url: "eDLndgOojLBjqaeDZOqQ",
+                  public_url: "dZmuTVlSvWPnACvFmOgr",
+                  mime_type: "aLNumBoazBKduVAdkLxV",
+                  filename: "bckEKKpSWOaeTymbIhGZ",
+                  title: "yhBuHjSlNuRuLJSuIemn",
+                  snippet: "cstPyeQRWHbOiuIApfSp",
                 },
                 {
-                  url: "vESEuVVvuwyWxCqoIDAU",
-                  public_url: "McoAeurTUWpBZFYWehVb",
-                  mime_type: "BqJezOoUkpahdWkhXHGa",
-                  filename: "ksxTPyOincJsJKgNbJoT",
-                  title: "UtkRJwTeDuqJGMOLHlst",
-                  snippet: "VyKzXGKtnHEWLFiDnayH",
+                  url: "geQmvBHoyzzGjvIiejbW",
+                  public_url: "qQXHhDOisQCxZyWOSuli",
+                  mime_type: "gkLsRQngXOBeVlmmgNPQ",
+                  filename: "JOVuguOqEJBSlgKjlNji",
+                  title: "DtRxBLdknXkZdXuxDIIX",
+                  snippet: "MbBetcRnYOMYaajfMxSZ",
                 },
               ],
             },
-            data_text:
-              "Search Result:\niJpfIymADOjYTqBAaTug                                                                                \n\nSources (3):\npEBDUXASEoIEurflbHxS (ExzpBHaODRGxSGlvSCtN)\n  rPoFmwgzviEWWYQkAsXj\n\nmyOvJZySCRkzodKlAQpo (ysliDavxrrKuqWhkSAwu)\n  rjAmoyfvtBRKNlvvzUTw\n\nUtkRJwTeDuqJGMOLHlst (vESEuVVvuwyWxCqoIDAU)\n  VyKzXGKtnHEWLFiDnayH\n",
-            data_html:
-              '<div><p>iJpfIymADOjYTqBAaTug</p><h4>Sources</h4><ul><li><a href="RxYRDPFRHwzPLgJrshUg" class="msg-document">pEBDUXASEoIEurflbHxS</a><br/><small>rPoFmwgzviEWWYQkAsXj</small></li><li><a href="GJhZBkegrBeVKsegYcek" class="msg-document">myOvJZySCRkzodKlAQpo</a><br/><small>rjAmoyfvtBRKNlvvzUTw</small></li><li><a href="McoAeurTUWpBZFYWehVb" class="msg-document">UtkRJwTeDuqJGMOLHlst</a><br/><small>VyKzXGKtnHEWLFiDnayH</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -628,14 +594,11 @@ export const DRY_ALL_PIPE_TYPES = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jdoTt",
+            digest: "WAC3F",
             data: {
-              text: "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```",
+              text: "# Complete Analysis\n\n## Analysis\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n</analysis>\n\n## Related Research\n<search_result>\neKlGWLsLYYtNtSlgNklB\n\nSources:\n- uCljbStRRDhWDMNktPFj: mWhtRomvePsjeytUvoeJ\n  LDMsbKYqpjhFdLVKSZrV\n- yhBuHjSlNuRuLJSuIemn: eDLndgOojLBjqaeDZOqQ\n  cstPyeQRWHbOiuIApfSp\n- DtRxBLdknXkZdXuxDIIX: geQmvBHoyzzGjvIiejbW\n  MbBetcRnYOMYaajfMxSZ\n</search_result>",
             },
-            data_text:
-              "                                         Complete Analysis                                          \n\nAnalysis                                                                                            \n\nanalysis: ``` DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,          \ntemperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Analyze the\ncontent of these pages:                                                                             \n\n\n• item #1:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw_html: None                                                                                      \n\n                                          page_view: None                                           \n\n• item #2:                                                                                          \n\n                                          text_and_images                                           \n\ntext: ### text: DRY RUN: OCR text                                                                   \n\nimages:                                                                                             \n\nraw                                                                                                 \n\n                                                                                                    \n                                                                                                    \n ## Related Research                                                                                \n search_result: ```                                                                                 \n iJpfIymADOjYTqBAaTug                                                                               \n                                                                                                    \n Sources:                                                                                           \n - pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN                                                       \n   rPoFmwgzviEWWYQkAsXj                                                                             \n - myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu                                                       \n   rjAmoyfvtBRKNlvvzUTw                                                                             \n - UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU                                                       \n   VyKzXGKtnHEWLFiDnayH                                                                             \n                                                                                                    \n",
-            data_html:
-              "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n&lt;pages&gt;\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -664,15 +627,15 @@ export const DRY_ALL_PIPE_TYPES = {
       execution_data: {
         compose_mode: "template",
         rendered_text:
-          "# Complete Analysis\n\n## Analysis\nanalysis: ```\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n```\n\n## Related Research\nsearch_result: ```\niJpfIymADOjYTqBAaTug\n\nSources:\n- pEBDUXASEoIEurflbHxS: ExzpBHaODRGxSGlvSCtN\n  rPoFmwgzviEWWYQkAsXj\n- myOvJZySCRkzodKlAQpo: ysliDavxrrKuqWhkSAwu\n  rjAmoyfvtBRKNlvvzUTw\n- UtkRJwTeDuqJGMOLHlst: vESEuVVvuwyWxCqoIDAU\n  VyKzXGKtnHEWLFiDnayH\n```",
+          "# Complete Analysis\n\n## Analysis\n<analysis>\nDRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Analyze the content of these pages:\n\n<pages>\n\n • item #1:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw_html: None\n\n# page_view: None\n\n • item #2:\n\n# text_and_images\n\n## text: ### text: DRY RUN: OCR text\n\n## images: \n\n## raw\n    \n</analysis>\n\n## Related Research\n<search_result>\neKlGWLsLYYtNtSlgNklB\n\nSources:\n- uCljbStRRDhWDMNktPFj: mWhtRomvePsjeytUvoeJ\n  LDMsbKYqpjhFdLVKSZrV\n- yhBuHjSlNuRuLJSuIemn: eDLndgOojLBjqaeDZOqQ\n  cstPyeQRWHbOiuIApfSp\n- DtRxBLdknXkZdXuxDIIX: geQmvBHoyzzGjvIiejbW\n  MbBetcRnYOMYaajfMxSZ\n</search_result>",
       },
     },
   ],
   edges: [
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:edge_0",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_1",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:edge_0",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -681,9 +644,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:edge_1",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:edge_1",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -692,9 +655,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:edge_2",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_3",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:edge_2",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -703,9 +666,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:edge_3",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_4",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:edge_3",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -714,9 +677,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:edge_4",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_0",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_5",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:edge_4",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_0",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -725,9 +688,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:asm_edge_0",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_1",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:asm_edge_0",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_1",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
       kind: "data",
       optional: false,
       label: "pages",
@@ -736,9 +699,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:asm_edge_1",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_3",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:asm_edge_1",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_3",
       kind: "data",
       optional: false,
       label: "analysis",
@@ -747,9 +710,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:asm_edge_2",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_4",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:asm_edge_2",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_4",
       kind: "data",
       optional: false,
       label: "analysis",
@@ -758,9 +721,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:asm_edge_3",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_2",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_5",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:asm_edge_3",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_2",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_5",
       kind: "data",
       optional: false,
       label: "analysis",
@@ -769,9 +732,9 @@ export const DRY_ALL_PIPE_TYPES = {
       meta: {},
     },
     {
-      id: "76e6d563-6e5c-44e2-9a27-42b367d20dde:asm_edge_4",
-      source: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_3",
-      target: "76e6d563-6e5c-44e2-9a27-42b367d20dde:node_5",
+      id: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:asm_edge_4",
+      source: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_3",
+      target: "ee2e1c7c-7217-476e-bd50-9eb99bf44eb7:node_5",
       kind: "data",
       optional: false,
       label: "search_result",
@@ -870,31 +833,31 @@ export const DRY_ALL_PIPE_TYPES = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "step_extract",
+          pipe_code: "pipe_showcase.step_extract",
           output_name: "pages",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "step_llm",
+          pipe_code: "pipe_showcase.step_llm",
           output_name: "analysis",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "step_search",
+          pipe_code: "pipe_showcase.step_search",
           output_name: "search_result",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "step_imggen",
+          pipe_code: "pipe_showcase.step_imggen",
           output_name: "visualization",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "step_compose",
+          pipe_code: "pipe_showcase.step_compose",
           output_name: "output",
           output_multiplicity: null,
           batch_params: null,
@@ -988,6 +951,7 @@ export const DRY_ALL_PIPE_TYPES = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "pipe_showcase.step_search": {
       pipe_category: "PipeOperator",
@@ -1154,6 +1118,7 @@ export const DRY_ALL_PIPE_TYPES = {
       structure_class_name: "DocumentContent",
       refines: null,
       json_schema: {
+        description: "A document",
         properties: {
           url: {
             description: "The document URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1206,6 +1171,7 @@ export const DRY_ALL_PIPE_TYPES = {
       json_schema: {
         $defs: {
           ImageContent: {
+            description: "An image",
             properties: {
               url: {
                 description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",
@@ -1292,12 +1258,15 @@ export const DRY_ALL_PIPE_TYPES = {
             type: "object",
           },
           TextContent: {
+            description: "A text",
             properties: { text: { description: "The text", title: "Text", type: "string" } },
             required: ["text"],
             title: "TextContent",
             type: "object",
           },
         },
+        description:
+          "The content of a page of a document, comprising text and linked images and an optional page view image",
         properties: {
           text_and_images: {
             $ref: "#/$defs/TextAndImagesContent",
@@ -1337,6 +1306,7 @@ export const DRY_ALL_PIPE_TYPES = {
       json_schema: {
         $defs: {
           DocumentContent: {
+            description: "A document",
             properties: {
               url: {
                 description:
@@ -1406,6 +1376,7 @@ export const DRY_ALL_PIPE_TYPES = {
       structure_class_name: "ImageContent",
       refines: null,
       json_schema: {
+        description: "An image",
         properties: {
           url: {
             description: "The image URL: a storage URI, an HTTP(S) URL, or a base64 data URL",

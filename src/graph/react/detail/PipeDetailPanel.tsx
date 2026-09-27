@@ -6,7 +6,7 @@ import type {
   PipeType,
   GraphSpec,
 } from "@graph/types";
-import { isDryGraphSpec, isStaticGraphSpec } from "@graph/types";
+import { isDryGraphSpec, isStaticGraphSpec, multiplicitySuffix } from "@graph/types";
 import { getPipeBlueprint } from "@graph/graphAnalysis";
 import {
   formatDuration,
@@ -162,7 +162,11 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
                   onClick={() => input.concept && onConceptClick?.(input.concept)}
                 >
                   <span className="detail-io-name">{input.name}</span>
-                  {input.concept && <span className="detail-io-concept">{input.concept}</span>}
+                  {input.concept && (
+                    <span className="detail-io-concept">
+                      {input.concept + multiplicitySuffix(input.multiplicity)}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
@@ -182,7 +186,11 @@ export function PipeDetailPanel({ node, spec, onConceptClick }: PipeDetailPanelP
                   onClick={() => output.concept && onConceptClick?.(output.concept)}
                 >
                   <span className="detail-io-name">{output.name}</span>
-                  {output.concept && <span className="detail-io-concept">{output.concept}</span>}
+                  {output.concept && (
+                    <span className="detail-io-concept">
+                      {output.concept + multiplicitySuffix(output.multiplicity)}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

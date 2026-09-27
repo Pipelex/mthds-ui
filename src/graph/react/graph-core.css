@@ -11,7 +11,10 @@
  * cases still render with valid colors / fonts / shadows:
  *   - first paint before the React inline-palette effect runs
  *   - SSR / hydration mismatches
- *   - a consumer rendering a graph subcomponent outside `GraphViewer`
+ *   - a consumer rendering a graph subcomponent outside `GraphViewer`, as
+ *     long as it wraps that subcomponent in an element carrying the
+ *     `.react-flow-container` class: the defaults are scoped to that class,
+ *     never to `:root`, so they do not leak into the host page
  *   - JS disabled / failed
  * Values mirror `DARK_PALETTE_COLORS` in `graphConfig.ts`. The runtime
  * palette (dark or light) is applied as higher-specificity inline styles

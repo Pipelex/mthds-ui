@@ -36,7 +36,15 @@
     "field": {
       "concept_ref": "content_distribution.IndexEntry",
       "description": "Search index entry",
-      "kind": "unknown",
+      "fields": [
+        {
+          "description": "The JSON object",
+          "kind": "unknown",
+          "name": "json_obj",
+          "required": true
+        }
+      ],
+      "kind": "object",
       "name": "output",
       "refines": [
         "native.JSON"

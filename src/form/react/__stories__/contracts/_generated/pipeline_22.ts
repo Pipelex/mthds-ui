@@ -550,8 +550,16 @@ export const INPUT_FORM_MULTI_OUTPUT_FANOUT = {
       {
         concept_ref: "content_distribution.IndexEntry",
         description: "Search index entry",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "index_entry",
         presence: "plain",
         refines: ["native.JSON"],
@@ -619,7 +627,15 @@ export const OUTPUT_FORM_MULTI_OUTPUT_FANOUT = {
     field: {
       concept_ref: "content_distribution.IndexEntry",
       description: "Search index entry",
-      kind: "unknown",
+      fields: [
+        {
+          description: "The JSON object",
+          kind: "unknown",
+          name: "json_obj",
+          required: true,
+        },
+      ],
+      kind: "object",
       name: "output",
       refines: ["native.JSON"],
       required: true,

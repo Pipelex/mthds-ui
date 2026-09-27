@@ -1,43 +1,43 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_0265b93fa3["multi_format_report"]
-        subgraph sg_n_543612b708["generate_outputs"]
-            n_9e2a60397a["generate_chart"]
-            s_f7928ee3ad(["chart_spec<br/>ChartSpec"]):::stuff
-            n_3111e766c5["generate_table"]
-            s_3774801d47(["table_data<br/>TableData"]):::stuff
-            n_1a6796f8d5["write_narrative"]
-            s_5dbc06a563(["narrative<br/>Narrative"]):::stuff
-            s_368681caf4(["format_bundle<br/>Composite"]):::stuff
+    subgraph sg_n_689dc8b01c["multi_format_report"]
+        subgraph sg_n_c31baf566c["generate_outputs"]
+            n_c097cc348a["generate_chart"]
+            s_d80726f689(["chart_spec<br/>ChartSpec"]):::stuff
+            n_da80814e97["generate_table"]
+            s_ef4bb2501d(["table_data<br/>TableData"]):::stuff
+            n_5aeceb8b53["write_narrative"]
+            s_2db19bcba2(["narrative<br/>Narrative"]):::stuff
+            s_d986fc52a7(["format_bundle<br/>Composite"]):::stuff
         end
-        n_9b18e79065["analyze_data"]
-        s_98e201058c(["insight<br/>Insight"]):::stuff
-        n_0302e584b0["assemble_report"]
-        s_f7d2273d82(["report<br/>Report"]):::stuff
+        n_90abb92541["analyze_data"]
+        s_98c8a555c0(["insight<br/>Insight"]):::stuff
+        n_7086de9fec["assemble_report"]
+        s_4ca8c299a2(["report<br/>Report"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_1163c190ad(["data<br/>Text"]):::stuff
+    s_3247c9b5e6(["data<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_9e2a60397a --> s_f7928ee3ad
-    n_9b18e79065 --> s_98e201058c
-    n_3111e766c5 --> s_3774801d47
-    n_1a6796f8d5 --> s_5dbc06a563
-    n_0302e584b0 --> s_f7d2273d82
-    s_f7928ee3ad --> n_0302e584b0
-    s_98e201058c --> n_9e2a60397a
-    s_98e201058c --> n_3111e766c5
-    s_98e201058c --> n_1a6796f8d5
-    s_1163c190ad --> n_9b18e79065
-    s_3774801d47 --> n_0302e584b0
-    s_5dbc06a563 --> n_0302e584b0
+    n_c097cc348a --> s_d80726f689
+    n_5aeceb8b53 --> s_2db19bcba2
+    n_7086de9fec --> s_4ca8c299a2
+    n_90abb92541 --> s_98c8a555c0
+    n_da80814e97 --> s_ef4bb2501d
+    s_d80726f689 --> n_7086de9fec
+    s_3247c9b5e6 --> n_90abb92541
+    s_2db19bcba2 --> n_7086de9fec
+    s_98c8a555c0 --> n_c097cc348a
+    s_98c8a555c0 --> n_da80814e97
+    s_98c8a555c0 --> n_5aeceb8b53
+    s_ef4bb2501d --> n_7086de9fec
 
     %% Parallel combine edges: branch outputs → combined output
-    s_f7928ee3ad -.-> s_368681caf4
-    s_3774801d47 -.-> s_368681caf4
-    s_5dbc06a563 -.-> s_368681caf4
+    s_d80726f689 -.-> s_d986fc52a7
+    s_ef4bb2501d -.-> s_d986fc52a7
+    s_2db19bcba2 -.-> s_d986fc52a7
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -45,5 +45,5 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_0265b93fa3 fill:#e6f3ff
-    style sg_n_543612b708 fill:#e6ffe6
+    style sg_n_689dc8b01c fill:#e6f3ff
+    style sg_n_c31baf566c fill:#e6ffe6

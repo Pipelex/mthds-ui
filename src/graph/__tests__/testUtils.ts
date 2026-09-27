@@ -20,6 +20,23 @@ import { getLayoutedElements } from "../graphLayout";
 import { applyControllers } from "../graphControllers";
 import { toAppNodes, toAppEdges } from "@graph/react/rfTypes";
 
+// ─── Relay simulation ───────────────────────────────────────────────────────
+
+/**
+ * Remove every `null`-valued object key, recursively, the way a host that drops nulls
+ * relays JSON (ChatGPT does, on the way to an MCP App view). Array elements are kept:
+ * only object values are known to be dropped.
+ */
+export function dropNullValues(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(dropNullValues);
+  if (typeof value !== "object" || value === null) return value;
+  const result: Record<string, unknown> = {};
+  for (const [key, entry] of Object.entries(value)) {
+    if (entry !== null) result[key] = dropNullValues(entry);
+  }
+  return result;
+}
+
 // ─── Node / Edge factories ──────────────────────────────────────────────────
 
 export function makeGraphNode(id: string, overrides?: Partial<GraphNode>): GraphNode {

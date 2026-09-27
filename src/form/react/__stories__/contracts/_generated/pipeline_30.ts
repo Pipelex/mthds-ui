@@ -2060,7 +2060,10 @@ export const CONTRACTS_CV_ANALYZER = {
     output: {
       concept_ref: "native.Anything",
       item_count: null,
-      json_schema: {},
+      json_schema: {
+        description: "Anything",
+        title: "native.Anything",
+      },
       multiplicity: "single",
       optional: false,
     },
@@ -2239,7 +2242,10 @@ export const CONTRACTS_CV_ANALYZER = {
     output: {
       concept_ref: "native.Anything",
       item_count: null,
-      json_schema: {},
+      json_schema: {
+        description: "Anything",
+        title: "native.Anything",
+      },
       multiplicity: "single",
       optional: false,
     },

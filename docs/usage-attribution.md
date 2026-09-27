@@ -9,7 +9,7 @@ The producing side is documented in pipelex: `docs/under-the-hood/per-node-usage
 | File                                               | Role                                                                                                     |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `src/graph/types.ts`                               | `GraphSpecNodeUsage`, `GraphSpecUsage` — the mirror of pipelex's models, with the invariants on the type |
-| `src/graph/validateGraphSpec.ts`                   | The boundary gate: `usage` present must be well-formed, `cost` must be `number \| null`                  |
+| `src/graph/validateGraphSpec.ts`                   | The boundary gate: `usage` present must be well-formed, `cost` comes out as `number \| null`             |
 | `src/graph/usageFormat.ts`                         | Pure presentation rules — scope, state, formatting. No React                                             |
 | `src/graph/react/detail/sections/UsageSection.tsx` | The inline cost and its expanded diagnostics                                                             |
 | `src/graph/react/detail/PipeDetailPanel.tsx`       | Places the cost on the status line and owns the disclosure state                                         |
@@ -42,6 +42,12 @@ Three things the design refuses to do:
 - **Render a dry run's numbers.** A dry run executes nothing. Its usage record exists (one synthetic call per would-be inference, zero tokens, `cost: null`), but presenting those counts as measurements is a fabrication — so the cost is gated on a real run.
 
 That last point is why the fixture generator deliberately does **not** pass `--mock-usage`: that flag makes a dry run report invented token counts, which is precisely the thing not to put on screen.
+
+## A cost that arrives absent
+
+Some hosts drop `null` values from the JSON they relay. ChatGPT does, on the way to an MCP App view, so an executed graph shown there reaches the viewer with every unrated `cost` and `subtree_cost`, and every unrated model's `cost`, missing rather than `null`. The validator cannot simply read an absent cost as `null`, because a cost that went missing on a priced call would then be shown as unrated, understating what the run spent. It uses invariant 2 instead: `cost` is `null` exactly when `rated_inference_calls` is zero, so an absent cost with no rated call is written back as `null`, and an absent cost with rated calls still fails validation. The counts themselves stay required, since pipelex never writes one as `null`.
+
+Code downstream therefore always sees `null`, never `undefined`, for an unrated cost. The pipe and concept registries are not validated, so their nullable fields do arrive absent from such a host, and `src/graph/types.ts` declares every one of them optional as well as nullable (`field?: T | null`): a strict `!== null` test followed by a use of the value then fails to compile instead of throwing at run time. `src/graph/__tests__/nullDroppingHost.test.ts` relays every committed pipelex spec through a null-dropping pass and requires the same usage, the same built graph and the same detail panels as the original.
 
 ## Why no token counts anywhere
 

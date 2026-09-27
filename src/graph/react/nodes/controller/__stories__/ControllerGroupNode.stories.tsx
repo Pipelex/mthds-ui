@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { PipeControllerType } from "@graph/types";
 import { ControllerGroupNode } from "../ControllerGroupNode";
+import { controllerStoryDecorator } from "./_shared";
 
 const meta: Meta<typeof ControllerGroupNode> = {
   title: "Misc/ControllerGroupNode",
   component: ControllerGroupNode,
-  decorators: [
-    (Story) => (
-      <div style={{ padding: 40, background: "#0a0a0a", minHeight: "100vh" }}>
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: [controllerStoryDecorator],
 };
 
 export default meta;

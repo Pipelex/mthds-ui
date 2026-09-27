@@ -88,6 +88,31 @@ describe("parity harness sensitivity", () => {
     expect(divergences.some((line) => line.startsWith("stuff"))).toBe(true);
   });
 
+  it("reports a list the static builder reads as single", () => {
+    const { staticSpec, drySpec } = load("pipeline_12");
+    // The runtime marks the list `load_records` produces, so the comparison has a list to lose.
+    const dryRecords = drySpec.nodes
+      .flatMap((node) => node.io.outputs)
+      .filter((item) => item.name === "records");
+    expect(dryRecords.length).toBeGreaterThan(0);
+    expect(dryRecords.every((item) => item.multiplicity === true)).toBe(true);
+
+    const mutilated: GraphSpec = {
+      ...staticSpec,
+      nodes: staticSpec.nodes.map((node) => ({
+        ...node,
+        io: {
+          inputs: node.io.inputs.map(({ multiplicity: _dropped, ...item }) => item),
+          outputs: node.io.outputs.map(({ multiplicity: _dropped, ...item }) => item),
+        },
+      })),
+    };
+    const divergences = compareParity(mutilated, drySpec);
+    expect(divergences).toContainEqual(
+      expect.stringMatching(/only in dry.*name=records .*list=yes/),
+    );
+  });
+
   it("collapses dry-run batch fan-out to a single representative branch", () => {
     const { staticSpec, drySpec } = load("pipeline_08");
     // The raw dry spec has several same-code branches under the batch

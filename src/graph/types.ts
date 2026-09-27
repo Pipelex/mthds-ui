@@ -83,12 +83,41 @@ export function stuffDigestFromId(id: string): string {
   return id.slice(STUFF_ID_PREFIX.length);
 }
 
+// ─── Stuff multiplicity ─────────────────────────────────────────────────────
+// How many values a stuff holds, in the encoding the pipe registry already uses
+// for `StuffSpecInfo.multiplicity`: `true` for a variable-length list (`Code[]`),
+// an integer for a fixed count (`Code[N]`), `null`/`false`/absent for a single
+// value. A count of exactly one is single throughout the MTHDS standard —
+// `Code[1]` is a way of writing `Code`, never a one-item list — so it reads as
+// single here too.
+
+export type StuffMultiplicity = number | boolean | null;
+
+/** Whether a multiplicity declares a list: variable-length, or a fixed count of at least two. */
+export function isPluralMultiplicity(multiplicity: StuffMultiplicity | undefined): boolean {
+  return multiplicity === true || (Number.isInteger(multiplicity) && (multiplicity as number) > 1);
+}
+
+/** The authored marker for a multiplicity — `"[]"`, `"[N]"`, or `""` for a single value. */
+export function multiplicitySuffix(multiplicity: StuffMultiplicity | undefined): string {
+  if (!isPluralMultiplicity(multiplicity)) return "";
+  return multiplicity === true ? "[]" : `[${multiplicity as number}]`;
+}
+
 // ─── GraphSpec types (from pipelex-agent --view output) ─────────────────────
 
 export interface GraphSpecNodeIoItem {
   name: string;
   digest?: string;
+  /** The bare concept code or ref, never carrying a multiplicity marker — that is `multiplicity`. */
   concept?: string;
+  /**
+   * How many values the stuff holds (see `StuffMultiplicity`). Emitted only on a
+   * plural stuff; absent means single. The static builder writes it, and a
+   * runtime graph carries it once its producer emits it, so a renderer must read
+   * absence as single rather than as unknown.
+   */
+  multiplicity?: StuffMultiplicity;
   content_type?: string;
   preview?: string;
   size?: number;
@@ -266,13 +295,25 @@ export interface GraphSpecEdge {
 
 // ─── Concept and Pipe registry types ───────────────────────────────────────
 // Serialized from Python Concept and PipeAbstract instances via model_dump().
+//
+// Every field pipelex writes as `T | null` is declared `field?: T | null` here,
+// optional as well as nullable. Unlike `usage`, the registries cross the boundary
+// unvalidated, and a host that drops `null` values from the JSON it relays (ChatGPT
+// does, on the way to an MCP App view) delivers such a field with the key absent.
+// The optional marker is what makes the compiler refuse a strict `!== null` test
+// followed by a dereference.
 
+/**
+ * A concept as the registry serializes it. A field that can be `null` is also
+ * declared optional, because a host that drops `null` values delivers it absent:
+ * test it with `!= null`, optional chaining or truthiness.
+ */
 export interface ConceptInfo {
   code: string;
   domain_code: string;
   description: string;
   structure_class_name: string;
-  refines: string | null;
+  refines?: string | null;
   json_schema?: Record<string, unknown>;
 }
 
@@ -287,7 +328,7 @@ export type PresenceMarker = "plain" | "optional" | "force";
 
 export interface StuffSpecInfo {
   concept: ConceptInfo;
-  multiplicity: number | boolean | null;
+  multiplicity?: StuffMultiplicity;
   presence?: PresenceMarker;
 }
 
@@ -295,18 +336,18 @@ export interface StuffSpecInfo {
 
 export interface TemplateBlueprint {
   template: string;
-  templating_style: string | null;
+  templating_style?: string | null;
   category: string;
-  extra_context: Record<string, unknown> | null;
+  extra_context?: Record<string, unknown> | null;
 }
 
 // ─── Sub-pipe (used by Sequence, Parallel, Batch) ──────────────────────
 
 export interface SubPipeSpec {
   pipe_code: string;
-  output_name: string | null;
-  output_multiplicity: string | number | boolean | null;
-  batch_params: { input_list_stuff_name: string; input_item_stuff_name: string } | null;
+  output_name?: string | null;
+  output_multiplicity?: string | number | boolean | null;
+  batch_params?: { input_list_stuff_name: string; input_item_stuff_name: string } | null;
 }
 
 // ─── PipeAbstract base (common to all pipe types) ──────────────────────
@@ -326,31 +367,31 @@ export interface PipeBlueprintBase {
 export interface PipeLLMBlueprint extends PipeBlueprintBase {
   type: "PipeLLM";
   llm_prompt_spec: {
-    system_prompt_blueprint: TemplateBlueprint | null;
-    prompt_blueprint: TemplateBlueprint | null;
-    user_image_references: unknown[] | null;
-    user_document_references: unknown[] | null;
-    system_image_references: unknown[] | null;
-    system_document_references: unknown[] | null;
+    system_prompt_blueprint?: TemplateBlueprint | null;
+    prompt_blueprint?: TemplateBlueprint | null;
+    user_image_references?: unknown[] | null;
+    user_document_references?: unknown[] | null;
+    system_image_references?: unknown[] | null;
+    system_document_references?: unknown[] | null;
   };
-  llm_choices: { for_text: string | null; for_object: string | null } | null;
-  structuring_method: string | null;
-  output_multiplicity: string | number | null;
+  llm_choices?: { for_text?: string | null; for_object?: string | null } | null;
+  structuring_method?: string | null;
+  output_multiplicity?: string | number | null;
 }
 
 export interface PipeImgGenBlueprint extends PipeBlueprintBase {
   type: "PipeImgGen";
   img_gen_prompt_blueprint: {
-    prompt_blueprint: TemplateBlueprint | null;
-    negative_prompt_blueprint: TemplateBlueprint | null;
-    image_references: unknown[] | null;
+    prompt_blueprint?: TemplateBlueprint | null;
+    negative_prompt_blueprint?: TemplateBlueprint | null;
+    image_references?: unknown[] | null;
   };
-  img_gen_choice: string | null;
-  aspect_ratio: string | null;
-  is_raw: boolean | null;
-  seed: number | string | null;
-  background: string | null;
-  output_format: string | null;
+  img_gen_choice?: string | null;
+  aspect_ratio?: string | null;
+  is_raw?: boolean | null;
+  seed?: number | string | null;
+  background?: string | null;
+  output_format?: string | null;
   output_multiplicity: number;
 }
 
@@ -401,37 +442,37 @@ export interface FieldResolution {
 export interface PipeComposeBlueprint extends PipeBlueprintBase {
   type: "PipeCompose";
   /** Legacy monolithic template. Null when construct_blueprint is used instead. */
-  template: string | null;
-  templating_style: string | null;
+  template?: string | null;
+  templating_style?: string | null;
   category: string;
-  extra_context: Record<string, unknown> | null;
+  extra_context?: Record<string, unknown> | null;
   /** Field-level construct form (e.g. `[pipe.X.construct]` in MTHDS). */
-  construct_blueprint: PipeComposeConstructBlueprint | null;
+  construct_blueprint?: PipeComposeConstructBlueprint | null;
 }
 
 export interface PipeExtractBlueprint extends PipeBlueprintBase {
   type: "PipeExtract";
-  extract_choice: string | null;
+  extract_choice?: string | null;
   should_caption_images: boolean;
-  max_page_images: number | null;
+  max_page_images?: number | null;
   should_include_page_views: boolean;
-  page_views_dpi: number | null;
-  render_js: boolean | null;
-  include_raw_html: boolean | null;
-  image_stuff_name: string | null;
-  document_stuff_name: string | null;
+  page_views_dpi?: number | null;
+  render_js?: boolean | null;
+  include_raw_html?: boolean | null;
+  image_stuff_name?: string | null;
+  document_stuff_name?: string | null;
 }
 
 export interface PipeSearchBlueprint extends PipeBlueprintBase {
   type: "PipeSearch";
-  search_choice: string | null;
+  search_choice?: string | null;
   prompt_blueprint: TemplateBlueprint;
-  include_images_override: boolean | null;
-  max_results_override: number | null;
-  from_date: string | null;
-  to_date: string | null;
-  include_domains: string[] | null;
-  exclude_domains: string[] | null;
+  include_images_override?: boolean | null;
+  max_results_override?: number | null;
+  from_date?: string | null;
+  to_date?: string | null;
+  include_domains?: string[] | null;
+  exclude_domains?: string[] | null;
   is_structured_output: boolean;
 }
 
@@ -451,11 +492,11 @@ export interface PipeStructureBlueprint extends PipeBlueprintBase {
    * setting object, or null (→ resolved from the model deck's `for_object`
    * default at run time).
    */
-  llm_choice: string | Record<string, unknown> | null;
+  llm_choice?: string | Record<string, unknown> | null;
   /** The single Text-compatible input variable the structuring reads. */
   text_input_name: string;
   /** `true` → let the LLM decide the count, a number → fixed count, null → single object. */
-  output_multiplicity: boolean | number | null;
+  output_multiplicity?: boolean | number | null;
 }
 
 /**
@@ -468,9 +509,10 @@ export interface PipeSignatureBlueprint extends Omit<PipeBlueprintBase, "pipe_ca
   /**
    * Signatures sit outside the executable taxonomy, so pipelex serializes
    * `pipe_category: null` (present, not omitted) — unlike operator/controller
-   * blueprints which carry "PipeOperator" / "PipeController".
+   * blueprints which carry "PipeOperator" / "PipeController". Optional all the
+   * same, since a host that drops `null` values delivers it absent.
    */
-  pipe_category: null;
+  pipe_category?: null;
   /** Intended downstream pipe type once implemented — an optional hint. */
   signature_for?: PipeType | null;
 }
@@ -500,7 +542,7 @@ export interface PipeConditionBlueprint extends PipeBlueprintBase {
   expression: string;
   outcome_map: Record<string, string>;
   default_outcome: string;
-  add_alias_from_expression_to: string | null;
+  add_alias_from_expression_to?: string | null;
 }
 
 export interface PipeBatchBlueprint extends PipeBlueprintBase {
@@ -509,6 +551,11 @@ export interface PipeBatchBlueprint extends PipeBlueprintBase {
   batch_params: { input_list_stuff_name: string; input_item_stuff_name: string };
 }
 
+/**
+ * A pipe as the registry serializes it, discriminated on `type`. A field that can
+ * be `null` is also declared optional, because a host that drops `null` values
+ * delivers it absent: test it with `!= null`, optional chaining or truthiness.
+ */
 export type PipeBlueprintUnion =
   | PipeLLMBlueprint
   | PipeImgGenBlueprint
@@ -553,10 +600,16 @@ export function isDryGraphSpec(spec: Pick<GraphSpec, "meta"> | null | undefined)
 
 // ─── Dataflow analysis result ───────────────────────────────────────────────
 
+/** One stuff as the dataflow analysis registers it, from the first io item naming its digest. */
+export interface StuffRegistryEntry {
+  name: string;
+  concept?: string;
+  multiplicity?: StuffMultiplicity;
+  contentType?: string;
+}
+
 export interface DataflowAnalysis {
-  readonly stuffRegistry: Readonly<
-    Record<string, { name: string; concept?: string; contentType?: string }>
-  >;
+  readonly stuffRegistry: Readonly<Record<string, StuffRegistryEntry>>;
   readonly stuffProducers: Readonly<Record<string, string>>;
   readonly stuffConsumers: Readonly<Record<string, readonly string[]>>;
   readonly controllerNodeIds: ReadonlySet<string>;

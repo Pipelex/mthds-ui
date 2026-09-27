@@ -1,25 +1,25 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_eb4980f87e["extract_analyze_report"]
-        n_7caa7d1851["analyze_content"]
-        s_52eebef3ad(["analysis<br/>Analysis"]):::stuff
-        n_373f3d9570["compose_report"]
-        s_729386ffbd(["report<br/>Report"]):::stuff
-        n_8e4705dd43["extract_pages"]
-        s_877ffc04d5(["pages<br/>Page"]):::stuff
+    subgraph sg_n_dedfd2f71f["extract_analyze_report"]
+        n_335d007bfc["analyze_content"]
+        s_f9c85b25f0(["analysis<br/>Analysis"]):::stuff
+        n_b3c2e99131["compose_report"]
+        s_f523cf2037(["report<br/>Report"]):::stuff
+        n_836e409a8f["extract_pages"]
+        s_ed611d074e(["pages<br/>Page#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_7aa24143d5(["document<br/>Document"]):::stuff
+    s_1776ac8be9(["document<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_7caa7d1851 --> s_52eebef3ad
-    n_8e4705dd43 --> s_877ffc04d5
-    n_373f3d9570 --> s_729386ffbd
-    s_52eebef3ad --> n_373f3d9570
-    s_7aa24143d5 --> n_8e4705dd43
-    s_877ffc04d5 --> n_7caa7d1851
+    n_335d007bfc --> s_f9c85b25f0
+    n_836e409a8f --> s_ed611d074e
+    n_b3c2e99131 --> s_f523cf2037
+    s_f9c85b25f0 --> n_b3c2e99131
+    s_ed611d074e --> n_335d007bfc
+    s_1776ac8be9 --> n_836e409a8f
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -27,4 +27,4 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_eb4980f87e fill:#e6f3ff
+    style sg_n_dedfd2f71f fill:#e6f3ff

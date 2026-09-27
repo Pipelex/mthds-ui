@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pipeline: Rag Pipeline</title>
 <script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script>
-<!-- DOMPurify for HTML sanitization (XSS prevention) -->
-<script nonce="PIPELEX_CSP_NONCE" src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
     <style nonce="PIPELEX_CSP_NONCE">
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -230,38 +228,6 @@ h1 {
     word-wrap: break-word;
     line-height: 1.5;
 }
-.data-modal-content.text-content {
-    line-height: 1;
-    white-space: pre;
-    word-wrap: normal;
-    overflow-x: auto;
-    padding-right: 20px;
-}
-.data-modal-content.html-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #1e1e1e;
-    color: #d4d4d4;
-    padding: 12px;
-    border-radius: 4px;
-}
-.data-modal-content.html-content table {
-    border-collapse: collapse;
-    width: 100%;
-}
-.data-modal-content.html-content th,
-.data-modal-content.html-content td {
-    border: 1px solid #444;
-    padding: 8px 12px;
-    text-align: left;
-}
-.data-modal-content.html-content th {
-    background: #252a30;
-    color: #e0e0e0;
-    font-weight: 600;
-}
-.data-modal-content.html-content tr:hover {
-    background: #2a2530;
-}
 .data-modal-overlay {
     position: fixed;
     top: 0;
@@ -325,9 +291,8 @@ h1 {
     </div>
     <div class="format-toolbar">
         <div class="format-tabs" id="format-tabs">
-            <button class="format-tab active" data-format="html" id="tab-html">HTML</button>
+            <button class="format-tab active" data-format="preview" id="tab-preview">Preview</button>
             <button class="format-tab" data-format="json" id="tab-json">JSON</button>
-            <button class="format-tab" data-format="text" id="tab-text">Pretty</button>
         </div>
         <div class="format-actions">
             <button class="action-btn" id="open-external-btn" onclick="openExternal()" title="Open in new window" style="display: none;">
@@ -344,17 +309,15 @@ h1 {
     <div class="data-modal-content" id="modal-content"></div>
 </div>
     <script nonce="PIPELEX_CSP_NONCE">
-// Embedded stuff data from graph (all formats)
-const stuffDataJson = {"s_60fa277daa": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n<context>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 \n    "}, "s_9f897aa733": {"text": "zsvZsYnDyEnmXyqinAcc"}, "s_4d42d36c75": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n<question>\nzsvZsYnDyEnmXyqinAcc\n</question>\n    "}, "s_925c95c42b": {"answer": "QnOlRjSXaUEFikELqgnR", "sources": [{"url": "PVKTBdWBwUfWNDdBUbOO", "public_url": "PBLznzUYDDPpLkwQldDy", "mime_type": "yYzXPgMVfNPosmrIVZxu", "filename": "hSmHIgGjEpjjutucovVa", "title": "DcpWijAmYMVfAZGpoNou", "snippet": "vxiOniXgATgjiKcMULcy"}, {"url": "bLbDGAxEXkjCalOzbNDq", "public_url": "lztCdDulrOcPuuEgWtaA", "mime_type": "ZqdPhGxYvlvDLTgOSuEN", "filename": "EcbEriQCrntdgcJqAVOX", "title": "GoEJPObbFApyOjZTXnNm", "snippet": "lKJfcZrNJZmZWmjnAPJl"}, {"url": "vhFcVjmyiznGoXKyuHPD", "public_url": "NKALiItVvHcTorboBdqC", "mime_type": "TLZqeawwjOBYzGrMWXIp", "filename": "DbyLyFmorQcTYyoKsnTB", "title": "clSoyucYurvYofPfEGJZ", "snippet": "nLWWeSEvhZtlJxGewoQh"}]}, "s_865555b41b": {"answer": "BtXcZMETcslxNvLsYFAy", "sources": [{"url": "eLjRnQOEUeNMsvyHEoYG", "public_url": "oECnBjYGNHhCxtSdJxpi", "mime_type": "zRfOwdshIQLZeYSmFNtw", "filename": "uWlmzrmGwQbWfmqhBujd", "title": "IKnIsmmijHSUGNzemUBH", "snippet": "aOdhBJxbvTJHadpIDjWc"}, {"url": "BkDqDmwDlbuQyGNlfdCA", "public_url": "AtNNwTFvHppjqYnAHHBO", "mime_type": "CrnWURLmzxPkcWkebbQG", "filename": "nHInqMMolPrGFtEBRrsE", "title": "ZPfpJSSxgsWDEpgHOCzi", "snippet": "JsRjiLEkfrxBydPTCEIp"}, {"url": "JPexqtFUCuIltoCFPhvt", "public_url": "QYSCdemxkbasDOrbmhpJ", "mime_type": "aXIQivaXcrFudgWSfHZH", "filename": "DmrzHQbhiwksrRuNvoKF", "title": "BXmxXznhPDLaQSlGORHU", "snippet": "XTVnNhJdbBBhTiOpQFOQ"}]}, "s_3d96d53ead": {"vector_results": {"answer": "QnOlRjSXaUEFikELqgnR", "sources": [{"url": "PVKTBdWBwUfWNDdBUbOO", "public_url": "PBLznzUYDDPpLkwQldDy", "mime_type": "yYzXPgMVfNPosmrIVZxu", "filename": "hSmHIgGjEpjjutucovVa", "title": "DcpWijAmYMVfAZGpoNou", "snippet": "vxiOniXgATgjiKcMULcy"}, {"url": "bLbDGAxEXkjCalOzbNDq", "public_url": "lztCdDulrOcPuuEgWtaA", "mime_type": "ZqdPhGxYvlvDLTgOSuEN", "filename": "EcbEriQCrntdgcJqAVOX", "title": "GoEJPObbFApyOjZTXnNm", "snippet": "lKJfcZrNJZmZWmjnAPJl"}, {"url": "vhFcVjmyiznGoXKyuHPD", "public_url": "NKALiItVvHcTorboBdqC", "mime_type": "TLZqeawwjOBYzGrMWXIp", "filename": "DbyLyFmorQcTYyoKsnTB", "title": "clSoyucYurvYofPfEGJZ", "snippet": "nLWWeSEvhZtlJxGewoQh"}]}, "keyword_results": {"answer": "BtXcZMETcslxNvLsYFAy", "sources": [{"url": "eLjRnQOEUeNMsvyHEoYG", "public_url": "oECnBjYGNHhCxtSdJxpi", "mime_type": "zRfOwdshIQLZeYSmFNtw", "filename": "uWlmzrmGwQbWfmqhBujd", "title": "IKnIsmmijHSUGNzemUBH", "snippet": "aOdhBJxbvTJHadpIDjWc"}, {"url": "BkDqDmwDlbuQyGNlfdCA", "public_url": "AtNNwTFvHppjqYnAHHBO", "mime_type": "CrnWURLmzxPkcWkebbQG", "filename": "nHInqMMolPrGFtEBRrsE", "title": "ZPfpJSSxgsWDEpgHOCzi", "snippet": "JsRjiLEkfrxBydPTCEIp"}, {"url": "JPexqtFUCuIltoCFPhvt", "public_url": "QYSCdemxkbasDOrbmhpJ", "mime_type": "aXIQivaXcrFudgWSfHZH", "filename": "DmrzHQbhiwksrRuNvoKF", "title": "BXmxXznhPDLaQSlGORHU", "snippet": "XTVnNhJdbBBhTiOpQFOQ"}]}}, "s_950ad865a6": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n<vector_results>\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    "}};
-const stuffDataText = {"s_60fa277daa": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Answer this question using  \nthe provided context. Cite your sources.                                                            \n\nQuestion: zsvZsYnDyEnmXyqinAcc                                                                      \n\n\nContext:  DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet,              \ntemperature=0.5, max_tokens=None, prompting_target=None) \u2022                                          \n", "s_9f897aa733": "zsvZsYnDyEnmXyqinAcc                                                                                \n", "s_4d42d36c75": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Rephrase this question to   \ncapture the core semantic meaning for retrieval:                                                    \n\n", "s_925c95c42b": "Search Result:\nQnOlRjSXaUEFikELqgnR                                                                                \n\nSources (3):\nDcpWijAmYMVfAZGpoNou (PVKTBdWBwUfWNDdBUbOO)\n  vxiOniXgATgjiKcMULcy\n\nGoEJPObbFApyOjZTXnNm (bLbDGAxEXkjCalOzbNDq)\n  lKJfcZrNJZmZWmjnAPJl\n\nclSoyucYurvYofPfEGJZ (vhFcVjmyiznGoXKyuHPD)\n  nLWWeSEvhZtlJxGewoQh\n", "s_865555b41b": "Search Result:\nBtXcZMETcslxNvLsYFAy                                                                                \n\nSources (3):\nIKnIsmmijHSUGNzemUBH (eLjRnQOEUeNMsvyHEoYG)\n  aOdhBJxbvTJHadpIDjWc\n\nZPfpJSSxgsWDEpgHOCzi (BkDqDmwDlbuQyGNlfdCA)\n  JsRjiLEkfrxBydPTCEIp\n\nBXmxXznhPDLaQSlGORHU (JPexqtFUCuIltoCFPhvt)\n  XTVnNhJdbBBhTiOpQFOQ\n", "s_3d96d53ead": "{\n    \"vector_results\": {\n        \"answer\": \"QnOlRjSXaUEFikELqgnR\",\n        \"sources\": [\n            {\n                \"url\": \"PVKTBdWBwUfWNDdBUbOO\",\n                \"public_url\": \"PBLznzUYDDPpLkwQldDy\",\n                \"mime_type\": \"yYzXPgMVfNPosmrIVZxu\",\n                \"filename\": \"hSmHIgGjEpjjutucovVa\",\n                \"title\": \"DcpWijAmYMVfAZGpoNou\",\n                \"snippet\": \"vxiOniXgATgjiKcMULcy\"\n            },\n            {\n                \"url\": \"bLbDGAxEXkjCalOzbNDq\",\n                \"public_url\": \"lztCdDulrOcPuuEgWtaA\",\n                \"mime_type\": \"ZqdPhGxYvlvDLTgOSuEN\",\n                \"filename\": \"EcbEriQCrntdgcJqAVOX\",\n                \"title\": \"GoEJPObbFApyOjZTXnNm\",\n                \"snippet\": \"lKJfcZrNJZmZWmjnAPJl\"\n            },\n            {\n                \"url\": \"vhFcVjmyiznGoXKyuHPD\",\n                \"public_url\": \"NKALiItVvHcTorboBdqC\",\n                \"mime_type\": \"TLZqeawwjOBYzGrMWXIp\",\n                \"filename\": \"DbyLyFmorQcTYyoKsnTB\",\n                \"title\": \"clSoyucYurvYofPfEGJZ\",\n                \"snippet\": \"nLWWeSEvhZtlJxGewoQh\"\n            }\n        ]\n    },\n    \"keyword_results\": {\n        \"answer\": \"BtXcZMETcslxNvLsYFAy\",\n        \"sources\": [\n            {\n                \"url\": \"eLjRnQOEUeNMsvyHEoYG\",\n                \"public_url\": \"oECnBjYGNHhCxtSdJxpi\",\n                \"mime_type\": \"zRfOwdshIQLZeYSmFNtw\",\n                \"filename\": \"uWlmzrmGwQbWfmqhBujd\",\n                \"title\": \"IKnIsmmijHSUGNzemUBH\",\n                \"snippet\": \"aOdhBJxbvTJHadpIDjWc\"\n            },\n            {\n                \"url\": \"BkDqDmwDlbuQyGNlfdCA\",\n                \"public_url\": \"AtNNwTFvHppjqYnAHHBO\",\n                \"mime_type\": \"CrnWURLmzxPkcWkebbQG\",\n                \"filename\": \"nHInqMMolPrGFtEBRrsE\",\n                \"title\": \"ZPfpJSSxgsWDEpgHOCzi\",\n                \"snippet\": \"JsRjiLEkfrxBydPTCEIp\"\n            },\n            {\n                \"url\": \"JPexqtFUCuIltoCFPhvt\",\n                \"public_url\": \"QYSCdemxkbasDOrbmhpJ\",\n                \"mime_type\": \"aXIQivaXcrFudgWSfHZH\",\n                \"filename\": \"DmrzHQbhiwksrRuNvoKF\",\n                \"title\": \"BXmxXznhPDLaQSlGORHU\",\n                \"snippet\": \"XTVnNhJdbBBhTiOpQFOQ\"\n            }\n        ]\n    }\n}\n", "s_950ad865a6": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt: user_text: Given this question:        \nzsvZsYnDyEnmXyqinAcc                                                                                \n\nRerank these search results by relevance, removing duplicates:                                      \n\nVector results: <vector_results> QnOlRjSXaUEFikELqgnR                                               \n\nSources:                                                                                            \n\n \u2022 DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO vxiOniXgATgjiKcMULcy                                  \n \u2022 GoEJPObbFApyOjZ                                                                                  \n"};
-const stuffDataHtml = {"s_60fa277daa": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: zsvZsYnDyEnmXyqinAcc\n\nContext:\n&lt;context&gt;\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 \n    ", "s_9f897aa733": "zsvZsYnDyEnmXyqinAcc", "s_4d42d36c75": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n&lt;question&gt;\nzsvZsYnDyEnmXyqinAcc\n&lt;/question&gt;\n    ", "s_925c95c42b": "<div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div>", "s_865555b41b": "<div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div>", "s_3d96d53ead": "<table><tr><th>vector_results</th><td><div><p>QnOlRjSXaUEFikELqgnR</p><h4>Sources</h4><ul><li><a href=\"PBLznzUYDDPpLkwQldDy\" class=\"msg-document\">DcpWijAmYMVfAZGpoNou</a><br/><small>vxiOniXgATgjiKcMULcy</small></li><li><a href=\"lztCdDulrOcPuuEgWtaA\" class=\"msg-document\">GoEJPObbFApyOjZTXnNm</a><br/><small>lKJfcZrNJZmZWmjnAPJl</small></li><li><a href=\"NKALiItVvHcTorboBdqC\" class=\"msg-document\">clSoyucYurvYofPfEGJZ</a><br/><small>nLWWeSEvhZtlJxGewoQh</small></li></ul></div></td></tr><tr><th>keyword_results</th><td><div><p>BtXcZMETcslxNvLsYFAy</p><h4>Sources</h4><ul><li><a href=\"oECnBjYGNHhCxtSdJxpi\" class=\"msg-document\">IKnIsmmijHSUGNzemUBH</a><br/><small>aOdhBJxbvTJHadpIDjWc</small></li><li><a href=\"AtNNwTFvHppjqYnAHHBO\" class=\"msg-document\">ZPfpJSSxgsWDEpgHOCzi</a><br/><small>JsRjiLEkfrxBydPTCEIp</small></li><li><a href=\"QYSCdemxkbasDOrbmhpJ\" class=\"msg-document\">BXmxXznhPDLaQSlGORHU</a><br/><small>XTVnNhJdbBBhTiOpQFOQ</small></li></ul></div></td></tr></table>", "s_950ad865a6": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Given this question: zsvZsYnDyEnmXyqinAcc\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n&lt;vector_results&gt;\nQnOlRjSXaUEFikELqgnR\n\nSources:\n- DcpWijAmYMVfAZGpoNou: PVKTBdWBwUfWNDdBUbOO\n  vxiOniXgATgjiKcMULcy\n- GoEJPObbFApyOjZ\n    "};
-const stuffMetadata = {"s_60fa277daa": {"name": "answer", "concept": "Answer"}, "s_9f897aa733": {"name": "question", "concept": "Text"}, "s_4d42d36c75": {"name": "query_embedding", "concept": "QueryEmbedding"}, "s_925c95c42b": {"name": "vector_results", "concept": "SearchResult"}, "s_865555b41b": {"name": "keyword_results", "concept": "SearchResult"}, "s_3d96d53ead": {"name": "search_bundle", "concept": "Composite"}, "s_950ad865a6": {"name": "context", "concept": "RankedContext"}};
+// Embedded stuff data from graph
+const stuffDataJson = {"s_6831894f70": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Answer this question using the provided context. Cite your sources.\n\nQuestion: oNGZDAdhYtCJwOUgCKQP\n\nContext:\n\u003ccontext>\nDRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    \n    "}, "s_f1266c9cdb": {"text": "oNGZDAdhYtCJwOUgCKQP"}, "s_963de11f43": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Rephrase this question to capture the core semantic meaning for retrieval:\n\n\u003cquestion>\noNGZDAdhYtCJwOUgCKQP\n\u003c/question>\n    "}, "s_67abf49cba": {"answer": "iZotrFvyzSZrafliratT", "sources": [{"url": "gLVPQJZXuwfwZVRRJIix", "public_url": "BieUIASRLhFuPYAueymG", "mime_type": "fVPxBIuRqIBytNPaqaeD", "filename": "vVwhJGMepbSjRphVNbNB", "title": "RDItujJHGCvIwOQMvARL", "snippet": "KhSEayRkWcXQgCKDPtlV"}, {"url": "uznVmIOtgYyednWwVphc", "public_url": "uFrRMzgWVAfvrYEFpgJQ", "mime_type": "fuGBfuJZOsMpdLPBEZTe", "filename": "RcAPEnKoeLYcRxNjFvQz", "title": "DoWxRgkytuhnVuFoydIj", "snippet": "iYKJedIZbwSlreGzucyC"}, {"url": "vlChXJAgQHnTfeDvQnFw", "public_url": "DTMXXEBkhGWkwZBojBLR", "mime_type": "qXJTUVYxpCftMFioAErc", "filename": "NwWOqTzJkIAhIisbcjgw", "title": "VvcXbyYQxIgGHuXuwwrf", "snippet": "uDeqdLbJSaqdIAquRdcY"}]}, "s_43d3125d62": {"answer": "cUMEHeWmwpmXboMLqtoY", "sources": [{"url": "DtdKdIVRCFrnPCZBlKCi", "public_url": "FmPWfKfwEBtwAvMAEsFH", "mime_type": "fZKQOPCMqVBLomZnYOkw", "filename": "LqAWFiGJQMLlngYfKjTr", "title": "EhMmZpRJZLZZGQAIbilW", "snippet": "ZMHxEtkPeHgtekouYbSY"}, {"url": "lKixumZbrCrrIqVEDcel", "public_url": "nJOsNcOoNZSUTAFxjpAz", "mime_type": "TNVSnIdjcdGFVZTGNxFc", "filename": "yQLWcxcfjxYCqAvGiEOr", "title": "dLgGMPBqhwBCHKbwzNbI", "snippet": "LVQhonnvyyDSBcFVedhi"}, {"url": "ULReriBUUOkVfFIUSvTM", "public_url": "hewByiAsPbHpviSavUCw", "mime_type": "cKGEDdWKvykYJKZBLixV", "filename": "AVAfPBIzLHLqsqIyqitv", "title": "fKcrwAilPfJvjBXMfqmf", "snippet": "jSVBdhJhgkpOHCJkMRod"}]}, "s_ec4e43c462": {"vector_results": {"answer": "iZotrFvyzSZrafliratT", "sources": [{"url": "gLVPQJZXuwfwZVRRJIix", "public_url": "BieUIASRLhFuPYAueymG", "mime_type": "fVPxBIuRqIBytNPaqaeD", "filename": "vVwhJGMepbSjRphVNbNB", "title": "RDItujJHGCvIwOQMvARL", "snippet": "KhSEayRkWcXQgCKDPtlV"}, {"url": "uznVmIOtgYyednWwVphc", "public_url": "uFrRMzgWVAfvrYEFpgJQ", "mime_type": "fuGBfuJZOsMpdLPBEZTe", "filename": "RcAPEnKoeLYcRxNjFvQz", "title": "DoWxRgkytuhnVuFoydIj", "snippet": "iYKJedIZbwSlreGzucyC"}, {"url": "vlChXJAgQHnTfeDvQnFw", "public_url": "DTMXXEBkhGWkwZBojBLR", "mime_type": "qXJTUVYxpCftMFioAErc", "filename": "NwWOqTzJkIAhIisbcjgw", "title": "VvcXbyYQxIgGHuXuwwrf", "snippet": "uDeqdLbJSaqdIAquRdcY"}]}, "keyword_results": {"answer": "cUMEHeWmwpmXboMLqtoY", "sources": [{"url": "DtdKdIVRCFrnPCZBlKCi", "public_url": "FmPWfKfwEBtwAvMAEsFH", "mime_type": "fZKQOPCMqVBLomZnYOkw", "filename": "LqAWFiGJQMLlngYfKjTr", "title": "EhMmZpRJZLZZGQAIbilW", "snippet": "ZMHxEtkPeHgtekouYbSY"}, {"url": "lKixumZbrCrrIqVEDcel", "public_url": "nJOsNcOoNZSUTAFxjpAz", "mime_type": "TNVSnIdjcdGFVZTGNxFc", "filename": "yQLWcxcfjxYCqAvGiEOr", "title": "dLgGMPBqhwBCHKbwzNbI", "snippet": "LVQhonnvyyDSBcFVedhi"}, {"url": "ULReriBUUOkVfFIUSvTM", "public_url": "hewByiAsPbHpviSavUCw", "mime_type": "cKGEDdWKvykYJKZBLixV", "filename": "AVAfPBIzLHLqsqIyqitv", "title": "fKcrwAilPfJvjBXMfqmf", "snippet": "jSVBdhJhgkpOHCJkMRod"}]}}, "s_41f83a604f": {"text": "DRY RUN: llm_gen_text \u2022 llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) \u2022 prompt=LLM Prompt:\n    user_text:\n    Given this question: oNGZDAdhYtCJwOUgCKQP\n\nRerank these search results by relevance, removing duplicates:\n\nVector results:\n\u003cvector_results>\niZotrFvyzSZrafliratT\n\nSources:\n- RDItujJHGCvIwOQMvARL: gLVPQJZXuwfwZVRRJIix\n  KhSEayRkWcXQgCKDPtlV\n- DoWxRgkytuhnVuF\n    "}};
+const stuffMetadata = {"s_6831894f70": {"name": "answer", "concept": "Answer"}, "s_f1266c9cdb": {"name": "question", "concept": "Text"}, "s_963de11f43": {"name": "query_embedding", "concept": "QueryEmbedding"}, "s_67abf49cba": {"name": "vector_results", "concept": "SearchResult"}, "s_43d3125d62": {"name": "keyword_results", "concept": "SearchResult"}, "s_ec4e43c462": {"name": "search_bundle", "concept": "Composite"}, "s_41f83a604f": {"name": "context", "concept": "RankedContext"}};
 const stuffContentType = {};
-const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_e26d2a9402[\"rag_pipeline\"]\n        subgraph sg_n_07dbc7552a[\"parallel_search\"]\n            n_c94c842a7b[\"keyword_search\"]\n            s_865555b41b([\"keyword_results\u003cbr/\u003eSearchResult\"]):::stuff\n            n_a79d85b877[\"vector_search\"]\n            s_925c95c42b([\"vector_results\u003cbr/\u003eSearchResult\"]):::stuff\n            s_3d96d53ead([\"search_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_dc5d93465b[\"embed_query\"]\n        s_4d42d36c75([\"query_embedding\u003cbr/\u003eQueryEmbedding\"]):::stuff\n        n_34c2c288c7[\"generate_answer\"]\n        s_60fa277daa([\"answer\u003cbr/\u003eAnswer\"]):::stuff\n        n_c4d6b4fdbe[\"rerank_results\"]\n        s_950ad865a6([\"context\u003cbr/\u003eRankedContext\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_9f897aa733([\"question\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_c4d6b4fdbe --\u003e s_950ad865a6\n    n_34c2c288c7 --\u003e s_60fa277daa\n    n_a79d85b877 --\u003e s_925c95c42b\n    n_c94c842a7b --\u003e s_865555b41b\n    n_dc5d93465b --\u003e s_4d42d36c75\n    s_9f897aa733 --\u003e n_dc5d93465b\n    s_9f897aa733 --\u003e n_c94c842a7b\n    s_9f897aa733 --\u003e n_c4d6b4fdbe\n    s_9f897aa733 --\u003e n_34c2c288c7\n    s_950ad865a6 --\u003e n_34c2c288c7\n    s_925c95c42b --\u003e n_c4d6b4fdbe\n    s_865555b41b --\u003e n_c4d6b4fdbe\n    s_4d42d36c75 --\u003e n_a79d85b877\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_925c95c42b -.-\u003e s_3d96d53ead\n    s_865555b41b -.-\u003e s_3d96d53ead\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_07dbc7552a fill:#e6ffe6\n    style sg_n_e26d2a9402 fill:#e6f3ff";
+const mermaidCode = "flowchart LR\n\n    %% Pipe and stuff nodes within controller subgraphs\n    subgraph sg_n_eb3824f70b[\"rag_pipeline\"]\n        subgraph sg_n_0f075c9c0f[\"parallel_search\"]\n            n_738866d71e[\"keyword_search\"]\n            s_43d3125d62([\"keyword_results\u003cbr/\u003eSearchResult\"]):::stuff\n            n_66a3e36a8a[\"vector_search\"]\n            s_67abf49cba([\"vector_results\u003cbr/\u003eSearchResult\"]):::stuff\n            s_ec4e43c462([\"search_bundle\u003cbr/\u003eComposite\"]):::stuff\n        end\n        n_b25ee16bf7[\"embed_query\"]\n        s_963de11f43([\"query_embedding\u003cbr/\u003eQueryEmbedding\"]):::stuff\n        n_1f3740be21[\"generate_answer\"]\n        s_6831894f70([\"answer\u003cbr/\u003eAnswer\"]):::stuff\n        n_5c790a8d4d[\"rerank_results\"]\n        s_41f83a604f([\"context\u003cbr/\u003eRankedContext\"]):::stuff\n    end\n\n    %% Pipeline input stuff nodes (no producer)\n    s_f1266c9cdb([\"question\u003cbr/\u003eText\"]):::stuff\n\n    %% Data flow edges: producer -\u003e stuff -\u003e consumer\n    n_5c790a8d4d --\u003e s_41f83a604f\n    n_1f3740be21 --\u003e s_6831894f70\n    n_b25ee16bf7 --\u003e s_963de11f43\n    n_738866d71e --\u003e s_43d3125d62\n    n_66a3e36a8a --\u003e s_67abf49cba\n    s_41f83a604f --\u003e n_1f3740be21\n    s_f1266c9cdb --\u003e n_b25ee16bf7\n    s_f1266c9cdb --\u003e n_738866d71e\n    s_f1266c9cdb --\u003e n_5c790a8d4d\n    s_f1266c9cdb --\u003e n_1f3740be21\n    s_963de11f43 --\u003e n_66a3e36a8a\n    s_43d3125d62 --\u003e n_5c790a8d4d\n    s_67abf49cba --\u003e n_5c790a8d4d\n\n    %% Parallel combine edges: branch outputs \u2192 combined output\n    s_67abf49cba -.-\u003e s_ec4e43c462\n    s_43d3125d62 -.-\u003e s_ec4e43c462\n\n    %% Style definitions\n    classDef failed fill:#ffcccc,stroke:#cc0000\n    classDef stuff fill:#fff3e6,stroke:#cc6600,stroke-width:2px\n    classDef controller fill:#e6f3ff,stroke:#0066cc\n\n    %% Subgraph depth-based coloring\n    style sg_n_0f075c9c0f fill:#e6ffe6\n    style sg_n_eb3824f70b fill:#e6f3ff";
 
 // Track current state
 let currentStuffId = null;
-let currentFormat = 'html';
+let currentFormat = 'preview';
 let currentTheme = "dark";
 
 // Include shared utility functions
@@ -527,14 +490,8 @@ function attachClickHandlers() {
         const svgContainer = document.querySelector('.mermaid svg');
         if (!svgContainer) return;
 
-        // Find nodes by their flowchart IDs - use any available data source
-        const allStuffIds = new Set([
-            ...Object.keys(stuffDataJson || {}),
-            ...Object.keys(stuffDataText || {}),
-            ...Object.keys(stuffDataHtml || {})
-        ]);
-
-        for (const stuffId of allStuffIds) {
+        // Find nodes by their flowchart IDs
+        for (const stuffId of Object.keys(stuffDataJson || {})) {
             // Mermaid generates IDs like 'flowchart-s_xxx-123'
             const nodes = svgContainer.querySelectorAll(`[id^="flowchart-${stuffId}"]`);
             nodes.forEach(node => {
@@ -593,13 +550,13 @@ function setFormat(format) {
 
 function renderContent(stuffId, format) {
     const content = document.getElementById('modal-content');
-    content.classList.remove('html-content', 'text-content', 'pdf-content', 'image-content');
+    content.classList.remove('pdf-content', 'image-content');
 
     // Handle PDF content type with embedded viewer
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
 
-    if (format === 'html' && contentType === 'application/pdf') {
+    if (format === 'preview' && contentType === 'application/pdf') {
         const pdfUrl = extractUrl(jsonData);
         if (pdfUrl) {
             content.classList.add('pdf-content');
@@ -615,7 +572,7 @@ function renderContent(stuffId, format) {
     }
 
     // Handle image content type
-    if (format === 'html' && contentType?.startsWith('image/')) {
+    if (format === 'preview' && contentType?.startsWith('image/')) {
         const imageUrl = extractUrl(jsonData);
         if (imageUrl) {
             content.classList.add('image-content');
@@ -630,25 +587,12 @@ function renderContent(stuffId, format) {
         }
     }
 
+    content.innerHTML = '';
     if (format === 'json') {
         const data = stuffDataJson?.[stuffId];
-        content.innerHTML = '';
         content.textContent = data ? JSON.stringify(data, null, 2) : 'No JSON data available';
-    } else if (format === 'text') {
-        const data = stuffDataText?.[stuffId];
-        content.classList.add('text-content');
-        content.innerHTML = '';
-        content.textContent = data || 'No text data available';
-    } else if (format === 'html') {
-        const data = stuffDataHtml?.[stuffId];
-        if (data) {
-            content.classList.add('html-content');
-            content.innerHTML = DOMPurify.sanitize(data);
-            makeLinksOpenInNewWindow(content);
-        } else {
-            content.innerHTML = '';
-            content.textContent = 'No HTML data available';
-        }
+    } else {
+        content.textContent = 'No preview available';
     }
 
     updateOpenExternalButton(stuffId, contentType, jsonData);
@@ -667,32 +611,28 @@ function updateOpenExternalButton(stuffId, contentType, jsonData) {
 
 function updateTabAvailability(stuffId) {
     const jsonTab = document.getElementById('tab-json');
-    const textTab = document.getElementById('tab-text');
-    const htmlTab = document.getElementById('tab-html');
+    const previewTab = document.getElementById('tab-preview');
 
     jsonTab.disabled = !stuffDataJson?.[stuffId];
-    textTab.disabled = !stuffDataText?.[stuffId];
 
-    // For PDF and image content types, the tab can render from JSON data via extractUrl()
+    // PDF and image content preview from the URL their JSON data carries
     const contentType = stuffContentType?.[stuffId];
     const jsonData = stuffDataJson?.[stuffId];
-    const canRenderFromJson = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && extractUrl(jsonData);
-    htmlTab.disabled = !stuffDataHtml?.[stuffId] && !canRenderFromJson;
+    const canPreview = (contentType === 'application/pdf' || contentType?.startsWith('image/')) && !!extractUrl(jsonData);
+    previewTab.disabled = !canPreview;
 
-    // Update HTML tab label based on content type
+    // Label the preview tab after the content type it shows
     if (contentType === 'application/pdf') {
-        htmlTab.textContent = 'PDF';
+        previewTab.textContent = 'PDF';
     } else if (contentType?.startsWith('image/')) {
-        htmlTab.textContent = 'Image';
+        previewTab.textContent = 'Image';
     } else {
-        htmlTab.textContent = 'HTML';
+        previewTab.textContent = 'Preview';
     }
 
-    // Find first available format (HTML -> JSON -> Pretty)
-    if (!htmlTab.disabled) return 'html';
-    if (!jsonTab.disabled) return 'json';
-    if (!textTab.disabled) return 'text';
-    return 'html';
+    // Find first available format (preview -> JSON)
+    if (!previewTab.disabled) return 'preview';
+    return 'json';
 }
 
 function showModal(stuffId) {
@@ -739,20 +679,15 @@ function hideModal() {
 function getCurrentContent() {
     if (!currentStuffId) return null;
 
+    const data = stuffDataJson?.[currentStuffId];
     if (currentFormat === 'json') {
-        const data = stuffDataJson?.[currentStuffId];
         if (!data) return null;
         return { content: JSON.stringify(data, null, 2), ext: 'json', mime: 'application/json' };
-    } else if (currentFormat === 'text') {
-        const data = stuffDataText?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'txt', mime: 'text/plain' };
-    } else if (currentFormat === 'html') {
-        const data = stuffDataHtml?.[currentStuffId];
-        if (!data) return null;
-        return { content: data, ext: 'html', mime: 'text/html' };
     }
-    return null;
+    // A preview's copyable content is the URL it shows
+    const url = extractUrl(data);
+    if (!url) return null;
+    return { content: url, ext: 'txt', mime: 'text/plain' };
 }
 
 // Copy content to clipboard

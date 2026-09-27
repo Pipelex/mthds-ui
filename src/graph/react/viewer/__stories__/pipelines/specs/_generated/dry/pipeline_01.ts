@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_SINGLE_PIPE = {
-  graph_id: "279ea720-95fd-4cc8-b362-8c066c373178",
-  created_at: "2026-08-14T10:48:01.382377Z",
+  graph_id: "57a7f52c-121f-4545-b59b-31fb95ae94f8",
+  created_at: "2026-09-27T08:49:21.665043Z",
   pipeline_ref: { domain: "text_processing", main_pipe: "summarize", entrypoint: null },
   nodes: [
     {
-      id: "279ea720-95fd-4cc8-b362-8c066c373178:node_0",
+      id: "57a7f52c-121f-4545-b59b-31fb95ae94f8:node_0",
       kind: "operator",
       pipe_code: "summarize",
       pipe_type: "PipeLLM",
@@ -19,9 +19,9 @@ export const DRY_SINGLE_PIPE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:48:01.382377Z",
-        ended_at: "2026-08-14T10:48:01.395211Z",
-        duration: 0.012834,
+        started_at: "2026-09-27T08:49:21.665043Z",
+        ended_at: "2026-09-27T08:49:21.666794Z",
+        duration: 0.001751,
       },
       io: {
         inputs: [
@@ -31,11 +31,9 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "Kxwim",
-            data: { text: "HvJKyZUyGXWyYMZDNdPw" },
-            data_text:
-              "HvJKyZUyGXWyYMZDNdPw                                                                                \n",
-            data_html: "HvJKyZUyGXWyYMZDNdPw",
+            digest: "jSD3Q",
+            data: { text: "EaVihLUNATOheFRDNzLx" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -46,14 +44,11 @@ export const DRY_SINGLE_PIPE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "b9Jgv",
+            digest: "X9pqc",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n<text>\nEaVihLUNATOheFRDNzLx\n</text>\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Summarize the following text\nconcisely:                                                                                          \n\n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Summarize the following text concisely:\n\n&lt;text&gt;\nHvJKyZUyGXWyYMZDNdPw\n&lt;/text&gt;\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -103,7 +98,7 @@ export const DRY_SINGLE_PIPE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Summarize the following text concisely:\n\n<text>\nHvJKyZUyGXWyYMZDNdPw\n</text>",
+          "Summarize the following text concisely:\n\n<text>\nEaVihLUNATOheFRDNzLx\n</text>",
         structuring_path: "text",
       },
     },
@@ -212,6 +207,7 @@ export const DRY_SINGLE_PIPE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -236,6 +232,7 @@ export const DRY_SINGLE_PIPE = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",

@@ -116,6 +116,46 @@ describe("buildDataflowGraph", () => {
   });
 });
 
+describe("buildDataflowGraph — stuff multiplicity", () => {
+  it("labels a plural stuff with its marked concept ref and sizes the pill for it", () => {
+    const gs: GraphSpec = {
+      nodes: [
+        {
+          kind: "operator",
+          status: "scheduled",
+          id: "op1",
+          pipe_code: "screen",
+          pipe_type: "PipeLLM",
+          io: {
+            inputs: [
+              { digest: "cvs", name: "cvs", concept: "Document", multiplicity: true },
+              { digest: "offer", name: "job_offer", concept: "Document" },
+            ],
+            outputs: [],
+          },
+        },
+      ],
+      edges: [],
+    };
+    const analysis = buildDataflowAnalysis(gs)!;
+    const { nodes } = buildDataflowGraph(gs, analysis, "bezier");
+
+    const cvs = nodes.find((n) => n.id === "stuff_cvs")!;
+    expect(cvs.data.labelDescriptor).toEqual({
+      kind: "stuff",
+      label: "cvs",
+      concept: "Document[]",
+    });
+    // A single-valued stuff is labelled exactly as before.
+    const offer = nodes.find((n) => n.id === "stuff_offer")!;
+    expect(offer.data.labelDescriptor).toEqual({
+      kind: "stuff",
+      label: "job_offer",
+      concept: "Document",
+    });
+  });
+});
+
 describe("buildDataflowGraph — additional cases", () => {
   it("creates parallel_combine edges between stuff nodes", () => {
     const gs: GraphSpec = {

@@ -485,7 +485,15 @@ export const OUTPUT_FORM_ALL_NATIVE_CONCEPTS = {
     field: {
       concept_ref: "native.JSON",
       description: "A JSON object",
-      kind: "unknown",
+      fields: [
+        {
+          description: "The JSON object",
+          kind: "unknown",
+          name: "json_obj",
+          required: true,
+        },
+      ],
+      kind: "object",
       name: "output",
       required: true,
     },

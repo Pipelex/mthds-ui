@@ -1,72 +1,72 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_0145074b2b["deep_nested_pipeline"]
-        subgraph sg_n_6e1b103270["level_2_parallel"]
-            subgraph sg_n_f33ed09861["batch_branch"]
-                n_512ed35cd7["process_single_page"]
-                s_c698e83aac(["page<br/>Page"]):::stuff
-                s_0dfe4206dd(["batch_result<br/>BatchResult"]):::stuff
-                n_74e137f7ad["process_single_page"]
-                s_7e940a8c41(["page<br/>Page"]):::stuff
-                s_78c32e9a02(["batch_result<br/>BatchResult"]):::stuff
-                n_d4e65b3784["process_single_page"]
-                s_69d5219176(["page<br/>Page"]):::stuff
-                s_f5d6348305(["batch_result<br/>BatchResult"]):::stuff
-                n_6aa72f4b59["process_single_page"]
-                s_f3212415c9(["page<br/>Page"]):::stuff
-                s_b3081671f9(["batch_result<br/>BatchResult"]):::stuff
+    subgraph sg_n_0e5af0b245["deep_nested_pipeline"]
+        subgraph sg_n_a2603c3f4e["level_2_parallel"]
+            subgraph sg_n_5df896c284["batch_branch"]
+                n_a65d42afff["process_single_page"]
+                s_a8d4f8a252(["page<br/>Page"]):::stuff
+                s_9dc05bf676(["batch_result<br/>BatchResult"]):::stuff
+                n_6a1b26ac90["process_single_page"]
+                s_a48125d359(["page<br/>Page"]):::stuff
+                s_70a37bb08b(["batch_result<br/>BatchResult"]):::stuff
+                n_56b3c766b0["process_single_page"]
+                s_8e2d1d2079(["page<br/>Page"]):::stuff
+                s_b1b017a82b(["batch_result<br/>BatchResult"]):::stuff
+                n_07ac1a0e20["process_single_page"]
+                s_a561cbee74(["page<br/>Page"]):::stuff
+                s_9babd83548(["batch_result<br/>BatchResult"]):::stuff
             end
-            subgraph sg_n_3c84c70cc4["search_branch"]
-                n_c3ec1d25e0["search_context"]
-                s_bd768d3e8a(["search_result<br/>SearchResult"]):::stuff
-                n_fe6938f128["summarize_search"]
-                s_c418bd8588(["search_summary<br/>SearchSummary"]):::stuff
+            subgraph sg_n_416d297222["search_branch"]
+                n_ca8f03feec["search_context"]
+                s_53009e3cb0(["search_result<br/>SearchResult"]):::stuff
+                n_c580d08acf["summarize_search"]
+                s_ed91459203(["search_summary<br/>SearchSummary"]):::stuff
             end
-            s_2e34a75a94(["branch_bundle<br/>Composite"]):::stuff
+            s_8443b822be(["branch_bundle<br/>Composite"]):::stuff
         end
-        n_b9035c0e47["exit_combine"]
-        s_9cccf8b35e(["final<br/>FinalOutput"]):::stuff
-        n_d7fbfb7ef0["extract_input"]
-        s_c58eb4d15c(["pages<br/>Page"]):::stuff
+        n_567a2755e0["exit_combine"]
+        s_817770dc07(["final<br/>FinalOutput"]):::stuff
+        n_11f8487140["extract_input"]
+        s_d91c03e620(["pages<br/>Page#91;#93;"]):::stuff
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_ff6e7ceef4(["batch_result<br/>BatchResult"]):::stuff
-    s_e9448f46ee(["document<br/>Document"]):::stuff
+    s_26b5a71b44(["batch_result<br/>BatchResult#91;#93;"]):::stuff
+    s_584975a663(["document<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_d7fbfb7ef0 --> s_c58eb4d15c
-    n_b9035c0e47 --> s_9cccf8b35e
-    n_74e137f7ad --> s_78c32e9a02
-    n_d4e65b3784 --> s_f5d6348305
-    n_6aa72f4b59 --> s_b3081671f9
-    n_512ed35cd7 --> s_0dfe4206dd
-    n_fe6938f128 --> s_c418bd8588
-    n_c3ec1d25e0 --> s_bd768d3e8a
-    s_ff6e7ceef4 --> n_b9035c0e47
-    s_e9448f46ee --> n_d7fbfb7ef0
-    s_c58eb4d15c --> n_c3ec1d25e0
-    s_7e940a8c41 --> n_74e137f7ad
-    s_69d5219176 --> n_d4e65b3784
-    s_f3212415c9 --> n_6aa72f4b59
-    s_c698e83aac --> n_512ed35cd7
-    s_c418bd8588 --> n_b9035c0e47
-    s_bd768d3e8a --> n_fe6938f128
+    n_11f8487140 --> s_d91c03e620
+    n_6a1b26ac90 --> s_70a37bb08b
+    n_56b3c766b0 --> s_b1b017a82b
+    n_07ac1a0e20 --> s_9babd83548
+    n_a65d42afff --> s_9dc05bf676
+    n_ca8f03feec --> s_53009e3cb0
+    n_567a2755e0 --> s_817770dc07
+    n_c580d08acf --> s_ed91459203
+    s_26b5a71b44 --> n_567a2755e0
+    s_d91c03e620 --> n_ca8f03feec
+    s_a48125d359 --> n_6a1b26ac90
+    s_8e2d1d2079 --> n_56b3c766b0
+    s_a561cbee74 --> n_07ac1a0e20
+    s_a8d4f8a252 --> n_a65d42afff
+    s_53009e3cb0 --> n_c580d08acf
+    s_ed91459203 --> n_567a2755e0
+    s_584975a663 --> n_11f8487140
 
     %% Batch edges: list-item relationships
-    s_c58eb4d15c -."[0]".-> s_7e940a8c41
-    s_c58eb4d15c -."[1]".-> s_69d5219176
-    s_c58eb4d15c -."[2]".-> s_f3212415c9
-    s_c58eb4d15c -."[3]".-> s_c698e83aac
-    s_78c32e9a02 -."[0]".-> s_ff6e7ceef4
-    s_f5d6348305 -."[1]".-> s_ff6e7ceef4
-    s_b3081671f9 -."[2]".-> s_ff6e7ceef4
-    s_0dfe4206dd -."[3]".-> s_ff6e7ceef4
+    s_d91c03e620 -."[0]".-> s_a48125d359
+    s_d91c03e620 -."[1]".-> s_8e2d1d2079
+    s_d91c03e620 -."[2]".-> s_a561cbee74
+    s_d91c03e620 -."[3]".-> s_a8d4f8a252
+    s_70a37bb08b -."[0]".-> s_26b5a71b44
+    s_b1b017a82b -."[1]".-> s_26b5a71b44
+    s_9babd83548 -."[2]".-> s_26b5a71b44
+    s_9dc05bf676 -."[3]".-> s_26b5a71b44
 
     %% Parallel combine edges: branch outputs → combined output
-    s_ff6e7ceef4 -.-> s_2e34a75a94
-    s_c418bd8588 -.-> s_2e34a75a94
+    s_26b5a71b44 -.-> s_8443b822be
+    s_ed91459203 -.-> s_8443b822be
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -74,7 +74,7 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_0145074b2b fill:#e6f3ff
-    style sg_n_3c84c70cc4 fill:#fffde6
-    style sg_n_6e1b103270 fill:#e6ffe6
-    style sg_n_f33ed09861 fill:#fffde6
+    style sg_n_0e5af0b245 fill:#e6f3ff
+    style sg_n_416d297222 fill:#fffde6
+    style sg_n_5df896c284 fill:#fffde6
+    style sg_n_a2603c3f4e fill:#e6ffe6

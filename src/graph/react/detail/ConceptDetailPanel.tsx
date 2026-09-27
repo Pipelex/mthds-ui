@@ -1,5 +1,6 @@
 import React from "react";
 import type { ConceptInfo, GraphSpecNodeIoItem } from "@graph/types";
+import { isPluralMultiplicity, multiplicitySuffix } from "@graph/types";
 import "./DetailPanel.css";
 
 // ─── Props ──────────────────────────────────────────────────────────────
@@ -39,13 +40,26 @@ export function ConceptDetailPanel({
   renderData,
   instanceKey,
 }: ConceptDetailPanelProps) {
+  // The concept describes one item; the io item says how many a stuff holds.
+  const multiplicity = ioData?.multiplicity;
   return (
     <>
       {/* Header */}
       <div className="detail-header">
-        <span className="detail-concept-code">{concept.code}</span>
+        <span className="detail-concept-code">
+          {concept.code + multiplicitySuffix(multiplicity)}
+        </span>
         <span className="detail-concept-domain">{concept.domain_code}</span>
       </div>
+
+      {/* Plurality, stated before the description so "A document" reads as one item of the list */}
+      {isPluralMultiplicity(multiplicity) && (
+        <div className="detail-multiplicity">
+          {multiplicity === true
+            ? `A variable-length list of ${concept.code} items`
+            : `A fixed-length list of exactly ${multiplicity as number} ${concept.code} items`}
+        </div>
+      )}
 
       {/* Description */}
       {concept.description && <div className="detail-description">{concept.description}</div>}

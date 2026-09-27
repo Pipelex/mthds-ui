@@ -1,10 +1,15 @@
-import type { GraphSpec, DataflowAnalysis, PipeBlueprintUnion, ConceptInfo } from "./types";
+import type {
+  GraphSpec,
+  DataflowAnalysis,
+  PipeBlueprintUnion,
+  ConceptInfo,
+  StuffRegistryEntry,
+} from "./types";
 
 export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnalysis | null {
   if (!graphspec) return null;
 
-  const stuffRegistry: Record<string, { name: string; concept?: string; contentType?: string }> =
-    {};
+  const stuffRegistry: Record<string, StuffRegistryEntry> = {};
   const stuffProducers: Record<string, string> = {};
   const stuffConsumers: Record<string, string[]> = {};
   const containmentTree: Record<string, string[]> = {};
@@ -33,6 +38,7 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
         stuffRegistry[output.digest] = {
           name: output.name,
           concept: output.concept,
+          multiplicity: output.multiplicity,
           contentType: output.content_type,
         };
       }
@@ -47,6 +53,7 @@ export function buildDataflowAnalysis(graphspec: GraphSpec | null): DataflowAnal
         stuffRegistry[input.digest] = {
           name: input.name,
           concept: input.concept,
+          multiplicity: input.multiplicity,
           contentType: input.content_type,
         };
       }

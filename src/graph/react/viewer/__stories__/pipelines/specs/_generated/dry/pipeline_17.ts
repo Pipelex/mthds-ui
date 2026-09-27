@@ -5,12 +5,12 @@
 import type { GraphSpec } from "@graph/types";
 
 export const DRY_EMAIL_TRIAGE = {
-  graph_id: "07176c23-0be0-48ae-af1f-333f9cb3cde9",
-  created_at: "2026-08-14T10:49:20.232602Z",
+  graph_id: "504283ad-e708-4c0b-9caa-e37521fe2d10",
+  created_at: "2026-09-27T08:50:42.180976Z",
   pipeline_ref: { domain: "email_management", main_pipe: "email_triage", entrypoint: null },
   nodes: [
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_0",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_0",
       kind: "controller",
       pipe_code: "email_triage",
       pipe_type: "PipeSequence",
@@ -19,9 +19,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.232602Z",
-        ended_at: "2026-08-14T10:49:20.292309Z",
-        duration: 0.059707,
+        started_at: "2026-09-27T08:50:42.180976Z",
+        ended_at: "2026-09-27T08:50:42.193921Z",
+        duration: 0.012945,
       },
       io: {
         inputs: [
@@ -31,11 +31,9 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "aEMXg",
-            data: { text: "suFJzwbQMGIMctkGEmqy" },
-            data_text:
-              "suFJzwbQMGIMctkGEmqy                                                                                \n",
-            data_html: "suFJzwbQMGIMctkGEmqy",
+            digest: "LanAH",
+            data: { text: "drqpbAjVgsOVOEebmVVy" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -46,14 +44,11 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gMuuZ",
+            digest: "ACmuc",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: AyOeIHFpmYidRmWHiNLy\nSummary: fXmvbHddUlqWhHpCtvHn\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: yBukgVstOVDtjomfaIrJ Summary: ivZZxQOORbuekASrtuAE                                         \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -91,7 +86,7 @@ export const DRY_EMAIL_TRIAGE = {
       execution_data: { step_count: 3 },
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_1",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_1",
       kind: "operator",
       pipe_code: "search_inbox",
       pipe_type: "PipeSearch",
@@ -100,9 +95,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.237347Z",
-        ended_at: "2026-08-14T10:49:20.246905Z",
-        duration: 0.009558,
+        started_at: "2026-09-27T08:50:42.182066Z",
+        ended_at: "2026-09-27T08:50:42.186080Z",
+        duration: 0.004014,
       },
       io: {
         inputs: [
@@ -112,11 +107,9 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "aEMXg",
-            data: { text: "suFJzwbQMGIMctkGEmqy" },
-            data_text:
-              "suFJzwbQMGIMctkGEmqy                                                                                \n",
-            data_html: "suFJzwbQMGIMctkGEmqy",
+            digest: "LanAH",
+            data: { text: "drqpbAjVgsOVOEebmVVy" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -127,40 +120,37 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nJsrT",
+            digest: "A9bqM",
             data: {
-              answer: "yumUQszaYDSjZTMyNiWM",
+              answer: "TmLxkHVOZVbHxlUSAfQG",
               sources: [
                 {
-                  url: "XpaDIsDXOhDITwaOsNwh",
-                  public_url: "omsCxJVxvjZlovCmZiXj",
-                  mime_type: "SLUyHMhFIQYyMbioneqh",
-                  filename: "WczDFTXTZJmIFTbWJGIz",
-                  title: "cpmIFmKIHuOOgDwLCswr",
-                  snippet: "kvfGEbbRhsVTbudNJoEg",
+                  url: "sYjvRMjnEOwfdYxdXZIW",
+                  public_url: "iZxxerRVtwTmCWnRtoUH",
+                  mime_type: "GttLZuwunTLBFZjPfsbH",
+                  filename: "GjDbhtpYklaOwGXgDFlg",
+                  title: "rAhwdBzLXnzfCtRPNSsF",
+                  snippet: "bSpbqqfiYGlYKvIohKtB",
                 },
                 {
-                  url: "tnkogekaLDpFnTTjqlVE",
-                  public_url: "CqlDcVUNOKZLvLtfZdeH",
-                  mime_type: "hXPGAcKvJUwUAMeTyRQG",
-                  filename: "LOxpYjmjkVnpLQPrmUvz",
-                  title: "iYUmZakIRkWmejeiQWSM",
-                  snippet: "QOFAdBbqNSjpfflowGoC",
+                  url: "CrpWMCftWjyXMPFQlwek",
+                  public_url: "wsoGZDSqezuikTpLtFpW",
+                  mime_type: "lbrWYkqKtiPpUCXySfWe",
+                  filename: "XjOTdspooSgAJLXCVlND",
+                  title: "NsytpLWmxVRKFyVabxSJ",
+                  snippet: "QCAEZBVuknayKQPRajuS",
                 },
                 {
-                  url: "FeQiBixHlecZyGxTIoRV",
-                  public_url: "DCOjTeatMPbdTnrOdjrO",
-                  mime_type: "LiOmRtxMdrFTwWMtPcqI",
-                  filename: "UvAIbpzaXeNoJERRneHN",
-                  title: "IszfUSNSorAkcroSiWAc",
-                  snippet: "UUeFnEuwPuiuPKzfrTeE",
+                  url: "hmLYnxFxswiTzogignRZ",
+                  public_url: "xbfMurAEIeFouLBdQZQC",
+                  mime_type: "FQuLilUUjprrLTpPKCWT",
+                  filename: "NycPbXzdBMPZntVMIwIp",
+                  title: "syDjlUdpKmoVDrbywNNl",
+                  snippet: "vgKGDJPdRvAauMfzBsqJ",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nyumUQszaYDSjZTMyNiWM                                                                                \n\nSources (3):\ncpmIFmKIHuOOgDwLCswr (XpaDIsDXOhDITwaOsNwh)\n  kvfGEbbRhsVTbudNJoEg\n\niYUmZakIRkWmejeiQWSM (tnkogekaLDpFnTTjqlVE)\n  QOFAdBbqNSjpfflowGoC\n\nIszfUSNSorAkcroSiWAc (FeQiBixHlecZyGxTIoRV)\n  UUeFnEuwPuiuPKzfrTeE\n",
-            data_html:
-              '<div><p>yumUQszaYDSjZTMyNiWM</p><h4>Sources</h4><ul><li><a href="omsCxJVxvjZlovCmZiXj" class="msg-document">cpmIFmKIHuOOgDwLCswr</a><br/><small>kvfGEbbRhsVTbudNJoEg</small></li><li><a href="CqlDcVUNOKZLvLtfZdeH" class="msg-document">iYUmZakIRkWmejeiQWSM</a><br/><small>QOFAdBbqNSjpfflowGoC</small></li><li><a href="DCOjTeatMPbdTnrOdjrO" class="msg-document">IszfUSNSorAkcroSiWAc</a><br/><small>UUeFnEuwPuiuPKzfrTeE</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -187,13 +177,13 @@ export const DRY_EMAIL_TRIAGE = {
         subtree_by_model: [],
       },
       execution_data: {
-        rendered_query: "Recent emails about: suFJzwbQMGIMctkGEmqy",
+        rendered_query: "Recent emails about: drqpbAjVgsOVOEebmVVy",
         resolved_model: "linkup-standard",
         is_structured_output: false,
       },
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
       kind: "operator",
       pipe_code: "classify_email",
       pipe_type: "PipeLLM",
@@ -202,9 +192,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.251245Z",
-        ended_at: "2026-08-14T10:49:20.263793Z",
-        duration: 0.012548,
+        started_at: "2026-09-27T08:50:42.186400Z",
+        ended_at: "2026-09-27T08:50:42.189306Z",
+        duration: 0.002906,
       },
       io: {
         inputs: [
@@ -214,40 +204,37 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "nJsrT",
+            digest: "A9bqM",
             data: {
-              answer: "yumUQszaYDSjZTMyNiWM",
+              answer: "TmLxkHVOZVbHxlUSAfQG",
               sources: [
                 {
-                  url: "XpaDIsDXOhDITwaOsNwh",
-                  public_url: "omsCxJVxvjZlovCmZiXj",
-                  mime_type: "SLUyHMhFIQYyMbioneqh",
-                  filename: "WczDFTXTZJmIFTbWJGIz",
-                  title: "cpmIFmKIHuOOgDwLCswr",
-                  snippet: "kvfGEbbRhsVTbudNJoEg",
+                  url: "sYjvRMjnEOwfdYxdXZIW",
+                  public_url: "iZxxerRVtwTmCWnRtoUH",
+                  mime_type: "GttLZuwunTLBFZjPfsbH",
+                  filename: "GjDbhtpYklaOwGXgDFlg",
+                  title: "rAhwdBzLXnzfCtRPNSsF",
+                  snippet: "bSpbqqfiYGlYKvIohKtB",
                 },
                 {
-                  url: "tnkogekaLDpFnTTjqlVE",
-                  public_url: "CqlDcVUNOKZLvLtfZdeH",
-                  mime_type: "hXPGAcKvJUwUAMeTyRQG",
-                  filename: "LOxpYjmjkVnpLQPrmUvz",
-                  title: "iYUmZakIRkWmejeiQWSM",
-                  snippet: "QOFAdBbqNSjpfflowGoC",
+                  url: "CrpWMCftWjyXMPFQlwek",
+                  public_url: "wsoGZDSqezuikTpLtFpW",
+                  mime_type: "lbrWYkqKtiPpUCXySfWe",
+                  filename: "XjOTdspooSgAJLXCVlND",
+                  title: "NsytpLWmxVRKFyVabxSJ",
+                  snippet: "QCAEZBVuknayKQPRajuS",
                 },
                 {
-                  url: "FeQiBixHlecZyGxTIoRV",
-                  public_url: "DCOjTeatMPbdTnrOdjrO",
-                  mime_type: "LiOmRtxMdrFTwWMtPcqI",
-                  filename: "UvAIbpzaXeNoJERRneHN",
-                  title: "IszfUSNSorAkcroSiWAc",
-                  snippet: "UUeFnEuwPuiuPKzfrTeE",
+                  url: "hmLYnxFxswiTzogignRZ",
+                  public_url: "xbfMurAEIeFouLBdQZQC",
+                  mime_type: "FQuLilUUjprrLTpPKCWT",
+                  filename: "NycPbXzdBMPZntVMIwIp",
+                  title: "syDjlUdpKmoVDrbywNNl",
+                  snippet: "vgKGDJPdRvAauMfzBsqJ",
                 },
               ],
             },
-            data_text:
-              "Search Result:\nyumUQszaYDSjZTMyNiWM                                                                                \n\nSources (3):\ncpmIFmKIHuOOgDwLCswr (XpaDIsDXOhDITwaOsNwh)\n  kvfGEbbRhsVTbudNJoEg\n\niYUmZakIRkWmejeiQWSM (tnkogekaLDpFnTTjqlVE)\n  QOFAdBbqNSjpfflowGoC\n\nIszfUSNSorAkcroSiWAc (FeQiBixHlecZyGxTIoRV)\n  UUeFnEuwPuiuPKzfrTeE\n",
-            data_html:
-              '<div><p>yumUQszaYDSjZTMyNiWM</p><h4>Sources</h4><ul><li><a href="omsCxJVxvjZlovCmZiXj" class="msg-document">cpmIFmKIHuOOgDwLCswr</a><br/><small>kvfGEbbRhsVTbudNJoEg</small></li><li><a href="CqlDcVUNOKZLvLtfZdeH" class="msg-document">iYUmZakIRkWmejeiQWSM</a><br/><small>QOFAdBbqNSjpfflowGoC</small></li><li><a href="DCOjTeatMPbdTnrOdjrO" class="msg-document">IszfUSNSorAkcroSiWAc</a><br/><small>UUeFnEuwPuiuPKzfrTeE</small></li></ul></div>',
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -258,16 +245,13 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "iis3F",
+            digest: "o3k77",
             data: {
-              subject: "yBukgVstOVDtjomfaIrJ",
+              subject: "AyOeIHFpmYidRmWHiNLy",
               priority: "auto_reply",
-              summary: "ivZZxQOORbuekASrtuAE",
+              summary: "fXmvbHddUlqWhHpCtvHn",
             },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ yBukgVstOVDtjomfaIrJ                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ ivZZxQOORbuekASrtuAE                               \n",
-            data_html:
-              "<table><tr><th>subject</th><td>yBukgVstOVDtjomfaIrJ</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>ivZZxQOORbuekASrtuAE</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -317,12 +301,12 @@ export const DRY_EMAIL_TRIAGE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          'Classify this email by priority (auto_reply or needs_review):\n\n<search_result>\nyumUQszaYDSjZTMyNiWM\n\nSources:\n- cpmIFmKIHuOOgDwLCswr: XpaDIsDXOhDITwaOsNwh\n  kvfGEbbRhsVTbudNJoEg\n- iYUmZakIRkWmejeiQWSM: tnkogekaLDpFnTTjqlVE\n  QOFAdBbqNSjpfflowGoC\n- IszfUSNSorAkcroSiWAc: FeQiBixHlecZyGxTIoRV\n  UUeFnEuwPuiuPKzfrTeE\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass email_management__EmailClassification(StructuredContent):\n    """Classified email with priority"""\n    subject: str  # Email subject\n    priority: Literal[\n        "auto_reply",\n        "needs_review",\n    ]  # Priority level\n    summary: str  # Brief summary of the email\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
+          'Classify this email by priority (auto_reply or needs_review):\n\n<search_result>\nTmLxkHVOZVbHxlUSAfQG\n\nSources:\n- rAhwdBzLXnzfCtRPNSsF: sYjvRMjnEOwfdYxdXZIW\n  bSpbqqfiYGlYKvIohKtB\n- NsytpLWmxVRKFyVabxSJ: CrpWMCftWjyXMPFQlwek\n  QCAEZBVuknayKQPRajuS\n- syDjlUdpKmoVDrbywNNl: hmLYnxFxswiTzogignRZ\n  vgKGDJPdRvAauMfzBsqJ\n</search_result>\n\n---\nThe instance we want to generate will be for the following class:\nclass email_management__EmailClassification(StructuredContent):\n    """Classified email with priority"""\n    subject: str  # Email subject\n    priority: Literal[\n        "auto_reply",\n        "needs_review",\n    ]  # Priority level\n    summary: str  # Brief summary of the email\n\nDO NOT create information.\nIf some information is not present for an attribute, output the default value or None according to the attribute definition.',
         structuring_path: "object_direct",
       },
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_3",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_3",
       kind: "controller",
       pipe_code: "route_email",
       pipe_type: "PipeCondition",
@@ -331,9 +315,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.267182Z",
-        ended_at: "2026-08-14T10:49:20.290177Z",
-        duration: 0.022995,
+        started_at: "2026-09-27T08:50:42.189393Z",
+        ended_at: "2026-09-27T08:50:42.193756Z",
+        duration: 0.004363,
       },
       io: {
         inputs: [
@@ -343,16 +327,13 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "iis3F",
+            digest: "o3k77",
             data: {
-              subject: "yBukgVstOVDtjomfaIrJ",
+              subject: "AyOeIHFpmYidRmWHiNLy",
               priority: "auto_reply",
-              summary: "ivZZxQOORbuekASrtuAE",
+              summary: "fXmvbHddUlqWhHpCtvHn",
             },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ yBukgVstOVDtjomfaIrJ                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ ivZZxQOORbuekASrtuAE                               \n",
-            data_html:
-              "<table><tr><th>subject</th><td>yBukgVstOVDtjomfaIrJ</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>ivZZxQOORbuekASrtuAE</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -363,14 +344,11 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gMuuZ",
+            digest: "ACmuc",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: AyOeIHFpmYidRmWHiNLy\nSummary: fXmvbHddUlqWhHpCtvHn\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: yBukgVstOVDtjomfaIrJ Summary: ivZZxQOORbuekASrtuAE                                         \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -408,7 +386,7 @@ export const DRY_EMAIL_TRIAGE = {
       execution_data: { evaluated_expression: "dry_run", selected_outcome: "all_outcomes" },
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_4",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_4",
       kind: "operator",
       pipe_code: "flag_for_review",
       pipe_type: "PipeCompose",
@@ -417,9 +395,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.270573Z",
-        ended_at: "2026-08-14T10:49:20.275142Z",
-        duration: 0.004569,
+        started_at: "2026-09-27T08:50:42.190288Z",
+        ended_at: "2026-09-27T08:50:42.191561Z",
+        duration: 0.001273,
       },
       io: {
         inputs: [
@@ -429,16 +407,13 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "iis3F",
+            digest: "o3k77",
             data: {
-              subject: "yBukgVstOVDtjomfaIrJ",
+              subject: "AyOeIHFpmYidRmWHiNLy",
               priority: "auto_reply",
-              summary: "ivZZxQOORbuekASrtuAE",
+              summary: "fXmvbHddUlqWhHpCtvHn",
             },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ yBukgVstOVDtjomfaIrJ                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ ivZZxQOORbuekASrtuAE                               \n",
-            data_html:
-              "<table><tr><th>subject</th><td>yBukgVstOVDtjomfaIrJ</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>ivZZxQOORbuekASrtuAE</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -449,11 +424,9 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "jtozR",
-            data: { text: "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE" },
-            data_text:
-              "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE                                     \n",
-            data_html: "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE",
+            digest: "4roF9",
+            data: { text: "FLAGGED FOR REVIEW: AyOeIHFpmYidRmWHiNLy - fXmvbHddUlqWhHpCtvHn" },
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -481,11 +454,11 @@ export const DRY_EMAIL_TRIAGE = {
       },
       execution_data: {
         compose_mode: "template",
-        rendered_text: "FLAGGED FOR REVIEW: yBukgVstOVDtjomfaIrJ - ivZZxQOORbuekASrtuAE",
+        rendered_text: "FLAGGED FOR REVIEW: AyOeIHFpmYidRmWHiNLy - fXmvbHddUlqWhHpCtvHn",
       },
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_5",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_5",
       kind: "operator",
       pipe_code: "generate_auto_reply",
       pipe_type: "PipeLLM",
@@ -494,9 +467,9 @@ export const DRY_EMAIL_TRIAGE = {
       status: "succeeded",
       skip_reason: null,
       timing: {
-        started_at: "2026-08-14T10:49:20.275174Z",
-        ended_at: "2026-08-14T10:49:20.289650Z",
-        duration: 0.014476,
+        started_at: "2026-09-27T08:50:42.191594Z",
+        ended_at: "2026-09-27T08:50:42.193582Z",
+        duration: 0.001988,
       },
       io: {
         inputs: [
@@ -506,16 +479,13 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "iis3F",
+            digest: "o3k77",
             data: {
-              subject: "yBukgVstOVDtjomfaIrJ",
+              subject: "AyOeIHFpmYidRmWHiNLy",
               priority: "auto_reply",
-              summary: "ivZZxQOORbuekASrtuAE",
+              summary: "fXmvbHddUlqWhHpCtvHn",
             },
-            data_text:
-              " Attribute                 ┃ Value                                              \n━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n subject                   │ yBukgVstOVDtjomfaIrJ                               \n───────────────────────────┼────────────────────────────────────────────────────\n priority                  │ auto_reply                                         \n───────────────────────────┼────────────────────────────────────────────────────\n summary                   │ ivZZxQOORbuekASrtuAE                               \n",
-            data_html:
-              "<table><tr><th>subject</th><td>yBukgVstOVDtjomfaIrJ</td></tr><tr><th>priority</th><td>auto_reply</td></tr><tr><th>summary</th><td>ivZZxQOORbuekASrtuAE</td></tr></table>",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -526,14 +496,11 @@ export const DRY_EMAIL_TRIAGE = {
             content_type: null,
             preview: null,
             size: null,
-            digest: "gMuuZ",
+            digest: "ACmuc",
             data: {
-              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+              text: "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: AyOeIHFpmYidRmWHiNLy\nSummary: fXmvbHddUlqWhHpCtvHn\n    ",
             },
-            data_text:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5,       \nmax_tokens=None, prompting_target=None) • prompt=LLM Prompt: user_text: Generate a professional     \nauto-reply digest for this email:                                                                   \n\nSubject: yBukgVstOVDtjomfaIrJ Summary: ivZZxQOORbuekASrtuAE                                         \n",
-            data_html:
-              "DRY RUN: llm_gen_text • llm_setting=LLMSetting(llm_handle=claude-4.6-sonnet, temperature=0.5, max_tokens=None, prompting_target=None) • prompt=LLM Prompt:\n    user_text:\n    Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE\n    ",
+            multiplicity: null,
             extra: {},
           },
         ],
@@ -583,16 +550,16 @@ export const DRY_EMAIL_TRIAGE = {
         is_multiple_output: false,
         rendered_system_prompt: null,
         rendered_user_prompt:
-          "Generate a professional auto-reply digest for this email:\n\nSubject: yBukgVstOVDtjomfaIrJ\nSummary: ivZZxQOORbuekASrtuAE",
+          "Generate a professional auto-reply digest for this email:\n\nSubject: AyOeIHFpmYidRmWHiNLy\nSummary: fXmvbHddUlqWhHpCtvHn",
         structuring_path: "text",
       },
     },
   ],
   edges: [
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:edge_0",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_0",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_1",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:edge_0",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_0",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_1",
       kind: "contains",
       optional: false,
       label: null,
@@ -601,9 +568,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:edge_1",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_0",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:edge_1",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_0",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
       kind: "contains",
       optional: false,
       label: null,
@@ -612,9 +579,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:edge_2",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_0",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_3",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:edge_2",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_0",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_3",
       kind: "contains",
       optional: false,
       label: null,
@@ -623,9 +590,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:edge_3",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_3",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_4",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:edge_3",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_3",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_4",
       kind: "contains",
       optional: false,
       label: null,
@@ -634,9 +601,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:edge_4",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_3",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_5",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:edge_4",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_3",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_5",
       kind: "contains",
       optional: false,
       label: null,
@@ -645,9 +612,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:asm_edge_0",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_1",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:asm_edge_0",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_1",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
       kind: "data",
       optional: false,
       label: "search_result",
@@ -656,9 +623,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:asm_edge_1",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_3",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:asm_edge_1",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_3",
       kind: "data",
       optional: false,
       label: "classified",
@@ -667,9 +634,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:asm_edge_2",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_4",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:asm_edge_2",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_4",
       kind: "data",
       optional: false,
       label: "classified",
@@ -678,9 +645,9 @@ export const DRY_EMAIL_TRIAGE = {
       meta: {},
     },
     {
-      id: "07176c23-0be0-48ae-af1f-333f9cb3cde9:asm_edge_3",
-      source: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_2",
-      target: "07176c23-0be0-48ae-af1f-333f9cb3cde9:node_5",
+      id: "504283ad-e708-4c0b-9caa-e37521fe2d10:asm_edge_3",
+      source: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_2",
+      target: "504283ad-e708-4c0b-9caa-e37521fe2d10:node_5",
       kind: "data",
       optional: false,
       label: "classified",
@@ -779,19 +746,19 @@ export const DRY_EMAIL_TRIAGE = {
       },
       sequential_sub_pipes: [
         {
-          pipe_code: "search_inbox",
+          pipe_code: "email_management.search_inbox",
           output_name: "search_result",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "classify_email",
+          pipe_code: "email_management.classify_email",
           output_name: "classified",
           output_multiplicity: null,
           batch_params: null,
         },
         {
-          pipe_code: "route_email",
+          pipe_code: "email_management.route_email",
           output_name: "digest",
           output_multiplicity: null,
           batch_params: null,
@@ -889,6 +856,7 @@ export const DRY_EMAIL_TRIAGE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
     "email_management.route_email": {
       pipe_category: "PipeController",
@@ -921,8 +889,11 @@ export const DRY_EMAIL_TRIAGE = {
         presence: "plain",
       },
       expression: "{{ classified.priority }}",
-      outcome_map: { auto_reply: "generate_auto_reply", needs_review: "flag_for_review" },
-      default_outcome: "flag_for_review",
+      outcome_map: {
+        auto_reply: "email_management.generate_auto_reply",
+        needs_review: "email_management.flag_for_review",
+      },
+      default_outcome: "email_management.flag_for_review",
       add_alias_from_expression_to: null,
     },
     "email_management.flag_for_review": {
@@ -1007,6 +978,7 @@ export const DRY_EMAIL_TRIAGE = {
       },
       llm_choices: { for_text: null, for_object: null },
       output_multiplicity: null,
+      templating_style: null,
     },
   },
   concept_registry: {
@@ -1031,6 +1003,7 @@ export const DRY_EMAIL_TRIAGE = {
       structure_class_name: "TextContent",
       refines: null,
       json_schema: {
+        description: "A text",
         properties: { text: { description: "The text", title: "Text", type: "string" } },
         required: ["text"],
         title: "TextContent",
@@ -1046,6 +1019,7 @@ export const DRY_EMAIL_TRIAGE = {
       json_schema: {
         $defs: {
           DocumentContent: {
+            description: "A document",
             properties: {
               url: {
                 description:

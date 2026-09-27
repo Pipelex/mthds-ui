@@ -927,8 +927,16 @@ export const INPUT_FORM_IMAGE_PIPELINE = {
       {
         concept_ref: "image_catalog.TagList",
         description: "List of classification tags",
+        fields: [
+          {
+            description: "The JSON object",
+            kind: "unknown",
+            name: "json_obj",
+            required: true,
+          },
+        ],
         gating: true,
-        kind: "unknown",
+        kind: "object",
         name: "tags",
         presence: "plain",
         refines: ["native.JSON"],
@@ -1018,7 +1026,15 @@ export const OUTPUT_FORM_IMAGE_PIPELINE = {
     field: {
       concept_ref: "image_catalog.TagList",
       description: "List of classification tags",
-      kind: "unknown",
+      fields: [
+        {
+          description: "The JSON object",
+          kind: "unknown",
+          name: "json_obj",
+          required: true,
+        },
+      ],
+      kind: "object",
       name: "output",
       refines: ["native.JSON"],
       required: true,

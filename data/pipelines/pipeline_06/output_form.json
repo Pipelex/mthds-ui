@@ -48,7 +48,15 @@
     "field": {
       "concept_ref": "report_generation.TableData",
       "description": "Structured table data",
-      "kind": "unknown",
+      "fields": [
+        {
+          "description": "The JSON object",
+          "kind": "unknown",
+          "name": "json_obj",
+          "required": true
+        }
+      ],
+      "kind": "object",
       "name": "output",
       "refines": [
         "native.JSON"

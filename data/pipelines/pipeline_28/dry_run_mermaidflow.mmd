@@ -1,62 +1,62 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    subgraph sg_n_82d0359a51["batch_analyze_cvs_for_job_offer"]
-        subgraph sg_n_aa9f6fd281["prepare_job_offer"]
-            n_c62be21cf1["analyze_job_requirements"]
-            s_a429deff62(["job_requirements<br/>JobRequirements"]):::stuff
-            n_a94a5c9c3a["extract_one_job_offer"]
-            s_f2f02a5a6e(["job_offer_pages<br/>Page"]):::stuff
+    subgraph sg_n_426a4628c3["batch_analyze_cvs_for_job_offer"]
+        subgraph sg_n_6d40e404ec["prepare_job_offer"]
+            n_ab80fb84b9["analyze_job_requirements"]
+            s_aa9eb4e524(["job_requirements<br/>JobRequirements"]):::stuff
+            n_2b37a4d6d8["extract_one_job_offer"]
+            s_b2a9c25ac4(["job_offer_pages<br/>Page#91;#93;"]):::stuff
         end
-        subgraph sg_n_9d730f78cd["process_cv_batch"]
-            subgraph sg_n_2bffb94d0e["process_cv"]
-                n_64bd84b972["analyze_match"]
-                s_e31177db11(["match_analysis<br/>CandidateMatch"]):::stuff
-                n_4cfd356a0c["analyze_one_cv"]
-                s_5fb3f9dc90(["candidate_profile<br/>CandidateProfile"]):::stuff
-                n_4112780042["extract_one_cv"]
-                s_58cacf09c0(["cv_pdf<br/>Document"]):::stuff
-                s_a8ec58c249(["cv_pages<br/>Page"]):::stuff
+        subgraph sg_n_929e915b0f["process_cv_batch"]
+            subgraph sg_n_ae7d899f51["process_cv"]
+                n_d575e35a8d["analyze_match"]
+                s_7df92985f6(["match_analysis<br/>CandidateMatch"]):::stuff
+                n_825d7e529c["analyze_one_cv"]
+                s_89af719ce5(["candidate_profile<br/>CandidateProfile"]):::stuff
+                n_0f91d98f75["extract_one_cv"]
+                s_851bc7e81f(["cv_pdf<br/>Document"]):::stuff
+                s_7eb239676f(["cv_pages<br/>Page#91;#93;"]):::stuff
             end
-            subgraph sg_n_895726edcb["process_cv"]
-                n_6e20fd3747["analyze_match"]
-                s_d75c896f64(["match_analysis<br/>CandidateMatch"]):::stuff
-                n_72e7264a51["analyze_one_cv"]
-                s_43cee809b0(["candidate_profile<br/>CandidateProfile"]):::stuff
-                n_c96c9769c3["extract_one_cv"]
-                s_7aaa0489c1(["cv_pdf<br/>Document"]):::stuff
-                s_94025265bd(["cv_pages<br/>Page"]):::stuff
+            subgraph sg_n_4f25706860["process_cv"]
+                n_e98b3295a3["analyze_match"]
+                s_8ee2124b60(["match_analysis<br/>CandidateMatch"]):::stuff
+                n_6d2e4564f9["analyze_one_cv"]
+                s_4989a6f1b9(["candidate_profile<br/>CandidateProfile"]):::stuff
+                n_6684ba616f["extract_one_cv"]
+                s_e2e239d9ab(["cv_pdf<br/>Document"]):::stuff
+                s_f7b85b0e32(["cv_pages<br/>Page#91;#93;"]):::stuff
             end
         end
     end
 
     %% Pipeline input stuff nodes (no producer)
-    s_58c053c661(["job_offer_pdf<br/>Document"]):::stuff
+    s_d6a6ae5e90(["job_offer_pdf<br/>Document"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_c62be21cf1 --> s_a429deff62
-    n_4cfd356a0c --> s_5fb3f9dc90
-    n_a94a5c9c3a --> s_f2f02a5a6e
-    n_4112780042 --> s_a8ec58c249
-    n_72e7264a51 --> s_43cee809b0
-    n_c96c9769c3 --> s_94025265bd
-    n_64bd84b972 --> s_e31177db11
-    n_6e20fd3747 --> s_d75c896f64
-    s_a429deff62 --> n_6e20fd3747
-    s_a429deff62 --> n_64bd84b972
-    s_5fb3f9dc90 --> n_64bd84b972
-    s_58c053c661 --> n_a94a5c9c3a
-    s_f2f02a5a6e --> n_c62be21cf1
-    s_58cacf09c0 --> n_4112780042
-    s_7aaa0489c1 --> n_c96c9769c3
-    s_a8ec58c249 --> n_4cfd356a0c
-    s_43cee809b0 --> n_6e20fd3747
-    s_94025265bd --> n_72e7264a51
+    n_6684ba616f --> s_f7b85b0e32
+    n_2b37a4d6d8 --> s_b2a9c25ac4
+    n_6d2e4564f9 --> s_4989a6f1b9
+    n_825d7e529c --> s_89af719ce5
+    n_ab80fb84b9 --> s_aa9eb4e524
+    n_0f91d98f75 --> s_7eb239676f
+    n_d575e35a8d --> s_7df92985f6
+    n_e98b3295a3 --> s_8ee2124b60
+    s_851bc7e81f --> n_0f91d98f75
+    s_e2e239d9ab --> n_6684ba616f
+    s_f7b85b0e32 --> n_6d2e4564f9
+    s_b2a9c25ac4 --> n_ab80fb84b9
+    s_4989a6f1b9 --> n_e98b3295a3
+    s_89af719ce5 --> n_d575e35a8d
+    s_aa9eb4e524 --> n_e98b3295a3
+    s_aa9eb4e524 --> n_d575e35a8d
+    s_d6a6ae5e90 --> n_2b37a4d6d8
+    s_7eb239676f --> n_825d7e529c
 
     %% Batch edges: list-item relationships
-    s_8e4b18af48(["match_analyses<br/>CandidateMatch"]):::stuff
-    s_e31177db11 -."[0]".-> s_8e4b18af48
-    s_d75c896f64 -."[1]".-> s_8e4b18af48
+    s_ac08660b60(["match_analyses<br/>CandidateMatch#91;#93;"]):::stuff
+    s_7df92985f6 -."[0]".-> s_ac08660b60
+    s_8ee2124b60 -."[1]".-> s_ac08660b60
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
@@ -64,8 +64,8 @@ flowchart LR
     classDef controller fill:#e6f3ff,stroke:#0066cc
 
     %% Subgraph depth-based coloring
-    style sg_n_2bffb94d0e fill:#fffde6
-    style sg_n_82d0359a51 fill:#e6f3ff
-    style sg_n_895726edcb fill:#fffde6
-    style sg_n_9d730f78cd fill:#e6ffe6
-    style sg_n_aa9f6fd281 fill:#e6ffe6
+    style sg_n_426a4628c3 fill:#e6f3ff
+    style sg_n_4f25706860 fill:#fffde6
+    style sg_n_6d40e404ec fill:#e6ffe6
+    style sg_n_929e915b0f fill:#e6ffe6
+    style sg_n_ae7d899f51 fill:#fffde6

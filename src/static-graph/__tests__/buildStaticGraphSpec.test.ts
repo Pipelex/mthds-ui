@@ -841,6 +841,115 @@ steps = [{ pipe = "helpers->clean_text", batch_over = "items", batch_as = "item"
 
 // ─── Nesting ─────────────────────────────────────────────────────────────────
 
+// ─── Stuff multiplicity ──────────────────────────────────────────────────────
+
+const CV_SCREENING = `
+domain = "screening"
+main_pipe = "screen_cvs"
+
+[concept.Match]
+description = "How one CV matches the offer"
+
+[pipe.screen_cvs]
+type = "PipeSequence"
+description = "Screen every CV against the offer"
+inputs = { cvs = "Document[]", job_offer = "Document" }
+output = "Match[]"
+steps = [
+  { pipe = "screen_one", batch_over = "cvs", batch_as = "cv", result = "matches" },
+]
+
+[pipe.screen_one]
+type = "PipeLLM"
+description = "Screen one CV"
+inputs = { cv = "Document", job_offer = "Document" }
+output = "Match"
+prompt = "p"
+`;
+
+describe("buildStaticGraphSpec — stuff multiplicity", () => {
+  it("carries a list input's multiplicity onto its io item", () => {
+    const { spec } = build(CV_SCREENING);
+    const root = nodeById(spec, "screening.screen_cvs");
+    expect(root.io.inputs).toEqual([
+      { name: "cvs", digest: "input:cvs", concept: "Document", multiplicity: true },
+      // A single-valued io item carries no multiplicity key at all.
+      { name: "job_offer", digest: "input:job_offer", concept: "Document" },
+    ]);
+  });
+
+  it("marks the batch aggregate as a list and the batch item as single", () => {
+    const { spec } = build(CV_SCREENING);
+    const batch = nodeById(spec, "screening.screen_cvs/step_1");
+    expect(batch.io.inputs[0]).toMatchObject({ name: "cvs", multiplicity: true });
+    expect(batch.io.outputs[0]).toMatchObject({ name: "matches", multiplicity: true });
+
+    const branch = nodeById(spec, "screening.screen_cvs/step_1/batch_branch");
+    const item = branch.io.inputs.find((input) => input.name === "cv");
+    expect(item).toBeDefined();
+    expect(item).not.toHaveProperty("multiplicity");
+  });
+
+  it("carries a fixed count, and reads a count of one as single", () => {
+    const toml = `
+domain = "counts"
+main_pipe = "draw"
+
+[pipe.draw]
+type = "PipeLLM"
+description = "Draw from a fixed set"
+inputs = { pages = "Page[3]", cover = "Image[1]" }
+output = "Text"
+prompt = "p"
+`;
+    const { spec } = build(toml);
+    const draw = nodeById(spec, "counts.draw");
+    expect(draw.io.inputs.find((input) => input.name === "pages")?.multiplicity).toBe(3);
+    // `Image[1]` is a way of writing `Image`, never a one-item list.
+    expect(draw.io.inputs.find((input) => input.name === "cover")).not.toHaveProperty(
+      "multiplicity",
+    );
+  });
+
+  it("carries a controller invocation's nb_output down to the step that produces its output", () => {
+    // The runtime copies a step's run params, its output multiplicity included,
+    // into the steps of the sequence it invokes and into a condition's outcome.
+    const toml = `
+domain = "ideas"
+main_pipe = "brainstorm"
+
+[concept.Idea]
+description = "A product idea"
+
+[pipe.brainstorm]
+type = "PipeSequence"
+description = "Brainstorm three ideas"
+inputs = { topic = "Text" }
+output = "Idea[3]"
+steps = [{ pipe = "draft_seq", result = "ideas", nb_output = 3 }]
+
+[pipe.draft_seq]
+type = "PipeSequence"
+description = "Draft an idea"
+inputs = { topic = "Text" }
+output = "Idea"
+steps = [{ pipe = "write_idea", result = "idea" }]
+
+[pipe.write_idea]
+type = "PipeLLM"
+description = "Write one idea"
+inputs = { topic = "Text" }
+output = "Idea"
+prompt = "p"
+`;
+    const { spec } = build(toml);
+    const writer = nodeById(spec, "ideas.brainstorm/step_1/step_1");
+    expect(writer.io.outputs[0]).toMatchObject({ concept: "Idea", multiplicity: 3 });
+    // The controllers expose the same stuff, so they carry the same marker.
+    expect(nodeById(spec, "ideas.brainstorm").io.outputs[0].multiplicity).toBe(3);
+  });
+});
+
 const NESTED = `
 domain = "nest"
 main_pipe = "outer"

@@ -1,15 +1,15 @@
 flowchart LR
 
     %% Pipe and stuff nodes within controller subgraphs
-    n_fb62ad2268["summarize"]
-    s_f3911df0f8(["summary<br/>Summary"]):::stuff
+    n_d9a205bdc8["summarize"]
+    s_5334b0bd7e(["summary<br/>Summary"]):::stuff
 
     %% Pipeline input stuff nodes (no producer)
-    s_41b89380c6(["text<br/>Text"]):::stuff
+    s_7dd37895f2(["text<br/>Text"]):::stuff
 
     %% Data flow edges: producer -> stuff -> consumer
-    n_fb62ad2268 --> s_f3911df0f8
-    s_41b89380c6 --> n_fb62ad2268
+    n_d9a205bdc8 --> s_5334b0bd7e
+    s_7dd37895f2 --> n_d9a205bdc8
 
     %% Style definitions
     classDef failed fill:#ffcccc,stroke:#cc0000
